@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/fan_haritasi.dart';
 import 'package:prokis/isisensor_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/cikis_alert.dart';
@@ -133,8 +134,8 @@ class DilSecimiState extends State<DilSecimi> {
             Expanded(flex: 2,child: IconButton(icon: Icon(Icons.arrow_forward_ios),iconSize: 50,onPressed: (){
               Navigator.push(
           context,
-          //MaterialPageRoute(builder: (context) => KumesOlustur(dilSecimi)),
-          MaterialPageRoute(builder: (context) => IsiSensorHaritasi(dilSecimi)),
+          MaterialPageRoute(builder: (context) => KumesOlustur(dilSecimi)),
+          //MaterialPageRoute(builder: (context) => IsiSensorHaritasi(dilSecimi)),
         );
             },color: Colors.black,)),
             Spacer(flex: 1,),

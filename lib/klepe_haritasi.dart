@@ -18,13 +18,24 @@ import 'languages/select.dart';
 
 class KlepeHaritasi extends StatefulWidget {
   String gelenDil;
+  List<int> gelenKlepeHarita;
+  List<int> gelenKlepeNo;
+  List<int> gelenKlepeCikisAc;
+  List<int> gelenKlepeCikisKapa;
+  bool gelenVeriGonderildi=false;
 
-  KlepeHaritasi(String dil) {
+  KlepeHaritasi(String dil, List<int> klepeHarita, List<int> klepeNo,
+      List<int> klepeCikisAc, List<int> klepeCikisKapa, bool veriGonderildi) {
     gelenDil = dil;
+    gelenKlepeHarita = klepeHarita;
+    gelenKlepeNo = klepeNo;
+    gelenKlepeCikisAc = klepeCikisAc;
+    gelenKlepeCikisKapa = klepeCikisKapa;
+    gelenVeriGonderildi=veriGonderildi;
   }
   @override
   State<StatefulWidget> createState() {
-    return KlepeHaritasiState(gelenDil);
+    return KlepeHaritasiState(gelenDil, gelenKlepeHarita, gelenKlepeNo, gelenKlepeCikisAc, gelenKlepeCikisKapa,gelenVeriGonderildi );
   }
 }
 
@@ -61,13 +72,38 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
 
-  KlepeHaritasiState(String dil) {
+  KlepeHaritasiState(String dil, List<int> klpHarita, List<int> klpNo, List<int> klpCikisAc, List<int> klpCikisKapa,bool veriGonderildiYrd) {
+
+    if (klpHarita.length > 2) {
+      klepeHarita = klpHarita;
+      haritaOnay=true;
+      for (int i = 1; i <= 18; i++) {
+        if (klepeHarita[i] != 0) {
+          klepeVisibility[i] = true;
+        } else {
+          klepeVisibility[i] = false;
+        }
+      }
+    }
+
+    if(veriGonderildiYrd){
+      klepeNo = klpNo;
+      cikisNoAc = klpCikisAc;
+      cikisNoKapa = klpCikisKapa;
+    }
+
     for (int i = 1; i <= 18; i++) {
-      klepeHarita[i] = 0;
-      klepeNo[i] = 0;
-      cikisNoAc[i] = 0;
-      cikisNoKapa[i] = 0;
-      klepeVisibility[i] = true;
+      if (klpHarita.length <= 2) {
+        klepeHarita[i] = 0;
+        klepeVisibility[i] = true;
+        
+      }
+      if(!veriGonderildiYrd){
+        klepeNo[i] = 0;
+        cikisNoAc[i] = 0;
+        cikisNoKapa[i] = 0;
+    }
+
     }
 
     dilSecimi = dil;
@@ -137,131 +173,266 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                     children: <Widget>[
                       Spacer(),
                       //Ön ve Sağ Duvar
-                      Expanded(flex: 20,
+                      Expanded(
+                        flex: 20,
                         child: Row(
                           children: <Widget>[
                             //Ön Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Ön Duvar"),quarterTurns: -45,)),),
-                            Expanded(flex: 8,
-                              child: Stack(children: <Widget>[
-                                Container(
-                                decoration: BoxDecoration(
-                                  //color: Colors.pink,
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        "assets/images/onarka_duvar_gri_icon.png"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                                Column(children: <Widget>[
-                                  Visibility(child: _klepeHaritaUnsur(1),visible: klepeVisibility[1] ? true : false,),
-                                  Visibility(child: _klepeHaritaUnsur(2),visible: klepeVisibility[2] ? true : false,),
-                                  Visibility(child: _klepeHaritaUnsur(3),visible: klepeVisibility[3] ? true : false,),
-                                ],)
-                              ],)
+                            Expanded(
+                              child: Center(
+                                  child: RotatedBox(
+                                child: Text("Ön Duvar"),
+                                quarterTurns: -45,
+                              )),
                             ),
+                            Expanded(
+                                flex: 8,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        //color: Colors.pink,
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage(
+                                              "assets/images/onarka_duvar_gri_icon.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        Visibility(
+                                          child: _klepeHaritaUnsur(1),
+                                          visible:
+                                              klepeVisibility[1] ? true : false,
+                                        ),
+                                        Visibility(
+                                          child: _klepeHaritaUnsur(2),
+                                          visible:
+                                              klepeVisibility[2] ? true : false,
+                                        ),
+                                        Visibility(
+                                          child: _klepeHaritaUnsur(3),
+                                          visible:
+                                              klepeVisibility[3] ? true : false,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )),
                             Spacer(),
                             //Sağ Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Sağ Duvar"),quarterTurns: -45,)),),
-                            Expanded(flex: 16,
-                              child: Stack(children: <Widget>[
-                                Container(
-                                decoration: BoxDecoration(
-                                  //color: Colors.pink,
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        "assets/images/sagsol_duvar_gri_icon.png"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                                Row(children: <Widget>[
-                                  Expanded(
-                                                                      child: Column(children: <Widget>[
-                                    Visibility(child: _klepeHaritaUnsur(4),visible: klepeVisibility[4] ? true : false,),
-                                    Visibility(child: _klepeHaritaUnsur(5),visible: klepeVisibility[5] ? true : false,),
-                                    Visibility(child: _klepeHaritaUnsur(6),visible: klepeVisibility[6] ? true : false,),
-                                ],),
-                                  ),
-                                Expanded(
-                                                                  child: Column(children: <Widget>[
-                                    Visibility(child: _klepeHaritaUnsur(7),visible: klepeVisibility[7] ? true : false,),
-                                    Visibility(child: _klepeHaritaUnsur(8),visible: klepeVisibility[8] ? true : false,),
-                                    Visibility(child: _klepeHaritaUnsur(9),visible: klepeVisibility[9] ? true : false,),
-                                  ],),
-                                )
-                                ],)
-                              ],)
+                            Expanded(
+                              child: Center(
+                                  child: RotatedBox(
+                                child: Text("Sağ Duvar"),
+                                quarterTurns: -45,
+                              )),
                             ),
+                            Expanded(
+                                flex: 16,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        //color: Colors.pink,
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage(
+                                              "assets/images/sagsol_duvar_gri_icon.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(4),
+                                                visible: klepeVisibility[4]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(5),
+                                                visible: klepeVisibility[5]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(6),
+                                                visible: klepeVisibility[6]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(7),
+                                                visible: klepeVisibility[7]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(8),
+                                                visible: klepeVisibility[8]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(9),
+                                                visible: klepeVisibility[9]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                )),
                           ],
                         ),
                       ),
                       Spacer(),
                       //Arka ve Sol Duvar
-                      Expanded(flex: 20,
+                      Expanded(
+                        flex: 20,
                         child: Row(
                           children: <Widget>[
                             //Arka Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Arka Duvar"),quarterTurns: -45,)),),
-                            Expanded(flex: 8,
-                              child: Stack(children: <Widget>[
-                                Container(
-                                decoration: BoxDecoration(
-                                  //color: Colors.pink,
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        "assets/images/onarka_duvar_gri_icon.png"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                                Column(children: <Widget>[
-                                  Visibility(child: _klepeHaritaUnsur(16),visible: klepeVisibility[16] ? true : false,),
-                                  Visibility(child: _klepeHaritaUnsur(17),visible: klepeVisibility[17] ? true : false,),
-                                  Visibility(child: _klepeHaritaUnsur(18),visible: klepeVisibility[18] ? true : false,),
-                                ],)
-                              ],)
+                            Expanded(
+                              child: Center(
+                                  child: RotatedBox(
+                                child: Text("Arka Duvar"),
+                                quarterTurns: -45,
+                              )),
                             ),
+                            Expanded(
+                                flex: 8,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        //color: Colors.pink,
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage(
+                                              "assets/images/onarka_duvar_gri_icon.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    Column(
+                                      children: <Widget>[
+                                        Visibility(
+                                          child: _klepeHaritaUnsur(16),
+                                          visible: klepeVisibility[16]
+                                              ? true
+                                              : false,
+                                        ),
+                                        Visibility(
+                                          child: _klepeHaritaUnsur(17),
+                                          visible: klepeVisibility[17]
+                                              ? true
+                                              : false,
+                                        ),
+                                        Visibility(
+                                          child: _klepeHaritaUnsur(18),
+                                          visible: klepeVisibility[18]
+                                              ? true
+                                              : false,
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )),
                             Spacer(),
                             //Sol Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Sol Duvar"),quarterTurns: -45,)),),
-                            Expanded(flex: 16,
-                              child: Stack(children: <Widget>[
-                                Container(
-                                decoration: BoxDecoration(
-                                  //color: Colors.pink,
-                                  image: DecorationImage(
-                                    alignment: Alignment.center,
-                                    image: AssetImage(
-                                        "assets/images/sagsol_duvar_gri_icon.png"),
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                                Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                                                          child: Column(children: <Widget>[
-                                        Visibility(child: _klepeHaritaUnsur(10),visible: klepeVisibility[10] ? true : false,),
-                                        Visibility(child: _klepeHaritaUnsur(11),visible: klepeVisibility[11] ? true : false,),
-                                        Visibility(child: _klepeHaritaUnsur(12),visible: klepeVisibility[12] ? true : false,),
-                                      ],),
-                                    ),
-                                    Expanded(
-                                                                          child: Column(children: <Widget>[
-                                        Visibility(child: _klepeHaritaUnsur(13),visible: klepeVisibility[13] ? true : false,),
-                                        Visibility(child: _klepeHaritaUnsur(14),visible: klepeVisibility[14] ? true : false,),
-                                        Visibility(child: _klepeHaritaUnsur(15),visible: klepeVisibility[15] ? true : false,),
-                                      ],),
-                                    ),
-                                  ],
-                                )
-                              ],)
+                            Expanded(
+                              child: Center(
+                                  child: RotatedBox(
+                                child: Text("Sol Duvar"),
+                                quarterTurns: -45,
+                              )),
                             ),
+                            Expanded(
+                                flex: 16,
+                                child: Stack(
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        //color: Colors.pink,
+                                        image: DecorationImage(
+                                          alignment: Alignment.center,
+                                          image: AssetImage(
+                                              "assets/images/sagsol_duvar_gri_icon.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                    Row(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(10),
+                                                visible: klepeVisibility[10]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(11),
+                                                visible: klepeVisibility[11]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(12),
+                                                visible: klepeVisibility[12]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(13),
+                                                visible: klepeVisibility[13]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(14),
+                                                visible: klepeVisibility[14]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                              Visibility(
+                                                child: _klepeHaritaUnsur(15),
+                                                visible: klepeVisibility[15]
+                                                    ? true
+                                                    : false,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                )),
                           ],
                         ),
                       ),
@@ -320,7 +491,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                       .selectStrings(dilSecimi, "toast30"),
                                   context,
                                   duration: 3);
-                            }  else {
+                            } else {
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                               Toast.show(
                                   SelectLanguage()
@@ -342,12 +513,11 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               for (int i = 1; i <= 18; i++) {
                                 veri = veri + klepeHarita[i].toString() + "#";
                               }
-                              
+
                               dbHelper.veriYOKSAekleVARSAguncelle(
                                   16, "ok", veri, "0", "0");
 
                               _veriGonder("15", "21", veri, "0", "0", "0");
-                              
 
                               setState(() {});
                             }
@@ -416,12 +586,17 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             String noVeri = "";
                             for (int i = 1; i <= 18; i++) {
                               if (klepeHarita[i] == 1) {
-                                if (klepeNo[i] == 0 || cikisNoAc[i] == 0 || cikisNoKapa[i] == 0) {
+                                if (klepeNo[i] == 0 ||
+                                    cikisNoAc[i] == 0 ||
+                                    cikisNoKapa[i] == 0) {
                                   noKontrol = true;
                                 }
                               }
-                              cikisVeriAc = cikisVeriAc + cikisNoAc[i].toString() + "#";
-                              cikisVeriKapa = cikisVeriKapa + cikisNoKapa[i].toString() + "#";
+                              cikisVeriAc =
+                                  cikisVeriAc + cikisNoAc[i].toString() + "#";
+                              cikisVeriKapa = cikisVeriKapa +
+                                  cikisNoKapa[i].toString() +
+                                  "#";
                               noVeri = noVeri + klepeNo[i].toString() + "#";
                             }
                             if (noKontrol) {
@@ -444,12 +619,11 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   duration: 3);
                             } else {
                               veriGonderildi = true;
-                              
-                              _veriGonder(
-                                  "16", "22", noVeri, cikisVeriAc, cikisVeriKapa, "0");
+
+                              _veriGonder("16", "22", noVeri, cikisVeriAc,
+                                  cikisVeriKapa, "0");
                               dbHelper.veriYOKSAekleVARSAguncelle(
                                   17, "ok", noVeri, cikisVeriAc, cikisVeriKapa);
-                                  
                             }
                           },
                           highlightColor: Colors.green,
@@ -501,14 +675,11 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               context,
                               duration: 3);
                         } else {
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => PedHaritasi(dilSecimi)),
-                        );
-
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PedHaritasi(dilSecimi)),
+                          );
                         }
                       },
                       color: Colors.black,
@@ -528,18 +699,18 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
   _satirlar(List<Map> satirlar) {
-     for(int i=0;i<=dbSatirSayisi-1;i++){
-      if(satirlar[i]["id"]==0){
+    for (int i = 0; i <= dbSatirSayisi - 1; i++) {
+      if (satirlar[i]["id"] == 0) {
         dilSecimi = satirlar[i]["veri1"];
       }
 
-      if(satirlar[i]["id"]==1){
+      if (satirlar[i]["id"] == 1) {
         kurulumDurum = satirlar[i]["veri1"];
       }
-      if(satirlar[i]["id"]==4){
+      if (satirlar[i]["id"] == 4) {
         klepeAdet = int.parse(satirlar[i]["veri2"]);
       }
-
+/*
       if(satirlar[i]["id"]==16){
         if(satirlar[i]["veri1"]=="ok"){
         String xx=satirlar[i]["veri2"];
@@ -562,6 +733,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
     }
       }
+      
 
       if(satirlar[i]["id"]==17){
         String xx;
@@ -584,10 +756,10 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
       }
       }
-     }
-    
 
-    
+*/
+
+    }
 
     print(satirlar);
     setState(() {});
@@ -614,8 +786,17 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
       builder: (BuildContext context) {
         // return object of type Dialog
 
-        return DegerGiris2X2X2X0.Deger(_onlarklepe, _birlerklepe, _onlarOutAc,
-            _birlerOutAc,_onlarOutKapa, _birlerOutKapa, _degerNo, _oran1, dilSecimi,"tv40");
+        return DegerGiris2X2X2X0.Deger(
+            _onlarklepe,
+            _birlerklepe,
+            _onlarOutAc,
+            _birlerOutAc,
+            _onlarOutKapa,
+            _birlerOutKapa,
+            _degerNo,
+            _oran1,
+            dilSecimi,
+            "tv40");
       },
     ).then((val) {
       if (_onlarklepe != val[0] ||
@@ -623,9 +804,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
           _onlarOutAc != val[2] ||
           _birlerOutAc != val[3] ||
           _onlarOutKapa != val[4] ||
-          _birlerOutKapa != val[5]) 
-          
-          {
+          _birlerOutKapa != val[5]) {
         veriGonderildi = false;
       }
       _onlarklepe = val[0];
@@ -638,8 +817,10 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
       klepeNo[_degerNo] =
           int.parse(_onlarklepe.toString() + _birlerklepe.toString());
-      cikisNoAc[_degerNo] = int.parse(_onlarOutAc.toString() + _birlerOutAc.toString());
-      cikisNoKapa[_degerNo] = int.parse(_onlarOutKapa.toString() + _birlerOutKapa.toString());
+      cikisNoAc[_degerNo] =
+          int.parse(_onlarOutAc.toString() + _birlerOutAc.toString());
+      cikisNoKapa[_degerNo] =
+          int.parse(_onlarOutKapa.toString() + _birlerOutKapa.toString());
       klepeNoTekerrur = false;
       cikisNoTekerrur = false;
 
@@ -659,7 +840,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
               cikisNoAc[i] == cikisNoAc[k] &&
               cikisNoAc[i] != 0 &&
               cikisNoAc[k] != 0) {
-                print("Giriyor1");
             cikisNoTekerrur = true;
             break;
           }
@@ -668,19 +848,19 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
               cikisNoKapa[i] == cikisNoKapa[k] &&
               cikisNoKapa[i] != 0 &&
               cikisNoKapa[k] != 0) {
-                print("Giriyor2");
             cikisNoTekerrur = true;
             break;
           }
-          if(cikisNoAc[i]==cikisNoKapa[k] && cikisNoAc[i]!=0 && cikisNoKapa[k]!=0){
+          if (cikisNoAc[i] == cikisNoKapa[k] &&
+              cikisNoAc[i] != 0 &&
+              cikisNoKapa[k] != 0) {
             cikisNoTekerrur = true;
-            print("Giriyor3");
             break;
           }
         }
         if (cikisNoTekerrur) {
-            break;
-          }
+          break;
+        }
       }
 
       setState(() {});
@@ -697,7 +877,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
             child: RawMaterialButton(
                 onPressed: () {
                   if (haritaOnay) {
-
                     _onlarklepe = klepeNo[indexNo] < 10
                         ? 0
                         : (klepeNo[indexNo] ~/ 10).toInt();
@@ -712,13 +891,11 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                     _birlerOutKapa = cikisNoKapa[indexNo] % 10;
                     _degerNo = indexNo;
                     _degergiris2X2X2X0();
-
                   } else {
-
                     if (klepeHarita[indexNo] == 0 ||
                         klepeHarita[indexNo] == null) {
                       klepeHarita[indexNo] = 1;
-                    }  else if (klepeHarita[indexNo] == 1) {
+                    } else if (klepeHarita[indexNo] == 1) {
                       klepeHarita[indexNo] = 0;
                     }
 
@@ -756,7 +933,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           children: <Widget>[
                             Spacer(),
                             //klepe No
-                            Expanded(flex: 4,
+                            Expanded(
+                              flex: 4,
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
@@ -783,7 +961,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             ),
                             Spacer(),
                             //Çıkış NoAc
-                            Expanded( flex: 6,
+                            Expanded(
+                              flex: 6,
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
@@ -810,7 +989,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             ),
                             Spacer(),
                             //Çıkış NoKapa
-                            Expanded(flex: 6,
+                            Expanded(
+                              flex: 6,
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
@@ -835,7 +1015,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 ],
                               ),
                             ),
-                            
+
                             Spacer()
                           ],
                         ),
@@ -849,7 +1029,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
     );
   }
 
-  _veriGonder(String dbKod, String id, String v1, String v2, String v3,String v4) async {
+  _veriGonder(String dbKod, String id, String v1, String v2, String v3,
+      String v4) async {
     Socket socket;
 
     try {

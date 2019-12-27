@@ -6,10 +6,10 @@ import 'package:path_provider/path_provider.dart';
 
 class DatabaseHelper {
 
-  static final _databaseName = "genel_1x4.db";
+  static final _databaseName = "dbGenel1_1x4.db";
   static final _databaseVersion = 1;
 
-  static final table = 'tablo_1x4';
+  static final table = 'tablo1_1x4';
 
   static final columnId = 'id';
   static final columnV1 = 'veri1';
@@ -68,7 +68,7 @@ class DatabaseHelper {
 
     //region Girilen ID'nin database de var olup olmadığına bakar
 
-    List<Map> satir=await db.rawQuery('SELECT * FROM tablo_1x4 WHERE id = ?',[xid]);
+    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]);
 
     String sonuc;
 
@@ -127,7 +127,7 @@ class DatabaseHelper {
 
     Database db = await instance.database;
 
-    List<Map> satir=await db.rawQuery('SELECT * FROM tablo_1x4 WHERE id = ?',[xid]);
+    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]);
 
     String sonuc;
     print(satir.toString() + "Satir degeridir");
@@ -149,7 +149,7 @@ class DatabaseHelper {
 
     Database db = await instance.database;
 
-    List<Map> satir=await db.rawQuery('SELECT * FROM tablo_1x4 WHERE id = ?',[xid]);
+    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]);
 
     print(satir.toString() + "Satir degeridir");
 

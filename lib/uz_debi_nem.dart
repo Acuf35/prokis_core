@@ -40,11 +40,11 @@ class UzDebiNemState extends State<UzDebiNem> {
   int klepeAdet = 0;
   int bacaFanAdet=0;
   String klepeNo;
-  String xM;
-  String yM;
-  String aM;
-  String bM;
-  String cM;
+  String xM="";
+  String yM="";
+  String aM="";
+  String bM="";
+  String cM="";
   String tunelFanDebi;
   String bacaFanDebi;
   String hacimOrani;
@@ -68,6 +68,57 @@ class UzDebiNemState extends State<UzDebiNem> {
   String k8y = "0.0";
   String k9y = "0.0";
   String k10y = "0.0";
+  final FocusNode _focusNodeAm = FocusNode();
+  final FocusNode _focusNodeBm = FocusNode();
+  final FocusNode _focusNodeCm = FocusNode();
+  final FocusNode _focusNodeTfanDebi = FocusNode();
+  final FocusNode _focusNodeBfanDebi = FocusNode();
+  final FocusNode _focusNodeHacimOrani = FocusNode();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _focusNodeAm.addListener((){
+      if(!_focusNodeAm.hasFocus){
+        dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
+        _veriGonder("10", "16", aM, bM, cM, "0");
+      }
+    });
+    _focusNodeBm.addListener((){
+      if(!_focusNodeBm.hasFocus){
+        dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
+        _veriGonder("10", "16", aM, bM, cM, "0");
+      }
+    });
+    _focusNodeCm.addListener((){
+      if(!_focusNodeCm.hasFocus){
+        dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
+        _veriGonder("10", "16", aM, bM, cM, "0");
+      }
+    });
+    _focusNodeTfanDebi.addListener((){
+      if(!_focusNodeTfanDebi.hasFocus){
+        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+      }
+    });
+    _focusNodeBfanDebi.addListener((){
+      if(!_focusNodeBfanDebi.hasFocus){
+        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+      }
+    });
+    _focusNodeHacimOrani.addListener((){
+      if(!_focusNodeHacimOrani.hasFocus){
+        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+      }
+    });
+    
+    
+    
+    super.initState();
+  }
 
 //--------------------------DATABASE ve DİĞER DEĞİŞKENLER--------------------------------
 
@@ -158,7 +209,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                     Expanded(
                                       flex: 3,
                                       child: TextField(
-                                      
+                                      focusNode: _focusNodeAm,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.grey[600],
@@ -171,8 +222,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         },
                                         
                                         onSubmitted: (String metin){
-                                          dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
-                                          _veriGonder("10", "16", aM, bM, cM, "0");
+                                          _focusNodeAm.unfocus();
                                         },
                                         
                                         keyboardType: TextInputType.number,
@@ -195,6 +245,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                     Expanded(
                                       flex: 3,
                                       child: TextField(
+                                        focusNode: _focusNodeBm,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.grey[600],
@@ -205,8 +256,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                           bM = metin;
                                         },
                                         onSubmitted: (String metin){
-                                          dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
-                                          _veriGonder("10", "16", aM, bM, cM, "0");
+                                          _focusNodeBm.unfocus();
                                         },
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
@@ -228,6 +278,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                     Expanded(
                                       flex: 3,
                                       child: TextField(
+                                        focusNode: _focusNodeCm,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.grey[600],
@@ -238,8 +289,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                           cM = metin;
                                         },
                                         onSubmitted: (String metin){
-                                          dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
-                                          _veriGonder("10", "16", aM, bM, cM, "0");
+                                          _focusNodeCm.unfocus();
                                         },
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
@@ -269,6 +319,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                       Expanded(
                                         flex: 6,
                                         child: TextField(
+                                          focusNode: _focusNodeTfanDebi,
                                           style: TextStyle(
                                               fontFamily: 'Kelly Slab',
                                               color: Colors.grey[600],
@@ -279,8 +330,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                             tunelFanDebi = metin;
                                           },
                                           onSubmitted: (String metin){
-                                            dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-                                            _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+                                            _focusNodeTfanDebi.unfocus();
                                           },
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
@@ -307,6 +357,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         flex: 6,
                                         child: Visibility(visible: bacaFanAdet>0 ? true : false,
                                                                                   child: TextField(
+                                                                                    focusNode: _focusNodeBfanDebi,
                                             style: TextStyle(
                                                 fontFamily: 'Kelly Slab',
                                                 color: Colors.grey[600],
@@ -317,8 +368,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                               bacaFanDebi = metin;
                                             },
                                             onSubmitted: (String metin){
-                                            dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-                                            _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+                                            _focusNodeBfanDebi.unfocus();
                                           },
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
@@ -356,6 +406,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         padding:
                                             EdgeInsets.only(bottom: 10 * oran),
                                         child: TextField(
+                                          focusNode: _focusNodeHacimOrani,
                                           style: TextStyle(
                                               fontFamily: 'Kelly Slab',
                                               color: Colors.grey[600],
@@ -367,8 +418,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                             
                                           },
                                           onSubmitted: (String metin){
-                                            dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-                                            _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+                                            _focusNodeHacimOrani.unfocus();
                                           },
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(

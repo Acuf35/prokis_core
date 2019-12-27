@@ -40,6 +40,12 @@ class FanHaritasiState extends State<FanHaritasi> {
   List<int> fanNo = new List(121);
   List<int> cikisNo = new List(121);
   List<bool> sutun = new List(13);
+  List<int> klepeHarita = new List(19);
+  List<int> klepeNo = new List(19);
+  List<int> cikisNoAc = new List(19);
+  List<int> cikisNoKapa = new List(19);
+  bool veriGonderildiKlepe=false;
+  bool haritaOnayKlepe = false;
   bool haritaOnay = false;
   int fanAdet = 0;
 
@@ -813,7 +819,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => KlepeHaritasi(dilSecimi)),
+                              builder: (context) => KlepeHaritasi(dilSecimi,klepeHarita,klepeNo,cikisNoAc,cikisNoKapa,veriGonderildiKlepe)),
                         );
 
 
@@ -923,6 +929,45 @@ class FanHaritasiState extends State<FanHaritasi> {
       }
 
 
+      if(satirlar[i]["id"]==16){
+        if(satirlar[i]["veri1"]=="ok"){
+        String xx=satirlar[i]["veri2"];
+        var fHaritalar = xx.split("#");
+        for(int i=1;i<=18;i++ ){
+          klepeHarita[i]=int.parse(fHaritalar[i-1]);
+          if(fHaritalar[i-1]!="0"){
+          haritaOnayKlepe=true;
+      }
+      
+    }
+
+    }
+      }
+
+
+      if(satirlar[i]["id"]==17){
+        String xx;
+        String yy;
+        String zz;
+      
+      if(satirlar[i]["veri1"]=="ok"){
+        veriGonderildiKlepe=true;
+        xx=satirlar[i]["veri2"];
+        yy=satirlar[i]["veri3"];
+        zz=satirlar[i]["veri4"];
+        var klepeNolar=xx.split("#");
+        var cikisNolarAc=yy.split("#");
+        var cikisNolarKapa=zz.split("#");
+        for(int i=1;i<=18;i++){
+          klepeNo[i]=int.parse(klepeNolar[i-1]);
+          cikisNoAc[i]=int.parse(cikisNolarAc[i-1]);
+          cikisNoKapa[i]=int.parse(cikisNolarKapa[i-1]);
+        }
+
+      }
+      }
+
+
 
     }
     
@@ -1024,15 +1069,16 @@ class FanHaritasiState extends State<FanHaritasi> {
                                       child: RawMaterialButton(
                                         onPressed: () {
 
-                                         
-
                                           if(haritaOnay){
-                                            _onlarFan=fanNo[indexNo]<10 ? 0 : (fanNo[indexNo]~/10).toInt();
-                                            _birlerFan=fanNo[indexNo]%10;
-                                            _onlarOut=cikisNo[indexNo]<10 ? 0 : (cikisNo[indexNo]~/10).toInt();
-                                            _birlerOut=cikisNo[indexNo]%10;
-                                            _degerNo=indexNo;
-                                            _degergiris2X2X0();
+                                            if(fanHarita[indexNo]==2){
+                                              _onlarFan=fanNo[indexNo]<10 ? 0 : (fanNo[indexNo]~/10).toInt();
+                                              _birlerFan=fanNo[indexNo]%10;
+                                              _onlarOut=cikisNo[indexNo]<10 ? 0 : (cikisNo[indexNo]~/10).toInt();
+                                              _birlerOut=cikisNo[indexNo]%10;
+                                              _degerNo=indexNo;
+                                              _degergiris2X2X0();
+                                            }
+
                                           }else{
 
                                             if (fanHarita[indexNo] == 0 ||
