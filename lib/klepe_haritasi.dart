@@ -575,7 +575,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         zz=satirlar[i]["veri4"];
         var klepeNolar=xx.split("#");
         var cikisNolarAc=yy.split("#");
-        var cikisNolarKapa=yy.split("#");
+        var cikisNolarKapa=zz.split("#");
         for(int i=1;i<=18;i++){
           klepeNo[i]=int.parse(klepeNolar[i-1]);
           cikisNoAc[i]=int.parse(cikisNolarAc[i-1]);

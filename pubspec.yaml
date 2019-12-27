@@ -79,6 +79,9 @@ flutter:
   - assets/images/sagsol_duvar_gri_icon.png
   - assets/images/klepe_harita_icon.png
   - assets/images/ped_harita_icon.png
+  - assets/images/bina_catisiz_ust_gorunum.png
+  - assets/images/harita_isi_sensor_icon.png
+  - assets/images/bina_perspektif_gorunum.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

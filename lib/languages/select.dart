@@ -70,6 +70,10 @@ class SelectLanguage{
     kod=="tv46" ? metin='PED NO' : null;
     kod=="tv47" ? metin='Ped Pompa Haritası' : null;
     kod=="tv48" ? metin='Isı Sensör Haritası' : null;
+    kod=="tv49" ? metin='ISISen NO' : null;
+    kod=="tv50" ? metin='Sens:' : null;
+    kod=="tv51" ? metin='Aktif Sensörler' : null;
+    kod=="tv52" ? metin='Sens. No:' : null;
 
 
    
@@ -218,6 +222,10 @@ class SelectLanguage{
     kod=="tv46" ? metin='PED NO' : null;
     kod=="tv47" ? metin='Ped Pump Map' : null;
     kod=="tv48" ? metin='Temp. Sensor Map' : null;
+    kod=="tv49" ? metin='TEMPSens NO' : null;
+    kod=="tv50" ? metin='Sens:' : null;
+    kod=="tv51" ? metin='Active Sensors' : null;
+    kod=="tv52" ? metin='Sens. No:' : null;
 
     
 

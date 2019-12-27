@@ -150,60 +150,60 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                 ),
 
                   Padding(
-                  padding: EdgeInsets.only(right: 10*oran,top: 5*oran),
-                  child: Column(
-                    children: <Widget>[
+                    padding: EdgeInsets.only(right: 10*oran,top: 5*oran),
+                    child: Column(
+                      children: <Widget>[
 
-                      RawMaterialButton(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        constraints: BoxConstraints(),
-                        padding: EdgeInsets.all(0),
-                        child: Image.asset(
-                          'assets/images/deger_artir_icon.png',
-                          scale: 4,
+                        RawMaterialButton(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(0),
+                          child: Image.asset(
+                            'assets/images/deger_artir_icon.png',
+                            scale: 4,
+                          ),
+
+                          onPressed: (){
+
+                            if(birlerF<9)
+                              birlerF++;
+                            else
+                              birlerF=0;
+
+                            setState(() {
+
+                            });
+                          },
                         ),
 
-                        onPressed: (){
+                        Text(birlerF.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
 
-                          if(birlerF<9)
-                            birlerF++;
-                          else
-                            birlerF=0;
+                        RawMaterialButton(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(0),
+                          child: Image.asset(
+                            'assets/images/deger_dusur_icon.png',
+                            scale: 4,
+                          ),
 
-                          setState(() {
+                          onPressed: (){
 
-                          });
-                        },
-                      ),
+                            if(birlerF>0)
+                              birlerF--;
+                            else
+                              birlerF=9;
 
-                      Text(birlerF.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                            setState(() {
 
-                      RawMaterialButton(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        constraints: BoxConstraints(),
-                        padding: EdgeInsets.all(0),
-                        child: Image.asset(
-                          'assets/images/deger_dusur_icon.png',
-                          scale: 4,
+                            });
+                          },
                         ),
 
-                        onPressed: (){
-
-                          if(birlerF>0)
-                            birlerF--;
-                          else
-                            birlerF=9;
-
-                          setState(() {
-
-                          });
-                        },
-                      ),
 
 
-
-                    ],
-                  ),
+                      ],
+                    ),
                 ),
 
                 ],),
@@ -211,129 +211,131 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
             ),),
 
 
-            Expanded(child: Column(
-              children: <Widget>[
-                Text(SelectLanguage().selectStrings(dilSecimi, "tv35"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),),
-                Row(mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                  Padding(
-                  padding: EdgeInsets.only(right: 10*oran,top: 5*oran),
-                  child: Column(
+            Visibility(visible: noBaslik=="tv49" ? false : true,
+                          child: Expanded(child: Column(
+                children: <Widget>[
+                  Text(SelectLanguage().selectStrings(dilSecimi, "tv35"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),),
+                  Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
+                    Padding(
+                    padding: EdgeInsets.only(right: 10*oran,top: 5*oran),
+                    child: Column(
+                      children: <Widget>[
 
-                      RawMaterialButton(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        constraints: BoxConstraints(),
-                        padding: EdgeInsets.all(0),
-                        child: Image.asset(
-                          'assets/images/deger_artir_icon.png',
-                          scale: 4,
+                        RawMaterialButton(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(0),
+                          child: Image.asset(
+                            'assets/images/deger_artir_icon.png',
+                            scale: 4,
+                          ),
+
+                          onPressed: (){
+
+                            if(onlarO<9)
+                              onlarO++;
+                            else
+                              onlarO=0;
+
+                            setState(() {
+
+                            });
+                          },
                         ),
 
-                        onPressed: (){
+                        Text(onlarO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
 
-                          if(onlarO<9)
-                            onlarO++;
-                          else
-                            onlarO=0;
+                        RawMaterialButton(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(0),
+                          child: Image.asset(
+                            'assets/images/deger_dusur_icon.png',
+                            scale: 4,
+                          ),
 
-                          setState(() {
+                          onPressed: (){
 
-                          });
-                        },
-                      ),
+                            if(onlarO>0)
+                              onlarO--;
+                            else
+                              onlarO=9;
 
-                      Text(onlarO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                            setState(() {
 
-                      RawMaterialButton(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        constraints: BoxConstraints(),
-                        padding: EdgeInsets.all(0),
-                        child: Image.asset(
-                          'assets/images/deger_dusur_icon.png',
-                          scale: 4,
+                            });
+                          },
                         ),
 
-                        onPressed: (){
-
-                          if(onlarO>0)
-                            onlarO--;
-                          else
-                            onlarO=9;
-
-                          setState(() {
-
-                          });
-                        },
-                      ),
 
 
-
-                    ],
+                      ],
+                    ),
                   ),
-                ),
 
-                  Padding(
-                  padding: EdgeInsets.only(right: 10*oran,top: 5*oran),
-                  child: Column(
-                    children: <Widget>[
+                    Padding(
+                    padding: EdgeInsets.only(right: 10*oran,top: 5*oran),
+                    child: Column(
+                      children: <Widget>[
 
-                      RawMaterialButton(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        constraints: BoxConstraints(),
-                        padding: EdgeInsets.all(0),
-                        child: Image.asset(
-                          'assets/images/deger_artir_icon.png',
-                          scale: 4,
+                        RawMaterialButton(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(0),
+                          child: Image.asset(
+                            'assets/images/deger_artir_icon.png',
+                            scale: 4,
+                          ),
+
+                          onPressed: (){
+
+                            if(birlerO<9)
+                              birlerO++;
+                            else
+                              birlerO=0;
+
+                            setState(() {
+
+                            });
+                          },
                         ),
 
-                        onPressed: (){
+                        Text(birlerO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
 
-                          if(birlerO<9)
-                            birlerO++;
-                          else
-                            birlerO=0;
+                        RawMaterialButton(
+                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          padding: EdgeInsets.all(0),
+                          child: Image.asset(
+                            'assets/images/deger_dusur_icon.png',
+                            scale: 4,
+                          ),
 
-                          setState(() {
+                          onPressed: (){
 
-                          });
-                        },
-                      ),
+                            if(birlerO>0)
+                              birlerO--;
+                            else
+                              birlerO=9;
 
-                      Text(birlerO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                            setState(() {
 
-                      RawMaterialButton(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        constraints: BoxConstraints(),
-                        padding: EdgeInsets.all(0),
-                        child: Image.asset(
-                          'assets/images/deger_dusur_icon.png',
-                          scale: 4,
+                            });
+                          },
                         ),
 
-                        onPressed: (){
-
-                          if(birlerO>0)
-                            birlerO--;
-                          else
-                            birlerO=9;
-
-                          setState(() {
-
-                          });
-                        },
-                      ),
 
 
-
-                    ],
+                      ],
+                    ),
                   ),
-                ),
 
 
-                ],),
-              ],
-            ),),
+                  ],),
+                ],
+              ),),
+            ),
             
             
             

@@ -666,18 +666,21 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                     context,
                                                     duration: 2);
                                                     
-                                              dbHelper.veriYOKSAekleVARSAguncelle(9, k1x+"*"+k1y, k2x+"*"+k2y, k3x+"*"+k3y, k4x+"*"+k4y);
-                                              dbHelper.veriYOKSAekleVARSAguncelle(10, k5x+"*"+k5y, k6x+"*"+k6y, k7x+"*"+k7y, k8x+"*"+k8y);
-                                              dbHelper.veriYOKSAekleVARSAguncelle(11, k9x+"*"+k9y, k10x+"*"+k10y, "0", "0");
+                                              
+                                              
+                                              
 
 
                                               if(klpNo<5){
+                                                  dbHelper.veriYOKSAekleVARSAguncelle(9, k1x+"*"+k1y, k2x+"*"+k2y, k3x+"*"+k3y, k4x+"*"+k4y);
                                                   _veriGonder("7", "11", k1x+"#"+k1y, k2x+"#"+k2y, k3x+"#"+k3y, k4x+"#"+k4y);
                                               }
                                               else if(klpNo<9){
+                                                dbHelper.veriYOKSAekleVARSAguncelle(10, k5x+"*"+k5y, k6x+"*"+k6y, k7x+"*"+k7y, k8x+"*"+k8y);
                                                   _veriGonder("8", "13", k5x+"#"+k5y, k6x+"#"+k6y, k7x+"#"+k7y, k8x+"#"+k8y);
                                               }
                                               else if(klpNo<11){
+                                                dbHelper.veriYOKSAekleVARSAguncelle(11, k9x+"*"+k9y, k10x+"*"+k10y, "0", "0");
                                                   _veriGonder("9", "15", k9x+"#"+k9y, k10x+"#"+k10y, "0", "0");
                                               }
                                               
@@ -1153,7 +1156,7 @@ class UzDebiNemState extends State<UzDebiNem> {
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
   _satirlar(List<Map> satirlar) {
-
+  
     for(int i=0;i<=dbSatirSayisi-1;i++){
       if(satirlar[i]["id"]==0){
         dilSecimi = satirlar[i]["veri1"];
@@ -1171,6 +1174,8 @@ class UzDebiNemState extends State<UzDebiNem> {
         bacaFanAdet = int.parse(satirlar[i]["veri1"]);
       }
 
+    
+
       if(satirlar[i]["id"]==9){
         var data1=satirlar[i]["veri1"].split("*");
         k1x=data1[0];
@@ -1182,10 +1187,11 @@ class UzDebiNemState extends State<UzDebiNem> {
         k3x=data3[0];
         data3.length>1 ? k3y=data3[1] :k3y="0";
         var data4=satirlar[i]["veri4"].split("*");
+        print(data4);
         k4x=data4[0];
         data4.length>1 ? k4y=data4[1] :k4y="0";
       }
-
+      
       if(satirlar[i]["id"]==10){
         var data1=satirlar[i]["veri1"].split("*");
         k5x=data1[0];
@@ -1198,7 +1204,7 @@ class UzDebiNemState extends State<UzDebiNem> {
         data3.length>1 ? k7y=data3[1] :k7y="0";
         var data4=satirlar[i]["veri4"].split("*");
         k8x=data4[0];
-        data4.length>1 ? k6y=data4[1] :k8y="0";
+        data4.length>1 ? k8y=data4[1] :k8y="0";
       }
 
       if(satirlar[i]["id"]==11){
