@@ -16,23 +16,22 @@ import 'klepe_haritasi.dart';
 import 'languages/select.dart';
 
 class FanHaritasi extends StatefulWidget {
-  String gelenDil;
-
-  FanHaritasi(String dil) {
-    gelenDil = dil;
+  List<Map> gelenDBveri;
+  FanHaritasi(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
   }
   @override
   State<StatefulWidget> createState() {
-    return FanHaritasiState(gelenDil);
+    return FanHaritasiState(gelenDBveri);
   }
 }
 
 class FanHaritasiState extends State<FanHaritasi> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
-  int dbSayac = 0;
   String dilSecimi = "TR";
   String kurulumDurum = "0";
   List<int> fanHarita = new List(121);
@@ -40,62 +39,129 @@ class FanHaritasiState extends State<FanHaritasi> {
   List<int> fanNo = new List(121);
   List<int> cikisNo = new List(121);
   List<bool> sutun = new List(13);
-  List<int> klepeHarita = new List(19);
-  List<int> klepeNo = new List(19);
-  List<int> cikisNoAc = new List(19);
-  List<int> cikisNoKapa = new List(19);
-  bool veriGonderildiKlepe=false;
-  bool haritaOnayKlepe = false;
   bool haritaOnay = false;
   int fanAdet = 0;
 
-  int _onlarFan=1;
-  int _birlerFan=0;
-  int _onlarOut=3;
-  int _birlerOut=3;
-  int _degerNo=0;
+  int _onlarFan = 1;
+  int _birlerFan = 0;
+  int _onlarOut = 3;
+  int _birlerOut = 3;
+  int _degerNo = 0;
 
   double _oran1;
-  bool veriGonderildi=false;
-  bool fanNoTekerrur=false;
-  bool cikisNoTekerrur=false;
-
+  bool veriGonderildi = false;
+  bool fanNoTekerrur = false;
+  bool cikisNoTekerrur = false;
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  FanHaritasiState(List<Map> dbVeri) {
+    bool fanHaritaOK=false;
+    bool fanCikisOK=false;
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+      if (dbVeri[i]["id"] == 1) {
+        dilSecimi = dbVeri[i]["veri1"];
+      }
+      if (dbVeri[i]["id"] == 4) {
+        fanAdet = int.parse(dbVeri[i]["veri1"]);
+      }
+      
 
-  FanHaritasiState(String dil) {
-    for (int i = 1; i <= 120; i++) {
-      fanHarita[i] = 0;
-      fanNo[i] = 0;
-      cikisNo[i] = 0;
-      fanVisibility[i] = true;
+      if (dbVeri[i]["id"] == 14) {
+        fanHaritaOK=true;
+        if (dbVeri[i]["veri1"] == "ok") {
+          String xx = dbVeri[i]["veri2"];
+          var fHaritalar = xx.split("#");
+          for (int i = 1; i <= 120; i++) {
+            fanHarita[i] = int.parse(fHaritalar[i - 1]);
+            if (fHaritalar[i - 1] != "0") {
+              haritaOnay = true;
+            }
+          }
+
+          for (int i = 1; i <= 12; i++) {
+            sutun[i] = false;
+          }
+
+          for (int i = 1; i <= 120; i++) {
+            if (fanHarita[i] != 0) {
+              fanVisibility[i] = true;
+              if (i % 12 == 1) {
+                sutun[1] = true;
+              } else if (i % 12 == 2) {
+                sutun[2] = true;
+              } else if (i % 12 == 3) {
+                sutun[3] = true;
+              } else if (i % 12 == 4) {
+                sutun[4] = true;
+              } else if (i % 12 == 5) {
+                sutun[5] = true;
+              } else if (i % 12 == 6) {
+                sutun[6] = true;
+              } else if (i % 12 == 7) {
+                sutun[7] = true;
+              } else if (i % 12 == 8) {
+                sutun[8] = true;
+              } else if (i % 12 == 9) {
+                sutun[9] = true;
+              } else if (i % 12 == 10) {
+                sutun[10] = true;
+              } else if (i % 12 == 11) {
+                sutun[11] = true;
+              } else if (i % 12 == 0) {
+                sutun[12] = true;
+              }
+            } else {
+              fanVisibility[i] = false;
+            }
+          }
+        }
+      }
+
+      if (dbVeri[i]["id"] == 15) {
+        String xx;
+        String yy;
+
+        if (dbVeri[i]["veri1"] == "ok") {
+          fanCikisOK=true;
+          veriGonderildi = true;
+          xx = dbVeri[i]["veri2"];
+          yy = dbVeri[i]["veri3"];
+          var fanNolar = xx.split("#");
+          var cikisNolar = yy.split("#");
+          for (int i = 1; i <= 120; i++) {
+            fanNo[i] = int.parse(fanNolar[i - 1]);
+            cikisNo[i] = int.parse(cikisNolar[i - 1]);
+          }
+        }
+      }
     }
 
-    for (int i = 1; i <= 12; i++) {
-      sutun[i] = true;
+    if (!fanHaritaOK) {
+      for (int i = 1; i <= 120; i++) {
+        fanHarita[i] = 0;
+        fanVisibility[i] = true;
+      }
+
+      for (int i = 1; i <= 12; i++) {
+        sutun[i] = true;
+      }
     }
-    
-    dilSecimi = dil;
+
+    if (!fanCikisOK){
+      for (int i = 1; i <= 120; i++) {
+        fanNo[i] = 0;
+        cikisNo[i] = 0;
+      }
+    }
+
+    _dbVeriCekme();
   }
-
-  //--------------------------CONSTRUCTER METHOD--------------------------------
+//--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
-    
-//++++++++++++++++++++++++++DATABASE'den SATIRLARI ÇEKME+++++++++++++++++++++++++++++++
-    dbSatirlar = dbHelper.satirlariCek();
-    final satirSayisi = dbHelper.satirSayisi();
-    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
-    satirSayisi.whenComplete(() {
-      if (dbSayac == 0) {
-        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
-        dbSayac++;
-      }
-    });
-//--------------------------DATABASE'den SATIRLARI ÇEKME--------------------------------
 
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
     var width = MediaQuery.of(context).size.width *
@@ -104,7 +170,7 @@ class FanHaritasiState extends State<FanHaritasi> {
         MediaQuery.of(context).devicePixelRatio;
     var carpim = width * height;
     var oran = carpim / 2073600.0;
-    _oran1=oran;
+    _oran1 = oran;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
@@ -115,16 +181,30 @@ class FanHaritasiState extends State<FanHaritasi> {
         Expanded(
             child: Container(
           color: Colors.grey.shade600,
-          child: Text(
-            SelectLanguage()
-                .selectStrings(dilSecimi, "tv31"), // Tünel Fan Haritası
-            style: TextStyle(
-                fontFamily: 'Kelly Slab',
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
-          ),
+          child: Column(
+                children: <Widget>[
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          SelectLanguage().selectStrings(dilSecimi, "tv31"),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          minFontSize: 8,
+                        ),
+                      ),
+                    ),
+                  ),
+                  
+                ],
+              ),
           alignment: Alignment.center,
         )),
         //Fan Harita Oluşturma Bölümü
@@ -133,7 +213,8 @@ class FanHaritasiState extends State<FanHaritasi> {
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
-            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Spacer(
                   flex: 1,
@@ -141,388 +222,740 @@ class FanHaritasiState extends State<FanHaritasi> {
                 //Harita Satır ve sütunlar
                 Expanded(
                   flex: 4,
-                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       //Sütun 1
-                      Visibility(visible: sutun[1],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[1],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*1
-                              Visibility(child: _fanHaritaUnsur(1),visible: fanVisibility[1] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(1),
+                                visible: fanVisibility[1] ? true : false,
+                              ),
                               //2*1
-                              Visibility(child: _fanHaritaUnsur(13),visible: fanVisibility[13] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(13),
+                                visible: fanVisibility[13] ? true : false,
+                              ),
                               //3*1
-                              Visibility(child: _fanHaritaUnsur(25),visible: fanVisibility[25] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(25),
+                                visible: fanVisibility[25] ? true : false,
+                              ),
                               //4*1
-                              Visibility(child: _fanHaritaUnsur(37),visible: fanVisibility[37] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(37),
+                                visible: fanVisibility[37] ? true : false,
+                              ),
                               //5*1
-                              Visibility(child: _fanHaritaUnsur(49),visible: fanVisibility[49] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(49),
+                                visible: fanVisibility[49] ? true : false,
+                              ),
                               //6*1
-                              Visibility(child: _fanHaritaUnsur(61),visible: fanVisibility[61] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(61),
+                                visible: fanVisibility[61] ? true : false,
+                              ),
                               //7*1
-                              Visibility(child: _fanHaritaUnsur(73),visible: fanVisibility[73] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(73),
+                                visible: fanVisibility[73] ? true : false,
+                              ),
                               //8*1
-                              Visibility(child: _fanHaritaUnsur(85),visible: fanVisibility[85] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(85),
+                                visible: fanVisibility[85] ? true : false,
+                              ),
                               //9*1
-                              Visibility(child: _fanHaritaUnsur(97),visible: fanVisibility[97] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(97),
+                                visible: fanVisibility[97] ? true : false,
+                              ),
                               //10*1
-                              Visibility(child: _fanHaritaUnsur(109),visible: fanVisibility[109] ? true : false,),
-                                        
+                              Visibility(
+                                child: _fanHaritaUnsur(109),
+                                visible: fanVisibility[109] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
 
                       //Sütun 2
-                      Visibility(visible: sutun[2],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[2],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*2
-                              Visibility(child: _fanHaritaUnsur(2),visible: fanVisibility[2] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(2),
+                                visible: fanVisibility[2] ? true : false,
+                              ),
                               //2*2
-                              Visibility(child: _fanHaritaUnsur(14),visible: fanVisibility[14] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(14),
+                                visible: fanVisibility[14] ? true : false,
+                              ),
                               //3*2
-                              Visibility(child: _fanHaritaUnsur(26),visible: fanVisibility[26] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(26),
+                                visible: fanVisibility[26] ? true : false,
+                              ),
                               //4*2
-                              Visibility(child: _fanHaritaUnsur(38),visible: fanVisibility[38] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(38),
+                                visible: fanVisibility[38] ? true : false,
+                              ),
                               //5*2
-                              Visibility(child: _fanHaritaUnsur(50),visible: fanVisibility[50] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(50),
+                                visible: fanVisibility[50] ? true : false,
+                              ),
                               //6*2
-                              Visibility(child: _fanHaritaUnsur(62),visible: fanVisibility[62] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(62),
+                                visible: fanVisibility[62] ? true : false,
+                              ),
                               //7*2
-                              Visibility(child: _fanHaritaUnsur(74),visible: fanVisibility[74] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(74),
+                                visible: fanVisibility[74] ? true : false,
+                              ),
                               //8*2
-                              Visibility(child: _fanHaritaUnsur(86),visible: fanVisibility[86] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(86),
+                                visible: fanVisibility[86] ? true : false,
+                              ),
                               //9*2
-                              Visibility(child: _fanHaritaUnsur(98),visible: fanVisibility[98] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(98),
+                                visible: fanVisibility[98] ? true : false,
+                              ),
                               //10*2
-                              Visibility(child: _fanHaritaUnsur(110),visible: fanVisibility[110] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(110),
+                                visible: fanVisibility[110] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
 
                       //Sütun 3
-                      Visibility(visible: sutun[3],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[3],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*3
-                              Visibility(child: _fanHaritaUnsur(3),visible: fanVisibility[3] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(3),
+                                visible: fanVisibility[3] ? true : false,
+                              ),
                               //2*3
-                              Visibility(child: _fanHaritaUnsur(15),visible: fanVisibility[15] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(15),
+                                visible: fanVisibility[15] ? true : false,
+                              ),
                               //3*3
-                              Visibility(child: _fanHaritaUnsur(27),visible: fanVisibility[27] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(27),
+                                visible: fanVisibility[27] ? true : false,
+                              ),
                               //4*3
-                              Visibility(child: _fanHaritaUnsur(39),visible: fanVisibility[39] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(39),
+                                visible: fanVisibility[39] ? true : false,
+                              ),
                               //5*3
-                              Visibility(child: _fanHaritaUnsur(51),visible: fanVisibility[51] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(51),
+                                visible: fanVisibility[51] ? true : false,
+                              ),
                               //6*3
-                              Visibility(child: _fanHaritaUnsur(63),visible: fanVisibility[63] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(63),
+                                visible: fanVisibility[63] ? true : false,
+                              ),
                               //7*3
-                              Visibility(child: _fanHaritaUnsur(75),visible: fanVisibility[75] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(75),
+                                visible: fanVisibility[75] ? true : false,
+                              ),
                               //8*3
-                              Visibility(child: _fanHaritaUnsur(87),visible: fanVisibility[87] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(87),
+                                visible: fanVisibility[87] ? true : false,
+                              ),
                               //9*3
-                              Visibility(child: _fanHaritaUnsur(99),visible: fanVisibility[99] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(99),
+                                visible: fanVisibility[99] ? true : false,
+                              ),
                               //10*3
-                              Visibility(child: _fanHaritaUnsur(111),visible: fanVisibility[111] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(111),
+                                visible: fanVisibility[111] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 4
-                      Visibility(visible: sutun[4],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[4],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*4
-                              Visibility(child: _fanHaritaUnsur(4), visible: fanVisibility[4] ? true : false,),
-                              //2*4 
-                              Visibility(child: _fanHaritaUnsur(16) ,visible: fanVisibility[16] ? true : false,),
-                              //3*4 
-                              Visibility(child: _fanHaritaUnsur(28) ,visible: fanVisibility[28] ? true : false,),
-                              //4*4 
-                              Visibility(child: _fanHaritaUnsur(40) ,visible: fanVisibility[40] ? true : false,),
-                              //5*4 
-                              Visibility(child: _fanHaritaUnsur(52) ,visible: fanVisibility[52] ? true : false,),
-                              //6*4 
-                              Visibility(child: _fanHaritaUnsur(64) ,visible: fanVisibility[64] ? true : false,),
-                              //7*4 
-                              Visibility(child: _fanHaritaUnsur(76) ,visible: fanVisibility[76] ? true : false,),
-                              //8*4 
-                              Visibility(child: _fanHaritaUnsur(88) ,visible: fanVisibility[88] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(4),
+                                visible: fanVisibility[4] ? true : false,
+                              ),
+                              //2*4
+                              Visibility(
+                                child: _fanHaritaUnsur(16),
+                                visible: fanVisibility[16] ? true : false,
+                              ),
+                              //3*4
+                              Visibility(
+                                child: _fanHaritaUnsur(28),
+                                visible: fanVisibility[28] ? true : false,
+                              ),
+                              //4*4
+                              Visibility(
+                                child: _fanHaritaUnsur(40),
+                                visible: fanVisibility[40] ? true : false,
+                              ),
+                              //5*4
+                              Visibility(
+                                child: _fanHaritaUnsur(52),
+                                visible: fanVisibility[52] ? true : false,
+                              ),
+                              //6*4
+                              Visibility(
+                                child: _fanHaritaUnsur(64),
+                                visible: fanVisibility[64] ? true : false,
+                              ),
+                              //7*4
+                              Visibility(
+                                child: _fanHaritaUnsur(76),
+                                visible: fanVisibility[76] ? true : false,
+                              ),
+                              //8*4
+                              Visibility(
+                                child: _fanHaritaUnsur(88),
+                                visible: fanVisibility[88] ? true : false,
+                              ),
                               //9*4
-                              Visibility(child: _fanHaritaUnsur(100),visible: fanVisibility[100] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(100),
+                                visible: fanVisibility[100] ? true : false,
+                              ),
                               //10*4
-                              Visibility(child: _fanHaritaUnsur(112),visible: fanVisibility[112] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(112),
+                                visible: fanVisibility[112] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 5
-                      Visibility(visible: sutun[5],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[5],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*5
-                              Visibility(child: _fanHaritaUnsur(5 ), visible: fanVisibility[5] ? true : false,),
-                              //2*5 
-                              Visibility(child: _fanHaritaUnsur(17) ,visible: fanVisibility[17] ? true : false,),
-                              //3*5 
-                              Visibility(child: _fanHaritaUnsur(29) ,visible: fanVisibility[29] ? true : false,),
-                              //4*5 
-                              Visibility(child: _fanHaritaUnsur(41) ,visible: fanVisibility[41] ? true : false,),
-                              //5*5 
-                              Visibility(child: _fanHaritaUnsur(53) ,visible: fanVisibility[53] ? true : false,),
-                              //6*5 
-                              Visibility(child: _fanHaritaUnsur(65) ,visible: fanVisibility[65] ? true : false,),
-                              //7*5 
-                              Visibility(child: _fanHaritaUnsur(77) ,visible: fanVisibility[77] ? true : false,),
-                              //8*5 
-                              Visibility(child: _fanHaritaUnsur(89) ,visible: fanVisibility[89] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(5),
+                                visible: fanVisibility[5] ? true : false,
+                              ),
+                              //2*5
+                              Visibility(
+                                child: _fanHaritaUnsur(17),
+                                visible: fanVisibility[17] ? true : false,
+                              ),
+                              //3*5
+                              Visibility(
+                                child: _fanHaritaUnsur(29),
+                                visible: fanVisibility[29] ? true : false,
+                              ),
+                              //4*5
+                              Visibility(
+                                child: _fanHaritaUnsur(41),
+                                visible: fanVisibility[41] ? true : false,
+                              ),
+                              //5*5
+                              Visibility(
+                                child: _fanHaritaUnsur(53),
+                                visible: fanVisibility[53] ? true : false,
+                              ),
+                              //6*5
+                              Visibility(
+                                child: _fanHaritaUnsur(65),
+                                visible: fanVisibility[65] ? true : false,
+                              ),
+                              //7*5
+                              Visibility(
+                                child: _fanHaritaUnsur(77),
+                                visible: fanVisibility[77] ? true : false,
+                              ),
+                              //8*5
+                              Visibility(
+                                child: _fanHaritaUnsur(89),
+                                visible: fanVisibility[89] ? true : false,
+                              ),
                               //9*5
-                              Visibility(child: _fanHaritaUnsur(101),visible: fanVisibility[101] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(101),
+                                visible: fanVisibility[101] ? true : false,
+                              ),
                               //10*5
-                              Visibility(child: _fanHaritaUnsur(113),visible: fanVisibility[113] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(113),
+                                visible: fanVisibility[113] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 6
-                      Visibility(visible: sutun[6],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[6],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*6
-                              Visibility(child:  _fanHaritaUnsur(6 ),visible: fanVisibility[6] ? true : false,),
-                              //2*6 
-                              Visibility(child:  _fanHaritaUnsur(18),visible: fanVisibility[18] ? true : false,),
-                              //3*6 
-                              Visibility(child:  _fanHaritaUnsur(30),visible: fanVisibility[30] ? true : false,),
-                              //4*6 
-                              Visibility(child:  _fanHaritaUnsur(42),visible: fanVisibility[42] ? true : false,),
-                              //5*6 
-                              Visibility(child:  _fanHaritaUnsur(54),visible: fanVisibility[54] ? true : false,),
-                              //6*6 
-                              Visibility(child:  _fanHaritaUnsur(66),visible: fanVisibility[66] ? true : false,),
-                              //7*6 
-                              Visibility(child:  _fanHaritaUnsur(78),visible: fanVisibility[78] ? true : false,),
-                              //8*6 
-                              Visibility(child:  _fanHaritaUnsur(90),visible: fanVisibility[90] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(6),
+                                visible: fanVisibility[6] ? true : false,
+                              ),
+                              //2*6
+                              Visibility(
+                                child: _fanHaritaUnsur(18),
+                                visible: fanVisibility[18] ? true : false,
+                              ),
+                              //3*6
+                              Visibility(
+                                child: _fanHaritaUnsur(30),
+                                visible: fanVisibility[30] ? true : false,
+                              ),
+                              //4*6
+                              Visibility(
+                                child: _fanHaritaUnsur(42),
+                                visible: fanVisibility[42] ? true : false,
+                              ),
+                              //5*6
+                              Visibility(
+                                child: _fanHaritaUnsur(54),
+                                visible: fanVisibility[54] ? true : false,
+                              ),
+                              //6*6
+                              Visibility(
+                                child: _fanHaritaUnsur(66),
+                                visible: fanVisibility[66] ? true : false,
+                              ),
+                              //7*6
+                              Visibility(
+                                child: _fanHaritaUnsur(78),
+                                visible: fanVisibility[78] ? true : false,
+                              ),
+                              //8*6
+                              Visibility(
+                                child: _fanHaritaUnsur(90),
+                                visible: fanVisibility[90] ? true : false,
+                              ),
                               //9*6
-                              Visibility(child: _fanHaritaUnsur(102),visible: fanVisibility[102] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(102),
+                                visible: fanVisibility[102] ? true : false,
+                              ),
                               //10*6
-                              Visibility(child: _fanHaritaUnsur(114),visible: fanVisibility[114] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(114),
+                                visible: fanVisibility[114] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 7
-                      Visibility(visible: sutun[7],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[7],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*7
-                              Visibility(child:  _fanHaritaUnsur(7 ),visible: fanVisibility[7 ] ? true : false,),
-                              //2*7 
-                              Visibility(child:  _fanHaritaUnsur(19),visible: fanVisibility[19] ? true : false,),
-                              //3*7 
-                              Visibility(child:  _fanHaritaUnsur(31),visible: fanVisibility[31] ? true : false,),
-                              //4*7 
-                              Visibility(child:  _fanHaritaUnsur(43),visible: fanVisibility[43] ? true : false,),
-                              //5*7 
-                              Visibility(child:  _fanHaritaUnsur(55),visible: fanVisibility[55] ? true : false,),
-                              //6*7 
-                              Visibility(child:  _fanHaritaUnsur(67),visible: fanVisibility[67] ? true : false,),
-                              //7*7 
-                              Visibility(child:  _fanHaritaUnsur(79),visible: fanVisibility[79] ? true : false,),
-                              //8*7 
-                              Visibility(child:  _fanHaritaUnsur(91),visible: fanVisibility[91] ? true : false,),
-                              //9*7 
-                              Visibility(child: _fanHaritaUnsur(103),visible: fanVisibility[103] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(7),
+                                visible: fanVisibility[7] ? true : false,
+                              ),
+                              //2*7
+                              Visibility(
+                                child: _fanHaritaUnsur(19),
+                                visible: fanVisibility[19] ? true : false,
+                              ),
+                              //3*7
+                              Visibility(
+                                child: _fanHaritaUnsur(31),
+                                visible: fanVisibility[31] ? true : false,
+                              ),
+                              //4*7
+                              Visibility(
+                                child: _fanHaritaUnsur(43),
+                                visible: fanVisibility[43] ? true : false,
+                              ),
+                              //5*7
+                              Visibility(
+                                child: _fanHaritaUnsur(55),
+                                visible: fanVisibility[55] ? true : false,
+                              ),
+                              //6*7
+                              Visibility(
+                                child: _fanHaritaUnsur(67),
+                                visible: fanVisibility[67] ? true : false,
+                              ),
+                              //7*7
+                              Visibility(
+                                child: _fanHaritaUnsur(79),
+                                visible: fanVisibility[79] ? true : false,
+                              ),
+                              //8*7
+                              Visibility(
+                                child: _fanHaritaUnsur(91),
+                                visible: fanVisibility[91] ? true : false,
+                              ),
+                              //9*7
+                              Visibility(
+                                child: _fanHaritaUnsur(103),
+                                visible: fanVisibility[103] ? true : false,
+                              ),
                               //10*7
-                              Visibility(child: _fanHaritaUnsur(115),visible: fanVisibility[115] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(115),
+                                visible: fanVisibility[115] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
 
                       //Sütun 8
-                      Visibility(visible: sutun[8],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[8],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*8
-                              Visibility(child:  _fanHaritaUnsur(8 ),visible: fanVisibility[8 ] ? true : false,),
-                              //2*8 
-                              Visibility(child:  _fanHaritaUnsur(20),visible: fanVisibility[20] ? true : false,),
-                              //3*8 
-                              Visibility(child:  _fanHaritaUnsur(32),visible: fanVisibility[32] ? true : false,),
-                              //4*8 
-                              Visibility(child:  _fanHaritaUnsur(44),visible: fanVisibility[44] ? true : false,),
-                              //5*8 
-                              Visibility(child:  _fanHaritaUnsur(56),visible: fanVisibility[56] ? true : false,),
-                              //6*8 
-                              Visibility(child:  _fanHaritaUnsur(68),visible: fanVisibility[68] ? true : false,),
-                              //7*8 
-                              Visibility(child:  _fanHaritaUnsur(80),visible: fanVisibility[80] ? true : false,),
-                              //8*8 
-                              Visibility(child:  _fanHaritaUnsur(92),visible: fanVisibility[92] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(8),
+                                visible: fanVisibility[8] ? true : false,
+                              ),
+                              //2*8
+                              Visibility(
+                                child: _fanHaritaUnsur(20),
+                                visible: fanVisibility[20] ? true : false,
+                              ),
+                              //3*8
+                              Visibility(
+                                child: _fanHaritaUnsur(32),
+                                visible: fanVisibility[32] ? true : false,
+                              ),
+                              //4*8
+                              Visibility(
+                                child: _fanHaritaUnsur(44),
+                                visible: fanVisibility[44] ? true : false,
+                              ),
+                              //5*8
+                              Visibility(
+                                child: _fanHaritaUnsur(56),
+                                visible: fanVisibility[56] ? true : false,
+                              ),
+                              //6*8
+                              Visibility(
+                                child: _fanHaritaUnsur(68),
+                                visible: fanVisibility[68] ? true : false,
+                              ),
+                              //7*8
+                              Visibility(
+                                child: _fanHaritaUnsur(80),
+                                visible: fanVisibility[80] ? true : false,
+                              ),
+                              //8*8
+                              Visibility(
+                                child: _fanHaritaUnsur(92),
+                                visible: fanVisibility[92] ? true : false,
+                              ),
                               //9*8
-                              Visibility(child: _fanHaritaUnsur(104),visible: fanVisibility[104] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(104),
+                                visible: fanVisibility[104] ? true : false,
+                              ),
                               //10*8
-                              Visibility(child: _fanHaritaUnsur(116),visible: fanVisibility[116] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(116),
+                                visible: fanVisibility[116] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 9
-                      Visibility(visible: sutun[9],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[9],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*9
-                              Visibility(child:  _fanHaritaUnsur(9),visible: fanVisibility[9] ? true : false,),
-                              //2*9 
-                              Visibility(child:  _fanHaritaUnsur(21),visible: fanVisibility[21] ? true : false,),
-                              //3*9 
-                              Visibility(child:  _fanHaritaUnsur(33),visible: fanVisibility[33] ? true : false,),
-                              //4*9 
-                              Visibility(child:  _fanHaritaUnsur(45),visible: fanVisibility[45] ? true : false,),
-                              //5*9 
-                              Visibility(child:  _fanHaritaUnsur(57),visible: fanVisibility[57] ? true : false,),
-                              //6*9 
-                              Visibility(child:  _fanHaritaUnsur(69),visible: fanVisibility[69] ? true : false,),
-                              //7*9 
-                              Visibility(child:  _fanHaritaUnsur(81),visible: fanVisibility[81] ? true : false,),
-                              //8*9 
-                              Visibility(child:  _fanHaritaUnsur(93),visible: fanVisibility[93] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(9),
+                                visible: fanVisibility[9] ? true : false,
+                              ),
+                              //2*9
+                              Visibility(
+                                child: _fanHaritaUnsur(21),
+                                visible: fanVisibility[21] ? true : false,
+                              ),
+                              //3*9
+                              Visibility(
+                                child: _fanHaritaUnsur(33),
+                                visible: fanVisibility[33] ? true : false,
+                              ),
+                              //4*9
+                              Visibility(
+                                child: _fanHaritaUnsur(45),
+                                visible: fanVisibility[45] ? true : false,
+                              ),
+                              //5*9
+                              Visibility(
+                                child: _fanHaritaUnsur(57),
+                                visible: fanVisibility[57] ? true : false,
+                              ),
+                              //6*9
+                              Visibility(
+                                child: _fanHaritaUnsur(69),
+                                visible: fanVisibility[69] ? true : false,
+                              ),
+                              //7*9
+                              Visibility(
+                                child: _fanHaritaUnsur(81),
+                                visible: fanVisibility[81] ? true : false,
+                              ),
+                              //8*9
+                              Visibility(
+                                child: _fanHaritaUnsur(93),
+                                visible: fanVisibility[93] ? true : false,
+                              ),
                               //9*9
-                              Visibility(child: _fanHaritaUnsur(105),visible: fanVisibility[105] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(105),
+                                visible: fanVisibility[105] ? true : false,
+                              ),
                               //10*9
-                              Visibility(child: _fanHaritaUnsur(117),visible: fanVisibility[117] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(117),
+                                visible: fanVisibility[117] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 10
-                      Visibility(visible: sutun[10],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[10],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*10
-                              Visibility(child:  _fanHaritaUnsur(10),visible: fanVisibility[10] ? true : false,),
-                              //2*10 
-                              Visibility(child:  _fanHaritaUnsur(22),visible: fanVisibility[22] ? true : false,),
-                              //3*10 
-                              Visibility(child:  _fanHaritaUnsur(34),visible: fanVisibility[34] ? true : false,),
-                              //4*10 
-                              Visibility(child:  _fanHaritaUnsur(46),visible: fanVisibility[46] ? true : false,),
-                              //5*10 
-                              Visibility(child:  _fanHaritaUnsur(58),visible: fanVisibility[58] ? true : false,),
-                              //6*10 
-                              Visibility(child:  _fanHaritaUnsur(70),visible: fanVisibility[70] ? true : false,),
-                              //7*10 
-                              Visibility(child:  _fanHaritaUnsur(82),visible: fanVisibility[82] ? true : false,),
-                              //8*10 
-                              Visibility(child:  _fanHaritaUnsur(94),visible: fanVisibility[94] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(10),
+                                visible: fanVisibility[10] ? true : false,
+                              ),
+                              //2*10
+                              Visibility(
+                                child: _fanHaritaUnsur(22),
+                                visible: fanVisibility[22] ? true : false,
+                              ),
+                              //3*10
+                              Visibility(
+                                child: _fanHaritaUnsur(34),
+                                visible: fanVisibility[34] ? true : false,
+                              ),
+                              //4*10
+                              Visibility(
+                                child: _fanHaritaUnsur(46),
+                                visible: fanVisibility[46] ? true : false,
+                              ),
+                              //5*10
+                              Visibility(
+                                child: _fanHaritaUnsur(58),
+                                visible: fanVisibility[58] ? true : false,
+                              ),
+                              //6*10
+                              Visibility(
+                                child: _fanHaritaUnsur(70),
+                                visible: fanVisibility[70] ? true : false,
+                              ),
+                              //7*10
+                              Visibility(
+                                child: _fanHaritaUnsur(82),
+                                visible: fanVisibility[82] ? true : false,
+                              ),
+                              //8*10
+                              Visibility(
+                                child: _fanHaritaUnsur(94),
+                                visible: fanVisibility[94] ? true : false,
+                              ),
                               //9*10
-                              Visibility(child: _fanHaritaUnsur(106),visible: fanVisibility[106] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(106),
+                                visible: fanVisibility[106] ? true : false,
+                              ),
                               //10*10
-                              Visibility(child: _fanHaritaUnsur(118),visible: fanVisibility[118] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(118),
+                                visible: fanVisibility[118] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
 
                       //Sütun 11
-                      Visibility(visible: sutun[11],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[11],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*11
-                              Visibility(child:  _fanHaritaUnsur(11),visible: fanVisibility[11] ? true : false,),
-                              //2*11 
-                              Visibility(child:  _fanHaritaUnsur(23),visible: fanVisibility[23] ? true : false,),
-                              //3*11 
-                              Visibility(child:  _fanHaritaUnsur(35),visible: fanVisibility[35] ? true : false,),
-                              //4*11 
-                              Visibility(child:  _fanHaritaUnsur(47),visible: fanVisibility[47] ? true : false,),
-                              //5*11 
-                              Visibility(child:  _fanHaritaUnsur(59),visible: fanVisibility[59] ? true : false,),
-                              //6*11 
-                              Visibility(child:  _fanHaritaUnsur(71),visible: fanVisibility[71] ? true : false,),
-                              //7*11 
-                              Visibility(child:  _fanHaritaUnsur(83),visible: fanVisibility[83] ? true : false,),
-                              //8*11 
-                              Visibility(child:  _fanHaritaUnsur(95),visible: fanVisibility[95] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(11),
+                                visible: fanVisibility[11] ? true : false,
+                              ),
+                              //2*11
+                              Visibility(
+                                child: _fanHaritaUnsur(23),
+                                visible: fanVisibility[23] ? true : false,
+                              ),
+                              //3*11
+                              Visibility(
+                                child: _fanHaritaUnsur(35),
+                                visible: fanVisibility[35] ? true : false,
+                              ),
+                              //4*11
+                              Visibility(
+                                child: _fanHaritaUnsur(47),
+                                visible: fanVisibility[47] ? true : false,
+                              ),
+                              //5*11
+                              Visibility(
+                                child: _fanHaritaUnsur(59),
+                                visible: fanVisibility[59] ? true : false,
+                              ),
+                              //6*11
+                              Visibility(
+                                child: _fanHaritaUnsur(71),
+                                visible: fanVisibility[71] ? true : false,
+                              ),
+                              //7*11
+                              Visibility(
+                                child: _fanHaritaUnsur(83),
+                                visible: fanVisibility[83] ? true : false,
+                              ),
+                              //8*11
+                              Visibility(
+                                child: _fanHaritaUnsur(95),
+                                visible: fanVisibility[95] ? true : false,
+                              ),
                               //9*11
-                              Visibility(child: _fanHaritaUnsur(107),visible: fanVisibility[107] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(107),
+                                visible: fanVisibility[107] ? true : false,
+                              ),
                               //10*11
-                              Visibility(child: _fanHaritaUnsur(119),visible: fanVisibility[119] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(119),
+                                visible: fanVisibility[119] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
+
                       //Sütun 12
-                      Visibility(visible: sutun[12],
-                                              child: Expanded(
+                      Visibility(
+                        visible: sutun[12],
+                        child: Expanded(
                           child: Column(
                             children: <Widget>[
                               //1*12
-                              Visibility(child:  _fanHaritaUnsur(12),visible: fanVisibility[12] ? true : false,),
-                              //2*12 
-                              Visibility(child:  _fanHaritaUnsur(24),visible: fanVisibility[24] ? true : false,),
-                              //3*12 
-                              Visibility(child:  _fanHaritaUnsur(36),visible: fanVisibility[36] ? true : false,),
-                              //4*12 
-                              Visibility(child:  _fanHaritaUnsur(48),visible: fanVisibility[48] ? true : false,),
-                              //5*12 
-                              Visibility(child:  _fanHaritaUnsur(60),visible: fanVisibility[60] ? true : false,),
-                              //6*12 
-                              Visibility(child:  _fanHaritaUnsur(72),visible: fanVisibility[72] ? true : false,),
-                              //7*12 
-                              Visibility(child:  _fanHaritaUnsur(84),visible: fanVisibility[84] ? true : false,),
-                              //8*12 
-                              Visibility(child:  _fanHaritaUnsur(96),visible: fanVisibility[96] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(12),
+                                visible: fanVisibility[12] ? true : false,
+                              ),
+                              //2*12
+                              Visibility(
+                                child: _fanHaritaUnsur(24),
+                                visible: fanVisibility[24] ? true : false,
+                              ),
+                              //3*12
+                              Visibility(
+                                child: _fanHaritaUnsur(36),
+                                visible: fanVisibility[36] ? true : false,
+                              ),
+                              //4*12
+                              Visibility(
+                                child: _fanHaritaUnsur(48),
+                                visible: fanVisibility[48] ? true : false,
+                              ),
+                              //5*12
+                              Visibility(
+                                child: _fanHaritaUnsur(60),
+                                visible: fanVisibility[60] ? true : false,
+                              ),
+                              //6*12
+                              Visibility(
+                                child: _fanHaritaUnsur(72),
+                                visible: fanVisibility[72] ? true : false,
+                              ),
+                              //7*12
+                              Visibility(
+                                child: _fanHaritaUnsur(84),
+                                visible: fanVisibility[84] ? true : false,
+                              ),
+                              //8*12
+                              Visibility(
+                                child: _fanHaritaUnsur(96),
+                                visible: fanVisibility[96] ? true : false,
+                              ),
                               //9*12
-                              Visibility(child: _fanHaritaUnsur(108),visible: fanVisibility[108] ? true : false,),
+                              Visibility(
+                                child: _fanHaritaUnsur(108),
+                                visible: fanVisibility[108] ? true : false,
+                              ),
                               //10*12
-                              Visibility(child: _fanHaritaUnsur(120),visible: fanVisibility[120] ? true : false,),
-                            
+                              Visibility(
+                                child: _fanHaritaUnsur(120),
+                                visible: fanVisibility[120] ? true : false,
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     ],
                   ),
                 ),
@@ -548,22 +981,20 @@ class FanHaritasiState extends State<FanHaritasi> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       //Haritayı Onayla Butonu
-                      Visibility(visible: !haritaOnay,
-                      maintainState: true,
-                      maintainSize: true,
-                      maintainAnimation: true,
-                          child: FlatButton(
+                      Visibility(
+                        visible: !haritaOnay,
+                        maintainState: true,
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        child: FlatButton(
                           onPressed: () {
                             int sayac = 0;
-                            List<int> satir = new List(11);                         
+                            List<int> satir = new List(11);
                             bool dikdortgenHata = false;
-
-
 
                             for (int i = 1; i <= 10; i++) {
                               satir[i] = 0;
                             }
-                            
 
                             for (int i = 1; i <= 12; i++) {
                               if (fanHarita[i] != 0) {
@@ -617,21 +1048,31 @@ class FanHaritasiState extends State<FanHaritasi> {
                             if (sayac < fanAdet) {
                               //Haritada seçilen fan sayısı eksik
                               Toast.show(
-                                  SelectLanguage().selectStrings(dilSecimi, "toast16"), context,
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast16"),
+                                  context,
                                   duration: 3);
                             } else if (sayac > fanAdet) {
                               //Haritada seçilen fan sayısı yüksek
                               Toast.show(
-                                  SelectLanguage().selectStrings(dilSecimi, "toast18"), context,
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast18"),
+                                  context,
                                   duration: 3);
                             } else if (dikdortgenHata) {
                               //Dikdörtgen seçim hatası
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast17"), context,
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast17"),
+                                  context,
                                   duration: 3);
                             } else {
-
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast8"), context, duration: 3);
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast8"),
+                                  context,
+                                  duration: 3);
                               haritaOnay = true;
 
                               for (int i = 1; i <= 12; i++) {
@@ -641,47 +1082,45 @@ class FanHaritasiState extends State<FanHaritasi> {
                               for (int i = 1; i <= 120; i++) {
                                 if (fanHarita[i] != 0) {
                                   fanVisibility[i] = true;
-                                  if(i%12==1){
-                                    sutun[1]=true;
-                                  }else if(i%12==2){
-                                    sutun[2]=true;
-                                  }else if(i%12==3){
-                                    sutun[3]=true;
-                                  }else if(i%12==4){
-                                    sutun[4]=true;
-                                  }else if(i%12==5){
-                                    sutun[5]=true;
-                                  }else if(i%12==6){
-                                    sutun[6]=true;
-                                  }else if(i%12==7){
-                                    sutun[7]=true;
-                                  }else if(i%12==8){
-                                    sutun[8]=true;
-                                  }else if(i%12==9){
-                                    sutun[9]=true;
-                                  }else if(i%12==10){
-                                    sutun[10]=true;
-                                  }else if(i%12==11){
-                                    sutun[11]=true;
-                                  }else if(i%12==0){
-                                    sutun[12]=true;
+                                  if (i % 12 == 1) {
+                                    sutun[1] = true;
+                                  } else if (i % 12 == 2) {
+                                    sutun[2] = true;
+                                  } else if (i % 12 == 3) {
+                                    sutun[3] = true;
+                                  } else if (i % 12 == 4) {
+                                    sutun[4] = true;
+                                  } else if (i % 12 == 5) {
+                                    sutun[5] = true;
+                                  } else if (i % 12 == 6) {
+                                    sutun[6] = true;
+                                  } else if (i % 12 == 7) {
+                                    sutun[7] = true;
+                                  } else if (i % 12 == 8) {
+                                    sutun[8] = true;
+                                  } else if (i % 12 == 9) {
+                                    sutun[9] = true;
+                                  } else if (i % 12 == 10) {
+                                    sutun[10] = true;
+                                  } else if (i % 12 == 11) {
+                                    sutun[11] = true;
+                                  } else if (i % 12 == 0) {
+                                    sutun[12] = true;
                                   }
                                 } else {
                                   fanVisibility[i] = false;
                                 }
                               }
 
-                              String veri="";
+                              String veri = "";
 
-                              for(int i=1;i<=120;i++){
-                                veri=veri+fanHarita[i].toString()+"#";
+                              for (int i = 1; i <= 120; i++) {
+                                veri = veri + fanHarita[i].toString() + "#";
                               }
-                              dbHelper.veriYOKSAekleVARSAguncelle(14, "ok", veri, "0", "0");
-                              
+                              dbHelper.veriYOKSAekleVARSAguncelle(
+                                  14, "ok", veri, "0", "0");
+
                               _veriGonder("12", "19", veri, "0", "0", "0");
-
-
-
 
                               setState(() {});
                             }
@@ -695,11 +1134,13 @@ class FanHaritasiState extends State<FanHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.map,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
-                                SelectLanguage().selectStrings(dilSecimi, "btn4"),
+                                SelectLanguage()
+                                    .selectStrings(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
+                                textScaleFactor: oran,
                               ),
                             ],
                           ),
@@ -707,15 +1148,14 @@ class FanHaritasiState extends State<FanHaritasi> {
                       ),
 
                       //Haritayı Sıfırla Butonu
-                      Visibility(visible: haritaOnay,
-                      maintainState: true,
-                      maintainSize: true,
-                      maintainAnimation: true,
-                                              child: FlatButton(
+                      Visibility(
+                        visible: haritaOnay,
+                        maintainState: true,
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        child: FlatButton(
                           onPressed: () {
-
                             _resetAlert(dilSecimi);
-
                           },
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
@@ -724,11 +1164,13 @@ class FanHaritasiState extends State<FanHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.refresh,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
-                                SelectLanguage().selectStrings(dilSecimi, "btn5"),
+                                SelectLanguage()
+                                    .selectStrings(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
+                                textScaleFactor: oran,
                               ),
                             ],
                           ),
@@ -736,52 +1178,67 @@ class FanHaritasiState extends State<FanHaritasi> {
                       ),
 
                       //Verileri Gönder Butonu
-                      Visibility(visible: haritaOnay,
-                      maintainState: true,
-                      maintainSize: true,
-                      maintainAnimation: true,
-                                              child: FlatButton(
+                      Visibility(
+                        visible: haritaOnay,
+                        maintainState: true,
+                        maintainSize: true,
+                        maintainAnimation: true,
+                        child: FlatButton(
                           onPressed: () {
-                            bool noKontrol=false;
-                            String cikisVeri="";
-                            String noVeri="";
-                            for(int i =1; i<=120; i++){
-                              if(fanHarita[i]==2){
-                                if(fanNo[i]==0 || cikisNo[i]==0){
-                                  noKontrol=true;
+                            bool noKontrol = false;
+                            String cikisVeri = "";
+                            String noVeri = "";
+                            for (int i = 1; i <= 120; i++) {
+                              if (fanHarita[i] == 2) {
+                                if (fanNo[i] == 0 || cikisNo[i] == 0) {
+                                  noKontrol = true;
                                 }
                               }
-                              cikisVeri=cikisVeri+cikisNo[i].toString()+"#";
-                              noVeri=noVeri+fanNo[i].toString()+"#";
+                              cikisVeri =
+                                  cikisVeri + cikisNo[i].toString() + "#";
+                              noVeri = noVeri + fanNo[i].toString() + "#";
                             }
-                            if(noKontrol){
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast24"), context,duration: 3);
-                            }else if(fanNoTekerrur){
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast25"), context,duration: 3);
-
-                            }else if(cikisNoTekerrur){
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast26"), context,duration: 3);
-
-                            }else{
-                              veriGonderildi=true;
-                              _veriGonder("13", "20", noVeri, cikisVeri, "0", "0");
-                              dbHelper.veriYOKSAekleVARSAguncelle(15, "ok", noVeri, cikisVeri, "0");
+                            if (noKontrol) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast24"),
+                                  context,
+                                  duration: 3);
+                            } else if (fanNoTekerrur) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast25"),
+                                  context,
+                                  duration: 3);
+                            } else if (cikisNoTekerrur) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast26"),
+                                  context,
+                                  duration: 3);
+                            } else {
+                              veriGonderildi = true;
+                              _veriGonder(
+                                  "13", "20", noVeri, cikisVeri, "0", "0");
+                              dbHelper.veriYOKSAekleVARSAguncelle(
+                                  15, "ok", noVeri, cikisVeri, "0");
                             }
-                              
-
                           },
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
-                          color:veriGonderildi ? Colors.green[500] : Colors.blue,
+                          color:
+                              veriGonderildi ? Colors.green[500] : Colors.blue,
                           child: Row(
                             children: <Widget>[
                               Icon(
                                 Icons.send,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
-                                SelectLanguage().selectStrings(dilSecimi, "btn6"),
+                                SelectLanguage()
+                                    .selectStrings(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
+                                textScaleFactor: oran,
                               ),
                             ],
                           ),
@@ -810,21 +1267,21 @@ class FanHaritasiState extends State<FanHaritasi> {
                       icon: Icon(Icons.arrow_forward_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-
-                        if(!veriGonderildi){
-                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast27"), context,duration: 3);
-
-                        }else{
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => KlepeHaritasi(dilSecimi,klepeHarita,klepeNo,cikisNoAc,cikisNoKapa,veriGonderildiKlepe)),
-                        );
-
-
+                        if (!veriGonderildi) {
+                          Toast.show(
+                              SelectLanguage()
+                                  .selectStrings(dilSecimi, "toast27"),
+                              context,
+                              duration: 3);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => KlepeHaritasi(dbVeriler)),
+                          ).then((onValue) {
+                            _dbVeriCekme();
+                          });
                         }
-
                       },
                       color: Colors.black,
                     )),
@@ -842,141 +1299,20 @@ class FanHaritasiState extends State<FanHaritasi> {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
-  _satirlar(List<Map> satirlar) {
-    for(int i=0;i<=dbSatirSayisi-1;i++){
-      if(satirlar[i]["id"]==0){
-        dilSecimi = satirlar[i]["veri1"];
-      }
+_satirlar(List<Map> satirlar) {
 
-      if(satirlar[i]["id"]==1){
-        kurulumDurum = satirlar[i]["veri1"];
-      }
-
-      if(satirlar[i]["id"]==4){
-        fanAdet = int.parse(satirlar[i]["veri1"]);
-      }
-
-      if(satirlar[i]["id"]==14){
-        
-      if(satirlar[i]["veri1"]=="ok"){
-        String xx=satirlar[i]["veri2"];
-        var fHaritalar = xx.split("#");
-        for(int i=1;i<=120;i++ ){
-          fanHarita[i]=int.parse(fHaritalar[i-1]);
-          if(fHaritalar[i-1]!="0"){
-          haritaOnay=true;
-      }
-      
-    }
-
-      for (int i = 1; i <= 12; i++) {
-      sutun[i] = false;
-    }
-
-    for (int i = 1; i <= 120; i++) {
-      if (fanHarita[i] != 0) {
-        fanVisibility[i] = true;
-        if(i%12==1){
-          sutun[1]=true;
-        }else if(i%12==2){
-          sutun[2]=true;
-        }else if(i%12==3){
-          sutun[3]=true;
-        }else if(i%12==4){
-          sutun[4]=true;
-        }else if(i%12==5){
-          sutun[5]=true;
-        }else if(i%12==6){
-          sutun[6]=true;
-        }else if(i%12==7){
-          sutun[7]=true;
-        }else if(i%12==8){
-          sutun[8]=true;
-        }else if(i%12==9){
-          sutun[9]=true;
-        }else if(i%12==10){
-          sutun[10]=true;
-        }else if(i%12==11){
-          sutun[11]=true;
-        }else if(i%12==0){
-          sutun[12]=true;
-        }
-      } else {
-        fanVisibility[i] = false;
-      }
-    }
-
-    }
-    
-      }
-
-      if(satirlar[i]["id"]==15){
-        String xx;
-      String yy;
-      
-      if(satirlar[i]["veri1"]=="ok"){
-        veriGonderildi=true;
-        xx=satirlar[i]["veri2"];
-        yy=satirlar[i]["veri3"];
-        var fanNolar=xx.split("#");
-        var cikisNolar=yy.split("#");
-        for(int i=1;i<=120;i++){
-          fanNo[i]=int.parse(fanNolar[i-1]);
-          cikisNo[i]=int.parse(cikisNolar[i-1]);
-        }
-
-      }
-      }
-
-
-      if(satirlar[i]["id"]==16){
-        if(satirlar[i]["veri1"]=="ok"){
-        String xx=satirlar[i]["veri2"];
-        var fHaritalar = xx.split("#");
-        for(int i=1;i<=18;i++ ){
-          klepeHarita[i]=int.parse(fHaritalar[i-1]);
-          if(fHaritalar[i-1]!="0"){
-          haritaOnayKlepe=true;
-      }
-      
-    }
-
-    }
-      }
-
-
-      if(satirlar[i]["id"]==17){
-        String xx;
-        String yy;
-        String zz;
-      
-      if(satirlar[i]["veri1"]=="ok"){
-        veriGonderildiKlepe=true;
-        xx=satirlar[i]["veri2"];
-        yy=satirlar[i]["veri3"];
-        zz=satirlar[i]["veri4"];
-        var klepeNolar=xx.split("#");
-        var cikisNolarAc=yy.split("#");
-        var cikisNolarKapa=zz.split("#");
-        for(int i=1;i<=18;i++){
-          klepeNo[i]=int.parse(klepeNolar[i-1]);
-          cikisNoAc[i]=int.parse(cikisNolarAc[i-1]);
-          cikisNoKapa[i]=int.parse(cikisNolarKapa[i-1]);
-        }
-
-      }
-      }
-
-
-
-    }
-    
-
-    
-
-    print(satirlar);
-    setState(() {});
+    dbVeriler=satirlar;
   }
+
+_dbVeriCekme(){
+    dbSatirlar = dbHelper.satirlariCek();
+    final satirSayisi = dbHelper.satirSayisi();
+    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+    satirSayisi.whenComplete(() {
+        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+    });
+}
+
 
   String imageGetir(int deger) {
     String imagePath;
@@ -992,213 +1328,195 @@ class FanHaritasiState extends State<FanHaritasi> {
     return imagePath;
   }
 
-
   Future _degergiris2X2X0() async {
-
     // flutter defined function
 
     await showDialog(
       barrierDismissible: false,
-
       context: context,
-
       builder: (BuildContext context) {
-
         // return object of type Dialog
 
-
-
-        return DegerGiris2X2X0.Deger(_onlarFan,_birlerFan,_onlarOut,_birlerOut,_degerNo,_oran1,dilSecimi,"tv34");
-
+        return DegerGiris2X2X0.Deger(_onlarFan, _birlerFan, _onlarOut,
+            _birlerOut, _degerNo, _oran1, dilSecimi, "tv34");
       },
-
-    ).then((val){
-      if(_onlarFan!=val[0] || _birlerFan!=val[1] ||_onlarOut!=val[2] || _birlerOut!=val[3]){
-        veriGonderildi=false;
+    ).then((val) {
+      if (_onlarFan != val[0] ||
+          _birlerFan != val[1] ||
+          _onlarOut != val[2] ||
+          _birlerOut != val[3]) {
+        veriGonderildi = false;
       }
-      _onlarFan=val[0];
-      _birlerFan=val[1];
-      _onlarOut=val[2];
-      _birlerOut=val[3];
-      _degerNo=val[4];
+      _onlarFan = val[0];
+      _birlerFan = val[1];
+      _onlarOut = val[2];
+      _birlerOut = val[3];
+      _degerNo = val[4];
 
-      
-      fanNo[_degerNo]=int.parse(_onlarFan.toString()+_birlerFan.toString());  
-      cikisNo[_degerNo]=int.parse(_onlarOut.toString()+_birlerOut.toString());
-      fanNoTekerrur=false;
-      cikisNoTekerrur=false;
+      fanNo[_degerNo] = int.parse(_onlarFan.toString() + _birlerFan.toString());
+      cikisNo[_degerNo] =
+          int.parse(_onlarOut.toString() + _birlerOut.toString());
+      fanNoTekerrur = false;
+      cikisNoTekerrur = false;
 
-      for(int i=1;i<=120;i++){
-        
-        for(int k=1;k<=120;k++){
-          if(i!=k && fanNo[i]==fanNo[k] && fanNo[i]!=0 && fanNo[k]!=0){
-            fanNoTekerrur=true;
+      for (int i = 1; i <= 120; i++) {
+        for (int k = 1; k <= 120; k++) {
+          if (i != k &&
+              fanNo[i] == fanNo[k] &&
+              fanNo[i] != 0 &&
+              fanNo[k] != 0) {
+            fanNoTekerrur = true;
             break;
           }
-          if(fanNoTekerrur){
+          if (fanNoTekerrur) {
             break;
           }
-          if(i!=k && cikisNo[i]==cikisNo[k] && cikisNo[i]!=0 && cikisNo[k]!=0){
-            cikisNoTekerrur=true;
+          if (i != k &&
+              cikisNo[i] == cikisNo[k] &&
+              cikisNo[i] != 0 &&
+              cikisNo[k] != 0) {
+            cikisNoTekerrur = true;
             break;
           }
-          if(cikisNoTekerrur){
+          if (cikisNoTekerrur) {
             break;
           }
         }
       }
-      
-      
-      
-
-      setState(() {
-
-      });
+      setState(() {});
     });
-
   }
 
-
-  Widget _fanHaritaUnsur (int indexNo){
-
+  Widget _fanHaritaUnsur(int indexNo) {
     return Expanded(
-                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[                    
-                                    
-                                    Expanded(flex: 6,
-                                      child: RawMaterialButton(
-                                        onPressed: () {
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Expanded(
+            child: RawMaterialButton(
+                onPressed: () {
+                  if (haritaOnay) {
+                    if (fanHarita[indexNo] == 2) {
+                      _onlarFan = fanNo[indexNo] < 10
+                          ? 0
+                          : (fanNo[indexNo] ~/ 10).toInt();
+                      _birlerFan = fanNo[indexNo] % 10;
+                      _onlarOut = cikisNo[indexNo] < 10
+                          ? 0
+                          : (cikisNo[indexNo] ~/ 10).toInt();
+                      _birlerOut = cikisNo[indexNo] % 10;
+                      _degerNo = indexNo;
+                      _degergiris2X2X0();
+                    }
+                  } else {
+                    if (fanHarita[indexNo] == 0 || fanHarita[indexNo] == null) {
+                      fanHarita[indexNo] = 1;
+                    } else if (fanHarita[indexNo] == 1) {
+                      fanHarita[indexNo] = 2;
+                    } else if (fanHarita[indexNo] == 2) {
+                      fanHarita[indexNo] = 0;
+                    }
 
-                                          if(haritaOnay){
-                                            if(fanHarita[indexNo]==2){
-                                              _onlarFan=fanNo[indexNo]<10 ? 0 : (fanNo[indexNo]~/10).toInt();
-                                              _birlerFan=fanNo[indexNo]%10;
-                                              _onlarOut=cikisNo[indexNo]<10 ? 0 : (cikisNo[indexNo]~/10).toInt();
-                                              _birlerOut=cikisNo[indexNo]%10;
-                                              _degerNo=indexNo;
-                                              _degergiris2X2X0();
-                                            }
-
-                                          }else{
-
-                                            if (fanHarita[indexNo] == 0 ||
-                                              fanHarita[indexNo] == null) {
-                                            fanHarita[indexNo] = 1;
-                                          } else if (fanHarita[indexNo] == 1) {
-                                            fanHarita[indexNo] = 2;
-                                          } else if (fanHarita[indexNo] == 2) {
-                                            fanHarita[indexNo] = 0;
-                                          }
-
-                                          setState(() {});
-
-                                          }
-
-                                        
-
-                                        },
-                                        child: Stack(children: <Widget>[
-
-
-                                          Opacity(
-                                            child: Container(
-                                            decoration: BoxDecoration(//color: Colors.pink,
-                                              image: DecorationImage(
-                                                alignment: Alignment.center,
-                                                image: AssetImage(
-                                                    imageGetir(fanHarita[indexNo])),
-                                                fit: BoxFit.contain,
-                                              ),
-                                            ),
+                    setState(() {});
+                  }
+                },
+                child: Stack(
+                  children: <Widget>[
+                    Opacity(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            alignment: Alignment.center,
+                            image: AssetImage(imageGetir(fanHarita[indexNo])),
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      opacity: fanVisibility[indexNo] &&
+                              haritaOnay &&
+                              fanHarita[indexNo] == 2
+                          ? 0.6
+                          : 1,
+                    ),
+                    Visibility(
+                      visible:
+                          haritaOnay && fanHarita[indexNo] != 0 ? true : false,
+                      child: Visibility(
+                        visible: haritaOnay && fanHarita[indexNo] == 2
+                            ? true
+                            : false,
+                        child: Column(
+                          children: <Widget>[
+                            Spacer(),
+                            //Fan No
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      child: Container(
+                                        alignment: Alignment.bottomCenter,
+                                        child: AutoSizeText(
+                                          SelectLanguage().selectStrings(
+                                                  dilSecimi, "tv32") +
+                                              fanNo[indexNo].toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily: 'Kelly Slab'),
+                                          maxLines: 1,
+                                          minFontSize: 8,
                                         ),
-                                         opacity: fanVisibility[indexNo] && haritaOnay && fanHarita[indexNo]==2 ? 0.6 : 1,
-                                          ),
-                                          
-                                          Visibility(
-                                          visible: haritaOnay && fanHarita[indexNo] !=0
-                                              ? true
-                                              : false,
-                                          child: Visibility(
-                                            visible: haritaOnay && fanHarita[indexNo] == 2
-                                                ? true
-                                                : false,
-                                             child: Column(
-                                              children: <Widget>[
-                                                Spacer(),
-                                                //Fan No
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: SizedBox(
-                                                          child: Container(
-                                                            alignment: Alignment.bottomCenter,
-                                                            child: AutoSizeText(
-                                                              SelectLanguage().selectStrings(dilSecimi, "tv32")+fanNo[indexNo].toString(),
-                                                              textAlign:
-                                                                  TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontSize: 50.0,
-                                                                  fontFamily:
-                                                                      'Kelly Slab'),
-                                                              maxLines: 1,
-                                                              minFontSize: 8,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),],
-                                                  ),
-                                                ),
-                                                //Çıkış No
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: SizedBox(
-                                                          child: Container(
-                                                            alignment: Alignment.topCenter,
-                                                            child: AutoSizeText(
-                                                              SelectLanguage().selectStrings(dilSecimi, "tv33")+cikisNo[indexNo].toString(),
-                                                              textAlign:
-                                                                  TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontSize: 50.0,
-                                                                  fontFamily:
-                                                                      'Kelly Slab'),
-                                                              maxLines: 1,
-                                                              minFontSize: 8,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      ],
-                                                  ),
-                                                ),
-                                                Spacer()
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                   
-
-                                        ],)
-                                        
-                                        
-                                        ),
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              )
-                            ;
-
+                                  ),
+                                ],
+                              ),
+                            ),
+                            //Çıkış No
+                            Expanded(
+                              flex: 2,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: SizedBox(
+                                      child: Container(
+                                        alignment: Alignment.topCenter,
+                                        child: AutoSizeText(
+                                          SelectLanguage().selectStrings(
+                                                  dilSecimi, "tv33") +
+                                              cikisNo[indexNo].toString(),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily: 'Kelly Slab'),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Spacer()
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+        ],
+      ),
+    );
   }
 
-
-_veriGonder(String dbKod,String id, String v1, String v2, String v3, String v4) async {
+  _veriGonder(String dbKod, String id, String v1, String v2, String v3,
+      String v4) async {
     Socket socket;
 
     try {
@@ -1215,7 +1533,9 @@ _veriGonder(String dbKod,String id, String v1, String v2, String v3, String v4) 
         var gelen_mesaj_parcali = gelen_mesaj.split("*");
 
         if (gelen_mesaj_parcali[0] == 'ok') {
-          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast8"), context, duration: 2);
+          Toast.show(
+              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
         }
@@ -1237,8 +1557,7 @@ _veriGonder(String dbKod,String id, String v1, String v2, String v3, String v4) 
     }
   }
 
-
-Future _resetAlert(String x) async {
+  Future _resetAlert(String x) async {
     // flutter defined function
 
     await showDialog(
@@ -1249,33 +1568,26 @@ Future _resetAlert(String x) async {
 
         return ResetAlert.deger(x);
       },
-    ).then((val){
+    ).then((val) {
+      if (val) {
+        veriGonderildi = false;
+        for (int i = 1; i <= 120; i++) {
+          fanHarita[i] = 0;
+          fanNo[i] = 0;
+          cikisNo[i] = 0;
+          fanVisibility[i] = true;
+        }
+        for (int i = 1; i <= 12; i++) {
+          sutun[i] = true;
+        }
+        haritaOnay = false;
 
-      if(val){
-        
+        dbHelper.veriYOKSAekleVARSAguncelle(14, "0", "0", "0", "0");
+        dbHelper.veriYOKSAekleVARSAguncelle(15, "0", "0", "0", "0");
+        _veriGonder("14", "0", "0", "0", "0", "0");
 
-                            veriGonderildi=false;
-                            for (int i = 1; i <= 120; i++) {
-                              fanHarita[i] = 0;
-                              fanNo[i]=0;
-                              cikisNo[i]=0;
-                              fanVisibility[i] = true;
-                            }
-                            for (int i = 1; i <= 12; i++) {
-                                sutun[i] = true;
-                              }
-                            haritaOnay = false;
-
-                            
-                              dbHelper.veriYOKSAekleVARSAguncelle(14, "0", "0", "0", "0");
-                              dbHelper.veriYOKSAekleVARSAguncelle(15, "0", "0", "0", "0");
-                              _veriGonder("14", "0", "0", "0", "0", "0");
-
-                          setState(() {});
-
-                          
+        setState(() {});
       }
-      
     });
   }
 

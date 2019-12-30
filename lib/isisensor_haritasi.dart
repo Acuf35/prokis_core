@@ -13,23 +13,22 @@ import 'genel/deger_giris_2x2x0.dart';
 import 'languages/select.dart';
 
 class IsiSensorHaritasi extends StatefulWidget {
-  String gelenDil;
-
-  IsiSensorHaritasi(String dil) {
-    gelenDil = dil;
+  List<Map> gelenDBveri;
+  IsiSensorHaritasi(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
   }
   @override
   State<StatefulWidget> createState() {
-    return IsiSensorHaritasiState(gelenDil);
+    return IsiSensorHaritasiState(gelenDBveri);
   }
 }
 
 class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
-  int dbSayac = 0;
   String dilSecimi = "TR";
   String kurulumDurum = "0";
   List<int> isisensorHarita = new List(23);
@@ -47,7 +46,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   double _oran1;
   bool veriGonderildi = false;
   bool isisensorNoTekerrur = false;
-  bool cikisNoTekerrur = false;
 
   int sayacAktifSensor = 0;
   bool baglanti = false;
@@ -62,41 +60,102 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
-//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+    IsiSensorHaritasiState(List<Map> dbVeri) {
+    bool isisensorHaritaOK=false;
+    bool isisensorNoOK=false;
+    bool aktifIsisensorNoOK=false;
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+      if (dbVeri[i]["id"] == 1) {
+        dilSecimi = dbVeri[i]["veri1"];
+      }
 
-  IsiSensorHaritasiState(String dil) {
-    for (int i = 1; i <= 22; i++) {
-      isisensorHarita[i] = 0;
-      isisensorNo[i] = 0;
-      isisensorVisibility[i] = true;
+      if (dbVeri[i]["id"] == 4) {
+        isisensorAdet = int.parse(dbVeri[i]["veri4"]);
+      }
+
+      if (dbVeri[i]["id"] == 20) {
+        if (dbVeri[i]["veri1"] == "ok") {
+          isisensorHaritaOK=true;
+          String xx = dbVeri[i]["veri2"];
+          var fHaritalar = xx.split("#");
+          for (int i = 1; i <= 22; i++) {
+            isisensorHarita[i] = int.parse(fHaritalar[i - 1]);
+            if (fHaritalar[i - 1] != "0") {
+              haritaOnay = true;
+            }
+          }
+
+          for (int i = 1; i <= 22; i++) {
+            if (isisensorHarita[i] != 0) {
+              isisensorVisibility[i] = true;
+            } else {
+              isisensorVisibility[i] = false;
+            }
+          }
+        }
+      }
+
+      if (dbVeri[i]["id"] == 21) {
+        String xx;
+        String yy;
+
+        if (dbVeri[i]["veri1"] == "ok") {
+          isisensorNoOK=true;
+          veriGonderildi = true;
+          xx = dbVeri[i]["veri2"];
+          yy = dbVeri[i]["veri3"];
+          var isisensorNolar = xx.split("#");
+          var cikisNolar = yy.split("#");
+          for (int i = 1; i <= 22; i++) {
+            isisensorNo[i] = int.parse(isisensorNolar[i - 1]);
+          }
+        }
+      }
+
+      
+
+      
+    }
+
+    if(!isisensorHaritaOK){
+      for(int i=1;i<=22;i++){
+        isisensorHarita[i] = 0;
+        isisensorVisibility[i] = true;
+      }
+      
+    }
+
+    if(!isisensorNoOK){
+      for(int i=1;i<=22;i++){
+        isisensorNo[i] = 0;
+      }
+      
+    }
+
+    if(!aktifIsisensorNoOK){
+      for(int i=1;i<=15;i++){
+         aktifSensorNo[i] = 0;
+      }
+      
     }
 
     for (int i = 1; i <= 15; i++) {
       aktifSensorID[i] = "";
       aktifSensorValue[i] = "0.0";
-      aktifSensorNo[i] = 0;
       aktifSensorVisibility[i] = false;
       aktifSensorDurum[i] = false;
     }
 
-    dilSecimi = dil;
+    _dbVeriCekme();
   }
+//--------------------------CONSTRUCTER METHOD--------------------------------
 
-  //--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
-//++++++++++++++++++++++++++DATABASE'den SATIRLARI ÇEKME+++++++++++++++++++++++++++++++
-    dbSatirlar = dbHelper.satirlariCek();
-    final satirSayisi = dbHelper.satirSayisi();
-    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
-    satirSayisi.whenComplete(() {
-      if (dbSayac == 0) {
-        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
-        dbSayac++;
-      }
-    });
-//--------------------------DATABASE'den SATIRLARI ÇEKME--------------------------------
+
+    
 
     if (sayacAktifSensor == 0) {
       print("İlk Takip Et çalıştırıldı!!!");
@@ -134,15 +193,28 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
         Expanded(
             child: Container(
           color: Colors.grey.shade600,
-          child: Text(
-            SelectLanguage()
-                .selectStrings(dilSecimi, "tv48"), // isisensor Haritası
-            style: TextStyle(
-                fontFamily: 'Kelly Slab',
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: SizedBox(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      SelectLanguage().selectStrings(dilSecimi, "tv48"),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Kelly Slab',
+                          color: Colors.white,
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      minFontSize: 8,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           alignment: Alignment.center,
         )),
@@ -172,7 +244,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     child: Text(
                                   "Sisteme bağlı aktif sensor yok...",
                                   style: TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 20*oran,
                                       fontFamily: "Kelly Slab",
                                       color: Colors.grey[300],
                                       fontWeight: FontWeight.bold),
@@ -185,13 +257,27 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     child: Row(
                                       children: <Widget>[
                                         //Aktif sensörler başlık
-                                        Center(
-                                            child: RotatedBox(
-                                          child: Text(SelectLanguage()
-                                              .selectStrings(
-                                                  dilSecimi, "tv51")),
-                                          quarterTurns: -45,
-                                        )),
+                                        Expanded(flex: 2,
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv51"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                                         //Aktif Sensorler 1-2-3
                                         Expanded(
                                           flex: 10,
@@ -275,21 +361,52 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                           )),
                       Spacer(),
                       //Sensor Konumları Bölümü
-                      Text(
-                        "Bina Üst Görünüş",
-                      ),
+                      Expanded(flex: 2,
+                              child: SizedBox(
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: AutoSizeText(
+                                    SelectLanguage()
+                                        .selectStrings(dilSecimi, "tv57"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 40,
+                                    ),
+                                    maxLines: 1,
+                                    minFontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
                       Expanded(
                         flex: 20,
                         child: Row(
                           children: <Widget>[
                             //Sağ Duvar
-                            Center(
-                                child: RotatedBox(
-                              child: Text("Ön"),
-                              quarterTurns: -45,
-                            )),
+                            Expanded(flex: 1,
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv58"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Expanded(
-                                flex: 16,
+                                flex: 27,
                                 child: Stack(
                                   children: <Widget>[
                                     Container(
@@ -411,11 +528,28 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     )
                                   ],
                                 )),
-                            Center(
-                                child: RotatedBox(
-                              child: Text("Arka"),
-                              quarterTurns: -45,
-                            )),
+                            Expanded(flex: 1,
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv59"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            
                           ],
                         ),
                       ),
@@ -515,7 +649,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.map,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -545,7 +679,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.refresh,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -567,7 +701,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                         child: FlatButton(
                           onPressed: () {
                             bool noKontrol = false;
-                            String cikisVeri = "";
                             String noVeri = "";
                             for (int i = 1; i <= 22; i++) {
                               if (isisensorHarita[i] == 1) {
@@ -586,22 +719,16 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             } else if (isisensorNoTekerrur) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast28"),
-                                  context,
-                                  duration: 3);
-                            } else if (cikisNoTekerrur) {
-                              Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast26"),
+                                      .selectStrings(dilSecimi, "toast31"),
                                   context,
                                   duration: 3);
                             } else {
                               veriGonderildi = true;
 
                               _veriGonder(
-                                  "19", "24", noVeri, cikisVeri, "0", "0");
+                                  "19", "24", noVeri, "0", "0", "0");
                               dbHelper.veriYOKSAekleVARSAguncelle(
-                                  21, "ok", noVeri, cikisVeri, "0");
+                                  21, "ok", noVeri, "0", "0");
                             }
                           },
                           highlightColor: Colors.green,
@@ -612,7 +739,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.send,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -659,8 +786,10 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MhYontemi(dilSecimi)),
-                        );
+                              builder: (context) => MhYontemi(dbVeriler)),
+                        ).then((onValue) {
+                            _dbVeriCekme();
+                          });
 */
 
                         }
@@ -681,61 +810,19 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
-  _satirlar(List<Map> satirlar) {
-    for (int i = 0; i <= dbSatirSayisi - 1; i++) {
-      if (satirlar[i]["id"] == 0) {
-        dilSecimi = satirlar[i]["veri1"];
-      }
+_satirlar(List<Map> satirlar) {
 
-      if (satirlar[i]["id"] == 1) {
-        kurulumDurum = satirlar[i]["veri1"];
-      }
-
-      if (satirlar[i]["id"] == 4) {
-        isisensorAdet = int.parse(satirlar[i]["veri4"]);
-      }
-
-      if (satirlar[i]["id"] == 20) {
-        if (satirlar[i]["veri1"] == "ok") {
-          String xx = satirlar[i]["veri2"];
-          var fHaritalar = xx.split("#");
-          for (int i = 1; i <= 22; i++) {
-            isisensorHarita[i] = int.parse(fHaritalar[i - 1]);
-            if (fHaritalar[i - 1] != "0") {
-              haritaOnay = true;
-            }
-          }
-
-          for (int i = 1; i <= 22; i++) {
-            if (isisensorHarita[i] != 0) {
-              isisensorVisibility[i] = true;
-            } else {
-              isisensorVisibility[i] = false;
-            }
-          }
-        }
-      }
-
-      if (satirlar[i]["id"] == 21) {
-        String xx;
-        String yy;
-
-        if (satirlar[i]["veri1"] == "ok") {
-          veriGonderildi = true;
-          xx = satirlar[i]["veri2"];
-          yy = satirlar[i]["veri3"];
-          var isisensorNolar = xx.split("#");
-          var cikisNolar = yy.split("#");
-          for (int i = 1; i <= 22; i++) {
-            isisensorNo[i] = int.parse(isisensorNolar[i - 1]);
-          }
-        }
-      }
-    }
-
-    print(satirlar);
-    setState(() {});
+    dbVeriler=satirlar;
   }
+
+_dbVeriCekme(){
+    dbSatirlar = dbHelper.satirlariCek();
+    final satirSayisi = dbHelper.satirSayisi();
+    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+    satirSayisi.whenComplete(() {
+        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+    });
+}
 
   String imageGetir(int deger) {
     String imagePath;
@@ -804,9 +891,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
           break;
         }
         if (isisensorNoTekerrur) {
-          break;
-        }
-        if (cikisNoTekerrur) {
           break;
         }
       }
@@ -1013,7 +1097,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
             if (gelenMesaj != "") {
               var sensorler = gelenMesaj.split('*');
               print(sensorler);
-              print(sensorler.length);
               aktifSenSay = ((sensorler.length - 1) ~/ 3).toInt();
 
               for (int i = 1; i <= 15; i++) {
@@ -1068,7 +1151,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
             Text(
               SelectLanguage().selectStrings(dilSecimi, "tv50") +
                   aktifSensorNo[index].toString(),
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontSize: 14),textScaleFactor: oran,
             ),
             Expanded(
               child: RawMaterialButton(

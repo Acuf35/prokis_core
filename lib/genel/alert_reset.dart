@@ -44,7 +44,7 @@ class _ResetAlertState extends State<ResetAlert> {
 
     return AlertDialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          borderRadius: BorderRadius.all(Radius.circular(32.0*oran))),
       backgroundColor: Colors.deepOrange.shade800,
       title: Container(
         padding: EdgeInsets.all(10 * oran),
@@ -58,7 +58,7 @@ class _ResetAlertState extends State<ResetAlert> {
                   SelectLanguage().selectStrings(dilSecimi, 'tv37'),
                   style:
                       TextStyle(color: Colors.white, fontFamily: 'Kelly Slab'),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,textScaleFactor: oran,
                 )
               ],
             ),
@@ -69,7 +69,7 @@ class _ResetAlertState extends State<ResetAlert> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(right: 10 * oran),
+                    margin: EdgeInsets.only(right: 20 * oran),
                     child: RaisedButton(
                       color: Colors.indigo,
                       onPressed: () {

@@ -14,19 +14,19 @@ import 'genel/deger_giris_2x2x0.dart';
 import 'languages/select.dart';
 
 class PedHaritasi extends StatefulWidget {
-  String gelenDil;
-
-  PedHaritasi(String dil) {
-    gelenDil = dil;
+  List<Map> gelenDBveri;
+  PedHaritasi(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
   }
   @override
   State<StatefulWidget> createState() {
-    return PedHaritasiState(gelenDil);
+    return PedHaritasiState(gelenDBveri);
   }
 }
 
 class PedHaritasiState extends State<PedHaritasi> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
@@ -53,20 +53,89 @@ class PedHaritasiState extends State<PedHaritasi> {
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
-//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
 
-  PedHaritasiState(String dil) {
-    for (int i = 1; i <= 24; i++) {
-      pedHarita[i] = 0;
-      pedNo[i] = 0;
-      cikisNo[i] = 0;
-      pedVisibility[i] = true;
+//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  PedHaritasiState(List<Map> dbVeri) {
+    bool pedHaritaOK=false;
+    bool pedCikisOK=false;
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+      if (dbVeri[i]["id"] == 1) {
+        dilSecimi = dbVeri[i]["veri1"];
+      }
+
+      if(dbVeri[i]["id"]==4){
+        pedAdet = int.parse(dbVeri[i]["veri3"]);
+      }
+
+      if(dbVeri[i]["id"]==18){
+        if(dbVeri[i]["veri1"]=="ok"){
+          pedHaritaOK=true;
+        String xx=dbVeri[i]["veri2"];
+        var fHaritalar = xx.split("#");
+        for(int i=1;i<=24;i++ ){
+          pedHarita[i]=int.parse(fHaritalar[i-1]);
+          if(fHaritalar[i-1]!="0"){
+          haritaOnay=true;
+      }
+      
     }
 
-    dilSecimi = dil;
-  }
+    for (int i = 1; i <= 24; i++) {
+      if (pedHarita[i] != 0) {
+        pedVisibility[i] = true;
+      } else {
+        pedVisibility[i] = false;
+      }
+    }
 
-  //--------------------------CONSTRUCTER METHOD--------------------------------
+      }
+
+
+    }
+
+    if(dbVeri[i]["id"]==19){
+        String xx;
+        String yy;
+
+        if(dbVeri[i]["veri1"]=="ok"){
+          pedCikisOK=true;
+          veriGonderildi=true;
+          xx=dbVeri[i]["veri2"];
+          yy=dbVeri[i]["veri3"];
+          var pedNolar=xx.split("#");
+          var cikisNolar=yy.split("#");
+          for(int i=1;i<=24;i++){
+            pedNo[i]=int.parse(pedNolar[i-1]);
+            cikisNo[i]=int.parse(cikisNolar[i-1]);
+          }
+
+        }
+      
+      }
+
+      
+    }
+
+    if(!pedHaritaOK){
+      for(int i=1;i<=24;i++){
+        pedHarita[i]=0;
+        pedVisibility[i]=true;
+      }
+      
+    }
+
+    if(!pedCikisOK){
+      for(int i=1;i<=24;i++){
+        pedNo[i]=0;
+        cikisNo[i]=0;
+      }
+      
+    }
+
+    _dbVeriCekme();
+  }
+//--------------------------CONSTRUCTER METHOD--------------------------------
+
 
   @override
   Widget build(BuildContext context) {
@@ -100,14 +169,28 @@ class PedHaritasiState extends State<PedHaritasi> {
         Expanded(
             child: Container(
           color: Colors.grey.shade600,
-          child: Text(
-            SelectLanguage().selectStrings(dilSecimi, "tv47"), // Ped Haritası
-            style: TextStyle(
-                fontFamily: 'Kelly Slab',
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: SizedBox(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      SelectLanguage().selectStrings(dilSecimi, "tv47"),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Kelly Slab',
+                          color: Colors.white,
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      minFontSize: 8,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           alignment: Alignment.center,
         )),
@@ -134,7 +217,27 @@ class PedHaritasiState extends State<PedHaritasi> {
                         child: Row(
                           children: <Widget>[
                             //Ön Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Ön Duvar"),quarterTurns: -45,)),),
+                            Expanded(
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv53"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Expanded(flex: 8,
                               child: Stack(children: <Widget>[
                                 Container(
@@ -157,7 +260,27 @@ class PedHaritasiState extends State<PedHaritasi> {
                             ),
                             Spacer(),
                             //Sağ Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Sağ Duvar"),quarterTurns: -45,)),),
+                            Expanded(
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv54"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Expanded(flex: 16,
                               child: Stack(children: <Widget>[
                                 Container(
@@ -206,7 +329,27 @@ class PedHaritasiState extends State<PedHaritasi> {
                         child: Row(
                           children: <Widget>[
                             //Arka Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Arka Duvar"),quarterTurns: -45,)),),
+                            Expanded(
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv55"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Expanded(flex: 8,
                               child: Stack(children: <Widget>[
                                 Container(
@@ -229,7 +372,27 @@ class PedHaritasiState extends State<PedHaritasi> {
                             ),
                             Spacer(),
                             //Sol Duvar
-                            Expanded(child: Center(child: RotatedBox(child: Text("Sol Duvar"),quarterTurns: -45,)),),
+                            Expanded(
+                              child: RotatedBox(
+                                quarterTurns: -45,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv56"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Expanded(flex: 16,
                               child: Stack(children: <Widget>[
                                 Container(
@@ -369,7 +532,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.map,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -398,7 +561,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.refresh,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -440,7 +603,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                             } else if (pedNoTekerrur) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast28"),
+                                      .selectStrings(dilSecimi, "toast32"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
@@ -467,7 +630,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.send,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -512,8 +675,10 @@ class PedHaritasiState extends State<PedHaritasi> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => IsiSensorHaritasi(dilSecimi)),
-                        );
+                              builder: (context) => IsiSensorHaritasi(dbVeriler)),
+                        ).then((onValue) {
+                            _dbVeriCekme();
+                          });
 
 
                         }
@@ -534,70 +699,19 @@ class PedHaritasiState extends State<PedHaritasi> {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
-  _satirlar(List<Map> satirlar) {
-    for(int i=0;i<=dbSatirSayisi-1;i++){
-      if(satirlar[i]["id"]==0){
-        dilSecimi = satirlar[i]["veri1"];
-      }
+_satirlar(List<Map> satirlar) {
 
-      if(satirlar[i]["id"]==1){
-        kurulumDurum = satirlar[i]["veri1"];
-      }
-
-      if(satirlar[i]["id"]==4){
-        pedAdet = int.parse(satirlar[i]["veri3"]);
-      }
-
-      if(satirlar[i]["id"]==18){
-        if(satirlar[i]["veri1"]=="ok"){
-        String xx=satirlar[i]["veri2"];
-        var fHaritalar = xx.split("#");
-        for(int i=1;i<=24;i++ ){
-          pedHarita[i]=int.parse(fHaritalar[i-1]);
-          if(fHaritalar[i-1]!="0"){
-          haritaOnay=true;
-      }
-      
-    }
-
-    for (int i = 1; i <= 24; i++) {
-      if (pedHarita[i] != 0) {
-        pedVisibility[i] = true;
-      } else {
-        pedVisibility[i] = false;
-      }
-    }
-
-      }
-
-
-    }
-
-    if(satirlar[i]["id"]==19){
-        String xx;
-        String yy;
-
-        if(satirlar[i]["veri1"]=="ok"){
-          veriGonderildi=true;
-          xx=satirlar[i]["veri2"];
-          yy=satirlar[i]["veri3"];
-          var pedNolar=xx.split("#");
-          var cikisNolar=yy.split("#");
-          for(int i=1;i<=24;i++){
-            pedNo[i]=int.parse(pedNolar[i-1]);
-            cikisNo[i]=int.parse(cikisNolar[i-1]);
-          }
-
-        }
-      
-      }
-
-    }
-    
-
-    print(satirlar);
-    setState(() {});
+    dbVeriler=satirlar;
   }
+
+_dbVeriCekme(){
+    dbSatirlar = dbHelper.satirlariCek();
+    final satirSayisi = dbHelper.satirSayisi();
+    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+    satirSayisi.whenComplete(() {
+        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+    });
+}
 
   String imageGetir(int deger) {
     String imagePath;

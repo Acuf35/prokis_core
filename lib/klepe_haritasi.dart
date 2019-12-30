@@ -17,30 +17,19 @@ import 'genel/deger_giris_3x0.dart';
 import 'languages/select.dart';
 
 class KlepeHaritasi extends StatefulWidget {
-  String gelenDil;
-  List<int> gelenKlepeHarita;
-  List<int> gelenKlepeNo;
-  List<int> gelenKlepeCikisAc;
-  List<int> gelenKlepeCikisKapa;
-  bool gelenVeriGonderildi=false;
-
-  KlepeHaritasi(String dil, List<int> klepeHarita, List<int> klepeNo,
-      List<int> klepeCikisAc, List<int> klepeCikisKapa, bool veriGonderildi) {
-    gelenDil = dil;
-    gelenKlepeHarita = klepeHarita;
-    gelenKlepeNo = klepeNo;
-    gelenKlepeCikisAc = klepeCikisAc;
-    gelenKlepeCikisKapa = klepeCikisKapa;
-    gelenVeriGonderildi=veriGonderildi;
+  List<Map> gelenDBveri;
+  KlepeHaritasi(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
   }
   @override
   State<StatefulWidget> createState() {
-    return KlepeHaritasiState(gelenDil, gelenKlepeHarita, gelenKlepeNo, gelenKlepeCikisAc, gelenKlepeCikisKapa,gelenVeriGonderildi );
+    return KlepeHaritasiState(gelenDBveri);
   }
 }
 
 class KlepeHaritasiState extends State<KlepeHaritasi> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
@@ -71,60 +60,84 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  KlepeHaritasiState(List<Map> dbVeri) {
+    bool klepeHaritaOK = false;
+    bool klepeCikisOK = false;
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+      if (dbVeri[i]["id"] == 1) {
+        dilSecimi = dbVeri[i]["veri1"];
+      }
 
-  KlepeHaritasiState(String dil, List<int> klpHarita, List<int> klpNo, List<int> klpCikisAc, List<int> klpCikisKapa,bool veriGonderildiYrd) {
+      if (dbVeri[i]["id"] == 4) {
+        klepeAdet = int.parse(dbVeri[i]["veri2"]);
+      }
 
-    if (klpHarita.length > 2) {
-      klepeHarita = klpHarita;
-      haritaOnay=true;
-      for (int i = 1; i <= 18; i++) {
-        if (klepeHarita[i] != 0) {
-          klepeVisibility[i] = true;
-        } else {
-          klepeVisibility[i] = false;
+      if (dbVeri[i]["id"] == 16) {
+        if (dbVeri[i]["veri1"] == "ok") {
+          klepeHaritaOK = true;
+          String xx = dbVeri[i]["veri2"];
+          var fHaritalar = xx.split("#");
+          for (int i = 1; i <= 18; i++) {
+            klepeHarita[i] = int.parse(fHaritalar[i - 1]);
+            if (fHaritalar[i - 1] != "0") {
+              haritaOnay = true;
+            }
+          }
+
+          for (int i = 1; i <= 18; i++) {
+            if (klepeHarita[i] != 0) {
+              klepeVisibility[i] = true;
+            } else {
+              klepeVisibility[i] = false;
+            }
+          }
+        }
+      }
+
+      if (dbVeri[i]["id"] == 17) {
+        String xx;
+        String yy;
+        String zz;
+
+        if (dbVeri[i]["veri1"] == "ok") {
+          klepeCikisOK = true;
+          veriGonderildi = true;
+          xx = dbVeri[i]["veri2"];
+          yy = dbVeri[i]["veri3"];
+          zz = dbVeri[i]["veri4"];
+          var klepeNolar = xx.split("#");
+          var cikisNolarAc = yy.split("#");
+          var cikisNolarKapa = zz.split("#");
+          for (int i = 1; i <= 18; i++) {
+            klepeNo[i] = int.parse(klepeNolar[i - 1]);
+            cikisNoAc[i] = int.parse(cikisNolarAc[i - 1]);
+            cikisNoKapa[i] = int.parse(cikisNolarKapa[i - 1]);
+          }
         }
       }
     }
 
-    if(veriGonderildiYrd){
-      klepeNo = klpNo;
-      cikisNoAc = klpCikisAc;
-      cikisNoKapa = klpCikisKapa;
-    }
-
-    for (int i = 1; i <= 18; i++) {
-      if (klpHarita.length <= 2) {
+    if (!klepeHaritaOK) {
+      for (int i = 1; i <= 18; i++) {
         klepeHarita[i] = 0;
         klepeVisibility[i] = true;
-        
       }
-      if(!veriGonderildiYrd){
+    }
+
+    if (!klepeCikisOK) {
+      for (int i = 1; i <= 18; i++) {
         klepeNo[i] = 0;
         cikisNoAc[i] = 0;
         cikisNoKapa[i] = 0;
+      }
     }
 
-    }
-
-    dilSecimi = dil;
+    _dbVeriCekme();
   }
-
-  //--------------------------CONSTRUCTER METHOD--------------------------------
+//--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
-//++++++++++++++++++++++++++DATABASE'den SATIRLARI ÇEKME+++++++++++++++++++++++++++++++
-    dbSatirlar = dbHelper.satirlariCek();
-    final satirSayisi = dbHelper.satirSayisi();
-    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
-    satirSayisi.whenComplete(() {
-      if (dbSayac == 0) {
-        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
-        dbSayac++;
-      }
-    });
-//--------------------------DATABASE'den SATIRLARI ÇEKME--------------------------------
-
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
     var width = MediaQuery.of(context).size.width *
         MediaQuery.of(context).devicePixelRatio;
@@ -143,14 +156,28 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         Expanded(
             child: Container(
           color: Colors.grey.shade600,
-          child: Text(
-            SelectLanguage().selectStrings(dilSecimi, "tv38"), // Klepe Haritası
-            style: TextStyle(
-                fontFamily: 'Kelly Slab',
-                color: Colors.white,
-                fontSize: 30,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: SizedBox(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      SelectLanguage().selectStrings(dilSecimi, "tv38"),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Kelly Slab',
+                          color: Colors.white,
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      minFontSize: 8,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           alignment: Alignment.center,
         )),
@@ -179,11 +206,25 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           children: <Widget>[
                             //Ön Duvar
                             Expanded(
-                              child: Center(
-                                  child: RotatedBox(
-                                child: Text("Ön Duvar"),
+                              child: RotatedBox(
                                 quarterTurns: -45,
-                              )),
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv53"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             Expanded(
                                 flex: 8,
@@ -224,11 +265,25 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             Spacer(),
                             //Sağ Duvar
                             Expanded(
-                              child: Center(
-                                  child: RotatedBox(
-                                child: Text("Sağ Duvar"),
+                              child: RotatedBox(
                                 quarterTurns: -45,
-                              )),
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv54"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             Expanded(
                                 flex: 16,
@@ -310,11 +365,25 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           children: <Widget>[
                             //Arka Duvar
                             Expanded(
-                              child: Center(
-                                  child: RotatedBox(
-                                child: Text("Arka Duvar"),
+                              child: RotatedBox(
                                 quarterTurns: -45,
-                              )),
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv55"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             Expanded(
                                 flex: 8,
@@ -358,11 +427,25 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             Spacer(),
                             //Sol Duvar
                             Expanded(
-                              child: Center(
-                                  child: RotatedBox(
-                                child: Text("Sol Duvar"),
+                              child: RotatedBox(
                                 quarterTurns: -45,
-                              )),
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      SelectLanguage()
+                                          .selectStrings(dilSecimi, "tv56"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 40,
+                                      ),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
                             Expanded(
                                 flex: 16,
@@ -531,12 +614,12 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.map,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
                                     .selectStrings(dilSecimi, "btn4"),
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(fontSize: 18),textScaleFactor: oran,
                               ),
                             ],
                           ),
@@ -560,12 +643,12 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.refresh,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
                                     .selectStrings(dilSecimi, "btn5"),
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(fontSize: 18),textScaleFactor: oran,
                               ),
                             ],
                           ),
@@ -634,12 +717,12 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.send,
-                                size: 30,
+                                size: 30*oran,
                               ),
                               Text(
                                 SelectLanguage()
                                     .selectStrings(dilSecimi, "btn6"),
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(fontSize: 18),textScaleFactor: oran,
                               ),
                             ],
                           ),
@@ -678,8 +761,10 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PedHaritasi(dilSecimi)),
-                          );
+                                builder: (context) => PedHaritasi(dbVeriler)),
+                          ).then((onValue) {
+                            _dbVeriCekme();
+                          });
                         }
                       },
                       color: Colors.black,
@@ -699,70 +784,16 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
   _satirlar(List<Map> satirlar) {
-    for (int i = 0; i <= dbSatirSayisi - 1; i++) {
-      if (satirlar[i]["id"] == 0) {
-        dilSecimi = satirlar[i]["veri1"];
-      }
+    dbVeriler = satirlar;
+  }
 
-      if (satirlar[i]["id"] == 1) {
-        kurulumDurum = satirlar[i]["veri1"];
-      }
-      if (satirlar[i]["id"] == 4) {
-        klepeAdet = int.parse(satirlar[i]["veri2"]);
-      }
-/*
-      if(satirlar[i]["id"]==16){
-        if(satirlar[i]["veri1"]=="ok"){
-        String xx=satirlar[i]["veri2"];
-        var fHaritalar = xx.split("#");
-        for(int i=1;i<=18;i++ ){
-          klepeHarita[i]=int.parse(fHaritalar[i-1]);
-          if(fHaritalar[i-1]!="0"){
-          haritaOnay=true;
-      }
-      
-    }
-
-    for (int i = 1; i <= 18; i++) {
-      if (klepeHarita[i] != 0) {
-        klepeVisibility[i] = true;
-      } else {
-        klepeVisibility[i] = false;
-      }
-    }
-
-    }
-      }
-      
-
-      if(satirlar[i]["id"]==17){
-        String xx;
-        String yy;
-        String zz;
-      
-      if(satirlar[i]["veri1"]=="ok"){
-        veriGonderildi=true;
-        xx=satirlar[i]["veri2"];
-        yy=satirlar[i]["veri3"];
-        zz=satirlar[i]["veri4"];
-        var klepeNolar=xx.split("#");
-        var cikisNolarAc=yy.split("#");
-        var cikisNolarKapa=zz.split("#");
-        for(int i=1;i<=18;i++){
-          klepeNo[i]=int.parse(klepeNolar[i-1]);
-          cikisNoAc[i]=int.parse(cikisNolarAc[i-1]);
-          cikisNoKapa[i]=int.parse(cikisNolarKapa[i-1]);
-        }
-
-      }
-      }
-
-*/
-
-    }
-
-    print(satirlar);
-    setState(() {});
+  _dbVeriCekme() {
+    dbSatirlar = dbHelper.satirlariCek();
+    final satirSayisi = dbHelper.satirSayisi();
+    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+    satirSayisi.whenComplete(() {
+      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+    });
   }
 
   String imageGetir(int deger) {

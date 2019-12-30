@@ -64,6 +64,7 @@ flutter:
   - assets/images/ky_tf_klasik_icon.png
   - assets/images/ky_tf_lineer_icon.png
   - assets/images/ky_tf_pid_icon.png
+  - assets/images/ky_tf_pid_icon_grey.png
   - assets/images/ky_mh_klasik_icon.png
   - assets/images/ky_mh_agirlik_icon.png
   - assets/images/ky_mh_hacim_icon.png

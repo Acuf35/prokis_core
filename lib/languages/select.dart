@@ -72,8 +72,15 @@ class SelectLanguage{
     kod=="tv48" ? metin='Isı Sensör Haritası' : null;
     kod=="tv49" ? metin='ISISen NO' : null;
     kod=="tv50" ? metin='Sens:' : null;
-    kod=="tv51" ? metin='Aktif Sensörler' : null;
+    kod=="tv51" ? metin='Kayıtlı Sensörler' : null;
     kod=="tv52" ? metin='Sens. No:' : null;
+    kod=="tv53" ? metin='Ön Duvar' : null;
+    kod=="tv54" ? metin='Sağ Duvar' : null;
+    kod=="tv55" ? metin='Arka Duvar' : null;
+    kod=="tv56" ? metin='Sol Duvar' : null;
+    kod=="tv57" ? metin='Bina Üst Görünüş' : null;
+    kod=="tv58" ? metin='Ön' : null;
+    kod=="tv59" ? metin='Arka' : null;
 
 
    
@@ -96,8 +103,8 @@ class SelectLanguage{
 
     //region TEXTFIELD
 
-    kod=="tflb1" ? metin='Tunel Fan Debi' : null;
-    kod=="tflb2" ? metin='Baca Fan Debi' : null;
+    kod=="tflb1" ? metin='Tun. Fan Debi' : null;
+    kod=="tflb2" ? metin='Bac. Fan Debi' : null;
     kod=="tflb3" ? metin='Hacim Oranı(%)' : null;
 
 
@@ -153,6 +160,8 @@ class SelectLanguage{
     kod=="toast28" ? metin='Aynı Klepe No iki farklı klepe için tanımlanmış! Lütfen kontrol ediniz' : null;
     kod=="toast29" ? metin='Haritada seçilen klepe sayısı, tanımlanandan eksik!' : null;
     kod=="toast30" ? metin='Haritada seçilen klepe sayısı, tanımlanandan fazla!' : null;
+    kod=="toast31" ? metin='Aynı Isı Sensör No iki farklı Isı Sensör için tanımlanmış! Lütfen kontrol ediniz' : null;
+    kod=="toast32" ? metin='Aynı Ped No iki farklı ped için tanımlanmış! Lütfen kontrol ediniz' : null;
     
 
 
@@ -224,8 +233,15 @@ class SelectLanguage{
     kod=="tv48" ? metin='Temp. Sensor Map' : null;
     kod=="tv49" ? metin='TEMPSens NO' : null;
     kod=="tv50" ? metin='Sens:' : null;
-    kod=="tv51" ? metin='Active Sensors' : null;
+    kod=="tv51" ? metin='Registered Sensors' : null;
     kod=="tv52" ? metin='Sens. No:' : null;
+    kod=="tv53" ? metin='Front Wall' : null;
+    kod=="tv54" ? metin='Right Wall' : null;
+    kod=="tv55" ? metin='Back Wall' : null;
+    kod=="tv56" ? metin='Left Wall' : null;
+    kod=="tv57" ? metin='Build Top Preview' : null;
+    kod=="tv58" ? metin='Front' : null;
+    kod=="tv59" ? metin='Back' : null;
 
     
 
@@ -250,8 +266,8 @@ class SelectLanguage{
 
     //region TEXTFIELD LABEL
 
-    kod=="tflb1" ? metin='Tunnel Fan Flow' : null;
-    kod=="tflb2" ? metin='Chimney F. Flow' : null;
+    kod=="tflb1" ? metin='Tun. Fan Flow' : null;
+    kod=="tflb2" ? metin='Chm. F. Flow' : null;
     kod=="tflb3" ? metin='Volume Ratio(%)' : null;
 
 
@@ -307,6 +323,8 @@ class SelectLanguage{
     kod=="toast28" ? metin='Same Klepe Number assigned for two different klepe! Please check.' : null;
     kod=="toast29" ? metin='Number of selected klepes are less then the defined!!' : null;
     kod=="toast30" ? metin='Number of selected klepes are more then the defined!' : null;
+    kod=="toast31" ? metin='Same Temp. Sensor Number assigned for two different temp. sensor! Please check.' : null;
+    kod=="toast32" ? metin='Same Ped Number assigned for two different ped! Please check.' : null;
 
 
     //endregion

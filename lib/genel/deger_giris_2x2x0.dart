@@ -74,9 +74,9 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(titlePadding: EdgeInsets.only(top: 10*oran),
+    return AlertDialog(titlePadding: EdgeInsets.only(top: 10*oran,bottom: 10*oran),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32.0))),
+          borderRadius: BorderRadius.all(Radius.circular(32.0*oran))),
 
       backgroundColor: Colors.deepOrange.shade800,
 
@@ -88,7 +88,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
 
             Expanded(child: Column(
               children: <Widget>[
-                Text(SelectLanguage().selectStrings(dilSecimi, noBaslik),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),),
+                Text(SelectLanguage().selectStrings(dilSecimi, noBaslik),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white,fontWeight: FontWeight.bold),textScaleFactor: oran,),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
 
@@ -103,7 +103,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                         padding: EdgeInsets.all(0),
                         child: Image.asset(
                           'assets/images/deger_artir_icon.png',
-                          scale: 4,
+                          scale: 4/oran,
                         ),
 
                         onPressed: (){
@@ -118,7 +118,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                         },
                       ),
 
-                      Text(onlarF.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                      Text(onlarF.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),textScaleFactor: oran,),
 
                       RawMaterialButton(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -126,7 +126,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                         padding: EdgeInsets.all(0),
                         child: Image.asset(
                           'assets/images/deger_dusur_icon.png',
-                          scale: 4,
+                          scale: 4/oran,
                         ),
 
                         onPressed: (){
@@ -160,7 +160,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/deger_artir_icon.png',
-                            scale: 4,
+                            scale: 4/oran,
                           ),
 
                           onPressed: (){
@@ -176,7 +176,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           },
                         ),
 
-                        Text(birlerF.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                        Text(birlerF.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),textScaleFactor: oran,),
 
                         RawMaterialButton(
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -184,7 +184,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/deger_dusur_icon.png',
-                            scale: 4,
+                            scale: 4/oran,
                           ),
 
                           onPressed: (){
@@ -214,7 +214,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
             Visibility(visible: noBaslik=="tv49" ? false : true,
                           child: Expanded(child: Column(
                 children: <Widget>[
-                  Text(SelectLanguage().selectStrings(dilSecimi, "tv35"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),),
+                  Text(SelectLanguage().selectStrings(dilSecimi, "tv35"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white,fontWeight: FontWeight.bold),textScaleFactor: oran,),
                   Row(mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                     Padding(
@@ -228,7 +228,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/deger_artir_icon.png',
-                            scale: 4,
+                            scale: 4/oran,
                           ),
 
                           onPressed: (){
@@ -244,7 +244,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           },
                         ),
 
-                        Text(onlarO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                        Text(onlarO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),textScaleFactor: oran,),
 
                         RawMaterialButton(
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -252,7 +252,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/deger_dusur_icon.png',
-                            scale: 4,
+                            scale: 4/oran,
                           ),
 
                           onPressed: (){
@@ -285,7 +285,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/deger_artir_icon.png',
-                            scale: 4,
+                            scale: 4/oran,
                           ),
 
                           onPressed: (){
@@ -301,7 +301,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           },
                         ),
 
-                        Text(birlerO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),),
+                        Text(birlerO.toString(),style: TextStyle(fontSize: 50,fontWeight: FontWeight.bold,fontFamily: 'Kelly Slab'),textScaleFactor: oran,),
 
                         RawMaterialButton(
                           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -309,7 +309,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                           padding: EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/images/deger_dusur_icon.png',
-                            scale: 4,
+                            scale: 4/oran,
                           ),
 
                           onPressed: (){
@@ -347,16 +347,16 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
 
       actions: <Widget>[
 
-        Container(
+        Container(padding: EdgeInsets.only(bottom: 10*oran),
           alignment: Alignment.center,
-          width: 400,
+          width: 400*oran,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
 
               Container(
-                margin: EdgeInsets.only(right: 20),
+                margin: EdgeInsets.only(right: 20*oran),
                 child: RaisedButton(
                   color: Colors.indigo,
                   onPressed: (){
@@ -365,7 +365,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                     Navigator.of(context).pop(deger);
 
                   },
-                  child: Text(SelectLanguage().selectStrings(dilSecimi, "btn2"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),),
+                  child: Text(SelectLanguage().selectStrings(dilSecimi, "btn2"),style: TextStyle(color: Colors.white,fontSize: 25*oran,fontFamily: 'Audio wide'),),
                 ),
 
               ),
@@ -378,7 +378,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                     var deger=[onlarF1,birlerF1,onlarO1,birlerO1,degerNo];
                     Navigator.of(context).pop(deger);
                   },
-                  child: Text(SelectLanguage().selectStrings(dilSecimi, "btn3"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),),
+                  child: Text(SelectLanguage().selectStrings(dilSecimi, "btn3"),style: TextStyle(color: Colors.white,fontSize: 25*oran,fontFamily: 'Audio wide'),),
                 ),
               ),
 

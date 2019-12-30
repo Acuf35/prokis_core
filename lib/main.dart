@@ -36,6 +36,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   int dbSayac = 0;
   String dilSecimi = "EN";
   String kurulumDurum = "0";
+  List<Map> dbVeriler;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 
@@ -50,7 +51,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
         const Duration(seconds: 3),
             () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => kurulumDurum=="0" ? DilSecimi() :  AnaSayfa()),
+          MaterialPageRoute(builder: (context) => kurulumDurum=="0" ? DilSecimi(dbVeriler) :  AnaSayfa()),
         ));
   }
 
@@ -61,7 +62,6 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
 //++++++++++++++++++++++++++DATABASE'den SATIRLARI ÇEKME+++++++++++++++++++++++++++++++
     
     
@@ -143,6 +143,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
   _satirlar(List<Map> satirlar) {
+    dbVeriler=satirlar;
 
     if (dbSatirSayisi > 0) {
       dilSecimi = satirlar[0]["veri1"];
@@ -155,9 +156,11 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
       kurulumDurum = satirlar[1]["veri1"];
     }
 
-    print(satirlar);
+    //print(satirlar);
     setState(() {});
   }
+
+
   void _landscapeModeOnly() {
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
