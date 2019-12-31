@@ -211,7 +211,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
             ),),
 
 
-            Visibility(visible: noBaslik=="tv49" ? false : true,
+            Visibility(visible: noBaslik=="tv49" || noBaslik=="tv61" ? false : true,
                           child: Expanded(child: Column(
                 children: <Widget>[
                   Text(SelectLanguage().selectStrings(dilSecimi, "tv35"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white,fontWeight: FontWeight.bold),textScaleFactor: oran,),

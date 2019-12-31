@@ -81,6 +81,9 @@ class SelectLanguage{
     kod=="tv57" ? metin='Bina Üst Görünüş' : null;
     kod=="tv58" ? metin='Ön' : null;
     kod=="tv59" ? metin='Arka' : null;
+    kod=="tv60" ? metin='Sisteme bağlı aktif sensör yok...' : null;
+    kod=="tv61" ? metin='ISISen NO Atama' : null;
+    kod=="tv62" ? metin='ÇIKIŞLAR' : null;
 
 
    
@@ -162,6 +165,12 @@ class SelectLanguage{
     kod=="toast30" ? metin='Haritada seçilen klepe sayısı, tanımlanandan fazla!' : null;
     kod=="toast31" ? metin='Aynı Isı Sensör No iki farklı Isı Sensör için tanımlanmış! Lütfen kontrol ediniz' : null;
     kod=="toast32" ? metin='Aynı Ped No iki farklı ped için tanımlanmış! Lütfen kontrol ediniz' : null;
+    kod=="toast33" ? metin='Aktif sensörlerden ikisine aynı numara atanmış! Lütfen kontrol ediniz' : null;
+    kod=="toast34" ? metin='En az bir tane aktif sensor atanmış olmalıdır' : null;
+    kod=="toast35" ? metin='Lütfen seçili tüm ısı sensörler için sıfırdan farklı sensör no tanımlayınız!' : null;
+    kod=="toast36" ? metin='Lütfen seçili tüm pedler için sıfırdan farklı Ped No ve Çıkış No tanımlayınız!' : null;
+    kod=="toast37" ? metin='Lütfen seçili tüm klepeler için sıfırdan farklı Klepe No ve Çıkış No tanımlayınız!' : null;
+    kod=="toast38" ? metin='Atanacak çıkışlardan biri şu anda kullanımda! Lütfen önce ilgili çıkışı boşa çıkarın' : null;
     
 
 
@@ -242,6 +251,9 @@ class SelectLanguage{
     kod=="tv57" ? metin='Build Top Preview' : null;
     kod=="tv58" ? metin='Front' : null;
     kod=="tv59" ? metin='Back' : null;
+    kod=="tv60" ? metin='There is no active sensor that connected to system...' : null;
+    kod=="tv61" ? metin='TEMPSens NO Sign' : null;
+    kod=="tv62" ? metin='OUTPUTS' : null;
 
     
 
@@ -325,6 +337,12 @@ class SelectLanguage{
     kod=="toast30" ? metin='Number of selected klepes are more then the defined!' : null;
     kod=="toast31" ? metin='Same Temp. Sensor Number assigned for two different temp. sensor! Please check.' : null;
     kod=="toast32" ? metin='Same Ped Number assigned for two different ped! Please check.' : null;
+    kod=="toast33" ? metin='Two of active sensors assigned same number! Please check.' : null;
+    kod=="toast34" ? metin='Atleast one active sensor must be assigned!' : null;
+    kod=="toast35" ? metin='Please define Temp. Sensor Number as nonzero for all selected temp sensors' : null;
+    kod=="toast36" ? metin='Please define Ped Number and Output number as nonzero for all selected peds' : null;
+    kod=="toast37" ? metin='Please define Klepe Number and Output number as nonzero for all selected klepes' : null;
+    kod=="toast38" ? metin='One of target outputs in use! Please release first the target output' : null;
 
 
     //endregion

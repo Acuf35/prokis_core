@@ -237,6 +237,7 @@ class UzDebiNemState extends State<UzDebiNem> {
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minHeight: viewportConstraints.maxHeight,
+              
             ),
             child: IntrinsicHeight(
               child: Column(
@@ -260,7 +261,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                   )),
                   // Ayarlar Bölümü
                   Expanded(
-                    flex: 2,
+                    flex: 2,//4~/oran,
                     child: Container(
                       color: Colors.white,
                       alignment: Alignment.center,
@@ -521,7 +522,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                   fontFamily: 'Kelly Slab',
                                                   color: Colors.grey[600],
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 14),
+                                                  fontSize: 12),
                                               textScaleFactor: oran,
                                             ),
                                             RawMaterialButton(
@@ -544,7 +545,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                 color: disNem == true
                                                     ? Colors.green[600]
                                                     : Colors.black,
-                                                    size: 30*oran,
+                                                    size: 25*oran,
                                               ),
                                               padding: EdgeInsets.all(0),
                                               materialTapTargetSize:
@@ -585,11 +586,10 @@ class UzDebiNemState extends State<UzDebiNem> {
                           //Klepe uzunluk girişi
                           Expanded(
                               child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
                               //Klepe Uzunluk girişi(KlepeNO, x(m), Y(m))
-                              Expanded(flex: 2,
-                                                              child: Row(
+                              Row(
                                   children: <Widget>[
                                     Spacer(
                                       flex: 1,
@@ -698,10 +698,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                     ),
                                   ],
                                 ),
-                              ),
                               //Atama Onay Butonu
-                              Expanded(
-                                                              child: Row(
+                              Row(
                                   children: <Widget>[
                                     Spacer(
                                       flex: 1,
@@ -794,8 +792,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                   Toast.show(
                                                       SelectLanguage()
                                                           .selectStrings(
-                                                              dilSecimi,
-                                                              "toast8"),
+                              dilSecimi,
+                              "toast8"),
                                                       context,
                                                       duration: 2);
                                                       
@@ -824,8 +822,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                   Toast.show(
                                                       SelectLanguage()
                                                           .selectStrings(
-                                                              dilSecimi,
-                                                              "toast5"),
+                              dilSecimi,
+                              "toast5"),
                                                       context,
                                                       duration: 3);
                                                 }
@@ -869,10 +867,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                     ),
                                   ],
                                 ),
-                              ),
                               //Atanan klepelerin gösterildiği bölüm
-                              Expanded(flex: 2,
-                                                              child: Row(
+                              Row(
                                   children: <Widget>[
                                     Spacer(
                                       flex: 1,
@@ -1085,8 +1081,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                       flex: 1,
                                     ),
                                   ],
-                                ),
-                              )
+                                )
                             ],
                           ))
                         ],
@@ -1095,12 +1090,9 @@ class UzDebiNemState extends State<UzDebiNem> {
                   ),
                   // Sayfa geçiş okları bölümü
                   Expanded(
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
+                    child: Container(padding: EdgeInsets.only(top: 15*oran),
                             color: Colors.grey[600],
-                            child: Row(
+                            child: Row(crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 Spacer(
@@ -1278,9 +1270,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                               ],
                             ),
                           ),
-                        ),
-                      ],
-                    ),
+                        
                   ),
                 ],
               ),

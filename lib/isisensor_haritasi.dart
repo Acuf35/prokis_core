@@ -37,8 +37,10 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   bool haritaOnay = false;
   int isisensorAdet = 0;
 
-  int _onlarisisensor = 1;
+  int _onlarisisensor = 0;
   int _birlerisisensor = 0;
+  int _onlarAktifSensor = 0;
+  int _birlerAktifSensor = 0;
   int _onlarOut = 3;
   int _birlerOut = 3;
   int _degerNo = 0;
@@ -57,6 +59,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   List<String> aktifSensorValue = new List(16);
   List<bool> aktifSensorDurum = new List(16);
   int aktifSenSay=0;
+  bool aktifSensorNoTekerrur=false;
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -64,7 +67,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
     IsiSensorHaritasiState(List<Map> dbVeri) {
     bool isisensorHaritaOK=false;
     bool isisensorNoOK=false;
-    bool aktifIsisensorNoOK=false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -106,9 +108,19 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
           xx = dbVeri[i]["veri2"];
           yy = dbVeri[i]["veri3"];
           var isisensorNolar = xx.split("#");
-          var cikisNolar = yy.split("#");
+          var aktifIsisensorNolar = yy.split("#");
           for (int i = 1; i <= 22; i++) {
             isisensorNo[i] = int.parse(isisensorNolar[i - 1]);
+          }
+
+          if(aktifIsisensorNolar.length>2){
+          for (int i = 1; i <= 15; i++) {
+            aktifSensorNo[i] = int.parse(aktifIsisensorNolar[i - 1]);
+          }
+          }else{
+            for (int i = 1; i <= 15; i++) {
+            aktifSensorNo[i] = 0;
+          }
           }
         }
       }
@@ -130,10 +142,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       for(int i=1;i<=22;i++){
         isisensorNo[i] = 0;
       }
-      
-    }
 
-    if(!aktifIsisensorNoOK){
       for(int i=1;i<=15;i++){
          aktifSensorNo[i] = 0;
       }
@@ -242,7 +251,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                               Visibility(visible: aktifSenSay==0 ? true : false,
                                                               child: Center(
                                     child: Text(
-                                  "Sisteme bağlı aktif sensor yok...",
+                                  SelectLanguage().selectStrings(dilSecimi, "tv60"),
                                   style: TextStyle(
                                       fontSize: 20*oran,
                                       fontFamily: "Kelly Slab",
@@ -701,7 +710,9 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                         child: FlatButton(
                           onPressed: () {
                             bool noKontrol = false;
+                            bool enAzBirAtama = false;
                             String noVeri = "";
+                            String noVeriAktif = "";
                             for (int i = 1; i <= 22; i++) {
                               if (isisensorHarita[i] == 1) {
                                 if (isisensorNo[i] == 0) {
@@ -710,10 +721,16 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                               }
                               noVeri = noVeri + isisensorNo[i].toString() + "#";
                             }
+                            for (int i = 1; i <= 15; i++) {
+                              noVeriAktif = noVeriAktif + aktifSensorNo[i].toString() + "#";
+                              if(aktifSensorNo[i]!=0){
+                                enAzBirAtama=true;
+                              }
+                            }
                             if (noKontrol) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast24"),
+                                      .selectStrings(dilSecimi, "toast35"),
                                   context,
                                   duration: 3);
                             } else if (isisensorNoTekerrur) {
@@ -722,13 +739,25 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                       .selectStrings(dilSecimi, "toast31"),
                                   context,
                                   duration: 3);
+                            }else if (!enAzBirAtama) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast34"),
+                                  context,
+                                  duration: 3);
+                            }else if (aktifSensorNoTekerrur) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast33"),
+                                  context,
+                                  duration: 3);
                             } else {
                               veriGonderildi = true;
 
                               _veriGonder(
-                                  "19", "24", noVeri, "0", "0", "0");
+                                  "19", "24", noVeri, noVeriAktif, "0", "0");
                               dbHelper.veriYOKSAekleVARSAguncelle(
-                                  21, "ok", noVeri, "0", "0");
+                                  21, "ok", noVeri, noVeriAktif, "0");
                             }
                           },
                           highlightColor: Colors.green,
@@ -859,6 +888,7 @@ _dbVeriCekme(){
       },
     ).then((val) {
       if (degerGirisKodu == 1) degerGiris2X2X0Yrd1(val);
+      if (degerGirisKodu == 2) degerGiris2X2X0Yrd2(val);
     });
   }
 
@@ -898,6 +928,40 @@ _dbVeriCekme(){
 
     setState(() {});
   }
+
+  //Üst görünüşten haritadaki sensörlere numara atama işlemi
+  degerGiris2X2X0Yrd2(var val) {
+    if (_onlarAktifSensor != val[0] ||
+        _birlerAktifSensor != val[1]) {
+      veriGonderildi = false;
+    }
+
+    _onlarAktifSensor = val[0];
+    _birlerAktifSensor = val[1];
+    _degerNo = val[4];
+
+    aktifSensorNo[_degerNo] =
+        int.parse(_onlarAktifSensor.toString() + _birlerAktifSensor.toString());
+    aktifSensorNoTekerrur = false;
+
+    for (int i = 1; i <= 15; i++) {
+      for (int k = 1; k <= 15; k++) {
+        if (i != k &&
+            aktifSensorNo[i] == aktifSensorNo[k] &&
+            aktifSensorNo[i] != 0 &&
+            aktifSensorNo[k] != 0) {
+          aktifSensorNoTekerrur = true;
+          break;
+        }
+        if (aktifSensorNoTekerrur) {
+          break;
+        }
+      }
+    }
+
+    setState(() {});
+  }
+
 
   Widget _isisensorHaritaUnsur(
       int indexNo, double oran, String baslik, int degerGirisKodu) {
@@ -1151,14 +1215,23 @@ _dbVeriCekme(){
             Text(
               SelectLanguage().selectStrings(dilSecimi, "tv50") +
                   aktifSensorNo[index].toString(),
-              style: TextStyle(fontSize: 14),textScaleFactor: oran,
+              style: TextStyle(fontSize: 14,
+              color: aktifSensorNo[index]==0 ? Colors.black : Colors.blue[700],
+              fontWeight: aktifSensorNo[index]==0 ? FontWeight.normal : FontWeight.bold
+              ),textScaleFactor: oran,
             ),
             Expanded(
               child: RawMaterialButton(
                 onPressed: () {
-                  timerCancel = true;
+                   _onlarAktifSensor = isisensorNo[index] < 10
+                          ? 0
+                          : (aktifSensorNo[index] ~/ 10).toInt();
+                      _birlerAktifSensor = aktifSensorNo[index] % 10;
+                      _degerNo = index;
+                  
+                  _degergiris2X2X0(_onlarAktifSensor, _birlerAktifSensor, 0, 0, index, oran, dilSecimi, "tv61", 2);
+                  print(index);
 
-                  Toast.show("Timer Durduruldu!!", context, duration: 3);
                 },
                 fillColor:
                     aktifSensorDurum[index] ? Colors.green[300] : Colors.red,

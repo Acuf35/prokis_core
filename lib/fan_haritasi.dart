@@ -38,6 +38,7 @@ class FanHaritasiState extends State<FanHaritasi> {
   List<bool> fanVisibility = new List(121);
   List<int> fanNo = new List(121);
   List<int> cikisNo = new List(121);
+  List<int> cikisNoGecici = new List(121);
   List<bool> sutun = new List(13);
   bool haritaOnay = false;
   int fanAdet = 0;
@@ -53,12 +54,16 @@ class FanHaritasiState extends State<FanHaritasi> {
   bool fanNoTekerrur = false;
   bool cikisNoTekerrur = false;
 
+  List<int> tumCikislar = new List(111);
+  
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   FanHaritasiState(List<Map> dbVeri) {
-    bool fanHaritaOK=false;
-    bool fanCikisOK=false;
+    bool fanHaritaOK = false;
+    bool fanCikisOK = false;
+    bool tumCikislarVar = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -66,11 +71,21 @@ class FanHaritasiState extends State<FanHaritasi> {
       if (dbVeri[i]["id"] == 4) {
         fanAdet = int.parse(dbVeri[i]["veri1"]);
       }
-      
+
+      if (dbVeri[i]["id"] == 22) {
+        if (dbVeri[i]["veri1"] == "ok") {
+          tumCikislarVar = true;
+          var tcikislar = dbVeri[i]["veri2"].split("#");
+
+          for (int i = 1; i <= 110; i++) {
+            tumCikislar[i] = int.parse(tcikislar[i - 1]);
+          }
+        }
+      }
 
       if (dbVeri[i]["id"] == 14) {
-        fanHaritaOK=true;
         if (dbVeri[i]["veri1"] == "ok") {
+          fanHaritaOK = true;
           String xx = dbVeri[i]["veri2"];
           var fHaritalar = xx.split("#");
           for (int i = 1; i <= 120; i++) {
@@ -124,7 +139,7 @@ class FanHaritasiState extends State<FanHaritasi> {
         String yy;
 
         if (dbVeri[i]["veri1"] == "ok") {
-          fanCikisOK=true;
+          fanCikisOK = true;
           veriGonderildi = true;
           xx = dbVeri[i]["veri2"];
           yy = dbVeri[i]["veri3"];
@@ -149,12 +164,22 @@ class FanHaritasiState extends State<FanHaritasi> {
       }
     }
 
-    if (!fanCikisOK){
+    if (!fanCikisOK) {
       for (int i = 1; i <= 120; i++) {
         fanNo[i] = 0;
         cikisNo[i] = 0;
       }
     }
+
+    if (!tumCikislarVar) {
+      for (int i = 1; i <= 110; i++) {
+        tumCikislar[i] = 0;
+      }
+    }
+
+    for (int i = 1; i <= 120; i++) {
+        cikisNoGecici[i]=cikisNo[i];
+      }
 
     _dbVeriCekme();
   }
@@ -162,7 +187,6 @@ class FanHaritasiState extends State<FanHaritasi> {
 
   @override
   Widget build(BuildContext context) {
-
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
     var width = MediaQuery.of(context).size.width *
         MediaQuery.of(context).devicePixelRatio;
@@ -182,29 +206,28 @@ class FanHaritasiState extends State<FanHaritasi> {
             child: Container(
           color: Colors.grey.shade600,
           child: Column(
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: SizedBox(
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: AutoSizeText(
-                          SelectLanguage().selectStrings(dilSecimi, "tv31"),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: 'Kelly Slab',
-                              color: Colors.white,
-                              fontSize: 60,
-                              fontWeight: FontWeight.bold),
-                          maxLines: 1,
-                          minFontSize: 8,
-                        ),
-                      ),
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: SizedBox(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: AutoSizeText(
+                      SelectLanguage().selectStrings(dilSecimi, "tv31"),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'Kelly Slab',
+                          color: Colors.white,
+                          fontSize: 60,
+                          fontWeight: FontWeight.bold),
+                      maxLines: 1,
+                      minFontSize: 8,
                     ),
                   ),
-                  
-                ],
+                ),
               ),
+            ],
+          ),
           alignment: Alignment.center,
         )),
         //Fan Harita Oluşturma Bölümü
@@ -959,8 +982,350 @@ class FanHaritasiState extends State<FanHaritasi> {
                     ],
                   ),
                 ),
-                Spacer(
+                Expanded(
                   flex: 1,
+                  child: Visibility(visible: haritaOnay,
+                                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            flex: 3,
+                            child: SizedBox(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: AutoSizeText(
+                                  SelectLanguage().selectStrings(dilSecimi, "tv62"),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontFamily: 'Kelly Slab',
+                                    color: Colors.black,
+                                    fontSize: 60,
+                                  ),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 60,
+                            child: Column(
+                                children: <Widget>[
+                                  Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(1, oran),
+                    _cikislarUnsur(2, oran),
+                    _cikislarUnsur(3, oran),
+                    _cikislarUnsur(4, oran),
+                    _cikislarUnsur(5, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(6, oran),
+                    _cikislarUnsur(7, oran),
+                    _cikislarUnsur(8, oran),
+                    _cikislarUnsur(9, oran),
+                    _cikislarUnsur(10, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                  Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(11, oran),
+                    _cikislarUnsur(12, oran),
+                    _cikislarUnsur(13, oran),
+                    _cikislarUnsur(14, oran),
+                    _cikislarUnsur(15, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(16, oran),
+                    _cikislarUnsur(17, oran),
+                    _cikislarUnsur(18, oran),
+                    _cikislarUnsur(19, oran),
+                    _cikislarUnsur(20, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(21, oran),
+                    _cikislarUnsur(22, oran),
+                    _cikislarUnsur(23, oran),
+                    _cikislarUnsur(24, oran),
+                    _cikislarUnsur(25, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(26, oran),
+                    _cikislarUnsur(27, oran),
+                    _cikislarUnsur(28, oran),
+                    _cikislarUnsur(29, oran),
+                    _cikislarUnsur(30, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(31, oran),
+                    _cikislarUnsur(32, oran),
+                    _cikislarUnsur(33, oran),
+                    _cikislarUnsur(34, oran),
+                    _cikislarUnsur(35, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(36, oran),
+                    _cikislarUnsur(37, oran),
+                    _cikislarUnsur(38, oran),
+                    _cikislarUnsur(39, oran),
+                    _cikislarUnsur(40, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(41, oran),
+                    _cikislarUnsur(42, oran),
+                    _cikislarUnsur(43, oran),
+                    _cikislarUnsur(44, oran),
+                    _cikislarUnsur(45, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(46, oran),
+                    _cikislarUnsur(47, oran),
+                    _cikislarUnsur(48, oran),
+                    _cikislarUnsur(49, oran),
+                    _cikislarUnsur(50, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(51, oran),
+                    _cikislarUnsur(52, oran),
+                    _cikislarUnsur(53, oran),
+                    _cikislarUnsur(54, oran),
+                    _cikislarUnsur(55, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(56, oran),
+                    _cikislarUnsur(57, oran),
+                    _cikislarUnsur(58, oran),
+                    _cikislarUnsur(59, oran),
+                    _cikislarUnsur(60, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(61, oran),
+                    _cikislarUnsur(62, oran),
+                    _cikislarUnsur(63, oran),
+                    _cikislarUnsur(64, oran),
+                    _cikislarUnsur(65, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(66, oran),
+                    _cikislarUnsur(67, oran),
+                    _cikislarUnsur(68, oran),
+                    _cikislarUnsur(69, oran),
+                    _cikislarUnsur(70, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(71, oran),
+                    _cikislarUnsur(72, oran),
+                    _cikislarUnsur(73, oran),
+                    _cikislarUnsur(74, oran),
+                    _cikislarUnsur(75, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(76, oran),
+                    _cikislarUnsur(77, oran),
+                    _cikislarUnsur(78, oran),
+                    _cikislarUnsur(79, oran),
+                    _cikislarUnsur(80, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(81, oran),
+                    _cikislarUnsur(82, oran),
+                    _cikislarUnsur(83, oran),
+                    _cikislarUnsur(84, oran),
+                    _cikislarUnsur(85, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(86, oran),
+                    _cikislarUnsur(87, oran),
+                    _cikislarUnsur(88, oran),
+                    _cikislarUnsur(89, oran),
+                    _cikislarUnsur(90, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(91, oran),
+                    _cikislarUnsur(92, oran),
+                    _cikislarUnsur(93, oran),
+                    _cikislarUnsur(94, oran),
+                    _cikislarUnsur(95, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(96, oran),
+                    _cikislarUnsur(97, oran),
+                    _cikislarUnsur(98, oran),
+                    _cikislarUnsur(99, oran),
+                    _cikislarUnsur(100, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(101, oran),
+                    _cikislarUnsur(102, oran),
+                    _cikislarUnsur(103, oran),
+                    _cikislarUnsur(104, oran),
+                    _cikislarUnsur(105, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                Expanded(
+                                      child: Row(
+                                      children: <Widget>[
+                    _cikislarUnsur(106, oran),
+                    _cikislarUnsur(107, oran),
+                    _cikislarUnsur(108, oran),
+                    _cikislarUnsur(109, oran),
+                    _cikislarUnsur(110, oran),
+                    
+
+                                      
+                                      ],
+                                    ),
+                                  ),
+                                
+                                
+                                ],
+                              ),
+                          )
+                        ],
+                      ),
+                  ),
                 )
               ],
             ),
@@ -1134,7 +1499,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.map,
-                                size: 30*oran,
+                                size: 30 * oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -1164,7 +1529,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.refresh,
-                                size: 30*oran,
+                                size: 30 * oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -1186,8 +1551,10 @@ class FanHaritasiState extends State<FanHaritasi> {
                         child: FlatButton(
                           onPressed: () {
                             bool noKontrol = false;
+                            bool cikisKullanimda=false;
                             String cikisVeri = "";
                             String noVeri = "";
+                            String tumCikislarVeri = "";
                             for (int i = 1; i <= 120; i++) {
                               if (fanHarita[i] == 2) {
                                 if (fanNo[i] == 0 || cikisNo[i] == 0) {
@@ -1198,6 +1565,29 @@ class FanHaritasiState extends State<FanHaritasi> {
                                   cikisVeri + cikisNo[i].toString() + "#";
                               noVeri = noVeri + fanNo[i].toString() + "#";
                             }
+
+                              for(int i=1;i<=120;i++){
+                                  if(cikisNoGecici[i]!=cikisNo[i]){
+                                  
+                                  if(tumCikislar[cikisNo[i]]==0){
+                                      tumCikislar[cikisNoGecici[i]]=0;
+                                  }else{
+                                    cikisKullanimda=true;
+                                  }
+                                    
+                                  }
+                              }
+
+                              if(!cikisKullanimda){
+                              for(int i=1;i<=120;i++){
+                                if(cikisNo[i]!=0){
+                                  tumCikislar[cikisNo[i]]=1;
+                                }
+                              }
+                              }
+                              for(int i=1;i<=110;i++){
+                                  tumCikislarVeri = tumCikislarVeri + tumCikislar[i].toString() + "#";
+                              }
                             if (noKontrol) {
                               Toast.show(
                                   SelectLanguage()
@@ -1216,12 +1606,30 @@ class FanHaritasiState extends State<FanHaritasi> {
                                       .selectStrings(dilSecimi, "toast26"),
                                   context,
                                   duration: 3);
+                            }else if (cikisKullanimda) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast38"),
+                                  context,
+                                  duration: 3);
                             } else {
                               veriGonderildi = true;
                               _veriGonder(
                                   "13", "20", noVeri, cikisVeri, "0", "0");
+                                _veriGonder(
+                                  "25", "27", tumCikislarVeri, "0", "0", "0");
                               dbHelper.veriYOKSAekleVARSAguncelle(
-                                  15, "ok", noVeri, cikisVeri, "0");
+                                  15, "ok", noVeri, cikisVeri, "0").then((deneme){
+                                    dbHelper.veriYOKSAekleVARSAguncelle(
+                                  22, "ok", tumCikislarVeri, "0", "0");
+                                  });
+
+                                  for (int i = 1; i <= 120; i++) {
+                                    cikisNoGecici[i]=cikisNo[i];
+                                  }
+
+
+                              
                             }
                           },
                           highlightColor: Colors.green,
@@ -1232,7 +1640,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.send,
-                                size: 30*oran,
+                                size: 30 * oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -1254,7 +1662,10 @@ class FanHaritasiState extends State<FanHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
+                        
                         Navigator.pop(context);
+                        
+
                       },
                     )),
                 Spacer(
@@ -1274,13 +1685,20 @@ class FanHaritasiState extends State<FanHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => KlepeHaritasi(dbVeriler)),
                           ).then((onValue) {
                             _dbVeriCekme();
+                            for(int i=1;i<=110;i++){
+                              tumCikislar[i]= onValue[i];
+                            }
                           });
+
+
                         }
                       },
                       color: Colors.black,
@@ -1299,20 +1717,18 @@ class FanHaritasiState extends State<FanHaritasi> {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
-_satirlar(List<Map> satirlar) {
-
-    dbVeriler=satirlar;
+  _satirlar(List<Map> satirlar) {
+    dbVeriler = satirlar;
   }
 
-_dbVeriCekme(){
+  _dbVeriCekme() {
     dbSatirlar = dbHelper.satirlariCek();
     final satirSayisi = dbHelper.satirSayisi();
     satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
     satirSayisi.whenComplete(() {
-        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
-}
-
+  }
 
   String imageGetir(int deger) {
     String imagePath;
@@ -1571,6 +1987,21 @@ _dbVeriCekme(){
     ).then((val) {
       if (val) {
         veriGonderildi = false;
+        String tumCikislarVeri="";
+
+        
+
+        for (int i = 1; i <= 120; i++) {
+          if(cikisNo[i] != 0){
+            tumCikislar[cikisNo[i]]=0;
+          }
+        }
+
+        for(int i=1;i<=110;i++){
+            tumCikislarVeri = tumCikislarVeri + tumCikislar[i].toString() + "#";
+        }
+
+
         for (int i = 1; i <= 120; i++) {
           fanHarita[i] = 0;
           fanNo[i] = 0;
@@ -1584,11 +2015,41 @@ _dbVeriCekme(){
 
         dbHelper.veriYOKSAekleVARSAguncelle(14, "0", "0", "0", "0");
         dbHelper.veriYOKSAekleVARSAguncelle(15, "0", "0", "0", "0");
+        dbHelper.veriYOKSAekleVARSAguncelle(22, "ok", tumCikislarVeri, "0", "0");
         _veriGonder("14", "0", "0", "0", "0", "0");
+        _veriGonder("25", "27", tumCikislarVeri, "0", "0", "0");
+        
 
         setState(() {});
       }
     });
+  }
+
+  Widget _cikislarUnsur(int index, double oran) {
+    return Expanded(
+                                  child: SizedBox(
+                                    child: Stack(alignment: Alignment.center,
+                                      children: <Widget>[
+                                        Padding(
+                                          padding: EdgeInsets.all(2*oran),
+                                          child: Container(color: tumCikislar[index]==0 ? Colors.grey[300] : (tumCikislar[index]==1 ? Colors.blue[200] : Colors.grey[300]),
+                                            alignment: Alignment.center,
+                                            child: AutoSizeText(
+                                              index.toString(),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 25*oran,
+                                                  fontWeight: FontWeight.bold),
+                                              maxLines: 1,
+                                              minFontSize: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
   }
 
 //--------------------------METOTLAR--------------------------------
