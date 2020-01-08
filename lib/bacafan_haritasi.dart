@@ -6,75 +6,70 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/ped_haritasi.dart';
+import 'package:prokis/airinlet_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
+import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
-import 'genel/deger_giris_2x2x2x0.dart';
-import 'genel/deger_giris_3x0.dart';
 import 'languages/select.dart';
 
-class KlepeHaritasi extends StatefulWidget {
+class BacafanHaritasi extends StatefulWidget {
   List<Map> gelenDBveri;
-  KlepeHaritasi(List<Map> dbVeriler) {
+  BacafanHaritasi(List<Map> dbVeriler) {
     gelenDBveri = dbVeriler;
   }
   @override
   State<StatefulWidget> createState() {
-    return KlepeHaritasiState(gelenDBveri);
+    return BacafanHaritasiState(gelenDBveri);
   }
 }
 
-class KlepeHaritasiState extends State<KlepeHaritasi> {
+class BacafanHaritasiState extends State<BacafanHaritasi> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
-  int dbSayac = 0;
   String dilSecimi = "TR";
   String kurulumDurum = "0";
-  List<int> klepeHarita = new List(19);
-  List<bool> klepeVisibility = new List(19);
-  List<int> klepeNo = new List(19);
-  List<int> cikisNoAc = new List(19);
-  List<int> cikisNoGeciciAc = new List(19);
-  List<int> cikisNoKapa = new List(19);
-  List<int> cikisNoGeciciKapa = new List(19);
+  List<int> bacafanHarita = new List(27);
+  List<bool> bacafanVisibility = new List(27);
+  List<int> bacafanNo = new List(27);
+  List<int> cikisNo = new List(4);
+  List<int> cikisNoGecici = new List(4);
   bool haritaOnay = false;
-  int klepeAdet = 0;
+  int bacafanAdet = 0;
 
-  int _onlarklepe = 1;
-  int _birlerklepe = 0;
-  int _onlarOutAc = 3;
-  int _onlarOutKapa = 3;
-  int _birlerOutAc = 3;
-  int _birlerOutKapa = 3;
+  int _onlarbacafan = 0;
+  int _birlerbacafan = 0;
+  int _onlarOut = 3;
+  int _birlerOut = 3;
   int _degerNo = 0;
 
   double _oran1;
   bool veriGonderildi = false;
-  bool klepeNoTekerrur = false;
   bool cikisNoTekerrur = false;
+
+  bool baglanti = false;
+  bool timerCancel = false;
 
   List<int> tumCikislar = new List(111);
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
-//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  KlepeHaritasiState(List<Map> dbVeri) {
-    bool klepeHaritaOK = false;
-    bool klepeCikisOK = false;
+  //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  BacafanHaritasiState(List<Map> dbVeri) {
+    bool bacafanHaritaOK = false;
+    bool bacafanNoOK = false;
     bool tumCikislarVar = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
 
-      if (dbVeri[i]["id"] == 4) {
-        klepeAdet = int.parse(dbVeri[i]["veri2"]);
+      if (dbVeri[i]["id"] == 5) {
+        bacafanAdet = int.parse(dbVeri[i]["veri1"]);
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -88,63 +83,66 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         }
       }
 
-      if (dbVeri[i]["id"] == 16) {
+      if (dbVeri[i]["id"] == 23) {
         if (dbVeri[i]["veri1"] == "ok") {
-          klepeHaritaOK = true;
+          bacafanHaritaOK = true;
           String xx = dbVeri[i]["veri2"];
           var fHaritalar = xx.split("#");
-          for (int i = 1; i <= 18; i++) {
-            klepeHarita[i] = int.parse(fHaritalar[i - 1]);
+          for (int i = 1; i <= 26; i++) {
+            bacafanHarita[i] = int.parse(fHaritalar[i - 1]);
             if (fHaritalar[i - 1] != "0") {
               haritaOnay = true;
             }
           }
 
-          for (int i = 1; i <= 18; i++) {
-            if (klepeHarita[i] != 0) {
-              klepeVisibility[i] = true;
+          for (int i = 1; i <= 26; i++) {
+            if (bacafanHarita[i] != 0) {
+              bacafanVisibility[i] = true;
             } else {
-              klepeVisibility[i] = false;
+              bacafanVisibility[i] = false;
             }
           }
         }
       }
 
-      if (dbVeri[i]["id"] == 17) {
+      if (dbVeri[i]["id"] == 24) {
         String xx;
         String yy;
-        String zz;
 
         if (dbVeri[i]["veri1"] == "ok") {
-          klepeCikisOK = true;
+          bacafanNoOK = true;
           veriGonderildi = true;
           xx = dbVeri[i]["veri2"];
           yy = dbVeri[i]["veri3"];
-          zz = dbVeri[i]["veri4"];
-          var klepeNolar = xx.split("#");
-          var cikisNolarAc = yy.split("#");
-          var cikisNolarKapa = zz.split("#");
-          for (int i = 1; i <= 18; i++) {
-            klepeNo[i] = int.parse(klepeNolar[i - 1]);
-            cikisNoAc[i] = int.parse(cikisNolarAc[i - 1]);
-            cikisNoKapa[i] = int.parse(cikisNolarKapa[i - 1]);
+          var bacafanNolar = xx.split("#");
+          var bacafanCikis = yy.split("#");
+          for (int i = 1; i <= 26; i++) {
+            bacafanNo[i] = int.parse(bacafanNolar[i - 1]);
+          }
+          for (int i = 1; i <= 3; i++) {
+            cikisNo[i] = int.parse(bacafanCikis[i - 1]);
           }
         }
       }
     }
 
-    if (!klepeHaritaOK) {
-      for (int i = 1; i <= 18; i++) {
-        klepeHarita[i] = 0;
-        klepeVisibility[i] = true;
+    if (!bacafanHaritaOK) {
+      for (int i = 1; i <= 26; i++) {
+        bacafanHarita[i] = 0;
+        bacafanVisibility[i] = true;
       }
     }
 
-    if (!klepeCikisOK) {
-      for (int i = 1; i <= 18; i++) {
-        klepeNo[i] = 0;
-        cikisNoAc[i] = 0;
-        cikisNoKapa[i] = 0;
+    if (!bacafanNoOK) {
+      for (int i = 1; i <= 26; i++) {
+        if (bacafanAdet == 1) {
+          bacafanNo[i] = 1;
+        } else {
+          bacafanNo[i] = 0;
+        }
+      }
+      for (int i = 1; i <= 3; i++) {
+        cikisNo[i] = 0;
       }
     }
 
@@ -154,9 +152,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
       }
     }
 
-    for (int i = 1; i <= 18; i++) {
-      cikisNoGeciciAc[i] = cikisNoAc[i];
-      cikisNoGeciciKapa[i] = cikisNoKapa[i];
+    for (int i = 1; i <= 3; i++) {
+      cikisNoGecici[i] = cikisNo[i];
     }
 
     _dbVeriCekme();
@@ -191,7 +188,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv38"),
+                      SelectLanguage().selectStrings(dilSecimi, "tv68"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -208,7 +205,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
           ),
           alignment: Alignment.center,
         )),
-        //klepe Harita Oluşturma Bölümü
+        //bacafan Harita Oluşturma Bölümü
         Expanded(
           flex: 5,
           child: Container(
@@ -217,7 +214,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                //Tüm duvarlar Klepe görünümü
                 Spacer(
                   flex: 1,
                 ),
@@ -225,173 +221,76 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                   flex: 12,
                   child: Column(
                     children: <Widget>[
-                      Spacer(),
-                      //Ön ve Sağ Duvar
+                      //Aktif Sensörler Bölümü
                       Expanded(
-                        flex: 20,
-                        child: Row(
-                          children: <Widget>[
-                            //Ön Duvar
-                            Expanded(
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv53"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
+                        flex: 10,
+                        child: Container(
+                          child: Row(
+                            children: <Widget>[
+                              Spacer(),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
+                                  children: <Widget>[
+                                    Spacer(),
+                                    _bacaFanGrupCikis(1, oran),
+                                    Spacer(),
+                                  ],
                                 ),
                               ),
-                            ),
-                            Expanded(
-                                flex: 8,
-                                child: Stack(
+                              Spacer(),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
                                   children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/onarka_duvar_gri_icon.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(1),
-                                          visible:
-                                              klepeVisibility[1] ? true : false,
-                                        ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(2),
-                                          visible:
-                                              klepeVisibility[2] ? true : false,
-                                        ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(3),
-                                          visible:
-                                              klepeVisibility[3] ? true : false,
-                                        ),
-                                      ],
-                                    )
+                                    Spacer(),
+                                    _bacaFanGrupCikis(2, oran),
+                                    Spacer(),
                                   ],
-                                )),
-                            Spacer(),
-                            //Sağ Duvar
-                            Expanded(
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv54"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                                flex: 16,
-                                child: Stack(
+                              Spacer(),
+                              Expanded(
+                                flex: 5,
+                                child: Column(
                                   children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/sagsol_duvar_gri_icon.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(4),
-                                                visible: klepeVisibility[4]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(5),
-                                                visible: klepeVisibility[5]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(6),
-                                                visible: klepeVisibility[6]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(7),
-                                                visible: klepeVisibility[7]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(8),
-                                                visible: klepeVisibility[8]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(9),
-                                                visible: klepeVisibility[9]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    )
+                                    Spacer(),
+                                    _bacaFanGrupCikis(3, oran),
+                                    Spacer(),
                                   ],
-                                )),
-                          ],
+                                ),
+                              ),
+                              Spacer(),
+                            ],
+                          ),
                         ),
                       ),
-                      Spacer(),
-                      //Arka ve Sol Duvar
+
+                      //Sensor Konumları Bölümü
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: AutoSizeText(
+                              SelectLanguage().selectStrings(dilSecimi, "tv57"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 40,
+                              ),
+                              maxLines: 1,
+                              minFontSize: 8,
+                            ),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         flex: 20,
                         child: Row(
                           children: <Widget>[
-                            //Arka Duvar
                             Expanded(
+                              flex: 1,
                               child: RotatedBox(
                                 quarterTurns: -45,
                                 child: SizedBox(
@@ -399,7 +298,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv55"),
+                                          .selectStrings(dilSecimi, "tv58"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -413,47 +312,194 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               ),
                             ),
                             Expanded(
-                                flex: 8,
+                                flex: 27,
                                 child: Stack(
                                   children: <Widget>[
                                     Container(
                                       decoration: BoxDecoration(
-                                        //color: Colors.pink,
                                         image: DecorationImage(
                                           alignment: Alignment.center,
                                           image: AssetImage(
-                                              "assets/images/onarka_duvar_gri_icon.png"),
+                                              "assets/images/bina_catili_ust_gorunum.png"),
                                           fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
                                     Column(
                                       children: <Widget>[
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(16),
-                                          visible: klepeVisibility[16]
-                                              ? true
-                                              : false,
+                                        Spacer(),
+                                        Expanded(
+                                          flex: 10,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Spacer(),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        1, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        2, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        3, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        4, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        5, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        6, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        7, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        8, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        9, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        10, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        11, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        12, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        13, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        14, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        15, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        16, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        17, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        18, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        19, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        20, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        21, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        22, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        23, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        24, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _bacafanHaritaUnsur(
+                                                        25, oran, "tv64", 1),
+                                                    Spacer(),
+                                                    _bacafanHaritaUnsur(
+                                                        26, oran, "tv64", 1),
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer()
+                                            ],
+                                          ),
                                         ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(17),
-                                          visible: klepeVisibility[17]
-                                              ? true
-                                              : false,
-                                        ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(18),
-                                          visible: klepeVisibility[18]
-                                              ? true
-                                              : false,
-                                        ),
+                                        Spacer()
                                       ],
                                     )
                                   ],
                                 )),
-                            Spacer(),
-                            //Sol Duvar
                             Expanded(
+                              flex: 1,
                               child: RotatedBox(
                                 quarterTurns: -45,
                                 child: SizedBox(
@@ -461,7 +507,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv56"),
+                                          .selectStrings(dilSecimi, "tv59"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -474,75 +520,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 ),
                               ),
                             ),
-                            Expanded(
-                                flex: 16,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/sagsol_duvar_gri_icon.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(10),
-                                                visible: klepeVisibility[10]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(11),
-                                                visible: klepeVisibility[11]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(12),
-                                                visible: klepeVisibility[12]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(13),
-                                                visible: klepeVisibility[13]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(14),
-                                                visible: klepeVisibility[14]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(15),
-                                                visible: klepeVisibility[15]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
                           ],
                         ),
                       ),
@@ -553,7 +530,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                 Spacer(
                   flex: 1,
                 ),
-
                 Expanded(
                   flex: 6,
                   child: Visibility(
@@ -859,55 +835,41 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            int sayac = 0;
+                            //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                            bool seciliHeaterVarmi = false;
+                            Toast.show(
+                                SelectLanguage()
+                                    .selectStrings(dilSecimi, "toast8"),
+                                context,
+                                duration: 3);
+                            haritaOnay = true;
 
-                            for (int i = 1; i <= 18; i++) {
-                              if (klepeHarita[i] == 1) {
-                                sayac++;
+                            for (int i = 1; i <= 26; i++) {
+                              if (bacafanHarita[i] != 0) {
+                                bacafanVisibility[i] = true;
+                                seciliHeaterVarmi = true;
+                              } else {
+                                bacafanVisibility[i] = false;
                               }
                             }
 
-                            if (sayac < klepeAdet) {
-                              //Haritada seçilen klepe sayısı eksik
+                            String veri = "";
+
+                            for (int i = 1; i <= 26; i++) {
+                              veri = veri + bacafanHarita[i].toString() + "#";
+                            }
+
+                            if (!seciliHeaterVarmi) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast29"),
-                                  context,
-                                  duration: 3);
-                            } else if (sayac > klepeAdet) {
-                              //Haritada seçilen klepe sayısı yüksek
-                              Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast30"),
+                                      .selectStrings(dilSecimi, "toast53"),
                                   context,
                                   duration: 3);
                             } else {
-                              //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                              Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
-                                  context,
-                                  duration: 3);
-                              haritaOnay = true;
-
-                              for (int i = 1; i <= 18; i++) {
-                                if (klepeHarita[i] != 0) {
-                                  klepeVisibility[i] = true;
-                                } else {
-                                  klepeVisibility[i] = false;
-                                }
-                              }
-
-                              String veri = "";
-
-                              for (int i = 1; i <= 18; i++) {
-                                veri = veri + klepeHarita[i].toString() + "#";
-                              }
-
                               dbHelper.veriYOKSAekleVARSAguncelle(
-                                  16, "ok", veri, "0", "0");
+                                  23, "ok", veri, "0", "0");
 
-                              _veriGonder("15", "21", veri, "0", "0", "0");
+                              _veriGonder("26", "28", veri, "0", "0", "0");
 
                               setState(() {});
                             }
@@ -972,67 +934,60 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            bool noKontrol = false;
+                            bool noKontrol1 = false;
+                            bool noKontrol2 = false;
                             bool cikisKullanimda = false;
-                            bool klepeNOyuksek = false;
-                            String cikisVeriAc = "";
-                            String cikisVeriKapa = "";
+                            bool bfanNOyuksek = false;
                             String noVeri = "";
+                            String cikisVeri = "";
                             String tumCikislarVeri = "";
-                            for (int i = 1; i <= 18; i++) {
-                              if (klepeHarita[i] == 1) {
-                                if (klepeNo[i] == 0 ||
-                                    cikisNoAc[i] == 0 ||
-                                    cikisNoKapa[i] == 0) {
-                                  noKontrol = true;
+                            for (int i = 1; i <= 26; i++) {
+                              if (bacafanHarita[i] == 1) {
+                                if (bacafanNo[i] == 0) {
+                                  noKontrol1 = true;
                                 }
-
-                                if (klepeNo[i] > klepeAdet) {
-                                  klepeNOyuksek = true;
+                                if (bacafanNo[i] > bacafanAdet) {
+                                  bfanNOyuksek = true;
                                 }
                               }
-                              cikisVeriAc =
-                                  cikisVeriAc + cikisNoAc[i].toString() + "#";
-                              cikisVeriKapa = cikisVeriKapa +
-                                  cikisNoKapa[i].toString() +
-                                  "#";
-                              noVeri = noVeri + klepeNo[i].toString() + "#";
+                              noVeri = noVeri + bacafanNo[i].toString() + "#";
+                            }
+                            for (int i = 1; i <= 3; i++) {
+                              if (cikisNo[i] == 0 && bacafanAdet >= i) {
+                                noKontrol2 = true;
+                              }
+
+                              cikisVeri =
+                                  cikisVeri + cikisNo[i].toString() + "#";
                             }
 
-                            for (int i = 1; i <= 18; i++) {
-                              if (cikisNoGeciciAc[i] != cikisNoAc[i]) {
-                                if (tumCikislar[cikisNoAc[i]] == 0) {
-                                  tumCikislar[cikisNoGeciciAc[i]] = 0;
-                                } else {
-                                  cikisKullanimda = true;
-                                }
-                              }
-
-                              if (cikisNoGeciciKapa[i] != cikisNoKapa[i]) {
-                                if (tumCikislar[cikisNoKapa[i]] == 0) {
-                                  tumCikislar[cikisNoGeciciKapa[i]] = 0;
+                            for (int i = 1; i <= 3; i++) {
+                              if (cikisNoGecici[i] != cikisNo[i]) {
+                                if (tumCikislar[cikisNo[i]] == 0) {
+                                  tumCikislar[cikisNoGecici[i]] = 0;
                                 } else {
                                   cikisKullanimda = true;
                                 }
                               }
                             }
 
-                            if (noKontrol) {
+                            if (noKontrol1) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast37"),
+                                      .selectStrings(dilSecimi, "toast39"),
                                   context,
                                   duration: 3);
-                            } else if (klepeNOyuksek) {
+                            }
+                            if (noKontrol2) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast46"),
+                                      .selectStrings(dilSecimi, "toast63"),
                                   context,
                                   duration: 3);
-                            } else if (klepeNoTekerrur) {
+                            } else if (bfanNOyuksek) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast28"),
+                                      .selectStrings(dilSecimi, "toast43"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
@@ -1049,15 +1004,12 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   duration: 3);
                             } else {
 
-                              for (int i = 1; i <= 18; i++) {
-                                if (cikisNoAc[i] != 0) {
-                                  tumCikislar[cikisNoAc[i]] = 1;
-                                }
-                                if (cikisNoKapa[i] != 0) {
-                                  tumCikislar[cikisNoKapa[i]] = 1;
+                              for (int i = 1; i <= 3; i++) {
+                                if (cikisNo[i] != 0) {
+                                  tumCikislar[cikisNo[i]] = 1;
                                 }
                               }
-                              
+
                               for (int i = 1; i <= 110; i++) {
                                 tumCikislarVeri = tumCikislarVeri +
                                     tumCikislar[i].toString() +
@@ -1065,26 +1017,24 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               }
                               veriGonderildi = true;
 
-                              _veriGonder("16", "22", noVeri, cikisVeriAc,
-                                  cikisVeriKapa, "0");
+                              _veriGonder(
+                                  "27", "29", noVeri, cikisVeri, "0", "0");
                               _veriGonder(
                                   "25", "27", tumCikislarVeri, "0", "0", "0");
                               dbHelper
-                                  .veriYOKSAekleVARSAguncelle(17, "ok", noVeri,
-                                      cikisVeriAc, cikisVeriKapa)
+                                  .veriYOKSAekleVARSAguncelle(
+                                      24, "ok", noVeri, cikisVeri, "0")
                                   .then((deneme) {
                                 dbHelper
                                     .veriYOKSAekleVARSAguncelle(
                                         22, "ok", tumCikislarVeri, "0", "0")
                                     .then((onValue) {
                                   _dbVeriCekme();
-                                  print("Veri gönder giriyor");
                                 });
                               });
 
-                              for (int i = 1; i <= 18; i++) {
-                                cikisNoGeciciAc[i] = cikisNoAc[i];
-                                cikisNoGeciciKapa[i] = cikisNoKapa[i];
+                              for (int i = 1; i <= 3; i++) {
+                                cikisNoGecici[i] = cikisNo[i];
                               }
                             }
                           },
@@ -1118,6 +1068,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
+                        timerCancel = true;
                         Navigator.pop(context, tumCikislar);
                       },
                     )),
@@ -1147,7 +1098,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PedHaritasi(dbVeriler)),
+                                builder: (context) =>
+                                    AirInletHaritasi(dbVeriler)),
                           ).then((onValue) {
                             _dbVeriCekme();
                             for (int i = 1; i <= 110; i++) {
@@ -1190,14 +1142,15 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
     if (deger == 0) {
       imagePath = 'assets/images/soru_isareti.png';
     } else if (deger == 1) {
-      imagePath = 'assets/images/klepe_harita_icon.png';
+      imagePath = 'assets/images/harita_bacafan_icon.png';
     } else {
       imagePath = 'assets/images/soru_isareti.png';
     }
     return imagePath;
   }
 
-  Future _degergiris2X2X2X0() async {
+  Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int indexNo,
+      double oran, String dil, String baslik, int degerGirisKodu) async {
     // flutter defined function
 
     await showDialog(
@@ -1206,177 +1159,141 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
       builder: (BuildContext context) {
         // return object of type Dialog
 
-        return DegerGiris2X2X2X0.Deger(
-            _onlarklepe,
-            _birlerklepe,
-            _onlarOutAc,
-            _birlerOutAc,
-            _onlarOutKapa,
-            _birlerOutKapa,
-            _degerNo,
-            _oran1,
-            dilSecimi,
-            "tv40");
+        return DegerGiris2X0.Deger(
+            onlarUnsur, birlerUnsur, indexNo, oran, dil, baslik);
       },
     ).then((val) {
-      if (_onlarklepe != val[0] ||
-          _birlerklepe != val[1] ||
-          _onlarOutAc != val[2] ||
-          _birlerOutAc != val[3] ||
-          _onlarOutKapa != val[4] ||
-          _birlerOutKapa != val[5]) {
-        veriGonderildi = false;
-      }
-      _onlarklepe = val[0];
-      _birlerklepe = val[1];
-      _onlarOutAc = val[2];
-      _birlerOutAc = val[3];
-      _onlarOutKapa = val[4];
-      _birlerOutKapa = val[5];
-      _degerNo = val[6];
+      if (degerGirisKodu == 1) degerGiris2X0Yrd1(val);
+      if (degerGirisKodu == 2) degerGiris2X0Yrd2(val);
+    });
+  }
 
-      klepeNo[_degerNo] =
-          int.parse(_onlarklepe.toString() + _birlerklepe.toString());
-      cikisNoAc[_degerNo] =
-          int.parse(_onlarOutAc.toString() + _birlerOutAc.toString());
-      cikisNoKapa[_degerNo] =
-          int.parse(_onlarOutKapa.toString() + _birlerOutKapa.toString());
-      klepeNoTekerrur = false;
-      cikisNoTekerrur = false;
+  //Üst görünüşten haritadaki sensörlere numara atama işlemi
+  degerGiris2X0Yrd1(var val) {
+    if (_onlarbacafan != val[0] || _birlerbacafan != val[1]) {
+      veriGonderildi = false;
+    }
 
-      for (int i = 1; i <= 18; i++) {
-        for (int k = 1; k <= 18; k++) {
-          if (i != k &&
-              klepeNo[i] == klepeNo[k] &&
-              klepeNo[i] != 0 &&
-              klepeNo[k] != 0) {
-            if (cikisNoAc[i] != cikisNoAc[k] ||
-                cikisNoKapa[i] != cikisNoKapa[k]) {
-              klepeNoTekerrur = true;
-            }
+    _onlarbacafan = val[0];
+    _birlerbacafan = val[1];
+    _degerNo = val[2];
 
-            break;
-          }
-          if (klepeNoTekerrur) {
-            break;
-          }
-          if (i != k &&
-              cikisNoAc[i] == cikisNoAc[k] &&
-              cikisNoAc[i] != 0 &&
-              cikisNoAc[k] != 0) {
-            if (klepeNo[i] != klepeNo[k]) {
-              cikisNoTekerrur = true;
-            }
+    bacafanNo[_degerNo] =
+        int.parse(_onlarbacafan.toString() + _birlerbacafan.toString());
 
-            break;
-          }
+    setState(() {});
+  }
 
-          if (i != k &&
-              cikisNoKapa[i] == cikisNoKapa[k] &&
-              cikisNoKapa[i] != 0 &&
-              cikisNoKapa[k] != 0) {
-            if (klepeNo[i] != klepeNo[k]) {
-              cikisNoTekerrur = true;
-            }
-            break;
-          }
-          if (cikisNoAc[i] == cikisNoKapa[k] &&
-              cikisNoAc[i] != 0 &&
-              cikisNoKapa[k] != 0) {
-            cikisNoTekerrur = true;
-            break;
-          }
+  //Üst görünüşten haritadaki sensörlere numara atama işlemi
+  degerGiris2X0Yrd2(var val) {
+    if (_onlarOut != val[0] || _birlerOut != val[1]) {
+      veriGonderildi = false;
+    }
+
+    _onlarOut = val[0];
+    _birlerOut = val[1];
+    _degerNo = val[2];
+
+    cikisNo[_degerNo] = int.parse(_onlarOut.toString() + _birlerOut.toString());
+    cikisNoTekerrur = false;
+
+    for (int i = 1; i <= 3; i++) {
+      for (int k = 1; k <= 3; k++) {
+        if (i != k &&
+            cikisNo[i] == cikisNo[k] &&
+            cikisNo[i] != 0 &&
+            cikisNo[k] != 0) {
+          cikisNoTekerrur = true;
+          break;
         }
         if (cikisNoTekerrur) {
           break;
         }
       }
+    }
 
-      setState(() {});
-    });
+    setState(() {});
   }
 
-  Widget _klepeHaritaUnsur(int indexNo) {
+  Widget _bacafanHaritaUnsur(
+      int indexNo, double oran, String baslik, int degerGirisKodu) {
     return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded(
-            flex: 6,
-            child: RawMaterialButton(
-                onPressed: () {
-                  if (haritaOnay) {
-                    _onlarklepe = klepeNo[indexNo] < 10
-                        ? 0
-                        : (klepeNo[indexNo] ~/ 10).toInt();
-                    _birlerklepe = klepeNo[indexNo] % 10;
-                    _onlarOutAc = cikisNoAc[indexNo] < 10
-                        ? 0
-                        : (cikisNoAc[indexNo] ~/ 10).toInt();
-                    _birlerOutAc = cikisNoAc[indexNo] % 10;
-                    _onlarOutKapa = cikisNoKapa[indexNo] < 10
-                        ? 0
-                        : (cikisNoKapa[indexNo] ~/ 10).toInt();
-                    _birlerOutKapa = cikisNoKapa[indexNo] % 10;
-                    _degerNo = indexNo;
-                    _degergiris2X2X2X0();
-                  } else {
-                    if (klepeHarita[indexNo] == 0 ||
-                        klepeHarita[indexNo] == null) {
-                      klepeHarita[indexNo] = 1;
-                    } else if (klepeHarita[indexNo] == 1) {
-                      klepeHarita[indexNo] = 0;
-                    }
+      child: Visibility(
+        visible: bacafanVisibility[indexNo] ? true : false,
+        maintainAnimation: true,
+        maintainSize: true,
+        maintainState: true,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              flex: 6,
+              child: RawMaterialButton(
+                  onPressed: () {
+                    if (haritaOnay) {
+                      _onlarbacafan = bacafanNo[indexNo] < 10
+                          ? 0
+                          : (bacafanNo[indexNo] ~/ 10).toInt();
+                      _birlerbacafan = bacafanNo[indexNo] % 10;
+                      _degerNo = indexNo;
+                      _degergiris2X0(_onlarbacafan, _birlerbacafan, indexNo,
+                          oran, dilSecimi, baslik, degerGirisKodu);
+                    } else {
+                      if (bacafanHarita[indexNo] == 0 ||
+                          bacafanHarita[indexNo] == null) {
+                        bacafanHarita[indexNo] = 1;
+                      } else if (bacafanHarita[indexNo] == 1) {
+                        bacafanHarita[indexNo] = 0;
+                      }
 
-                    setState(() {});
-                  }
-                },
-                child: Stack(
-                  children: <Widget>[
-                    Opacity(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          //color: Colors.pink,
-                          image: DecorationImage(
-                            alignment: Alignment.center,
-                            image: AssetImage(imageGetir(klepeHarita[indexNo])),
-                            fit: BoxFit.contain,
+                      setState(() {});
+                    }
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Opacity(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.center,
+                              image: AssetImage(
+                                  imageGetir(bacafanHarita[indexNo])),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
+                        opacity: bacafanVisibility[indexNo] &&
+                                haritaOnay &&
+                                bacafanHarita[indexNo] == 1
+                            ? 1
+                            : 1,
                       ),
-                      opacity: klepeVisibility[indexNo] &&
-                              haritaOnay &&
-                              klepeHarita[indexNo] == 1
-                          ? 1
-                          : 1,
-                    ),
-                    Visibility(
-                      visible: haritaOnay && klepeHarita[indexNo] != 0
-                          ? true
-                          : false,
-                      child: Visibility(
-                        visible: haritaOnay && klepeHarita[indexNo] == 1
+                      Visibility(
+                        visible: haritaOnay && bacafanHarita[indexNo] != 0
                             ? true
                             : false,
+                        maintainState: true,
+                        maintainSize: true,
+                        maintainAnimation: true,
                         child: Row(
                           children: <Widget>[
-                            Spacer(),
-                            //klepe No
+                            //bacafan No
                             Expanded(
-                              flex: 4,
+                              flex: 5,
                               child: Row(
                                 children: <Widget>[
                                   Expanded(
                                     flex: 1,
                                     child: SizedBox(
                                       child: Container(
-                                        alignment: Alignment.center,
+                                        alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
                                           SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv39") +
-                                              klepeNo[indexNo].toString(),
+                                                  dilSecimi, "tv63") +
+                                              bacafanNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
+                                              color: Colors.white,
                                               fontSize: 50.0,
                                               fontFamily: 'Kelly Slab'),
                                           maxLines: 1,
@@ -1388,72 +1305,14 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 ],
                               ),
                             ),
-                            Spacer(),
-                            //Çıkış NoAc
-                            Expanded(
-                              flex: 6,
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv43") +
-                                              cikisNoAc[indexNo].toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab'),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Spacer(),
-                            //Çıkış NoKapa
-                            Expanded(
-                              flex: 6,
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 1,
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv44") +
-                                              cikisNoKapa[indexNo].toString(),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab'),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-
-                            Spacer()
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                )),
-          ),
-        ],
+                    ],
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1516,38 +1375,111 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         veriGonderildi = false;
         String tumCikislarVeri = "";
 
-        for (int i = 1; i <= 18; i++) {
-          if (cikisNoAc[i] != 0) {
-            tumCikislar[cikisNoAc[i]] = 0;
-          }
-          if (cikisNoKapa[i] != 0) {
-            tumCikislar[cikisNoKapa[i]] = 0;
+        for (int i = 1; i <= 3; i++) {
+          if (cikisNo[i] != 0) {
+            tumCikislar[cikisNo[i]] = 0;
           }
         }
 
         for (int i = 1; i <= 110; i++) {
           tumCikislarVeri = tumCikislarVeri + tumCikislar[i].toString() + "#";
         }
+        for (int i = 1; i <= 26; i++) {
+          bacafanHarita[i] = 0;
+          bacafanNo[i] = 0;
+          bacafanVisibility[i] = true;
+        }
 
-        for (int i = 1; i <= 18; i++) {
-          klepeHarita[i] = 0;
-          klepeNo[i] = 0;
-          cikisNoAc[i] = 0;
-          cikisNoKapa[i] = 0;
-          klepeVisibility[i] = true;
+        for (int i = 1; i <= 3; i++) {
+          cikisNo[i] = 0;
         }
         haritaOnay = false;
 
-        dbHelper.veriYOKSAekleVARSAguncelle(16, "0", "0", "0", "0");
-        dbHelper.veriYOKSAekleVARSAguncelle(17, "0", "0", "0", "0");
-        dbHelper.veriYOKSAekleVARSAguncelle(
-            22, "ok", tumCikislarVeri, "0", "0");
-        _veriGonder("17", "0", "0", "0", "0", "0");
-        _veriGonder("25", "27", tumCikislarVeri, "0", "0", "0");
+        dbHelper.veriYOKSAekleVARSAguncelle(23, "0", "0", "0", "0");
+        dbHelper.veriYOKSAekleVARSAguncelle(24, "0", "0", "0", "0");
+        _veriGonder("28", "0", "0", "0", "0", "0");
 
         setState(() {});
       }
     });
+  }
+
+  Widget _bacaFanGrupCikis(int index, double oran) {
+    return Expanded(
+      flex: 2,
+      child: Visibility(
+        visible: bacafanAdet >= index,
+        maintainAnimation: true,
+        maintainSize: true,
+        maintainState: true,
+        child: Column(
+          children: <Widget>[
+            Text(
+              SelectLanguage().selectStrings(dilSecimi,
+                  index == 1 ? "tv65" : (index == 2 ? "tv66" : "tv67")),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'Kelly Slab',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+              textScaleFactor: oran,
+            ),
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Spacer(),
+                  Expanded(
+                    flex: 4,
+                    child: RawMaterialButton(
+                      onPressed: () {
+                        _onlarOut = cikisNo[index] < 10
+                            ? 0
+                            : (cikisNo[index] ~/ 10).toInt();
+                        _birlerOut = cikisNo[index] % 10;
+                        _degerNo = index;
+
+                        _degergiris2X0(_onlarOut, _birlerOut, index, oran,
+                            dilSecimi, "tv69", 2);
+                        print(index);
+                      },
+                      fillColor: Colors.green[300],
+                      child: Padding(
+                        padding: EdgeInsets.all(3.0 * oran),
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: SizedBox(
+                                child: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  child: AutoSizeText(
+                                    cikisNo[index].toString(),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 50.0,
+                                        fontFamily: 'Kelly Slab'),
+                                    maxLines: 1,
+                                    minFontSize: 8,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      constraints: BoxConstraints(minWidth: double.infinity),
+                    ),
+                  ),
+                  Spacer()
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _cikislarUnsur(int index, double oran) {

@@ -272,7 +272,7 @@ class FanYontemiState extends State<FanYontemi> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
-                                  color: Colors.grey[500],
+                                  color: Colors.black,
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold),
                               maxLines: 1,
@@ -288,7 +288,7 @@ class FanYontemiState extends State<FanYontemi> {
                             image: DecorationImage(
                               alignment: Alignment.center,
                               image: AssetImage(
-                                  'assets/images/ky_tf_pid_icon_grey.png'),
+                                  'assets/images/ky_tf_pid_icon.png'),
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -297,13 +297,27 @@ class FanYontemiState extends State<FanYontemi> {
                       Expanded(
                         flex: 2,
                         child: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            if (!pyDurum) {
+                              pyDurum = true;
+                            }
+
+                            if (pyDurum == true) {
+                              kyDurum = false;
+                              lyDurum = false;
+                            }
+
+                            dbHelper.veriYOKSAekleVARSAguncelle(
+                                6, "2", "0", "0", "0");
+                            _veriGonder("4", "7", "3", "0", "0", "0");
+                            setState(() {});
+                          },
                           icon: Icon(pyDurum == true
                               ? Icons.check_box
                               : Icons.check_box_outline_blank),
                           color: pyDurum == true
                               ? Colors.green.shade500
-                              : Colors.grey.shade600,
+                              : Colors.blue.shade600,
                           iconSize: 30 * oran,
                         ),
                       )
@@ -393,7 +407,7 @@ class FanYontemiState extends State<FanYontemi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('192.168.2.110', 2233);
+      socket = await Socket.connect('88.250.206.99', 2233);
       String gelen_mesaj = "";
 
       print('connected');

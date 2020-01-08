@@ -4,6 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/adetler.dart';
+import 'package:prokis/airinlet_haritasi.dart';
+import 'package:prokis/aluyay.dart';
+import 'package:prokis/bacafan_haritasi.dart';
+import 'package:prokis/fan_haritasi.dart';
 import 'package:prokis/uz_debi_nem.dart';
 import 'package:toast/toast.dart';
 import 'genel/cikis_alert.dart';
@@ -164,6 +169,7 @@ class DilSecimiState extends State<DilSecimi> {
                       onPressed: () {
                         Toast.show(dbSatirSayisi.toString(), context,
                             duration: 3);
+                            dbHelper.veriSil(31);
                       },
                       color: Colors.grey.shade400,
                     )),
@@ -180,7 +186,7 @@ class DilSecimiState extends State<DilSecimi> {
                         Navigator.push(
                           context,
                           //MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler)),
-                          MaterialPageRoute(builder: (context) => IsiSensorHaritasi(dbVeriler)),
+                          MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler)),
                         ).then((onValue) {
                           _dbVeriCekme();
                         });

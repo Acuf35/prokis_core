@@ -6,48 +6,46 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/ped_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
+import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
 import 'genel/deger_giris_2x2x2x0.dart';
-import 'genel/deger_giris_3x0.dart';
+import 'isitici_haritasi.dart';
 import 'languages/select.dart';
 
-class KlepeHaritasi extends StatefulWidget {
+class AirInletHaritasi extends StatefulWidget {
   List<Map> gelenDBveri;
-  KlepeHaritasi(List<Map> dbVeriler) {
+  AirInletHaritasi(List<Map> dbVeriler) {
     gelenDBveri = dbVeriler;
   }
   @override
   State<StatefulWidget> createState() {
-    return KlepeHaritasiState(gelenDBveri);
+    return AirInletHaritasiState(gelenDBveri);
   }
 }
 
-class KlepeHaritasiState extends State<KlepeHaritasi> {
+class AirInletHaritasiState extends State<AirInletHaritasi> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
-  int dbSayac = 0;
   String dilSecimi = "TR";
   String kurulumDurum = "0";
-  List<int> klepeHarita = new List(19);
-  List<bool> klepeVisibility = new List(19);
-  List<int> klepeNo = new List(19);
-  List<int> cikisNoAc = new List(19);
-  List<int> cikisNoGeciciAc = new List(19);
-  List<int> cikisNoKapa = new List(19);
-  List<int> cikisNoGeciciKapa = new List(19);
+  List<int> airinletHarita = new List(3);
+  List<bool> airinletVisibility = new List(3);
+  List<int> airinletNo = new List(3);
+  List<int> cikisNoAc = new List(3);
+  List<int> cikisNoGeciciAc = new List(3);
+  List<int> cikisNoKapa = new List(3);
+  List<int> cikisNoGeciciKapa = new List(3);
   bool haritaOnay = false;
-  int klepeAdet = 0;
+  int airinletAdet = 0;
 
-  int _onlarklepe = 1;
-  int _birlerklepe = 0;
+  int _onlarairinlet = 0;
+  int _birlerairinlet = 0;
   int _onlarOutAc = 3;
   int _onlarOutKapa = 3;
   int _birlerOutAc = 3;
@@ -56,25 +54,28 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
   double _oran1;
   bool veriGonderildi = false;
-  bool klepeNoTekerrur = false;
+  bool airinletNoTekerrur = false;
   bool cikisNoTekerrur = false;
+
+  bool baglanti = false;
+  bool timerCancel = false;
 
   List<int> tumCikislar = new List(111);
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
-//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  KlepeHaritasiState(List<Map> dbVeri) {
-    bool klepeHaritaOK = false;
-    bool klepeCikisOK = false;
+  //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  AirInletHaritasiState(List<Map> dbVeri) {
+    bool airinletHaritaOK = false;
+    bool airinletCikisOK = false;
     bool tumCikislarVar = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
 
-      if (dbVeri[i]["id"] == 4) {
-        klepeAdet = int.parse(dbVeri[i]["veri2"]);
+      if (dbVeri[i]["id"] == 5) {
+        airinletAdet = int.parse(dbVeri[i]["veri2"]);
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -88,35 +89,35 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         }
       }
 
-      if (dbVeri[i]["id"] == 16) {
+      if (dbVeri[i]["id"] == 25) {
         if (dbVeri[i]["veri1"] == "ok") {
-          klepeHaritaOK = true;
+          airinletHaritaOK = true;
           String xx = dbVeri[i]["veri2"];
           var fHaritalar = xx.split("#");
-          for (int i = 1; i <= 18; i++) {
-            klepeHarita[i] = int.parse(fHaritalar[i - 1]);
+          for (int i = 1; i <= 2; i++) {
+            airinletHarita[i] = int.parse(fHaritalar[i - 1]);
             if (fHaritalar[i - 1] != "0") {
               haritaOnay = true;
             }
           }
 
-          for (int i = 1; i <= 18; i++) {
-            if (klepeHarita[i] != 0) {
-              klepeVisibility[i] = true;
+          for (int i = 1; i <= 2; i++) {
+            if (airinletHarita[i] != 0) {
+              airinletVisibility[i] = true;
             } else {
-              klepeVisibility[i] = false;
+              airinletVisibility[i] = false;
             }
           }
         }
       }
 
-      if (dbVeri[i]["id"] == 17) {
+      if (dbVeri[i]["id"] == 26) {
         String xx;
         String yy;
         String zz;
 
         if (dbVeri[i]["veri1"] == "ok") {
-          klepeCikisOK = true;
+          airinletCikisOK = true;
           veriGonderildi = true;
           xx = dbVeri[i]["veri2"];
           yy = dbVeri[i]["veri3"];
@@ -124,8 +125,9 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
           var klepeNolar = xx.split("#");
           var cikisNolarAc = yy.split("#");
           var cikisNolarKapa = zz.split("#");
-          for (int i = 1; i <= 18; i++) {
-            klepeNo[i] = int.parse(klepeNolar[i - 1]);
+          print(zz);
+          for (int i = 1; i <= 2; i++) {
+            airinletNo[i] = int.parse(klepeNolar[i - 1]);
             cikisNoAc[i] = int.parse(cikisNolarAc[i - 1]);
             cikisNoKapa[i] = int.parse(cikisNolarKapa[i - 1]);
           }
@@ -133,16 +135,16 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
       }
     }
 
-    if (!klepeHaritaOK) {
-      for (int i = 1; i <= 18; i++) {
-        klepeHarita[i] = 0;
-        klepeVisibility[i] = true;
+    if (!airinletHaritaOK) {
+      for (int i = 1; i <= 2; i++) {
+        airinletHarita[i] = 0;
+        airinletVisibility[i] = true;
       }
     }
 
-    if (!klepeCikisOK) {
-      for (int i = 1; i <= 18; i++) {
-        klepeNo[i] = 0;
+    if (!airinletCikisOK) {
+      for (int i = 1; i <= 2; i++) {
+        airinletNo[i] = 0;
         cikisNoAc[i] = 0;
         cikisNoKapa[i] = 0;
       }
@@ -154,7 +156,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
       }
     }
 
-    for (int i = 1; i <= 18; i++) {
+    for (int i = 1; i <= 2; i++) {
       cikisNoGeciciAc[i] = cikisNoAc[i];
       cikisNoGeciciKapa[i] = cikisNoKapa[i];
     }
@@ -191,7 +193,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv38"),
+                      SelectLanguage().selectStrings(dilSecimi, "tv71"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -208,7 +210,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
           ),
           alignment: Alignment.center,
         )),
-        //klepe Harita Oluşturma Bölümü
+        //airinlet Harita Oluşturma Bölümü
         Expanded(
           flex: 5,
           child: Container(
@@ -217,7 +219,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                //Tüm duvarlar Klepe görünümü
                 Spacer(
                   flex: 1,
                 ),
@@ -225,14 +226,36 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                   flex: 12,
                   child: Column(
                     children: <Widget>[
-                      Spacer(),
-                      //Ön ve Sağ Duvar
+                      //Aktif Sensörler Bölümü
+                      Spacer(
+                        flex: 5,
+                      ),
+
+                      //Sensor Konumları Bölümü
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: AutoSizeText(
+                              SelectLanguage().selectStrings(dilSecimi, "tv57"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 40,
+                              ),
+                              maxLines: 1,
+                              minFontSize: 8,
+                            ),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         flex: 20,
                         child: Row(
                           children: <Widget>[
-                            //Ön Duvar
                             Expanded(
+                              flex: 1,
                               child: RotatedBox(
                                 quarterTurns: -45,
                                 child: SizedBox(
@@ -240,7 +263,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv53"),
+                                          .selectStrings(dilSecimi, "tv58"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -254,44 +277,51 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               ),
                             ),
                             Expanded(
-                                flex: 8,
+                                flex: 27,
                                 child: Stack(
                                   children: <Widget>[
                                     Container(
                                       decoration: BoxDecoration(
-                                        //color: Colors.pink,
                                         image: DecorationImage(
                                           alignment: Alignment.center,
                                           image: AssetImage(
-                                              "assets/images/onarka_duvar_gri_icon.png"),
+                                              "assets/images/bina_catili_ust_gorunum.png"),
                                           fit: BoxFit.fill,
                                         ),
                                       ),
                                     ),
                                     Column(
                                       children: <Widget>[
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(1),
-                                          visible:
-                                              klepeVisibility[1] ? true : false,
+                                        Spacer(),
+                                        Expanded(
+                                          flex: 10,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Expanded(
+                                                flex: 5,
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    _airinletHaritaUnsur(
+                                                        1, oran),
+                                                    Spacer(),
+                                                    _airinletHaritaUnsur(
+                                                        2, oran),
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer(
+                                                flex: 12,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(2),
-                                          visible:
-                                              klepeVisibility[2] ? true : false,
-                                        ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(3),
-                                          visible:
-                                              klepeVisibility[3] ? true : false,
-                                        ),
+                                        Spacer()
                                       ],
                                     )
                                   ],
                                 )),
-                            Spacer(),
-                            //Sağ Duvar
                             Expanded(
+                              flex: 1,
                               child: RotatedBox(
                                 quarterTurns: -45,
                                 child: SizedBox(
@@ -299,7 +329,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv54"),
+                                          .selectStrings(dilSecimi, "tv59"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -312,248 +342,18 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 ),
                               ),
                             ),
-                            Expanded(
-                                flex: 16,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/sagsol_duvar_gri_icon.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(4),
-                                                visible: klepeVisibility[4]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(5),
-                                                visible: klepeVisibility[5]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(6),
-                                                visible: klepeVisibility[6]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(7),
-                                                visible: klepeVisibility[7]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(8),
-                                                visible: klepeVisibility[8]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(9),
-                                                visible: klepeVisibility[9]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                )),
                           ],
                         ),
                       ),
-                      Spacer(),
-                      //Arka ve Sol Duvar
-                      Expanded(
-                        flex: 20,
-                        child: Row(
-                          children: <Widget>[
-                            //Arka Duvar
-                            Expanded(
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv55"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 8,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/onarka_duvar_gri_icon.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(16),
-                                          visible: klepeVisibility[16]
-                                              ? true
-                                              : false,
-                                        ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(17),
-                                          visible: klepeVisibility[17]
-                                              ? true
-                                              : false,
-                                        ),
-                                        Visibility(
-                                          child: _klepeHaritaUnsur(18),
-                                          visible: klepeVisibility[18]
-                                              ? true
-                                              : false,
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                            Spacer(),
-                            //Sol Duvar
-                            Expanded(
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv56"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                                flex: 16,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/sagsol_duvar_gri_icon.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(10),
-                                                visible: klepeVisibility[10]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(11),
-                                                visible: klepeVisibility[11]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(12),
-                                                visible: klepeVisibility[12]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(13),
-                                                visible: klepeVisibility[13]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(14),
-                                                visible: klepeVisibility[14]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                              Visibility(
-                                                child: _klepeHaritaUnsur(15),
-                                                visible: klepeVisibility[15]
-                                                    ? true
-                                                    : false,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                )),
-                          ],
-                        ),
+                      Spacer(
+                        flex: 6,
                       ),
-                      Spacer(),
                     ],
                   ),
                 ),
                 Spacer(
                   flex: 1,
                 ),
-
                 Expanded(
                   flex: 6,
                   child: Visibility(
@@ -859,58 +659,34 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            int sayac = 0;
+                            //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                            Toast.show(
+                                SelectLanguage()
+                                    .selectStrings(dilSecimi, "toast8"),
+                                context,
+                                duration: 3);
+                            haritaOnay = true;
 
-                            for (int i = 1; i <= 18; i++) {
-                              if (klepeHarita[i] == 1) {
-                                sayac++;
+                            for (int i = 1; i <= 2; i++) {
+                              if (airinletHarita[i] != 0) {
+                                airinletVisibility[i] = true;
+                              } else {
+                                airinletVisibility[i] = false;
                               }
                             }
 
-                            if (sayac < klepeAdet) {
-                              //Haritada seçilen klepe sayısı eksik
-                              Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast29"),
-                                  context,
-                                  duration: 3);
-                            } else if (sayac > klepeAdet) {
-                              //Haritada seçilen klepe sayısı yüksek
-                              Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast30"),
-                                  context,
-                                  duration: 3);
-                            } else {
-                              //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                              Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
-                                  context,
-                                  duration: 3);
-                              haritaOnay = true;
+                            String veri = "";
 
-                              for (int i = 1; i <= 18; i++) {
-                                if (klepeHarita[i] != 0) {
-                                  klepeVisibility[i] = true;
-                                } else {
-                                  klepeVisibility[i] = false;
-                                }
-                              }
-
-                              String veri = "";
-
-                              for (int i = 1; i <= 18; i++) {
-                                veri = veri + klepeHarita[i].toString() + "#";
-                              }
-
-                              dbHelper.veriYOKSAekleVARSAguncelle(
-                                  16, "ok", veri, "0", "0");
-
-                              _veriGonder("15", "21", veri, "0", "0", "0");
-
-                              setState(() {});
+                            for (int i = 1; i <= 2; i++) {
+                              veri = veri + airinletHarita[i].toString() + "#";
                             }
+
+                            dbHelper.veriYOKSAekleVARSAguncelle(
+                                25, "ok", veri, "0", "0");
+
+                            _veriGonder("29", "30", veri, "0", "0", "0");
+
+                            setState(() {});
 
                             //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
                           },
@@ -974,21 +750,21 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           onPressed: () {
                             bool noKontrol = false;
                             bool cikisKullanimda = false;
-                            bool klepeNOyuksek = false;
+                            bool airNOyuksek = false;
                             String cikisVeriAc = "";
                             String cikisVeriKapa = "";
                             String noVeri = "";
                             String tumCikislarVeri = "";
-                            for (int i = 1; i <= 18; i++) {
-                              if (klepeHarita[i] == 1) {
-                                if (klepeNo[i] == 0 ||
+                            for (int i = 1; i <= 2; i++) {
+                              if (airinletHarita[i] == 1) {
+                                if (airinletNo[i] == 0 ||
                                     cikisNoAc[i] == 0 ||
                                     cikisNoKapa[i] == 0) {
                                   noKontrol = true;
                                 }
 
-                                if (klepeNo[i] > klepeAdet) {
-                                  klepeNOyuksek = true;
+                                if (airinletNo[i] > airinletAdet) {
+                                  airNOyuksek = true;
                                 }
                               }
                               cikisVeriAc =
@@ -996,10 +772,10 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               cikisVeriKapa = cikisVeriKapa +
                                   cikisNoKapa[i].toString() +
                                   "#";
-                              noVeri = noVeri + klepeNo[i].toString() + "#";
+                              noVeri = noVeri + airinletNo[i].toString() + "#";
                             }
 
-                            for (int i = 1; i <= 18; i++) {
+                            for (int i = 1; i <= 2; i++) {
                               if (cikisNoGeciciAc[i] != cikisNoAc[i]) {
                                 if (tumCikislar[cikisNoAc[i]] == 0) {
                                   tumCikislar[cikisNoGeciciAc[i]] = 0;
@@ -1017,22 +793,34 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               }
                             }
 
+                            if (!cikisKullanimda) {
+                              for (int i = 1; i <= 2; i++) {
+                                if (cikisNoAc[i] != 0) {
+                                  tumCikislar[cikisNoAc[i]] = 1;
+                                }
+                                if (cikisNoKapa[i] != 0) {
+                                  tumCikislar[cikisNoKapa[i]] = 1;
+                                }
+                              }
+                            }
+
                             if (noKontrol) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast37"),
+                                      .selectStrings(dilSecimi, "toast39"),
                                   context,
                                   duration: 3);
-                            } else if (klepeNOyuksek) {
+                            } else if (airNOyuksek) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast46"),
+                                      .selectStrings(dilSecimi, "toast44"),
                                   context,
                                   duration: 3);
-                            } else if (klepeNoTekerrur) {
+                            } else if (airinletNoTekerrur &&
+                                airinletAdet == 2) {
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast28"),
+                                      .selectStrings(dilSecimi, "toast42"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
@@ -1048,16 +836,6 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   context,
                                   duration: 3);
                             } else {
-
-                              for (int i = 1; i <= 18; i++) {
-                                if (cikisNoAc[i] != 0) {
-                                  tumCikislar[cikisNoAc[i]] = 1;
-                                }
-                                if (cikisNoKapa[i] != 0) {
-                                  tumCikislar[cikisNoKapa[i]] = 1;
-                                }
-                              }
-                              
                               for (int i = 1; i <= 110; i++) {
                                 tumCikislarVeri = tumCikislarVeri +
                                     tumCikislar[i].toString() +
@@ -1065,12 +843,12 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               }
                               veriGonderildi = true;
 
-                              _veriGonder("16", "22", noVeri, cikisVeriAc,
+                              _veriGonder("30", "31", noVeri, cikisVeriAc,
                                   cikisVeriKapa, "0");
                               _veriGonder(
                                   "25", "27", tumCikislarVeri, "0", "0", "0");
                               dbHelper
-                                  .veriYOKSAekleVARSAguncelle(17, "ok", noVeri,
+                                  .veriYOKSAekleVARSAguncelle(26, "ok", noVeri,
                                       cikisVeriAc, cikisVeriKapa)
                                   .then((deneme) {
                                 dbHelper
@@ -1078,11 +856,10 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                         22, "ok", tumCikislarVeri, "0", "0")
                                     .then((onValue) {
                                   _dbVeriCekme();
-                                  print("Veri gönder giriyor");
                                 });
                               });
 
-                              for (int i = 1; i <= 18; i++) {
+                              for (int i = 1; i <= 2; i++) {
                                 cikisNoGeciciAc[i] = cikisNoAc[i];
                                 cikisNoGeciciKapa[i] = cikisNoKapa[i];
                               }
@@ -1118,6 +895,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
+                        timerCancel = true;
                         Navigator.pop(context, tumCikislar);
                       },
                     )),
@@ -1147,7 +925,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PedHaritasi(dbVeriler)),
+                                builder: (context) =>
+                                    IsiticiHaritasi(dbVeriler)),
                           ).then((onValue) {
                             _dbVeriCekme();
                             for (int i = 1; i <= 110; i++) {
@@ -1190,7 +969,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
     if (deger == 0) {
       imagePath = 'assets/images/soru_isareti.png';
     } else if (deger == 1) {
-      imagePath = 'assets/images/klepe_harita_icon.png';
+      imagePath = 'assets/images/kurulum_airinlet_icon.png';
     } else {
       imagePath = 'assets/images/soru_isareti.png';
     }
@@ -1207,8 +986,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         // return object of type Dialog
 
         return DegerGiris2X2X2X0.Deger(
-            _onlarklepe,
-            _birlerklepe,
+            _onlarairinlet,
+            _birlerairinlet,
             _onlarOutAc,
             _birlerOutAc,
             _onlarOutKapa,
@@ -1216,58 +995,51 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
             _degerNo,
             _oran1,
             dilSecimi,
-            "tv40");
+            "tv74");
       },
     ).then((val) {
-      if (_onlarklepe != val[0] ||
-          _birlerklepe != val[1] ||
+      if (_onlarairinlet != val[0] ||
+          _birlerairinlet != val[1] ||
           _onlarOutAc != val[2] ||
           _birlerOutAc != val[3] ||
           _onlarOutKapa != val[4] ||
           _birlerOutKapa != val[5]) {
         veriGonderildi = false;
       }
-      _onlarklepe = val[0];
-      _birlerklepe = val[1];
+      _onlarairinlet = val[0];
+      _birlerairinlet = val[1];
       _onlarOutAc = val[2];
       _birlerOutAc = val[3];
       _onlarOutKapa = val[4];
       _birlerOutKapa = val[5];
       _degerNo = val[6];
 
-      klepeNo[_degerNo] =
-          int.parse(_onlarklepe.toString() + _birlerklepe.toString());
+      airinletNo[_degerNo] =
+          int.parse(_onlarairinlet.toString() + _birlerairinlet.toString());
       cikisNoAc[_degerNo] =
           int.parse(_onlarOutAc.toString() + _birlerOutAc.toString());
       cikisNoKapa[_degerNo] =
           int.parse(_onlarOutKapa.toString() + _birlerOutKapa.toString());
-      klepeNoTekerrur = false;
+      airinletNoTekerrur = false;
       cikisNoTekerrur = false;
 
-      for (int i = 1; i <= 18; i++) {
-        for (int k = 1; k <= 18; k++) {
+      for (int i = 1; i <= 2; i++) {
+        for (int k = 1; k <= 2; k++) {
           if (i != k &&
-              klepeNo[i] == klepeNo[k] &&
-              klepeNo[i] != 0 &&
-              klepeNo[k] != 0) {
-            if (cikisNoAc[i] != cikisNoAc[k] ||
-                cikisNoKapa[i] != cikisNoKapa[k]) {
-              klepeNoTekerrur = true;
-            }
-
+              airinletNo[i] == airinletNo[k] &&
+              airinletNo[i] != 0 &&
+              airinletNo[k] != 0) {
+            airinletNoTekerrur = true;
             break;
           }
-          if (klepeNoTekerrur) {
+          if (airinletNoTekerrur) {
             break;
           }
           if (i != k &&
               cikisNoAc[i] == cikisNoAc[k] &&
               cikisNoAc[i] != 0 &&
               cikisNoAc[k] != 0) {
-            if (klepeNo[i] != klepeNo[k]) {
-              cikisNoTekerrur = true;
-            }
-
+            cikisNoTekerrur = true;
             break;
           }
 
@@ -1275,14 +1047,13 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
               cikisNoKapa[i] == cikisNoKapa[k] &&
               cikisNoKapa[i] != 0 &&
               cikisNoKapa[k] != 0) {
-            if (klepeNo[i] != klepeNo[k]) {
-              cikisNoTekerrur = true;
-            }
+            cikisNoTekerrur = true;
             break;
           }
           if (cikisNoAc[i] == cikisNoKapa[k] &&
               cikisNoAc[i] != 0 &&
-              cikisNoKapa[k] != 0) {
+              cikisNoKapa[k] != 0 &&
+              airinletAdet == 2) {
             cikisNoTekerrur = true;
             break;
           }
@@ -1296,72 +1067,76 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
     });
   }
 
-  Widget _klepeHaritaUnsur(int indexNo) {
+  Widget _airinletHaritaUnsur(int indexNo, double oran) {
     return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Expanded(
-            flex: 6,
-            child: RawMaterialButton(
-                onPressed: () {
-                  if (haritaOnay) {
-                    _onlarklepe = klepeNo[indexNo] < 10
-                        ? 0
-                        : (klepeNo[indexNo] ~/ 10).toInt();
-                    _birlerklepe = klepeNo[indexNo] % 10;
-                    _onlarOutAc = cikisNoAc[indexNo] < 10
-                        ? 0
-                        : (cikisNoAc[indexNo] ~/ 10).toInt();
-                    _birlerOutAc = cikisNoAc[indexNo] % 10;
-                    _onlarOutKapa = cikisNoKapa[indexNo] < 10
-                        ? 0
-                        : (cikisNoKapa[indexNo] ~/ 10).toInt();
-                    _birlerOutKapa = cikisNoKapa[indexNo] % 10;
-                    _degerNo = indexNo;
-                    _degergiris2X2X2X0();
-                  } else {
-                    if (klepeHarita[indexNo] == 0 ||
-                        klepeHarita[indexNo] == null) {
-                      klepeHarita[indexNo] = 1;
-                    } else if (klepeHarita[indexNo] == 1) {
-                      klepeHarita[indexNo] = 0;
-                    }
+      child: Visibility(
+        visible: airinletVisibility[indexNo] ? true : false,
+        maintainAnimation: true,
+        maintainSize: true,
+        maintainState: true,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Expanded(
+              flex: 6,
+              child: RawMaterialButton(
+                  onPressed: () {
+                    if (haritaOnay) {
+                      _onlarairinlet = airinletNo[indexNo] < 10
+                          ? 0
+                          : (airinletNo[indexNo] ~/ 10).toInt();
+                      _birlerairinlet = airinletNo[indexNo] % 10;
+                      _onlarOutAc = cikisNoAc[indexNo] < 10
+                          ? 0
+                          : (cikisNoAc[indexNo] ~/ 10).toInt();
+                      _birlerOutAc = cikisNoAc[indexNo] % 10;
+                      _onlarOutKapa = cikisNoKapa[indexNo] < 10
+                          ? 0
+                          : (cikisNoKapa[indexNo] ~/ 10).toInt();
+                      _birlerOutKapa = cikisNoKapa[indexNo] % 10;
+                      _degerNo = indexNo;
+                      _degergiris2X2X2X0();
+                    } else {
+                      if (airinletHarita[indexNo] == 0 ||
+                          airinletHarita[indexNo] == null) {
+                        airinletHarita[indexNo] = 1;
+                      } else if (airinletHarita[indexNo] == 1) {
+                        airinletHarita[indexNo] = 0;
+                      }
 
-                    setState(() {});
-                  }
-                },
-                child: Stack(
-                  children: <Widget>[
-                    Opacity(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          //color: Colors.pink,
-                          image: DecorationImage(
-                            alignment: Alignment.center,
-                            image: AssetImage(imageGetir(klepeHarita[indexNo])),
-                            fit: BoxFit.contain,
+                      setState(() {});
+                    }
+                  },
+                  child: Stack(
+                    children: <Widget>[
+                      Opacity(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.center,
+                              image: AssetImage(
+                                  imageGetir(airinletHarita[indexNo])),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
+                        opacity: airinletVisibility[indexNo] &&
+                                haritaOnay &&
+                                airinletHarita[indexNo] == 1
+                            ? 1
+                            : 1,
                       ),
-                      opacity: klepeVisibility[indexNo] &&
-                              haritaOnay &&
-                              klepeHarita[indexNo] == 1
-                          ? 1
-                          : 1,
-                    ),
-                    Visibility(
-                      visible: haritaOnay && klepeHarita[indexNo] != 0
-                          ? true
-                          : false,
-                      child: Visibility(
-                        visible: haritaOnay && klepeHarita[indexNo] == 1
+                      Visibility(
+                        visible: haritaOnay && airinletHarita[indexNo] != 0
                             ? true
                             : false,
+                        maintainState: true,
+                        maintainSize: true,
+                        maintainAnimation: true,
                         child: Row(
                           children: <Widget>[
                             Spacer(),
-                            //klepe No
+                            //airinlet No
                             Expanded(
                               flex: 4,
                               child: Row(
@@ -1370,14 +1145,15 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     flex: 1,
                                     child: SizedBox(
                                       child: Container(
-                                        alignment: Alignment.center,
+                                        alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
                                           SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv39") +
-                                              klepeNo[indexNo].toString(),
+                                                  dilSecimi, "tv75") +
+                                              airinletNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
+                                              color: Colors.white,
                                               fontFamily: 'Kelly Slab'),
                                           maxLines: 1,
                                           minFontSize: 8,
@@ -1398,7 +1174,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     flex: 1,
                                     child: SizedBox(
                                       child: Container(
-                                        alignment: Alignment.center,
+                                        alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
                                           SelectLanguage().selectStrings(
                                                   dilSecimi, "tv43") +
@@ -1406,6 +1182,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
+                                              color: Colors.white,
                                               fontFamily: 'Kelly Slab'),
                                           maxLines: 1,
                                           minFontSize: 8,
@@ -1426,7 +1203,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                     flex: 1,
                                     child: SizedBox(
                                       child: Container(
-                                        alignment: Alignment.center,
+                                        alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
                                           SelectLanguage().selectStrings(
                                                   dilSecimi, "tv44") +
@@ -1434,6 +1211,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
+                                              color: Colors.white,
                                               fontFamily: 'Kelly Slab'),
                                           maxLines: 1,
                                           minFontSize: 8,
@@ -1449,11 +1227,11 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                           ],
                         ),
                       ),
-                    ),
-                  ],
-                )),
-          ),
-        ],
+                    ],
+                  )),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -1516,7 +1294,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
         veriGonderildi = false;
         String tumCikislarVeri = "";
 
-        for (int i = 1; i <= 18; i++) {
+        for (int i = 1; i <= 2; i++) {
           if (cikisNoAc[i] != 0) {
             tumCikislar[cikisNoAc[i]] = 0;
           }
@@ -1529,21 +1307,18 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
           tumCikislarVeri = tumCikislarVeri + tumCikislar[i].toString() + "#";
         }
 
-        for (int i = 1; i <= 18; i++) {
-          klepeHarita[i] = 0;
-          klepeNo[i] = 0;
+        for (int i = 1; i <= 2; i++) {
+          airinletHarita[i] = 0;
+          airinletNo[i] = 0;
           cikisNoAc[i] = 0;
           cikisNoKapa[i] = 0;
-          klepeVisibility[i] = true;
+          airinletVisibility[i] = true;
         }
         haritaOnay = false;
 
-        dbHelper.veriYOKSAekleVARSAguncelle(16, "0", "0", "0", "0");
-        dbHelper.veriYOKSAekleVARSAguncelle(17, "0", "0", "0", "0");
-        dbHelper.veriYOKSAekleVARSAguncelle(
-            22, "ok", tumCikislarVeri, "0", "0");
-        _veriGonder("17", "0", "0", "0", "0", "0");
-        _veriGonder("25", "27", tumCikislarVeri, "0", "0", "0");
+        dbHelper.veriYOKSAekleVARSAguncelle(25, "0", "0", "0", "0");
+        dbHelper.veriYOKSAekleVARSAguncelle(26, "0", "0", "0", "0");
+        _veriGonder("31", "0", "0", "0", "0", "0");
 
         setState(() {});
       }

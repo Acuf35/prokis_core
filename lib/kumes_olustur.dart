@@ -793,7 +793,7 @@ class KumesOlusturState extends State<KumesOlustur> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('192.168.2.110', 2233);
+      socket = await Socket.connect('88.250.206.99', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -835,7 +835,7 @@ class KumesOlusturState extends State<KumesOlustur> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('192.168.2.110', 2233);
+      socket = await Socket.connect('88.250.206.99', 2233);
       String gelen_mesaj = "";
 
       print('connected');

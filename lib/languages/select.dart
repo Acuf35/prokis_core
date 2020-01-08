@@ -44,7 +44,7 @@ class SelectLanguage{
     kod=="tv20" ? metin='Fan Kontrol Yontemi' : null;
     kod=="tv21" ? metin='Klasik Kontrol' : null;
     kod=="tv22" ? metin='Lineer Kontrol' : null;
-    kod=="tv23" ? metin='PID Kontrol (Yakında aktif)' : null;
+    kod=="tv23" ? metin='PID Kontrol' : null;
     kod=="tv24" ? metin='Min. Hav. Kontrol Yöntemi' : null;
     kod=="tv25" ? metin='Ağırlık Kontrol' : null;
     kod=="tv26" ? metin='Hacim Kontrol' : null;
@@ -64,7 +64,7 @@ class SelectLanguage{
     kod=="tv40" ? metin='KLEPE NO' : null;
     kod=="tv41" ? metin='AÇ ÇKŞ NO' : null;
     kod=="tv42" ? metin='KP ÇKŞ NO' : null;
-    kod=="tv43" ? metin='ÇkşAc:' : null;
+    kod=="tv43" ? metin='ÇkşAç:' : null;
     kod=="tv44" ? metin='ÇkşKp:' : null;
     kod=="tv45" ? metin='Ped:' : null;
     kod=="tv46" ? metin='PED NO' : null;
@@ -84,6 +84,42 @@ class SelectLanguage{
     kod=="tv60" ? metin='Sisteme bağlı aktif sensör yok...' : null;
     kod=="tv61" ? metin='ISISen NO Atama' : null;
     kod=="tv62" ? metin='ÇIKIŞLAR' : null;
+    kod=="tv63" ? metin='Grup:' : null;
+    kod=="tv64" ? metin='Bfan Grup No' : null;
+    kod=="tv65" ? metin='B.Fan Gr-1 Çkş No' : null;
+    kod=="tv66" ? metin='B.Fan Gr-2 Çkş No' : null;
+    kod=="tv67" ? metin='B.Fan Gr-3 Çkş No' : null;
+    kod=="tv68" ? metin='Baca Fan Haritası' : null;
+    kod=="tv69" ? metin='Bfan Grup Çıkış No' : null;
+    kod=="tv70" ? metin='Dış Sıc. Sen.' : null;
+    kod=="tv71" ? metin='Air Inlet Haritası' : null;
+    kod=="tv72" ? metin='No:' : null;
+    kod=="tv73" ? metin='Çkş:' : null;
+    kod=="tv74" ? metin='A.INLET NO' : null;
+    kod=="tv75" ? metin='Air:' : null;
+    kod=="tv76" ? metin='Isıtıcı Haritası' : null;
+    kod=="tv77" ? metin='Isıtıcı Gr-1 Çkş No' : null;
+    kod=="tv78" ? metin='Isıtıcı Gr-2 Çkş No' : null;
+    kod=="tv79" ? metin='Isıtıcı Gr-3 Çkş No' : null;
+    kod=="tv80" ? metin='Isıtıcı Grup No' : null;
+    kod=="tv81" ? metin='Boşta' : null;
+    kod=="tv82" ? metin='Silo:' : null;
+    kod=="tv83" ? metin='SİLO NO' : null;
+    kod=="tv84" ? metin='Silo Haritası' : null;
+    kod=="tv85" ? metin='Diğer Çıkışlar' : null;
+    kod=="tv86" ? metin='ALARM' : null;
+    kod=="tv87" ? metin='UYARI' : null;
+    kod=="tv88" ? metin='AYDINLATMA' : null;
+    kod=="tv89" ? metin='YEM 1 İleri' : null;
+    kod=="tv90" ? metin='YEM 2 İleri' : null;
+    kod=="tv91" ? metin='YEM 3 İleri' : null;
+    kod=="tv92" ? metin='YEM 1 Geri' : null;
+    kod=="tv93" ? metin='YEM 2 Geri' : null;
+    kod=="tv94" ? metin='YEM 3 Geri' : null;
+    kod=="tv95" ? metin='Yem 1 Aktif' : null;
+    kod=="tv96" ? metin='Yem 2 Aktif' : null;
+    kod=="tv97" ? metin='Yem 3 Aktif' : null;
+    kod=="tv98" ? metin='Kurulumu Tamamla' : null;
 
 
    
@@ -171,6 +207,31 @@ class SelectLanguage{
     kod=="toast36" ? metin='Lütfen seçili tüm pedler için sıfırdan farklı Ped No ve Çıkış No tanımlayınız!' : null;
     kod=="toast37" ? metin='Lütfen seçili tüm klepeler için sıfırdan farklı Klepe No ve Çıkış No tanımlayınız!' : null;
     kod=="toast38" ? metin='Atanacak çıkışlardan biri şu anda kullanımda! Lütfen önce ilgili çıkışı boşa çıkarın' : null;
+    kod=="toast39" ? metin='Lütfen harita üzerinde seçili tüm bacafanları için sıfırdan farklı grup no tanımlayınız!' : null;
+    kod=="toast40" ? metin='Lütfen toplam sensör sayısına eşit veya daha küçük bir sayı tanımlayınız!' : null;
+    kod=="toast41" ? metin='Seçilen sensör numarası harita üzerinde tanımlı değil!' : null;
+    kod=="toast42" ? metin='Aynı Air Inlet No iki farklı air inlet için tanımlanmış! Lütfen kontrol ediniz!' : null;
+    kod=="toast43" ? metin='Lütfen toplam bacafan grup sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
+    kod=="toast44" ? metin='Lütfen toplam air inlet motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
+    kod=="toast45" ? metin='Lütfen toplam ped motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
+    kod=="toast46" ? metin='Lütfen toplam klepe motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
+    kod=="toast47" ? metin='Lütfen toplam fan sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
+    kod=="toast48" ? metin='En az bir tane ısıtıcı haritada işaretlenmiş olmalıdır! ' : null;
+    kod=="toast49" ? metin='Haritada seçilen ped sayısı, tanımlanandan eksik!' : null;
+    kod=="toast50" ? metin='Haritada seçilen ped sayısı, tanımlanandan fazla!' : null;
+    kod=="toast51" ? metin='Haritada seçilen ısı sensör sayısı, tanımlanandan eksik!' : null;
+    kod=="toast52" ? metin='Haritada seçilen ısı sensör sayısı, tanımlanandan fazla!' : null;
+    kod=="toast53" ? metin='En az bir tane baca fanı haritada işaretlenmiş olmalıdır!' : null;
+    kod=="toast54" ? metin='Haritada seçilen silo sayısı, tanımlanandan eksik!' : null;
+    kod=="toast55" ? metin='Haritada seçilen silo sayısı, tanımlanandan fazla!' : null;
+    kod=="toast56" ? metin='Lütfen seçili tüm silolar için sıfırdan farklı silo no tanımlayınız!' : null;
+    kod=="toast57" ? metin='Lütfen toplam silo sayısına eşit veya daha küçük bir sayı tanımlayınız!' : null;
+    kod=="toast58" ? metin='Aynı Silo No iki farklı silo için tanımlanmış! Lütfen kontrol ediniz' : null;
+    kod=="toast59" ? metin='Lütfen aktif tüm çıkışlar için sıfırdan farklı bir çıkış no tanımlayınız!' : null;
+    kod=="toast60" ? metin='Isı sensör için wifi bağlantı seçildi.' : null;
+    kod=="toast61" ? metin='Isı sensör için Analog bağlantı seçildi.' : null;
+    kod=="toast62" ? metin='Önce haritayı oluşturup onaylamanız gerekli!' : null;
+    kod=="toast63" ? metin='Lütfen sıfırdan farklı B.fan Grup Çıkış No tanımlayınız!' : null;
     
 
 
@@ -214,7 +275,7 @@ class SelectLanguage{
     kod=="tv20" ? metin='Fan Control Method' : null;
     kod=="tv21" ? metin='Clasic Control' : null;
     kod=="tv22" ? metin='Linear Control' : null;
-    kod=="tv23" ? metin='PID Control (Active at soon)' : null;
+    kod=="tv23" ? metin='PID Control' : null;
     kod=="tv24" ? metin='Min. Vent. Control Method' : null;
     kod=="tv25" ? metin='Weight Control' : null;
     kod=="tv26" ? metin='Volume Control' : null;
@@ -254,6 +315,42 @@ class SelectLanguage{
     kod=="tv60" ? metin='There is no active sensor that connected to system...' : null;
     kod=="tv61" ? metin='TEMPSens NO Sign' : null;
     kod=="tv62" ? metin='OUTPUTS' : null;
+    kod=="tv63" ? metin='Group:' : null;
+    kod=="tv64" ? metin='Cfan Group No' : null;
+    kod=="tv65" ? metin='C.Fan Gr-1 Out No' : null;
+    kod=="tv66" ? metin='C.Fan Gr-2 Out No' : null;
+    kod=="tv67" ? metin='C.Fan Gr-3 Out No' : null;
+    kod=="tv68" ? metin='Chimney Fan Map' : null;
+    kod=="tv69" ? metin='Cfan Group Out No' : null;
+    kod=="tv70" ? metin='Out Temp. Sen.' : null;
+    kod=="tv71" ? metin='Air Inlet Map' : null;
+    kod=="tv72" ? metin='No:' : null;
+    kod=="tv73" ? metin='Out:' : null;
+    kod=="tv74" ? metin='A.INLET NO' : null;
+    kod=="tv75" ? metin='Air:' : null;
+    kod=="tv76" ? metin='Heater Map' : null;
+    kod=="tv77" ? metin='Heater Gr-1 Out No' : null;
+    kod=="tv78" ? metin='Heater Gr-2 Out No' : null;
+    kod=="tv79" ? metin='Heater Gr-3 Out No' : null;
+    kod=="tv80" ? metin='Heater Group No' : null;
+    kod=="tv81" ? metin='Boşta' : null;
+    kod=="tv82" ? metin='Silo:' : null;
+    kod=="tv83" ? metin='SILO' : null;
+    kod=="tv84" ? metin='Silo Map' : null;
+    kod=="tv85" ? metin='Other Outputs' : null;
+    kod=="tv86" ? metin='ALARM' : null;
+    kod=="tv87" ? metin='WARNING' : null;
+    kod=="tv88" ? metin='LIGHT' : null;
+    kod=="tv89" ? metin='Feed 1 Forward' : null;
+    kod=="tv90" ? metin='Feed 2 Forward' : null;
+    kod=="tv91" ? metin='Feed 3 Forward' : null;
+    kod=="tv92" ? metin='Feed 1 Back' : null;
+    kod=="tv93" ? metin='Feed 2 Back' : null;
+    kod=="tv94" ? metin='Feed 3 Back' : null;
+    kod=="tv95" ? metin='Feed 1 Active' : null;
+    kod=="tv96" ? metin='Feed 2 Active' : null;
+    kod=="tv97" ? metin='Feed 3 Active' : null;
+    kod=="tv98" ? metin='Complete Installation' : null;
 
     
 
@@ -330,10 +427,10 @@ class SelectLanguage{
     kod=="toast23" ? metin='One of Klepe Control Method must be selected!' : null;
     kod=="toast24" ? metin='Please define Fan Number and Output number as nonzero for all selected fans' : null;
     kod=="toast25" ? metin='Same Fan Number assigned for two different fan! Please check.' : null;
-    kod=="toast26" ? metin='Same Out Number assigned for two different fan! Please check.' : null;
+    kod=="toast26" ? metin='Same Out Number assigned for two different out! Please check.' : null;
     kod=="toast27" ? metin='Please firstly send defined data!' : null;
     kod=="toast28" ? metin='Same Klepe Number assigned for two different klepe! Please check.' : null;
-    kod=="toast29" ? metin='Number of selected klepes are less then the defined!!' : null;
+    kod=="toast29" ? metin='Number of selected klepes are less then the defined!' : null;
     kod=="toast30" ? metin='Number of selected klepes are more then the defined!' : null;
     kod=="toast31" ? metin='Same Temp. Sensor Number assigned for two different temp. sensor! Please check.' : null;
     kod=="toast32" ? metin='Same Ped Number assigned for two different ped! Please check.' : null;
@@ -343,6 +440,31 @@ class SelectLanguage{
     kod=="toast36" ? metin='Please define Ped Number and Output number as nonzero for all selected peds' : null;
     kod=="toast37" ? metin='Please define Klepe Number and Output number as nonzero for all selected klepes' : null;
     kod=="toast38" ? metin='One of target outputs in use! Please release first the target output' : null;
+    kod=="toast39" ? metin='Please define Chimney Fan Grup Number as nonzero for all selected chimney fans on the map' : null;
+    kod=="toast40" ? metin='Please define a number equal or smaller than total sensor quantity' : null;
+    kod=="toast41" ? metin='Selected sensor number is not define on the map!' : null;
+    kod=="toast42" ? metin='Same Air Inlet Number assigned for two different air inlet! Please check.' : null;
+    kod=="toast43" ? metin='Please define a number equal or smaller than total chimney fan grup quantity' : null;
+    kod=="toast44" ? metin='Please define a number equal or smaller than total air inlet motor quantity' : null;
+    kod=="toast45" ? metin='Please define a number equal or smaller than total ped motor quantity' : null;
+    kod=="toast46" ? metin='Please define a number equal or smaller than total klepe motor quantity' : null;
+    kod=="toast47" ? metin='Please define a number equal or smaller than total fan quantity' : null;
+    kod=="toast48" ? metin='Atleast one heater must be selected on the map! ' : null;
+    kod=="toast49" ? metin='Number of selected peds are less then the defined!' : null;
+    kod=="toast50" ? metin='Number of selected peds are more then the defined!' : null;
+    kod=="toast51" ? metin='Number of selected temp. sensors are less then the defined!' : null;
+    kod=="toast52" ? metin='Number of selected temp. sensors are more then the defined!' : null;
+    kod=="toast53" ? metin='Atleast one chimney fan must be selected on the map! ' : null;
+    kod=="toast54" ? metin='Number of selected silo are less then the defined!' : null;
+    kod=="toast55" ? metin='Number of selected silo are more then the defined!' : null;
+    kod=="toast56" ? metin='Please define Silo Number as nonzero for all selected temp silos' : null;
+    kod=="toast57" ? metin='Please define a number equal or smaller than total silo quantity' : null;
+    kod=="toast58" ? metin='Same Silo Number assigned for two different silo! Please check.' : null;
+    kod=="toast59" ? metin='Please define output number as nonzero for all active outputs!' : null;
+    kod=="toast60" ? metin='Wifi connection is selected for temp. sensor' : null;
+    kod=="toast61" ? metin='Analog connection is selected for temp. sensor' : null;
+    kod=="toast62" ? metin='The map must be created and approved!' : null;
+    kod=="toast63" ? metin='Please define C.Fan Group Output No as nonzero' : null;
 
 
     //endregion

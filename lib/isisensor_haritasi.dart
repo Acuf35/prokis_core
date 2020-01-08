@@ -6,9 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/bacafan_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
+import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
 import 'languages/select.dart';
 
@@ -36,13 +38,12 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   List<int> isisensorNo = new List(23);
   bool haritaOnay = false;
   int isisensorAdet = 0;
+  int isisensorBaglanti = 1;
 
   int _onlarisisensor = 0;
   int _birlerisisensor = 0;
   int _onlarAktifSensor = 0;
   int _birlerAktifSensor = 0;
-  int _onlarOut = 3;
-  int _birlerOut = 3;
   int _degerNo = 0;
 
   double _oran1;
@@ -58,27 +59,32 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   List<String> aktifSensorID = new List(16);
   List<String> aktifSensorValue = new List(16);
   List<bool> aktifSensorDurum = new List(16);
-  int aktifSenSay=0;
-  bool aktifSensorNoTekerrur=false;
+  int aktifSenSay = 0;
+  bool aktifSensorNoTekerrur = false;
+  bool atanacakSensorVarmi = true;
+
+  List<int> tumCikislar = new List(111);
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-    IsiSensorHaritasiState(List<Map> dbVeri) {
-    bool isisensorHaritaOK=false;
-    bool isisensorNoOK=false;
+  IsiSensorHaritasiState(List<Map> dbVeri) {
+    bool isisensorHaritaOK = false;
+    bool isisensorNoOK = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
 
       if (dbVeri[i]["id"] == 4) {
-        isisensorAdet = int.parse(dbVeri[i]["veri4"]);
+        var xx=dbVeri[i]["veri4"].split('#');
+        isisensorAdet = int.parse(xx[0]);
+        isisensorBaglanti=int.parse(xx[1]);
       }
 
       if (dbVeri[i]["id"] == 20) {
         if (dbVeri[i]["veri1"] == "ok") {
-          isisensorHaritaOK=true;
+          isisensorHaritaOK = true;
           String xx = dbVeri[i]["veri2"];
           var fHaritalar = xx.split("#");
           for (int i = 1; i <= 22; i++) {
@@ -101,56 +107,55 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       if (dbVeri[i]["id"] == 21) {
         String xx;
         String yy;
+        String zz;
 
         if (dbVeri[i]["veri1"] == "ok") {
-          isisensorNoOK=true;
+          isisensorNoOK = true;
           veriGonderildi = true;
           xx = dbVeri[i]["veri2"];
           yy = dbVeri[i]["veri3"];
+          zz = dbVeri[i]["veri4"];
           var isisensorNolar = xx.split("#");
           var aktifIsisensorNolar = yy.split("#");
+          var aktifIsisensorIDler = zz.split("#");
           for (int i = 1; i <= 22; i++) {
             isisensorNo[i] = int.parse(isisensorNolar[i - 1]);
           }
 
-          if(aktifIsisensorNolar.length>2){
-          for (int i = 1; i <= 15; i++) {
-            aktifSensorNo[i] = int.parse(aktifIsisensorNolar[i - 1]);
-          }
-          }else{
+          if (aktifIsisensorNolar.length > 2) {
             for (int i = 1; i <= 15; i++) {
-            aktifSensorNo[i] = 0;
+              aktifSensorNo[i] = int.parse(aktifIsisensorNolar[i - 1]);
+              aktifSensorID[i] = aktifIsisensorIDler[i - 1];
+            }
+          } else {
+            for (int i = 1; i <= 15; i++) {
+              aktifSensorNo[i] = 0;
+            }
           }
-          }
+
         }
       }
-
-      
-
-      
     }
 
-    if(!isisensorHaritaOK){
-      for(int i=1;i<=22;i++){
+    if (!isisensorHaritaOK) {
+      for (int i = 1; i <= 22; i++) {
         isisensorHarita[i] = 0;
         isisensorVisibility[i] = true;
       }
-      
     }
 
-    if(!isisensorNoOK){
-      for(int i=1;i<=22;i++){
+    if (!isisensorNoOK) {
+      for (int i = 1; i <= 22; i++) {
         isisensorNo[i] = 0;
       }
 
-      for(int i=1;i<=15;i++){
-         aktifSensorNo[i] = 0;
+      for (int i = 1; i <= 15; i++) {
+        aktifSensorNo[i] = 0;
+        aktifSensorID[i] = "";
       }
-      
     }
 
     for (int i = 1; i <= 15; i++) {
-      aktifSensorID[i] = "";
       aktifSensorValue[i] = "0.0";
       aktifSensorVisibility[i] = false;
       aktifSensorDurum[i] = false;
@@ -160,25 +165,36 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-
   @override
   Widget build(BuildContext context) {
 
-    
 
     if (sayacAktifSensor == 0) {
       print("İlk Takip Et çalıştırıldı!!!");
-      _takipEt();
+      if(isisensorBaglanti==1){
+        _takipEtWifi();
+      }else{
+        _takipEtAnalog();
+      }
+      
 
       Timer.periodic(Duration(seconds: 5), (timer) {
+
+
         if (timerCancel) {
           timer.cancel();
         }
 
         if (!baglanti) {
           baglanti = true;
-          _takipEt();
+
+          if(isisensorBaglanti==1){
+            _takipEtWifi();
+          }else{
+            _takipEtAnalog();
+          }
         }
+
       });
     }
 
@@ -236,8 +252,40 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Spacer(
+                Expanded(
                   flex: 1,
+                  child: Column(
+                    children: <Widget>[
+                      Spacer(flex: 5,),
+                      Expanded(child: 
+                      Row(
+                        children: <Widget>[
+                          Spacer(),
+                          Expanded(flex: 4,
+                                                      child: SizedBox(
+                                child: Container(
+                                  alignment: Alignment.bottomCenter,
+                                  child: AutoSizeText(
+                                    SelectLanguage().selectStrings(dilSecimi, "tv70"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 40,
+                                    ),
+                                    maxLines: 1,
+                                    minFontSize: 8,
+                                  ),
+                                ),
+                              ),
+                          ),
+                          Spacer()
+                        ],
+                      )
+                      ,),
+                      _isisensorHaritaUnsur(22, oran, "tv49", 1),
+                      Container(height: 5*oran,)
+                    ],
+                  ),
                 ),
                 Expanded(
                   flex: 6,
@@ -248,12 +296,14 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                           flex: 13,
                           child: Stack(
                             children: <Widget>[
-                              Visibility(visible: aktifSenSay==0 ? true : false,
-                                                              child: Center(
+                              Visibility(
+                                visible: isisensorBaglanti==2  ? false : (aktifSenSay==0 ? true : false),
+                                child: Center(
                                     child: Text(
-                                  SelectLanguage().selectStrings(dilSecimi, "tv60"),
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "tv60"),
                                   style: TextStyle(
-                                      fontSize: 20*oran,
+                                      fontSize: 20 * oran,
                                       fontFamily: "Kelly Slab",
                                       color: Colors.grey[300],
                                       fontWeight: FontWeight.bold),
@@ -266,27 +316,29 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     child: Row(
                                       children: <Widget>[
                                         //Aktif sensörler başlık
-                                        Expanded(flex: 2,
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv51"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                                        Expanded(
+                                          flex: 2,
+                                          child: RotatedBox(
+                                            quarterTurns: -45,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: AutoSizeText(
+                                                  SelectLanguage()
+                                                      .selectStrings(
+                                                          dilSecimi, "tv51"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 40,
+                                                  ),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
                                         //Aktif Sensorler 1-2-3
                                         Expanded(
                                           flex: 10,
@@ -370,30 +422,30 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                           )),
                       Spacer(),
                       //Sensor Konumları Bölümü
-                      Expanded(flex: 2,
-                              child: SizedBox(
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: AutoSizeText(
-                                    SelectLanguage()
-                                        .selectStrings(dilSecimi, "tv57"),
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 40,
-                                    ),
-                                    maxLines: 1,
-                                    minFontSize: 8,
-                                  ),
-                                ),
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: AutoSizeText(
+                              SelectLanguage().selectStrings(dilSecimi, "tv57"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 40,
                               ),
+                              maxLines: 1,
+                              minFontSize: 8,
                             ),
+                          ),
+                        ),
+                      ),
                       Expanded(
                         flex: 20,
                         child: Row(
                           children: <Widget>[
-                            //Sağ Duvar
-                            Expanded(flex: 1,
+                            Expanded(
+                              flex: 1,
                               child: RotatedBox(
                                 quarterTurns: -45,
                                 child: SizedBox(
@@ -537,7 +589,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     )
                                   ],
                                 )),
-                            Expanded(flex: 1,
+                            Expanded(
+                              flex: 1,
                               child: RotatedBox(
                                 quarterTurns: -45,
                                 child: SizedBox(
@@ -558,7 +611,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                 ),
                               ),
                             ),
-                            
                           ],
                         ),
                       ),
@@ -607,14 +659,14 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                               //Haritada seçilen isisensor sayısı eksik
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast29"),
+                                      .selectStrings(dilSecimi, "toast51"),
                                   context,
                                   duration: 3);
                             } else if (sayac > isisensorAdet) {
                               //Haritada seçilen isisensor sayısı yüksek
                               Toast.show(
                                   SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast30"),
+                                      .selectStrings(dilSecimi, "toast52"),
                                   context,
                                   duration: 3);
                             } else {
@@ -658,7 +710,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.map,
-                                size: 30*oran,
+                                size: 30 * oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -688,7 +740,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.refresh,
-                                size: 30*oran,
+                                size: 30 * oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -711,20 +763,30 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                           onPressed: () {
                             bool noKontrol = false;
                             bool enAzBirAtama = false;
+                            bool sensSayYukNo = false;
                             String noVeri = "";
                             String noVeriAktif = "";
+                            String idVeriAktif = "";
                             for (int i = 1; i <= 22; i++) {
                               if (isisensorHarita[i] == 1) {
                                 if (isisensorNo[i] == 0) {
                                   noKontrol = true;
                                 }
+                                if (isisensorNo[i] > isisensorAdet) {
+                                  sensSayYukNo = true;
+                                }
                               }
                               noVeri = noVeri + isisensorNo[i].toString() + "#";
                             }
                             for (int i = 1; i <= 15; i++) {
-                              noVeriAktif = noVeriAktif + aktifSensorNo[i].toString() + "#";
-                              if(aktifSensorNo[i]!=0){
-                                enAzBirAtama=true;
+                              noVeriAktif = noVeriAktif +
+                                  aktifSensorNo[i].toString() +
+                                  "#";
+                              idVeriAktif = idVeriAktif +
+                                  aktifSensorID[i].toString() +
+                                  "#";
+                              if (aktifSensorNo[i] != 0) {
+                                enAzBirAtama = true;
                               }
                             }
                             if (noKontrol) {
@@ -733,19 +795,31 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                       .selectStrings(dilSecimi, "toast35"),
                                   context,
                                   duration: 3);
+                            } else if (sensSayYukNo) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast40"),
+                                  context,
+                                  duration: 3);
                             } else if (isisensorNoTekerrur) {
                               Toast.show(
                                   SelectLanguage()
                                       .selectStrings(dilSecimi, "toast31"),
                                   context,
                                   duration: 3);
-                            }else if (!enAzBirAtama) {
+                            } else if (!enAzBirAtama) {
                               Toast.show(
                                   SelectLanguage()
                                       .selectStrings(dilSecimi, "toast34"),
                                   context,
                                   duration: 3);
-                            }else if (aktifSensorNoTekerrur) {
+                            } else if (!atanacakSensorVarmi) {
+                              Toast.show(
+                                  SelectLanguage()
+                                      .selectStrings(dilSecimi, "toast41"),//Aktif sensorlere numara verirken harita üzerindeki numaralar içinde var mı yok mu kontrol  eder. 
+                                  context,
+                                  duration: 3);
+                            } else if (aktifSensorNoTekerrur) {
                               Toast.show(
                                   SelectLanguage()
                                       .selectStrings(dilSecimi, "toast33"),
@@ -754,10 +828,10 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             } else {
                               veriGonderildi = true;
 
-                              _veriGonder(
-                                  "19", "24", noVeri, noVeriAktif, "0", "0");
+                              _veriGonder("22", "26", noVeri, noVeriAktif,
+                                  idVeriAktif, "0");
                               dbHelper.veriYOKSAekleVARSAguncelle(
-                                  21, "ok", noVeri, noVeriAktif, "0");
+                                  21, "ok", noVeri, noVeriAktif, idVeriAktif);
                             }
                           },
                           highlightColor: Colors.green,
@@ -768,7 +842,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             children: <Widget>[
                               Icon(
                                 Icons.send,
-                                size: 30*oran,
+                                size: 30 * oran,
                               ),
                               Text(
                                 SelectLanguage()
@@ -791,7 +865,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                       iconSize: 50 * oran,
                       onPressed: () {
                         timerCancel = true;
-                        Navigator.pop(context);
+                        Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -811,16 +885,36 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                               context,
                               duration: 3);
                         } else {
-/*
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MhYontemi(dbVeriler)),
-                        ).then((onValue) {
+                          timerCancel = true;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BacafanHaritasi(dbVeriler)),
+                          ).then((onValue) {
                             _dbVeriCekme();
-                          });
-*/
+                            for (int i = 1; i <= 110; i++) {
+                              tumCikislar[i] = onValue[i];
+                            }
+                            timerCancel=false;
 
+                            Timer.periodic(Duration(seconds: 5), (timer) {
+                              if (timerCancel) {
+                                timer.cancel();
+                              }
+
+                              if (!baglanti) {
+                                baglanti = true;
+                                if(isisensorBaglanti==1){
+                                  _takipEtWifi();
+                                }else{
+                                  _takipEtAnalog();
+                                }
+                              }
+                            });
+
+
+                          });
                         }
                       },
                       color: Colors.black,
@@ -839,19 +933,18 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
-_satirlar(List<Map> satirlar) {
-
-    dbVeriler=satirlar;
+  _satirlar(List<Map> satirlar) {
+    dbVeriler = satirlar;
   }
 
-_dbVeriCekme(){
+  _dbVeriCekme() {
     dbSatirlar = dbHelper.satirlariCek();
     final satirSayisi = dbHelper.satirSayisi();
     satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
     satirSayisi.whenComplete(() {
-        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
-}
+  }
 
   String imageGetir(int deger) {
     String imagePath;
@@ -865,16 +958,8 @@ _dbVeriCekme(){
     return imagePath;
   }
 
-  Future _degergiris2X2X0(
-      int onlarUnsur,
-      int birlerUnsur,
-      int onlarOut,
-      int birlerOut,
-      int indexNo,
-      double oran,
-      String dil,
-      String baslik,
-      int degerGirisKodu) async {
+  Future _degergiris2X0(int onlarX, birlerX, index, double oran, String dil,
+      baslik, int degerGirisKodu) async {
     // flutter defined function
 
     await showDialog(
@@ -883,29 +968,23 @@ _dbVeriCekme(){
       builder: (BuildContext context) {
         // return object of type Dialog
 
-        return DegerGiris2X2X0.Deger(onlarUnsur, birlerUnsur, onlarOut,
-            birlerOut, indexNo, oran, dil, baslik);
+        return DegerGiris2X0.Deger(onlarX, birlerX, index, oran, dil, baslik);
       },
     ).then((val) {
-      if (degerGirisKodu == 1) degerGiris2X2X0Yrd1(val);
-      if (degerGirisKodu == 2) degerGiris2X2X0Yrd2(val);
+      if (degerGirisKodu == 1) degerGiris2X0Yrd1(val);
+      if (degerGirisKodu == 2) degerGiris2X0Yrd2(val);
     });
   }
 
   //Üst görünüşten haritadaki sensörlere numara atama işlemi
-  degerGiris2X2X0Yrd1(var val) {
-    if (_onlarisisensor != val[0] ||
-        _birlerisisensor != val[1] ||
-        _onlarOut != val[2] ||
-        _birlerOut != val[3]) {
+  degerGiris2X0Yrd1(var val) {
+    if (_onlarisisensor != val[0] || _birlerisisensor != val[1]) {
       veriGonderildi = false;
     }
 
     _onlarisisensor = val[0];
     _birlerisisensor = val[1];
-    _onlarOut = val[2];
-    _birlerOut = val[3];
-    _degerNo = val[4];
+    _degerNo = val[2];
 
     isisensorNo[_degerNo] =
         int.parse(_onlarisisensor.toString() + _birlerisisensor.toString());
@@ -930,15 +1009,14 @@ _dbVeriCekme(){
   }
 
   //Üst görünüşten haritadaki sensörlere numara atama işlemi
-  degerGiris2X2X0Yrd2(var val) {
-    if (_onlarAktifSensor != val[0] ||
-        _birlerAktifSensor != val[1]) {
+  degerGiris2X0Yrd2(var val) {
+    if (_onlarAktifSensor != val[0] || _birlerAktifSensor != val[1]) {
       veriGonderildi = false;
     }
 
     _onlarAktifSensor = val[0];
     _birlerAktifSensor = val[1];
-    _degerNo = val[4];
+    _degerNo = val[2];
 
     aktifSensorNo[_degerNo] =
         int.parse(_onlarAktifSensor.toString() + _birlerAktifSensor.toString());
@@ -959,9 +1037,16 @@ _dbVeriCekme(){
       }
     }
 
+    atanacakSensorVarmi = false;
+    for (int i = 1; i <= 22; i++) {
+      if (isisensorNo[i] != 0 && aktifSensorNo[_degerNo] == isisensorNo[i]) {
+        atanacakSensorVarmi = true;
+        break;
+      }
+    }
+
     setState(() {});
   }
-
 
   Widget _isisensorHaritaUnsur(
       int indexNo, double oran, String baslik, int degerGirisKodu) {
@@ -984,8 +1069,8 @@ _dbVeriCekme(){
                           : (isisensorNo[indexNo] ~/ 10).toInt();
                       _birlerisisensor = isisensorNo[indexNo] % 10;
                       _degerNo = indexNo;
-                      _degergiris2X2X0(_onlarisisensor, _birlerisisensor, 0, 0,
-                          indexNo, oran, dilSecimi, baslik, degerGirisKodu);
+                      _degergiris2X0(_onlarisisensor, _birlerisisensor, indexNo,
+                          oran, dilSecimi, baslik, degerGirisKodu);
                     } else {
                       if (isisensorHarita[indexNo] == 0 ||
                           isisensorHarita[indexNo] == null) {
@@ -1074,7 +1159,7 @@ _dbVeriCekme(){
     Socket socket;
 
     try {
-      socket = await Socket.connect('192.168.2.110', 2233);
+      socket = await Socket.connect('88.250.206.99', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -1130,6 +1215,9 @@ _dbVeriCekme(){
           isisensorNo[i] = 0;
           isisensorVisibility[i] = true;
         }
+        for(int i=1 ; i<=15;i++){
+          aktifSensorNo[i]=0;
+        }
         haritaOnay = false;
 
         dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
@@ -1141,18 +1229,18 @@ _dbVeriCekme(){
     });
   }
 
-  _takipEt() async {
+  _takipEtWifi() async {
     try {
       String gelenMesaj = "";
       const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.2.110', 2233).then((socket) {
+      await Socket.connect('88.250.206.99', 2233).then((socket) {
         /*
         socket.timeout(ReceiveTimeout,onTimeout: (deneme){
             Toast.show("Bağlantı zaman aşımına uğradı", context,duration: 3);
         });
         */
 
-        socket.add(utf8.encode('24*'));
+        socket.add(utf8.encode('24a*'));
 
         socket.listen(
           (List<int> event) {
@@ -1203,6 +1291,101 @@ _dbVeriCekme(){
     }
   }
 
+  _takipEtAnalog() async {
+    try {
+      String gelenMesaj = "";
+      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
+      await Socket.connect('88.250.206.99', 2233).then((socket) {
+        /*
+        socket.timeout(ReceiveTimeout,onTimeout: (deneme){
+            Toast.show("Bağlantı zaman aşımına uğradı", context,duration: 3);
+        });
+        */
+
+        socket.add(utf8.encode('24b'));
+
+        socket.listen(
+          (List<int> event) {
+            gelenMesaj = utf8.decode(event);
+
+            if (gelenMesaj != "") {
+              var sensorler = gelenMesaj.split('#');
+              print(sensorler);
+
+              for (int i = 1; i <= 15; i++) {
+                if (i%3 != 0) {
+                  aktifSensorVisibility[i] = true;
+                }
+              }
+
+              aktifSensorVisibility[1] =  isisensorAdet>=1 ? true :false;
+              aktifSensorVisibility[4] =  isisensorAdet>=2 ? true :false;
+              aktifSensorVisibility[7] =  isisensorAdet>=3 ? true :false;
+              aktifSensorVisibility[10] = isisensorAdet>=4 ? true :false;
+              aktifSensorVisibility[13] = isisensorAdet>=5 ? true :false;
+              aktifSensorVisibility[2] =  isisensorAdet>=6 ? true :false;
+              aktifSensorVisibility[5] =  isisensorAdet>=7 ? true :false;
+              aktifSensorVisibility[8] =  isisensorAdet>=8 ? true :false;
+              aktifSensorVisibility[11] = isisensorAdet>=9 ? true :false;
+              aktifSensorVisibility[14] = isisensorAdet>=10 ? true :false;
+
+              aktifSensorID[1] = 'Analog1';
+              aktifSensorID[4] = 'Analog2';
+              aktifSensorID[7] = 'Analog3';
+              aktifSensorID[10] = 'Analog4';
+              aktifSensorID[13] = 'Analog5';
+              aktifSensorID[2] = 'Analog6';
+              aktifSensorID[5] = 'Analog7';
+              aktifSensorID[8] = 'Analog8';
+              aktifSensorID[11] = 'Analog9';
+              aktifSensorID[14] = 'Analog10';
+              aktifSensorValue[1]   = sensorler[0] ;
+              aktifSensorValue[4]   = sensorler[1] ;
+              aktifSensorValue[7]   = sensorler[2] ;
+              aktifSensorValue[10]  = sensorler[3] ;
+              aktifSensorValue[13]  = sensorler[4] ;
+              aktifSensorValue[2]   = sensorler[5] ;
+              aktifSensorValue[5]   = sensorler[6];
+              aktifSensorValue[8]   = sensorler[7];
+              aktifSensorValue[11]  = sensorler[8];
+              aktifSensorValue[14]  = sensorler[9];
+              aktifSensorDurum[1]   = sensorler[0]=="0.0" ? false : true ;
+              aktifSensorDurum[4]   = sensorler[1]=="0.0" ? false : true ;
+              aktifSensorDurum[7]   = sensorler[2]=="0.0" ? false : true ;
+              aktifSensorDurum[10]  = sensorler[3]=="0.0" ? false : true ;
+              aktifSensorDurum[13]  = sensorler[4]=="0.0" ? false : true ;
+              aktifSensorDurum[2]   = sensorler[5]=="0.0" ? false : true ;
+              aktifSensorDurum[5]   = sensorler[6]=="0.0" ? false : true;
+              aktifSensorDurum[8]   = sensorler[7]=="0.0" ? false : true;
+              aktifSensorDurum[11]  = sensorler[8]=="0.0" ? false : true;
+              aktifSensorDurum[14]  = sensorler[9]=="0.0" ? false : true;
+
+              //socket.add(utf8.encode('ok'));
+            }
+          },
+          onDone: () {
+            baglanti = false;
+            socket.close();
+            if (!timerCancel) {
+              setState(() {});
+            }
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        if(!timerCancel)
+          Toast.show("Bağlantı hatası!", context, duration: 3);
+        baglanti = false;
+      });
+    } catch (e) {
+      print(e);
+      if(!timerCancel)
+      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+          duration: 3);
+      baglanti = false;
+    }
+  }
+
   Widget _aktifSensor(int index, double oran) {
     return Expanded(
       child: Visibility(
@@ -1215,23 +1398,28 @@ _dbVeriCekme(){
             Text(
               SelectLanguage().selectStrings(dilSecimi, "tv50") +
                   aktifSensorNo[index].toString(),
-              style: TextStyle(fontSize: 14,
-              color: aktifSensorNo[index]==0 ? Colors.black : Colors.blue[700],
-              fontWeight: aktifSensorNo[index]==0 ? FontWeight.normal : FontWeight.bold
-              ),textScaleFactor: oran,
+              style: TextStyle(
+                  fontSize: 14,
+                  color: aktifSensorNo[index] == 0
+                      ? Colors.black
+                      : Colors.blue[700],
+                  fontWeight: aktifSensorNo[index] == 0
+                      ? FontWeight.normal
+                      : FontWeight.bold),
+              textScaleFactor: oran,
             ),
             Expanded(
               child: RawMaterialButton(
                 onPressed: () {
-                   _onlarAktifSensor = isisensorNo[index] < 10
-                          ? 0
-                          : (aktifSensorNo[index] ~/ 10).toInt();
-                      _birlerAktifSensor = aktifSensorNo[index] % 10;
-                      _degerNo = index;
-                  
-                  _degergiris2X2X0(_onlarAktifSensor, _birlerAktifSensor, 0, 0, index, oran, dilSecimi, "tv61", 2);
-                  print(index);
+                  _onlarAktifSensor = aktifSensorNo[index] < 10
+                      ? 0
+                      : (aktifSensorNo[index] ~/ 10).toInt();
+                  _birlerAktifSensor = aktifSensorNo[index] % 10;
+                  _degerNo = index;
 
+                  _degergiris2X0(_onlarAktifSensor, _birlerAktifSensor, index,
+                      oran, dilSecimi, "tv61", 2);
+                  print(index);
                 },
                 fillColor:
                     aktifSensorDurum[index] ? Colors.green[300] : Colors.red,
