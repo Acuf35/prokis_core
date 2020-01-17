@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:toast/toast.dart';
+import 'bacafan_haritasi.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
@@ -896,7 +897,16 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                       iconSize: 50 * oran,
                       onPressed: () {
                         timerCancel = true;
-                        Navigator.pop(context, tumCikislar);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BacafanHaritasi(dbVeriler)),
+                          );
+                        
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -922,6 +932,15 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    IsiticiHaritasi(dbVeriler)),
+                          );
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -933,6 +952,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                               tumCikislar[i] = onValue[i];
                             }
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1241,7 +1261,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

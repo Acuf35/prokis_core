@@ -183,13 +183,22 @@ class DilSecimiState extends State<DilSecimi> {
                       icon: Icon(Icons.arrow_forward_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler)),
+                          //MaterialPageRoute(builder: (context) => UzDebiNem(dbVeriler)),
+                        );
+
+                        /*
                         Navigator.push(
                           context,
-                          //MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler)),
                           MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler)),
+                          //MaterialPageRoute(builder: (context) => UzDebiNem(dbVeriler)),
                         ).then((onValue) {
                           _dbVeriCekme();
                         });
+                        */
                       },
                       color: Colors.black,
                     )),

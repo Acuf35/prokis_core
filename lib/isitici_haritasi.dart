@@ -983,7 +983,15 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                       iconSize: 50 * oran,
                       onPressed: () {
                         timerCancel = true;
-                        Navigator.pop(context, tumCikislar);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AirInletHaritasi(dbVeriler)),
+                          );
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -1009,6 +1017,15 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SiloHaritasi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -1019,6 +1036,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                               tumCikislar[i] = onValue[i];
                             }
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1238,7 +1256,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

@@ -239,7 +239,7 @@ class KurulumOzetState extends State<KurulumOzet> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

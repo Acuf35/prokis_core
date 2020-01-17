@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/dil_secimi.dart';
 import 'package:toast/toast.dart';
 import 'adetler.dart';
 import 'genel/cikis_alert.dart';
@@ -695,7 +696,15 @@ class KumesOlusturState extends State<KumesOlustur> {
                                       icon: Icon(Icons.arrow_back_ios),
                                       iconSize: 50 * oran,
                                       onPressed: () {
+                                        Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DilSecimi(dbVeriler)));
+                                        
+                                        /*
                                         Navigator.pop(context);
+                                        */
                                       },
                                       color: Colors.black,
                                     )),
@@ -738,6 +747,15 @@ class KumesOlusturState extends State<KumesOlustur> {
                                               context,
                                               duration: 2);
                                         } else {
+
+                                          Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Adetler(dbVeriler)));
+                                          
+
+                                          /*
                                           Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -746,6 +764,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                               .then((onValue) {
                                             _dbVeriCekme();
                                           });
+                                          */
                                         }
                                       },
                                       color: Colors.black,
@@ -793,7 +812,7 @@ class KumesOlusturState extends State<KumesOlustur> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -835,7 +854,7 @@ class KumesOlusturState extends State<KumesOlustur> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:prokis/genel_ayarlar.dart';
 import 'package:toast/toast.dart';
-import 'ana_sayfa.dart';
 import 'dil_secimi.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
@@ -51,7 +51,8 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
         const Duration(seconds: 3),
             () => Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => kurulumDurum=="0" ? DilSecimi(dbVeriler) :  AnaSayfa()),
+          //MaterialPageRoute(builder: (context) => DilSecimi(dbVeriler)),
+          MaterialPageRoute(builder: (context) => kurulumDurum=="0" ? DilSecimi(dbVeriler) :  GenelAyarlar(dbVeriler)),
         ));
   }
 
@@ -142,7 +143,9 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
+
   _satirlar(List<Map> satirlar) {
+
     dbVeriler=satirlar;
 
     if (dbSatirSayisi > 0) {

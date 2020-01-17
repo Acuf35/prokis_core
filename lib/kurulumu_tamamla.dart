@@ -6,9 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/genel_ayarlar.dart';
 import 'package:toast/toast.dart';
+import 'aluyay.dart';
 import 'genel/database_helper.dart';
-import 'genel/deger_giris_2x0.dart';
 import 'languages/select.dart';
 
 class KurulumuTamamla extends StatefulWidget {
@@ -116,7 +117,10 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
 
 
 
-                Toast.show("Deneme", context, duration: 3);
+                
+                _veriGonder("100", "0", "0", "0", "0", "0");
+
+                
 
 
                 
@@ -143,7 +147,15 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AluyayHaritasi(dbVeriler)),
+                          );
+                        
+                        //Navigator.pop(context);
                       },
                     )),
                 Spacer(
@@ -179,7 +191,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -193,8 +205,16 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              SelectLanguage().selectStrings(dilSecimi, "toast64"), context,
               duration: 2);
+
+            dbHelper.veriYOKSAekleVARSAguncelle(2, "ok", gelen_mesaj_parcali[1], "0", "0");
+
+            Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => GenelAyarlar(dbVeriler)),
+                        );
+
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
         }

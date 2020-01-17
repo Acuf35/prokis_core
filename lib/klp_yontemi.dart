@@ -11,6 +11,7 @@ import 'package:toast/toast.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'languages/select.dart';
+import 'mh_yontemi.dart';
 
 class KlpYontemi extends StatefulWidget {
   List<Map> gelenDBveri;
@@ -278,7 +279,16 @@ class KlpYontemiState extends State<KlpYontemi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context);
+                        
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MhYontemi(dbVeriler)),
+                          );
+                        
+                        
+                        //Navigator.pop(context);
                       },
                     )),
                 Spacer(
@@ -298,6 +308,14 @@ class KlpYontemiState extends State<KlpYontemi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UzDebiNem(dbVeriler)),
+                          );
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -305,6 +323,7 @@ class KlpYontemiState extends State<KlpYontemi> {
                           ).then((onValue) {
                             _dbVeriCekme();
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -341,7 +360,7 @@ class KlpYontemiState extends State<KlpYontemi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

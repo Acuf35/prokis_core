@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/bacafan_haritasi.dart';
+import 'package:prokis/ped_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
@@ -865,7 +866,15 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                       iconSize: 50 * oran,
                       onPressed: () {
                         timerCancel = true;
-                        Navigator.pop(context, tumCikislar);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PedHaritasi(dbVeriler)),
+                          );
+                        
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -886,6 +895,16 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                               duration: 3);
                         } else {
                           timerCancel = true;
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BacafanHaritasi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -915,6 +934,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
 
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1159,7 +1179,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -1233,7 +1253,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
     try {
       String gelenMesaj = "";
       const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('88.250.206.99', 2233).then((socket) {
+      await Socket.connect('192.168.1.110', 2233).then((socket) {
         /*
         socket.timeout(ReceiveTimeout,onTimeout: (deneme){
             Toast.show("Bağlantı zaman aşımına uğradı", context,duration: 3);
@@ -1295,7 +1315,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
     try {
       String gelenMesaj = "";
       const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('88.250.206.99', 2233).then((socket) {
+      await Socket.connect('192.168.1.110', 2233).then((socket) {
         /*
         socket.timeout(ReceiveTimeout,onTimeout: (deneme){
             Toast.show("Bağlantı zaman aşımına uğradı", context,duration: 3);

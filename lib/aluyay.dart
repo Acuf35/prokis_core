@@ -959,7 +959,14 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context, tumCikislar);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SiloHaritasi(dbVeriler)),
+                          );
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -978,10 +985,12 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                   .selectStrings(dilSecimi, "toast27"),
                               context,
                               duration: 3);
+
+
                         } else {
 
                           
-                          Navigator.push(
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => KurulumuTamamla(dbVeriler)),
@@ -1323,7 +1332,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

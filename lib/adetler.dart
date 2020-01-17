@@ -10,6 +10,7 @@ import 'package:toast/toast.dart';
 import 'fan_yontemi.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
+import 'kumes_olustur.dart';
 import 'languages/select.dart';
 
 class Adetler extends StatefulWidget {
@@ -142,9 +143,12 @@ class AdetlerState extends State<Adetler> {
         klepeAdet = dbVeri[i]["veri2"];
         pedAdet = dbVeri[i]["veri3"];
         var xx=dbVeri[i]["veri4"].split('#');
+        print(xx);
         isiSensAdet = xx[0];
         wifiOlcum = xx[1]=="1" ? true : false;
         analogOlcum = xx[1]=="2" ? true : false;
+        
+        
       }
 
       if (dbVeri[i]["id"] == 5) {
@@ -338,7 +342,14 @@ class AdetlerState extends State<Adetler> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context);
+                        
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler)),
+                          //MaterialPageRoute(builder: (context) => UzDebiNem(dbVeriler)),
+                        );
+                        
+                        //Navigator.pop(context);
                       },
                     )),
                 Spacer(
@@ -351,6 +362,15 @@ class AdetlerState extends State<Adetler> {
                       icon: Icon(Icons.arrow_forward_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FanYontemi(dbVeriler)),
+                        );
+
+
+                        /*
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -358,6 +378,7 @@ class AdetlerState extends State<Adetler> {
                         ).then((onValue) {
                           _dbVeriCekme();
                         });
+                        */
 
                       },
                       color: Colors.black,
@@ -394,7 +415,7 @@ class AdetlerState extends State<Adetler> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -513,12 +534,16 @@ class AdetlerState extends State<Adetler> {
                         _veriGonder(
                             "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet);
                         dbHelper.veriYOKSAekleVARSAguncelle(
-                            4, fanAdet, klepeAdet, pedAdet, isiSensAdet);
+                            4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2")).then((onValue){
+                              _dbVeriCekme();
+                            });
                       } else {
                         _veriGonder("3", "6", bacafanAdet, airinletAdet,
                             isiticiAdet, siloAdet);
                         dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanAdet,
-                            airinletAdet, isiticiAdet, siloAdet);
+                            airinletAdet, isiticiAdet, siloAdet).then((onValue){
+                              _dbVeriCekme();
+                            });
                       }
 
                       setState(() {});

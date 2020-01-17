@@ -120,7 +120,32 @@ class SelectLanguage{
     kod=="tv96" ? metin='Yem 2 Aktif' : null;
     kod=="tv97" ? metin='Yem 3 Aktif' : null;
     kod=="tv98" ? metin='Kurulumu Tamamla' : null;
-
+    kod=="tv99" ? metin='GENEL AYARLAR' : null;
+    kod=="tv100" ? metin='İZLEME' : null;
+    kod=="tv101" ? metin='OTO-MAN' : null;
+    kod=="tv102" ? metin='KONTROL' : null;
+    kod=="tv103" ? metin='DATA LOG' : null;
+    kod=="tv104" ? metin='ALARM AYAR.' : null;
+    kod=="tv105" ? metin='KURULUM' : null;
+    kod=="tv106" ? metin='KONTROL AYARLARI' : null;
+    kod=="tv107" ? metin='SIC. ve FAN' : null;
+    kod=="tv108" ? metin='KLEPE' : null;
+    kod=="tv109" ? metin='SOĞUTMA' : null;
+    kod=="tv110" ? metin='MİN. HAV.' : null;
+    kod=="tv111" ? metin='ISITMA' : null;
+    kod=="tv112" ? metin='AYDINLATMA' : null;
+    kod=="tv113" ? metin='SİLO ve YEM' : null;
+    kod=="tv114" ? metin='P. SİHİRBAZI' : null;
+    kod=="tv115" ? metin='Set Sıcaklığı' : null;
+    kod=="tv116" ? metin='Tünel hav. başl. sıcaklığı' : null;
+    kod=="tv117" ? metin='Çapraz hav. bitiş sıcaklığı' : null;
+    kod=="tv118" ? metin='Tünel hav. aktif alan' : null;
+    kod=="tv119" ? metin='Çapraz hav. aktif alan' : null;
+    kod=="tv120" ? metin='Min hav. aktif alan(sürekli)' : null;
+    kod=="tv121" ? metin='Min hav. aktif alan(fasılalı)' : null;
+    kod=="tv122" ? metin='Maks. fan sıcaklığı' : null;
+    kod=="tv123" ? metin='Sıcaklık Diyagramı' : null;
+    kod=="tv124" ? metin='Navigatör Menü' : null;
 
    
     
@@ -232,7 +257,141 @@ class SelectLanguage{
     kod=="toast61" ? metin='Isı sensör için Analog bağlantı seçildi.' : null;
     kod=="toast62" ? metin='Önce haritayı oluşturup onaylamanız gerekli!' : null;
     kod=="toast63" ? metin='Lütfen sıfırdan farklı B.fan Grup Çıkış No tanımlayınız!' : null;
+    kod=="toast64" ? metin='Kurulum başarıyla tamamlandı...' : null;
+    kod=="toast65" ? metin='Civciv ve Broyler kafeslerinde aktif değildir.' : null;
+    kod=="toast66" ? metin='Baca fanı olmayan Civciv veya Broyler kafeslerinde PID kontrol aktif değildir.' : null;
+    kod=="toast67" ? metin='Sadece bacafanı olmayan Tavuk kafesleri için aktiftir.' : null;
     
+
+
+    //endregion
+
+
+
+    //region Information metinleri
+
+
+    //TF mod: Lineer , Kafes tipi:Tavuk,  Bacafan: Var
+    kod=="info1" ? metin='Kümes içi ortalama sıcaklık (B) değerinin altında ise Minimum Hav. modu, (B) ve (C) değeri arasında'
+    ' ise Çapraz Hav. modu, (C) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi baca fanları aracılığıyla yapılır. (A) ve (B) değerleri arasında baca fanları sürekli olarak çalışır.'
+    ' (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma süreleri hesaplanır ve baca fanları fasılalı olarak çalışır.\n\n'
+    'Çapraz Havalandırma:\n'
+    'Çapraz Hav. Tünel Havalandırma modu ile Minimum Havalandırma modunun aynı anda aktif olduğu moddur.'
+    ' Çalışan tünel fanı sayısı (B) değerinden (H) değerine gidildikçe lineer olarak artar ve (H) değerinde maksimum kapasiteye ulaşır. (B) ve (C) değerleri '
+    ' arasında tünel fanları ile birlikte baca fanları da sürekli olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    'Çalışan tünel fanı sayısı (B) değerinden (H) değerine gidildikçe lineer olarak artar ve (H) değerinde maksimum kapasiteye ulaşır.'
+    'Tünel fanları ile baca fanlarının birlikte çalıştığı çapraz havalandırma modu (C) değerinde sonlanır ve (C) değerinin üstünde'
+    ' sadece tünel fanları devrede olur.\n\n\n' : null;
+
+    //TF mod: Lineer , Kafes tipi:CivBro,  Bacafan: Var
+    kod=="info2" ? metin='Kümes içi ortalama sıcaklık (A+B) değerinin altında ise Minimum Hav. modu, (A+B) ve (A+C) değeri arasında'
+    ' ise Çapraz Hav. modu, (A+C) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi baca fanları aracılığıyla yapılır. (A) ve (A+B) değerleri arasında baca fanları sürekli olarak çalışır.'
+    ' (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma süreleri hesaplanır ve baca fanları fasılalı olarak çalışır.\n\n'
+    'Çapraz Havalandırma:\n'
+    'Çapraz Hav. Tünel Havalandırma modu ile Minimum Havalandırma modunun aynı anda aktif olduğu moddur.'
+    ' Çalışan tünel fanı sayısı (A+B) değerinden (H) değerine gidildikçe lineer olarak artar ve (H) değerinde maksimum kapasiteye ulaşır. (A+B) ve (A+C) değerleri '
+    ' arasında tünel fanları ile birlikte baca fanları da sürekli olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    'Çalışan tünel fanı sayısı (A+B) değerinden (H) değerine gidildikçe lineer olarak artar ve (H) değerinde maksimum kapasiteye ulaşır.'
+    'Tünel fanları ile baca fanlarının birlikte çalıştığı çapraz havalandırma modu (A+C) değerinde sonlanır ve (A+C) değerinin üstünde'
+    ' sadece tünel fanları devrede olur.\n\n\n' : null;
+
+    //TF mod: Lineer , Kafes tipi:Tavuk,  Bacafan: Yok
+    kod=="info3" ? metin='Kümes içi ortalama sıcaklık (B) değerinin altında ise Minimum Hav. modu, (B) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi seçilen birkaç tünel fanı aracılığıyla yapılır. (A) ve (B) değerleri arasında minimum havalandırma için seçilen tünel fanları sürekli olarak çalışır.'
+    ' (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma süreleri hesaplanır ve minimum havalandırma için seçilen tünel fanları fasılalı olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    'Çalışan tünel fanı sayısı (B) değerinden (H) değerine gidildikçe lineer olarak artar ve (H) değerinde tüm tünel fanları devreye girmiş olur.\n\n\n': null;
+
+    //TF mod: Lineer , Kafes tipi:CivBro,  Bacafan: Yok
+    kod=="info4" ? metin='Kümes içi ortalama sıcaklık (A+B) değerinin altında ise Minimum Hav. modu, (A+B) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi seçilen birkaç tünel fanı aracılığıyla yapılır. (A) ve (A+B) değerleri arasında minimum havalandırma için seçilen tünel fanları sürekli olarak çalışır.'
+    ' (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma süreleri hesaplanır ve minimum havalandırma için seçilen tünel fanları fasılalı olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    'Çalışan tünel fanı sayısı (A+B) değerinden (H) değerine gidildikçe lineer olarak artar ve (H) değerinde tüm tünel fanları devreye girmiş olur.\n\n\n': null;
+
+
+
+
+
+
+    //TF mod: Klasik , Kafes tipi:Tavuk,  Bacafan: Yok
+    kod=="info5" ? metin='Kümes içi ortalama sıcaklık (B) değerinin altında ise Minimum Hav. modu, (B) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi seçilen birkaç tünel fanı aracılığıyla yapılır. (A) ve (B) değerleri arasında minimum havalandırma için seçilen tünel fanları sürekli olarak çalışır.'
+    ' (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma süreleri hesaplanır ve minimum havalandırma için seçilen tünel fanları fasılalı olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    'Tüm tünel fanları için (B) noktası ve üstünde olacak şekilde ayrı ayrı set değeri'
+    ' tanımlanır. Ortalama sıcaklık tanımlanan bu değerin üstüne çıktığında ilgili tünel fanı çalışır, altına indiğinde durur.\n\n\n': null;
+
+    //TF mod: Klasik , Kafes tipi:Tavuk,  Bacafan: Var
+    kod=="info6" ? metin='Kümes içi ortalama sıcaklık (B) değerinin altında ise Minimum Hav. modu, (B) ve (C) değeri arasında'
+    ' ise Çapraz Hav. modu, (C) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi baca fanları aracılığıyla yapılır. (A) ve (B) değerleri arasında baca fanları sürekli olarak çalışır.'
+    ' (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma süreleri hesaplanır ve baca fanları fasılalı olarak çalışır.\n\n'
+    'Çapraz Havalandırma:\n'
+    'Çapraz Hav. Tünel Havalandırma modu ile Minimum Havalandırma modunun aynı anda aktif olduğu moddur. Bu sistemde tüm tünel fanları için (B) noktası'
+    ' ve üstünde ayrı ayrı set değeri tanımlanır. Ortalama sıcaklık tanımlanan bu değerin üstüne çıktığında ilgili tünel fanı çalışır, altına indiğinde durur.'
+    ' (B) ve (C) değerleri arasında tünel fanları ile birlikte baca fanları da sürekli olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    'Bu sistemde tüm tünel fanları için (B) noktası ve üstünde ayrı ayrı set değeri'
+    ' tanımlanır. Ortalama sıcaklık tanımlanan bu değerin üstüne çıktığında ilgili tünel fanı çalışır, altına indiğinde durur.'
+    ' Tünel fanları ile baca fanlarının birlikte çalıştığı çapraz havalandırma modu (C) değerinde sonlanır ve (C) değerinin üstünde'
+    ' sadece tünel fanları devrede olur.\n\n\n' : null;
+
+
+
+
+
+
+
+
+    //TF mod: PID , Kafes tipi:Tavuk,  Bacafan: Yok
+    kod=="info7" ? metin='Kümes içi ortalama sıcaklık (A) değerinin altında ise Minimum Hav. modu, (A) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi seçilen birkaç tünel fanı aracılığıyla yapılır. Ortalama sıcaklık (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma'
+    'süreleri hesaplanır ve minimum havalandırma için seçilen tünel fanları fasılalı olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    ' PID kontrol yönteminde ortalama sıcaklık (A) noktası ve üstünde ise PLC ortam sıcaklığının ısınma ve soğuma'
+    ' hızlarını algılar, bu hızları kontrol edebilecek yeterlilikte tünel fan sayısını hesaplar ve devreye sokar.': null;
+
+
+    //TF mod: PID , Kafes tipi:Tavuk,  Bacafan: Var
+    kod=="info8" ? metin='Kümes içi ortalama sıcaklık (A) değerinin altında ise Minimum Hav. modu, (A) ve (C) değeri arasında'
+    ' ise Çapraz Hav. modu, (C) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi baca fanları aracılığıyla yapılır. Ortalama sıcaklık (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma'
+    ' süreleri hesaplanır ve baca fanları fasılalı olarak çalışır.\n\n'
+    'Çapraz Hav. Tünel Havalandırma modu ile Minimum Havalandırma modunun aynı anda aktif olduğu moddur.'
+    ' (A) ve (C) değerleri arasında tünel fanları ile birlikte baca fanları da sürekli olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    ' PID kontrol yönteminde ortalama sıcaklık (A) noktası ve üstünde ise PLC ortam sıcaklığının ısınma ve soğuma'
+    ' hızlarını algılar, bu hızları kontrol edebilecek yeterlilikte tünel fan sayısını hesaplar ve devreye sokar.'
+    ' Tünel fanları ile baca fanlarının birlikte çalıştığı çapraz havalandırma modu (C) değerinde sonlanır ve (C) değerinin üstünde'
+    ' sadece tünel fanları devrede olur.\n\n\n' : null;
+
+    //TF mod: PID , Kafes tipi:CivBro,  Bacafan: Var
+    kod=="info9" ? metin='Kümes içi ortalama sıcaklık (A) değerinin altında ise Minimum Hav. modu, (A) ve (A+C) değeri arasında'
+    ' ise Çapraz Hav. modu, (A+C) değerinin üstünde ise Tünel Hav. modu etkindir\n\n'
+    'Minimum Havalandırma:\n'
+    'Minimum Hav. işlemi baca fanları aracılığıyla yapılır. Ortalama sıcaklık (A) değerinin altında ise seçili Minimum Hav. yöntemi sonucunda çalışma ve durma'
+    ' süreleri hesaplanır ve baca fanları fasılalı olarak çalışır.\n\n'
+    'Çapraz Hav. Tünel Havalandırma modu ile Minimum Havalandırma modunun aynı anda aktif olduğu moddur.'
+    ' (A) ve (A+C) değerleri arasında tünel fanları ile birlikte baca fanları da sürekli olarak çalışır.\n\n'
+    'Tünel Havalandırma:\n'
+    ' PID kontrol yönteminde ortalama sıcaklık (A) noktası ve üstünde ise PLC ortam sıcaklığının ısınma ve soğuma'
+    ' hızlarını algılar, bu hızları kontrol edebilecek yeterlilikte tünel fan sayısını hesaplar ve devreye sokar.'
+    ' Tünel fanları ile baca fanlarının birlikte çalıştığı çapraz havalandırma modu (A+C) değerinde sonlanır ve (A+C) değerinin üstünde'
+    ' sadece tünel fanları devrede olur.\n\n\n' : null;
+
 
 
     //endregion
@@ -351,6 +510,32 @@ class SelectLanguage{
     kod=="tv96" ? metin='Feed 2 Active' : null;
     kod=="tv97" ? metin='Feed 3 Active' : null;
     kod=="tv98" ? metin='Complete Installation' : null;
+    kod=="tv99" ? metin='GENERAL SETTING' : null;
+    kod=="tv100" ? metin='WATCH' : null;
+    kod=="tv101" ? metin='OTO-MAN' : null;
+    kod=="tv102" ? metin='CONTROL' : null;
+    kod=="tv103" ? metin='DATA LOG' : null;
+    kod=="tv104" ? metin='ALARM SET.' : null;
+    kod=="tv105" ? metin='INSTALLATION' : null;
+    kod=="tv106" ? metin='CONTROL SETTINGS' : null;
+    kod=="tv107" ? metin='TEMP. and HUM.' : null;
+    kod=="tv108" ? metin='KLEPE' : null;
+    kod=="tv109" ? metin='COOLING' : null;
+    kod=="tv110" ? metin='MIN. VENT.' : null;
+    kod=="tv111" ? metin='HEATER' : null;
+    kod=="tv112" ? metin='LIGHTING' : null;
+    kod=="tv113" ? metin='SILO and FEED' : null;
+    kod=="tv114" ? metin='P. WIZARD' : null;
+    kod=="tv115" ? metin='Set temperature' : null;
+    kod=="tv116" ? metin='Tunnel vent. start temp.' : null;
+    kod=="tv117" ? metin='Cross vent. finish temp.' : null;
+    kod=="tv118" ? metin='Tunnel vent. active area' : null;
+    kod=="tv119" ? metin='Cross vent. active area' : null;
+    kod=="tv120" ? metin='Min vent. active area(cont)' : null;
+    kod=="tv121" ? metin='Min vent. active area(int)' : null;
+    kod=="tv122" ? metin='Maks. fan sıcaklığı' : null;
+    kod=="tv123" ? metin='Temperature Diagram' : null;
+    kod=="tv124" ? metin='Navigator Menu' : null;
 
     
 
@@ -465,6 +650,10 @@ class SelectLanguage{
     kod=="toast61" ? metin='Analog connection is selected for temp. sensor' : null;
     kod=="toast62" ? metin='The map must be created and approved!' : null;
     kod=="toast63" ? metin='Please define C.Fan Group Output No as nonzero' : null;
+    kod=="toast64" ? metin='Installation completed succesfully...' : null;
+    kod=="toast65" ? metin='It is passive for Rearing and Broiler Cages.' : null;
+    kod=="toast66" ? metin='PID Control Method is passive for Rearing and Broiler Cages which have not chimney fans.' : null;
+    kod=="toast67" ? metin='Only active for Layer Cages which have not chimney fans.' : null;
 
 
     //endregion

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:toast/toast.dart';
+import 'fan_yontemi.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'klp_yontemi.dart';
@@ -35,6 +36,9 @@ class MhYontemiState extends State<MhYontemi> {
   bool kyDurum = false;
   bool ayDurum = false;
   bool hyDurum = false;
+
+  String bacafanAdet;
+  String kumesTuru;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -58,6 +62,14 @@ class MhYontemiState extends State<MhYontemi> {
           ayDurum = false;
           hyDurum = true;
         }
+      }
+
+      if (dbVeri[i]["id"] == 3) {
+        kumesTuru = dbVeri[i]["veri1"];
+      }
+
+      if (dbVeri[i]["id"] == 5) {
+        bacafanAdet = dbVeri[i]["veri1"];
       }
     }
 
@@ -138,7 +150,7 @@ class MhYontemiState extends State<MhYontemi> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
-                                  color: Colors.black,
+                                  color: kumesTuru=="1" && bacafanAdet=="0" ?  Colors.black : Colors.grey[700],
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold),
                               maxLines: 1,
@@ -163,7 +175,14 @@ class MhYontemiState extends State<MhYontemi> {
                       
                       Expanded(flex: 2,
                                               child: IconButton(
+
                           onPressed: () {
+
+                            if(kumesTuru!="1" || bacafanAdet!=0){
+                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast67"), context,duration: 3);
+                            }else{
+
+                            
                             if (!kyDurum) {
                               kyDurum = true;
                             }
@@ -177,13 +196,14 @@ class MhYontemiState extends State<MhYontemi> {
                                 7, "1", "0", "0", "0");
                             _veriGonder("5", "8", "1", "0", "0", "0");
                             setState(() {});
+                            }
                           },
                           icon: Icon(kyDurum == true
                               ? Icons.check_box
                               : Icons.check_box_outline_blank),
-                          color: kyDurum == true
+                          color: kumesTuru=="1" && bacafanAdet=="0" ? (kyDurum == true
                               ? Colors.green.shade500
-                              : Colors.blue.shade600,
+                              : Colors.blue.shade600) : Colors.grey[700],
                           iconSize: 30 * oran,
                         ),
                       )
@@ -269,7 +289,7 @@ class MhYontemiState extends State<MhYontemi> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
-                                  color: Colors.black,
+                                  color: kumesTuru=="1" ? Colors.black : Colors.grey[700],
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold),
                               maxLines: 1,
@@ -294,7 +314,11 @@ class MhYontemiState extends State<MhYontemi> {
                       
                       Expanded(flex: 2,
                                               child: IconButton(
+
+
                           onPressed: () {
+
+                            if(kumesTuru=="1"){
                             if (!hyDurum) {
                               hyDurum = true;
                             }
@@ -307,13 +331,16 @@ class MhYontemiState extends State<MhYontemi> {
                                 7, "3", "0", "0", "0");
                             _veriGonder("5", "8", "3", "0", "0", "0");
                             setState(() {});
+                            }else{
+                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast65"), context,duration: 3);
+                            }
                           },
                           icon: Icon(hyDurum == true
                               ? Icons.check_box
                               : Icons.check_box_outline_blank),
-                          color: hyDurum == true
+                          color: kumesTuru=="1" ? (hyDurum == true
                               ? Colors.green.shade500
-                              : Colors.blue.shade600,
+                              : Colors.blue.shade600) : Colors.grey[700],
                           iconSize: 30 * oran,
                         ),
                       )
@@ -342,7 +369,15 @@ class MhYontemiState extends State<MhYontemi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context);
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => FanYontemi(dbVeriler)),
+                        );
+                        
+                        
+                        //Navigator.pop(context);
                       },
                     )),
                 Spacer(
@@ -362,6 +397,15 @@ class MhYontemiState extends State<MhYontemi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => KlpYontemi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -369,6 +413,7 @@ class MhYontemiState extends State<MhYontemi> {
                           ).then((onValue) {
                             _dbVeriCekme();
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -405,7 +450,7 @@ class MhYontemiState extends State<MhYontemi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

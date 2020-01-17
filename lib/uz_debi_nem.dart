@@ -10,6 +10,7 @@ import 'package:toast/toast.dart';
 import 'fan_haritasi.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
+import 'klp_yontemi.dart';
 import 'languages/select.dart';
 
 class UzDebiNem extends StatefulWidget {
@@ -35,16 +36,16 @@ class UzDebiNemState extends State<UzDebiNem> {
   String kurulumDurum = "0";
   bool disNem = false;
   int klepeAdet = 0;
-  int bacaFanAdet=0;
-  String klepeNo="";
-  String xM="";
-  String yM="";
-  String aM="";
-  String bM="";
-  String cM="";
-  String tunelFanDebi="";
-  String bacaFanDebi="";
-  String hacimOrani="";
+  int bacaFanAdet = 0;
+  String klepeNo = "";
+  String xM = "";
+  String yM = "";
+  String aM = "";
+  String bM = "";
+  String cM = "";
+  String tunelFanDebi = "";
+  String bacaFanDebi = "";
+  String hacimOrani = "";
   String k1x = "0.0";
   String k2x = "0.0";
   String k3x = "0.0";
@@ -75,45 +76,49 @@ class UzDebiNemState extends State<UzDebiNem> {
   @override
   void initState() {
     // TODO: implement initState
-    _focusNodeAm.addListener((){
-      if(!_focusNodeAm.hasFocus){
+    _focusNodeAm.addListener(() {
+      if (!_focusNodeAm.hasFocus) {
         dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
         _veriGonder("10", "16", aM, bM, cM, "0");
       }
     });
-    _focusNodeBm.addListener((){
-      if(!_focusNodeBm.hasFocus){
+    _focusNodeBm.addListener(() {
+      if (!_focusNodeBm.hasFocus) {
         dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
         _veriGonder("10", "16", aM, bM, cM, "0");
       }
     });
-    _focusNodeCm.addListener((){
-      if(!_focusNodeCm.hasFocus){
+    _focusNodeCm.addListener(() {
+      if (!_focusNodeCm.hasFocus) {
         dbHelper.veriYOKSAekleVARSAguncelle(12, aM, bM, cM, "0");
         _veriGonder("10", "16", aM, bM, cM, "0");
       }
     });
-    _focusNodeTfanDebi.addListener((){
-      if(!_focusNodeTfanDebi.hasFocus){
-        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+    _focusNodeTfanDebi.addListener(() {
+      if (!_focusNodeTfanDebi.hasFocus) {
+        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi,
+            hacimOrani, disNem == true ? "1" : "0");
+        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani,
+            disNem == true ? "1" : "0");
       }
     });
-    _focusNodeBfanDebi.addListener((){
-      if(!_focusNodeBfanDebi.hasFocus){
-        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+    _focusNodeBfanDebi.addListener(() {
+      if (!_focusNodeBfanDebi.hasFocus) {
+        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi,
+            hacimOrani, disNem == true ? "1" : "0");
+        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani,
+            disNem == true ? "1" : "0");
       }
     });
-    _focusNodeHacimOrani.addListener((){
-      if(!_focusNodeHacimOrani.hasFocus){
-        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+    _focusNodeHacimOrani.addListener(() {
+      if (!_focusNodeHacimOrani.hasFocus) {
+        dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi,
+            hacimOrani, disNem == true ? "1" : "0");
+        _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani,
+            disNem == true ? "1" : "0");
       }
     });
-    
-    
-    
+
     super.initState();
   }
 
@@ -126,76 +131,70 @@ class UzDebiNemState extends State<UzDebiNem> {
         dilSecimi = dbVeri[i]["veri1"];
       }
 
-      if(dbVeri[i]["id"]==4){
+      if (dbVeri[i]["id"] == 4) {
         klepeAdet = int.parse(dbVeri[i]["veri2"]);
       }
 
-      if(dbVeri[i]["id"]==5){
+      if (dbVeri[i]["id"] == 5) {
         bacaFanAdet = int.parse(dbVeri[i]["veri1"]);
       }
 
-    
-
-      if(dbVeri[i]["id"]==9){
-        var data1=dbVeri[i]["veri1"].split("*");
-        k1x=data1[0];
-        data1.length>1 ? k1y=data1[1] :k1y="0";
-        var data2=dbVeri[i]["veri2"].split("*");
-        k2x=data2[0];
-        data2.length>1 ? k2y=data2[1] :k2y="0";
-        var data3=dbVeri[i]["veri3"].split("*");
-        k3x=data3[0];
-        data3.length>1 ? k3y=data3[1] :k3y="0";
-        var data4=dbVeri[i]["veri4"].split("*");
-        k4x=data4[0];
-        data4.length>1 ? k4y=data4[1] :k4y="0";
-      }
-      
-      if(dbVeri[i]["id"]==10){
-        var data1=dbVeri[i]["veri1"].split("*");
-        k5x=data1[0];
-        data1.length>1 ? k5y=data1[1] :k5y="0";
-        var data2=dbVeri[i]["veri2"].split("*");
-        k6x=data2[0];
-        data2.length>1 ? k6y=data2[1] :k6y="0";
-        var data3=dbVeri[i]["veri3"].split("*");
-        k7x=data3[0];
-        data3.length>1 ? k7y=data3[1] :k7y="0";
-        var data4=dbVeri[i]["veri4"].split("*");
-        k8x=data4[0];
-        data4.length>1 ? k8y=data4[1] :k8y="0";
+      if (dbVeri[i]["id"] == 9) {
+        var data1 = dbVeri[i]["veri1"].split("*");
+        k1x = data1[0];
+        data1.length > 1 ? k1y = data1[1] : k1y = "0";
+        var data2 = dbVeri[i]["veri2"].split("*");
+        k2x = data2[0];
+        data2.length > 1 ? k2y = data2[1] : k2y = "0";
+        var data3 = dbVeri[i]["veri3"].split("*");
+        k3x = data3[0];
+        data3.length > 1 ? k3y = data3[1] : k3y = "0";
+        var data4 = dbVeri[i]["veri4"].split("*");
+        k4x = data4[0];
+        data4.length > 1 ? k4y = data4[1] : k4y = "0";
       }
 
-      if(dbVeri[i]["id"]==11){
-        var data1=dbVeri[i]["veri1"].split("*");
-        k9x=data1[0];
-        data1.length>1 ? k9y=data1[1] :k9y="0";
-        var data2=dbVeri[i]["veri2"].split("*");
-        k10x=data2[0];
-        data2.length>1 ? k10y=data2[1] :k10y="0";
+      if (dbVeri[i]["id"] == 10) {
+        var data1 = dbVeri[i]["veri1"].split("*");
+        k5x = data1[0];
+        data1.length > 1 ? k5y = data1[1] : k5y = "0";
+        var data2 = dbVeri[i]["veri2"].split("*");
+        k6x = data2[0];
+        data2.length > 1 ? k6y = data2[1] : k6y = "0";
+        var data3 = dbVeri[i]["veri3"].split("*");
+        k7x = data3[0];
+        data3.length > 1 ? k7y = data3[1] : k7y = "0";
+        var data4 = dbVeri[i]["veri4"].split("*");
+        k8x = data4[0];
+        data4.length > 1 ? k8y = data4[1] : k8y = "0";
       }
 
-      if(dbVeri[i]["id"]==12){
-        aM=dbVeri[i]["veri1"];
-        bM=dbVeri[i]["veri2"];
-        cM=dbVeri[i]["veri3"];
+      if (dbVeri[i]["id"] == 11) {
+        var data1 = dbVeri[i]["veri1"].split("*");
+        k9x = data1[0];
+        data1.length > 1 ? k9y = data1[1] : k9y = "0";
+        var data2 = dbVeri[i]["veri2"].split("*");
+        k10x = data2[0];
+        data2.length > 1 ? k10y = data2[1] : k10y = "0";
       }
 
-      if(dbVeri[i]["id"]==13){
-        tunelFanDebi=dbVeri[i]["veri1"];
-        bacaFanDebi=dbVeri[i]["veri2"];
-        hacimOrani=dbVeri[i]["veri3"];
-        disNem=dbVeri[i]["veri4"]=="1" ? true : false;
+      if (dbVeri[i]["id"] == 12) {
+        aM = dbVeri[i]["veri1"];
+        bM = dbVeri[i]["veri2"];
+        cM = dbVeri[i]["veri3"];
       }
 
-
-
+      if (dbVeri[i]["id"] == 13) {
+        tunelFanDebi = dbVeri[i]["veri1"];
+        bacaFanDebi = dbVeri[i]["veri2"];
+        hacimOrani = dbVeri[i]["veri3"];
+        disNem = dbVeri[i]["veri4"] == "1" ? true : false;
+      }
     }
 
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
-
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +236,6 @@ class UzDebiNemState extends State<UzDebiNem> {
           child: ConstrainedBox(
             constraints: BoxConstraints(
               minHeight: viewportConstraints.maxHeight,
-              
             ),
             child: IntrinsicHeight(
               child: Column(
@@ -261,7 +259,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                   )),
                   // Ayarlar Bölümü
                   Expanded(
-                    flex: 2,//4~/oran,
+                    flex: 2, //4~/oran,
                     child: Container(
                       color: Colors.white,
                       alignment: Alignment.center,
@@ -282,7 +280,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                     Expanded(
                                       flex: 3,
                                       child: TextField(
-                                      focusNode: _focusNodeAm,
+                                        focusNode: _focusNodeAm,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.grey[600],
@@ -291,17 +289,14 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         controller: tec4,
                                         onChanged: (String metin) {
                                           aM = metin;
-                                          
                                         },
-                                        
-                                        onSubmitted: (String metin){
+                                        onSubmitted: (String metin) {
                                           _focusNodeAm.unfocus();
                                         },
-                                        
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(0),
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.all(0),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 16 * oran,
@@ -326,13 +321,13 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         onChanged: (String metin) {
                                           bM = metin;
                                         },
-                                        onSubmitted: (String metin){
+                                        onSubmitted: (String metin) {
                                           _focusNodeBm.unfocus();
                                         },
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(0),
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.all(0),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 16 * oran,
@@ -357,13 +352,13 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         onChanged: (String metin) {
                                           cM = metin;
                                         },
-                                        onSubmitted: (String metin){
+                                        onSubmitted: (String metin) {
                                           _focusNodeCm.unfocus();
                                         },
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          isDense: true,
-                                          contentPadding: EdgeInsets.all(0),
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.all(0),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey[600],
                                                 fontSize: 16 * oran,
@@ -378,36 +373,78 @@ class UzDebiNemState extends State<UzDebiNem> {
                                 ),
                                 //Tünel Fan Debi ve Baca Fan Debi Bölümü
                                 Row(
-                                    children: <Widget>[
-                                      Spacer(
-                                        flex: 1,
+                                  children: <Widget>[
+                                    Spacer(
+                                      flex: 1,
+                                    ),
+                                    //Tunel Fan Debi
+                                    Expanded(
+                                      flex: 6,
+                                      child: TextField(
+                                        focusNode: _focusNodeTfanDebi,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            color: Colors.grey[600],
+                                            fontSize: 20 * oran),
+                                        textAlign: TextAlign.center,
+                                        controller: tec7,
+                                        onChanged: (String metin) {
+                                          tunelFanDebi = metin;
+                                        },
+                                        onSubmitted: (String metin) {
+                                          _focusNodeTfanDebi.unfocus();
+                                        },
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                            isDense: true,
+                                            contentPadding: EdgeInsets.all(0),
+                                            helperText: SelectLanguage()
+                                                .selectStrings(
+                                                    dilSecimi, "tfhp1"),
+                                            helperStyle: TextStyle(
+                                                fontSize: 14 * oran,
+                                                fontFamily: 'Kelly Slab',
+                                                color: Colors.blue[800]),
+                                            labelStyle: TextStyle(
+                                                color: Colors.grey[600],
+                                                fontSize: 15 * oran,
+                                                fontWeight: FontWeight.bold),
+                                            labelText: SelectLanguage()
+                                                .selectStrings(
+                                                    dilSecimi, "tflb1")),
                                       ),
-                                      //Tunel Fan Debi
-                                      Expanded(
-                                        flex: 6,
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    ),
+                                    //Baca Fan Debi
+                                    Expanded(
+                                      flex: 6,
+                                      child: Visibility(
+                                        visible: bacaFanAdet > 0 ? true : false,
                                         child: TextField(
-                                          focusNode: _focusNodeTfanDebi,
+                                          focusNode: _focusNodeBfanDebi,
                                           style: TextStyle(
                                               fontFamily: 'Kelly Slab',
                                               color: Colors.grey[600],
                                               fontSize: 20 * oran),
                                           textAlign: TextAlign.center,
-                                          controller: tec7,
+                                          controller: tec8,
                                           onChanged: (String metin) {
-                                            tunelFanDebi = metin;
+                                            bacaFanDebi = metin;
                                           },
-                                          onSubmitted: (String metin){
-                                            _focusNodeTfanDebi.unfocus();
+                                          onSubmitted: (String metin) {
+                                            _focusNodeBfanDebi.unfocus();
                                           },
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
-                                            isDense: true,
-                                          contentPadding: EdgeInsets.all(0),
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.all(0),
                                               helperText: SelectLanguage()
                                                   .selectStrings(
                                                       dilSecimi, "tfhp1"),
                                               helperStyle: TextStyle(
-                                                fontSize: 14*oran,
+                                                  fontSize: 14 * oran,
                                                   fontFamily: 'Kelly Slab',
                                                   color: Colors.blue[800]),
                                               labelStyle: TextStyle(
@@ -416,56 +453,15 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                   fontWeight: FontWeight.bold),
                                               labelText: SelectLanguage()
                                                   .selectStrings(
-                                                      dilSecimi, "tflb1")),
+                                                      dilSecimi, "tflb2")),
                                         ),
                                       ),
-                                      Spacer(
-                                        flex: 1,
-                                      ),
-                                      //Baca Fan Debi
-                                      Expanded(
-                                        flex: 6,
-                                        child: Visibility(visible: bacaFanAdet>0 ? true : false,
-                                                                                  child: TextField(
-                                                                                    focusNode: _focusNodeBfanDebi,
-                                            style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                color: Colors.grey[600],
-                                                fontSize: 20 * oran),
-                                            textAlign: TextAlign.center,
-                                            controller: tec8,
-                                            onChanged: (String metin) {
-                                              bacaFanDebi = metin;
-                                            },
-                                            onSubmitted: (String metin){
-                                            _focusNodeBfanDebi.unfocus();
-                                          },
-                                            keyboardType: TextInputType.number,
-                                            decoration: InputDecoration(
-                                              isDense: true,
-                                          contentPadding: EdgeInsets.all(0),
-                                                helperText: SelectLanguage()
-                                                    .selectStrings(
-                                                        dilSecimi, "tfhp1"),
-                                                helperStyle: TextStyle(
-                                                  fontSize: 14*oran,
-                                                    fontFamily: 'Kelly Slab',
-                                                    color: Colors.blue[800]),
-                                                labelStyle: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 15 * oran,
-                                                    fontWeight: FontWeight.bold),
-                                                labelText: SelectLanguage()
-                                                    .selectStrings(
-                                                        dilSecimi, "tflb2")),
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(
-                                        flex: 1,
-                                      ),
-                                    ],
-                                  ),                               
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    ),
+                                  ],
+                                ),
                                 //Hacim oranı ve Dış Nm Bölümü
                                 Row(
                                   children: <Widget>[
@@ -488,18 +484,17 @@ class UzDebiNemState extends State<UzDebiNem> {
                                           controller: tec9,
                                           onChanged: (String metin) {
                                             hacimOrani = metin;
-                                            
                                           },
-                                          onSubmitted: (String metin){
+                                          onSubmitted: (String metin) {
                                             _focusNodeHacimOrani.unfocus();
                                           },
                                           keyboardType: TextInputType.number,
                                           decoration: InputDecoration(
-                                            isDense: true,
-                                          contentPadding: EdgeInsets.all(0),
+                                              isDense: true,
+                                              contentPadding: EdgeInsets.all(0),
                                               labelStyle: TextStyle(
                                                   color: Colors.grey[600],
-                                                  fontSize:16 * oran,
+                                                  fontSize: 16 * oran,
                                                   fontWeight: FontWeight.bold),
                                               labelText: SelectLanguage()
                                                   .selectStrings(
@@ -532,8 +527,22 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                 } else {
                                                   disNem = true;
                                                 }
-                                                dbHelper.veriYOKSAekleVARSAguncelle(13, tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
-                                                _veriGonder("11", "18", tunelFanDebi, bacaFanDebi, hacimOrani, disNem==true ? "1" :"0");
+                                                dbHelper
+                                                    .veriYOKSAekleVARSAguncelle(
+                                                        13,
+                                                        tunelFanDebi,
+                                                        bacaFanDebi,
+                                                        hacimOrani,
+                                                        disNem == true
+                                                            ? "1"
+                                                            : "0");
+                                                _veriGonder(
+                                                    "11",
+                                                    "18",
+                                                    tunelFanDebi,
+                                                    bacaFanDebi,
+                                                    hacimOrani,
+                                                    disNem == true ? "1" : "0");
 
                                                 setState(() {});
                                               },
@@ -545,7 +554,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                 color: disNem == true
                                                     ? Colors.green[600]
                                                     : Colors.black,
-                                                    size: 25*oran,
+                                                size: 25 * oran,
                                               ),
                                               padding: EdgeInsets.all(0),
                                               materialTapTargetSize:
@@ -568,520 +577,543 @@ class UzDebiNemState extends State<UzDebiNem> {
                               child: Column(
                             children: <Widget>[
                               Expanded(
-                        flex: 5,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              alignment: Alignment.center,
-                              image: AssetImage(
-                                  'assets/images/kumes_bina_uzunluk_icon.png'),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
-                              
+                                flex: 5,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      alignment: Alignment.center,
+                                      image: AssetImage(
+                                          'assets/images/kumes_bina_uzunluk_icon.png'),
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ],
                           )),
                           //Klepe uzunluk girişi
                           Expanded(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
                               //Klepe Uzunluk girişi(KlepeNO, x(m), Y(m))
                               Row(
-                                  children: <Widget>[
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                    //Klepe No
-                                    
-                                    Expanded(
-                                      flex: 5,
-                                      child: TextField(
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600],
-                                            fontSize: 20 * oran),
-                                        textAlign: TextAlign.center,
-                                        maxLength: 2,
-                                        controller: tec1,
-                                        onSubmitted: (String metin) {
-                                          klepeNo = metin;
-                                        },
-                                        onChanged: (String metin){
-                                          klepeNo=metin;
-                                        },
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
+                                children: <Widget>[
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  //Klepe No
+
+                                  Expanded(
+                                    flex: 5,
+                                    child: TextField(
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.grey[600],
+                                          fontSize: 20 * oran),
+                                      textAlign: TextAlign.center,
+                                      maxLength: 2,
+                                      controller: tec1,
+                                      onSubmitted: (String metin) {
+                                        klepeNo = metin;
+                                      },
+                                      onChanged: (String metin) {
+                                        klepeNo = metin;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
                                           isDense: true,
-                                            contentPadding: EdgeInsets.all(0),
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 16 * oran,
-                                                fontWeight: FontWeight.bold),
-                                            counterStyle: TextStyle(
-                                                color: Colors.grey.shade600,
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 12 * oran),
-                                            labelText: "Klepe No"),
-                                      ),
+                                          contentPadding: EdgeInsets.all(0),
+                                          labelStyle: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 16 * oran,
+                                              fontWeight: FontWeight.bold),
+                                          counterStyle: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontFamily: 'Kelly Slab',
+                                              fontSize: 12 * oran),
+                                          labelText: "Klepe No"),
                                     ),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                    //X(m)
-                                    Expanded(
-                                      flex: 3,
-                                      child: TextField(
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600],
-                                            fontSize: 20 * oran),
-                                        textAlign: TextAlign.center,
-                                        maxLength: 4,
-                                        controller: tec2,
-                                        onSubmitted: (String metin) {
-                                          xM = metin;
-                                        },
-                                        onChanged: (String metin){
-                                          xM=metin;
-                                        },
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  //X(m)
+                                  Expanded(
+                                    flex: 3,
+                                    child: TextField(
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.grey[600],
+                                          fontSize: 20 * oran),
+                                      textAlign: TextAlign.center,
+                                      maxLength: 4,
+                                      controller: tec2,
+                                      onSubmitted: (String metin) {
+                                        xM = metin;
+                                      },
+                                      onChanged: (String metin) {
+                                        xM = metin;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
                                           isDense: true,
-                                            contentPadding: EdgeInsets.all(0),
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 16 * oran,
-                                                fontWeight: FontWeight.bold),
-                                            counterStyle: TextStyle(
-                                                color: Colors.grey.shade600,
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 12 * oran),
-                                            labelText: "X(m)"),
-                                      ),
+                                          contentPadding: EdgeInsets.all(0),
+                                          labelStyle: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 16 * oran,
+                                              fontWeight: FontWeight.bold),
+                                          counterStyle: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontFamily: 'Kelly Slab',
+                                              fontSize: 12 * oran),
+                                          labelText: "X(m)"),
                                     ),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                    //Y(m)
-                                    Expanded(
-                                      flex: 3,
-                                      child: TextField(
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600],
-                                            fontSize: 20 * oran),
-                                        textAlign: TextAlign.center,
-                                        maxLength: 5,
-                                        controller: tec3,
-                                        onSubmitted: (String metin) {
-                                          yM = metin;
-                                        },
-                                        onChanged: (String metin){
-                                          yM=metin;
-                                        },
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  //Y(m)
+                                  Expanded(
+                                    flex: 3,
+                                    child: TextField(
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.grey[600],
+                                          fontSize: 20 * oran),
+                                      textAlign: TextAlign.center,
+                                      maxLength: 5,
+                                      controller: tec3,
+                                      onSubmitted: (String metin) {
+                                        yM = metin;
+                                      },
+                                      onChanged: (String metin) {
+                                        yM = metin;
+                                      },
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecoration(
                                           isDense: true,
-                                            contentPadding: EdgeInsets.all(0),
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 16 * oran,
-                                                fontWeight: FontWeight.bold),
-                                            labelText: "Y(m)"),
-                                      ),
+                                          contentPadding: EdgeInsets.all(0),
+                                          labelStyle: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 16 * oran,
+                                              fontWeight: FontWeight.bold),
+                                          labelText: "Y(m)"),
                                     ),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                ],
+                              ),
                               //Atama Onay Butonu
                               Row(
-                                  children: <Widget>[
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                    Expanded(
-                                      flex: 5,
-                                      child: SizedBox(
-                                        height: 40*oran,
-                                        child: RaisedButton(
-                                          color: Colors.blue[800],
-                                          elevation: 16,
-                                          onPressed: () {
-                                            double x;
-                                            double y;
-                                            bool formatHata = false;
-                                            print(klepeNo);
+                                children: <Widget>[
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  Expanded(
+                                    flex: 5,
+                                    child: SizedBox(
+                                      height: 40 * oran,
+                                      child: RaisedButton(
+                                        color: Colors.blue[800],
+                                        elevation: 16,
+                                        onPressed: () {
+                                          double x;
+                                          double y;
+                                          bool formatHata = false;
+                                          print(klepeNo);
 
-                                            try {
-                                              x = double.parse(xM);
-                                            } catch (e) {
-                                              formatHata = true;
-                                            }
+                                          try {
+                                            x = double.parse(xM);
+                                          } catch (e) {
+                                            formatHata = true;
+                                          }
 
-                                            try {
-                                              y = double.parse(yM);
-                                            } catch (e) {
-                                              formatHata = true;
-                                            }
+                                          try {
+                                            y = double.parse(yM);
+                                          } catch (e) {
+                                            formatHata = true;
+                                          }
 
-                                            if (xM != null &&
-                                                yM != null &&
-                                                klepeNo != null &&
-                                                klepeNo != "" &&
-                                                xM != "" &&
-                                                yM != "") {
-                                              if (!formatHata && x > 0 && y > 0) {
-                                                int klpNo = int.parse(klepeNo);
+                                          if (xM != null &&
+                                              yM != null &&
+                                              klepeNo != null &&
+                                              klepeNo != "" &&
+                                              xM != "" &&
+                                              yM != "") {
+                                            if (!formatHata && x > 0 && y > 0) {
+                                              int klpNo = int.parse(klepeNo);
 
-                                                if (klpNo <= klepeAdet) {
-                                                  if (klpNo == 1) {
-                                                    k1x = xM;
-                                                    k1y = yM;
-                                                  }
-
-                                                  if (klpNo == 2) {
-                                                    k2x = xM;
-                                                    k2y = yM;
-                                                  }
-
-                                                  if (klpNo == 3) {
-                                                    k3x = xM;
-                                                    k3y = yM;
-                                                  }
-
-                                                  if (klpNo == 4) {
-                                                    k4x = xM;
-                                                    k4y = yM;
-                                                  }
-
-                                                  if (klpNo == 5) {
-                                                    k5x = xM;
-                                                    k5y = yM;
-                                                  }
-
-                                                  if (klpNo == 6) {
-                                                    k6x = xM;
-                                                    k6y = yM;
-                                                  }
-
-                                                  if (klpNo == 7) {
-                                                    k7x = xM;
-                                                    k7y = yM;
-                                                  }
-
-                                                  if (klpNo == 8) {
-                                                    k8x = xM;
-                                                    k8y = yM;
-                                                  }
-
-                                                  if (klpNo == 9) {
-                                                    k9x = xM;
-                                                    k9y = yM;
-                                                  }
-
-                                                  if (klpNo == 10) {
-                                                    k10x = xM;
-                                                    k10y = yM;
-                                                  }
-
-                                                  Toast.show(
-                                                      SelectLanguage()
-                                                          .selectStrings(
-                              dilSecimi,
-                              "toast8"),
-                                                      context,
-                                                      duration: 2);
-                                                      
-                                                
-                                                
-                                                
-
-
-                                                if(klpNo<5){
-                                                    dbHelper.veriYOKSAekleVARSAguncelle(9, k1x+"*"+k1y, k2x+"*"+k2y, k3x+"*"+k3y, k4x+"*"+k4y);
-                                                    _veriGonder("7", "11", k1x+"#"+k1y, k2x+"#"+k2y, k3x+"#"+k3y, k4x+"#"+k4y);
+                                              if (klpNo <= klepeAdet) {
+                                                if (klpNo == 1) {
+                                                  k1x = xM;
+                                                  k1y = yM;
                                                 }
-                                                else if(klpNo<9){
-                                                  dbHelper.veriYOKSAekleVARSAguncelle(10, k5x+"*"+k5y, k6x+"*"+k6y, k7x+"*"+k7y, k8x+"*"+k8y);
-                                                    _veriGonder("8", "13", k5x+"#"+k5y, k6x+"#"+k6y, k7x+"#"+k7y, k8x+"#"+k8y);
-                                                }
-                                                else if(klpNo<11){
-                                                  dbHelper.veriYOKSAekleVARSAguncelle(11, k9x+"*"+k9y, k10x+"*"+k10y, "0", "0");
-                                                    _veriGonder("9", "15", k9x+"#"+k9y, k10x+"#"+k10y, "0", "0");
-                                                }
-                                                
-                                                
 
+                                                if (klpNo == 2) {
+                                                  k2x = xM;
+                                                  k2y = yM;
+                                                }
 
-                                                } else {
-                                                  Toast.show(
-                                                      SelectLanguage()
-                                                          .selectStrings(
-                              dilSecimi,
-                              "toast5"),
-                                                      context,
-                                                      duration: 3);
+                                                if (klpNo == 3) {
+                                                  k3x = xM;
+                                                  k3y = yM;
+                                                }
+
+                                                if (klpNo == 4) {
+                                                  k4x = xM;
+                                                  k4y = yM;
+                                                }
+
+                                                if (klpNo == 5) {
+                                                  k5x = xM;
+                                                  k5y = yM;
+                                                }
+
+                                                if (klpNo == 6) {
+                                                  k6x = xM;
+                                                  k6y = yM;
+                                                }
+
+                                                if (klpNo == 7) {
+                                                  k7x = xM;
+                                                  k7y = yM;
+                                                }
+
+                                                if (klpNo == 8) {
+                                                  k8x = xM;
+                                                  k8y = yM;
+                                                }
+
+                                                if (klpNo == 9) {
+                                                  k9x = xM;
+                                                  k9y = yM;
+                                                }
+
+                                                if (klpNo == 10) {
+                                                  k10x = xM;
+                                                  k10y = yM;
+                                                }
+
+                                                Toast.show(
+                                                    SelectLanguage()
+                                                        .selectStrings(
+                                                            dilSecimi,
+                                                            "toast8"),
+                                                    context,
+                                                    duration: 2);
+
+                                                if (klpNo < 5) {
+                                                  dbHelper
+                                                      .veriYOKSAekleVARSAguncelle(
+                                                          9,
+                                                          k1x + "*" + k1y,
+                                                          k2x + "*" + k2y,
+                                                          k3x + "*" + k3y,
+                                                          k4x + "*" + k4y);
+                                                  _veriGonder(
+                                                      "7",
+                                                      "11",
+                                                      k1x + "#" + k1y,
+                                                      k2x + "#" + k2y,
+                                                      k3x + "#" + k3y,
+                                                      k4x + "#" + k4y);
+                                                } else if (klpNo < 9) {
+                                                  dbHelper
+                                                      .veriYOKSAekleVARSAguncelle(
+                                                          10,
+                                                          k5x + "*" + k5y,
+                                                          k6x + "*" + k6y,
+                                                          k7x + "*" + k7y,
+                                                          k8x + "*" + k8y);
+                                                  _veriGonder(
+                                                      "8",
+                                                      "13",
+                                                      k5x + "#" + k5y,
+                                                      k6x + "#" + k6y,
+                                                      k7x + "#" + k7y,
+                                                      k8x + "#" + k8y);
+                                                } else if (klpNo < 11) {
+                                                  dbHelper
+                                                      .veriYOKSAekleVARSAguncelle(
+                                                          11,
+                                                          k9x + "*" + k9y,
+                                                          k10x + "*" + k10y,
+                                                          "0",
+                                                          "0");
+                                                  _veriGonder(
+                                                      "9",
+                                                      "15",
+                                                      k9x + "#" + k9y,
+                                                      k10x + "#" + k10y,
+                                                      "0",
+                                                      "0");
                                                 }
                                               } else {
                                                 Toast.show(
                                                     SelectLanguage()
                                                         .selectStrings(
-                                                            dilSecimi, "toast7"),
+                                                            dilSecimi,
+                                                            "toast5"),
                                                     context,
                                                     duration: 3);
                                               }
                                             } else {
                                               Toast.show(
-                                                  SelectLanguage().selectStrings(
-                                                      dilSecimi, "toast6"),
+                                                  SelectLanguage()
+                                                      .selectStrings(
+                                                          dilSecimi, "toast7"),
                                                   context,
                                                   duration: 3);
                                             }
+                                          } else {
+                                            Toast.show(
+                                                SelectLanguage().selectStrings(
+                                                    dilSecimi, "toast6"),
+                                                context,
+                                                duration: 3);
+                                          }
 
-                                            setState(() {});
-                                          },
-                                          child: Container(
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: <Widget>[
-                                                Icon(
-                                                  
-                                                  Icons.keyboard_arrow_down,
-                                                  size:50 * oran,
-                                                  color: Colors.white,
-                                                ),
-                                              ],
-                                            ),
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.keyboard_arrow_down,
+                                                size: 50 * oran,
+                                                color: Colors.white,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
                                     ),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                ],
+                              ),
                               //Atanan klepelerin gösterildiği bölüm
                               Row(
-                                  children: <Widget>[
-                                    Spacer(
-                                      flex: 1,
+                                children: <Widget>[
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                  Expanded(
+                                    flex: 20,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment: klepeAdet < 6
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 0 ? true : false,
+                                              child: Text(
+                                                "K1: X=$k1x , Y=$k1y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k1x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 5 ? true : false,
+                                              child: Text(
+                                                "K6: X=$k6x , Y=$k6y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k6x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: klepeAdet < 6
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 1 ? true : false,
+                                              child: Text(
+                                                "K2: X=$k2x , Y=$k2y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k2x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 6 ? true : false,
+                                              child: Text(
+                                                "K7: X=$k7x , Y=$k7y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k7x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: klepeAdet < 6
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 2 ? true : false,
+                                              child: Text(
+                                                "K3: X=$k3x , Y=$k3y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k3x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 7 ? true : false,
+                                              child: Text(
+                                                "K8: X=$k8x , Y=$k8y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k8x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: klepeAdet < 6
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 3 ? true : false,
+                                              child: Text(
+                                                "K4: X=$k4x , Y=$k4y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k4x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 8 ? true : false,
+                                              child: Text(
+                                                "K9: X=$k9x , Y=$k9y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k9x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: klepeAdet < 6
+                                              ? MainAxisAlignment.center
+                                              : MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 4 ? true : false,
+                                              child: Text(
+                                                "K5: X=$k5x , Y=$k5y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k5x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            ),
+                                            Visibility(
+                                              visible:
+                                                  klepeAdet > 9 ? true : false,
+                                              child: Text(
+                                                "K10: X=$k10x , Y=$k10y",
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  color: k10x != "0.0"
+                                                      ? Colors.blue[800]
+                                                      : Colors.grey[600],
+                                                ),
+                                                textScaleFactor: oran,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                    Expanded(
-                                      flex: 20,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                        children: <Widget>[
-                                          Row(
-                                            mainAxisAlignment: klepeAdet < 6
-                                                ? MainAxisAlignment.center
-                                                : MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 0 ? true : false,
-                                                child: Text(
-                                                  "K1: X=$k1x , Y=$k1y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k1x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 5 ? true : false,
-                                                child: Text(
-                                                  "K6: X=$k6x , Y=$k6y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k6x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: klepeAdet < 6
-                                                ? MainAxisAlignment.center
-                                                : MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 1 ? true : false,
-                                                child: Text(
-                                                  "K2: X=$k2x , Y=$k2y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k2x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 6 ? true : false,
-                                                child: Text(
-                                                  "K7: X=$k7x , Y=$k7y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k7x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: klepeAdet < 6
-                                                ? MainAxisAlignment.center
-                                                : MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 2 ? true : false,
-                                                child: Text(
-                                                  "K3: X=$k3x , Y=$k3y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k3x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 7 ? true : false,
-                                                child: Text(
-                                                  "K8: X=$k8x , Y=$k8y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k8x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: klepeAdet < 6
-                                                ? MainAxisAlignment.center
-                                                : MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 3 ? true : false,
-                                                child: Text(
-                                                  "K4: X=$k4x , Y=$k4y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k4x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 8 ? true : false,
-                                                child: Text(
-                                                  "K9: X=$k9x , Y=$k9y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k9x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: klepeAdet < 6
-                                                ? MainAxisAlignment.center
-                                                : MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 4 ? true : false,
-                                                child: Text(
-                                                  "K5: X=$k5x , Y=$k5y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k5x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              ),
-                                              Visibility(
-                                                visible:
-                                                    klepeAdet > 9 ? true : false,
-                                                child: Text(
-                                                  "K10: X=$k10x , Y=$k10y",
-                                                  style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight: FontWeight.bold,
-                                                    color: k10x != "0.0"
-                                                        ? Colors.blue[800]
-                                                        : Colors.grey[600],
-                                                  ),
-                                                  textScaleFactor: oran,
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                  ],
-                                )
+                                  ),
+                                  Spacer(
+                                    flex: 1,
+                                  ),
+                                ],
+                              )
                             ],
                           ))
                         ],
@@ -1090,187 +1122,224 @@ class UzDebiNemState extends State<UzDebiNem> {
                   ),
                   // Sayfa geçiş okları bölümü
                   Expanded(
-                    child: Container(padding: EdgeInsets.only(top: 15*oran),
-                            color: Colors.grey[600],
-                            child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Spacer(
-                                  flex: 20,
-                                ),
-                                Expanded(
-                                    //geri OK
-                                    flex: 2,
-                                    child: IconButton(
-                                      icon: Icon(Icons.arrow_back_ios),
-                                      iconSize: 50 * oran,
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      color: Colors.black,
-                                    )),
-                                Spacer(
-                                  flex: 1,
-                                ),
-                                Expanded(
-                                    //İleri OK
-                                    flex: 2,
-                                    child: IconButton(
-                                      icon: Icon(Icons.arrow_forward_ios),
-                                      iconSize: 50 * oran,
-                                      onPressed: () {
+                    child: Container(
+                      padding: EdgeInsets.only(top: 15 * oran),
+                      color: Colors.grey[600],
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Spacer(
+                            flex: 20,
+                          ),
+                          Expanded(
+                              //geri OK
+                              flex: 2,
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_back_ios),
+                                iconSize: 50 * oran,
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            KlpYontemi(dbVeriler)),
+                                  );
 
+                                  //Navigator.pop(context);
+                                },
+                                color: Colors.black,
+                              )),
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Expanded(
+                              //İleri OK
+                              flex: 2,
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_forward_ios),
+                                iconSize: 50 * oran,
+                                onPressed: () {
+                                  bool klepeTamam = true;
+                                  bool aBos = false;
+                                  bool bBos = false;
+                                  bool cBos = false;
+                                  bool tfdBos = false;
+                                  bool bfdBos = false;
+                                  bool hoBos = false;
+                                  bool aTanimsiz = false;
+                                  bool bTanimsiz = false;
+                                  bool cTanimsiz = false;
+                                  bool tfdTanimsiz = false;
+                                  bool bfdTanimsiz = false;
+                                  bool hoTanimsiz = false;
+                                  double a;
+                                  double b;
+                                  double c;
+                                  double tf;
+                                  double bf;
+                                  double ho;
 
-                                        bool klepeTamam=true;
-                                        bool aBos=false;
-                                        bool bBos=false;
-                                        bool cBos=false;
-                                        bool tfdBos=false;
-                                        bool bfdBos=false;
-                                        bool hoBos=false;
-                                        bool aTanimsiz=false;
-                                        bool bTanimsiz=false;
-                                        bool cTanimsiz=false;
-                                        bool tfdTanimsiz=false;
-                                        bool bfdTanimsiz=false;
-                                        bool hoTanimsiz=false;
-                                        double a;
-                                        double b;
-                                        double c;
-                                        double tf;
-                                        double bf;
-                                        double ho;
+                                  try {
+                                    a = double.parse(aM);
+                                  } catch (e) {
+                                    aTanimsiz = true;
+                                  }
 
-                                        try {
-                                          a=double.parse(aM);
-                                        } catch (e) {
-                                          aTanimsiz=true;
-                                        }
+                                  try {
+                                    b = double.parse(bM);
+                                  } catch (e) {
+                                    bTanimsiz = true;
+                                  }
 
-                                        try {
-                                          b=double.parse(bM);
-                                        } catch (e) {
-                                          bTanimsiz=true;
-                                        }
+                                  try {
+                                    c = double.parse(cM);
+                                  } catch (e) {
+                                    cTanimsiz = true;
+                                  }
 
-                                        try {
-                                          c=double.parse(cM);
-                                        } catch (e) {
-                                          cTanimsiz=true;
-                                        }
+                                  try {
+                                    tf = double.parse(tunelFanDebi);
+                                  } catch (e) {
+                                    tfdTanimsiz = true;
+                                  }
 
-                                        try {
-                                          tf=double.parse(tunelFanDebi);
-                                        } catch (e) {
-                                          tfdTanimsiz=true;
-                                        }
+                                  try {
+                                    bf = double.parse(bacaFanDebi);
+                                  } catch (e) {
+                                    if (bacaFanAdet > 0) {
+                                      bfdTanimsiz = true;
+                                    }
+                                  }
 
-                                        try {
-                                          bf=double.parse(bacaFanDebi);
-                                        } catch (e) {
-                                          if(bacaFanAdet>0){
-                                            bfdTanimsiz=true;
-                                          }
-                                        }
+                                  try {
+                                    ho = double.parse(hacimOrani);
+                                  } catch (e) {
+                                    hoTanimsiz = true;
+                                  }
 
-                                        try {
-                                          ho=double.parse(hacimOrani);
-                                        } catch (e) {
-                                          hoTanimsiz=true;
-                                        }
+                                  if (aM == "" || aM == null) {
+                                    aBos = true;
+                                  }
 
+                                  if (bM == "" || bM == null) {
+                                    bBos = true;
+                                  }
 
+                                  if (cM == "" || cM == null) {
+                                    cBos = true;
+                                  }
 
-                                        if(aM=="" || aM==null){
-                                          aBos=true;
-                                        }
+                                  if (tunelFanDebi == "" ||
+                                      tunelFanDebi == null) {
+                                    tfdBos = true;
+                                  }
 
-                                        if(bM=="" || bM==null){
-                                          bBos=true;
-                                        }
+                                  if (bacaFanDebi == "" ||
+                                      bacaFanDebi == null) {
+                                    if (bacaFanAdet > 0) {
+                                      bfdBos = true;
+                                    }
+                                  }
 
-                                        if(cM=="" || cM==null){
-                                          cBos=true;
-                                        }
+                                  if (hacimOrani == "" || hacimOrani == null) {
+                                    hoBos = true;
+                                  }
 
-                                        if(tunelFanDebi=="" || tunelFanDebi==null){
-                                          tfdBos=true;
-                                        }
+                                  if (klepeAdet > 0 && k1x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 1 && k2x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 2 && k3x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 3 && k4x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 4 && k5x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 5 && k6x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 6 && k7x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 7 && k8x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 8 && k9x == "0.0") {
+                                    klepeTamam = false;
+                                  } else if (klepeAdet > 9 && k10x == "0.0") {
+                                    klepeTamam = false;
+                                  }
 
-                                        if(bacaFanDebi=="" || bacaFanDebi==null){
-                                          if(bacaFanAdet>0){
-                                            bfdBos=true;
-                                          }
-                                        }
+                                  if (!klepeTamam) {
+                                    Toast.show(
+                                        SelectLanguage()
+                                            .selectStrings(dilSecimi, "toast9"),
+                                        context,
+                                        duration: 3);
+                                  } else if (aBos || bBos || cBos) {
+                                    Toast.show(
+                                        SelectLanguage().selectStrings(
+                                            dilSecimi, "toast10"),
+                                        context,
+                                        duration: 3);
+                                  } else if (tfdBos || bfdBos) {
+                                    Toast.show(
+                                        SelectLanguage().selectStrings(
+                                            dilSecimi, "toast11"),
+                                        context,
+                                        duration: 3);
+                                  } else if (hoBos) {
+                                    Toast.show(
+                                        SelectLanguage().selectStrings(
+                                            dilSecimi, "toast12"),
+                                        context,
+                                        duration: 3);
+                                  } else if (aTanimsiz ||
+                                      bTanimsiz ||
+                                      cTanimsiz) {
+                                    Toast.show(
+                                        SelectLanguage().selectStrings(
+                                            dilSecimi, "toast13"),
+                                        context,
+                                        duration: 3);
+                                  } else if (tfdTanimsiz || bfdTanimsiz) {
+                                    Toast.show(
+                                        SelectLanguage().selectStrings(
+                                            dilSecimi, "toast14"),
+                                        context,
+                                        duration: 3);
+                                  } else if (hoTanimsiz) {
+                                    Toast.show(
+                                        SelectLanguage().selectStrings(
+                                            dilSecimi, "toast15"),
+                                        context,
+                                        duration: 3);
+                                  } else {
 
-                                        if(hacimOrani=="" || hacimOrani==null){
-                                          hoBos=true;
-                                        }
-
-
-
-
-                                        if(klepeAdet>0 && k1x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>1 && k2x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>2 && k3x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>3 && k4x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>4 && k5x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>5 && k6x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>6 && k7x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>7 && k8x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>8 && k9x=="0.0"){
-                                          klepeTamam=false;
-                                        }else if(klepeAdet>9 && k10x=="0.0"){
-                                          klepeTamam=false;
-                                        }
-
-
-                                        if(!klepeTamam){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast9"), context,duration: 3);
-                                        }else if(aBos || bBos || cBos){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast10"), context,duration: 3);
-                                        }else if(tfdBos || bfdBos){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,duration: 3);
-                                        }else if(hoBos){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast12"), context,duration: 3);
-                                        }else if(aTanimsiz || bTanimsiz || cTanimsiz){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast13"), context,duration: 3);
-                                        }else if(tfdTanimsiz || bfdTanimsiz){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast14"), context,duration: 3);
-                                        }else if(hoTanimsiz){
-                                          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast15"), context,duration: 3);
-                                        }else{
-                                          
-                                          
-
-                                          Navigator.push(
+                                    Navigator.pushReplacement(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    FanHaritasi(dbVeriler))).then((onValue){
-                          _dbVeriCekme();
-                        });
+                                                    FanHaritasi(dbVeriler)));
 
-                                        }
-                                      
-                                      },
-                                      color: Colors.black,
-                                    )),
-                                Spacer(
-                                  flex: 1,
-                                ),
-                              ],
-                            ),
+                                    /*
+                                    Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FanHaritasi(dbVeriler)))
+                                        .then((onValue) {
+                                      _dbVeriCekme();
+                                    });
+                                    */
+                                  }
+                                },
+                                color: Colors.black,
+                              )),
+                          Spacer(
+                            flex: 1,
                           ),
-                        
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -1285,25 +1354,25 @@ class UzDebiNemState extends State<UzDebiNem> {
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
 
-_satirlar(List<Map> satirlar) {
-
-    dbVeriler=satirlar;
+  _satirlar(List<Map> satirlar) {
+    dbVeriler = satirlar;
   }
 
-_dbVeriCekme(){
+  _dbVeriCekme() {
     dbSatirlar = dbHelper.satirlariCek();
     final satirSayisi = dbHelper.satirSayisi();
     satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
     satirSayisi.whenComplete(() {
-        dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
-}
+  }
 
-  _veriGonder(String dbKod,String id, String v1, String v2, String v3, String v4) async {
+  _veriGonder(String dbKod, String id, String v1, String v2, String v3,
+      String v4) async {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');
@@ -1316,7 +1385,9 @@ _dbVeriCekme(){
         var gelen_mesaj_parcali = gelen_mesaj.split("*");
 
         if (gelen_mesaj_parcali[0] == 'ok') {
-          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast8"), context, duration: 2);
+          Toast.show(
+              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
         }
@@ -1338,11 +1409,12 @@ _dbVeriCekme(){
     }
   }
 
-  _textFieldCursorPosition(TextEditingController tec, String str){
-    tec..text = str
-                    ..selection = TextSelection.collapsed(offset: str.length!=null ? str.length : 0 );
+  _textFieldCursorPosition(TextEditingController tec, String str) {
+    tec
+      ..text = str
+      ..selection =
+          TextSelection.collapsed(offset: str.length != null ? str.length : 0);
   }
-
 
 //--------------------------METOTLAR--------------------------------
 

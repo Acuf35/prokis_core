@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/uz_debi_nem.dart';
 import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
 import 'genel/cikis_alert.dart';
@@ -1606,7 +1607,15 @@ class FanHaritasiState extends State<FanHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UzDebiNem(dbVeriler)),
+                          );
+                        
+                        
+                        //Navigator.pop(context);
                       },
                     )),
                 Spacer(
@@ -1633,6 +1642,15 @@ class FanHaritasiState extends State<FanHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => KlepeHaritasi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -1643,6 +1661,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                               tumCikislar[i] = onValue[i];
                             }
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1870,7 +1889,9 @@ class FanHaritasiState extends State<FanHaritasi> {
                       ),
                     ),
                   ],
-                )),
+                )
+                
+                ),
           ),
         ],
       ),
@@ -1882,7 +1903,7 @@ class FanHaritasiState extends State<FanHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

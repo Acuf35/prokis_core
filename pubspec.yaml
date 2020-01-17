@@ -88,6 +88,37 @@ flutter:
   - assets/images/kurulum_airinlet_icon.png
   - assets/images/kurulum_isitici_icon.png
   - assets/images/silo_harita.png
+  - assets/images/tem_hum_icon.png
+  - assets/images/cooling_icon.png
+  - assets/images/heating_icon.png
+  - assets/images/klepe_icon2.png
+  - assets/images/minvent_icon.png
+  - assets/images/mancontrol_icon.png
+  - assets/images/mancontrol_icon_red.png
+  - assets/images/settings_icon.png
+  - assets/images/settings_icon_small.png
+  - assets/images/wizard_icon.png
+  - assets/images/izleme_icon.png
+  - assets/images/izleme_icon_red.png
+  - assets/images/datalog_icon.png
+  - assets/images/datalog_icon_small.png
+  - assets/images/kontrol_icon.png
+  - assets/images/kontrol_icon_small.png
+  - assets/images/alarm_ayarlari_icon.png
+  - assets/images/alarm_ayarlari_icon_small.png
+  - assets/images/aydinlatma_icon.png
+  - assets/images/silo_icon.png
+  - assets/images/diagram_lineer_capraz.jpg
+  - assets/images/diagram_lineer_normal.jpg
+  - assets/images/diagram_klasik_normal.jpg
+  - assets/images/diagram_klasik_capraz.jpg
+  - assets/images/diagram_pid_normal.jpg
+  - assets/images/diagram_pid_capraz.jpg
+  - assets/images/diagram_pid_capraz_civbro.jpg
+  - assets/images/diagram_klasik_capraz_civbro.jpg
+  - assets/images/diagram_klasik_normal_civbro.jpg
+  - assets/images/diagram_lineer_normal_civbro.jpg
+  - assets/images/diagram_lineer_capraz_civbro.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:

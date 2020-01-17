@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/ped_haritasi.dart';
 import 'package:toast/toast.dart';
+import 'fan_haritasi.dart';
 import 'genel/alert_reset.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
@@ -1118,7 +1119,15 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context, tumCikislar);
+                        
+                        
+                        Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    FanHaritasi(dbVeriler)));
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -1144,6 +1153,15 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PedHaritasi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -1154,6 +1172,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                               tumCikislar[i] = onValue[i];
                             }
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1463,7 +1482,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

@@ -12,6 +12,7 @@ import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
+import 'isisensor_haritasi.dart';
 import 'languages/select.dart';
 
 class BacafanHaritasi extends StatefulWidget {
@@ -978,7 +979,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                                   context,
                                   duration: 3);
                             }
-                            if (noKontrol2) {
+                            else if (noKontrol2) {
                               Toast.show(
                                   SelectLanguage()
                                       .selectStrings(dilSecimi, "toast63"),
@@ -1069,7 +1070,15 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                       iconSize: 50 * oran,
                       onPressed: () {
                         timerCancel = true;
-                        Navigator.pop(context, tumCikislar);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    IsiSensorHaritasi(dbVeriler)),
+                          );
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -1095,6 +1104,16 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    AirInletHaritasi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -1106,6 +1125,8 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                               tumCikislar[i] = onValue[i];
                             }
                           });
+
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1322,7 +1343,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

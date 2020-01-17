@@ -11,6 +11,7 @@ import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x2x0.dart';
+import 'klepe_haritasi.dart';
 import 'languages/select.dart';
 
 class PedHaritasi extends StatefulWidget {
@@ -1175,7 +1176,14 @@ class PedHaritasiState extends State<PedHaritasi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context, tumCikislar);
+                        
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => KlepeHaritasi(dbVeriler)),
+                          );
+                        
+                        //Navigator.pop(context, tumCikislar);
                       },
                     )),
                 Spacer(
@@ -1201,6 +1209,16 @@ class PedHaritasiState extends State<PedHaritasi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    IsiSensorHaritasi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -1212,6 +1230,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                               tumCikislar[i] = onValue[i];
                             }
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -1451,7 +1470,7 @@ class PedHaritasiState extends State<PedHaritasi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');

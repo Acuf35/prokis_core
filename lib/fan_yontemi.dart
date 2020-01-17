@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:toast/toast.dart';
+import 'adetler.dart';
 import 'genel/database_helper.dart';
 import 'languages/select.dart';
 import 'mh_yontemi.dart';
@@ -34,6 +35,9 @@ class FanYontemiState extends State<FanYontemi> {
   bool kyDurum = false;
   bool lyDurum = false;
   bool pyDurum = false;
+
+  String bacafanAdet;
+  String kumesTuru;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -58,6 +62,17 @@ class FanYontemiState extends State<FanYontemi> {
           pyDurum = true;
         }
       }
+
+      if (dbVeri[i]["id"] == 3) {
+        kumesTuru = dbVeri[i]["veri1"];
+      }
+
+      if (dbVeri[i]["id"] == 5) {
+        bacafanAdet = dbVeri[i]["veri1"];
+      }
+
+
+
     }
 
     _dbVeriCekme();
@@ -134,11 +149,11 @@ class FanYontemiState extends State<FanYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv20"),
+                              SelectLanguage().selectStrings(dilSecimi, "tv21"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
-                                  color: Colors.black,
+                                  color: kumesTuru !='1' ? Colors.grey[700] : Colors.black,
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold),
                               maxLines: 1,
@@ -164,6 +179,8 @@ class FanYontemiState extends State<FanYontemi> {
                         flex: 2,
                         child: IconButton(
                           onPressed: () {
+                            if(kumesTuru=='1'){
+
                             if (!kyDurum) {
                               kyDurum = true;
                             }
@@ -177,13 +194,18 @@ class FanYontemiState extends State<FanYontemi> {
                                 6, "1", "0", "0", "0");
                             _veriGonder("4", "7", "1", "0", "0", "0");
                             setState(() {});
+                            }else{
+                              Toast.show(SelectLanguage().selectStrings(dilSecimi, 'toast65'), context,duration: 3);
+                            }
+
+
                           },
                           icon: Icon(kyDurum == true
                               ? Icons.check_box
                               : Icons.check_box_outline_blank),
-                          color: kyDurum == true
+                          color: kumesTuru!='1' ? Colors.grey[600] : (kyDurum == true
                               ? Colors.green.shade500
-                              : Colors.blue.shade600,
+                              : Colors.blue.shade600),
                           iconSize: 30 * oran,
                         ),
                       )
@@ -272,7 +294,7 @@ class FanYontemiState extends State<FanYontemi> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
-                                  color: Colors.black,
+                                  color: kumesTuru!='1' && bacafanAdet=="0" ? Colors.grey[700] : Colors.black,
                                   fontSize: 60,
                                   fontWeight: FontWeight.bold),
                               maxLines: 1,
@@ -298,6 +320,10 @@ class FanYontemiState extends State<FanYontemi> {
                         flex: 2,
                         child: IconButton(
                           onPressed: () {
+                            if(kumesTuru!="1" && bacafanAdet=="0"){
+                              Toast.show(SelectLanguage().selectStrings(dilSecimi, 'toast66'), context,duration: 3);
+                            }else{
+
                             if (!pyDurum) {
                               pyDurum = true;
                             }
@@ -311,13 +337,14 @@ class FanYontemiState extends State<FanYontemi> {
                                 6, "2", "0", "0", "0");
                             _veriGonder("4", "7", "3", "0", "0", "0");
                             setState(() {});
+                            }
                           },
                           icon: Icon(pyDurum == true
                               ? Icons.check_box
                               : Icons.check_box_outline_blank),
-                          color: pyDurum == true
+                          color: kumesTuru!='1' && bacafanAdet=='0' ? Colors.grey[700] : (pyDurum == true
                               ? Colors.green.shade500
-                              : Colors.blue.shade600,
+                              : Colors.blue.shade600),
                           iconSize: 30 * oran,
                         ),
                       )
@@ -344,7 +371,14 @@ class FanYontemiState extends State<FanYontemi> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 50 * oran,
                       onPressed: () {
-                        Navigator.pop(context);
+                        
+                        Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Adetler(dbVeriler)));
+                        
+                        //Navigator.pop(context);
                       },
                     )),
                 Spacer(
@@ -364,6 +398,15 @@ class FanYontemiState extends State<FanYontemi> {
                               context,
                               duration: 3);
                         } else {
+
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MhYontemi(dbVeriler)),
+                          );
+
+
+                          /*
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -371,6 +414,7 @@ class FanYontemiState extends State<FanYontemi> {
                           ).then((onValue) {
                             _dbVeriCekme();
                           });
+                          */
                         }
                       },
                       color: Colors.black,
@@ -407,7 +451,7 @@ class FanYontemiState extends State<FanYontemi> {
     Socket socket;
 
     try {
-      socket = await Socket.connect('88.250.206.99', 2233);
+      socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
       print('connected');
