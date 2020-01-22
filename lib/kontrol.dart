@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
-import 'package:prokis/sicvenem.dart';
-import 'package:toast/toast.dart';
+import 'package:prokis/sicvefan_klasik_normal.dart';
+import 'package:prokis/sicvefan_lineer_capraz.dart';
+import 'package:prokis/sicvefan_lineer_normal.dart';
 import 'genel/database_helper.dart';
 import 'languages/select.dart';
 
@@ -33,6 +31,8 @@ class KontrolState extends State<Kontrol> {
   int dbSayac = 0;
   String dilSecimi = "EN";
   String kurulumDurum = "0";
+  String bacaFanAdet = "0";
+  String fanYontemi = "0";
   List<Map> dbVeriler;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -42,6 +42,18 @@ class KontrolState extends State<Kontrol> {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
+
+      if (dbVeri[i]["id"] == 5) {
+        bacaFanAdet = dbVeri[i]["veri1"];
+        bacaFanAdet = "0";
+      }
+
+      if (dbVeri[i]["id"] == 6) {
+        fanYontemi = dbVeri[i]["veri1"];
+        fanYontemi = "1";
+      }
+
+
     }
 
     _dbVeriCekme();
@@ -50,16 +62,6 @@ class KontrolState extends State<Kontrol> {
 
   @override
   Widget build(BuildContext context) {
-    /*
-
-    progressDialog = ProgressDialog(context,
-        type: ProgressDialogType.Normal, isDismissible: true);
-    progressDialog.style(
-        message: SelectLanguage().selectStrings(dilSecimi, "pdiag1"));
-
-
-    Timer.periodic(Duration(seconds: 2), (timer) {});
- */
 
     var width = MediaQuery.of(context).size.width *
         MediaQuery.of(context).devicePixelRatio;
@@ -172,11 +174,29 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+
+                                    if(fanYontemi=="12" && bacaFanAdet!="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanLineerCapraz(dbVeriler)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="12" && bacaFanAdet=="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanLineerNormal(dbVeriler)),
+                                        );
+                                    }
+
                                     Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SicVeNem(dbVeriler)),
-                          );
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanKlasikNormal(dbVeriler)),
+                                        );
+                                    
 
                                   },
                                   child: Container(

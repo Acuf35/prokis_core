@@ -488,7 +488,8 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 ),
                               ),
                             ],
-                          )),
+                          )
+                          ),
                       Spacer(
                         flex: 3,
                       ),

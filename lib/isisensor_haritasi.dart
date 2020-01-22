@@ -903,38 +903,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     BacafanHaritasi(dbVeriler)),
                           );
 
-
-                          /*
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BacafanHaritasi(dbVeriler)),
-                          ).then((onValue) {
-                            _dbVeriCekme();
-                            for (int i = 1; i <= 110; i++) {
-                              tumCikislar[i] = onValue[i];
-                            }
-                            timerCancel=false;
-
-                            Timer.periodic(Duration(seconds: 5), (timer) {
-                              if (timerCancel) {
-                                timer.cancel();
-                              }
-
-                              if (!baglanti) {
-                                baglanti = true;
-                                if(isisensorBaglanti==1){
-                                  _takipEtWifi();
-                                }else{
-                                  _takipEtAnalog();
-                                }
-                              }
-                            });
-
-
-                          });
-                          */
+                          
                         }
                       },
                       color: Colors.black,
@@ -998,6 +967,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
   //Üst görünüşten haritadaki sensörlere numara atama işlemi
   degerGiris2X0Yrd1(var val) {
+    
     if (_onlarisisensor != val[0] || _birlerisisensor != val[1]) {
       veriGonderildi = false;
     }
@@ -1316,11 +1286,6 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       String gelenMesaj = "";
       const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
       await Socket.connect('192.168.1.110', 2233).then((socket) {
-        /*
-        socket.timeout(ReceiveTimeout,onTimeout: (deneme){
-            Toast.show("Bağlantı zaman aşımına uğradı", context,duration: 3);
-        });
-        */
 
         socket.add(utf8.encode('24b'));
 

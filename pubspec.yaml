@@ -30,6 +30,8 @@ dependencies:
 
   path_provider:
 
+  charts_flutter: ^0.8.1
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
@@ -114,11 +116,8 @@ flutter:
   - assets/images/diagram_klasik_capraz.jpg
   - assets/images/diagram_pid_normal.jpg
   - assets/images/diagram_pid_capraz.jpg
-  - assets/images/diagram_pid_capraz_civbro.jpg
-  - assets/images/diagram_klasik_capraz_civbro.jpg
-  - assets/images/diagram_klasik_normal_civbro.jpg
-  - assets/images/diagram_lineer_normal_civbro.jpg
-  - assets/images/diagram_lineer_capraz_civbro.jpg
+  - assets/images/acikmavi_oval_icon.png
+  - assets/images/turkuaz_oval_icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

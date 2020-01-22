@@ -106,7 +106,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
                     color: Colors.blue[700],
                   ),
                   Text(
-                    "Bitir",
+                    SelectLanguage().selectStrings(dilSecimi, "btn9"),
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 30, fontFamily: 'Audio wide'),
                     textScaleFactor: oran,

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:prokis/languages/select.dart';
 
-class DegerGiris2X0 extends StatefulWidget {
-  int onlarX = 0;
+class DegerGiris1X0 extends StatefulWidget {
+  int ustLimit;
   int birlerX = 0;
   int index = 0;
   double oran;
   String dilSecimi;
   String baslik;
 
-  DegerGiris2X0.Deger(
-    int gelenOnlarX,
+  DegerGiris1X0.Deger(
+    int gelenUstLimit,
     int gelenBirlerX,
     int gelenIndex,
     double gelenOran,
     String gelenDil,
     String gelenBaslik,
   ) {
-    onlarX = gelenOnlarX;
+    ustLimit=gelenUstLimit;
     birlerX = gelenBirlerX;
     index = gelenIndex;
     oran = gelenOran;
@@ -26,13 +26,12 @@ class DegerGiris2X0 extends StatefulWidget {
   }
 
   @override
-  _DegerGiris2X0State createState() => new _DegerGiris2X0State.Deger(
-      onlarX, birlerX, index, oran, dilSecimi, baslik);
+  _DegerGiris1X0State createState() => new _DegerGiris1X0State.Deger(
+      birlerX, index, oran, dilSecimi, baslik,ustLimit);
 }
 
-class _DegerGiris2X0State extends State<DegerGiris2X0> {
-  int onlarX = 0;
-  int onlarX1 = 0;
+class _DegerGiris1X0State extends State<DegerGiris1X0> {
+  int ustLimitX=0;
   int birlerX = 0;
   int birlerX1 = 0;
   int index = 0;
@@ -40,13 +39,11 @@ class _DegerGiris2X0State extends State<DegerGiris2X0> {
   String dilSecimi;
   String baslik;
 
-  _DegerGiris2X0State.Deger(int gelenOnlarX, int gelenBirlerX, int gelenIndex,
-      double gelenOran, String gelenDil, String gelenBaslik) {
-    onlarX = gelenOnlarX;
-    onlarX1 = gelenOnlarX;
+  _DegerGiris1X0State.Deger(int gelenBirlerX, int gelenIndex,
+      double gelenOran, String gelenDil, String gelenBaslik, int ustLimit) {
+        ustLimitX=ustLimit;
     birlerX = gelenBirlerX;
     birlerX1 = gelenBirlerX;
-    index = gelenIndex;
     index = gelenIndex;
     oran = gelenOran;
     dilSecimi = gelenDil;
@@ -94,59 +91,7 @@ class _DegerGiris2X0State extends State<DegerGiris2X0> {
                                 scale: 4 / oran,
                               ),
                               onPressed: () {
-                                if (onlarX < 9)
-                                  onlarX++;
-                                else
-                                  onlarX = 0;
-
-                                setState(() {});
-                              },
-                            ),
-                            Text(
-                              onlarX.toString(),
-                              style: TextStyle(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: 'Kelly Slab'),
-                              textScaleFactor: oran,
-                            ),
-                            RawMaterialButton(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              constraints: BoxConstraints(),
-                              padding: EdgeInsets.all(0),
-                              child: Image.asset(
-                                'assets/images/deger_dusur_icon.png',
-                                scale: 4 / oran,
-                              ),
-                              onPressed: () {
-                                if (onlarX > 0)
-                                  onlarX--;
-                                else
-                                  onlarX = 9;
-
-                                setState(() {});
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(right: 10 * oran, top: 5 * oran),
-                        child: Column(
-                          children: <Widget>[
-                            RawMaterialButton(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              constraints: BoxConstraints(),
-                              padding: EdgeInsets.all(0),
-                              child: Image.asset(
-                                'assets/images/deger_artir_icon.png',
-                                scale: 4 / oran,
-                              ),
-                              onPressed: () {
-                                if (birlerX < 9)
+                                if (birlerX < ustLimitX)
                                   birlerX++;
                                 else
                                   birlerX = 0;
@@ -175,7 +120,7 @@ class _DegerGiris2X0State extends State<DegerGiris2X0> {
                                 if (birlerX > 0)
                                   birlerX--;
                                 else
-                                  birlerX = 9;
+                                  birlerX = ustLimitX;
 
                                 setState(() {});
                               },
@@ -205,7 +150,7 @@ class _DegerGiris2X0State extends State<DegerGiris2X0> {
                 child: RaisedButton(
                   color: Colors.indigo,
                   onPressed: () {
-                    var deger = [onlarX, birlerX, index];
+                    var deger = [birlerX, index];
                     Navigator.of(context).pop(deger);
                   },
                   child: Text(
@@ -221,7 +166,7 @@ class _DegerGiris2X0State extends State<DegerGiris2X0> {
                 child: RaisedButton(
                   color: Colors.indigo,
                   onPressed: () {
-                    var deger = [onlarX1, birlerX1, index];
+                    var deger = [birlerX1, index];
                     Navigator.of(context).pop(deger);
                   },
                   child: Text(
