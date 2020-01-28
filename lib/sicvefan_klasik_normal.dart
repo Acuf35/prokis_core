@@ -45,14 +45,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
   String maksFanFarkiH = "5.0";
   String fanKademesi = "1";
 
-  double gun1 = 33.0;
-  double gun7 = 31.0;
-  double gun14 = 29.0;
-  double gun21 = 27.0;
-  double gun28 = 25.0;
-  double gun35 = 23.0;
-  double gun42 = 21.0;
-  List<String> gun = new List(43);
+  
   List<double> fanSet = new List(61);
 
   int _onlar = 0;
@@ -80,24 +73,19 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
 
       if (dbVeri[i]["id"] == 4) {
         fanAdet = dbVeri[i]["veri1"];
+        fanAdet = "14";
       }
 
     }
-/*
-     else if (fanYontemi == "3" && bacaFanAdet == "0") {
-      diagramPath = 'assets/images/diagram_klasik_normal.jpg';
-      visibilityler = 'A1*B0*C0*D1*E0*F0*G1*H0';
-      harfMetinler = 'A***D***G*';
-      infoNo = "info5";
-    } 
-    */
 
     for(int i=0; i<=60 ; i++){
-      fanSet[i]=double.parse(setSicA)+i%6;
+      if(int.parse(fanAdet)>=i){
+        fanSet[i]=double.parse(setSicA)+i%6;
+      }else{
+        fanSet[i]=0;
+      }
     }
-    print(fanSet.reduce(max));
-
-    _gunlerSet();
+    
 
     _dbVeriCekme();
   }
@@ -108,7 +96,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
 
 
     if (timerSayac == 0) {
-      //_takipEt();
+      _takipEt();
 
       Timer.periodic(Duration(seconds: 2), (timer) {
 
@@ -118,7 +106,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci>3) {
           baglanti = true;
-          //_takipEt();
+          _takipEt();
         }
       });
     }
@@ -241,7 +229,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                               _index,
                                               oran,
                                               dilSecimi,
-                                              "tv115");
+                                              "tv115","");
 
                                       },
                                       child: Stack(
@@ -334,7 +322,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                             _index,
                                             oran,
                                             dilSecimi,
-                                            "tv126");
+                                            "tv126","");
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -428,35 +416,165 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                             child: Container(color: Colors.white,
                                                               child: Column(mainAxisSize: MainAxisSize.max,
                                                                 children: <Widget>[
-                                                                  Expanded(child: ListView(
+                                                                  Expanded(child: Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                     children: <Widget>[
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F1 :", fanSet[1].toString(),fanAdet, oran,1),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F2 :", fanSet[2].toString(),fanAdet, oran,2),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F3 :", fanSet[3].toString(),fanAdet, oran,3),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F4 :", fanSet[4].toString(),fanAdet, oran,4),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F5 :", fanSet[5].toString(),fanAdet, oran,5),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F6 :", fanSet[6].toString(),fanAdet, oran,6),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F7 :", fanSet[7].toString(),fanAdet, oran,7),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F8 :", fanSet[8].toString(),fanAdet, oran,8),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F9 :", fanSet[9].toString(),fanAdet, oran,9),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F10: ", fanSet[10].toString(),fanAdet, oran,10),
+                                                                          Spacer(),
                                                                         ],
                                                                       ),
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
-                                                                          _fanSetUnsur("F3: ", fanSet[3].toString(), oran),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F11:", fanSet[11].toString(),fanAdet, oran,11),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F12:", fanSet[12].toString(),fanAdet, oran,12),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F13:", fanSet[13].toString(),fanAdet, oran,13),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F14:", fanSet[14].toString(),fanAdet, oran,14),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F15:", fanSet[15].toString(),fanAdet, oran,15),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F16:", fanSet[16].toString(),fanAdet, oran,16),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F17:", fanSet[17].toString(),fanAdet, oran,17),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F18:", fanSet[18].toString(),fanAdet, oran,18),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F19:", fanSet[19].toString(),fanAdet, oran,19),
+                                                                          Spacer(),
+                                                                          _fanSetUnsur(state ,"F20:", fanSet[20].toString(),fanAdet, oran,20),
+                                                                          Spacer(),
                                                                         ],
+                                                                      ),
+                                                                      Visibility(visible: int.parse(fanAdet)>20,
+                                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                          children: <Widget>[
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F21:", fanSet[21].toString(),fanAdet, oran,21),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F22:", fanSet[22].toString(),fanAdet, oran,22),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F23:", fanSet[23].toString(),fanAdet, oran,23),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F24:", fanSet[24].toString(),fanAdet, oran,24),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F25:", fanSet[25].toString(),fanAdet, oran,25),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F26:", fanSet[26].toString(),fanAdet, oran,26),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F27:", fanSet[27].toString(),fanAdet, oran,27),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F28:", fanSet[28].toString(),fanAdet, oran,28),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F29:", fanSet[29].toString(),fanAdet, oran,29),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F30:", fanSet[30].toString(),fanAdet, oran,30),
+                                                                            Spacer(),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Visibility(visible: int.parse(fanAdet)>30,
+                                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                          children: <Widget>[
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F31:", fanSet[31].toString(),fanAdet, oran,31),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F32:", fanSet[32].toString(),fanAdet, oran,32),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F33:", fanSet[33].toString(),fanAdet, oran,33),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F34:", fanSet[34].toString(),fanAdet, oran,34),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F35:", fanSet[35].toString(),fanAdet, oran,35),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F36:", fanSet[36].toString(),fanAdet, oran,36),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F37:", fanSet[37].toString(),fanAdet, oran,37),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F38:", fanSet[38].toString(),fanAdet, oran,38),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F39:", fanSet[39].toString(),fanAdet, oran,39),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F40:", fanSet[40].toString(),fanAdet, oran,40),
+                                                                            Spacer(),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Visibility(visible: int.parse(fanAdet)>40,
+                                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                          children: <Widget>[
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F41:", fanSet[41].toString(),fanAdet, oran,41),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F42:", fanSet[42].toString(),fanAdet, oran,42),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F43:", fanSet[43].toString(),fanAdet, oran,43),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F44:", fanSet[44].toString(),fanAdet, oran,44),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F45:", fanSet[45].toString(),fanAdet, oran,45),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F46:", fanSet[46].toString(),fanAdet, oran,46),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F47:", fanSet[47].toString(),fanAdet, oran,47),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F48:", fanSet[48].toString(),fanAdet, oran,48),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F49:", fanSet[49].toString(),fanAdet, oran,49),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F50:", fanSet[50].toString(),fanAdet, oran,50),
+                                                                            Spacer(),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                      Visibility(visible: int.parse(fanAdet)>50,
+                                                                        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                          children: <Widget>[
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F51:", fanSet[51].toString(),fanAdet, oran,51),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F52:", fanSet[52].toString(),fanAdet, oran,52),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F53:", fanSet[53].toString(),fanAdet, oran,53),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F54:", fanSet[54].toString(),fanAdet, oran,54),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F55:", fanSet[55].toString(),fanAdet, oran,55),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F56:", fanSet[56].toString(),fanAdet, oran,56),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F57:", fanSet[57].toString(),fanAdet, oran,57),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F58:", fanSet[58].toString(),fanAdet, oran,58),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F59:", fanSet[59].toString(),fanAdet, oran,59),
+                                                                            Spacer(),
+                                                                            _fanSetUnsur(state ,"F60:", fanSet[60].toString(),fanAdet, oran,60),
+                                                                            Spacer(),
+                                                                          ],
+                                                                        ),
                                                                       ),
                                                                     ],
                                                                   ),)
@@ -483,7 +601,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                             return Icon(
                                               Icons.brightness_1,
                                               size: constraint.biggest.height,
-                                              color: Colors.cyan[800],
+                                              color: Colors.red[700],
                                             );
                                           }),
                                           Text(
@@ -529,6 +647,8 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                   Expanded(
                                       flex: 3,
                                       child: charts.BarChart(
+
+
                                         _grafikDataKlasikNormal(
                                             double.parse(setSicA),
                                             double.parse(dogalBolgeB),dilSecimi,fanSet),
@@ -783,7 +903,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik) async {
+      String dil, baslik, onBaslik) async {
     // flutter defined function
 
     await showDialog(
@@ -793,7 +913,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
         // return object of type Dialog
 
         return DegerGiris2X1.Deger(
-            onlar, birler, ondalik, index, oran, dil, baslik);
+            onlar, birler, ondalik, index, oran, dil, baslik, onBaslik);
       },
     ).then((val) {
       bool veriGonderilsinMi=false;
@@ -818,228 +938,34 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
         setSicA =
             _onlar.toString() + _birler.toString() + "." + _ondalik.toString();
       }
-      if (index == 3) {
-        maksFanFarkiH = (_onlar == 0 ? "" : _onlar.toString()) +
-            _birler.toString() +
-            "." +
-            _ondalik.toString();
-      }
-      if (index == 4) {
-        gun1 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 5) {
-        gun7 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 6) {
-        gun14 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 7) {
-        gun21 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 8) {
-        gun28 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 9) {
-        gun35 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 10) {
-        gun42 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
+
+      String gonderilecekFanSet;
+      String gonderilecekFanIndex="0";
+      for(int i=1;i<=60;i++){
+        if(index-10==i){
+          String deger=_onlar.toString() + _birler.toString() + "." + _ondalik.toString();
+          fanSet[i]=double.parse(deger);
+          gonderilecekFanSet=fanSet[i].toString();
+          gonderilecekFanIndex=i.toString();
+        }
       }
 
       if(veriGonderilsinMi){
         yazmaSonrasiGecikmeSayaci=0;
-        _veriGonder("1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$maksFanFarkiH*$fanKademesi");
+        _veriGonder("2*$setSicA*$dogalBolgeB*$gonderilecekFanIndex*$gonderilecekFanSet");
       }
-      
+
 
       setState(() {});
     });
   }
 
-  Future _degergiris1X0(
-      int birlerX, index, double oran, String dil, baslik, int ustLimit) async {
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return DegerGiris1X0.Deger(ustLimit, birlerX, index, oran, dil, baslik);
-      },
-    ).then((val) {
-      bool veriGonderilsinMi=false;
-      if(_birler!=val[0]){
-        veriGonderilsinMi=true;
-      }
-      _birler = val[0];
-      _index = val[1];
-
-      fanKademesi = _birler.toString();
-      if(veriGonderilsinMi){
-        yazmaSonrasiGecikmeSayaci=0;
-        _veriGonder("1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$maksFanFarkiH*$fanKademesi");
-      }
-
-      setState(() {});
-    });
-  }
-
-  String _gunSetHesap(double gunBuyuk, gunKucuk, int bolum, carpim) {
-    return ((gunKucuk - (((gunKucuk - gunBuyuk) * carpim) / bolum)).toString())
-        .substring(0, 4);
-  }
-
-  _gunlerSet() {
-    gun[1] = gun1.toString();
-    gun[2] = _gunSetHesap(gun7, gun1, 6, 1);
-    gun[3] = _gunSetHesap(gun7, gun1, 6, 2);
-    gun[4] = _gunSetHesap(gun7, gun1, 6, 3);
-    gun[5] = _gunSetHesap(gun7, gun1, 6, 4);
-    gun[6] = _gunSetHesap(gun7, gun1, 6, 5);
-
-    gun[7] = gun7.toString();
-    gun[8] = _gunSetHesap(gun14, gun7, 7, 1);
-    gun[9] = _gunSetHesap(gun14, gun7, 7, 2);
-    gun[10] = _gunSetHesap(gun14, gun7, 7, 3);
-    gun[11] = _gunSetHesap(gun14, gun7, 7, 4);
-    gun[12] = _gunSetHesap(gun14, gun7, 7, 5);
-    gun[13] = _gunSetHesap(gun14, gun7, 7, 6);
-
-    gun[14] = gun14.toString();
-    gun[15] = _gunSetHesap(gun21, gun14, 7, 1);
-    gun[16] = _gunSetHesap(gun21, gun14, 7, 2);
-    gun[17] = _gunSetHesap(gun21, gun14, 7, 3);
-    gun[18] = _gunSetHesap(gun21, gun14, 7, 4);
-    gun[19] = _gunSetHesap(gun21, gun14, 7, 5);
-    gun[20] = _gunSetHesap(gun21, gun14, 7, 6);
-
-    gun[21] = gun21.toString();
-    gun[22] = _gunSetHesap(gun28, gun21, 7, 1);
-    gun[23] = _gunSetHesap(gun28, gun21, 7, 2);
-    gun[24] = _gunSetHesap(gun28, gun21, 7, 3);
-    gun[25] = _gunSetHesap(gun28, gun21, 7, 4);
-    gun[26] = _gunSetHesap(gun28, gun21, 7, 5);
-    gun[27] = _gunSetHesap(gun28, gun21, 7, 6);
-
-    gun[28] = gun28.toString();
-    gun[29] = _gunSetHesap(gun35, gun28, 7, 1);
-    gun[30] = _gunSetHesap(gun35, gun28, 7, 2);
-    gun[31] = _gunSetHesap(gun35, gun28, 7, 3);
-    gun[32] = _gunSetHesap(gun35, gun28, 7, 4);
-    gun[33] = _gunSetHesap(gun35, gun28, 7, 5);
-    gun[34] = _gunSetHesap(gun35, gun28, 7, 6);
-
-    gun[35] = gun35.toString();
-    gun[36] = _gunSetHesap(gun42, gun35, 7, 1);
-    gun[37] = _gunSetHesap(gun42, gun35, 7, 2);
-    gun[38] = _gunSetHesap(gun42, gun35, 7, 3);
-    gun[39] = _gunSetHesap(gun42, gun35, 7, 4);
-    gun[40] = _gunSetHesap(gun42, gun35, 7, 5);
-    gun[41] = _gunSetHesap(gun42, gun35, 7, 6);
-    gun[42] = gun42.toString();
-  }
 
   Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
     updateState(() {});
   }
 
   
-  static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataLineerCapraz(
-      double setSic, dogBol, capFark, maksFanFark, String dil) {
-    final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),setSic, Colors.blue[700]),
-    ];
-
-    final dogalBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), dogBol, Colors.green[700]),
-    ];
-
-    final caprazBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), capFark, Colors.orange[700]),
-    ];
-
-    final tunelBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), maksFanFark, Colors.red[700]),
-    ];
-
-    return [
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Set Sıc.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: fasilaBolgesi,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Doğ. Böl.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: dogalBolge,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Çapr. Hav.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: caprazBolge,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Tün. Hav.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: tunelBolge,
-      ),
-    ];
-  }
-
-  static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataLineerNormal(
-      double setSic, dogBol, maksFanFark, String dil) {
-    final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),setSic, Colors.blue[700]),
-    ];
-
-    final dogalBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), dogBol, Colors.green[700]),
-    ];
-
-    final tunelBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), maksFanFark, Colors.red[700]),
-    ];
-
-    return [
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Set Sıc.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: fasilaBolgesi,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Doğ. Böl.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: dogalBolge,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Tün. Hav.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: tunelBolge,
-      ),
-    ];
-  }
-
 static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNormal(
       double setSic, dogBol, String dil, List<double> fanSet) {
         double deger=fanSet.reduce(max)-setSic-dogBol;
@@ -1058,21 +984,21 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
 
     return [
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Set Sıc.',
+        id: SelectLanguage().selectStrings(dil, "tv188"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: fasilaBolgesi,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Doğ. Böl.',
+        id: SelectLanguage().selectStrings(dil, "tv187"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: dogalBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Tün. Hav.',
+        id: SelectLanguage().selectStrings(dil, "tv190"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
@@ -1120,7 +1046,7 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
 
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
@@ -1137,28 +1063,24 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
       const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
       await Socket.connect('192.168.1.110', 2236).then((socket) {
 
-        socket.add(utf8.encode('1*'));
+        socket.add(utf8.encode('2*$fanAdet'));
 
         socket.listen(
           (List<int> event) {
             gelenMesaj = utf8.decode(event);
-
+            print(gelenMesaj);
             if (gelenMesaj != "") {
               var degerler = gelenMesaj.split('*');
               print(degerler);
               print(yazmaSonrasiGecikmeSayaci);
+              
+              setSicA=degerler[0];
+              dogalBolgeB=degerler[1];
 
-              gun1=double.parse(degerler[0]);
-              gun7=double.parse(degerler[1]);
-              gun14=double.parse(degerler[2]);
-              gun21=double.parse(degerler[3]);
-              gun28=double.parse(degerler[4]);
-              gun35=double.parse(degerler[5]);
-              gun42=double.parse(degerler[6]);
-              dogalBolgeB=degerler[7];
-              maksFanFarkiH=degerler[9];
-              fanKademesi=degerler[10];
-              setSicA=degerler[11];
+              for(int i=2;i<=61;i++){
+                fanSet[i-1]=double.parse(degerler[i]);
+              }
+              
 
               socket.add(utf8.encode('ok'));
             }
@@ -1166,7 +1088,6 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
           onDone: () {
             baglanti = false;
             socket.close();
-            _gunlerSet();
             if (!timerCancel) {
               setState(() {});
               
@@ -1175,7 +1096,7 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
@@ -1186,16 +1107,47 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
     }
   }
 
-  Widget _fanSetUnsur(String fanNo,fanSetDeger,double oran){
+  Widget _fanSetUnsur(var state,String fanBaslik, String fanSetDeger, String fanAdet,double oran, int fanNo,  ){
 
-    return RawMaterialButton(
-      fillColor: Colors.blue[700],
-      constraints: BoxConstraints(),
-             onPressed: (){},
-             child: Container(padding: EdgeInsets.only(left: 4*oran,right: 4*oran,top: 10*oran,bottom: 10*oran),
-               child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Expanded(flex: 10,
+      child: Visibility(visible: int.parse(fanAdet)>=fanNo, maintainAnimation: true,maintainState: true,maintainSize: true,
+              child: RawMaterialButton(
+    fillColor: Colors.blue[700],
+    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    constraints: BoxConstraints(),
+             onPressed: (){
+               _index = 10+fanNo;
+              _onlar = int.parse(
+                          fanSet[fanNo].toString().split(".")[0]) <
+                      10
+                  ? 0
+                  : (int.parse(
+                          fanSet[fanNo].toString().split(".")[0]) ~/
+                      10);
+              _birler =
+                  int.parse(fanSet[fanNo].toString().split(".")[0]) %
+                      10;
+              _ondalik =
+                  int.parse(fanSet[fanNo].toString().split(".")[1]);
+
+              _degergiris2X1(
+                  _onlar,
+                  _birler,
+                  _ondalik,
+                  _index,
+                  oran,
+                  dilSecimi,
+                  "tv115","Fan $fanNo ").then((onValue){
+                    bottomDrawerIcindeGuncelle(state);
+                  });
+
+                                      
+
+             },
+             child: Container(padding: EdgeInsets.only(top: 5,bottom: 5),
+               child: Row(mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
-                   Text(fanNo,style: TextStyle(fontFamily: "Kelly Slab",
+                   Text(fanBaslik,style: TextStyle(fontFamily: "Kelly Slab",
                    color: Colors.orange,fontWeight: FontWeight.bold,fontSize: 16),textScaleFactor: oran,),
                    
                    Text(fanSetDeger,style: TextStyle(fontFamily: "Kelly Slab",
@@ -1203,7 +1155,9 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
                  ],
                ),
              ),
-           );
+           ),
+      ),
+      );
 
   }
 
@@ -1220,3 +1174,10 @@ class GrafikSicaklikCizelgesi {
       : this.color = new charts.Color(
             r: color.red, g: color.green, b: color.blue, a: color.alpha);
 }
+
+
+
+
+
+
+

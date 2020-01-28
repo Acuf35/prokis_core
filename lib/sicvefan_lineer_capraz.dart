@@ -273,7 +273,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun1.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun1.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -405,7 +405,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun7.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun7.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -548,7 +548,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun14.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun14.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -691,7 +691,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun21.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun21.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -834,7 +834,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun28.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun28.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -977,7 +977,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun35.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun35.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -1120,7 +1120,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 _birler = int.parse(gun42.toString().split(".")[0]) % 10;
                                                                                 _ondalik = int.parse(gun42.toString().split(".")[1]);
 
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179").then((onValue) {
+                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179","").then((onValue) {
                                                                                   bottomDrawerIcindeGuncelle(state);
                                                                                 });
                                                                               },
@@ -1260,7 +1260,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                             _index,
                                             oran,
                                             dilSecimi,
-                                            "tv126");
+                                            "tv126","");
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -1339,7 +1339,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                             _index,
                                             oran,
                                             dilSecimi,
-                                            "tv128");
+                                            "tv128","");
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -1419,7 +1419,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                             _index,
                                             oran,
                                             dilSecimi,
-                                            "tv130");
+                                            "tv130","");
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -1822,7 +1822,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                       dense: false,
                       title: Text(SelectLanguage().selectStrings(dilSecimi, "tv186"),textScaleFactor: oran,),
                       subtitle: Text(
-                        SelectLanguage().selectStrings(dilSecimi, "info1"),
+                        SelectLanguage().selectStrings(dilSecimi, "info4"),
                         style: TextStyle(
                           fontSize: 13 * oran,
                         ),
@@ -1859,7 +1859,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik) async {
+      String dil, baslik,onBaslik) async {
     // flutter defined function
 
     await showDialog(
@@ -1869,7 +1869,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
         // return object of type Dialog
 
         return DegerGiris2X1.Deger(
-            onlar, birler, ondalik, index, oran, dil, baslik);
+            onlar, birler, ondalik, index, oran, dil, baslik,onBaslik);
       },
     ).then((val) {
       bool veriGonderilsinMi=false;
@@ -2053,28 +2053,28 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
 
     return [
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
-        id: 'Set Sıc.',
+        id: SelectLanguage().selectStrings(dil, "tv188"),
         domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
         data: fasilaBolgesi,
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
-        id: 'Doğ. Böl.',
+        id: SelectLanguage().selectStrings(dil, "tv187"),
         domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
         data: dogalBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
-        id: 'Çapr. Hav.',
+        id: SelectLanguage().selectStrings(dil, "tv189"),
         domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
         data: caprazBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
-        id: 'Tün. Hav.',
+        id: SelectLanguage().selectStrings(dil, "tv190"),
         domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
@@ -2121,7 +2121,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
 
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
@@ -2177,7 +2177,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {

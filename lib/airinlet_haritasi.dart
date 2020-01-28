@@ -10,8 +10,6 @@ import 'package:toast/toast.dart';
 import 'bacafan_haritasi.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
-import 'genel/deger_giris_2x0.dart';
-import 'genel/deger_giris_2x2x0.dart';
 import 'genel/deger_giris_2x2x2x0.dart';
 import 'isitici_haritasi.dart';
 import 'languages/select.dart';

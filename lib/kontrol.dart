@@ -5,10 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:prokis/sicvefan_klasik_capraz.dart';
 import 'package:prokis/sicvefan_klasik_normal.dart';
 import 'package:prokis/sicvefan_lineer_capraz.dart';
 import 'package:prokis/sicvefan_lineer_normal.dart';
+import 'package:prokis/sicvefan_pid_capraz.dart';
+import 'package:prokis/sicvefan_pid_normal.dart';
 import 'genel/database_helper.dart';
+import 'klepe_klasik.dart';
+import 'klepe_tunel.dart';
 import 'languages/select.dart';
 
 class Kontrol extends StatefulWidget {
@@ -33,6 +38,7 @@ class KontrolState extends State<Kontrol> {
   String kurulumDurum = "0";
   String bacaFanAdet = "0";
   String fanYontemi = "0";
+  String klepeYontemi = "0";
   List<Map> dbVeriler;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -45,12 +51,14 @@ class KontrolState extends State<Kontrol> {
 
       if (dbVeri[i]["id"] == 5) {
         bacaFanAdet = dbVeri[i]["veri1"];
-        bacaFanAdet = "0";
       }
 
       if (dbVeri[i]["id"] == 6) {
         fanYontemi = dbVeri[i]["veri1"];
-        fanYontemi = "1";
+      }
+
+      if (dbVeri[i]["id"] == 8) {
+        klepeYontemi = dbVeri[i]["veri1"];
       }
 
 
@@ -175,7 +183,7 @@ class KontrolState extends State<Kontrol> {
                                 child: RawMaterialButton(
                                   onPressed: () {
 
-                                    if(fanYontemi=="12" && bacaFanAdet!="0"){
+                                    if(fanYontemi=="2" && bacaFanAdet!="0"){
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -183,7 +191,7 @@ class KontrolState extends State<Kontrol> {
                                         );
                                     }
 
-                                    if(fanYontemi=="12" && bacaFanAdet=="0"){
+                                    if(fanYontemi=="2" && bacaFanAdet=="0"){
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -191,11 +199,37 @@ class KontrolState extends State<Kontrol> {
                                         );
                                     }
 
-                                    Navigator.pushReplacement(
+                                    if(fanYontemi=="1" && bacaFanAdet!="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanKlasikCapraz(dbVeriler)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="1" && bacaFanAdet=="0"){
+                                        Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => SicVeFanKlasikNormal(dbVeriler)),
                                         );
+                                    }
+
+                                    if(fanYontemi=="3" && bacaFanAdet!="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanPIDCapraz(dbVeriler)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="3" && bacaFanAdet=="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanPIDNormal(dbVeriler)),
+                                        );
+                                    }
                                     
 
                                   },
@@ -256,7 +290,32 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+
+                                    if(klepeYontemi=="*1"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeKlasik(dbVeriler)),
+                                        );
+
+                                    }
+
+                                    if(klepeYontemi=="*2"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeTunel(dbVeriler)),
+                                        );
+
+                                    }
+
+                                    Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeTunel(dbVeriler)),
+                                        );
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(

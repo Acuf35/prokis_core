@@ -10,11 +10,8 @@ import 'package:prokis/ped_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'fan_haritasi.dart';
 import 'genel/alert_reset.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
-import 'genel/deger_giris_2x2x0.dart';
 import 'genel/deger_giris_2x2x2x0.dart';
-import 'genel/deger_giris_3x0.dart';
 import 'languages/select.dart';
 
 class KlepeHaritasi extends StatefulWidget {

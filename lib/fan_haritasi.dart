@@ -9,10 +9,8 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/uz_debi_nem.dart';
 import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x2x0.dart';
-import 'genel/deger_giris_3x0.dart';
 import 'klepe_haritasi.dart';
 import 'languages/select.dart';
 

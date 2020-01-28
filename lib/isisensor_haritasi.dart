@@ -1270,7 +1270,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
@@ -1359,7 +1359,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       }).catchError((Object error) {
         print(error);
         if(!timerCancel)
-          Toast.show("Bağlantı hatası!", context, duration: 3);
+          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {

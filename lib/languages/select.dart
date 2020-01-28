@@ -208,6 +208,51 @@ class SelectLanguage{
     kod=="tv184" ? metin='Sıcaklık Çizelgesi' : null;
     kod=="tv185" ? metin='Fanların Set Sıc.' : null;
     kod=="tv186" ? metin='Açıklama' : null;
+    kod=="tv187" ? metin='Doğ. Böl.' : null;
+    kod=="tv188" ? metin='Set Sıc.' : null;
+    kod=="tv189" ? metin='Çapr. Hav.' : null;
+    kod=="tv190" ? metin='Tün. Hav.' : null;
+    kod=="tv191" ? metin='PID Set Kaydırma' : null;
+    kod=="tv192" ? metin='KLEPE' : null;
+    kod=="tv193" ? metin='Fan - Klepe Diyagramı' : null;
+    kod=="tv194" ? metin='Aktüel Açıklık :' : null;
+    kod=="tv195" ? metin='Çalışan Fan Say. 1-2 :' : null;
+    kod=="tv196" ? metin='Klepe Açıklık 1-2 :' : null;
+    kod=="tv197" ? metin='Çalışan Fan Say. 3-4 :' : null;
+    kod=="tv198" ? metin='Klepe Açıklık 3-4 :' : null;
+    kod=="tv199" ? metin='Min.Hav. Açıklık :' : null;
+    kod=="tv200" ? metin='Çalışan Fan Say. 1' : null;
+    kod=="tv201" ? metin='Çalışan Fan Say. 2' : null;
+    kod=="tv202" ? metin='Çalışan Fan Say. 3' : null;
+    kod=="tv203" ? metin='Çalışan Fan Say. 4' : null;
+    kod=="tv204" ? metin='Klepe Açıklık 1' : null;
+    kod=="tv205" ? metin='Klepe Açıklık 2' : null;
+    kod=="tv206" ? metin='Klepe Açıklık 3' : null;
+    kod=="tv207" ? metin='Klepe Açıklık 4' : null;
+    kod=="tv208" ? metin='Senaryo 1' : null;
+    kod=="tv209" ? metin='Senaryo 2' : null;
+    kod=="tv210" ? metin='Çalışan Fan Sayısı' : null;
+    kod=="tv211" ? metin='Klepe Açıklık oranı' : null;
+    kod=="tv212" ? metin='AÇIKLIK PARAMETRELERİ - ' : null;
+    kod=="tv213" ? metin='Klp Baş. Düş. Fan Mik. :' : null;
+    kod=="tv214" ? metin='Klp Baş. Düş. Fan Modu :' : null;
+    kod=="tv215" ? metin='Çalışma Sırası :' : null;
+    kod=="tv216" ? metin='Min-Maks. Açıklık :' : null;
+    kod=="tv217" ? metin='Klp Baş. Düşen\nFan Mik. Man' : null;
+    kod=="tv218" ? metin='Maks. Açıklık :' : null;
+    kod=="tv219" ? metin='Min. Açıklık :' : null;
+    kod=="tv220" ? metin='Oto' : null;
+    kod=="tv221" ? metin='Man' : null;
+    kod=="tv222" ? metin='Klp Baş. Düşen\nFan Sayısını Manuel Gir' : null;
+    kod=="tv223" ? metin='Sıra1 Fan Say. Bitiş' : null;
+    kod=="tv224" ? metin='Sıra2 Fan Say. Bitiş' : null;
+    kod=="tv225" ? metin='Sıra 1 Min. Açıklık' : null;
+    kod=="tv226" ? metin='Sıra 1 Maks. Açıklık' : null;
+    kod=="tv227" ? metin='Sıra 2 Min. Açıklık' : null;
+    kod=="tv228" ? metin='Sıra 2 Maks. Açıklık' : null;
+    kod=="tv229" ? metin='Çalışma Sırası 1' : null;
+    kod=="tv230" ? metin='Çalışma Sırası 2' : null;
+    kod=="tv231" ? metin='Sıra2 Fan Say. Başl' : null;
 
 
    
@@ -438,6 +483,26 @@ class SelectLanguage{
     ' baca fanlarıyla birlikte, (D) bölgesinde ise tek başına devrede olmuş olur.\n\n\n' : null;
 
 
+
+
+
+
+
+    //KLEPE mod: Klasik
+    kod=="info7" ? metin='Çalışan fan sayısı A değerinden B değerine yükseldiğinde klepe açıklık oranı da E değerinden F değerine orantılı olarak yükselir.'
+    '\n\nAynı şekilde çalışan fan sayısı C değerinden D değerin yükseldiğinde klepe açıklık oranı da G değerinden H değerine orantılı olarak yükselir.'
+    '\n\nSenaryo 1 B,C değerlerinin birbirine eşit ve F,G değerlerinin birbirine eşit durumudur. Senaryo 2 de bu değerlerin birbirinden farklı durumudur.'
+    'Eğer B ve C değerleri birbirinden farklı ise B-C arasında klepe açıklık oranı F olur ve sabit kalır.' : null;
+
+
+    kod=="info8" ? metin='Mevcut tüm klepelere 1\'den 5\'e kadar çalışma sırasi belirlenebilir. Bunun anlamı 1. sırada klepe1 çalışsın 2. sırada klepe2 ve klepe3 çalışsın 3. sırada klepe4 ve klepe5'
+    ' çalışsın şeklinde ayarlanabilir.\n\nEğer "Klp Baş. Düş Fan Modu" parametresi otomatikte ise, toplam fan sayısı klepelerin uzunlukları oranında klepelere pay edilir. Örn 15m-30m-30m şeklinde 3'
+    ' klepeniz ve toplam 20 fanınız varsa fanlar klepelere 4-8-8 şeklinde pay edilecektir. Bu örnekte çalışma sırası 15m\'lik klepe için 1, 30m\'lik iki klepe de 2 olsun. 1. sıranın toplam fan sayısı 4,'
+    ' 2. sıranın toplam fan sayısı 16 olur.\n\nBuna göre klepe1:\nÇalışan fan sayısı 0\'dan 4\'e(A) çıkarken klepe açıklığı da minimumdan(K1) maksimuma(L1) çıkar.\n\nAynı şekilde klepe2-3:\nÇalışan'
+    ' fan sayısı 4\'ten(A) 20\'ye(B) çıkarken klepe açıklığı da minimumdan(K2) maksimuma(L2) çıkar.\n\n Eğer "Klp Baş. Düş Fan Modu" ilgili klepe için manuel de ise o klepeye düşen fan sayısı'
+    ' manuel olarak girilmelidir' : null;
+
+
     //endregion
 
 
@@ -468,7 +533,7 @@ class SelectLanguage{
     kod=="tv10" ? metin='Admin Password Again' : null;
     kod=="tv11" ? metin='Control Element Numbers' : null;
     kod=="tv12" ? metin='Fan Number' : null;
-    kod=="tv13" ? metin='Klepe Number' : null;
+    kod=="tv13" ? metin='Flap Number' : null;
     kod=="tv14" ? metin='Ped Pump Number' : null;
     kod=="tv15" ? metin='Temp. Sens. Number' : null;
     kod=="tv16" ? metin='Chimney F. Group Number' : null;
@@ -482,7 +547,7 @@ class SelectLanguage{
     kod=="tv24" ? metin='Min. Vent. Control Method' : null;
     kod=="tv25" ? metin='Weight Control' : null;
     kod=="tv26" ? metin='Volume Control' : null;
-    kod=="tv27" ? metin='Klepe Control Method' : null;
+    kod=="tv27" ? metin='Flap Control Method' : null;
     kod=="tv28" ? metin='Tunnel Control' : null;
     kod=="tv29" ? metin='Dimensions, Out Humidity and Flow' : null;
     kod=="tv30" ? metin='Out Hum' : null;
@@ -493,9 +558,9 @@ class SelectLanguage{
     kod=="tv35" ? metin='OUT NO' : null;
     kod=="tv36" ? metin='Password match :' : null;
     kod=="tv37" ? metin='The map will reset! Are you sure?' : null;
-    kod=="tv38" ? metin='Klepe Map' : null;
-    kod=="tv39" ? metin='Klp:' : null;
-    kod=="tv40" ? metin='KLEPE NO' : null;
+    kod=="tv38" ? metin='Flap Map' : null;
+    kod=="tv39" ? metin='Flp:' : null;
+    kod=="tv40" ? metin='FLAP NO' : null;
     kod=="tv41" ? metin='OP. OUT NO' : null;
     kod=="tv42" ? metin='CL. OUT NO' : null;
     kod=="tv43" ? metin='OutOp:' : null;
@@ -563,7 +628,7 @@ class SelectLanguage{
     kod=="tv105" ? metin='INSTALLATION' : null;
     kod=="tv106" ? metin='CONTROL SETTINGS' : null;
     kod=="tv107" ? metin='TEMP. and HUM.' : null;
-    kod=="tv108" ? metin='KLEPE' : null;
+    kod=="tv108" ? metin='FLAP' : null;
     kod=="tv109" ? metin='COOLING' : null;
     kod=="tv110" ? metin='MIN. VENT.' : null;
     kod=="tv111" ? metin='HEATER' : null;
@@ -642,6 +707,43 @@ class SelectLanguage{
     kod=="tv184" ? metin='Temperature Chart' : null;
     kod=="tv185" ? metin='Set Temp. of Fans' : null;
     kod=="tv186" ? metin='Info' : null;
+    kod=="tv187" ? metin='Nat. Zone' : null;
+    kod=="tv188" ? metin='Set Temp' : null;
+    kod=="tv189" ? metin='Cross Vent.' : null;
+    kod=="tv190" ? metin='Tun. Vent.' : null;
+    kod=="tv191" ? metin='PID Set Shift' : null;
+    kod=="tv192" ? metin='FLAP' : null;
+    kod=="tv193" ? metin='Fan - Flap Diagram' : null;
+    kod=="tv194" ? metin='Aktuel Interval :' : null;
+    kod=="tv195" ? metin='Working Fan 1-2 :' : null;
+    kod=="tv196" ? metin='Flap Interval 1-2 :' : null;
+    kod=="tv197" ? metin='Working Fan 3-4 :' : null;
+    kod=="tv198" ? metin='Flap Interval 3-4 :' : null;
+    kod=="tv199" ? metin='Min.Vent. Interval :' : null;
+    kod=="tv200" ? metin='Working Fan 1' : null;
+    kod=="tv201" ? metin='Working Fan 2' : null;
+    kod=="tv202" ? metin='Working Fan 3' : null;
+    kod=="tv203" ? metin='Working Fan 4' : null;
+    kod=="tv204" ? metin='Flap Interval 1' : null;
+    kod=="tv205" ? metin='Flap Interval 2' : null;
+    kod=="tv206" ? metin='Flap Interval 3' : null;
+    kod=="tv207" ? metin='Flap Interval 4' : null;
+    kod=="tv208" ? metin='Scenario 1' : null;
+    kod=="tv209" ? metin='Scenario 2' : null;
+    kod=="tv210" ? metin='Number of Working Fan' : null;
+    kod=="tv211" ? metin='Flap Interval persent' : null;
+    kod=="tv212" ? metin='INTERVAL PARAMETERS - ' : null;
+    kod=="tv213" ? metin='Fan Number per Flp :' : null;
+    kod=="tv214" ? metin='Fan Number Per Flp Mod :' : null;
+    kod=="tv215" ? metin='Work Queue :' : null;
+    kod=="tv216" ? metin='Min-Max. Interval :' : null;
+    kod=="tv217" ? metin='Fan Number per\nFlp for Man:' : null;
+    kod=="tv218" ? metin='Max. Interval :' : null;
+    kod=="tv219" ? metin='Min. Interval :' : null;
+    kod=="tv220" ? metin='Auto :' : null;
+    kod=="tv221" ? metin='Man :' : null;
+    kod=="tv222" ? metin='Enter Manuel\nFan Number per Flp' : null;
+    
 
     
 
@@ -700,10 +802,10 @@ class SelectLanguage{
     kod=="toast3" ? metin='The passwords do not match' : null;
     kod=="toast4" ? metin='One of Fan Control Method must be selected!' : null;
     kod=="toast5" ? metin='You entered bigger than defined klepe number.Please check again!' : null;
-    kod=="toast6" ? metin='One of Klepe no , X(m), Y(m) values or more are empty!' : null;
+    kod=="toast6" ? metin='One of Flap no , X(m), Y(m) values or more are empty!' : null;
     kod=="toast7" ? metin='Invalid entry for x(m) or Y(m) value! Please check.' : null;
     kod=="toast8" ? metin='Successful' : null;
-    kod=="toast9" ? metin='One or more Klepes dimensions must be defined!' : null;
+    kod=="toast9" ? metin='One or more Flaps dimensions must be defined!' : null;
     kod=="toast10" ? metin='One of A(m), B(m), C(m) values or more are empty!' : null;
     kod=="toast11" ? metin='One of Tunnel Fan Flow, Chimney F. Flow values or both are empty!' : null;
     kod=="toast12" ? metin='Volume Ratio value is empty!' : null;
@@ -717,12 +819,12 @@ class SelectLanguage{
     kod=="toast20" ? metin='Connection failed!' : null;
     kod=="toast21" ? metin='New password approved' : null;
     kod=="toast22" ? metin='One of Min. Vent. Control Method must be selected!' : null;
-    kod=="toast23" ? metin='One of Klepe Control Method must be selected!' : null;
+    kod=="toast23" ? metin='One of Flap Control Method must be selected!' : null;
     kod=="toast24" ? metin='Please define Fan Number and Output number as nonzero for all selected fans' : null;
     kod=="toast25" ? metin='Same Fan Number assigned for two different fan! Please check.' : null;
     kod=="toast26" ? metin='Same Out Number assigned for two different out! Please check.' : null;
     kod=="toast27" ? metin='Please firstly send defined data!' : null;
-    kod=="toast28" ? metin='Same Klepe Number assigned for two different klepe! Please check.' : null;
+    kod=="toast28" ? metin='Same Flap Number assigned for two different klepe! Please check.' : null;
     kod=="toast29" ? metin='Number of selected klepes are less then the defined!' : null;
     kod=="toast30" ? metin='Number of selected klepes are more then the defined!' : null;
     kod=="toast31" ? metin='Same Temp. Sensor Number assigned for two different temp. sensor! Please check.' : null;
@@ -731,7 +833,7 @@ class SelectLanguage{
     kod=="toast34" ? metin='Atleast one active sensor must be assigned!' : null;
     kod=="toast35" ? metin='Please define Temp. Sensor Number as nonzero for all selected temp sensors' : null;
     kod=="toast36" ? metin='Please define Ped Number and Output number as nonzero for all selected peds' : null;
-    kod=="toast37" ? metin='Please define Klepe Number and Output number as nonzero for all selected klepes' : null;
+    kod=="toast37" ? metin='Please define Flap Number and Output number as nonzero for all selected klepes' : null;
     kod=="toast38" ? metin='One of target outputs in use! Please release first the target output' : null;
     kod=="toast39" ? metin='Please define Chimney Fan Grup Number as nonzero for all selected chimney fans on the map' : null;
     kod=="toast40" ? metin='Please define a number equal or smaller than total sensor quantity' : null;

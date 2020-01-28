@@ -79,42 +79,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
       }
     }
 
-/*
 
-    if (fanYontemi == "2" && bacaFanAdet != "0") {
-      diagramPath = 'assets/images/diagram_lineer_capraz.jpg';
-      visibilityler = 'A1*B1*C1*D1*E1*F1*G1*H1';
-      harfMetinler = 'A*A+B*A+B+C*D*E*F*G*A+B+C+H';
-      infoNo = "info1";
-    } else if (fanYontemi == "2" && bacaFanAdet == "0") {
-      diagramPath = 'assets/images/diagram_lineer_normal.jpg';
-      visibilityler = 'A1*B1*C0*D1*E0*F1*G1*H1';
-      harfMetinler = 'A*A+B**D**F*G*A+B+H';
-      infoNo = "info2";
-    } else if (fanYontemi == "1" && bacaFanAdet == "0") {
-      diagramPath = 'assets/images/diagram_klasik_normal.jpg';
-      visibilityler = 'A1*B1*C0*D1*E0*F1*G1*H0';
-      harfMetinler = 'A*A+B**D**F*G*';
-      infoNo = "info3";
-    } else if (fanYontemi == "1" && bacaFanAdet != "0") {
-      diagramPath = 'assets/images/diagram_klasik_capraz.jpg';
-      visibilityler = 'A1*B1*C1*D1*E1*F1*G1*H0';
-      harfMetinler = 'A*A+B*A+B+C*D*E*F*G*';
-      infoNo = "info4";
-    } else if (fanYontemi == "3" && bacaFanAdet == "0") {
-      diagramPath = 'assets/images/diagram_pid_normal.jpg';
-      visibilityler = 'A1*B0*C0*D1*E0*F0*G1*H0';
-      harfMetinler = 'A***D***G*';
-      infoNo = "info5";
-    } else if (fanYontemi == "3" && bacaFanAdet != "0") {
-      diagramPath = 'assets/images/diagram_pid_capraz.jpg';
-      visibilityler = 'A1*B0*C1*D1*E1*F0*G1*H0';
-      harfMetinler = 'A**A+C*D*E**G*';
-      infoNo = "info6";
-    }
-
-
-*/
 
     _gunlerSet();
 
@@ -311,7 +276,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun1.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -471,7 +436,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun7.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -642,7 +607,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun14.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -813,7 +778,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun21.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -984,7 +949,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun28.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -1155,7 +1120,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun35.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -1326,7 +1291,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun42.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179","").then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -1467,7 +1432,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                           int.parse(dogalBolgeB.split(".")[1]);
 
                                       _degergiris2X1(_onlar, _birler, _ondalik,
-                                          _index, oran, dilSecimi, "tv126");
+                                          _index, oran, dilSecimi, "tv126","");
                                     },
                                     child: Stack(
                                       alignment: Alignment.center,
@@ -1540,7 +1505,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                           maksFanFarkiH.split(".")[1]);
 
                                       _degergiris2X1(_onlar, _birler, _ondalik,
-                                          _index, oran, dilSecimi, "tv130");
+                                          _index, oran, dilSecimi, "tv130","");
                                     },
                                     child: Stack(
                                       alignment: Alignment.center,
@@ -2009,7 +1974,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik) async {
+      String dil, baslik, onBaslik) async {
     // flutter defined function
 
     await showDialog(
@@ -2019,7 +1984,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         // return object of type Dialog
 
         return DegerGiris2X1.Deger(
-            onlar, birler, ondalik, index, oran, dil, baslik);
+            onlar, birler, ondalik, index, oran, dil, baslik, onBaslik);
       },
     ).then((val) {
       bool veriGonderilsinMi = false;
@@ -2186,61 +2151,6 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
   }
 
   static List<charts.Series<GrafikSicaklikCizelgesi, String>>
-      _grafikDataLineerCapraz(
-          double setSic, dogBol, capFark, maksFanFark, String dil) {
-    final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          setSic, Colors.blue[700]),
-    ];
-
-    final dogalBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          dogBol, Colors.green[700]),
-    ];
-
-    final caprazBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          capFark, Colors.orange[700]),
-    ];
-
-    final tunelBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          maksFanFark, Colors.red[700]),
-    ];
-
-    return [
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Set Sıc.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: fasilaBolgesi,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Doğ. Böl.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: dogalBolge,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Çapr. Hav.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: caprazBolge,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Tün. Hav.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: tunelBolge,
-      ),
-    ];
-  }
-
-  static List<charts.Series<GrafikSicaklikCizelgesi, String>>
       _grafikDataLineerNormal(double setSic, dogBol, maksFanFark, String dil) {
     final fasilaBolgesi = [
       new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
@@ -2259,66 +2169,21 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
 
     return [
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Set Sıc.',
+        id: SelectLanguage().selectStrings(dil, "tv188"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: fasilaBolgesi,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Doğ. Böl.',
+        id: SelectLanguage().selectStrings(dil, "tv187"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: dogalBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Tün. Hav.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: tunelBolge,
-      ),
-    ];
-  }
-
-  static List<charts.Series<GrafikSicaklikCizelgesi, String>>
-      _grafikDataKlasikNormal(
-          double setSic, dogBol, String dil, List<double> fanSet) {
-    double deger = fanSet.reduce(max) - setSic - dogBol;
-    double tunBolYRD = deger < 0 ? 0 : deger;
-    final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          setSic, Colors.blue[700]),
-    ];
-
-    final dogalBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          dogBol, Colors.green[700]),
-    ];
-
-    final tunelBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
-          tunBolYRD, Colors.red[700]),
-    ];
-
-    return [
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Set Sıc.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: fasilaBolgesi,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Doğ. Böl.',
-        domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
-        data: dogalBolge,
-      ),
-      new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: 'Tün. Hav.',
+        id: SelectLanguage().selectStrings(dil, "tv190"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
@@ -2359,7 +2224,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
@@ -2413,7 +2278,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show("Bağlantı hatası!", context, duration: 3);
+        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
