@@ -68,7 +68,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv98"),
+                      Dil().sec(dilSecimi, "tv98"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -106,7 +106,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
                     color: Colors.blue[700],
                   ),
                   Text(
-                    SelectLanguage().selectStrings(dilSecimi, "btn9"),
+                    Dil().sec(dilSecimi, "btn9"),
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.white, fontSize: 30, fontFamily: 'Audio wide'),
                     textScaleFactor: oran,
@@ -205,7 +205,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast64"), context,
+              Dil().sec(dilSecimi, "toast64"), context,
               duration: 2);
 
             dbHelper.veriYOKSAekleVARSAguncelle(2, "ok", gelen_mesaj_parcali[1], "0", "0");
@@ -231,7 +231,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

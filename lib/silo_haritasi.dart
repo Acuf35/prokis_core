@@ -163,7 +163,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv84"),
+                      Dil().sec(dilSecimi, "tv84"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -254,8 +254,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv58"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv58"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -325,8 +325,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                                   child: Container(
                                                     alignment: Alignment.center,
                                                     child: AutoSizeText(
-                                                      SelectLanguage()
-                                                          .selectStrings(
+                                                      Dil()
+                                                          .sec(
                                                               dilSecimi,
                                                               "tv57"),
                                                       textAlign:
@@ -386,8 +386,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv59"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv59"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -492,22 +492,22 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                             if (sayac < siloAdet) {
                               //Haritada seçilen silo sayısı eksik
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast54"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast54"),
                                   context,
                                   duration: 3);
                             } else if (sayac > siloAdet) {
                               //Haritada seçilen silo sayısı yüksek
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast55"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast55"),
                                   context,
                                   duration: 3);
                             } else {
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
                               haritaOnay = true;
@@ -546,8 +546,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil()
+                                    .sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -576,8 +576,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil()
+                                    .sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -611,20 +611,20 @@ class SiloHaritasiState extends State<SiloHaritasi> {
 
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast56"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast56"),
                                   context,
                                   duration: 3);
                             } else if (sensSayYukNo) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast57"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast57"),
                                   context,
                                   duration: 3);
                             } else if (siloNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast58"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast58"),
                                   context,
                                   duration: 3);
                             } else {
@@ -646,8 +646,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil()
+                                    .sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -687,8 +687,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                       onPressed: () {
                         if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil()
+                                  .sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -882,7 +882,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv82") +
                                               siloNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -931,7 +931,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -949,7 +949,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

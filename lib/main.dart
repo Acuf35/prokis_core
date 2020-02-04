@@ -124,7 +124,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
                   Expanded(
                     child: Container(
                       child: Text(
-                        SelectLanguage().selectStrings(dilSecimi, "slogan"),
+                        Dil().sec(dilSecimi, "slogan"),
                         style: TextStyle(color: Colors.yellow.shade600,fontFamily: 'Audio wide',fontSize: 16),textScaleFactor: oran,
                       ),
                       alignment: Alignment.center,

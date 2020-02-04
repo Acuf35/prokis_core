@@ -191,7 +191,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv47"),
+                      Dil().sec(dilSecimi, "tv47"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -239,8 +239,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv53"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv53"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -310,8 +310,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv54"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv54"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -437,8 +437,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv55"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv55"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -510,8 +510,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv56"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv56"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -646,8 +646,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                             child: Container(
                               alignment: Alignment.center,
                               child: AutoSizeText(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "tv62"),
+                                Dil()
+                                    .sec(dilSecimi, "tv62"),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -950,22 +950,22 @@ class PedHaritasiState extends State<PedHaritasi> {
                             if (sayac < pedAdet) {
                               //Haritada seçilen ped sayısı eksik
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast49"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast49"),
                                   context,
                                   duration: 3);
                             } else if (sayac > pedAdet) {
                               //Haritada seçilen ped sayısı yüksek
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast50"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast50"),
                                   context,
                                   duration: 3);
                             } else {
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
                               haritaOnay = true;
@@ -1004,8 +1004,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil()
+                                    .sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1034,8 +1034,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil()
+                                    .sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1084,32 +1084,32 @@ class PedHaritasiState extends State<PedHaritasi> {
 
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast36"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast36"),
                                   context,
                                   duration: 3);
                             } else if (pedNOyuksek) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast45"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast45"),
                                   context,
                                   duration: 3);
                             } else if (pedNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast32"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast32"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast26"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast26"),
                                   context,
                                   duration: 3);
                             } else if (cikisKullanimda) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast38"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast38"),
                                   context,
                                   duration: 3);
                             } else {
@@ -1157,8 +1157,8 @@ class PedHaritasiState extends State<PedHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil()
+                                    .sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1198,14 +1198,14 @@ class PedHaritasiState extends State<PedHaritasi> {
                       onPressed: () {
                         if (!haritaOnay) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast62"),
+                              Dil()
+                                  .sec(dilSecimi, "toast62"),
                               context,
                               duration: 3);
                         } else if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil()
+                                  .sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -1408,7 +1408,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv45") +
                                               pedNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1436,7 +1436,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv33") +
                                               cikisNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1484,7 +1484,7 @@ class PedHaritasiState extends State<PedHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1502,7 +1502,7 @@ class PedHaritasiState extends State<PedHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

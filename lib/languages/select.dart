@@ -1,11 +1,11 @@
 
 
-class SelectLanguage{
+class Dil{
 
-  selectStrings(String language, String kod){
+  sec(String dilSecimi, String kod){
 
     String metin="";
-    language == 'TR' ? metin = languageTR(kod) : metin = languageEN(kod) ;
+    dilSecimi == 'TR' ? metin = languageTR(kod) : metin = languageEN(kod) ;
 
     return metin;
 
@@ -253,9 +253,49 @@ class SelectLanguage{
     kod=="tv229" ? metin='Çalışma Sırası 1' : null;
     kod=="tv230" ? metin='Çalışma Sırası 2' : null;
     kod=="tv231" ? metin='Sıra2 Fan Say. Başl' : null;
-
+    kod=="tv232" ? metin='Kalibrasyon\nBaşlat' : null;
+    kod=="tv233" ? metin='Kalibrasyon Durumu :' : null;
+    kod=="tv234" ? metin='Kalibrasyon Süresi :' : null;
+    kod=="tv235" ? metin='Klp Oto-Man Durum :' : null;
+    kod=="tv236" ? metin='Aktif' : null;
+    kod=="tv237" ? metin='Pasif' : null;
+    kod=="tv238" ? metin='Sn' : null;
+    kod=="tv239" ? metin='KLEPE KALİBRASYON' : null;
+    kod=="tv240" ? metin='Kalibrasyon Detayları' : null;
+    kod=="tv241" ? metin='Klepe\nKalibrasyon' : null;
+    kod=="tv242" ? metin='Çalışma Sıcaklığı(A+B) :' : null;
+    kod=="tv243" ? metin='Durma Sıcaklığı(A+C) :' : null;
+    kod=="tv244" ? metin='PED P.' : null;
+    kod=="tv245" ? metin='ÇALIŞMA SICAKLIĞI FARK(B) :' : null;
+    kod=="tv246" ? metin='DURMA SICAKLIĞI FARK(C) :' : null;
+    kod=="tv247" ? metin='Çalışma Sıc. Fark' : null;
+    kod=="tv248" ? metin='Durma Sıc. Fark' : null;
+    kod=="tv249" ? metin='SOĞUTMA PED POMPALARI' : null;
+    kod=="tv250" ? metin='Maks. Nem' : null;
+    kod=="tv251" ? metin='Nem Fark' : null;
+    kod=="tv252" ? metin='Maksimum Nem' : null;
+    kod=="tv253" ? metin='Soğutma Diyagramı' : null;
+    kod=="tv254" ? metin='Çalışma Sıcaklığı' : null;
+    kod=="tv255" ? metin='Durma Sıcaklığı' : null;
+    kod=="tv256" ? metin='Ped P. Pasif Alan' : null;
+    kod=="tv257" ? metin='Ped P. kısmi Aktif Alan' : null;
+    kod=="tv258" ? metin='Ped P. Aktif Alan' : null;
+    kod=="tv259" ? metin='Maks. Nem Pasif Alan' : null;
+    kod=="tv260" ? metin='Maks. Nem kısmi Aktif Alan' : null;
+    kod=="tv261" ? metin='Maks. Nem Aktif Alan' : null;
+    kod=="tv262" ? metin='ISITICI Gr.' : null;
+    kod=="tv263" ? metin='ISITMA' : null;
+    kod=="tv264" ? metin='Isıtma Diyagramı' : null;
+    kod=="tv265" ? metin='Isıtıcı Aktif Alan' : null;
+    kod=="tv266" ? metin='Isıtıcı kısmi Aktif Alan' : null;
+    kod=="tv267" ? metin='Isıtıcı Pasif Alan' : null;
+    kod=="tv268" ? metin='Çalışma Sıcaklığı(A-B) :' : null;
+    kod=="tv269" ? metin='Durma Sıcaklığı(A-C) :' : null;
+    kod=="tv270" ? metin='Çalışma Sür.(Sn)' : null;
+    kod=="tv271" ? metin='Durma Sür.(Sn)' : null;
 
    
+
     
 
     //#endregion
@@ -371,6 +411,10 @@ class SelectLanguage{
     kod=="toast65" ? metin='Civciv ve Broyler kafeslerinde aktif değildir.' : null;
     kod=="toast66" ? metin='Baca fanı olmayan Civciv veya Broyler kafeslerinde PID kontrol aktif değildir.' : null;
     kod=="toast67" ? metin='Sadece bacafanı olmayan Tavuk kafesleri için aktiftir.' : null;
+    kod=="toast68" ? metin='Şu anda zaten ilgili klepe için kalibrasyon devam ediyor.' : null;
+    kod=="toast69" ? metin='Klepe kalibrasyon sadece ilgili klepe otomatik modda ise aktiftir.' : null;
+    kod=="toast70" ? metin='Kalibrasyon başladı...' : null;
+    kod=="toast71" ? metin='Kalibrasyon sonlandırıldı...' : null;
     
 
 
@@ -494,13 +538,35 @@ class SelectLanguage{
     '\n\nSenaryo 1 B,C değerlerinin birbirine eşit ve F,G değerlerinin birbirine eşit durumudur. Senaryo 2 de bu değerlerin birbirinden farklı durumudur.'
     'Eğer B ve C değerleri birbirinden farklı ise B-C arasında klepe açıklık oranı F olur ve sabit kalır.' : null;
 
-
-    kod=="info8" ? metin='Mevcut tüm klepelere 1\'den 5\'e kadar çalışma sırasi belirlenebilir. Bunun anlamı 1. sırada klepe1 çalışsın 2. sırada klepe2 ve klepe3 çalışsın 3. sırada klepe4 ve klepe5'
+    //KLEPE mod: Tunel
+    kod=="info8" ? metin='Mevcut tüm klepelere 1\'den 5\'e kadar çalışma sırasi belirlenebilir. Bunun anlamı 1. sırada klepe1 çalışsın, 2. sırada klepe2 ve klepe3 çalışsın, 3. sırada klepe4 ve klepe5'
     ' çalışsın şeklinde ayarlanabilir.\n\nEğer "Klp Baş. Düş Fan Modu" parametresi otomatikte ise, toplam fan sayısı klepelerin uzunlukları oranında klepelere pay edilir. Örn 15m-30m-30m şeklinde 3'
     ' klepeniz ve toplam 20 fanınız varsa fanlar klepelere 4-8-8 şeklinde pay edilecektir. Bu örnekte çalışma sırası 15m\'lik klepe için 1, 30m\'lik iki klepe de 2 olsun. 1. sıranın toplam fan sayısı 4,'
     ' 2. sıranın toplam fan sayısı 16 olur.\n\nBuna göre klepe1:\nÇalışan fan sayısı 0\'dan 4\'e(A) çıkarken klepe açıklığı da minimumdan(K1) maksimuma(L1) çıkar.\n\nAynı şekilde klepe2-3:\nÇalışan'
     ' fan sayısı 4\'ten(A) 20\'ye(B) çıkarken klepe açıklığı da minimumdan(K2) maksimuma(L2) çıkar.\n\n Eğer "Klp Baş. Düş Fan Modu" ilgili klepe için manuel de ise o klepeye düşen fan sayısı'
     ' manuel olarak girilmelidir' : null;
+
+    //KLEPE Kalibrasyon
+    kod=="info9" ? metin='* Klepe Kalibrasyon işlemi sadece ilgili klepe Otomatik modda ise gerçekleştirilebilir\n\n'
+    '* İlgili klepe Manuel moddan Otomatik moda geçirildiğinde ilk olarak kalibrasyon işlemini yapar sonra normal işleyişine geçer\n\n'
+    '* Bütün klepeler gece 23.50-00.00 arasında otomatik olarak kalibrasyon yaparak kalibrasyonunu günceller.\n\n'
+    '* Kalibrasyon işlemi başlatıldığında klepe ilk önce bulunduğu konumdan tamamen açık konuma gelir. Daha sonra tam açık konumdan '
+    ' tam kapalı konuma geçer ve bu işlem sırasında kalibrasyon süresi hesaplanır. Kalibrasyon tamamlandığında klepe çalışan fan sayısına göre'
+    ' sistemin hesapladığı aralık kadar açılır.' : null;
+
+
+
+    //Soğutma ayarları
+    kod=="info10" ? metin=' Ortalama sıcaklık değeri ilgili ped pompasının \"Çalışma Sıcaklığı(A+B)\" değerine yükseldiğinde ped pompası çalışmaya başlar. Ortalama sıcaklık değeri'
+    ' ilgili ped pompasının \"Durma Sıcaklığı(A+C)\" değerine düşünceye kadar ped pompası çalışmaya devam eder.\n\n Kümes içi nem değeri girilen \"Maksimum Nem(D)\" değerine ulaştığu zaman'
+    ' sistem \"Yüksek Nem Aktif\" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez. İç nem değeri \"Maksimum Nem\" değerinin \"Nem Fark(E)\" kadar altına düştüğünde'
+    ' \"Yüksek Nem Pasif\" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n Ped pompaları ortalama sıcaklığa göre çalışma durumuna geçtiğinde çalışmayı fasılalı'
+    ' olarak yapar. \"Çalışma Sür.(Sn)\" kadar çalışır, \"Durma Sür.(Sn)\" kadar bekler.' : null;
+
+
+    //Soğutma ayarları
+    kod=="info11" ? metin=' Kümes içi ortalama sıcaklık değeri ilgili ısıtıcı grubu için girilen \"Çalışma Sıcaklığı(A-B)\" değerine düştüğünde ısıtıcı grubu start alır. '
+    'Ortalama sıcaklık ilgili ısıtıcı grubunun \"Durma Sıcaklığı(A-C)\" değerine yükseldiğinde ısıtıcı grubu stop duruma geçer.' : null;
 
 
     //endregion
@@ -743,6 +809,57 @@ class SelectLanguage{
     kod=="tv220" ? metin='Auto :' : null;
     kod=="tv221" ? metin='Man :' : null;
     kod=="tv222" ? metin='Enter Manuel\nFan Number per Flp' : null;
+    kod=="tv223" ? metin='End of W. Queue 1' : null;
+    kod=="tv224" ? metin='Start of W. Queue 2' : null;
+    kod=="tv225" ? metin='W.Queue1 Min. Interval' : null;
+    kod=="tv226" ? metin='W.Queue1 Max. Interval' : null;
+    kod=="tv227" ? metin='W.Queue2 Min. Interval' : null;
+    kod=="tv228" ? metin='W.Queue2 Max. Interval' : null;
+    kod=="tv229" ? metin='Work Queue 1' : null;
+    kod=="tv230" ? metin='Work Queue 2' : null;
+    kod=="tv231" ? metin='End of W. Queue 2' : null;
+    kod=="tv232" ? metin='Calibration\nStart' : null;
+    kod=="tv233" ? metin='Calibration State :' : null;
+    kod=="tv234" ? metin='Calibration Time :' : null;
+    kod=="tv235" ? metin='Flp Auto-Man State :' : null;
+    kod=="tv236" ? metin='Active' : null;
+    kod=="tv237" ? metin='Passive' : null;
+    kod=="tv238" ? metin='Sec' : null;
+    kod=="tv239" ? metin='FLAP CALIBRATION' : null;
+    kod=="tv240" ? metin='Calibration Details' : null;
+    kod=="tv241" ? metin='Flap\nCalibration' : null;
+    kod=="tv242" ? metin='Start Temperature :' : null;
+    kod=="tv243" ? metin='Stop Temperature :' : null;
+    kod=="tv244" ? metin='PED P.' : null;
+    kod=="tv245" ? metin='START TEMPERATURE DIFF.' : null;
+    kod=="tv246" ? metin='STOP TEMPERATURE DIFF.' : null;
+    kod=="tv247" ? metin='Start Temp. Diff.' : null;
+    kod=="tv248" ? metin='Stop Temp. Diff.' : null;
+    kod=="tv249" ? metin='COOLING PED PUMPS' : null;
+    kod=="tv250" ? metin='Max. Hum.' : null;
+    kod=="tv251" ? metin='Hum. Diff.' : null;
+    kod=="tv252" ? metin='Maximum Hum.' : null;
+    kod=="tv253" ? metin='Cooling Diagram' : null;
+
+    kod=="tv254" ? metin='Start Temperature' : null;
+    kod=="tv255" ? metin='Stop Temperature' : null;
+    kod=="tv256" ? metin='Ped P. Passive Area' : null;
+    kod=="tv257" ? metin='Ped P. SubActive Area' : null;
+    kod=="tv258" ? metin='Ped P. Active Area' : null;
+    kod=="tv259" ? metin='Max. Hum.Passive Area' : null;
+    kod=="tv260" ? metin='Max. Hum. SubActive Area' : null;
+    kod=="tv261" ? metin='Max. Hum. Active Area' : null;
+    kod=="tv262" ? metin='HEATER Gr.' : null;
+    kod=="tv263" ? metin='HEATER' : null;
+    kod=="tv264" ? metin='Heater Diagram' : null;
+    kod=="tv265" ? metin='Heater Avtive Area' : null;
+    kod=="tv266" ? metin='Heater SubActive Area' : null;
+    kod=="tv267" ? metin='Heater Passive Area' : null;
+    kod=="tv268" ? metin='Start Temperature(A-B) :' : null;
+    kod=="tv269" ? metin='Stop Temperature(A-C) :' : null;
+    kod=="tv270" ? metin='On Time(Sn)' : null;
+    kod=="tv271" ? metin='Off Time(Sn)' : null;
+    
     
 
     
@@ -864,6 +981,11 @@ class SelectLanguage{
     kod=="toast65" ? metin='It is passive for Rearing and Broiler Cages.' : null;
     kod=="toast66" ? metin='PID Control Method is passive for Rearing and Broiler Cages which have not chimney fans.' : null;
     kod=="toast67" ? metin='Only active for Layer Cages which have not chimney fans.' : null;
+    kod=="toast68" ? metin='Şu anda zaten ilgili klepe için kalibrasyon devam ediyor.' : null;
+    kod=="toast68" ? metin='Calibration already in progress for the flap!' : null;
+    kod=="toast69" ? metin='Calibration is only active that the flap is in automatic mod' : null;
+    kod=="toast70" ? metin='Calibration started...' : null;
+    kod=="toast71" ? metin='Calibration stopped...' : null;
 
 
     //endregion

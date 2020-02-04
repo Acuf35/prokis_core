@@ -96,7 +96,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
             automaticallyImplyLeading: true,
             centerTitle: true,
             title: Text(
-              SelectLanguage().selectStrings(dilSecimi, 'tv99'),
+              Dil().sec(dilSecimi, 'tv99'),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 28 * oran,
@@ -136,7 +136,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv100'),
+                                                  Dil().sec(dilSecimi, 'tv100'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -194,7 +194,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv101'),
+                                                  Dil().sec(dilSecimi, 'tv101'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -252,7 +252,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv102'),
+                                                  Dil().sec(dilSecimi, 'tv102'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -328,7 +328,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv103'),
+                                                  Dil().sec(dilSecimi, 'tv103'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -386,7 +386,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv104'),
+                                                  Dil().sec(dilSecimi, 'tv104'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -444,7 +444,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv105'),
+                                                  Dil().sec(dilSecimi, 'tv105'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,

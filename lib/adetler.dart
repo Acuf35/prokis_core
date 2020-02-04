@@ -193,7 +193,7 @@ class AdetlerState extends State<Adetler> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv11"),
+                      Dil().sec(dilSecimi, "tv11"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -229,7 +229,7 @@ class AdetlerState extends State<Adetler> {
                       children: <Widget>[
                         //Fan Sayısı
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv12"),
+                            Dil().sec(dilSecimi, "tv12"),
                             'assets/images/kurulum_fan_icon.png',
                             oran,
                             fanAdet,
@@ -237,7 +237,7 @@ class AdetlerState extends State<Adetler> {
                             1),
                         //Klepe Sayısı
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv13"),
+                            Dil().sec(dilSecimi, "tv13"),
                             'assets/images/kurulum_klepe_icon.png',
                             oran,
                             klepeAdet,
@@ -254,7 +254,7 @@ class AdetlerState extends State<Adetler> {
                       children: <Widget>[
                         //Ped Pompa
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv14"),
+                            Dil().sec(dilSecimi, "tv14"),
                             'assets/images/kurulum_ped_icon.png',
                             oran,
                             pedAdet,
@@ -262,7 +262,7 @@ class AdetlerState extends State<Adetler> {
                             3),
                         //Isı Sensör
                         _unsurAdetWidgetIsiSens(
-                            SelectLanguage().selectStrings(dilSecimi, "tv15"),
+                            Dil().sec(dilSecimi, "tv15"),
                             'assets/images/kurulum_isisensor_icon.png',
                             oran,
                             isiSensAdet,
@@ -279,7 +279,7 @@ class AdetlerState extends State<Adetler> {
                       children: <Widget>[
                         //Bacafan
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv16"),
+                            Dil().sec(dilSecimi, "tv16"),
                             'assets/images/kurulum_bacafan_icon.png',
                             oran,
                             bacafanAdet,
@@ -287,7 +287,7 @@ class AdetlerState extends State<Adetler> {
                             5),
                         //Air inlet
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv17"),
+                            Dil().sec(dilSecimi, "tv17"),
                             'assets/images/kurulum_airinlet_icon.png',
                             oran,
                             airinletAdet,
@@ -304,7 +304,7 @@ class AdetlerState extends State<Adetler> {
                       children: <Widget>[
                         //Isıtıcı
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv18"),
+                            Dil().sec(dilSecimi, "tv18"),
                             'assets/images/kurulum_isitici_icon.png',
                             oran,
                             isiticiAdet,
@@ -312,7 +312,7 @@ class AdetlerState extends State<Adetler> {
                             7),
                         //Silo
                         _unsurAdetWidget(
-                            SelectLanguage().selectStrings(dilSecimi, "tv19"),
+                            Dil().sec(dilSecimi, "tv19"),
                             'assets/images/kurulum_silo_icon.png',
                             oran,
                             siloAdet,
@@ -429,7 +429,7 @@ class AdetlerState extends State<Adetler> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -447,7 +447,7 @@ class AdetlerState extends State<Adetler> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }
@@ -600,9 +600,9 @@ class AdetlerState extends State<Adetler> {
                       if (wifiOlcum == false) {
                         wifiOlcum = true;
                         analogOlcum = false;
-                        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast60"), context,duration: 3);
+                        Toast.show(Dil().sec(dilSecimi, "toast60"), context,duration: 3);
                       }else{
-                        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast60"), context,duration: 3);
+                        Toast.show(Dil().sec(dilSecimi, "toast60"), context,duration: 3);
                       }
 
                       setState(() {});
@@ -624,9 +624,9 @@ class AdetlerState extends State<Adetler> {
                       if (analogOlcum == false) {
                         analogOlcum = true;
                         wifiOlcum = false;
-                      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast61"), context,duration: 3);
+                      Toast.show(Dil().sec(dilSecimi, "toast61"), context,duration: 3);
                       }else{
-                        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast61"), context,duration: 3);
+                        Toast.show(Dil().sec(dilSecimi, "toast61"), context,duration: 3);
                       }
 
                       setState(() {});

@@ -55,7 +55,7 @@ class _ResetAlertState extends State<ResetAlert> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  SelectLanguage().selectStrings(dilSecimi, 'tv37'),
+                  Dil().sec(dilSecimi, 'tv37'),
                   style:
                       TextStyle(color: Colors.white, fontFamily: 'Kelly Slab'),
                   textAlign: TextAlign.center,textScaleFactor: oran,
@@ -76,7 +76,7 @@ class _ResetAlertState extends State<ResetAlert> {
                         Navigator.of(context).pop(true);
                       },
                       child: Text(
-                        SelectLanguage().selectStrings(dilSecimi, 'btn7'),
+                        Dil().sec(dilSecimi, 'btn7'),
                         textScaleFactor: oran,
                         style: TextStyle(
                             color: Colors.white,
@@ -92,7 +92,7 @@ class _ResetAlertState extends State<ResetAlert> {
                         Navigator.of(context).pop(false);
                       },
                       child: Text(
-                        SelectLanguage().selectStrings(dilSecimi, 'btn8'),
+                        Dil().sec(dilSecimi, 'btn8'),
                         textScaleFactor: oran,
                         style: TextStyle(
                             color: Colors.white,

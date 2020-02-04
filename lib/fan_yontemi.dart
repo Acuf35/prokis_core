@@ -109,7 +109,7 @@ class FanYontemiState extends State<FanYontemi> {
                       child: Container(
                         alignment: Alignment.center,
                         child: AutoSizeText(
-                          SelectLanguage().selectStrings(dilSecimi, "tv20"),
+                          Dil().sec(dilSecimi, "tv20"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: 'Kelly Slab',
@@ -149,7 +149,7 @@ class FanYontemiState extends State<FanYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv21"),
+                              Dil().sec(dilSecimi, "tv21"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -195,7 +195,7 @@ class FanYontemiState extends State<FanYontemi> {
                             _veriGonder("4", "7", "1", "0", "0", "0");
                             setState(() {});
                             }else{
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, 'toast65'), context,duration: 3);
+                              Toast.show(Dil().sec(dilSecimi, 'toast65'), context,duration: 3);
                             }
 
 
@@ -223,7 +223,7 @@ class FanYontemiState extends State<FanYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv22"),
+                              Dil().sec(dilSecimi, "tv22"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -290,7 +290,7 @@ class FanYontemiState extends State<FanYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv23"),
+                              Dil().sec(dilSecimi, "tv23"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -321,7 +321,7 @@ class FanYontemiState extends State<FanYontemi> {
                         child: IconButton(
                           onPressed: () {
                             if(kumesTuru!="1" && bacafanAdet=="0"){
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, 'toast66'), context,duration: 3);
+                              Toast.show(Dil().sec(dilSecimi, 'toast66'), context,duration: 3);
                             }else{
 
                             if (!pyDurum) {
@@ -393,8 +393,8 @@ class FanYontemiState extends State<FanYontemi> {
                       onPressed: () {
                         if (!kyDurum && !lyDurum && !pyDurum) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast4"),
+                              Dil()
+                                  .sec(dilSecimi, "toast4"),
                               context,
                               duration: 3);
                         } else {
@@ -465,7 +465,7 @@ class FanYontemiState extends State<FanYontemi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -483,7 +483,7 @@ class FanYontemiState extends State<FanYontemi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

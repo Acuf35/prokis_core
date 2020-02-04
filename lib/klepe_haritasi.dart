@@ -189,7 +189,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv38"),
+                      Dil().sec(dilSecimi, "tv38"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -237,8 +237,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv53"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv53"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -296,8 +296,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv54"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv54"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -396,8 +396,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv55"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv55"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -458,8 +458,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv56"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv56"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -564,8 +564,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             child: Container(
                               alignment: Alignment.center,
                               child: AutoSizeText(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "tv62"),
+                                Dil()
+                                    .sec(dilSecimi, "tv62"),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -868,22 +868,22 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                             if (sayac < klepeAdet) {
                               //Haritada seçilen klepe sayısı eksik
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast29"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast29"),
                                   context,
                                   duration: 3);
                             } else if (sayac > klepeAdet) {
                               //Haritada seçilen klepe sayısı yüksek
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast30"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast30"),
                                   context,
                                   duration: 3);
                             } else {
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
                               haritaOnay = true;
@@ -922,8 +922,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil()
+                                    .sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -952,8 +952,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil()
+                                    .sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1017,32 +1017,32 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast37"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast37"),
                                   context,
                                   duration: 3);
                             } else if (klepeNOyuksek) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast46"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast46"),
                                   context,
                                   duration: 3);
                             } else if (klepeNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast28"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast28"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast26"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast26"),
                                   context,
                                   duration: 3);
                             } else if (cikisKullanimda) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast38"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast38"),
                                   context,
                                   duration: 3);
                             } else {
@@ -1097,8 +1097,8 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil()
+                                    .sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1139,14 +1139,14 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                       onPressed: () {
                         if (!haritaOnay) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast62"),
+                              Dil()
+                                  .sec(dilSecimi, "toast62"),
                               context,
                               duration: 3);
                         } else if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil()
+                                  .sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -1388,7 +1388,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv39") +
                                               klepeNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1416,7 +1416,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv43") +
                                               cikisNoAc[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1444,7 +1444,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv44") +
                                               cikisNoKapa[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1493,7 +1493,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1511,7 +1511,7 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

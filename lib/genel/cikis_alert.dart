@@ -55,7 +55,7 @@ class _CikisAlertState extends State<CikisAlert> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  SelectLanguage().selectStrings(dilSecimi, 'tv16'),
+                  Dil().sec(dilSecimi, 'tv16'),
                   style:
                       TextStyle(color: Colors.white, fontFamily: 'Kelly Slab'),
                   textAlign: TextAlign.center,
@@ -76,7 +76,7 @@ class _CikisAlertState extends State<CikisAlert> {
                         exit(0);
                       },
                       child: Text(
-                        SelectLanguage().selectStrings(dilSecimi, 'btn4'),
+                        Dil().sec(dilSecimi, 'btn4'),
                         textScaleFactor: oran,
                         style: TextStyle(
                             color: Colors.white,
@@ -92,7 +92,7 @@ class _CikisAlertState extends State<CikisAlert> {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        SelectLanguage().selectStrings(dilSecimi, 'btn5'),
+                        Dil().sec(dilSecimi, 'btn5'),
                         textScaleFactor: oran,
                         style: TextStyle(
                             color: Colors.white,

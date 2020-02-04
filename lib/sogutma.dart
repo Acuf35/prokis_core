@@ -1,0 +1,1685 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:async';
+
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
+import 'package:prokis/genel/metotlar.dart';
+import 'package:prokis/kontrol.dart';
+import 'package:toast/toast.dart';
+import 'genel/database_helper.dart';
+import 'genel/deger_giris_2x1.dart';
+import 'genel/deger_giris_3x0.dart';
+import 'languages/select.dart';
+
+class Sogutma extends StatefulWidget {
+  List<Map> gelenDBveri;
+  Sogutma(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    return SogutmaState(gelenDBveri);
+  }
+}
+
+class SogutmaState extends State<Sogutma> {
+  //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  final dbHelper = DatabaseHelper.instance;
+  var dbSatirlar;
+  int dbSatirSayisi = 0;
+  int dbSayac = 0;
+  String dilSecimi = "EN";
+  String pedAdet = "0";
+  String kurulumDurum = "0";
+  List<Map> dbVeriler;
+
+  int _yuzler = 0;
+  int _onlar = 0;
+  int _birler = 0;
+  int _ondalik = 0;
+  int _index = 0;
+
+  int timerSayac = 0;
+  int yazmaSonrasiGecikmeSayaci = 0;
+  bool timerCancel = false;
+  bool baglanti = false;
+
+  List<String> calismaSicakligi = new List(11);
+  List<String> calismaSicakligifark = new List(11);
+  List<String> durmaSicakligi = new List(11);
+  List<String> durmaSicakligiFark = new List(11);
+
+  String maksimumNem = "0.0";
+  String nemFark = "0.0";
+  String calismaSure = "240";
+  String durmaSure = "360";
+
+//--------------------------DATABASE DEĞİŞKENLER--------------------------------
+
+//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  SogutmaState(List<Map> dbVeri) {
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+      if (dbVeri[i]["id"] == 1) {
+        dilSecimi = dbVeri[i]["veri1"];
+      }
+      if (dbVeri[i]["id"] == 4) {
+        pedAdet = dbVeri[i]["veri3"];
+      }
+    }
+
+    for (int i = 1; i <= 10; i++) {
+      calismaSicakligi[i] = "0.0";
+      calismaSicakligifark[i] = "0.0";
+      durmaSicakligi[i] = "0.0";
+      durmaSicakligiFark[i] = "0.0";
+    }
+
+    _dbVeriCekme();
+  }
+//--------------------------CONSTRUCTER METHOD--------------------------------
+
+  @override
+  Widget build(BuildContext context) {
+    if (timerSayac == 0) {
+      _takipEt();
+
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        yazmaSonrasiGecikmeSayaci++;
+        if (timerCancel) {
+          timer.cancel();
+        }
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
+          baglanti = true;
+          _takipEt();
+        }
+      });
+    }
+
+    timerSayac++;
+
+    var width = MediaQuery.of(context).size.width *
+        MediaQuery.of(context).devicePixelRatio;
+    var height = MediaQuery.of(context).size.height *
+        MediaQuery.of(context).devicePixelRatio;
+    var carpim = width * height;
+    var oran = carpim / 2073600.0;
+
+    return Scaffold(
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(30 * oran),
+          child: AppBar(
+              leading: Builder(
+                builder: (context) => IconButton(
+                  iconSize: 40 * oran,
+                  icon: Icon(Icons.menu),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                ),
+              ),
+              actions: [
+                Row(
+                  children: <Widget>[
+                    Builder(
+                      builder: (context) => IconButton(
+                        color: Colors.yellow[700],
+                        iconSize: 40 * oran,
+                        icon: Icon(Icons.info_outline),
+                        onPressed: () => Scaffold.of(context).openEndDrawer(),
+                        tooltip: MaterialLocalizations.of(context)
+                            .openAppDrawerTooltip,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+              primary: false,
+              automaticallyImplyLeading: true,
+              centerTitle: true,
+              title: Text(
+                Dil().sec(dilSecimi, "tv249"),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28 * oran,
+                    fontFamily: 'Kelly Slab',
+                    fontWeight: FontWeight.bold),
+              )),
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(bottom: 10 * oran),
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 15,
+                      child: Column(
+                        children: <Widget>[
+                          //Beyaz alan üst boşluk
+                          Container(
+                            height: 5 * oran,
+                          ),
+                          //ilk 5 ped bölümü
+                          Expanded(
+                            flex: 10,
+                            child: Row(
+                              children: <Widget>[
+                                Spacer(
+                                  flex: 1,
+                                ),
+                                Expanded(
+                                  flex: 8,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 5,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Spacer(
+                                              flex: 1,
+                                            ),
+                                            Expanded(
+                                              flex: 3,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(
+                                                        dilSecimi, "tv245"),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.green[700],
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 60,
+                                                    ),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 6,
+                                        child: Column(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: SizedBox(
+                                                child: Container(
+                                                  color: Colors.grey[300],
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(
+                                                        dilSecimi, "tv242"),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.black,
+                                                      fontSize: 60,
+                                                    ),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 4,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(
+                                                        dilSecimi, "tv246"),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors
+                                                          .deepOrange[800],
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 60,
+                                                    ),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              child: SizedBox(
+                                                child: Container(
+                                                  color: Colors.grey[300],
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(
+                                                        dilSecimi, "tv243"),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.black,
+                                                      fontSize: 60,
+                                                    ),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 0,
+                                    child: _klepeKlasikUnsur(oran, 1)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 1,
+                                    child: _klepeKlasikUnsur(oran, 2)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 2,
+                                    child: _klepeKlasikUnsur(oran, 3)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 3,
+                                    child: _klepeKlasikUnsur(oran, 4)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 4,
+                                    child: _klepeKlasikUnsur(oran, 5)),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          //Son 5 ped bölümü
+                          Expanded(
+                            flex: 10,
+                            child: Row(
+                              children: <Widget>[
+                                Spacer(
+                                  flex: 1,
+                                ),
+                                Visibility(
+                                  visible: int.parse(pedAdet) > 5,
+                                  child: Expanded(
+                                    flex: 8,
+                                    child: Column(
+                                      children: <Widget>[
+                                        Expanded(
+                                          flex: 5,
+                                          child: Column(
+                                            children: <Widget>[
+                                              Spacer(
+                                                flex: 1,
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv245"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color:
+                                                            Colors.green[700],
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 1,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 6,
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.grey[300],
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv242"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 1,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv246"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors
+                                                            .deepOrange[800],
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 1,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.grey[300],
+                                                    alignment:
+                                                        Alignment.centerRight,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv243"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 1,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 5,
+                                    child: _klepeKlasikUnsur(oran, 6)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 6,
+                                    child: _klepeKlasikUnsur(oran, 7)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 7,
+                                    child: _klepeKlasikUnsur(oran, 8)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 8,
+                                    child: _klepeKlasikUnsur(oran, 9)),
+                                Visibility(
+                                    visible: int.parse(pedAdet) > 9,
+                                    child: _klepeKlasikUnsur(oran, 10)),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        children: <Widget>[
+                          //Maks. Nem ve Nem fark
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: <Widget>[
+                                //Maks. Nem
+                                Expanded(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Spacer(),
+                                      Expanded(
+                                        flex: 10,
+                                        child: RawMaterialButton(
+                                          onPressed: () {
+                                            _index = 21;
+                                            _onlar = int.parse(maksimumNem
+                                                        .split(".")[0]) <
+                                                    10
+                                                ? 0
+                                                : (int.parse(maksimumNem
+                                                        .split(".")[0]) ~/
+                                                    10);
+                                            _birler = int.parse(
+                                                    maksimumNem.split(".")[0]) %
+                                                10;
+                                            _ondalik = int.parse(
+                                                maksimumNem.split(".")[1]);
+
+                                            _degergiris2X1(
+                                                _onlar,
+                                                _birler,
+                                                _ondalik,
+                                                _index,
+                                                oran,
+                                                dilSecimi,
+                                                "tv252",
+                                                "");
+                                          },
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv250"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 2,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: Stack(
+                                                  children: <Widget>[
+                                                    LayoutBuilder(builder:
+                                                        (context, constraint) {
+                                                      return Center(
+                                                        child: Icon(
+                                                          Icons.brightness_1,
+                                                          size: constraint
+                                                              .biggest.height,
+                                                          color:
+                                                              Colors.cyan[800],
+                                                        ),
+                                                      );
+                                                    }),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        maksimumNem,
+                                                        style: TextStyle(
+                                                            fontSize: 20 * oran,
+                                                            fontFamily:
+                                                                'Kelly Slab',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.white),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer()
+                                    ],
+                                  ),
+                                ),
+                                //Nem fark
+                                Expanded(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Spacer(),
+                                      Expanded(
+                                        flex: 10,
+                                        child: RawMaterialButton(
+                                          onPressed: () {
+                                            _index = 22;
+                                            _onlar = int.parse(
+                                                        nemFark.split(".")[0]) <
+                                                    10
+                                                ? 0
+                                                : (int.parse(nemFark
+                                                        .split(".")[0]) ~/
+                                                    10);
+                                            _birler = int.parse(
+                                                    nemFark.split(".")[0]) %
+                                                10;
+                                            _ondalik = int.parse(
+                                                nemFark.split(".")[1]);
+
+                                            _degergiris2X1(
+                                                _onlar,
+                                                _birler,
+                                                _ondalik,
+                                                _index,
+                                                oran,
+                                                dilSecimi,
+                                                "tv251",
+                                                "");
+                                          },
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv251"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 2,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: Stack(
+                                                  children: <Widget>[
+                                                    LayoutBuilder(builder:
+                                                        (context, constraint) {
+                                                      return Center(
+                                                        child: Icon(
+                                                          Icons.brightness_1,
+                                                          size: constraint
+                                                              .biggest.height,
+                                                          color:
+                                                              Colors.cyan[800],
+                                                        ),
+                                                      );
+                                                    }),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        nemFark,
+                                                        style: TextStyle(
+                                                            fontSize: 20 * oran,
+                                                            fontFamily:
+                                                                'Kelly Slab',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.white),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer()
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          //Çalışma ve durma Süresi
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: <Widget>[
+                                //Çalışma ve durma Süresi alanı
+                                Expanded(
+                                    flex: 3,
+                                    child: Column(
+                                      children: <Widget>[
+                                        //Çalışma Süresi
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(flex: 3,
+                                                  child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                      padding: EdgeInsets.only(left: 3*oran,right: 3*oran),
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, "tv270"),
+                                                    textAlign:
+                                                        TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      color: Colors.black,
+                                                      fontSize: 60,
+                                                    ),
+                                                    maxLines: 2,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              )),
+                                              Expanded(flex: 6,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Spacer(),
+                                                    Expanded(flex: 6,
+                                                                                                            child: LayoutBuilder(builder:
+                                                          (context, constraint) {
+                                                        return RawMaterialButton(
+                                                          onPressed: () {
+
+
+                                                            
+                                                                  int sayi = int.parse(
+                                                                      calismaSure);
+                                                                  _index =
+                                                                      23;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          3,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv270",
+                                                                          "");
+
+
+
+                                                          },
+                                                          fillColor: Colors.blue,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              child: AutoSizeText(
+                                                                calismaSure,
+                                                                textAlign: TextAlign
+                                                                    .center,
+                                                                style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Kelly Slab',
+                                                                  color:
+                                                                      Colors.black,
+                                                                  fontSize: 60,
+                                                                ),
+                                                                maxLines: 2,
+                                                                minFontSize: 8,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                    ),
+                                                    Spacer()
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        //Durma Süresi
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(flex: 3,
+                                                  child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                      padding: EdgeInsets.only(left: 5*oran,right: 5*oran),
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, "tv271"),
+                                                    textAlign:
+                                                        TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      color: Colors.black,
+                                                      fontSize: 60,
+                                                    ),
+                                                    maxLines: 2,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              )),
+                                              Expanded(flex: 6,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Spacer(),
+                                                    Expanded(flex: 6,
+                                                                                                            child: LayoutBuilder(builder:
+                                                          (context, constraint) {
+                                                        return RawMaterialButton(
+                                                          onPressed: () {
+
+                                                            
+                                                            
+                                                                  int sayi = int.parse(
+                                                                      durmaSure);
+                                                                  _index =
+                                                                      24;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          3,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv271",
+                                                                          "");
+
+
+                                                          },
+                                                          fillColor: Colors.blue,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment
+                                                                  .bottomCenter,
+                                                              child: AutoSizeText(
+                                                                durmaSure,
+                                                                textAlign: TextAlign
+                                                                    .center,
+                                                                style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Kelly Slab',
+                                                                  color:
+                                                                      Colors.black,
+                                                                  fontSize: 60,
+                                                                ),
+                                                                maxLines: 2,
+                                                                minFontSize: 8,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                    ),
+                                                    Spacer()
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                        ],
+                                    )
+                                    ),
+                                Spacer(
+                                  flex: 2,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            timerCancel = true;
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+            );
+          },
+          backgroundColor: Colors.blue,
+          child: Icon(
+            Icons.arrow_back,
+            size: 50,
+            color: Colors.white,
+          ),
+        ),
+        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
+        endDrawer: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv253"), //Sıcaklık diyagramı
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
+                      ),
+                      textScaleFactor: oran,
+                    ),
+                    color: Colors.yellow[700],
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: DrawerHeader(
+                    padding: EdgeInsets.zero,
+                    margin: EdgeInsets.all(0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                alignment: Alignment.center,
+                                image: AssetImage(
+                                    'assets/images/diagram_sogutma_civbro.jpg'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 4,
+                          child: Container(
+                            color: Colors.grey[100],
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A+B",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A+C",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "D",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "E",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "F",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "G",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "H",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "J",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "K",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "L",
+                                                style: TextStyle(
+                                                    fontSize: 11 * oran),
+                                              ))),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv115"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv254"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv255"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv252"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv251"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv256"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv257"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv258"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv259"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv260"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv261"),
+                                            style:
+                                                TextStyle(fontSize: 11 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
+                          ),
+                          subtitle: Text(
+                            Dil().sec(dilSecimi, "info10"),
+                            style: TextStyle(
+                              fontSize: 13 * oran,
+                            ),
+                          ),
+                          onTap: () {
+                            // Update the state of the app.
+                            // ...
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
+  }
+
+//++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
+
+  _satirlar(List<Map> satirlar) {
+    dbVeriler = satirlar;
+  }
+
+  _dbVeriCekme() {
+    dbSatirlar = dbHelper.satirlariCek();
+    final satirSayisi = dbHelper.satirSayisi();
+    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+    satirSayisi.whenComplete(() {
+      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+    });
+  }
+
+  Future _degergiris3X0(int yuzler, onlar, birler, index, paramIndex,
+      double oran, String dil, baslik, onBaslik) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return DegerGiris3X0.Deger(
+            yuzler, onlar, birler, index, oran, dil, baslik, onBaslik);
+      },
+    ).then((val) {
+      bool veriGonderilsinMi = false;
+      if (_yuzler != val[0] ||
+          _onlar != val[1] ||
+          _birler != val[2] ||
+          _index != val[3]) {
+        veriGonderilsinMi = true;
+      }
+      _yuzler = val[0];
+      _onlar = val[1];
+      _birler = val[2];
+      _index = val[3];
+
+      String veri="";
+
+      if(_index==23){
+        calismaSure =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+            veri=calismaSure;
+      }
+      if(_index==24){
+        durmaSure =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+            veri=durmaSure;
+      }
+
+      
+
+      if (veriGonderilsinMi) {
+        yazmaSonrasiGecikmeSayaci = 0;
+        _veriGonder("10*$index*$veri");
+      }
+
+      setState(() {});
+    });
+  }
+
+
+  Future _degergiris2X1(
+      int onlarUnsur,
+      int birlerUnsur,
+      int ondalikUnsur,
+      int pedIndex,
+      double oran,
+      String dil,
+      String baslik,
+      String onBaslik) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return DegerGiris2X1.Deger(onlarUnsur, birlerUnsur, ondalikUnsur,
+            pedIndex, oran, dil, baslik, onBaslik);
+      },
+    ).then((val) {
+      bool veriGonderilsinMi = false;
+      if (_onlar != val[0] ||
+          _birler != val[1] ||
+          _ondalik != val[2] ||
+          _index != val[3]) {
+        veriGonderilsinMi = true;
+      }
+
+      _onlar = val[0];
+      _birler = val[1];
+      _ondalik = val[2];
+      _index = val[3];
+
+      String veri = '';
+
+      if (_index < 11) {
+        for (int i = 1; i <= 10; i++) {
+          if (_index == i) {
+            calismaSicakligifark[_index] =
+                (_onlar == 0 ? "" : _onlar.toString()) +
+                    _birler.toString() +
+                    "." +
+                    _ondalik.toString();
+            veri = calismaSicakligifark[_index];
+          }
+        }
+      }
+
+      if (_index < 21 && _index > 10) {
+        for (int i = 11; i <= 20; i++) {
+          if (_index == i) {
+            durmaSicakligiFark[_index - 10] =
+                (_onlar == 0 ? "" : _onlar.toString()) +
+                    _birler.toString() +
+                    "." +
+                    _ondalik.toString();
+            veri = durmaSicakligiFark[_index - 10];
+          }
+        }
+      }
+
+      if (_index == 21) {
+        maksimumNem = (_onlar == 0 ? "" : _onlar.toString()) +
+            _birler.toString() +
+            "." +
+            _ondalik.toString();
+        veri = maksimumNem;
+      }
+
+      if (_index == 22) {
+        nemFark = (_onlar == 0 ? "" : _onlar.toString()) +
+            _birler.toString() +
+            "." +
+            _ondalik.toString();
+        veri = nemFark;
+      }
+
+      if (veriGonderilsinMi) {
+        yazmaSonrasiGecikmeSayaci = 0;
+        _veriGonder("10*$_index*$veri");
+      }
+    });
+  }
+
+  Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
+    updateState(() {});
+  }
+
+  _veriGonder(String emir) async {
+    try {
+      String gelenMesaj = "";
+      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
+      await Socket.connect('192.168.1.110', 2235).then((socket) {
+        String gelen_mesaj = "";
+
+        socket.add(utf8.encode(emir));
+
+        socket.listen(
+          (List<int> event) {
+            print(utf8.decode(event));
+            gelen_mesaj = utf8.decode(event);
+            var gelen_mesaj_parcali = gelen_mesaj.split("*");
+
+            if (gelen_mesaj_parcali[0] == 'ok') {
+              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 2);
+            } else {
+              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
+            }
+          },
+          onDone: () {
+            baglanti = false;
+            socket.close();
+            _takipEt();
+            setState(() {});
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+        baglanti = false;
+      });
+    } catch (e) {
+      print(e);
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
+      baglanti = false;
+    }
+  }
+
+  _takipEt() async {
+    try {
+      String gelenMesaj = "";
+      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
+      await Socket.connect('192.168.1.110', 2236).then((socket) {
+        socket.add(utf8.encode('9*'));
+
+        socket.listen(
+          (List<int> event) {
+            gelenMesaj = utf8.decode(event);
+            if (gelenMesaj != "") {
+              var degerler = gelenMesaj.split('#');
+              print(degerler);
+              print(yazmaSonrasiGecikmeSayaci);
+
+              calismaSicakligi[1] = degerler[0].split("*")[0];
+              calismaSicakligi[2] = degerler[0].split("*")[1];
+              calismaSicakligi[3] = degerler[0].split("*")[2];
+              calismaSicakligi[4] = degerler[0].split("*")[3];
+              calismaSicakligi[5] = degerler[0].split("*")[4];
+              calismaSicakligi[6] = degerler[0].split("*")[5];
+              calismaSicakligi[7] = degerler[0].split("*")[6];
+              calismaSicakligi[8] = degerler[0].split("*")[7];
+              calismaSicakligi[9] = degerler[0].split("*")[8];
+              calismaSicakligi[10] = degerler[0].split("*")[9];
+              durmaSicakligi[1] = degerler[0].split("*")[10];
+              durmaSicakligi[2] = degerler[0].split("*")[11];
+              durmaSicakligi[3] = degerler[0].split("*")[12];
+              durmaSicakligi[4] = degerler[0].split("*")[13];
+              durmaSicakligi[5] = degerler[0].split("*")[14];
+              durmaSicakligi[6] = degerler[0].split("*")[15];
+              durmaSicakligi[7] = degerler[0].split("*")[16];
+              durmaSicakligi[8] = degerler[0].split("*")[17];
+              durmaSicakligi[9] = degerler[0].split("*")[18];
+              durmaSicakligi[10] = degerler[0].split("*")[19];
+
+              calismaSicakligifark[1] = degerler[1].split("*")[0];
+              calismaSicakligifark[2] = degerler[1].split("*")[1];
+              calismaSicakligifark[3] = degerler[1].split("*")[2];
+              calismaSicakligifark[4] = degerler[1].split("*")[3];
+              calismaSicakligifark[5] = degerler[1].split("*")[4];
+              calismaSicakligifark[6] = degerler[1].split("*")[5];
+              calismaSicakligifark[7] = degerler[1].split("*")[6];
+              calismaSicakligifark[8] = degerler[1].split("*")[7];
+              calismaSicakligifark[9] = degerler[1].split("*")[8];
+              calismaSicakligifark[10] = degerler[1].split("*")[9];
+              durmaSicakligiFark[1] = degerler[1].split("*")[10];
+              durmaSicakligiFark[2] = degerler[1].split("*")[11];
+              durmaSicakligiFark[3] = degerler[1].split("*")[12];
+              durmaSicakligiFark[4] = degerler[1].split("*")[13];
+              durmaSicakligiFark[5] = degerler[1].split("*")[14];
+              durmaSicakligiFark[6] = degerler[1].split("*")[15];
+              durmaSicakligiFark[7] = degerler[1].split("*")[16];
+              durmaSicakligiFark[8] = degerler[1].split("*")[17];
+              durmaSicakligiFark[9] = degerler[1].split("*")[18];
+              durmaSicakligiFark[10] = degerler[1].split("*")[19];
+
+              maksimumNem = degerler[2];
+              nemFark = degerler[3];
+              calismaSure = degerler[4];
+              durmaSure = degerler[5];
+
+              //socket.add(utf8.encode('ok'));
+            }
+          },
+          onDone: () {
+            baglanti = false;
+            socket.close();
+            if (!timerCancel) {
+              setState(() {});
+            }
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+        baglanti = false;
+      });
+    } catch (e) {
+      print(e);
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
+      baglanti = false;
+    }
+  }
+
+  Widget _klepeKlasikUnsur(double oran, int pedNo) {
+    return Expanded(
+      flex: 5,
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              Dil().sec(dilSecimi, "tv244") + " " + pedNo.toString(),
+              style: TextStyle(
+                  fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold),
+              textScaleFactor: oran,
+            ),
+          ),
+          Expanded(
+              flex: 4,
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 4,
+                      child: RawMaterialButton(
+                        onPressed: () {
+                          _index = pedNo;
+                          _onlar = int.parse(calismaSicakligifark[pedNo]
+                                      .split(".")[0]) <
+                                  10
+                              ? 0
+                              : (int.parse(calismaSicakligifark[pedNo]
+                                      .split(".")[0]) ~/
+                                  10);
+                          _birler = int.parse(
+                                  calismaSicakligifark[pedNo].split(".")[0]) %
+                              10;
+                          _ondalik = int.parse(
+                              calismaSicakligifark[pedNo].split(".")[1]);
+
+                          _degergiris2X1(
+                              _onlar,
+                              _birler,
+                              _ondalik,
+                              _index,
+                              oran,
+                              dilSecimi,
+                              "tv247",
+                              Dil().sec(dilSecimi, "tv244") + " $pedNo ");
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            LayoutBuilder(builder: (context, constraint) {
+                              return Icon(
+                                Icons.brightness_1,
+                                size: constraint.biggest.height,
+                                color: Colors.green[900],
+                              );
+                            }),
+                            Text(
+                              calismaSicakligifark[pedNo],
+                              style: TextStyle(
+                                  fontSize: 20 * oran,
+                                  fontFamily: 'Kelly Slab',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Text(calismaSicakligi[pedNo], textScaleFactor: oran),
+              alignment: Alignment.center,
+              color: Colors.grey[300],
+            ),
+          ),
+          Expanded(
+              flex: 4,
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      flex: 4,
+                      child: RawMaterialButton(
+                        onPressed: () {
+                          _index = pedNo + 10;
+                          _onlar = int.parse(
+                                      durmaSicakligiFark[pedNo].split(".")[0]) <
+                                  10
+                              ? 0
+                              : (int.parse(durmaSicakligiFark[pedNo]
+                                      .split(".")[0]) ~/
+                                  10);
+                          _birler = int.parse(
+                                  durmaSicakligiFark[pedNo].split(".")[0]) %
+                              10;
+                          _ondalik = int.parse(
+                              durmaSicakligiFark[pedNo].split(".")[1]);
+
+                          _degergiris2X1(
+                              _onlar,
+                              _birler,
+                              _ondalik,
+                              _index,
+                              oran,
+                              dilSecimi,
+                              "tv248",
+                              Dil().sec(dilSecimi, "tv244") + " $pedNo ");
+                        },
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: <Widget>[
+                            LayoutBuilder(builder: (context, constraint) {
+                              return Icon(
+                                Icons.brightness_1,
+                                size: constraint.biggest.height,
+                                color: Colors.deepOrange[800],
+                              );
+                            }),
+                            Text(
+                              durmaSicakligiFark[pedNo],
+                              style: TextStyle(
+                                  fontSize: 20 * oran,
+                                  fontFamily: 'Kelly Slab',
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+          Expanded(
+            flex: 1,
+            child: Container(
+              child: Text(durmaSicakligi[pedNo], textScaleFactor: oran),
+              alignment: Alignment.center,
+              color: Colors.grey[300],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  //--------------------------METOTLAR--------------------------------
+
+}

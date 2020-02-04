@@ -154,7 +154,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
               automaticallyImplyLeading: true,
               centerTitle: true,
               title: Text(
-                SelectLanguage().selectStrings(dilSecimi, "tv181"),
+                Dil().sec(dilSecimi, "tv181"),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 28 * oran,
@@ -190,7 +190,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv125"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -284,7 +284,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv126"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -363,7 +363,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv185"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -399,8 +399,8 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                             flex: 1,
                                                             child: Center(
                                                                 child: Text(
-                                                              SelectLanguage()
-                                                                  .selectStrings(
+                                                              Dil()
+                                                                  .sec(
                                                                       dilSecimi,
                                                                       "tv127"),
                                                               style: TextStyle(
@@ -605,7 +605,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                             );
                                           }),
                                           Text(
-                                            SelectLanguage().selectStrings(dilSecimi, "btn10"),
+                                            Dil().sec(dilSecimi, "btn10"),
                                             style: TextStyle(
                                                 fontSize: 20 * oran,
                                                 fontFamily: 'Kelly Slab',
@@ -642,7 +642,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Expanded(
-                                    child: Text(SelectLanguage().selectStrings(dilSecimi, "tv184")),
+                                    child: Text(Dil().sec(dilSecimi, "tv184")),
                                   ),
                                   Expanded(
                                       flex: 3,
@@ -757,8 +757,8 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                  SelectLanguage()
-                      .selectStrings(dilSecimi, "tv123"), //Sıcaklık diyagramı
+                  Dil()
+                      .sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.black,
@@ -817,27 +817,27 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                 children: <Widget>[
                                   Text(
                                     " : " +
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "tv115"),style: TextStyle(fontSize: 13*oran),
                                   ),
                                   Text(
                                     " : " +
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "tv116"),style: TextStyle(fontSize: 13*oran),
                                   ),
                                   Text(
                                     " : " +
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "tv118"),style: TextStyle(fontSize: 13*oran),
                                   ),
                                   Text(
                                     " : " +
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "tv120"),style: TextStyle(fontSize: 13*oran),
                                   ),
                                   Text(
                                     " : " +
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "tv121"),style: TextStyle(fontSize: 13*oran),
                                   ),
                                 ],
@@ -866,7 +866,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                       dense: false,
                       title: Text('Açıklama'),
                       subtitle: Text(
-                        SelectLanguage().selectStrings(dilSecimi, "info3"),
+                        Dil().sec(dilSecimi, "info3"),
                         style: TextStyle(
                           fontSize: 13 * oran,
                         ),
@@ -971,34 +971,34 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
         double deger=fanSet.reduce(max)-setSic-dogBol;
         double tunBolYRD= deger<0 ? 0 : deger;
     final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),setSic, Colors.blue[700]),
+      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"),setSic, Colors.blue[700]),
     ];
 
     final dogalBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), dogBol, Colors.green[700]),
+      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"), dogBol, Colors.green[700]),
     ];
 
     final tunelBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"), tunBolYRD, Colors.red[700]),
+      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"), tunBolYRD, Colors.red[700]),
     ];
 
     return [
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: SelectLanguage().selectStrings(dil, "tv188"),
+        id: Dil().sec(dil, "tv188"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: fasilaBolgesi,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: SelectLanguage().selectStrings(dil, "tv187"),
+        id: Dil().sec(dil, "tv187"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: dogalBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: SelectLanguage().selectStrings(dil, "tv190"),
+        id: Dil().sec(dil, "tv190"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
@@ -1026,7 +1026,7 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1046,12 +1046,12 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
 
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -1096,12 +1096,12 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }

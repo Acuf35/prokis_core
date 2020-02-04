@@ -62,7 +62,7 @@ class KumesOlusturState extends State<KumesOlustur> {
         if (kumesIsmi.length < 4) {
           //Lütfen en az 4 karakterlik bir kümes ismi belirleyiniz!
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast1"), context,
+              Dil().sec(dilSecimi, "toast1"), context,
               duration: 2);
         } else {
           _veriGonder(
@@ -85,14 +85,14 @@ class KumesOlusturState extends State<KumesOlustur> {
       }
       if (dbVeri[i]["id"] == 3) {
         dbVeri[i]["veri1"] == "1"
-            ? kumesTuru = SelectLanguage().selectStrings(dilSecimi, "dd1")
+            ? kumesTuru = Dil().sec(dilSecimi, "dd1")
             : dbVeri[i]["veri1"] == "2"
-                ? kumesTuru = SelectLanguage().selectStrings(dilSecimi, "dd2")
+                ? kumesTuru = Dil().sec(dilSecimi, "dd2")
                 : dbVeri[i]["veri1"] == "3"
                     ? kumesTuru =
-                        SelectLanguage().selectStrings(dilSecimi, "dd3")
+                        Dil().sec(dilSecimi, "dd3")
                     : kumesTuru =
-                        SelectLanguage().selectStrings(dilSecimi, "dd3");
+                        Dil().sec(dilSecimi, "dd3");
         dbVeri[i]["veri1"] == "1"
             ? kumesTuruIndex = 1
             : dbVeri[i]["veri1"] == "2"
@@ -108,7 +108,7 @@ class KumesOlusturState extends State<KumesOlustur> {
     }
 
     if (dbVeri.length < 3) {
-      kumesTuru = SelectLanguage().selectStrings(dilSecimi, "dd1");
+      kumesTuru = Dil().sec(dilSecimi, "dd1");
     }
 
     _dbVeriCekme();
@@ -150,7 +150,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                   Expanded(
                       child: Container(
                     child: Text(
-                      SelectLanguage().selectStrings(dilSecimi, "tv2"),
+                      Dil().sec(dilSecimi, "tv2"),
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
                           color: Colors.grey.shade600,
@@ -178,7 +178,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "tv3"), //Kümes Türü
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -207,15 +207,15 @@ class KumesOlusturState extends State<KumesOlustur> {
                                           onChanged: (String newValue) {
                                             kumesTuru = newValue;
                                             if (kumesTuru ==
-                                                SelectLanguage().selectStrings(
+                                                Dil().sec(
                                                     dilSecimi, "dd1")) {
                                               kumesTuruIndex = 1;
                                             } else if (kumesTuru ==
-                                                SelectLanguage().selectStrings(
+                                                Dil().sec(
                                                     dilSecimi, "dd2")) {
                                               kumesTuruIndex = 2;
                                             } else if (kumesTuru ==
-                                                SelectLanguage().selectStrings(
+                                                Dil().sec(
                                                     dilSecimi, "dd3")) {
                                               kumesTuruIndex = 3;
                                             }
@@ -237,12 +237,12 @@ class KumesOlusturState extends State<KumesOlustur> {
                                             setState(() {});
                                           },
                                           items: <String>[
-                                            SelectLanguage().selectStrings(
+                                            Dil().sec(
                                                 dilSecimi, "dd1"),
-                                            SelectLanguage().selectStrings(
+                                            Dil().sec(
                                                 dilSecimi, "dd2"),
-                                            SelectLanguage()
-                                                .selectStrings(dilSecimi, "dd3")
+                                            Dil()
+                                                .sec(dilSecimi, "dd3")
                                           ].map<DropdownMenuItem<String>>(
                                               (String value) {
                                             return DropdownMenuItem<String>(
@@ -268,8 +268,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "tv4"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv4"),
                                         textScaleFactor: oran,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -362,8 +362,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: <Widget>[
                                       Text(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "tv5"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv5"),
                                         style: TextStyle(
                                             color: Colors.grey.shade300,
                                             fontFamily: 'Kelly Slab',
@@ -397,8 +397,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                               fontSize: 14 * oran,
                                               color: Colors.grey.shade300,
                                               fontFamily: 'Kelly Slab'),
-                                          hintText: SelectLanguage()
-                                              .selectStrings(dilSecimi, "tv6"),
+                                          hintText: Dil()
+                                              .sec(dilSecimi, "tv6"),
                                           hintStyle: TextStyle(
                                               fontSize: 14 * oran,
                                               backgroundColor:
@@ -429,7 +429,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            SelectLanguage().selectStrings(
+                                            Dil().sec(
                                                 dilSecimi, "tv8"),
                                             style: TextStyle(
                                                 color: Colors.grey[300],
@@ -470,8 +470,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                                   color: Colors.grey.shade300,
                                                   fontFamily: 'Kelly Slab',
                                                   fontSize: 12 * oran),
-                                              hintText: SelectLanguage()
-                                                  .selectStrings(
+                                              hintText: Dil()
+                                                  .sec(
                                                       dilSecimi, "tv7"),
                                               hintStyle: TextStyle(
                                                   fontSize: 12 * oran,
@@ -507,7 +507,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                       child: Column(
                                         children: <Widget>[
                                           Text(
-                                            SelectLanguage().selectStrings(
+                                            Dil().sec(
                                                 dilSecimi, "tv10"),
                                             style: TextStyle(
                                                 color: Colors.grey[300],
@@ -548,8 +548,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                                   color: Colors.grey.shade300,
                                                   fontFamily: 'Kelly Slab',
                                                   fontSize: 12 * oran),
-                                              hintText: SelectLanguage()
-                                                  .selectStrings(
+                                              hintText: Dil()
+                                                  .sec(
                                                       dilSecimi, "tv9"),
                                               hintStyle: TextStyle(
                                                   fontSize: 12 * oran,
@@ -590,16 +590,16 @@ class KumesOlusturState extends State<KumesOlustur> {
                                             if (!sifreUyusma) {
                                               //Şifreler uyuşmuyor!
                                               Toast.show(
-                                                  SelectLanguage()
-                                                      .selectStrings(
+                                                  Dil()
+                                                      .sec(
                                                           dilSecimi, "toast3"),
                                                   context,
                                                   duration: 2);
                                             } else if (adminSifreLimit1 != 0) {
                                               //Lütfen 4 karakterlik bir şifre belirleyiniz!
                                               Toast.show(
-                                                  SelectLanguage()
-                                                      .selectStrings(
+                                                  Dil()
+                                                      .sec(
                                                           dilSecimi, "toast2"),
                                                   context,
                                                   duration: 2);
@@ -628,7 +628,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                           child: Padding(
                                             padding: EdgeInsets.all(3.0 * oran),
                                             child: Text(
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "btn1"),
                                               style: TextStyle(
                                                   color: Colors.white,
@@ -649,8 +649,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                     child: Row(
                                       children: <Widget>[
                                         Text(
-                                          SelectLanguage()
-                                              .selectStrings(dilSecimi, "tv36"),
+                                          Dil()
+                                              .sec(dilSecimi, "tv36"),
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontFamily: 'Kelly Slab',
@@ -721,28 +721,28 @@ class KumesOlusturState extends State<KumesOlustur> {
                                         if (kumesIsmi.length < 4) {
                                           //Lütfen en az 4 karakterlik bir kümes ismi belirleyiniz!
                                           Toast.show(
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "toast1"),
                                               context,
                                               duration: 2);
                                         } else if (adminSifreLimit1 != 0) {
                                           //Lütfen 4 karakterlik bir şifre belirleyiniz!
                                           Toast.show(
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "toast2"),
                                               context,
                                               duration: 2);
                                         } else if (!sifreUyusma) {
                                           //Şifreler uyuşmuyor!
                                           Toast.show(
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "toast3"),
                                               context,
                                               duration: 2);
                                         } else if (!sifreOnaylandi) {
                                           //Girilen Şifreyi onaylamadınız!
                                           Toast.show(
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "toast19"),
                                               context,
                                               duration: 2);
@@ -826,7 +826,7 @@ class KumesOlusturState extends State<KumesOlustur> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -844,7 +844,7 @@ class KumesOlusturState extends State<KumesOlustur> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }
@@ -868,7 +868,7 @@ class KumesOlusturState extends State<KumesOlustur> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast21"), context,
+              Dil().sec(dilSecimi, "toast21"), context,
               duration: 2);
           sifreOnaylandi = true;
         } else {
@@ -887,7 +887,7 @@ class KumesOlusturState extends State<KumesOlustur> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

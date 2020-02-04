@@ -167,7 +167,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv85"),
+                      Dil().sec(dilSecimi, "tv85"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -251,8 +251,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 child: Column(
                                   children: <Widget>[
                                     Text(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv95"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv95"),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'Kelly Slab',
@@ -292,8 +292,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 child: Column(
                                   children: <Widget>[
                                     Text(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv96"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv96"),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'Kelly Slab',
@@ -333,8 +333,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 child: Column(
                                   children: <Widget>[
                                     Text(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv97"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv97"),
                                       style: TextStyle(
                                           fontSize: 14,
                                           fontFamily: 'Kelly Slab',
@@ -466,7 +466,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv62"),
+                              Dil().sec(dilSecimi, "tv62"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontFamily: 'Kelly Slab',
@@ -837,14 +837,14 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
 
                           if (!noKontrol) {
                             Toast.show(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "toast59"),
+                                Dil()
+                                    .sec(dilSecimi, "toast59"),
                                 context,
                                 duration: 3);
                           } else if (cikisNoTekerrur) {
                             Toast.show(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "toast26"),
+                                Dil()
+                                    .sec(dilSecimi, "toast26"),
                                 context,
                                 duration: 3);
                           } else {
@@ -942,7 +942,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                               size: 30 * oran,
                             ),
                             Text(
-                              SelectLanguage().selectStrings(dilSecimi, "btn6"),
+                              Dil().sec(dilSecimi, "btn6"),
                               style: TextStyle(fontSize: 18),
                               textScaleFactor: oran,
                             ),
@@ -981,8 +981,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                       onPressed: () {
                         if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil().sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
 
@@ -1346,7 +1345,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1364,7 +1363,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }
@@ -1375,7 +1374,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       child: Column(
         children: <Widget>[
           Text(
-            SelectLanguage().selectStrings(dilSecimi,
+            Dil().sec(dilSecimi,
                 index == 1 ? "tv86" : (index == 2 ? "tv87" : "tv88")),
             style: TextStyle(
                 fontSize: 14,
@@ -1453,8 +1452,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       child: Column(
         children: <Widget>[
           Text(
-            SelectLanguage()
-                .selectStrings(dilSecimi, index == 1 ? "tv89" : "tv92"),
+            Dil()
+                .sec(dilSecimi, index == 1 ? "tv89" : "tv92"),
             style: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Kelly Slab',
@@ -1526,8 +1525,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       child: Column(
         children: <Widget>[
           Text(
-            SelectLanguage()
-                .selectStrings(dilSecimi, index == 1 ? "tv90" : "tv93"),
+            Dil()
+                .sec(dilSecimi, index == 1 ? "tv90" : "tv93"),
             style: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Kelly Slab',
@@ -1599,8 +1598,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       child: Column(
         children: <Widget>[
           Text(
-            SelectLanguage()
-                .selectStrings(dilSecimi, index == 1 ? "tv91" : "tv94"),
+            Dil()
+                .sec(dilSecimi, index == 1 ? "tv91" : "tv94"),
             style: TextStyle(
                 fontSize: 14,
                 fontFamily: 'Kelly Slab',

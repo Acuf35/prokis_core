@@ -247,7 +247,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                       child: Container(
                     color: Colors.grey[600],
                     child: Text(
-                      SelectLanguage().selectStrings(dilSecimi, "tv29"),
+                      Dil().sec(dilSecimi, "tv29"),
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
                           color: Colors.white,
@@ -398,8 +398,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         decoration: InputDecoration(
                                             isDense: true,
                                             contentPadding: EdgeInsets.all(0),
-                                            helperText: SelectLanguage()
-                                                .selectStrings(
+                                            helperText: Dil()
+                                                .sec(
                                                     dilSecimi, "tfhp1"),
                                             helperStyle: TextStyle(
                                                 fontSize: 14 * oran,
@@ -409,8 +409,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                 color: Colors.grey[600],
                                                 fontSize: 15 * oran,
                                                 fontWeight: FontWeight.bold),
-                                            labelText: SelectLanguage()
-                                                .selectStrings(
+                                            labelText: Dil()
+                                                .sec(
                                                     dilSecimi, "tflb1")),
                                       ),
                                     ),
@@ -440,8 +440,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                           decoration: InputDecoration(
                                               isDense: true,
                                               contentPadding: EdgeInsets.all(0),
-                                              helperText: SelectLanguage()
-                                                  .selectStrings(
+                                              helperText: Dil()
+                                                  .sec(
                                                       dilSecimi, "tfhp1"),
                                               helperStyle: TextStyle(
                                                   fontSize: 14 * oran,
@@ -451,8 +451,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                   color: Colors.grey[600],
                                                   fontSize: 15 * oran,
                                                   fontWeight: FontWeight.bold),
-                                              labelText: SelectLanguage()
-                                                  .selectStrings(
+                                              labelText: Dil()
+                                                  .sec(
                                                       dilSecimi, "tflb2")),
                                         ),
                                       ),
@@ -496,8 +496,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                   color: Colors.grey[600],
                                                   fontSize: 16 * oran,
                                                   fontWeight: FontWeight.bold),
-                                              labelText: SelectLanguage()
-                                                  .selectStrings(
+                                              labelText: Dil()
+                                                  .sec(
                                                       dilSecimi, "tflb3")),
                                         ),
                                       ),
@@ -511,7 +511,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                         child: Column(
                                           children: <Widget>[
                                             Text(
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv30"),
                                               style: TextStyle(
                                                   fontFamily: 'Kelly Slab',
@@ -798,8 +798,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                 }
 
                                                 Toast.show(
-                                                    SelectLanguage()
-                                                        .selectStrings(
+                                                    Dil()
+                                                        .sec(
                                                             dilSecimi,
                                                             "toast8"),
                                                     context,
@@ -853,8 +853,8 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                 }
                                               } else {
                                                 Toast.show(
-                                                    SelectLanguage()
-                                                        .selectStrings(
+                                                    Dil()
+                                                        .sec(
                                                             dilSecimi,
                                                             "toast5"),
                                                     context,
@@ -862,15 +862,15 @@ class UzDebiNemState extends State<UzDebiNem> {
                                               }
                                             } else {
                                               Toast.show(
-                                                  SelectLanguage()
-                                                      .selectStrings(
+                                                  Dil()
+                                                      .sec(
                                                           dilSecimi, "toast7"),
                                                   context,
                                                   duration: 3);
                                             }
                                           } else {
                                             Toast.show(
-                                                SelectLanguage().selectStrings(
+                                                Dil().sec(
                                                     dilSecimi, "toast6"),
                                                 context,
                                                 duration: 3);
@@ -1270,25 +1270,25 @@ class UzDebiNemState extends State<UzDebiNem> {
 
                                   if (!klepeTamam) {
                                     Toast.show(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "toast9"),
+                                        Dil()
+                                            .sec(dilSecimi, "toast9"),
                                         context,
                                         duration: 3);
                                   } else if (aBos || bBos || cBos) {
                                     Toast.show(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "toast10"),
                                         context,
                                         duration: 3);
                                   } else if (tfdBos || bfdBos) {
                                     Toast.show(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "toast11"),
                                         context,
                                         duration: 3);
                                   } else if (hoBos) {
                                     Toast.show(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "toast12"),
                                         context,
                                         duration: 3);
@@ -1296,19 +1296,19 @@ class UzDebiNemState extends State<UzDebiNem> {
                                       bTanimsiz ||
                                       cTanimsiz) {
                                     Toast.show(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "toast13"),
                                         context,
                                         duration: 3);
                                   } else if (tfdTanimsiz || bfdTanimsiz) {
                                     Toast.show(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "toast14"),
                                         context,
                                         duration: 3);
                                   } else if (hoTanimsiz) {
                                     Toast.show(
-                                        SelectLanguage().selectStrings(
+                                        Dil().sec(
                                             dilSecimi, "toast15"),
                                         context,
                                         duration: 3);
@@ -1386,7 +1386,7 @@ class UzDebiNemState extends State<UzDebiNem> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1404,7 +1404,7 @@ class UzDebiNemState extends State<UzDebiNem> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

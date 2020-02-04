@@ -189,7 +189,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv76"),
+                      Dil().sec(dilSecimi, "tv76"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -274,7 +274,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv57"),
+                              Dil().sec(dilSecimi, "tv57"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,
@@ -298,8 +298,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv58"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv58"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -441,8 +441,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv59"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv59"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -477,8 +477,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                             child: Container(
                               alignment: Alignment.center,
                               child: AutoSizeText(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "tv62"),
+                                Dil()
+                                    .sec(dilSecimi, "tv62"),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -775,8 +775,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                             bool seciliHeaterVarmi = false;
 
                             Toast.show(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "toast8"),
+                                Dil()
+                                    .sec(dilSecimi, "toast8"),
                                 context,
                                 duration: 3);
                             haritaOnay = true;
@@ -797,8 +797,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                             }
                             if (!seciliHeaterVarmi) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast48"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast48"),
                                   context,
                                   duration: 3);
                             } else {
@@ -822,8 +822,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil()
+                                    .sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -852,8 +852,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil()
+                                    .sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -904,20 +904,20 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
 
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast39"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast39"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast26"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast26"),
                                   context,
                                   duration: 3);
                             } else if (cikisKullanimda) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast38"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast38"),
                                   context,
                                   duration: 3);
                             } else {
@@ -963,8 +963,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil()
+                                    .sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1006,14 +1006,14 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                       onPressed: () {
                         if (!haritaOnay) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast62"),
+                              Dil()
+                                  .sec(dilSecimi, "toast62"),
                               context,
                               duration: 3);
                         } else if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil()
+                                  .sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -1222,7 +1222,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                       child: Container(
                                         alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv63") +
                                               isiticiNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1270,7 +1270,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1288,7 +1288,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }
@@ -1348,7 +1348,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
         child: Column(
           children: <Widget>[
             Text(
-              SelectLanguage().selectStrings(dilSecimi,
+              Dil().sec(dilSecimi,
                   index == 1 ? "tv77" : (index == 2 ? "tv78" : "tv79")),
               style: TextStyle(
                   fontSize: 14,

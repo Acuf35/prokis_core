@@ -95,7 +95,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    SelectLanguage().selectStrings(dilSecimi, baslik1),
+                    Dil().sec(dilSecimi, baslik1),
                     style: TextStyle(
                         fontFamily: 'Kelly Slab',
                         color: Colors.white,
@@ -218,7 +218,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
               child: Column(
                 children: <Widget>[
                   Text(
-                    SelectLanguage().selectStrings(dilSecimi, baslik2),
+                    Dil().sec(dilSecimi, baslik2),
                     style: TextStyle(
                         fontFamily: 'Kelly Slab',
                         color: Colors.white,
@@ -358,7 +358,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                     Navigator.of(context).pop(deger);
                   },
                   child: Text(
-                    SelectLanguage().selectStrings(dilSecimi, "btn2"),
+                    Dil().sec(dilSecimi, "btn2"),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25 * oran,
@@ -374,7 +374,7 @@ class _DegerGiris2X2X0State extends State<DegerGiris2X2X0> {
                     Navigator.of(context).pop(deger);
                   },
                   child: Text(
-                    SelectLanguage().selectStrings(dilSecimi, "btn3"),
+                    Dil().sec(dilSecimi, "btn3"),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25 * oran,

@@ -192,7 +192,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv71"),
+                      Dil().sec(dilSecimi, "tv71"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -237,7 +237,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv57"),
+                              Dil().sec(dilSecimi, "tv57"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,
@@ -261,8 +261,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv58"),
+                                      Dil().sec(dilSecimi, "tv58"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -327,8 +326,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv59"),
+                                      Dil().sec(dilSecimi, "tv59"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -365,8 +363,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                             child: Container(
                               alignment: Alignment.center,
                               child: AutoSizeText(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "tv62"),
+                                Dil().sec(dilSecimi, "tv62"),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -660,8 +657,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                           onPressed: () {
                             //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             Toast.show(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "toast8"),
+                                Dil().sec(dilSecimi, "toast8"),
                                 context,
                                 duration: 3);
                             haritaOnay = true;
@@ -699,8 +695,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil().sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -729,8 +724,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil().sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -805,33 +799,33 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
 
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast39"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast39"),
                                   context,
                                   duration: 3);
                             } else if (airNOyuksek) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast44"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast44"),
                                   context,
                                   duration: 3);
                             } else if (airinletNoTekerrur &&
                                 airinletAdet == 2) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast42"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast42"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast26"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast26"),
                                   context,
                                   duration: 3);
                             } else if (cikisKullanimda) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast38"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast38"),
                                   context,
                                   duration: 3);
                             } else {
@@ -875,8 +869,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil().sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -919,14 +912,12 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                       onPressed: () {
                         if (!haritaOnay) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast62"),
+                              Dil().sec(dilSecimi, "toast62"),
                               context,
                               duration: 3);
                         } else if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil().sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -1165,7 +1156,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                       child: Container(
                                         alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv75") +
                                               airinletNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1194,7 +1185,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                       child: Container(
                                         alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv43") +
                                               cikisNoAc[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1223,7 +1214,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                       child: Container(
                                         alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv44") +
                                               cikisNoKapa[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1273,7 +1264,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1291,7 +1282,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

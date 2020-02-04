@@ -100,7 +100,7 @@ class _DegerGiris2X2X2X0State extends State<DegerGiris2X2X2X0> {
 
             Expanded(child: Column(
               children: <Widget>[
-                Text(SelectLanguage().selectStrings(dilSecimi, noBaslik),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),textScaleFactor: oran,),
+                Text(Dil().sec(dilSecimi, noBaslik),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),textScaleFactor: oran,),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
 
@@ -225,7 +225,7 @@ class _DegerGiris2X2X2X0State extends State<DegerGiris2X2X2X0> {
 
             Expanded(child: Column(
               children: <Widget>[
-                Text(SelectLanguage().selectStrings(dilSecimi, "tv41"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),textScaleFactor: oran,),
+                Text(Dil().sec(dilSecimi, "tv41"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),textScaleFactor: oran,),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                   Padding(
@@ -351,7 +351,7 @@ class _DegerGiris2X2X2X0State extends State<DegerGiris2X2X2X0> {
             
             Expanded(child: Column(
               children: <Widget>[
-                Text(SelectLanguage().selectStrings(dilSecimi, "tv42"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),textScaleFactor: oran,),
+                Text(Dil().sec(dilSecimi, "tv42"),style: TextStyle(fontFamily: 'Kelly Slab', color: Colors.white),textScaleFactor: oran,),
                 Row(mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                   Padding(
@@ -500,7 +500,7 @@ class _DegerGiris2X2X2X0State extends State<DegerGiris2X2X2X0> {
                     Navigator.of(context).pop(deger);
 
                   },
-                  child: Text(SelectLanguage().selectStrings(dilSecimi, "btn2"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
+                  child: Text(Dil().sec(dilSecimi, "btn2"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
                 ),
 
               ),
@@ -513,7 +513,7 @@ class _DegerGiris2X2X2X0State extends State<DegerGiris2X2X2X0> {
                     var deger=[onlarF1,birlerF1,onlarO1Ac,birlerO1Ac,onlarO1Kapa,birlerO1Kapa,degerNo];
                     Navigator.of(context).pop(deger);
                   },
-                  child: Text(SelectLanguage().selectStrings(dilSecimi, "btn3"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
+                  child: Text(Dil().sec(dilSecimi, "btn3"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
                 ),
               ),
 

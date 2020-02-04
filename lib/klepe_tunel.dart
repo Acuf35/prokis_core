@@ -14,6 +14,7 @@ import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x1.dart';
 import 'genel/deger_giris_3x0.dart';
+import 'klepe_kalibrasyon.dart';
 import 'languages/select.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -146,7 +147,7 @@ class KlepeTunelState extends State<KlepeTunel> {
               automaticallyImplyLeading: true,
               centerTitle: true,
               title: Text(
-                SelectLanguage().selectStrings(dilSecimi, "tv192"),
+                Dil().sec(dilSecimi, "tv192"),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 28 * oran,
@@ -166,7 +167,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                       child: Row(
                         children: <Widget>[
                           Spacer(
-                            flex:2,
+                            flex: 1,
                           ),
                           Expanded(
                             flex: 8,
@@ -175,15 +176,18 @@ class KlepeTunelState extends State<KlepeTunel> {
                                 Spacer(flex: 4),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
+                                    child: Container(
+                                      color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv194"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv194"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -192,15 +196,18 @@ class KlepeTunelState extends State<KlepeTunel> {
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
+                                    child: Container(
+                                      color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv213"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv213"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -209,15 +216,18 @@ class KlepeTunelState extends State<KlepeTunel> {
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
+                                    child: Container(
+                                      color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv214"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv214"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -226,15 +236,18 @@ class KlepeTunelState extends State<KlepeTunel> {
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
+                                    child: Container(
+                                      color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv215"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv215"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -243,15 +256,18 @@ class KlepeTunelState extends State<KlepeTunel> {
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
+                                    child: Container(
+                                      color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv216"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv216"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -260,15 +276,18 @@ class KlepeTunelState extends State<KlepeTunel> {
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
+                                    child: Container(
+                                      color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv199"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv199"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -278,13 +297,93 @@ class KlepeTunelState extends State<KlepeTunel> {
                               ],
                             ),
                           ),
-                          Visibility(visible: int.parse(klepeAdet)>0,child: _klepeKlasikUnsur(oran, 1)),
-                          Visibility(visible: int.parse(klepeAdet)>1,child: _klepeKlasikUnsur(oran, 2)),
-                          Visibility(visible: int.parse(klepeAdet)>2,child: _klepeKlasikUnsur(oran, 3)),
-                          Visibility(visible: int.parse(klepeAdet)>3,child: _klepeKlasikUnsur(oran, 4)),
-                          Visibility(visible: int.parse(klepeAdet)>4,child: _klepeKlasikUnsur(oran, 5)),
-                          Spacer(
-                            flex: 3,
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 0,
+                              child: _klepeKlasikUnsur(oran, 1)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 1,
+                              child: _klepeKlasikUnsur(oran, 2)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 2,
+                              child: _klepeKlasikUnsur(oran, 3)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 3,
+                              child: _klepeKlasikUnsur(oran, 4)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 4,
+                              child: _klepeKlasikUnsur(oran, 5)),
+                          Expanded(
+                            flex: 4,
+                            child: Row(
+                              children: <Widget>[
+                                Spacer(),
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: RawMaterialButton(
+                                          onPressed: () {
+
+                                        timerCancel = true;
+                                         Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeKalibrasyon(dbVeriler)),
+                                          );
+
+                                          },
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(dilSecimi, "tv241"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 2,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      image: AssetImage(
+                                                          'assets/images/calibration_icon.png'),
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Spacer()
+                              ],
+                            ),
                           )
                         ],
                       ),
@@ -297,121 +396,150 @@ class KlepeTunelState extends State<KlepeTunel> {
                           ),
                           Expanded(
                             flex: 8,
-                            child: Visibility(visible: int.parse(klepeAdet)>5,
-                                                          child: Column(
+                            child: Visibility(
+                              visible: int.parse(klepeAdet) > 5,
+                              child: Column(
                                 children: <Widget>[
                                   Spacer(flex: 4),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv194"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[100],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv194"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv213"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv213"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv214"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[100],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv214"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv215"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv215"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv216"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[100],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv216"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv199"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv199"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
                               ),
                             ),
                           ),
-                          Visibility(visible: int.parse(klepeAdet)>5,child: _klepeKlasikUnsur(oran, 6)),
-                          Visibility(visible: int.parse(klepeAdet)>6,child: _klepeKlasikUnsur(oran, 7)),
-                          Visibility(visible: int.parse(klepeAdet)>7,child: _klepeKlasikUnsur(oran, 8)),
-                          Visibility(visible: int.parse(klepeAdet)>8,child: _klepeKlasikUnsur(oran, 9)),
-                          Visibility(visible: int.parse(klepeAdet)>9,child: _klepeKlasikUnsur(oran, 10)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 5,
+                              child: _klepeKlasikUnsur(oran, 6)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 6,
+                              child: _klepeKlasikUnsur(oran, 7)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 7,
+                              child: _klepeKlasikUnsur(oran, 8)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 8,
+                              child: _klepeKlasikUnsur(oran, 9)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 9,
+                              child: _klepeKlasikUnsur(oran, 10)),
                           Spacer(
                             flex: 3,
                           )
@@ -450,7 +578,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      SelectLanguage().selectStrings(
+                      Dil().sec(
                           dilSecimi, "tv193"), //Sıcaklık diyagramı
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -485,7 +613,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                   ),
                                 ),
                               ),
-                              ],
+                            ],
                           ),
                         ),
                       ],
@@ -512,13 +640,13 @@ class KlepeTunelState extends State<KlepeTunel> {
                                     left: 2 * oran, right: 2 * oran),
                                 dense: false,
                                 title: Text(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "tv186"),
+                                  Dil()
+                                      .sec(dilSecimi, "tv186"),
                                   textScaleFactor: oran,
                                 ),
                                 subtitle: Text(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "info8"),
+                                  Dil()
+                                      .sec(dilSecimi, "info8"),
                                   style: TextStyle(
                                     fontSize: 13 * oran,
                                   ),
@@ -556,8 +684,12 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv223")+'\n'
-                                      +SelectLanguage().selectStrings(dilSecimi, "tv231"),
+                                      child: Text(
+                                          Dil().sec(
+                                                  dilSecimi, "tv223") +
+                                              '\n' +
+                                              Dil().sec(
+                                                  dilSecimi, "tv231"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -576,7 +708,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv224"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv224"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -595,7 +729,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv225"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv225"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -614,7 +750,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv226"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv226"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -633,7 +771,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv227"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv227"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -652,7 +792,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv228"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv228"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -671,7 +813,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv229"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv229"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -690,7 +834,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv230"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv230"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -709,7 +855,9 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv210"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv210"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -728,14 +876,14 @@ class KlepeTunelState extends State<KlepeTunel> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv211"),
+                                      child: Text(
+                                          Dil().sec(
+                                              dilSecimi, "tv211"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
                               ),
-                            
                             ],
-                              
                           ),
                         ),
                       )
@@ -763,8 +911,8 @@ class KlepeTunelState extends State<KlepeTunel> {
     });
   }
 
-  Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int paramIndex,
-      double oran, String dil, String baslik) async {
+  Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex,
+      int paramIndex, double oran, String dil, String baslik) async {
     // flutter defined function
 
     await showDialog(
@@ -778,47 +926,44 @@ class KlepeTunelState extends State<KlepeTunel> {
       },
     ).then((val) {
       bool veriGonderilsinMi = false;
-      if (
-          _onlar != val[0] ||
-          _birler != val[1] ||
-          _index != val[2]) {
-          veriGonderilsinMi = true;
+      if (_onlar != val[0] || _birler != val[1] || _index != val[2]) {
+        veriGonderilsinMi = true;
       }
 
       _onlar = val[0];
       _birler = val[1];
       _index = val[2];
 
-      if(paramIndex==1){
-        klepeBasDusFanMikMan[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==2){
-        calismaSirasi[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
+      if (paramIndex == 1) {
+        klepeBasDusFanMikMan[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+      } else if (paramIndex == 2) {
+        calismaSirasi[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
       }
 
-      String veri="";
-      veri=klepeBasDusFanMikMan[klepeIndex]+"#"+
-      klepeBasDusFanModu[klepeIndex]+"#"+
-      calismaSirasi[klepeIndex]+"#"+
-      maksAciklik[klepeIndex]+"#"+
-      minAciklik[klepeIndex]+"#"+
-      minHavAciklikOrani[klepeIndex];
-
-      
-
-
+      String veri = "";
+      veri = klepeBasDusFanMikMan[klepeIndex] +
+          "#" +
+          klepeBasDusFanModu[klepeIndex] +
+          "#" +
+          calismaSirasi[klepeIndex] +
+          "#" +
+          maksAciklik[klepeIndex] +
+          "#" +
+          minAciklik[klepeIndex] +
+          "#" +
+          minHavAciklikOrani[klepeIndex];
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
         _veriGonder("7*$klepeIndex*$veri");
       }
-
-
     });
   }
 
-
-  Future _degergiris3X0(int yuzler , onlar , birler, klepeIndex,paramIndex, double oran,
-      String dil, baslik, onBaslik) async {
+  Future _degergiris3X0(int yuzler, onlar, birler, klepeIndex, paramIndex,
+      double oran, String dil, baslik, onBaslik) async {
     // flutter defined function
 
     await showDialog(
@@ -828,7 +973,7 @@ class KlepeTunelState extends State<KlepeTunel> {
         // return object of type Dialog
 
         return DegerGiris3X0.Deger(
-            yuzler,onlar, birler, klepeIndex, oran, dil, baslik, onBaslik);
+            yuzler, onlar, birler, klepeIndex, oran, dil, baslik, onBaslik);
       },
     ).then((val) {
       bool veriGonderilsinMi = false;
@@ -843,25 +988,29 @@ class KlepeTunelState extends State<KlepeTunel> {
       _birler = val[2];
       _index = val[3];
 
-      if(paramIndex==3){
-        maksAciklik[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==4){
-        minAciklik[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==5){
-        minHavAciklikOrani[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
+      if (paramIndex == 3) {
+        maksAciklik[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+      } else if (paramIndex == 4) {
+        minAciklik[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+      } else if (paramIndex == 5) {
+        minHavAciklikOrani[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
       }
 
-      String veri="";
-      veri=klepeBasDusFanMikMan[klepeIndex]+"#"+
-      klepeBasDusFanModu[klepeIndex]+"#"+
-      calismaSirasi[klepeIndex]+"#"+
-      maksAciklik[klepeIndex]+"#"+
-      minAciklik[klepeIndex]+"#"+
-      minHavAciklikOrani[klepeIndex];
-
-      
-
-
+      String veri = "";
+      veri = klepeBasDusFanMikMan[klepeIndex] +
+          "#" +
+          klepeBasDusFanModu[klepeIndex] +
+          "#" +
+          calismaSirasi[klepeIndex] +
+          "#" +
+          maksAciklik[klepeIndex] +
+          "#" +
+          minAciklik[klepeIndex] +
+          "#" +
+          minHavAciklikOrani[klepeIndex];
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
@@ -893,7 +1042,7 @@ class KlepeTunelState extends State<KlepeTunel> {
 
             if (gelen_mesaj_parcali[0] == 'ok') {
               Toast.show(
-                  SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+                  Dil().sec(dilSecimi, "toast8"), context,
                   duration: 2);
             } else {
               Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -908,12 +1057,14 @@ class KlepeTunelState extends State<KlepeTunel> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(
+            Dil().sec(dilSecimi, "toast20"), context,
+            duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -934,99 +1085,95 @@ class KlepeTunelState extends State<KlepeTunel> {
               print(degerler);
               print(yazmaSonrasiGecikmeSayaci);
 
+              var gelenKlepe1 = degerler[0].split('#');
+              aktuelAciklik[1] = gelenKlepe1[0];
+              klepeBasDusFanMik[1] = gelenKlepe1[1];
+              klepeBasDusFanModu[1] = gelenKlepe1[2] == "True" ? '1' : "0";
+              calismaSirasi[1] = gelenKlepe1[3];
+              maksAciklik[1] = gelenKlepe1[4];
+              minAciklik[1] = gelenKlepe1[5];
+              minHavAciklikOrani[1] = gelenKlepe1[6];
 
-                var gelenKlepe1=degerler[0].split('#');
-                aktuelAciklik[1]=gelenKlepe1[0];
-                klepeBasDusFanMik[1]=gelenKlepe1[1];
-                klepeBasDusFanModu[1]=gelenKlepe1[2]=="True" ? '1' : "0";
-                calismaSirasi[1]=gelenKlepe1[3];
-                maksAciklik[1]=gelenKlepe1[4];
-                minAciklik[1]=gelenKlepe1[5];
-                minHavAciklikOrani[1]=gelenKlepe1[6];
+              var gelenKlepe2 = degerler[1].split('#');
+              aktuelAciklik[2] = gelenKlepe2[0];
+              klepeBasDusFanMik[2] = gelenKlepe2[1];
+              klepeBasDusFanModu[2] = gelenKlepe2[2] == "True" ? '1' : "0";
+              calismaSirasi[2] = gelenKlepe2[3];
+              maksAciklik[2] = gelenKlepe2[4];
+              minAciklik[2] = gelenKlepe2[5];
+              minHavAciklikOrani[2] = gelenKlepe2[6];
 
-                var gelenKlepe2=degerler[1].split('#');
-                aktuelAciklik[2]=gelenKlepe2[0];
-                klepeBasDusFanMik[2]=gelenKlepe2[1];
-                klepeBasDusFanModu[2]=gelenKlepe2[2]=="True" ? '1' : "0";
-                calismaSirasi[2]=gelenKlepe2[3];
-                maksAciklik[2]=gelenKlepe2[4];
-                minAciklik[2]=gelenKlepe2[5];
-                minHavAciklikOrani[2]=gelenKlepe2[6];
+              var gelenKlepe3 = degerler[2].split('#');
+              aktuelAciklik[3] = gelenKlepe3[0];
+              klepeBasDusFanMik[3] = gelenKlepe3[1];
+              klepeBasDusFanModu[3] = gelenKlepe3[2] == "True" ? '1' : "0";
+              calismaSirasi[3] = gelenKlepe3[3];
+              maksAciklik[3] = gelenKlepe3[4];
+              minAciklik[3] = gelenKlepe3[5];
+              minHavAciklikOrani[3] = gelenKlepe3[6];
 
-                var gelenKlepe3=degerler[2].split('#');
-                aktuelAciklik[3]=gelenKlepe3[0];
-                klepeBasDusFanMik[3]=gelenKlepe3[1];
-                klepeBasDusFanModu[3]=gelenKlepe3[2]=="True" ? '1' : "0";
-                calismaSirasi[3]=gelenKlepe3[3];
-                maksAciklik[3]=gelenKlepe3[4];
-                minAciklik[3]=gelenKlepe3[5];
-                minHavAciklikOrani[3]=gelenKlepe3[6];
+              var gelenKlepe4 = degerler[3].split('#');
+              aktuelAciklik[4] = gelenKlepe4[0];
+              klepeBasDusFanMik[4] = gelenKlepe4[1];
+              klepeBasDusFanModu[4] = gelenKlepe4[2] == "True" ? '1' : "0";
+              calismaSirasi[4] = gelenKlepe4[3];
+              maksAciklik[4] = gelenKlepe4[4];
+              minAciklik[4] = gelenKlepe4[5];
+              minHavAciklikOrani[4] = gelenKlepe4[6];
 
+              var gelenKlepe5 = degerler[4].split('#');
+              aktuelAciklik[5] = gelenKlepe5[0];
+              klepeBasDusFanMik[5] = gelenKlepe5[1];
+              klepeBasDusFanModu[5] = gelenKlepe5[2] == "True" ? '1' : "0";
+              calismaSirasi[5] = gelenKlepe5[3];
+              maksAciklik[5] = gelenKlepe5[4];
+              minAciklik[5] = gelenKlepe5[5];
+              minHavAciklikOrani[5] = gelenKlepe5[6];
 
-                var gelenKlepe4=degerler[3].split('#');
-                aktuelAciklik[4]=gelenKlepe4[0];
-                klepeBasDusFanMik[4]=gelenKlepe4[1];
-                klepeBasDusFanModu[4]=gelenKlepe4[2]=="True" ? '1' : "0";
-                calismaSirasi[4]=gelenKlepe4[3];
-                maksAciklik[4]=gelenKlepe4[4];
-                minAciklik[4]=gelenKlepe4[5];
-                minHavAciklikOrani[4]=gelenKlepe4[6];
+              var gelenKlepe6 = degerler[5].split('#');
+              aktuelAciklik[6] = gelenKlepe6[0];
+              klepeBasDusFanMik[6] = gelenKlepe6[1];
+              klepeBasDusFanModu[6] = gelenKlepe6[2] == "True" ? '1' : "0";
+              calismaSirasi[6] = gelenKlepe6[3];
+              maksAciklik[6] = gelenKlepe6[4];
+              minAciklik[6] = gelenKlepe6[5];
+              minHavAciklikOrani[6] = gelenKlepe6[6];
 
-                var gelenKlepe5=degerler[4].split('#');
-                aktuelAciklik[5]=gelenKlepe5[0];
-                klepeBasDusFanMik[5]=gelenKlepe5[1];
-                klepeBasDusFanModu[5]=gelenKlepe5[2]=="True" ? '1' : "0";
-                calismaSirasi[5]=gelenKlepe5[3];
-                maksAciklik[5]=gelenKlepe5[4];
-                minAciklik[5]=gelenKlepe5[5];
-                minHavAciklikOrani[5]=gelenKlepe5[6];
+              var gelenKlepe7 = degerler[6].split('#');
+              aktuelAciklik[7] = gelenKlepe7[0];
+              klepeBasDusFanMik[7] = gelenKlepe7[1];
+              klepeBasDusFanModu[7] = gelenKlepe7[2] == "True" ? '1' : "0";
+              calismaSirasi[7] = gelenKlepe7[3];
+              maksAciklik[7] = gelenKlepe7[4];
+              minAciklik[7] = gelenKlepe7[5];
+              minHavAciklikOrani[7] = gelenKlepe7[6];
 
-                var gelenKlepe6=degerler[5].split('#');
-                aktuelAciklik[6]=gelenKlepe6[0];
-                klepeBasDusFanMik[6]=gelenKlepe6[1];
-                klepeBasDusFanModu[6]=gelenKlepe6[2]=="True" ? '1' : "0";
-                calismaSirasi[6]=gelenKlepe6[3];
-                maksAciklik[6]=gelenKlepe6[4];
-                minAciklik[6]=gelenKlepe6[5];
-                minHavAciklikOrani[6]=gelenKlepe6[6];
+              var gelenKlepe8 = degerler[7].split('#');
+              aktuelAciklik[8] = gelenKlepe8[0];
+              klepeBasDusFanMik[8] = gelenKlepe8[1];
+              klepeBasDusFanModu[8] = gelenKlepe8[2] == "True" ? '1' : "0";
+              calismaSirasi[8] = gelenKlepe8[3];
+              maksAciklik[8] = gelenKlepe8[4];
+              minAciklik[8] = gelenKlepe8[5];
+              minHavAciklikOrani[8] = gelenKlepe8[6];
 
-                var gelenKlepe7=degerler[6].split('#');
-                aktuelAciklik[7]=gelenKlepe7[0];
-                klepeBasDusFanMik[7]=gelenKlepe7[1];
-                klepeBasDusFanModu[7]=gelenKlepe7[2]=="True" ? '1' : "0";
-                calismaSirasi[7]=gelenKlepe7[3];
-                maksAciklik[7]=gelenKlepe7[4];
-                minAciklik[7]=gelenKlepe7[5];
-                minHavAciklikOrani[7]=gelenKlepe7[6];
+              var gelenKlepe9 = degerler[8].split('#');
+              aktuelAciklik[9] = gelenKlepe9[0];
+              klepeBasDusFanMik[9] = gelenKlepe9[1];
+              klepeBasDusFanModu[9] = gelenKlepe9[2] == "True" ? '1' : "0";
+              calismaSirasi[9] = gelenKlepe9[3];
+              maksAciklik[9] = gelenKlepe9[4];
+              minAciklik[9] = gelenKlepe9[5];
+              minHavAciklikOrani[9] = gelenKlepe9[6];
 
-                var gelenKlepe8=degerler[7].split('#');
-                aktuelAciklik[8]=gelenKlepe8[0];
-                klepeBasDusFanMik[8]=gelenKlepe8[1];
-                klepeBasDusFanModu[8]=gelenKlepe8[2]=="True" ? '1' : "0";
-                calismaSirasi[8]=gelenKlepe8[3];
-                maksAciklik[8]=gelenKlepe8[4];
-                minAciklik[8]=gelenKlepe8[5];
-                minHavAciklikOrani[8]=gelenKlepe8[6];
-
-                var gelenKlepe9=degerler[8].split('#');
-                aktuelAciklik[9]=gelenKlepe9[0];
-                klepeBasDusFanMik[9]=gelenKlepe9[1];
-                klepeBasDusFanModu[9]=gelenKlepe9[2]=="True" ? '1' : "0";
-                calismaSirasi[9]=gelenKlepe9[3];
-                maksAciklik[9]=gelenKlepe9[4];
-                minAciklik[9]=gelenKlepe9[5];
-                minHavAciklikOrani[9]=gelenKlepe9[6];
-
-                var gelenKlepe10=degerler[9].split('#');
-                aktuelAciklik[10]=gelenKlepe10[0];
-                klepeBasDusFanMik[10]=gelenKlepe10[1];
-                klepeBasDusFanModu[10]=gelenKlepe10[2]=="True" ? '1' : "0";
-                calismaSirasi[10]=gelenKlepe10[3];
-                maksAciklik[10]=gelenKlepe10[4];
-                minAciklik[10]=gelenKlepe10[5];
-                minHavAciklikOrani[10]=gelenKlepe10[6];
-              
-
+              var gelenKlepe10 = degerler[9].split('#');
+              aktuelAciklik[10] = gelenKlepe10[0];
+              klepeBasDusFanMik[10] = gelenKlepe10[1];
+              klepeBasDusFanModu[10] = gelenKlepe10[2] == "True" ? '1' : "0";
+              calismaSirasi[10] = gelenKlepe10[3];
+              maksAciklik[10] = gelenKlepe10[4];
+              minAciklik[10] = gelenKlepe10[5];
+              minHavAciklikOrani[10] = gelenKlepe10[6];
 
               //socket.add(utf8.encode('ok'));
             }
@@ -1041,17 +1188,18 @@ class KlepeTunelState extends State<KlepeTunel> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(
+            Dil().sec(dilSecimi, "toast20"), context,
+            duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
   }
-
 
   Widget _klepeKlasikUnsur(double oran, int klepeNo) {
     return Expanded(
@@ -1067,7 +1215,6 @@ class KlepeTunelState extends State<KlepeTunel> {
                       flex: 4,
                       child: RawMaterialButton(
                         onPressed: () {
-
                           showModalBottomSheet<void>(
                               context: context,
                               builder: (BuildContext context) {
@@ -1083,9 +1230,12 @@ class KlepeTunelState extends State<KlepeTunel> {
                                             flex: 1,
                                             child: Center(
                                                 child: Text(
-                                              SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv212")+SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv192")+" $klepeNo",
+                                              Dil().sec(
+                                                      dilSecimi, "tv212") +
+                                                  Dil()
+                                                      .sec(
+                                                          dilSecimi, "tv192") +
+                                                  " $klepeNo",
                                               style: TextStyle(
                                                   fontFamily: 'Kelly Slab',
                                                   fontWeight: FontWeight.bold),
@@ -1108,54 +1258,93 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv222"),
-                                                                textAlign: TextAlign.center,
+                                                                Dil()
+                                                                    .sec(
+                                                                        dilSecimi,
+                                                                        "tv222"),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RawMaterialButton(
-                                              onPressed: () {
-                                                bool deger=klepeBasDusFanModu[klepeNo]=='1' ? true : false;
-                                                if (deger) {
-                                                  klepeBasDusFanModu[klepeNo] = "0";
-                                                } else {
-                                                  klepeBasDusFanModu[klepeNo] = "1";
-                                                }
+                                                                onPressed: () {
+                                                                  bool deger =
+                                                                      klepeBasDusFanModu[klepeNo] ==
+                                                                              '1'
+                                                                          ? true
+                                                                          : false;
+                                                                  if (deger) {
+                                                                    klepeBasDusFanModu[
+                                                                            klepeNo] =
+                                                                        "0";
+                                                                  } else {
+                                                                    klepeBasDusFanModu[
+                                                                            klepeNo] =
+                                                                        "1";
+                                                                  }
 
-                                                bottomDrawerIcindeGuncelle(state);
+                                                                  bottomDrawerIcindeGuncelle(
+                                                                      state);
 
-                                                String veri="";
-                                                veri=klepeBasDusFanMikMan[klepeNo]+"#"+
-                                                klepeBasDusFanModu[klepeNo]+"#"+
-                                                calismaSirasi[klepeNo]+"#"+
-                                                maksAciklik[klepeNo]+"#"+
-                                                minAciklik[klepeNo]+"#"+
-                                                minHavAciklikOrani[klepeNo];
+                                                                  String veri =
+                                                                      "";
+                                                                  veri = klepeBasDusFanMikMan[klepeNo] +
+                                                                      "#" +
+                                                                      klepeBasDusFanModu[
+                                                                          klepeNo] +
+                                                                      "#" +
+                                                                      calismaSirasi[
+                                                                          klepeNo] +
+                                                                      "#" +
+                                                                      maksAciklik[
+                                                                          klepeNo] +
+                                                                      "#" +
+                                                                      minAciklik[
+                                                                          klepeNo] +
+                                                                      "#" +
+                                                                      minHavAciklikOrani[
+                                                                          klepeNo];
 
-                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                _veriGonder("7*$klepeNo*$veri");
-                                                
+                                                                  yazmaSonrasiGecikmeSayaci =
+                                                                      0;
+                                                                  _veriGonder(
+                                                                      "7*$klepeNo*$veri");
 
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                klepeBasDusFanModu[klepeNo] == "1"
-                                                    ? Icons.check_box
-                                                    : Icons
-                                                        .check_box_outline_blank,
-                                                color: klepeBasDusFanModu[klepeNo] == "1"
-                                                    ? Colors.green[600]
-                                                    : Colors.black,
-                                                size: 25 * oran,
-                                              ),
-                                              padding: EdgeInsets.all(0),
-                                              materialTapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap,
-                                              constraints: BoxConstraints(),
-                                            )
+                                                                  setState(
+                                                                      () {});
+                                                                },
+                                                                child: Icon(
+                                                                  klepeBasDusFanModu[
+                                                                              klepeNo] ==
+                                                                          "1"
+                                                                      ? Icons
+                                                                          .check_box
+                                                                      : Icons
+                                                                          .check_box_outline_blank,
+                                                                  color: klepeBasDusFanModu[
+                                                                              klepeNo] ==
+                                                                          "1"
+                                                                      ? Colors.green[
+                                                                          600]
+                                                                      : Colors
+                                                                          .black,
+                                                                  size:
+                                                                      25 * oran,
+                                                                ),
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(0),
+                                                                materialTapTargetSize:
+                                                                    MaterialTapTargetSize
+                                                                        .shrinkWrap,
+                                                                constraints:
+                                                                    BoxConstraints(),
+                                                              )
                                                             ],
                                                           ),
                                                         ),
@@ -1166,54 +1355,352 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv217"),
-                                                                textAlign: TextAlign.center,
+                                                                Dil()
+                                                                    .sec(
+                                                                        dilSecimi,
+                                                                        "tv217"),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
+                                                                  if (klepeBasDusFanModu[
+                                                                          klepeNo] ==
+                                                                      '1') {
+                                                                    int sayi = int.parse(
+                                                                        klepeBasDusFanMikMan[
+                                                                            klepeNo]);
+                                                                    print(sayi);
+                                                                    _index =
+                                                                        klepeNo;
+                                                                    _yuzler = sayi <
+                                                                            100
+                                                                        ? 0
+                                                                        : sayi ~/
+                                                                            100;
+                                                                    _onlar = sayi <
+                                                                            10
+                                                                        ? 0
+                                                                        : (sayi > 99
+                                                                            ? (sayi - 100 * _yuzler) ~/
+                                                                                10
+                                                                            : sayi ~/
+                                                                                10);
+                                                                    _birler =
+                                                                        sayi %
+                                                                            10;
+                                                                    print(
+                                                                        "$_yuzler  , $_onlar  , $_birler");
 
-                                                                  if(klepeBasDusFanModu[klepeNo]=='1'){
+                                                                    _degergiris2X0(
+                                                                            _onlar,
+                                                                            _birler,
+                                                                            _index,
+                                                                            1,
+                                                                            oran,
+                                                                            dilSecimi,
+                                                                            "tv217")
+                                                                        .then(
+                                                                            (onValue) {
+                                                                      bottomDrawerIcindeGuncelle(
+                                                                          state);
+                                                                    });
+                                                                  }
+                                                                },
+                                                                color: klepeBasDusFanModu[klepeNo] ==
+                                                                        '1'
+                                                                    ? Colors.blue[
+                                                                        700]
+                                                                    : Colors.grey[
+                                                                        700],
+                                                                child: Text(
+                                                                  klepeBasDusFanMikMan[
+                                                                      klepeNo],
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontFamily:
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 2,
+                                                    color: Colors.black,
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                Dil()
+                                                                    .sec(
+                                                                        dilSecimi,
+                                                                        "tv215"),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Kelly Slab"),
+                                                                textScaleFactor:
+                                                                    oran,
+                                                              ),
+                                                              RaisedButton(
+                                                                onPressed: () {
+                                                                  int sayi = int.parse(
+                                                                      calismaSirasi[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
+                                                                  _degergiris2X0(
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          2,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv215")
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
+                                                                  });
+                                                                },
+                                                                color: Colors
+                                                                    .blue[700],
+                                                                child: Text(
+                                                                  calismaSirasi[
+                                                                      klepeNo],
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontFamily:
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 2,
+                                                    color: Colors.black,
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                Dil()
+                                                                    .sec(
+                                                                        dilSecimi,
+                                                                        "tv218"),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Kelly Slab"),
+                                                                textScaleFactor:
+                                                                    oran,
+                                                              ),
+                                                              RaisedButton(
+                                                                onPressed: () {
+                                                                  int sayi = int.parse(
+                                                                      maksAciklik[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  int sayi=int.parse(klepeBasDusFanMikMan[klepeNo]);
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          3,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv218",
+                                                                          "")
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
+                                                                  });
+                                                                },
+                                                                color: Colors
+                                                                    .blue[700],
+                                                                child: Text(
+                                                                  maksAciklik[
+                                                                      klepeNo],
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontFamily:
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                Dil()
+                                                                    .sec(
+                                                                        dilSecimi,
+                                                                        "tv219"),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Kelly Slab"),
+                                                                textScaleFactor:
+                                                                    oran,
+                                                              ),
+                                                              RaisedButton(
+                                                                onPressed: () {
+                                                                  int sayi = int.parse(
+                                                                      minAciklik[
+                                                                          klepeNo]);
                                                                   print(sayi);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-                                                                  print("$_yuzler  , $_onlar  , $_birler");
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+                                                                  print(
+                                                                      "$_yuzler  , $_onlar  , $_birler");
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 1, oran, dilSecimi, "tv217").then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          4,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv219",
+                                                                          "")
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
-
-                                                                }
-
-
                                                                 },
-                                                                color: klepeBasDusFanModu[klepeNo]=='1' ? Colors.blue[700] : Colors.grey[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  klepeBasDusFanMikMan[klepeNo],
+                                                                  minAciklik[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                      
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(width: 2,color: Colors.black,),
+                                                  Container(
+                                                    width: 2,
+                                                    color: Colors.black,
+                                                  ),
                                                   Expanded(
                                                     child: Column(
                                                       children: <Widget>[
@@ -1224,182 +1711,80 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv215"),
+                                                                Dil()
+                                                                    .sec(
+                                                                        dilSecimi,
+                                                                        "tv199"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(calismaSirasi[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
+                                                                  int sayi = int.parse(
+                                                                      minHavAciklikOrani[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 2, oran, dilSecimi, "tv215").then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          5,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv199",
+                                                                          "")
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
-                                                                  
-                                                                  
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  calismaSirasi[klepeNo],
+                                                                  minHavAciklikOrani[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                        
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(width: 2,color: Colors.black,),
-                                                  Expanded(
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv218"),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        "Kelly Slab"),
-                                                                textScaleFactor: oran,
-                                                              ),
-                                                              RaisedButton(
-                                                                onPressed: () {
-                                                                  int sayi=int.parse(maksAciklik[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-
-                                                                  _degergiris3X0(_yuzler,_onlar, _birler, _index,3, oran, dilSecimi, "tv218","").then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                  
-                                                                  
-                                                                },
-                                                                color: Colors.blue[700],
-                                                                child: Text(
-                                                                  maksAciklik[klepeNo],
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv219"),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        "Kelly Slab"),
-                                                                textScaleFactor: oran,
-                                                              ),
-                                                              RaisedButton(
-                                                                onPressed: () {
-                                                                  int sayi=int.parse(minAciklik[klepeNo]);
-                                                                  print(sayi);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-                                                                  print("$_yuzler  , $_onlar  , $_birler");
-
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 4, oran, dilSecimi, "tv219","").then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                },
-                                                                color: Colors.blue[700],
-                                                                child: Text(
-                                                                  minAciklik[klepeNo],
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Container(width: 2,color: Colors.black,),
-                                                  Expanded(
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv199"),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        "Kelly Slab"),
-                                                                textScaleFactor: oran,
-                                                              ),
-                                                              RaisedButton(
-                                                                onPressed: () {
-                                                                  int sayi=int.parse(minHavAciklikOrani[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index,5, oran, dilSecimi, "tv199","").then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                },
-                                                                color: Colors.blue[700],
-                                                                child: Text(
-                                                                  minHavAciklikOrani[klepeNo],
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  
                                                 ],
                                               ),
                                             ),
@@ -1410,8 +1795,6 @@ class KlepeTunelState extends State<KlepeTunel> {
                                   },
                                 );
                               });
-                        
-                        
                         },
                         child: Stack(
                           alignment: Alignment.center,
@@ -1424,8 +1807,8 @@ class KlepeTunelState extends State<KlepeTunel> {
                               );
                             }),
                             Text(
-                              SelectLanguage()
-                                      .selectStrings(dilSecimi, "tv192") +
+                              Dil()
+                                      .sec(dilSecimi, "tv192") +
                                   "\n" +
                                   klepeNo.toString(),
                               style: TextStyle(
@@ -1466,7 +1849,11 @@ class KlepeTunelState extends State<KlepeTunel> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text(klepeBasDusFanModu[klepeNo]=='0' ? SelectLanguage().selectStrings(dilSecimi, "tv220") :SelectLanguage().selectStrings(dilSecimi, "tv221") , textScaleFactor: oran),
+                  Text(
+                      klepeBasDusFanModu[klepeNo] == '0'
+                          ? Dil().sec(dilSecimi, "tv220")
+                          : Dil().sec(dilSecimi, "tv221"),
+                      textScaleFactor: oran),
                 ],
               ),
               alignment: Alignment.centerRight,
@@ -1513,4 +1900,3 @@ class KlepeTunelState extends State<KlepeTunel> {
   //--------------------------METOTLAR--------------------------------
 
 }
-

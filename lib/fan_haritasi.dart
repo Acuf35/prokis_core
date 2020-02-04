@@ -211,7 +211,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv31"),
+                      Dil().sec(dilSecimi, "tv31"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -993,8 +993,8 @@ class FanHaritasiState extends State<FanHaritasi> {
                             child: Container(
                               alignment: Alignment.center,
                               child: AutoSizeText(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "tv62"),
+                                Dil()
+                                    .sec(dilSecimi, "tv62"),
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -1346,29 +1346,29 @@ class FanHaritasiState extends State<FanHaritasi> {
                             if (sayac < fanAdet) {
                               //Haritada seçilen fan sayısı eksik
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast16"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast16"),
                                   context,
                                   duration: 3);
                             } else if (sayac > fanAdet) {
                               //Haritada seçilen fan sayısı yüksek
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast17"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast17"),
                                   context,
                                   duration: 3);
                             } else if (dikdortgenHata) {
                               //Dikdörtgen seçim hatası
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast18"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast18"),
                                   context,
                                   duration: 3);
                             } else {
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
                               haritaOnay = true;
@@ -1435,8 +1435,8 @@ class FanHaritasiState extends State<FanHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil()
+                                    .sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1465,8 +1465,8 @@ class FanHaritasiState extends State<FanHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil()
+                                    .sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1515,32 +1515,32 @@ class FanHaritasiState extends State<FanHaritasi> {
 
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast24"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast24"),
                                   context,
                                   duration: 3);
                             } else if (fanNOyuksek) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast47"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast47"),
                                   context,
                                   duration: 3);
                             } else if (fanNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast25"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast25"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast26"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast26"),
                                   context,
                                   duration: 3);
                             } else if (cikisKullanimda) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast38"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast38"),
                                   context,
                                   duration: 3);
                             } else {
@@ -1586,8 +1586,8 @@ class FanHaritasiState extends State<FanHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil()
+                                    .sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -1628,15 +1628,15 @@ class FanHaritasiState extends State<FanHaritasi> {
                       onPressed: () {
                         if (!haritaOnay) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast62"),
+                              Dil()
+                                  .sec(dilSecimi, "toast62"),
                               context,
                               duration: 3);
                         } else if (!veriGonderildi) {
                           print(haritaOnay);
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil()
+                                  .sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -1838,7 +1838,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                                       child: Container(
                                         alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv32") +
                                               fanNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1865,7 +1865,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                                       child: Container(
                                         alignment: Alignment.topCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv33") +
                                               cikisNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1915,7 +1915,7 @@ class FanHaritasiState extends State<FanHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1933,7 +1933,7 @@ class FanHaritasiState extends State<FanHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

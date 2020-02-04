@@ -77,7 +77,7 @@ class DilSecimiState extends State<DilSecimi> {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv1"),
+                      Dil().sec(dilSecimi, "tv1"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',

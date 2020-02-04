@@ -11,7 +11,9 @@ import 'package:prokis/sicvefan_lineer_capraz.dart';
 import 'package:prokis/sicvefan_lineer_normal.dart';
 import 'package:prokis/sicvefan_pid_capraz.dart';
 import 'package:prokis/sicvefan_pid_normal.dart';
+import 'package:prokis/sogutma.dart';
 import 'genel/database_helper.dart';
+import 'isitma.dart';
 import 'klepe_klasik.dart';
 import 'klepe_tunel.dart';
 import 'languages/select.dart';
@@ -119,7 +121,7 @@ class KontrolState extends State<Kontrol> {
             automaticallyImplyLeading: true,
             centerTitle: true,
             title: Text(
-              SelectLanguage().selectStrings(dilSecimi, 'tv106'),
+              Dil().sec(dilSecimi, 'tv106'),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 28 * oran,
@@ -159,7 +161,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv107'),
+                                                  Dil().sec(dilSecimi, 'tv107'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -268,7 +270,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv108'),
+                                                  Dil().sec(dilSecimi, 'tv108'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -292,7 +294,7 @@ class KontrolState extends State<Kontrol> {
                                 child: RawMaterialButton(
                                   onPressed: () {
 
-                                    if(klepeYontemi=="*1"){
+                                    if(klepeYontemi=="1"){
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -301,7 +303,7 @@ class KontrolState extends State<Kontrol> {
 
                                     }
 
-                                    if(klepeYontemi=="*2"){
+                                    if(klepeYontemi=="2"){
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -309,12 +311,7 @@ class KontrolState extends State<Kontrol> {
                                         );
 
                                     }
-
-                                    Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => KlepeTunel(dbVeriler)),
-                                        );
+                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -351,7 +348,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv109'),
+                                                  Dil().sec(dilSecimi, 'tv109'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -373,7 +370,15 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+
+                                    Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Sogutma(dbVeriler)),
+                                        );
+
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -409,7 +414,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv110'),
+                                                  Dil().sec(dilSecimi, 'tv110'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -478,7 +483,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv111'),
+                                                  Dil().sec(dilSecimi, 'tv111'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -500,7 +505,13 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Isitma(dbVeriler)),
+                                        );
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -536,7 +547,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv112'),
+                                                  Dil().sec(dilSecimi, 'tv112'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -594,7 +605,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv113'),
+                                                  Dil().sec(dilSecimi, 'tv113'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -652,7 +663,7 @@ class KontrolState extends State<Kontrol> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  SelectLanguage().selectStrings(dilSecimi, 'tv114'),
+                                                  Dil().sec(dilSecimi, 'tv114'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,

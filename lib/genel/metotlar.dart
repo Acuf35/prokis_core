@@ -18,8 +18,8 @@ class Metotlar {
               child: Container(
                 alignment: Alignment.center,
                 child: Text(
-                  SelectLanguage()
-                      .selectStrings(dilSecimi, "tv124"), //Navigatör Menü
+                  Dil()
+                      .sec(dilSecimi, "tv124"), //Navigatör Menü
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -144,7 +144,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv107"),
                                     ),
                                   )
@@ -181,7 +181,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv111"),
                                     ),
                                   )
@@ -222,7 +222,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv108"),
                                     ),
                                   )
@@ -259,7 +259,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv112"),
                                     ),
                                   )
@@ -300,7 +300,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv109"),
                                     ),
                                   )
@@ -337,7 +337,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv113"),
                                     ),
                                   )
@@ -378,7 +378,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv110"),
                                     ),
                                   )
@@ -415,7 +415,7 @@ class Metotlar {
                                     flex: 3,
                                     child: Text(
                                       "  " +
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                               dilSecimi, "tv114"),
                                     ),
                                   )

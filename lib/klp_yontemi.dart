@@ -101,7 +101,7 @@ class KlpYontemiState extends State<KlpYontemi> {
                       child: Container(
                         alignment: Alignment.center,
                         child: AutoSizeText(
-                          SelectLanguage().selectStrings(dilSecimi, "tv27"),
+                          Dil().sec(dilSecimi, "tv27"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: 'Kelly Slab',
@@ -139,7 +139,7 @@ class KlpYontemiState extends State<KlpYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv21"),
+                              Dil().sec(dilSecimi, "tv21"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -203,7 +203,7 @@ class KlpYontemiState extends State<KlpYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv28"),
+                              Dil().sec(dilSecimi, "tv28"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -303,8 +303,8 @@ class KlpYontemiState extends State<KlpYontemi> {
                       onPressed: () {
                         if (!kyDurum && !tyDurum) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast23"),
+                              Dil()
+                                  .sec(dilSecimi, "toast23"),
                               context,
                               duration: 3);
                         } else {
@@ -374,7 +374,7 @@ class KlpYontemiState extends State<KlpYontemi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -392,7 +392,7 @@ class KlpYontemiState extends State<KlpYontemi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }

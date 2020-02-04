@@ -227,7 +227,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: AutoSizeText(
-                      SelectLanguage().selectStrings(dilSecimi, "tv48"),
+                      Dil().sec(dilSecimi, "tv48"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           fontFamily: 'Kelly Slab',
@@ -267,7 +267,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                 child: Container(
                                   alignment: Alignment.bottomCenter,
                                   child: AutoSizeText(
-                                    SelectLanguage().selectStrings(dilSecimi, "tv70"),
+                                    Dil().sec(dilSecimi, "tv70"),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       color: Colors.black,
@@ -301,8 +301,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                 visible: isisensorBaglanti==2  ? false : (aktifSenSay==0 ? true : false),
                                 child: Center(
                                     child: Text(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "tv60"),
+                                  Dil()
+                                      .sec(dilSecimi, "tv60"),
                                   style: TextStyle(
                                       fontSize: 20 * oran,
                                       fontFamily: "Kelly Slab",
@@ -325,8 +325,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                               child: Container(
                                                 alignment: Alignment.center,
                                                 child: AutoSizeText(
-                                                  SelectLanguage()
-                                                      .selectStrings(
+                                                  Dil()
+                                                      .sec(
                                                           dilSecimi, "tv51"),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
@@ -429,7 +429,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv57"),
+                              Dil().sec(dilSecimi, "tv57"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,
@@ -453,8 +453,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv58"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv58"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -598,8 +598,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                   child: Container(
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
-                                      SelectLanguage()
-                                          .selectStrings(dilSecimi, "tv59"),
+                                      Dil()
+                                          .sec(dilSecimi, "tv59"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         color: Colors.black,
@@ -659,22 +659,22 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             if (sayac < isisensorAdet) {
                               //Haritada seçilen isisensor sayısı eksik
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast51"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast51"),
                                   context,
                                   duration: 3);
                             } else if (sayac > isisensorAdet) {
                               //Haritada seçilen isisensor sayısı yüksek
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast52"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast52"),
                                   context,
                                   duration: 3);
                             } else {
                               //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast8"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
                               haritaOnay = true;
@@ -714,8 +714,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn4"),
+                                Dil()
+                                    .sec(dilSecimi, "btn4"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -744,8 +744,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn5"),
+                                Dil()
+                                    .sec(dilSecimi, "btn5"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -792,38 +792,38 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             }
                             if (noKontrol) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast35"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast35"),
                                   context,
                                   duration: 3);
                             } else if (sensSayYukNo) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast40"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast40"),
                                   context,
                                   duration: 3);
                             } else if (isisensorNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast31"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast31"),
                                   context,
                                   duration: 3);
                             } else if (!enAzBirAtama) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast34"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast34"),
                                   context,
                                   duration: 3);
                             } else if (!atanacakSensorVarmi) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast41"),//Aktif sensorlere numara verirken harita üzerindeki numaralar içinde var mı yok mu kontrol  eder. 
+                                  Dil()
+                                      .sec(dilSecimi, "toast41"),//Aktif sensorlere numara verirken harita üzerindeki numaralar içinde var mı yok mu kontrol  eder. 
                                   context,
                                   duration: 3);
                             } else if (aktifSensorNoTekerrur) {
                               Toast.show(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "toast33"),
+                                  Dil()
+                                      .sec(dilSecimi, "toast33"),
                                   context,
                                   duration: 3);
                             } else {
@@ -846,8 +846,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                 size: 30 * oran,
                               ),
                               Text(
-                                SelectLanguage()
-                                    .selectStrings(dilSecimi, "btn6"),
+                                Dil()
+                                    .sec(dilSecimi, "btn6"),
                                 style: TextStyle(fontSize: 18),
                                 textScaleFactor: oran,
                               ),
@@ -889,8 +889,8 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                       onPressed: () {
                         if (!veriGonderildi) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast27"),
+                              Dil()
+                                  .sec(dilSecimi, "toast27"),
                               context,
                               duration: 3);
                         } else {
@@ -1115,7 +1115,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                       child: Container(
                                         alignment: Alignment.bottomCenter,
                                         child: AutoSizeText(
-                                          SelectLanguage().selectStrings(
+                                          Dil().sec(
                                                   dilSecimi, "tv50") +
                                               isisensorNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
@@ -1163,7 +1163,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -1181,7 +1181,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }
@@ -1270,12 +1270,12 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -1359,13 +1359,13 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       }).catchError((Object error) {
         print(error);
         if(!timerCancel)
-          Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+          Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
       if(!timerCancel)
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -1381,7 +1381,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
         child: Column(
           children: <Widget>[
             Text(
-              SelectLanguage().selectStrings(dilSecimi, "tv50") +
+              Dil().sec(dilSecimi, "tv50") +
                   aktifSensorNo[index].toString(),
               style: TextStyle(
                   fontSize: 14,

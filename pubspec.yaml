@@ -121,6 +121,9 @@ flutter:
   - assets/images/diagram_klepe_klasik1.jpg
   - assets/images/diagram_klepe_klasik2.jpg
   - assets/images/diagram_klepe_tunel.jpg
+  - assets/images/diagram_sogutma_civbro.jpg
+  - assets/images/diagram_isitma.jpg
+  - assets/images/calibration_icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

@@ -14,6 +14,7 @@ import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x1.dart';
 import 'genel/deger_giris_3x0.dart';
+import 'klepe_kalibrasyon.dart';
 import 'languages/select.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -150,7 +151,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
               automaticallyImplyLeading: true,
               centerTitle: true,
               title: Text(
-                SelectLanguage().selectStrings(dilSecimi, "tv192"),
+                Dil().sec(dilSecimi, "tv192"),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 28 * oran,
@@ -170,7 +171,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                       child: Row(
                         children: <Widget>[
                           Spacer(
-                            flex: 2,
+                            flex: 1,
                           ),
                           Expanded(
                             flex: 8,
@@ -182,7 +183,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv194"),
+                                        Dil().sec(dilSecimi, "tv194"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -199,7 +200,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv195"),
+                                        Dil().sec(dilSecimi, "tv195"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -216,7 +217,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv196"),
+                                        Dil().sec(dilSecimi, "tv196"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -233,7 +234,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv197"),
+                                        Dil().sec(dilSecimi, "tv197"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -250,7 +251,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv198"),
+                                        Dil().sec(dilSecimi, "tv198"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -267,7 +268,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv199"),
+                                        Dil().sec(dilSecimi, "tv199"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -288,13 +289,79 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                           Visibility(visible: int.parse(klepeAdet)>3,child: _klepeKlasikUnsur(oran, 4)),
                           Visibility(visible: int.parse(klepeAdet)>4,child: _klepeKlasikUnsur(oran, 5)),
                           Expanded(
-                            flex: 3,
-                            child: Column(
+                            flex: 4,
+                            child: Row(
                               children: <Widget>[
+                                Spacer(),
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Spacer(
+                                        flex: 1,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: RawMaterialButton(
+                                          onPressed: () {
 
+                                        timerCancel = true;
+                                         Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeKalibrasyon(dbVeriler)),
+                                          );
+
+                                          },
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(dilSecimi, "tv241"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 2,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      image: AssetImage(
+                                                          'assets/images/calibration_icon.png'),
+                                                      fit: BoxFit.contain,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Spacer()
                               ],
                             ),
                           )
+                        
                         ],
                       ),
                     ),
@@ -302,7 +369,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                       child: Row(
                         children: <Widget>[
                           Spacer(
-                            flex: 2,
+                            flex: 1,
                           ),
                           Expanded(
                             flex: 8,
@@ -315,7 +382,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv194"),
+                                        Dil().sec(dilSecimi, "tv194"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -332,7 +399,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv195"),
+                                        Dil().sec(dilSecimi, "tv195"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -349,7 +416,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv196"),
+                                        Dil().sec(dilSecimi, "tv196"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -366,7 +433,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv197"),
+                                        Dil().sec(dilSecimi, "tv197"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -383,7 +450,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv198"),
+                                        Dil().sec(dilSecimi, "tv198"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -400,7 +467,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     child: Container(color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        SelectLanguage().selectStrings(dilSecimi, "tv199"),
+                                        Dil().sec(dilSecimi, "tv199"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -422,7 +489,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                           Visibility(visible: int.parse(klepeAdet)>8,child: _klepeKlasikUnsur(oran, 9)),
                           Visibility(visible: int.parse(klepeAdet)>9,child: _klepeKlasikUnsur(oran, 10)),
                           Spacer(
-                            flex: 3,
+                            flex: 4,
                           )
                         ],
                       ),
@@ -459,7 +526,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      SelectLanguage().selectStrings(
+                      Dil().sec(
                           dilSecimi, "tv193"), //Sıcaklık diyagramı
                       textAlign: TextAlign.center,
                       style: TextStyle(
@@ -541,13 +608,13 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                     left: 2 * oran, right: 2 * oran),
                                 dense: false,
                                 title: Text(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "tv186"),
+                                  Dil()
+                                      .sec(dilSecimi, "tv186"),
                                   textScaleFactor: oran,
                                 ),
                                 subtitle: Text(
-                                  SelectLanguage()
-                                      .selectStrings(dilSecimi, "info7"),
+                                  Dil()
+                                      .sec(dilSecimi, "info7"),
                                   style: TextStyle(
                                     fontSize: 13 * oran,
                                   ),
@@ -585,7 +652,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv200"),
+                                      child: Text(Dil().sec(dilSecimi, "tv200"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -604,7 +671,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv201"),
+                                      child: Text(Dil().sec(dilSecimi, "tv201"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -623,7 +690,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv202"),
+                                      child: Text(Dil().sec(dilSecimi, "tv202"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -642,7 +709,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv203"),
+                                      child: Text(Dil().sec(dilSecimi, "tv203"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -661,7 +728,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv204"),
+                                      child: Text(Dil().sec(dilSecimi, "tv204"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -680,7 +747,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv205"),
+                                      child: Text(Dil().sec(dilSecimi, "tv205"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -699,7 +766,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv206"),
+                                      child: Text(Dil().sec(dilSecimi, "tv206"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -718,7 +785,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv207"),
+                                      child: Text(Dil().sec(dilSecimi, "tv207"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -737,7 +804,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv208"),
+                                      child: Text(Dil().sec(dilSecimi, "tv208"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -756,7 +823,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv209"),
+                                      child: Text(Dil().sec(dilSecimi, "tv209"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -775,7 +842,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv210"),
+                                      child: Text(Dil().sec(dilSecimi, "tv210"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -794,7 +861,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                       )),
                                   Expanded(
                                       flex: 5,
-                                      child: Text(SelectLanguage().selectStrings(dilSecimi, "tv211"),
+                                      child: Text(Dil().sec(dilSecimi, "tv211"),
                                           textScaleFactor: oran,
                                           style: TextStyle(fontSize: 12))),
                                 ],
@@ -971,7 +1038,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
 
             if (gelen_mesaj_parcali[0] == 'ok') {
               Toast.show(
-                  SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+                  Dil().sec(dilSecimi, "toast8"), context,
                   duration: 2);
             } else {
               Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -986,12 +1053,12 @@ class KlepeKlasikState extends State<KlepeKlasik> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -1149,12 +1216,12 @@ class KlepeKlasikState extends State<KlepeKlasik> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -1191,8 +1258,8 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                             flex: 1,
                                             child: Center(
                                                 child: Text(
-                                              SelectLanguage().selectStrings(
-                                                  dilSecimi, "tv212")+SelectLanguage().selectStrings(
+                                              Dil().sec(
+                                                  dilSecimi, "tv212")+Dil().sec(
                                                   dilSecimi, "tv192")+" $klepeNo",
                                               style: TextStyle(
                                                   fontFamily: 'Kelly Slab',
@@ -1216,7 +1283,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv200"),
+                                                                Dil().sec(dilSecimi, "tv200"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1257,7 +1324,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv204"),
+                                                                Dil().sec(dilSecimi, "tv204"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1305,7 +1372,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv201"),
+                                                                Dil().sec(dilSecimi, "tv201"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1346,7 +1413,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv205"),
+                                                                Dil().sec(dilSecimi, "tv205"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1395,7 +1462,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv202"),
+                                                                Dil().sec(dilSecimi, "tv202"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1436,7 +1503,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv206"),
+                                                                Dil().sec(dilSecimi, "tv206"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1484,7 +1551,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv203"),
+                                                                Dil().sec(dilSecimi, "tv203"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1525,7 +1592,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv207"),
+                                                                Dil().sec(dilSecimi, "tv207"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1574,7 +1641,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                SelectLanguage().selectStrings(dilSecimi, "tv199"),
+                                                                Dil().sec(dilSecimi, "tv199"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1635,8 +1702,8 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                               );
                             }),
                             Text(
-                              SelectLanguage()
-                                      .selectStrings(dilSecimi, "tv192") +
+                              Dil()
+                                      .sec(dilSecimi, "tv192") +
                                   "\n" +
                                   klepeNo.toString(),
                               style: TextStyle(

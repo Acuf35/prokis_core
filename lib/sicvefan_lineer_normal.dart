@@ -145,7 +145,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
             automaticallyImplyLeading: true,
             centerTitle: true,
             title: Text(
-              SelectLanguage().selectStrings(dilSecimi, "tv181"),
+              Dil().sec(dilSecimi, "tv181"),
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 28 * oran,
@@ -181,8 +181,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                     child: Container(
                                       alignment: Alignment.center,
                                       child: AutoSizeText(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "tv125"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv125"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 50.0,
@@ -213,8 +213,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                         flex: 1,
                                                         child: Center(
                                                             child: Text(
-                                                          SelectLanguage()
-                                                              .selectStrings(
+                                                          Dil()
+                                                              .sec(
                                                                   dilSecimi,
                                                                   "tv180"),
                                                           style: TextStyle(
@@ -251,7 +251,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv173"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -309,7 +309,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv131"),
+                                                                            Text(Dil().sec(dilSecimi, "tv131"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -323,7 +323,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv132"),
+                                                                            Text(Dil().sec(dilSecimi, "tv132"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -337,7 +337,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv133"),
+                                                                            Text(Dil().sec(dilSecimi, "tv133"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -351,7 +351,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv134"),
+                                                                            Text(Dil().sec(dilSecimi, "tv134"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -365,7 +365,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv135"),
+                                                                            Text(Dil().sec(dilSecimi, "tv135"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -379,7 +379,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv136"),
+                                                                            Text(Dil().sec(dilSecimi, "tv136"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -411,7 +411,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv174"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -466,7 +466,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv137"),
+                                                                            Text(Dil().sec(dilSecimi, "tv137"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -480,7 +480,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv138"),
+                                                                            Text(Dil().sec(dilSecimi, "tv138"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -494,7 +494,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv139"),
+                                                                            Text(Dil().sec(dilSecimi, "tv139"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -508,7 +508,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv140"),
+                                                                            Text(Dil().sec(dilSecimi, "tv140"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -522,7 +522,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv141"),
+                                                                            Text(Dil().sec(dilSecimi, "tv141"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -536,7 +536,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv142"),
+                                                                            Text(Dil().sec(dilSecimi, "tv142"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -550,7 +550,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv143"),
+                                                                            Text(Dil().sec(dilSecimi, "tv143"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -582,7 +582,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv175"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -637,7 +637,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv144"),
+                                                                            Text(Dil().sec(dilSecimi, "tv144"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -651,7 +651,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv145"),
+                                                                            Text(Dil().sec(dilSecimi, "tv145"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -665,7 +665,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv146"),
+                                                                            Text(Dil().sec(dilSecimi, "tv146"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -679,7 +679,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv147"),
+                                                                            Text(Dil().sec(dilSecimi, "tv147"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -693,7 +693,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv148"),
+                                                                            Text(Dil().sec(dilSecimi, "tv148"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -707,7 +707,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv149"),
+                                                                            Text(Dil().sec(dilSecimi, "tv149"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -721,7 +721,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv150"),
+                                                                            Text(Dil().sec(dilSecimi, "tv150"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -753,7 +753,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv176"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -808,7 +808,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv151"),
+                                                                            Text(Dil().sec(dilSecimi, "tv151"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -822,7 +822,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv152"),
+                                                                            Text(Dil().sec(dilSecimi, "tv152"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -836,7 +836,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv153"),
+                                                                            Text(Dil().sec(dilSecimi, "tv153"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -850,7 +850,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv154"),
+                                                                            Text(Dil().sec(dilSecimi, "tv154"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -864,7 +864,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv155"),
+                                                                            Text(Dil().sec(dilSecimi, "tv155"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -878,7 +878,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv156"),
+                                                                            Text(Dil().sec(dilSecimi, "tv156"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -892,7 +892,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv157"),
+                                                                            Text(Dil().sec(dilSecimi, "tv157"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -924,7 +924,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv177"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -979,7 +979,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv158"),
+                                                                            Text(Dil().sec(dilSecimi, "tv158"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -993,7 +993,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv159"),
+                                                                            Text(Dil().sec(dilSecimi, "tv159"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1007,7 +1007,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv160"),
+                                                                            Text(Dil().sec(dilSecimi, "tv160"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1021,7 +1021,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv161"),
+                                                                            Text(Dil().sec(dilSecimi, "tv161"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1035,7 +1035,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv162"),
+                                                                            Text(Dil().sec(dilSecimi, "tv162"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1049,7 +1049,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv163"),
+                                                                            Text(Dil().sec(dilSecimi, "tv163"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1063,7 +1063,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv164"),
+                                                                            Text(Dil().sec(dilSecimi, "tv164"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1095,7 +1095,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv178"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -1150,7 +1150,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv165"),
+                                                                            Text(Dil().sec(dilSecimi, "tv165"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1164,7 +1164,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv166"),
+                                                                            Text(Dil().sec(dilSecimi, "tv166"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1178,7 +1178,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv167"),
+                                                                            Text(Dil().sec(dilSecimi, "tv167"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1192,7 +1192,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv168"),
+                                                                            Text(Dil().sec(dilSecimi, "tv168"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1206,7 +1206,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv169"),
+                                                                            Text(Dil().sec(dilSecimi, "tv169"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1220,7 +1220,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv170"),
+                                                                            Text(Dil().sec(dilSecimi, "tv170"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1234,7 +1234,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv171"),
+                                                                            Text(Dil().sec(dilSecimi, "tv171"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1266,7 +1266,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                       children: <
                                                                           Widget>[
                                                                         Text(
-                                                                            SelectLanguage().selectStrings(dilSecimi,
+                                                                            Dil().sec(dilSecimi,
                                                                                 "tv179"),
                                                                             style: TextStyle(
                                                                                 fontFamily: 'Kelly Slab',
@@ -1321,7 +1321,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                         Row(
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(SelectLanguage().selectStrings(dilSecimi, "tv172"),
+                                                                            Text(Dil().sec(dilSecimi, "tv172"),
                                                                                 style: TextStyle(
                                                                                   fontFamily: 'Kelly Slab',
                                                                                 )),
@@ -1400,8 +1400,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                     child: Container(
                                       alignment: Alignment.center,
                                       child: AutoSizeText(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "tv126"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv126"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 50.0,
@@ -1473,8 +1473,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                     child: Container(
                                       alignment: Alignment.center,
                                       child: AutoSizeText(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "tv130"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv130"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 50.0,
@@ -1546,8 +1546,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                     child: Container(
                                       alignment: Alignment.center,
                                       child: AutoSizeText(
-                                        SelectLanguage()
-                                            .selectStrings(dilSecimi, "tv182"),
+                                        Dil()
+                                            .sec(dilSecimi, "tv182"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 50.0,
@@ -1619,8 +1619,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Expanded(
-                                  child: Text(SelectLanguage()
-                                      .selectStrings(dilSecimi, "tv184")),
+                                  child: Text(Dil()
+                                      .sec(dilSecimi, "tv184")),
                                 ),
                                 Expanded(
                                     flex: 3,
@@ -1739,8 +1739,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                 child: Container(
                   alignment: Alignment.center,
                   child: Text(
-                    SelectLanguage()
-                        .selectStrings(dilSecimi, "tv123"), //Sıcaklık diyagramı
+                    Dil()
+                        .sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black,
@@ -1849,7 +1849,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           " : " +
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv115"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
@@ -1860,7 +1860,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           " : " +
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv116"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
@@ -1871,7 +1871,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           " : " +
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv118"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
@@ -1882,7 +1882,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           " : " +
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv120"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
@@ -1893,7 +1893,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           " : " +
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv121"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
@@ -1904,7 +1904,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           " : " +
-                                              SelectLanguage().selectStrings(
+                                              Dil().sec(
                                                   dilSecimi, "tv122"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
@@ -1935,9 +1935,9 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                       ListTile(
                         dense: false,
                         title: Text(
-                            SelectLanguage().selectStrings(dilSecimi, "tv186"),textScaleFactor: oran,),
+                            Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
                         subtitle: Text(
-                          SelectLanguage().selectStrings(dilSecimi, "info2"),
+                          Dil().sec(dilSecimi, "info2"),
                           style: TextStyle(
                             fontSize: 13 * oran,
                           ),
@@ -2153,37 +2153,37 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
   static List<charts.Series<GrafikSicaklikCizelgesi, String>>
       _grafikDataLineerNormal(double setSic, dogBol, maksFanFark, String dil) {
     final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
+      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"),
           setSic, Colors.blue[700]),
     ];
 
     final dogalBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
+      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"),
           dogBol, Colors.green[700]),
     ];
 
     final tunelBolge = [
-      new GrafikSicaklikCizelgesi(SelectLanguage().selectStrings(dil, "tv183"),
+      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"),
           maksFanFark, Colors.red[700]),
     ];
 
     return [
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: SelectLanguage().selectStrings(dil, "tv188"),
+        id: Dil().sec(dil, "tv188"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: fasilaBolgesi,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: SelectLanguage().selectStrings(dil, "tv187"),
+        id: Dil().sec(dil, "tv187"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
         data: dogalBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesi, String>(
-        id: SelectLanguage().selectStrings(dil, "tv190"),
+        id: Dil().sec(dil, "tv190"),
         domainFn: (GrafikSicaklikCizelgesi deger, _) => deger.baslik,
         measureFn: (GrafikSicaklikCizelgesi deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesi clickData, _) => clickData.color,
@@ -2209,7 +2209,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
 
             if (gelen_mesaj_parcali[0] == 'ok') {
               Toast.show(
-                  SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+                  Dil().sec(dilSecimi, "toast8"), context,
                   duration: 2);
             } else {
               Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -2224,12 +2224,12 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }
@@ -2278,12 +2278,12 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         );
       }).catchError((Object error) {
         print(error);
-        Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context, duration: 3);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
       });
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast11"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
           duration: 3);
       baglanti = false;
     }

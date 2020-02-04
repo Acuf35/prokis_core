@@ -107,7 +107,7 @@ class MhYontemiState extends State<MhYontemi> {
                       child: Container(
                         alignment: Alignment.center,
                         child: AutoSizeText(
-                          SelectLanguage().selectStrings(dilSecimi, "tv24"),
+                          Dil().sec(dilSecimi, "tv24"),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontFamily: 'Kelly Slab',
@@ -146,7 +146,7 @@ class MhYontemiState extends State<MhYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv21"),
+                              Dil().sec(dilSecimi, "tv21"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -179,7 +179,7 @@ class MhYontemiState extends State<MhYontemi> {
                           onPressed: () {
 
                             if(kumesTuru!="1" || bacafanAdet!=0){
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast67"), context,duration: 3);
+                              Toast.show(Dil().sec(dilSecimi, "toast67"), context,duration: 3);
                             }else{
 
                             
@@ -220,7 +220,7 @@ class MhYontemiState extends State<MhYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv25"),
+                              Dil().sec(dilSecimi, "tv25"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -285,7 +285,7 @@ class MhYontemiState extends State<MhYontemi> {
                           child: Container(
                             alignment: Alignment.center,
                             child: AutoSizeText(
-                              SelectLanguage().selectStrings(dilSecimi, "tv26"),
+                              Dil().sec(dilSecimi, "tv26"),
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontFamily: 'Kelly Slab',
@@ -332,7 +332,7 @@ class MhYontemiState extends State<MhYontemi> {
                             _veriGonder("5", "8", "3", "0", "0", "0");
                             setState(() {});
                             }else{
-                              Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast65"), context,duration: 3);
+                              Toast.show(Dil().sec(dilSecimi, "toast65"), context,duration: 3);
                             }
                           },
                           icon: Icon(hyDurum == true
@@ -392,8 +392,8 @@ class MhYontemiState extends State<MhYontemi> {
                       onPressed: () {
                         if (!kyDurum && !ayDurum && !hyDurum) {
                           Toast.show(
-                              SelectLanguage()
-                                  .selectStrings(dilSecimi, "toast22"),
+                              Dil()
+                                  .sec(dilSecimi, "toast22"),
                               context,
                               duration: 3);
                         } else {
@@ -464,7 +464,7 @@ class MhYontemiState extends State<MhYontemi> {
 
         if (gelen_mesaj_parcali[0] == 'ok') {
           Toast.show(
-              SelectLanguage().selectStrings(dilSecimi, "toast8"), context,
+              Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -482,7 +482,7 @@ class MhYontemiState extends State<MhYontemi> {
       socket.close();
     } catch (e) {
       print(e);
-      Toast.show(SelectLanguage().selectStrings(dilSecimi, "toast20"), context,
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
           duration: 3);
     }
   }
