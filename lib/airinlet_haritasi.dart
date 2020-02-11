@@ -12,16 +12,19 @@ import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x2x2x0.dart';
 import 'isitici_haritasi.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
 class AirInletHaritasi extends StatefulWidget {
   List<Map> gelenDBveri;
-  AirInletHaritasi(List<Map> dbVeriler) {
+  bool gelenDurum;
+  AirInletHaritasi(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return AirInletHaritasiState(gelenDBveri);
+    return AirInletHaritasiState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -61,10 +64,12 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
 
   List<int> tumCikislar = new List(111);
 
+  bool durum;
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  AirInletHaritasiState(List<Map> dbVeri) {
+  AirInletHaritasiState(List<Map> dbVeri,bool drm) {
     bool airinletHaritaOK = false;
     bool airinletCikisOK = false;
     bool tumCikislarVar = false;
@@ -159,7 +164,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
       cikisNoGeciciAc[i] = cikisNoAc[i];
       cikisNoGeciciKapa[i] = cikisNoKapa[i];
     }
-
+    durum=drm;
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -167,17 +172,33 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
   @override
   Widget build(BuildContext context) {
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
     _oran1 = oran;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
+      floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
+    
         body: Column(
       children: <Widget>[
         //Başlık bölümü
@@ -883,69 +904,73 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                 //geri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        timerCancel = true;
-                        
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BacafanHaritasi(dbVeriler)),
-                          );
-                        
-                        
-                        //Navigator.pop(context, tumCikislar);
-                      },
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          timerCancel = true;
+                          
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      BacafanHaritasi(dbVeriler,true)),
+                            );
+                          
+                          
+                          //Navigator.pop(context, tumCikislar);
+                        },
+                      ),
                     )),
                 Spacer(
                   flex: 1,
                 ),
                 //ileri ok
                 Expanded(
-                    flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        if (!haritaOnay) {
-                          Toast.show(
-                              Dil().sec(dilSecimi, "toast62"),
-                              context,
-                              duration: 3);
-                        } else if (!veriGonderildi) {
-                          Toast.show(
-                              Dil().sec(dilSecimi, "toast27"),
-                              context,
-                              duration: 3);
-                        } else {
+                      flex: 2,
+                      child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                              child: IconButton(
+                          icon: Icon(Icons.arrow_forward_ios),
+                          iconSize: 50 * oran,
+                          onPressed: () {
+                            if (!haritaOnay) {
+                              Toast.show(
+                                  Dil().sec(dilSecimi, "toast62"),
+                                  context,
+                                  duration: 3);
+                            } else if (!veriGonderildi) {
+                              Toast.show(
+                                  Dil().sec(dilSecimi, "toast27"),
+                                  context,
+                                  duration: 3);
+                            } else {
 
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    IsiticiHaritasi(dbVeriler)),
-                          );
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                builder: (context) =>
+                    IsiticiHaritasi(dbVeriler,true)),
+                              );
 
-                          /*
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    IsiticiHaritasi(dbVeriler)),
-                          ).then((onValue) {
-                            _dbVeriCekme();
-                            for (int i = 1; i <= 110; i++) {
-                              tumCikislar[i] = onValue[i];
+                              /*
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                builder: (context) =>
+                    IsiticiHaritasi(dbVeriler)),
+                              ).then((onValue) {
+                                _dbVeriCekme();
+                                for (int i = 1; i <= 110; i++) {
+                                  tumCikislar[i] = onValue[i];
+                                }
+                              });
+                              */
                             }
-                          });
-                          */
-                        }
-                      },
-                      color: Colors.black,
-                    )),
+                          },
+                          color: Colors.black,
+                        ),
+                      )),
                 Spacer(
                   flex: 1,
                 ),

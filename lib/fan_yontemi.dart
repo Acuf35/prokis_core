@@ -9,17 +9,20 @@ import 'package:flutter/widgets.dart';
 import 'package:toast/toast.dart';
 import 'adetler.dart';
 import 'genel/database_helper.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 import 'mh_yontemi.dart';
 
 class FanYontemi extends StatefulWidget {
   List<Map> gelenDBveri;
-  FanYontemi(List<Map> dbVeriler) {
+  bool gelenDurum;
+  FanYontemi(List<Map> dbVeriler, bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return FanYontemiState(gelenDBveri);
+    return FanYontemiState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -38,10 +41,12 @@ class FanYontemiState extends State<FanYontemi> {
 
   String bacafanAdet;
   String kumesTuru;
+
+  bool durum;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  FanYontemiState(List<Map> dbVeri) {
+  FanYontemiState(List<Map> dbVeri,bool drm) {
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -74,7 +79,7 @@ class FanYontemiState extends State<FanYontemi> {
 
 
     }
-
+  durum=drm;
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -82,16 +87,32 @@ class FanYontemiState extends State<FanYontemi> {
   @override
   Widget build(BuildContext context) {
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
+      floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
+    
         body: Column(
       children: <Widget>[
         //Başlık bölümü
@@ -367,19 +388,21 @@ class FanYontemiState extends State<FanYontemi> {
                 //geri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        
-                        Navigator.pushReplacement(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Adetler(dbVeriler)));
-                        
-                        //Navigator.pop(context);
-                      },
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          
+                          Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Adetler(dbVeriler,true)));
+                          
+                          //Navigator.pop(context);
+                        },
+                      ),
                     )),
                 Spacer(
                   flex: 1,
@@ -387,37 +410,39 @@ class FanYontemiState extends State<FanYontemi> {
                 //ileri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        if (!kyDurum && !lyDurum && !pyDurum) {
-                          Toast.show(
-                              Dil()
-                                  .sec(dilSecimi, "toast4"),
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          if (!kyDurum && !lyDurum && !pyDurum) {
+                            Toast.show(
+                                Dil()
+                                    .sec(dilSecimi, "toast4"),
+                                context,
+                                duration: 3);
+                          } else {
+
+                            Navigator.pushReplacement(
                               context,
-                              duration: 3);
-                        } else {
-
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MhYontemi(dbVeriler)),
-                          );
+                              MaterialPageRoute(
+                                  builder: (context) => MhYontemi(dbVeriler,true)),
+                            );
 
 
-                          /*
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MhYontemi(dbVeriler)),
-                          ).then((onValue) {
-                            _dbVeriCekme();
-                          });
-                          */
-                        }
-                      },
-                      color: Colors.black,
+                            /*
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MhYontemi(dbVeriler)),
+                            ).then((onValue) {
+                              _dbVeriCekme();
+                            });
+                            */
+                          }
+                        },
+                        color: Colors.black,
+                      ),
                     )),
                 Spacer(
                   flex: 1,

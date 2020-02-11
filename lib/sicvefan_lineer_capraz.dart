@@ -105,54 +105,10 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
     timerSayac++;
 
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30 * oran),
-          child: AppBar(
-              leading: Builder(
-                builder: (context) => IconButton(
-                  iconSize: 40 * oran,
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                ),
-              ),
-              actions: [
-                Row(
-                  children: <Widget>[
-                    Builder(
-                      builder: (context) => IconButton(
-                        color: Colors.yellow[700],
-                        iconSize: 40 * oran,
-                        icon: Icon(Icons.info_outline),
-                        onPressed: () => Scaffold.of(context).openEndDrawer(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-              primary: false,
-              automaticallyImplyLeading: true,
-              centerTitle: true,
-              title: Text(
-                Dil().sec(dilSecimi, "tv181"),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28 * oran,
-                    fontFamily: 'Kelly Slab',
-                    fontWeight: FontWeight.bold),
-              )),
-        ),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181'),
         body:Column(
           children: <Widget>[
             Expanded(
@@ -223,7 +179,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                       'Kelly Slab',
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .bold),
+                                                                          .bold),textScaleFactor: oran,
                                                             )),
                                                           ),
                                                           //42 günlük set sıcaklığı giriş bölümü
@@ -252,7 +208,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv173"),
+                                                                            Text(Dil().sec(dilSecimi, "tv173"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -292,12 +248,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv131"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[1],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -305,12 +261,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv132"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran),
                                                                                 Text(gun[2],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -318,12 +274,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv133"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran),
                                                                                 Text(gun[3],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -331,12 +287,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv134"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran),
                                                                                 Text(gun[4],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -344,12 +300,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv135"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran),
                                                                                 Text(gun[5],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -357,12 +313,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv136"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran),
                                                                                 Text(gun[6],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -384,7 +340,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv174"),
+                                                                            Text(Dil().sec(dilSecimi, "tv174"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -422,12 +378,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv137"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[7],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -435,12 +391,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv138"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[8],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -448,12 +404,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv139"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[9],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -461,12 +417,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv140"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[10],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -474,12 +430,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv141"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[11],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -487,12 +443,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv142"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[12],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -500,12 +456,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv143"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[13],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -527,7 +483,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv175"),
+                                                                            Text(Dil().sec(dilSecimi, "tv175"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -565,12 +521,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv144"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[14],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -578,12 +534,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv145"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[15],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -591,12 +547,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv146"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[16],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -604,12 +560,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv147"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[17],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -617,12 +573,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv148"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[18],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -630,12 +586,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv149"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[19],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -643,12 +599,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv150"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[20],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -670,7 +626,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv176"),
+                                                                            Text(Dil().sec(dilSecimi, "tv176"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -708,12 +664,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv151"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[21],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -721,12 +677,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv152"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[22],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -734,12 +690,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv153"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[23],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -747,12 +703,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv154"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[24],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -760,12 +716,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv155"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[25],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -773,12 +729,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv156"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[26],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -786,12 +742,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv157"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[27],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -813,7 +769,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv177"),
+                                                                            Text(Dil().sec(dilSecimi, "tv177"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -851,12 +807,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv158"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[28],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -864,12 +820,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv159"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[29],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -877,12 +833,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv160"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[30],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -890,12 +846,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv161"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[31],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -903,12 +859,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv162"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[32],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -916,12 +872,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv163"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[33],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -929,12 +885,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv164"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[34],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -956,7 +912,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv178"),
+                                                                            Text(Dil().sec(dilSecimi, "tv178"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -994,12 +950,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv165"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[35],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -1007,12 +963,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv166"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[36],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -1020,12 +976,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv167"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[37],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -1033,12 +989,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv168"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[38],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -1046,12 +1002,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv169"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[39],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -1059,12 +1015,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv170"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[40],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                             Row(
@@ -1072,12 +1028,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv171"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[41],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -1099,7 +1055,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                               MainAxisAlignment.center,
                                                                           children: <
                                                                               Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv179"),
+                                                                            Text(Dil().sec(dilSecimi, "tv179"),textScaleFactor: oran,
                                                                                 style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
                                                                             RawMaterialButton(
                                                                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -1137,12 +1093,12 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                                                                 Text(Dil().sec(dilSecimi, "tv172"),
                                                                                     style: TextStyle(
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    )),
+                                                                                    ),textScaleFactor: oran,),
                                                                                 Text(gun[42],
                                                                                     style: TextStyle(
                                                                                       fontWeight: FontWeight.bold,
                                                                                       fontFamily: 'Kelly Slab',
-                                                                                    ))
+                                                                                    ),textScaleFactor: oran,)
                                                                               ],
                                                                             ),
                                                                           ],
@@ -1526,7 +1482,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Expanded(
-                                    child: Text(Dil().sec(dilSecimi, "tv184")),
+                                    child: Text(Dil().sec(dilSecimi, "tv184"),textScaleFactor: oran,),
                                   ),
                                   Expanded(
                                       flex: 3,
@@ -1536,6 +1492,19 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                             double.parse(dogalBolgeB),
                                             double.parse(capHavFarkC),
                                             double.parse(maksFanFarkiH),dilSecimi),
+
+
+                                            domainAxis: new charts.OrdinalAxisSpec(
+                                          
+                                          renderSpec: new charts.SmallTickRendererSpec(
+                                          
+                                              // Tick and Label styling here.
+                                            labelStyle: new charts.TextStyleSpec(
+                                              fontSize: (12*oran).floor(), // size in Pts.
+                                              color: charts.MaterialPalette.black)
+                                            )
+                                        ),
+
                                         primaryMeasureAxis:
                                             new charts.NumericAxisSpec(
                                           showAxisLine: true,
@@ -1606,10 +1575,11 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
                                           new charts.SeriesLegend(),
                                           new charts.SlidingViewport(),
                                           new charts.PanAndZoomBehavior(),
+                                          
+
                                         ],
                                         animate: animate,
-                                        barGroupingType:
-                                            charts.BarGroupingType.stacked,
+                                        barGroupingType:charts.BarGroupingType.stacked,
                                         vertical: false,
                                       )),
                                   Spacer()
@@ -1630,208 +1600,214 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
           ],
         ),
 
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            timerCancel=true;
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
-            );
-          },
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.arrow_back,
-            size: 50,
-            color: Colors.white,
+        floatingActionButton: Container(width: 56*oran,height: 56*oran,
+          child: FittedBox(
+                      child: FloatingActionButton(
+              onPressed: () {
+                timerCancel=true;
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+                );
+              },
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.arrow_back,
+                size: 50,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: Drawer(
+        endDrawer: SizedBox(width: 320*oran,
+                  child: Drawer(
       child: MediaQuery.removePadding(
-        removeTop: true,
-        context: context,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  Dil()
-                      .sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'Kelly Slab',
+          removeTop: true,
+          context: context,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    Dil()
+                        .sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'Kelly Slab',
+                    ),
+                    textScaleFactor: oran,
                   ),
-                  textScaleFactor: oran,
+                  color: Colors.yellow[700],
                 ),
-                color: Colors.yellow[700],
               ),
-            ),
-            Expanded(
-              flex: 7,
-              child: DrawerHeader(
-                padding: EdgeInsets.only(left: 10),
-                margin: EdgeInsets.all(0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            alignment: Alignment.center,
-                            image: AssetImage('assets/images/diagram_lineer_capraz.jpg'),
-                            fit: BoxFit.contain,
+              Expanded(
+                flex: 7,
+                child: DrawerHeader(
+                  padding: EdgeInsets.only(left: 10),
+                  margin: EdgeInsets.all(0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.center,
+                              image: AssetImage('assets/images/diagram_lineer_capraz.jpg'),
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 3,
-                      child: Container(
-                        color: Colors.grey[100],
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B+C",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("D",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("E",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("F",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("G",style: TextStyle(fontSize: 13*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B+C+H",style: TextStyle(fontSize: 10*oran),))),
-                                ],
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          color: Colors.grey[100],
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B+C",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("D",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("E",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("F",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("G",style: TextStyle(fontSize: 13*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B+C+H",style: TextStyle(fontSize: 10*oran),))),
+                                  ],
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv115"),style: TextStyle(fontSize: 13*oran),
+                              Expanded(
+                                flex: 4,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv115"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv116"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv116"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv117"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv117"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv118"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv118"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv119"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv119"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv120"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv120"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv121"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv121"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv122"),style: TextStyle(fontSize: 13*oran),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv122"),style: TextStyle(fontSize: 13*oran),
+                                      ),
+                                                                        ),
                                     ),
-                                                                      ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 10,
-              child: Container(
-                color: Colors.yellow[100],
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    ListTile(
-                      dense: false,
-                      title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
-                      subtitle: Text(
-                        Dil().sec(dilSecimi, "info4"),
-                        style: TextStyle(
-                          fontSize: 13 * oran,
+              Expanded(
+                flex: 10,
+                child: Container(
+                  color: Colors.yellow[100],
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      ListTile(
+                        dense: false,
+                        title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
+                        subtitle: Text(
+                          Dil().sec(dilSecimi, "info4"),
+                          style: TextStyle(
+                            fontSize: 13 * oran,
+                          ),
                         ),
+                        onTap: () {
+                          // Update the state of the app.
+                          // ...
+                        },
                       ),
-                      onTap: () {
-                        // Update the state of the app.
-                        // ...
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          ),
       ),
     ),
+        ),
   );
   }
 
@@ -2050,6 +2026,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
         measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
         colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
         data: fasilaBolgesi,
+        
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
         id: Dil().sec(dil, "tv187"),

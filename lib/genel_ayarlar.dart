@@ -9,8 +9,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/dil_secimi.dart';
 import 'package:prokis/kontrol.dart';
+import 'package:prokis/kurulum_ayarlari.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
+import 'genel/metotlar.dart';
 import 'languages/select.dart';
 
 class GenelAyarlar extends StatefulWidget {
@@ -51,59 +53,10 @@ class GenelAyarlarState extends State<GenelAyarlar> {
   @override
   Widget build(BuildContext context) {
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(30 * oran),
-        child: AppBar(
-            leading: Builder(
-              builder: (context) => IconButton(
-                iconSize: 40 * oran,
-                icon: Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer(),
-                tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              ),
-            ),
-            actions: [
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.ac_unit,
-                      size: 40 * oran,
-                    ),
-                    onPressed: () {},
-                  ),
-                  Builder(
-                    builder: (context) => IconButton(
-                      iconSize: 40 * oran,
-                      icon: Icon(Icons.settings),
-                      onPressed: () => Scaffold.of(context).openEndDrawer(),
-                      tooltip: MaterialLocalizations.of(context)
-                          .openAppDrawerTooltip,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-            primary: false,
-            automaticallyImplyLeading: true,
-            centerTitle: true,
-            title: Text(
-              Dil().sec(dilSecimi, 'tv99'),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28 * oran,
-                  fontFamily: 'Kelly Slab',
-                  fontWeight: FontWeight.bold),
-            )),
-      ),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -118,122 +71,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                       Spacer(
                         flex: 3,
                       ),
-                      Expanded(
-                          flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv100'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: RawMaterialButton(
-                                  onPressed: () {},
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        alignment: Alignment.center,
-                                        image: AssetImage(
-                                            'assets/images/izleme_icon.png'),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Spacer(
-                        flex: 1,
-                      ),
-                      Expanded(
-                          flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv101'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: RawMaterialButton(
-                                  onPressed: () {},
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        alignment: Alignment.center,
-                                        image: AssetImage(
-                                            'assets/images/mancontrol_icon_red.png'),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      //KONTROL
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -297,8 +135,127 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                             ],
                           )),
                       Spacer(
+                        flex: 1,
+                      ),
+                      //İZLEME
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv100'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {},
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/izleme_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 1,
+                      ),
+                      //OTO-MAN
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv101'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {},
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/mancontrol_icon_red.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
                         flex: 3,
                       ),
+                      
                     ],
                   ),
                 ),
@@ -310,6 +267,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                       Spacer(
                         flex: 3,
                       ),
+                      //DATALOG
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -350,7 +308,9 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    print(oran);
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -368,6 +328,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                       Spacer(
                         flex: 1,
                       ),
+                      //ALARM AYAR.
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -426,6 +387,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                       Spacer(
                         flex: 1,
                       ),
+                      //KURULUM
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -472,7 +434,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              DilSecimi(dbVeriler)),
+                                              KurulumAyarlari(dbVeriler)),
                                     );
                                   },
                                   child: Container(
@@ -501,64 +463,8 @@ class GenelAyarlarState extends State<GenelAyarlar> {
             ),
           )
         ],
-      ),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
-      endDrawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.yellow[700],
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
-      ),
-    );
+      )
+      );
   }
 
   _satirlar(List<Map> satirlar) {

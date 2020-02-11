@@ -32,12 +32,7 @@ class _CikisAlertState extends State<CikisAlert> {
     var oran;
 
     try {
-      var width = MediaQuery.of(context).size.width *
-          MediaQuery.of(context).devicePixelRatio;
-      var height = MediaQuery.of(context).size.height *
-          MediaQuery.of(context).devicePixelRatio;
-      var carpim = width * height;
-      oran = carpim / 2073600.0;
+      var oran = MediaQuery.of(context).size.width / 731.4;
     } catch (Exception) {
       print("Hata VAR!!!");
     }

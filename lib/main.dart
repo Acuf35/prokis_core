@@ -52,7 +52,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
             () => Navigator.push(
           context,
           //MaterialPageRoute(builder: (context) => DilSecimi(dbVeriler)),
-          MaterialPageRoute(builder: (context) => kurulumDurum=="0" ? DilSecimi(dbVeriler) :  GenelAyarlar(dbVeriler)),
+          MaterialPageRoute(builder: (context) => kurulumDurum=="0" ? DilSecimi(dbVeriler,true) :  GenelAyarlar(dbVeriler)),
         ));
   }
 
@@ -79,12 +79,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 
 
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 

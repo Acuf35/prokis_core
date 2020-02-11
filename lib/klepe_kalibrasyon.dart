@@ -101,54 +101,10 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
 
     timerSayac++;
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30 * oran),
-          child: AppBar(
-              leading: Builder(
-                builder: (context) => IconButton(
-                  iconSize: 40 * oran,
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                ),
-              ),
-              actions: [
-                Row(
-                  children: <Widget>[
-                    Builder(
-                      builder: (context) => IconButton(
-                        color: Colors.yellow[700],
-                        iconSize: 40 * oran,
-                        icon: Icon(Icons.info_outline),
-                        onPressed: () => Scaffold.of(context).openEndDrawer(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-              primary: false,
-              automaticallyImplyLeading: true,
-              centerTitle: true,
-              title: Text(
-                Dil().sec(dilSecimi, "tv239"),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28 * oran,
-                    fontFamily: 'Kelly Slab',
-                    fontWeight: FontWeight.bold),
-              )),
-        ),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv239'),
         body: Column(
           children: <Widget>[
             Expanded(
@@ -357,96 +313,102 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            timerCancel = true;
-            if(klepeYontemi=="1"){
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => KlepeKlasik(dbVeriler)),
-                );
-            }
-            if(klepeYontemi=="2"){
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => KlepeTunel(dbVeriler)),
-                );  
-            }
-          },
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.arrow_back,
-            size: 50,
-            color: Colors.white,
+        floatingActionButton: Container(width: 56*oran,height: 56*oran,
+          child: FittedBox(
+                      child: FloatingActionButton(
+              onPressed: () {
+                timerCancel = true;
+                if(klepeYontemi=="1"){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => KlepeKlasik(dbVeriler)),
+                    );
+                }
+                if(klepeYontemi=="2"){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => KlepeTunel(dbVeriler)),
+                    );  
+                }
+              },
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.arrow_back,
+                size: 50,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: Drawer(
-          child: MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: Column(
+        endDrawer: SizedBox(width: 320*oran,
+                            child: Drawer(
+            child: MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              child: Column(
+                children: <Widget>[
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              child: Text(
+                Dil().sec(
+                    dilSecimi, "tv240"), 
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontFamily: 'Kelly Slab',
+                ),
+                textScaleFactor: oran,
+              ),
+              color: Colors.yellow[700],
+            ),
+          ),
+          Expanded(
+            flex: 10,
+            child: Row(
               children: <Widget>[
                 Expanded(
+                  flex: 4,
                   child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      Dil().sec(
-                          dilSecimi, "tv240"), 
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontFamily: 'Kelly Slab',
-                      ),
-                      textScaleFactor: oran,
-                    ),
-                    color: Colors.yellow[700],
-                  ),
-                ),
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          color: Colors.yellow[100],
-                          child: ListView(
-                            // Important: Remove any padding from the ListView.
-                            padding: EdgeInsets.zero,
-                            children: <Widget>[
-                              ListTile(
-                                contentPadding: EdgeInsets.only(
-                                    left: 2 * oran, right: 2 * oran),
-                                dense: false,
-                                title: Text(
-                                  Dil()
-                                      .sec(dilSecimi, "tv186"),
-                                  textScaleFactor: oran,
-                                ),
-                                subtitle: Text(
-                                  Dil()
-                                      .sec(dilSecimi, "info9"),
-                                  style: TextStyle(
-                                    fontSize: 13 * oran,
-                                  ),
-                                ),
-                                onTap: () {
-                                  // Update the state of the app.
-                                  // ...
-                                },
-                              ),
-                            ],
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      // Important: Remove any padding from the ListView.
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          contentPadding: EdgeInsets.only(
+                              left: 2 * oran, right: 2 * oran),
+                          dense: false,
+                          title: Text(
+                            Dil()
+                                .sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
                           ),
+                          subtitle: Text(
+                            Dil()
+                                .sec(dilSecimi, "info9"),
+                            style: TextStyle(
+                              fontSize: 13 * oran,
+                            ),
+                          ),
+                          onTap: () {
+                            // Update the state of the app.
+                            // ...
+                          },
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
+            ),
+          ),
+                ],
+              ),
             ),
           ),
         ));

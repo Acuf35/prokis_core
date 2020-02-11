@@ -12,16 +12,19 @@ import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x2x0.dart';
 import 'klepe_haritasi.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
 class FanHaritasi extends StatefulWidget {
   List<Map> gelenDBveri;
-  FanHaritasi(List<Map> dbVeriler) {
+  bool gelenDurum;
+  FanHaritasi(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return FanHaritasiState(gelenDBveri);
+    return FanHaritasiState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -55,10 +58,12 @@ class FanHaritasiState extends State<FanHaritasi> {
 
   List<int> tumCikislar = new List(111);
 
+  bool durum;
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  FanHaritasiState(List<Map> dbVeri) {
+  FanHaritasiState(List<Map> dbVeri,bool drm) {
     bool fanHaritaOK = false;
     bool fanCikisOK = false;
     bool tumCikislarVar = false;
@@ -178,7 +183,7 @@ class FanHaritasiState extends State<FanHaritasi> {
     for (int i = 1; i <= 120; i++) {
       cikisNoGecici[i] = cikisNo[i];
     }
-
+    durum=drm;
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -186,17 +191,33 @@ class FanHaritasiState extends State<FanHaritasi> {
   @override
   Widget build(BuildContext context) {
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
     _oran1 = oran;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
+      floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
+   
         body: Column(
       children: <Widget>[
         //Başlık bölümü
@@ -1601,20 +1622,22 @@ class FanHaritasiState extends State<FanHaritasi> {
                 //geri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UzDebiNem(dbVeriler)),
-                          );
-                        
-                        
-                        //Navigator.pop(context);
-                      },
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => UzDebiNem(dbVeriler,true)),
+                            );
+                          
+                          
+                          //Navigator.pop(context);
+                        },
+                      ),
                     )),
                 Spacer(
                   flex: 1,
@@ -1622,47 +1645,35 @@ class FanHaritasiState extends State<FanHaritasi> {
                 //ileri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        if (!haritaOnay) {
-                          Toast.show(
-                              Dil()
-                                  .sec(dilSecimi, "toast62"),
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          if (!haritaOnay) {
+                            Toast.show(
+                                Dil()
+                                    .sec(dilSecimi, "toast62"),
+                                context,
+                                duration: 3);
+                          } else if (!veriGonderildi) {
+                            print(haritaOnay);
+                            Toast.show(
+                                Dil()
+                                    .sec(dilSecimi, "toast27"),
+                                context,
+                                duration: 3);
+                          } else {
+
+                            Navigator.pushReplacement(
                               context,
-                              duration: 3);
-                        } else if (!veriGonderildi) {
-                          print(haritaOnay);
-                          Toast.show(
-                              Dil()
-                                  .sec(dilSecimi, "toast27"),
-                              context,
-                              duration: 3);
-                        } else {
-
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => KlepeHaritasi(dbVeriler)),
-                          );
-
-
-                          /*
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => KlepeHaritasi(dbVeriler)),
-                          ).then((onValue) {
-                            _dbVeriCekme();
-                            for (int i = 1; i <= 110; i++) {
-                              tumCikislar[i] = onValue[i];
-                            }
-                          });
-                          */
-                        }
-                      },
-                      color: Colors.black,
+                              MaterialPageRoute(
+                                  builder: (context) => KlepeHaritasi(dbVeriler,true)),
+                            );
+                          }
+                        },
+                        color: Colors.black,
+                      ),
                     )),
                 Spacer(
                   flex: 1,

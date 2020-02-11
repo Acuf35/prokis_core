@@ -90,54 +90,10 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
 
     timerSayac++;
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30 * oran),
-          child: AppBar(
-              leading: Builder(
-                builder: (context) => IconButton(
-                  iconSize: 40 * oran,
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                ),
-              ),
-              actions: [
-                Row(
-                  children: <Widget>[
-                    Builder(
-                      builder: (context) => IconButton(
-                        color: Colors.yellow[700],
-                        iconSize: 40 * oran,
-                        icon: Icon(Icons.info_outline),
-                        onPressed: () => Scaffold.of(context).openEndDrawer(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-              primary: false,
-              automaticallyImplyLeading: true,
-              centerTitle: true,
-              title: Text(
-                Dil().sec(dilSecimi, "tv181"),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28 * oran,
-                    fontFamily: 'Kelly Slab',
-                    fontWeight: FontWeight.bold),
-              )),
-        ),
+        appBar:Metotlar().appBar(dilSecimi, context, oran, 'tv181'),
         body: Column(
           children: <Widget>[
             Expanded(
@@ -431,7 +387,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
                                 children: <Widget>[
                                   Expanded(
                                     child: Text(Dil()
-                                        .sec(dilSecimi, "tv184")),
+                                        .sec(dilSecimi, "tv184"),textScaleFactor: oran),
                                   ),
                                   Expanded(
                                       flex: 3,
@@ -439,6 +395,18 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
                                         
                                         _grafikDataPIDCapraz(
                                             double.parse(setSicA),double.parse(capHavFarkC),dilSecimi),
+
+
+                                            domainAxis: new charts.OrdinalAxisSpec(
+                                          
+                                          renderSpec: new charts.SmallTickRendererSpec(
+                                          
+                                              // Tick and Label styling here.
+                                            labelStyle: new charts.TextStyleSpec(
+                                              fontSize: (12*oran).floor(), // size in Pts.
+                                              color: charts.MaterialPalette.black)
+                                            )
+                                        ),
 
                                         primaryMeasureAxis:
                                             new charts.NumericAxisSpec(
@@ -514,178 +482,184 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            timerCancel = true;
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
-            );
-          },
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.arrow_back,
-            size: 50,
-            color: Colors.white,
+        floatingActionButton: Container(width: 56*oran,height: 56*oran,
+          child: FittedBox(
+                      child: FloatingActionButton(
+              onPressed: () {
+                timerCancel = true;
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+                );
+              },
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.arrow_back,
+                size: 50,
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: Drawer(
-          child: MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      Dil().sec(
-                          dilSecimi, "tv123"), //Sıcaklık diyagramı
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontFamily: 'Kelly Slab',
+        endDrawer: SizedBox(width: 320*oran,
+                  child: Drawer(
+            child: MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        Dil().sec(
+                            dilSecimi, "tv123"), //Sıcaklık diyagramı
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: 'Kelly Slab',
+                        ),
+                        textScaleFactor: oran,
                       ),
-                      textScaleFactor: oran,
+                      color: Colors.yellow[700],
                     ),
-                    color: Colors.yellow[700],
                   ),
-                ),
-                Expanded(
-                  flex: 7,
-                  child: DrawerHeader(
-                    padding: EdgeInsets.only(left: 10),
-                    margin: EdgeInsets.all(0),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                alignment: Alignment.center,
-                                image: AssetImage(
-                                    "assets/images/diagram_pid_capraz.jpg"),
-                                fit: BoxFit.contain,
+                  Expanded(
+                    flex: 7,
+                    child: DrawerHeader(
+                      padding: EdgeInsets.only(left: 10),
+                      margin: EdgeInsets.all(0),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  alignment: Alignment.center,
+                                  image: AssetImage(
+                                      "assets/images/diagram_pid_capraz.jpg"),
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            color: Colors.grey[100],
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                        "A",
-                                        style: TextStyle(fontSize: 10 * oran),
-                                      ),
-                                      Text(
-                                        "A+C",
-                                        style: TextStyle(fontSize: 10 * oran),
-                                      ),
-                                      Text(
-                                        "D",
-                                        style: TextStyle(fontSize: 10 * oran),
-                                      ),
-                                      Text(
-                                        "E",
-                                        style: TextStyle(fontSize: 10 * oran),
-                                      ),
-                                      Text(
-                                        "G",
-                                        style: TextStyle(fontSize: 10 * oran),
-                                      ),
-                                    ],
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              color: Colors.grey[100],
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text(
+                                          "A",
+                                          style: TextStyle(fontSize: 10 * oran),
+                                        ),
+                                        Text(
+                                          "A+C",
+                                          style: TextStyle(fontSize: 10 * oran),
+                                        ),
+                                        Text(
+                                          "D",
+                                          style: TextStyle(fontSize: 10 * oran),
+                                        ),
+                                        Text(
+                                          "E",
+                                          style: TextStyle(fontSize: 10 * oran),
+                                        ),
+                                        Text(
+                                          "G",
+                                          style: TextStyle(fontSize: 10 * oran),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv115"),
-                                        style: TextStyle(fontSize: 13 * oran),
-                                      ),
-                                      Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv117"),
-                                        style: TextStyle(fontSize: 13 * oran),
-                                      ),
-                                      Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv118"),
-                                        style: TextStyle(fontSize: 13 * oran),
-                                      ),
-                                      Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv119"),
-                                        style: TextStyle(fontSize: 13 * oran),
-                                      ),
-                                      Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv121"),
-                                        style: TextStyle(fontSize: 13 * oran),
-                                      ),
-                                    ],
+                                  Expanded(
+                                    flex: 4,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          " : " +
+                                              Dil().sec(
+                                                  dilSecimi, "tv115"),
+                                          style: TextStyle(fontSize: 13 * oran),
+                                        ),
+                                        Text(
+                                          " : " +
+                                              Dil().sec(
+                                                  dilSecimi, "tv117"),
+                                          style: TextStyle(fontSize: 13 * oran),
+                                        ),
+                                        Text(
+                                          " : " +
+                                              Dil().sec(
+                                                  dilSecimi, "tv118"),
+                                          style: TextStyle(fontSize: 13 * oran),
+                                        ),
+                                        Text(
+                                          " : " +
+                                              Dil().sec(
+                                                  dilSecimi, "tv119"),
+                                          style: TextStyle(fontSize: 13 * oran),
+                                        ),
+                                        Text(
+                                          " : " +
+                                              Dil().sec(
+                                                  dilSecimi, "tv121"),
+                                          style: TextStyle(fontSize: 13 * oran),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
+                          )
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 10,
-                  child: Container(
-                    color: Colors.yellow[100],
-                    child: ListView(
-                      // Important: Remove any padding from the ListView.
-                      padding: EdgeInsets.zero,
-                      children: <Widget>[
-                        ListTile(
-                          dense: false,
-                          title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
-                          subtitle: Text(
-                            Dil().sec(dilSecimi, "info6"),
-                            style: TextStyle(
-                              fontSize: 13 * oran,
+                  Expanded(
+                    flex: 10,
+                    child: Container(
+                      color: Colors.yellow[100],
+                      child: ListView(
+                        // Important: Remove any padding from the ListView.
+                        padding: EdgeInsets.zero,
+                        children: <Widget>[
+                          ListTile(
+                            dense: false,
+                            title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
+                            subtitle: Text(
+                              Dil().sec(dilSecimi, "info6"),
+                              style: TextStyle(
+                                fontSize: 13 * oran,
+                              ),
                             ),
+                            onTap: () {
+                              // Update the state of the app.
+                              // ...
+                            },
                           ),
-                          onTap: () {
-                            // Update the state of the app.
-                            // ...
-                          },
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

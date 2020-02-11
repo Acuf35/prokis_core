@@ -107,54 +107,10 @@ class KlepeTunelState extends State<KlepeTunel> {
 
     timerSayac++;
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30 * oran),
-          child: AppBar(
-              leading: Builder(
-                builder: (context) => IconButton(
-                  iconSize: 40 * oran,
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                ),
-              ),
-              actions: [
-                Row(
-                  children: <Widget>[
-                    Builder(
-                      builder: (context) => IconButton(
-                        color: Colors.yellow[700],
-                        iconSize: 40 * oran,
-                        icon: Icon(Icons.info_outline),
-                        onPressed: () => Scaffold.of(context).openEndDrawer(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-              primary: false,
-              automaticallyImplyLeading: true,
-              centerTitle: true,
-              title: Text(
-                Dil().sec(dilSecimi, "tv192"),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28 * oran,
-                    fontFamily: 'Kelly Slab',
-                    fontWeight: FontWeight.bold),
-              )),
-        ),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192'),
         body: Column(
           children: <Widget>[
             Expanded(
@@ -552,345 +508,351 @@ class KlepeTunelState extends State<KlepeTunel> {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            timerCancel = true;
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
-            );
-          },
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.arrow_back,
-            size: 50,
-            color: Colors.white,
+        floatingActionButton: Container(width: 56*oran,height: 56*oran,
+                  child: FittedBox(
+                                      child: FloatingActionButton(
+            onPressed: () {
+              timerCancel = true;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+              );
+            },
+            backgroundColor: Colors.blue,
+            child: Icon(
+              Icons.arrow_back,
+              size: 50,
+              color: Colors.white,
+            ),
           ),
+                  ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: Drawer(
-          child: MediaQuery.removePadding(
-            removeTop: true,
-            context: context,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      Dil().sec(
-                          dilSecimi, "tv193"), //Sıcaklık diyagramı
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontFamily: 'Kelly Slab',
+        endDrawer: SizedBox(width: 320*oran,
+                  child: Drawer(
+            child: MediaQuery.removePadding(
+              removeTop: true,
+              context: context,
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        Dil().sec(
+                            dilSecimi, "tv193"), //Sıcaklık diyagramı
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18,
+                          fontFamily: 'Kelly Slab',
+                        ),
+                        textScaleFactor: oran,
                       ),
-                      textScaleFactor: oran,
+                      color: Colors.yellow[700],
                     ),
-                    color: Colors.yellow[700],
                   ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: DrawerHeader(
-                    padding: EdgeInsets.all(0),
-                    margin: EdgeInsets.all(0),
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      alignment: Alignment.center,
-                                      image: AssetImage(
-                                          "assets/images/diagram_klepe_tunel.jpg"),
-                                      fit: BoxFit.contain,
+                  Expanded(
+                    flex: 5,
+                    child: DrawerHeader(
+                      padding: EdgeInsets.all(0),
+                      margin: EdgeInsets.all(0),
+                      child: Column(
+                        children: <Widget>[
+                          Expanded(
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            "assets/images/diagram_klepe_tunel.jpg"),
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 10,
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          flex: 4,
+                          child: Container(
+                            color: Colors.yellow[100],
+                            child: ListView(
+                              // Important: Remove any padding from the ListView.
+                              padding: EdgeInsets.zero,
+                              children: <Widget>[
+                                ListTile(
+                                  contentPadding: EdgeInsets.only(
+                                      left: 2 * oran, right: 2 * oran),
+                                  dense: false,
+                                  title: Text(
+                                    Dil()
+                                        .sec(dilSecimi, "tv186"),
+                                    textScaleFactor: oran,
+                                  ),
+                                  subtitle: Text(
+                                    Dil()
+                                        .sec(dilSecimi, "info8"),
+                                    style: TextStyle(
+                                      fontSize: 13 * oran,
+                                    ),
+                                  ),
+                                  onTap: () {
+                                    // Update the state of the app.
+                                    // ...
+                                  },
+                                ),
+                              ],
+                            ),
                           ),
                         ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            color: Colors.grey[100],
+                            padding:
+                                EdgeInsets.only(left: 2 * oran, right: 2 * oran),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "A :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                    dilSecimi, "tv223") +
+                                                '\n' +
+                                                Dil().sec(
+                                                    dilSecimi, "tv231"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "B :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv224"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "K1 :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv225"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "L1 :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv226"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "K2 :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv227"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "L2 :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv228"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "S1 :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv229"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "S2 :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv230"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "X :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv210"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                                Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                        flex: 1,
+                                        child: Text(
+                                          "Y :",
+                                          textScaleFactor: oran,
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.right,
+                                        )),
+                                    Expanded(
+                                        flex: 5,
+                                        child: Text(
+                                            Dil().sec(
+                                                dilSecimi, "tv211"),
+                                            textScaleFactor: oran,
+                                            style: TextStyle(fontSize: 12))),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
                       ],
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          color: Colors.yellow[100],
-                          child: ListView(
-                            // Important: Remove any padding from the ListView.
-                            padding: EdgeInsets.zero,
-                            children: <Widget>[
-                              ListTile(
-                                contentPadding: EdgeInsets.only(
-                                    left: 2 * oran, right: 2 * oran),
-                                dense: false,
-                                title: Text(
-                                  Dil()
-                                      .sec(dilSecimi, "tv186"),
-                                  textScaleFactor: oran,
-                                ),
-                                subtitle: Text(
-                                  Dil()
-                                      .sec(dilSecimi, "info8"),
-                                  style: TextStyle(
-                                    fontSize: 13 * oran,
-                                  ),
-                                ),
-                                onTap: () {
-                                  // Update the state of the app.
-                                  // ...
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: Colors.grey[100],
-                          padding:
-                              EdgeInsets.only(left: 2 * oran, right: 2 * oran),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "A :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                                  dilSecimi, "tv223") +
-                                              '\n' +
-                                              Dil().sec(
-                                                  dilSecimi, "tv231"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "B :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv224"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "K1 :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv225"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "L1 :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv226"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "K2 :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv227"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "L2 :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv228"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "S1 :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv229"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "S2 :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv230"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "X :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv210"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                      flex: 1,
-                                      child: Text(
-                                        "Y :",
-                                        textScaleFactor: oran,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
-                                        textAlign: TextAlign.right,
-                                      )),
-                                  Expanded(
-                                      flex: 5,
-                                      child: Text(
-                                          Dil().sec(
-                                              dilSecimi, "tv211"),
-                                          textScaleFactor: oran,
-                                          style: TextStyle(fontSize: 12))),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

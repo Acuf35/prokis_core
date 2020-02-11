@@ -13,16 +13,19 @@ import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
 class IsiSensorHaritasi extends StatefulWidget {
   List<Map> gelenDBveri;
-  IsiSensorHaritasi(List<Map> dbVeriler) {
+  bool gelenDurum;
+  IsiSensorHaritasi(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return IsiSensorHaritasiState(gelenDBveri);
+    return IsiSensorHaritasiState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -66,10 +69,12 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
   List<int> tumCikislar = new List(111);
 
+  bool durum;
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  IsiSensorHaritasiState(List<Map> dbVeri) {
+  IsiSensorHaritasiState(List<Map> dbVeri,bool drm) {
     bool isisensorHaritaOK = false;
     bool isisensorNoOK = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
@@ -123,7 +128,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
             isisensorNo[i] = int.parse(isisensorNolar[i - 1]);
           }
 
-          if (aktifIsisensorNolar.length > 2) {
+          if (aktifIsisensorNolar.length > 2 && aktifIsisensorIDler.length > 2) {
             for (int i = 1; i <= 15; i++) {
               aktifSensorNo[i] = int.parse(aktifIsisensorNolar[i - 1]);
               aktifSensorID[i] = aktifIsisensorIDler[i - 1];
@@ -161,7 +166,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       aktifSensorVisibility[i] = false;
       aktifSensorDurum[i] = false;
     }
-
+    durum=drm;
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -202,17 +207,34 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
     sayacAktifSensor++;
 
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
     _oran1 = oran;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
+      floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  timerCancel=true;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
+   
         body: Column(
       children: <Widget>[
         //Başlık bölümü
@@ -861,21 +883,23 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                 //geri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        timerCancel = true;
-                        
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PedHaritasi(dbVeriler)),
-                          );
-                        
-                        
-                        //Navigator.pop(context, tumCikislar);
-                      },
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                      child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          timerCancel = true;
+                          
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PedHaritasi(dbVeriler,true)),
+                            );
+                          
+                          
+                          //Navigator.pop(context, tumCikislar);
+                        },
+                      ),
                     )),
                 Spacer(
                   flex: 1,
@@ -883,30 +907,32 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                 //ileri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        if (!veriGonderildi) {
-                          Toast.show(
-                              Dil()
-                                  .sec(dilSecimi, "toast27"),
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          if (!veriGonderildi) {
+                            Toast.show(
+                                Dil()
+                                    .sec(dilSecimi, "toast27"),
+                                context,
+                                duration: 3);
+                          } else {
+                            timerCancel = true;
+
+                            Navigator.pushReplacement(
                               context,
-                              duration: 3);
-                        } else {
-                          timerCancel = true;
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      BacafanHaritasi(dbVeriler,true)),
+                            );
 
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    BacafanHaritasi(dbVeriler)),
-                          );
-
-                          
-                        }
-                      },
-                      color: Colors.black,
+                            
+                          }
+                        },
+                        color: Colors.black,
+                      ),
                     )),
                 Spacer(
                   flex: 1,

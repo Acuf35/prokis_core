@@ -11,16 +11,19 @@ import 'fan_yontemi.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'klp_yontemi.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
 class MhYontemi extends StatefulWidget {
   List<Map> gelenDBveri;
-  MhYontemi(List<Map> dbVeriler) {
+  bool gelenDurum;
+  MhYontemi(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return MhYontemiState(gelenDBveri);
+    return MhYontemiState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -39,10 +42,12 @@ class MhYontemiState extends State<MhYontemi> {
 
   String bacafanAdet;
   String kumesTuru;
+
+  bool durum;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  MhYontemiState(List<Map> dbVeri) {
+  MhYontemiState(List<Map> dbVeri, bool drm) {
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -72,7 +77,7 @@ class MhYontemiState extends State<MhYontemi> {
         bacafanAdet = dbVeri[i]["veri1"];
       }
     }
-
+    durum=drm;
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -80,16 +85,31 @@ class MhYontemiState extends State<MhYontemi> {
   @override
   Widget build(BuildContext context) {
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
+      floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
         body: Column(
       children: <Widget>[
         //Başlık bölümü
@@ -365,20 +385,22 @@ class MhYontemiState extends State<MhYontemi> {
                 //geri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
 
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FanYontemi(dbVeriler)),
-                        );
-                        
-                        
-                        //Navigator.pop(context);
-                      },
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => FanYontemi(dbVeriler,true)),
+                          );
+                          
+                          
+                          //Navigator.pop(context);
+                        },
+                      ),
                     )),
                 Spacer(
                   flex: 1,
@@ -386,37 +408,28 @@ class MhYontemiState extends State<MhYontemi> {
                 //ileri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        if (!kyDurum && !ayDurum && !hyDurum) {
-                          Toast.show(
-                              Dil()
-                                  .sec(dilSecimi, "toast22"),
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          if (!kyDurum && !ayDurum && !hyDurum) {
+                            Toast.show(
+                                Dil()
+                                    .sec(dilSecimi, "toast22"),
+                                context,
+                                duration: 3);
+                          } else {
+
+                            Navigator.pushReplacement(
                               context,
-                              duration: 3);
-                        } else {
-
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => KlpYontemi(dbVeriler)),
-                          );
-
-
-                          /*
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => KlpYontemi(dbVeriler)),
-                          ).then((onValue) {
-                            _dbVeriCekme();
-                          });
-                          */
-                        }
-                      },
-                      color: Colors.black,
+                              MaterialPageRoute(
+                                  builder: (context) => KlpYontemi(dbVeriler,true)),
+                            );
+                          }
+                        },
+                        color: Colors.black,
+                      ),
                     )),
                 Spacer(
                   flex: 1,

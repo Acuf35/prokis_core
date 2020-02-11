@@ -11,17 +11,20 @@ import 'fan_haritasi.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'klp_yontemi.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
 class UzDebiNem extends StatefulWidget {
   List<Map> gelenDBveri;
-  UzDebiNem(List<Map> dbVeriler) {
+  bool gelenDurum;
+  UzDebiNem(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return UzDebiNemState(gelenDBveri);
+    return UzDebiNemState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -66,6 +69,9 @@ class UzDebiNemState extends State<UzDebiNem> {
   String k8y = "0.0";
   String k9y = "0.0";
   String k10y = "0.0";
+
+  bool durum;
+
   final FocusNode _focusNodeAm = FocusNode();
   final FocusNode _focusNodeBm = FocusNode();
   final FocusNode _focusNodeCm = FocusNode();
@@ -125,7 +131,7 @@ class UzDebiNemState extends State<UzDebiNem> {
 //--------------------------DATABASE ve DİĞER DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  UzDebiNemState(List<Map> dbVeri) {
+  UzDebiNemState(List<Map> dbVeri,bool drm) {
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -192,6 +198,8 @@ class UzDebiNemState extends State<UzDebiNem> {
       }
     }
 
+    durum=drm;
+
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -219,12 +227,7 @@ class UzDebiNemState extends State<UzDebiNem> {
     _textFieldCursorPosition(tec9, hacimOrani);
 
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
@@ -232,6 +235,27 @@ class UzDebiNemState extends State<UzDebiNem> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return Scaffold(
+          floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
+    
             body: SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(
@@ -1135,20 +1159,22 @@ class UzDebiNemState extends State<UzDebiNem> {
                           Expanded(
                               //geri OK
                               flex: 2,
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_back_ios),
-                                iconSize: 50 * oran,
-                                onPressed: () {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            KlpYontemi(dbVeriler)),
-                                  );
+                              child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                                              child: IconButton(
+                                  icon: Icon(Icons.arrow_back_ios),
+                                  iconSize: 50 * oran,
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              KlpYontemi(dbVeriler,true)),
+                                    );
 
-                                  //Navigator.pop(context);
-                                },
-                                color: Colors.black,
+                                    //Navigator.pop(context);
+                                  },
+                                  color: Colors.black,
+                                ),
                               )),
                           Spacer(
                             flex: 1,
@@ -1156,183 +1182,175 @@ class UzDebiNemState extends State<UzDebiNem> {
                           Expanded(
                               //İleri OK
                               flex: 2,
-                              child: IconButton(
-                                icon: Icon(Icons.arrow_forward_ios),
-                                iconSize: 50 * oran,
-                                onPressed: () {
-                                  bool klepeTamam = true;
-                                  bool aBos = false;
-                                  bool bBos = false;
-                                  bool cBos = false;
-                                  bool tfdBos = false;
-                                  bool bfdBos = false;
-                                  bool hoBos = false;
-                                  bool aTanimsiz = false;
-                                  bool bTanimsiz = false;
-                                  bool cTanimsiz = false;
-                                  bool tfdTanimsiz = false;
-                                  bool bfdTanimsiz = false;
-                                  bool hoTanimsiz = false;
-                                  double a;
-                                  double b;
-                                  double c;
-                                  double tf;
-                                  double bf;
-                                  double ho;
+                              child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                                              child: IconButton(
+                                  icon: Icon(Icons.arrow_forward_ios),
+                                  iconSize: 50 * oran,
+                                  onPressed: () {
+                                    bool klepeTamam = true;
+                                    bool aBos = false;
+                                    bool bBos = false;
+                                    bool cBos = false;
+                                    bool tfdBos = false;
+                                    bool bfdBos = false;
+                                    bool hoBos = false;
+                                    bool aTanimsiz = false;
+                                    bool bTanimsiz = false;
+                                    bool cTanimsiz = false;
+                                    bool tfdTanimsiz = false;
+                                    bool bfdTanimsiz = false;
+                                    bool hoTanimsiz = false;
+                                    double a;
+                                    double b;
+                                    double c;
+                                    double tf;
+                                    double bf;
+                                    double ho;
 
-                                  try {
-                                    a = double.parse(aM);
-                                  } catch (e) {
-                                    aTanimsiz = true;
-                                  }
-
-                                  try {
-                                    b = double.parse(bM);
-                                  } catch (e) {
-                                    bTanimsiz = true;
-                                  }
-
-                                  try {
-                                    c = double.parse(cM);
-                                  } catch (e) {
-                                    cTanimsiz = true;
-                                  }
-
-                                  try {
-                                    tf = double.parse(tunelFanDebi);
-                                  } catch (e) {
-                                    tfdTanimsiz = true;
-                                  }
-
-                                  try {
-                                    bf = double.parse(bacaFanDebi);
-                                  } catch (e) {
-                                    if (bacaFanAdet > 0) {
-                                      bfdTanimsiz = true;
+                                    try {
+                                      a = double.parse(aM);
+                                    } catch (e) {
+                                      aTanimsiz = true;
                                     }
-                                  }
 
-                                  try {
-                                    ho = double.parse(hacimOrani);
-                                  } catch (e) {
-                                    hoTanimsiz = true;
-                                  }
-
-                                  if (aM == "" || aM == null) {
-                                    aBos = true;
-                                  }
-
-                                  if (bM == "" || bM == null) {
-                                    bBos = true;
-                                  }
-
-                                  if (cM == "" || cM == null) {
-                                    cBos = true;
-                                  }
-
-                                  if (tunelFanDebi == "" ||
-                                      tunelFanDebi == null) {
-                                    tfdBos = true;
-                                  }
-
-                                  if (bacaFanDebi == "" ||
-                                      bacaFanDebi == null) {
-                                    if (bacaFanAdet > 0) {
-                                      bfdBos = true;
+                                    try {
+                                      b = double.parse(bM);
+                                    } catch (e) {
+                                      bTanimsiz = true;
                                     }
-                                  }
 
-                                  if (hacimOrani == "" || hacimOrani == null) {
-                                    hoBos = true;
-                                  }
+                                    try {
+                                      c = double.parse(cM);
+                                    } catch (e) {
+                                      cTanimsiz = true;
+                                    }
 
-                                  if (klepeAdet > 0 && k1x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 1 && k2x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 2 && k3x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 3 && k4x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 4 && k5x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 5 && k6x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 6 && k7x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 7 && k8x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 8 && k9x == "0.0") {
-                                    klepeTamam = false;
-                                  } else if (klepeAdet > 9 && k10x == "0.0") {
-                                    klepeTamam = false;
-                                  }
+                                    try {
+                                      tf = double.parse(tunelFanDebi);
+                                    } catch (e) {
+                                      tfdTanimsiz = true;
+                                    }
 
-                                  if (!klepeTamam) {
-                                    Toast.show(
-                                        Dil()
-                                            .sec(dilSecimi, "toast9"),
-                                        context,
-                                        duration: 3);
-                                  } else if (aBos || bBos || cBos) {
-                                    Toast.show(
-                                        Dil().sec(
-                                            dilSecimi, "toast10"),
-                                        context,
-                                        duration: 3);
-                                  } else if (tfdBos || bfdBos) {
-                                    Toast.show(
-                                        Dil().sec(
-                                            dilSecimi, "toast11"),
-                                        context,
-                                        duration: 3);
-                                  } else if (hoBos) {
-                                    Toast.show(
-                                        Dil().sec(
-                                            dilSecimi, "toast12"),
-                                        context,
-                                        duration: 3);
-                                  } else if (aTanimsiz ||
-                                      bTanimsiz ||
-                                      cTanimsiz) {
-                                    Toast.show(
-                                        Dil().sec(
-                                            dilSecimi, "toast13"),
-                                        context,
-                                        duration: 3);
-                                  } else if (tfdTanimsiz || bfdTanimsiz) {
-                                    Toast.show(
-                                        Dil().sec(
-                                            dilSecimi, "toast14"),
-                                        context,
-                                        duration: 3);
-                                  } else if (hoTanimsiz) {
-                                    Toast.show(
-                                        Dil().sec(
-                                            dilSecimi, "toast15"),
-                                        context,
-                                        duration: 3);
-                                  } else {
+                                    try {
+                                      bf = double.parse(bacaFanDebi);
+                                    } catch (e) {
+                                      if (bacaFanAdet > 0) {
+                                        bfdTanimsiz = true;
+                                      }
+                                    }
 
-                                    Navigator.pushReplacement(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    FanHaritasi(dbVeriler)));
+                                    try {
+                                      ho = double.parse(hacimOrani);
+                                    } catch (e) {
+                                      hoTanimsiz = true;
+                                    }
 
-                                    /*
-                                    Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    FanHaritasi(dbVeriler)))
-                                        .then((onValue) {
-                                      _dbVeriCekme();
-                                    });
-                                    */
-                                  }
-                                },
-                                color: Colors.black,
+                                    if (aM == "" || aM == null) {
+                                      aBos = true;
+                                    }
+
+                                    if (bM == "" || bM == null) {
+                                      bBos = true;
+                                    }
+
+                                    if (cM == "" || cM == null) {
+                                      cBos = true;
+                                    }
+
+                                    if (tunelFanDebi == "" ||
+                                        tunelFanDebi == null) {
+                                      tfdBos = true;
+                                    }
+
+                                    if (bacaFanDebi == "" ||
+                                        bacaFanDebi == null) {
+                                      if (bacaFanAdet > 0) {
+                                        bfdBos = true;
+                                      }
+                                    }
+
+                                    if (hacimOrani == "" || hacimOrani == null) {
+                                      hoBos = true;
+                                    }
+
+                                    if (klepeAdet > 0 && k1x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 1 && k2x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 2 && k3x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 3 && k4x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 4 && k5x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 5 && k6x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 6 && k7x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 7 && k8x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 8 && k9x == "0.0") {
+                                      klepeTamam = false;
+                                    } else if (klepeAdet > 9 && k10x == "0.0") {
+                                      klepeTamam = false;
+                                    }
+
+                                    if (!klepeTamam) {
+                                      Toast.show(
+                                          Dil()
+                                              .sec(dilSecimi, "toast9"),
+                                          context,
+                                          duration: 3);
+                                    } else if (aBos || bBos || cBos) {
+                                      Toast.show(
+                                          Dil().sec(
+                                              dilSecimi, "toast10"),
+                                          context,
+                                          duration: 3);
+                                    } else if (tfdBos || bfdBos) {
+                                      Toast.show(
+                                          Dil().sec(
+                                              dilSecimi, "toast11"),
+                                          context,
+                                          duration: 3);
+                                    } else if (hoBos) {
+                                      Toast.show(
+                                          Dil().sec(
+                                              dilSecimi, "toast12"),
+                                          context,
+                                          duration: 3);
+                                    } else if (aTanimsiz ||
+                                        bTanimsiz ||
+                                        cTanimsiz) {
+                                      Toast.show(
+                                          Dil().sec(
+                                              dilSecimi, "toast13"),
+                                          context,
+                                          duration: 3);
+                                    } else if (tfdTanimsiz || bfdTanimsiz) {
+                                      Toast.show(
+                                          Dil().sec(
+                                              dilSecimi, "toast14"),
+                                          context,
+                                          duration: 3);
+                                    } else if (hoTanimsiz) {
+                                      Toast.show(
+                                          Dil().sec(
+                                              dilSecimi, "toast15"),
+                                          context,
+                                          duration: 3);
+                                    } else {
+
+                                      Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      FanHaritasi(dbVeriler,true)));
+
+                                    }
+                                  },
+                                  color: Colors.black,
+                                ),
                               )),
                           Spacer(
                             flex: 1,

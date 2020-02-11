@@ -11,24 +11,21 @@ import 'package:toast/toast.dart';
 import 'adetler.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
-import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
-class KumesOlustur extends StatefulWidget {
+class Klavye extends StatefulWidget {
   List<Map> gelenDBveri;
-  bool gelenDurum;
-  KumesOlustur(List<Map> dbVeriler, bool durum) {
+  Klavye(List<Map> dbVeriler) {
     gelenDBveri = dbVeriler;
-    gelenDurum =durum;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return KumesOlusturState(gelenDBveri,gelenDurum);
+    return KlavyeState(gelenDBveri);
   }
 }
 
-class KumesOlusturState extends State<KumesOlustur> {
+class KlavyeState extends State<Klavye> {
 //++++++++++++++++++++++++++DATABASE ve DİĞER DEĞİŞKENLER+++++++++++++++++++++++++++++++
   List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
@@ -53,8 +50,6 @@ class KumesOlusturState extends State<KumesOlustur> {
   bool sifreOnaylandi = false;
 
   final FocusNode _focusNodeKumesIsmi = FocusNode();
-
-  bool durum;
   
 
 //--------------------------DATABASE ve DİĞER DEĞİŞKENLER--------------------------------
@@ -83,7 +78,7 @@ class KumesOlusturState extends State<KumesOlustur> {
   }
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  KumesOlusturState(List<Map> dbVeri,bool drm) {
+  KlavyeState(List<Map> dbVeri) {
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -115,8 +110,6 @@ class KumesOlusturState extends State<KumesOlustur> {
     if (dbVeri.length < 3) {
       kumesTuru = Dil().sec(dilSecimi, "dd1");
     }
-
-    durum=drm;
 
     _dbVeriCekme();
   }
@@ -688,27 +681,43 @@ class KumesOlusturState extends State<KumesOlustur> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
+
+/*
+ 
+                                 Expanded(
+                  flex: 2,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        image: AssetImage('assets/images/kurulum_silo_icon.png'),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+                    
+          */
+                    
                                 Spacer(
                                   flex: 20,
                                 ),
                                 //geri OK
                                 Expanded(
                                     flex: 2,
-                                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
-                                                                          child: IconButton(
-                                        icon: Icon(Icons.arrow_back_ios),
-                                        iconSize: 50*oran,
-                                        onPressed: () {
-                                          Navigator.pushReplacement(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            DilSecimi(dbVeriler,true)));
-                                          
-                                          
-                                        },
-                                        color: Colors.black,
-                                      ),
+                                    child: IconButton(
+                                      icon: Icon(Icons.arrow_back_ios),
+                                      iconSize: 50*oran,
+                                      onPressed: () {
+                                        Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DilSecimi(dbVeriler,false)));
+                                        
+                                        
+                                      },
+                                      color: Colors.black,
                                     )),
                                 Spacer(
                                   flex: 1,
@@ -716,54 +725,67 @@ class KumesOlusturState extends State<KumesOlustur> {
                                 //ileri OK
                                 Expanded(
                                     flex: 2,
-                                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
-                                                                          child: IconButton(
-                                          icon: Icon(Icons.arrow_forward_ios),
-                                          iconSize: 50 * oran,
-                                          onPressed: () {
-                                            if (kumesIsmi.length < 4) {
-                                              //Lütfen en az 4 karakterlik bir kümes ismi belirleyiniz!
-                                              Toast.show(
-                                                  Dil().sec(
-                                                      dilSecimi, "toast1"),
-                                                  context,
-                                                  duration: 2);
-                                            } else if (adminSifreLimit1 != 0) {
-                                              //Lütfen 4 karakterlik bir şifre belirleyiniz!
-                                              Toast.show(
-                                                  Dil().sec(
-                                                      dilSecimi, "toast2"),
-                                                  context,
-                                                  duration: 2);
-                                            } else if (!sifreUyusma) {
-                                              //Şifreler uyuşmuyor!
-                                              Toast.show(
-                                                  Dil().sec(
-                                                      dilSecimi, "toast3"),
-                                                  context,
-                                                  duration: 2);
-                                            } else if (!sifreOnaylandi) {
-                                              //Girilen Şifreyi onaylamadınız!
-                                              Toast.show(
-                                                  Dil().sec(
-                                                      dilSecimi, "toast19"),
-                                                  context,
-                                                  duration: 2);
-                                            } else {
+                                    child: IconButton(
+                                      icon: Icon(Icons.arrow_forward_ios),
+                                      iconSize: 50 * oran,
+                                      onPressed: () {
+                                        if (kumesIsmi.length < 4) {
+                                          //Lütfen en az 4 karakterlik bir kümes ismi belirleyiniz!
+                                          Toast.show(
+                                              Dil().sec(
+                                                  dilSecimi, "toast1"),
+                                              context,
+                                              duration: 2);
+                                        } else if (adminSifreLimit1 != 0) {
+                                          //Lütfen 4 karakterlik bir şifre belirleyiniz!
+                                          Toast.show(
+                                              Dil().sec(
+                                                  dilSecimi, "toast2"),
+                                              context,
+                                              duration: 2);
+                                        } else if (!sifreUyusma) {
+                                          //Şifreler uyuşmuyor!
+                                          Toast.show(
+                                              Dil().sec(
+                                                  dilSecimi, "toast3"),
+                                              context,
+                                              duration: 2);
+                                        } else if (!sifreOnaylandi) {
+                                          //Girilen Şifreyi onaylamadınız!
+                                          Toast.show(
+                                              Dil().sec(
+                                                  dilSecimi, "toast19"),
+                                              context,
+                                              duration: 2);
+                                        } else {
 
-                                              Navigator.pushReplacement(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Adetler(dbVeriler,true)));
-                                              
+                                          Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Adetler(dbVeriler,false)));
+                                          
 
-                                            }
-                                          },
-                                          color: Colors.black,
-                                        ),
+                                        }
+                                      },
+                                      color: Colors.black,
                                     )),
-                              
+                                
+                           /*     
+                                Expanded(flex: 1,
+                                           child: LayoutBuilder(builder:
+                                              (context, constraint) {
+                                            return Icon(
+                                              Icons.arrow_forward_ios,
+                                              size: constraint
+                                                  .biggest.height,
+                                            );
+                                          }),
+                                        ),
+*/
+
+            
+                                
                                 Spacer(
                                   flex: 1,
                                 ),
@@ -778,35 +800,7 @@ class KumesOlusturState extends State<KumesOlustur> {
               ),
             ),
           ),
-        ),
-
-        floatingActionButton: Visibility(visible: !durum,
-          child: Container(width: 40*oran,height: 40*oran,
-            child: FittedBox(
-                        child: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
-                  );
-                },
-                backgroundColor: Colors.grey[700],
-                child: Icon(
-                  Icons.arrow_back,
-                  size: 50,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-          ),
-    ),
-
-        
-        );
-      
-        
-    
-      
+        ));
       },
     );
 

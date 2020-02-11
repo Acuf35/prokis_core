@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:prokis/min_hav_agirlik.dart';
+import 'package:prokis/min_hav_hacim.dart';
+import 'package:prokis/min_hav_klasik.dart';
 import 'package:prokis/sicvefan_klasik_capraz.dart';
 import 'package:prokis/sicvefan_klasik_normal.dart';
 import 'package:prokis/sicvefan_lineer_capraz.dart';
@@ -12,7 +15,9 @@ import 'package:prokis/sicvefan_lineer_normal.dart';
 import 'package:prokis/sicvefan_pid_capraz.dart';
 import 'package:prokis/sicvefan_pid_normal.dart';
 import 'package:prokis/sogutma.dart';
+import 'deneme.dart';
 import 'genel/database_helper.dart';
+import 'genel/metotlar.dart';
 import 'isitma.dart';
 import 'klepe_klasik.dart';
 import 'klepe_tunel.dart';
@@ -41,6 +46,7 @@ class KontrolState extends State<Kontrol> {
   String bacaFanAdet = "0";
   String fanYontemi = "0";
   String klepeYontemi = "0";
+  String mhYontemi = "0";
   List<Map> dbVeriler;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -59,6 +65,11 @@ class KontrolState extends State<Kontrol> {
         fanYontemi = dbVeri[i]["veri1"];
       }
 
+      if (dbVeri[i]["id"] == 7) {
+        mhYontemi = dbVeri[i]["veri1"];
+        mhYontemi = "1";
+      }
+
       if (dbVeri[i]["id"] == 8) {
         klepeYontemi = dbVeri[i]["veri1"];
       }
@@ -73,62 +84,11 @@ class KontrolState extends State<Kontrol> {
   @override
   Widget build(BuildContext context) {
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
       
-      appBar: PreferredSize(
-        
-        preferredSize: Size.fromHeight(30 * oran),
-        child: AppBar(
-          leading: Builder(
-                    builder: (context) => IconButton(
-                      iconSize: 40 * oran,
-                      icon: Icon(Icons.menu),
-                      onPressed: () => Scaffold.of(context).openDrawer(),
-                      tooltip: MaterialLocalizations.of(context)
-                          .openAppDrawerTooltip,
-                    ),
-                  ),
-            actions: [
-              Row(
-                children: <Widget>[
-                  IconButton(
-                    icon: Icon(
-                      Icons.ac_unit,
-                      size: 40 * oran,
-                    ),
-                    onPressed: () {},
-                  ),
-                  Builder(
-                    builder: (context) => IconButton(
-                      iconSize: 40 * oran,
-                      icon: Icon(Icons.settings),
-                      onPressed: () => Scaffold.of(context).openEndDrawer(),
-                      tooltip: MaterialLocalizations.of(context)
-                          .openAppDrawerTooltip,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-            primary: false,
-            automaticallyImplyLeading: true,
-            centerTitle: true,
-            title: Text(
-              Dil().sec(dilSecimi, 'tv106'),
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28 * oran,
-                  fontFamily: 'Kelly Slab',
-                  fontWeight: FontWeight.bold),
-            )),
-      ),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv106'),
       body: Column(
         children: <Widget>[
           Expanded(
@@ -436,7 +396,32 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+
+                                    if(mhYontemi=="1"){
+                                      Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MinHavKlasik(dbVeriler)),
+                                          );
+                                    }
+                                    
+                                    if(mhYontemi=="2"){
+                                      Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MinHavAgirlik(dbVeriler)),
+                                          );
+                                    }
+
+                                    if(mhYontemi=="3"){
+                                      Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MinHavHacim(dbVeriler)),
+                                          );
+                                    }
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -569,7 +554,13 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Deneme(dbVeriler)),
+                                        );
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -714,21 +705,25 @@ class KontrolState extends State<Kontrol> {
           )
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => GenelAyarlar(dbVeriler)),
-                          );
+      floatingActionButton: Container(width: 56*oran,height: 56*oran,
+              child: FittedBox(
+                              child: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => GenelAyarlar(dbVeriler)),
+                              );
 
-        },
-        backgroundColor: Colors.blue,
-        child: Icon(
-          Icons.arrow_back,
-          size: 50,
-          color: Colors.white,
+          },
+          backgroundColor: Colors.blue,
+          child: Icon(
+            Icons.arrow_back,
+            size: 50,
+            color: Colors.white,
+          ),
         ),
+              ),
       ),
       drawer: Drawer(
         child: ListView(

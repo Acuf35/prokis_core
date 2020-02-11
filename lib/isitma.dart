@@ -96,54 +96,10 @@ class IsitmaState extends State<Isitma> {
 
     timerSayac++;
 
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30 * oran),
-          child: AppBar(
-              leading: Builder(
-                builder: (context) => IconButton(
-                  iconSize: 40 * oran,
-                  icon: Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                  tooltip:
-                      MaterialLocalizations.of(context).openAppDrawerTooltip,
-                ),
-              ),
-              actions: [
-                Row(
-                  children: <Widget>[
-                    Builder(
-                      builder: (context) => IconButton(
-                        color: Colors.yellow[700],
-                        iconSize: 40 * oran,
-                        icon: Icon(Icons.info_outline),
-                        onPressed: () => Scaffold.of(context).openEndDrawer(),
-                        tooltip: MaterialLocalizations.of(context)
-                            .openAppDrawerTooltip,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-              primary: false,
-              automaticallyImplyLeading: true,
-              centerTitle: true,
-              title: Text(
-                Dil().sec(dilSecimi, "tv263"),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28 * oran,
-                    fontFamily: 'Kelly Slab',
-                    fontWeight: FontWeight.bold),
-              )),
-        ),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv263'),
         body: Column(
           children: <Widget>[
             Expanded(
@@ -261,209 +217,217 @@ class IsitmaState extends State<Isitma> {
             )
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            timerCancel = true;
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
-            );
-          },
-          backgroundColor: Colors.blue,
-          child: Icon(
-            Icons.arrow_back,
-            size: 50,
-            color: Colors.white,
-          ),
-        ),
-        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: Drawer(
-        child: MediaQuery.removePadding(
-        removeTop: true,
-        context: context,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                alignment: Alignment.center,
-                child: Text(
-                  Dil()
-                      .sec(dilSecimi, "tv264"), //Sıcaklık diyagramı
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                    fontFamily: 'Kelly Slab',
-                  ),
-                  textScaleFactor: oran,
-                ),
-                color: Colors.yellow[700],
-              ),
-            ),
-            Expanded(
-              flex: 7,
-              child: DrawerHeader(
-                padding: EdgeInsets.zero,
-                margin: EdgeInsets.all(0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(flex: 2,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            alignment: Alignment.center,
-                            image: AssetImage('assets/images/diagram_isitma.jpg'),
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                    ),
-                    
-                    Expanded(
-                      flex: 4,
-                      child: Container(
-                        color: Colors.grey[100],
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: <Widget>[
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("B",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("C",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A-B",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A-C",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("D",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("E",style: TextStyle(fontSize: 11*oran),))),
-                                  Expanded(child: Container(alignment: Alignment.centerRight,child: Text("F",style: TextStyle(fontSize: 11*oran),))),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Container(alignment: Alignment.centerLeft,
-                                      child: Text(" : " +Dil().sec(dilSecimi, "tv115"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv247"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv248"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv254"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv255"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv265"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv266"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
+        floatingActionButton: Container(width: 56*oran,height: 56*oran,
 
-                                  Expanded(
-                                                                      child: Container(alignment: Alignment.centerLeft,
-                                                                        child: Text(
-                                      " : " +
-                                          Dil().sec(
-                                              dilSecimi, "tv267"),style: TextStyle(fontSize: 11*oran),
-                                    ),
-                                                                      ),
-                                  ),
-
-                                  
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                decoration: BoxDecoration(
+          child: FittedBox(
+                      child: FloatingActionButton(
+                onPressed: () {
+                  timerCancel = true;
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.blue,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
                   color: Colors.white,
                 ),
               ),
-            ),
-            Expanded(
-              flex: 10,
-              child: Container(
-                color: Colors.yellow[100],
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: <Widget>[
-                    ListTile(
-                      dense: false,
-                      title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
-                      subtitle: Text(
-                        Dil().sec(dilSecimi, "info11"),
-                        style: TextStyle(
-                          fontSize: 13 * oran,
-                        ),
-                      ),
-                      onTap: () {
-                        // Update the state of the app.
-                        // ...
-                      },
+          ),
+        ),
+        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
+        endDrawer: SizedBox(width: 320*oran,
+                  child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+          context: context,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Text(
+                    Dil()
+                        .sec(dilSecimi, "tv264"), //Sıcaklık diyagramı
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontFamily: 'Kelly Slab',
                     ),
-                  ],
+                    textScaleFactor: oran,
+                  ),
+                  color: Colors.yellow[700],
                 ),
               ),
-            ),
-          ],
-        ),
+              Expanded(
+                flex: 7,
+                child: DrawerHeader(
+                  padding: EdgeInsets.zero,
+                  margin: EdgeInsets.all(0),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(flex: 2,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.center,
+                              image: AssetImage('assets/images/diagram_isitma.jpg'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                      
+                      Expanded(
+                        flex: 4,
+                        child: Container(
+                          color: Colors.grey[100],
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("B",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("C",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A-B",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A-C",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("D",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("E",style: TextStyle(fontSize: 11*oran),))),
+                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("F",style: TextStyle(fontSize: 11*oran),))),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: Container(alignment: Alignment.centerLeft,
+                                        child: Text(" : " +Dil().sec(dilSecimi, "tv115"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv247"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv248"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv254"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv255"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv265"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv266"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+
+                                    Expanded(
+                                                                        child: Container(alignment: Alignment.centerLeft,
+                                                                          child: Text(
+                                        " : " +
+                                            Dil().sec(
+                                                dilSecimi, "tv267"),style: TextStyle(fontSize: 11*oran),
+                                      ),
+                                                                        ),
+                                    ),
+
+                                    
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 10,
+                child: Container(
+                  color: Colors.yellow[100],
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: <Widget>[
+                      ListTile(
+                        dense: false,
+                        title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
+                        subtitle: Text(
+                          Dil().sec(dilSecimi, "info11"),
+                          style: TextStyle(
+                            fontSize: 13 * oran,
+                          ),
+                        ),
+                        onTap: () {
+                          // Update the state of the app.
+                          // ...
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
       ),
-    )
+    ),
+        )
+    
     );
   }
 

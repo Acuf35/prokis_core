@@ -13,16 +13,19 @@ import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'isitici_haritasi.dart';
+import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
 class SiloHaritasi extends StatefulWidget {
   List<Map> gelenDBveri;
-  SiloHaritasi(List<Map> dbVeriler) {
+  bool gelenDurum;
+  SiloHaritasi(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
+    gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return SiloHaritasiState(gelenDBveri);
+    return SiloHaritasiState(gelenDBveri,gelenDurum);
   }
 }
 
@@ -49,10 +52,12 @@ class SiloHaritasiState extends State<SiloHaritasi> {
 
   List<int> tumCikislar = new List(111);
 
+  bool durum;
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  SiloHaritasiState(List<Map> dbVeri) {
+  SiloHaritasiState(List<Map> dbVeri,bool drm) {
     bool siloHaritaOK = false;
     bool siloNoOK = false;
     bool tumCikislarVar = false;
@@ -131,7 +136,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
         tumCikislar[i] = 0;
       }
     }
-
+    durum=drm;
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -139,16 +144,32 @@ class SiloHaritasiState extends State<SiloHaritasi> {
   @override
   Widget build(BuildContext context) {
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
-    var width = MediaQuery.of(context).size.width *
-        MediaQuery.of(context).devicePixelRatio;
-    var height = MediaQuery.of(context).size.height *
-        MediaQuery.of(context).devicePixelRatio;
-    var carpim = width * height;
-    var oran = carpim / 2073600.0;
+    var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
+      floatingActionButton: Visibility(visible: !durum,
+          child: Container(width: 40*oran,height: 40*oran,
+            child: FittedBox(
+                        child: FloatingActionButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                  );
+                },
+                backgroundColor: Colors.white,
+                child: Icon(
+                  Icons.arrow_back,
+                  size: 50,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+    ),
+    
         body: Column(
       children: <Widget>[
         //Başlık bölümü
@@ -661,19 +682,21 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                 //geri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_back_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    IsiticiHaritasi(dbVeriler)),
-                          );
-                        
-                        //Navigator.pop(context, tumCikislar);
-                      },
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_back_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      IsiticiHaritasi(dbVeriler,true)),
+                            );
+                          
+                          //Navigator.pop(context, tumCikislar);
+                        },
+                      ),
                     )),
                 Spacer(
                   flex: 1,
@@ -681,41 +704,29 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                 //ileri ok
                 Expanded(
                     flex: 2,
-                    child: IconButton(
-                      icon: Icon(Icons.arrow_forward_ios),
-                      iconSize: 50 * oran,
-                      onPressed: () {
-                        if (!veriGonderildi) {
-                          Toast.show(
-                              Dil()
-                                  .sec(dilSecimi, "toast27"),
+                    child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
+                                          child: IconButton(
+                        icon: Icon(Icons.arrow_forward_ios),
+                        iconSize: 50 * oran,
+                        onPressed: () {
+                          if (!veriGonderildi) {
+                            Toast.show(
+                                Dil()
+                                    .sec(dilSecimi, "toast27"),
+                                context,
+                                duration: 3);
+                          } else {
+
+                             Navigator.pushReplacement(
                               context,
-                              duration: 3);
-                        } else {
-
-                           Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AluyayHaritasi(dbVeriler)),
-                          );
-
-                          /*
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    AluyayHaritasi(dbVeriler)),
-                          ).then((onValue) {
-                            _dbVeriCekme();
-                            for (int i = 1; i <= 110; i++) {
-                              tumCikislar[i] = onValue[i];
-                            }
-                          });
-                          */
-                        }
-                      },
-                      color: Colors.black,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      AluyayHaritasi(dbVeriler,true)),
+                            );
+                          }
+                        },
+                        color: Colors.black,
+                      ),
                     )),
                 Spacer(
                   flex: 1,

@@ -1,70 +1,127 @@
-// Flutter code sample for
+import 'dart:convert';
+import 'dart:io';
+import 'dart:async';
 
-// In this example, the children are spaced out equally, unless there's no more
-// room, in which case they stack vertically and scroll.
-//
-// When using this technique, [Expanded] and [Flexible] are not useful, because
-// in both cases the "available space" is infinite (since this is in a viewport).
-// The next section describes a technique for providing a maximum height constraint.
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/dil_secimi.dart';
+import 'package:toast/toast.dart';
+import 'adetler.dart';
+import 'genel/cikis_alert.dart';
+import 'genel/database_helper.dart';
+import 'languages/select.dart';
 
-//void main() => runApp(MyApp());
+class Deneme extends StatefulWidget {
+  List<Map> gelenDBveri;
+  Deneme(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
+  }
 
-/// This Widget is the main application widget.
-class MyAppAcuf extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return WidgetsApp(
-      title: 'Flutter Code Sample',
-      builder: (BuildContext context, Widget navigator) {
-        return MyStatelessWidget();
-      },
-      color: const Color(0xffffffff),
-    );
+  State<StatefulWidget> createState() {
+    return DenemeState(gelenDBveri);
   }
 }
 
-/// This is the stateless widget that the main application instantiates.
-class MyStatelessWidget extends StatelessWidget {
-  MyStatelessWidget({Key key}) : super(key: key);
+class DenemeState extends State<Deneme> {
+//++++++++++++++++++++++++++DATABASE ve DİĞER DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  List<Map> dbVeriler;
+  final dbHelper = DatabaseHelper.instance;
+  var dbSatirlar;
+  int dbSatirSayisi = 0;
+  int sayacFirstCycle = 0;
+  String dilSecimi = "TR";
+  String kurulumDurum = "0";
+  String kumesTuru;
+  int kumesTuruIndex;
+  String kumesNo = "1";
+  int kumesIsimLimit = 15;
+  int adminSifreLimit1 = 4;
+  int adminSifreLimit2 = 4;
+  bool sifreGor1 = false;
+  bool sifreGor2 = false;
+
+  String kumesIsmi = "";
+  String sifreAna = "";
+  String sifreTekrar = "";
+  bool sifreUyusma = false;
+  bool sifreOnaylandi = false;
+
+  final FocusNode _focusNodeKumesIsmi = FocusNode();
+  
+
+//--------------------------DATABASE ve DİĞER DEĞİŞKENLER--------------------------------
+
+
+//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  DenemeState(List<Map> dbVeri) {
+    
+  }
+//--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
+
+//++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
+
+/*
+    var oran = MediaQuery.of(context).size.width / 731.4;
+
+*/
+
+
+    var width = MediaQuery.of(context).size.width *
+        MediaQuery.of(context).devicePixelRatio;
+    var height = MediaQuery.of(context).size.height *
+        MediaQuery.of(context).devicePixelRatio;
+    var carpim = MediaQuery.of(context).size.width * MediaQuery.of(context).size.height;
+    //var oran = carpim / 2073600.0;
+    var ratio = MediaQuery.of(context).devicePixelRatio;
+    var oran = carpim / 300930.612244898*(ratio/2.625);
+
+    
+//--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
+
+//++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints viewportConstraints) {
         return Scaffold(
-          body: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              minHeight: viewportConstraints.maxHeight,
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            
+            body: Center(child: Row(mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Container(
-                  // A fixed-height child.
-                  color: const Color(0xff808000), // Yellow
-                  height: 120.0,
-                ),
-                Container(
-                  // Another fixed-height child.
-                  color: const Color(0xff008000), // Green
-                  height: 120.0,
-                  child: TextField()
+                Container(height: 900,width: 2,color: Colors.green,),
+                Column(mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("data",textScaleFactor: oran,style: TextStyle(fontSize: 50),),
+                    RaisedButton(onPressed: (){
+                      print(oran);
+                      print(carpim);
+                      print(MediaQuery.of(context).devicePixelRatio);
+                      print(MediaQuery.of(context).size);
+                      print(MediaQuery.of(context).size.width);
+                      print(MediaQuery.of(context).textScaleFactor);
+                    },color: Colors.yellow,
+                    )
+                  ],
                 ),
               ],
-            ),
-          ),
-        )
-      ,
-        );
-      },
+            ),)
+        );},
     );
+
+//--------------------------SCAFFOLD--------------------------------
+
   
-  
-  
+
   }
+
+//++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
+
+
+
+//--------------------------METOTLAR--------------------------------
+
 }
