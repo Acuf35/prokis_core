@@ -107,9 +107,9 @@ class Dil{
     kod=="tv83" ? metin='SİLO NO' : null;
     kod=="tv84" ? metin='Silo Haritası' : null;
     kod=="tv85" ? metin='Diğer Çıkışlar' : null;
-    kod=="tv86" ? metin='ALARM' : null;
-    kod=="tv87" ? metin='UYARI' : null;
-    kod=="tv88" ? metin='AYDINLATMA' : null;
+    kod=="tv86" ? metin='ALARM ÇKŞ' : null;
+    kod=="tv87" ? metin='UYARI ÇKŞ' : null;
+    kod=="tv88" ? metin='AYD. ÇKŞ' : null;
     kod=="tv89" ? metin='YEM 1 İleri' : null;
     kod=="tv90" ? metin='YEM 2 İleri' : null;
     kod=="tv91" ? metin='YEM 3 İleri' : null;
@@ -126,16 +126,16 @@ class Dil{
     kod=="tv102" ? metin='KONTROL' : null;
     kod=="tv103" ? metin='DATA LOG' : null;
     kod=="tv104" ? metin='ALARM AYAR.' : null;
-    kod=="tv105" ? metin='KURULUM' : null;
+    kod=="tv105" ? metin='SİSTEM' : null;
     kod=="tv106" ? metin='KONTROL AYARLARI' : null;
-    kod=="tv107" ? metin='SIC. ve FAN' : null;
+    kod=="tv107" ? metin='SIC. & FAN' : null;
     kod=="tv108" ? metin='KLEPE' : null;
-    kod=="tv109" ? metin='SOĞUTMA' : null;
+    kod=="tv109" ? metin='SOĞ. & NEM' : null;
     kod=="tv110" ? metin='MİN. HAV.' : null;
     kod=="tv111" ? metin='ISITMA' : null;
     kod=="tv112" ? metin='AYDINLATMA' : null;
-    kod=="tv113" ? metin='SİLO ve YEM' : null;
-    kod=="tv114" ? metin='P. SİHİRBAZI' : null;
+    kod=="tv113" ? metin='YEM & SU' : null;
+    kod=="tv114" ? metin='YARD. OPS.' : null;
     kod=="tv115" ? metin='Set Sıcaklığı' : null;
     kod=="tv116" ? metin='Doğal bölge bitiş sıcaklığı' : null;
     kod=="tv117" ? metin='Çapraz hav. bitiş sıcaklığı' : null;
@@ -350,6 +350,77 @@ class Dil{
     kod=="tv326" ? metin='Fasıla Set 1' : null;
     kod=="tv327" ? metin='Fasıla Set 2' : null;
     kod=="tv328" ? metin='Fasıla Set 3' : null;
+    kod=="tv329" ? metin='Aç Saati 1' : null;
+    kod=="tv330" ? metin='Aç Saati 2' : null;
+    kod=="tv331" ? metin='Kapa Saati 1' : null;
+    kod=="tv332" ? metin='Kapa Saati 2' : null;
+    kod=="tv333" ? metin='Aç-Kapa Saati 2\nAktif' : null;
+    kod=="tv334" ? metin='Dimmer' : null;
+    kod=="tv335" ? metin='Gündüz-Gece Ayd. Yüzdesi 1' : null;
+    kod=="tv336" ? metin='Gündüz-Gece Ayd. Yüzdesi 2' : null;
+    kod=="tv337" ? metin='Doğuş-Batış\nSüresi (Sn)' : null;
+    kod=="tv338" ? metin='Saat' : null;
+    kod=="tv339" ? metin='Dakika' : null;
+    kod=="tv340" ? metin='Ayd. Yüzdesi(%)' : null;
+    kod=="tv341" ? metin='Anlık Ayd. Yüzdesi(%)' : null;
+    kod=="tv342" ? metin='Aydınlık Yüzdesi Çizelgesi' : null;
+    kod=="tv343" ? metin='Gündüz Yüzdesi 1' : null;
+    kod=="tv344" ? metin='Gündüz Yüzdesi 2' : null;
+    kod=="tv345" ? metin='Gece Yüzdesi 1' : null;
+    kod=="tv346" ? metin='Gece Yüzdesi 2' : null;
+    kod=="tv347" ? metin='SÜRÜ' : null;
+    kod=="tv348" ? metin='KALİBRASYON' : null;
+    kod=="tv349" ? metin='Girişler' : null;
+    kod=="tv350" ? metin='GİRİŞLER' : null;
+    kod=="tv351" ? metin='Girişlerin Atanması' : null;
+    kod=="tv352" ? metin='Acil Stop' : null;
+    kod=="tv353" ? metin='Faz Koruma' : null;
+    kod=="tv354" ? metin='Elk. Kesildi' : null;
+    kod=="tv355" ? metin='Fan Termik' : null;
+    kod=="tv356" ? metin='Klp Termik' : null;
+    kod=="tv357" ? metin='Ped Termik' : null;
+    kod=="tv358" ? metin='Klp1 Aç Swç' : null;
+    kod=="tv359" ? metin='Klp2 Aç Swç' : null;
+    kod=="tv360" ? metin='Klp3 Aç Swç' : null;
+    kod=="tv361" ? metin='Klp4 Aç Swç' : null;
+    kod=="tv362" ? metin='Klp5 Aç Swç' : null;
+    kod=="tv363" ? metin='Klp6 Aç Swç' : null;
+    kod=="tv364" ? metin='Klp7 Aç Swç' : null;
+    kod=="tv365" ? metin='Klp8 Aç Swç' : null;
+    kod=="tv366" ? metin='Klp9 Aç Swç' : null;
+    kod=="tv367" ? metin='Klp10 Aç Swç' : null;
+    kod=="tv368" ? metin='Klp1 Kapa Swç' : null;
+    kod=="tv369" ? metin='Klp2 Kapa Swç' : null;
+    kod=="tv370" ? metin='Klp3 Kapa Swç' : null;
+    kod=="tv371" ? metin='Klp4 Kapa Swç' : null;
+    kod=="tv372" ? metin='Klp5 Kapa Swç' : null;
+    kod=="tv373" ? metin='Klp6 Kapa Swç' : null;
+    kod=="tv374" ? metin='Klp7 Kapa Swç' : null;
+    kod=="tv375" ? metin='Klp8 Kapa Swç' : null;
+    kod=="tv376" ? metin='Klp9 Kapa Swç' : null;
+    kod=="tv377" ? metin='Klp10 Kapa Swç' : null;
+    kod=="tv378" ? metin='Air1 Aç Swç' : null;
+    kod=="tv379" ? metin='Air2 Aç Swç' : null;
+    kod=="tv380" ? metin='Air1 Kapa Swç' : null;
+    kod=="tv381" ? metin='Air2 Kapa Swç' : null;
+    kod=="tv382" ? metin='A.Inlet Term.' : null;
+    kod=="tv383" ? metin='B.Fan Term.' : null;
+    kod=="tv384" ? metin='Isıtıcı Term.' : null;
+    kod=="tv385" ? metin='Sirk. Term.' : null;
+    kod=="tv386" ? metin='Su Sayacı 1' : null;
+    kod=="tv387" ? metin='Su Sayacı 2' : null;
+    kod=="tv388" ? metin='Su Sayacı 3' : null;
+    kod=="tv389" ? metin='Su Sayacı 4' : null;
+    kod=="tv390" ? metin='Su Sayacı 5' : null;
+    kod=="tv391" ? metin='Su Sayacı 6' : null;
+    kod=="tv392" ? metin='Su Sayacı 7' : null;
+    kod=="tv393" ? metin='Su Sayacı 8' : null;
+    kod=="tv394" ? metin='Su Sayacı 9' : null;
+    kod=="tv395" ? metin='Su Sayacı 10' : null;
+    kod=="tv396" ? metin='Su Sayacı 11' : null;
+    kod=="tv397" ? metin='Su Sayacı 12' : null;
+    kod=="tv398" ? metin='Su Sayaç\nSayısı' : null;
+    kod=="tv399" ? metin='Pals Başına\nLitre' : null;
 
    
 
@@ -473,6 +544,10 @@ class Dil{
     kod=="toast70" ? metin='Kalibrasyon başladı...' : null;
     kod=="toast71" ? metin='Kalibrasyon sonlandırıldı...' : null;
     kod=="toast72" ? metin='Bu parametre "Fasıla Döngü Süresi" 10 dk olarak seçiliyse aktif edilebilir' : null;
+    kod=="toast73" ? metin='Yapılan değişiklikleri sisteme göndemediniz!' : null;
+    kod=="toast74" ? metin='Lütfen önce "Ac-Kapa Saati 2 Aktif" seçeneğini işaretleyin!' : null;
+    kod=="toast75" ? metin='Dimmer aktifken devre dışıdır!' : null;
+    kod=="toast76" ? metin='Lütfen tüm girişler için atama yapınız!' : null;
     
 
 
@@ -641,14 +716,14 @@ class Dil{
     ' altına düşürmeye çalışır.\n\n'
     '     Air Inlet Öncelik Süresi:\n'
     ' Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir\n\n'
-    '     Hava Giriş Katsayısı:\n'
+    '     Hava Giriş Yüzdesi:\n'
     ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
     '     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
     ' Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapa pozisyona gelme'
     ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'
     '     Fasıla Döngü Süresi:\n'
     ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durma yapar.'  : null;
+    ' Min. Hav fanları durur.'  : null;
 
     //MH Ağırlık(Civciv-Broiler) (Air inletsiz)
     kod=="info13" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
@@ -662,11 +737,11 @@ class Dil{
     ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava'
     ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin'
     ' altına düşürmeye çalışır.\n\n'
-    '     Hava Giriş Katsayısı:\n'
+    '     Hava Giriş Yüzdesi:\n'
     ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
     '     Fasıla Döngü Süresi:\n'
     ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durma yapar.'  : null;
+    ' Min. Hav fanları durur.'  : null;
 
 
      //MH Ağırlık(Tavuk) (Air inletli)
@@ -683,14 +758,14 @@ class Dil{
     ' altına düşürmeye çalışır.\n\n'
     '     Air Inlet Öncelik Süresi:\n'
     ' Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir\n\n'
-    '     Hava Giriş Katsayısı:\n'
+    '     Hava Giriş Yüzdesi:\n'
     ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
     '     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
     ' Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapa pozisyona gelme'
     ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'
     '     Fasıla Döngü Süresi:\n'
     ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durma yapar.'  : null;
+    ' Min. Hav fanları durur.'  : null;
 
     //MH Ağırlık(Tavuk) (Air inletsiz)
     kod=="info15" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
@@ -704,11 +779,11 @@ class Dil{
     ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava '
     ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin '
     ' altına düşürmeye çalışır.\n\n'
-    '     Hava Giriş Katsayısı:\n'
+    '     Hava Giriş Yüzdesi:\n'
     ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
     '     Fasıla Döngü Süresi:\n'
     ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durma yapar.'  : null;
+    ' Min. Hav fanları durur.'  : null;
 
 
 
@@ -724,14 +799,14 @@ class Dil{
     ' altına düşürmeye çalışır.\n\n'
     '     Air Inlet Öncelik Süresi:\n'
     ' Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir\n\n'
-    '     Hava Giriş Katsayısı:\n'
+    '     Hava Giriş Yüzdesi:\n'
     ' Hesaplanan toplam aktif hacim değişiminin % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
     '     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
     ' Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapa pozisyona gelme'
     ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'
     '     Fasıla Döngü Süresi:\n'
     ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durma yapar.'  : null;
+    ' Min. Hav fanları durur.'  : null;
 
 
 
@@ -741,15 +816,32 @@ class Dil{
     ' (K) Bölgesi:\n'
     ' Seçilen fanlar kesintisiz çalışır.\n\n'
     ' (F) Bölgesi:\n'
-    ' Ortalama sıcaklık, Set Sıcaklığı(A) değerinden küçük Fasıla Set 1(C) değerinden büyük olduğunda fanlar "Çalışma Süresi 1" kadar çalışır "Durmas Süresi 1" kadar durur.\n\n'
+    ' Ortalama sıcaklık, Set Sıcaklığı(A) değerinden küçük Fasıla Set 1(C) değerinden büyük olduğunda fanlar "Çalışma Süresi 1" kadar çalışır "Durma Süresi 1" kadar durur.\n\n'
     ' (G) Bölgesi:\n'
     ' Ortalama sıcaklık, Fasıla Set 1(C) değerinden küçük veya eşit Fasıla Set 2(D) değerinden büyük olduğunda fanlar "Çalışma Süresi 2" kadar çalışır '
-    ' "Durmas Süresi 2" kadar durur.\n\n'
+    ' "Durma Süresi 2" kadar durur.\n\n'
     ' (H) Bölgesi:\n'
     ' Ortalama sıcaklık, Fasıla Set 2(D) değerinden küçük veya eşit Fasıla Set 3(E) değerinden büyük olduğunda fanlar "Çalışma Süresi 3" kadar çalışır '
-    ' "Durmas Süresi 3" kadar durur.\n\n'
+    ' "Durma Süresi 3" kadar durur.\n\n'
     ' (J) Bölgesi:\n'
-    ' Ortalama sıcaklık, Fasıla Set 3(E) değerinden küçük veya eşit olduğunda fanlar "Çalışma Süresi 4" kadar çalışır "Durmas Süresi 4" kadar durur.'  : null;
+    ' Ortalama sıcaklık, Fasıla Set 3(E) değerinden küçük veya eşit olduğunda fanlar "Çalışma Süresi 4" kadar çalışır "Durma Süresi 4" kadar durur.'  : null;
+
+
+
+    //Aydınlatma dimmerli
+    kod=="info18" ? metin=' Aydınlık şiddeti girilen yüzde değerlerine göre belirtilen saatlerde sistem tarafından ayarlanır.\n\n'
+    ' "Aç Saati 1" geldiğinde sistem aydınlık şiddetini "Gündüz 1" değerine göre ayarlar\n\n'
+    ' "Kapa Saati 1" geldiğinde sistem aydınlık şiddetini "Gece 1" değerine göre ayarlar\n\n'
+    ' Eğer "Aç-Kapa Saati 2 Aktif" seçeneği aktif edilirse sistemi 2 kez dim yapmaya olanak sağlar aynı çalışma sistemi geçerlidir.\n\n'
+    ' "Aç Saati 2" geldiğinde sistem aydınlık şiddetini "Gündüz 2" değerine göre ayarlar\n\n'
+    ' "Kapa Saati 2" geldiğinde sistem aydınlık şiddetini "Gece 2" değerine göre ayarlar\n\n'
+    ' Belirlenen saat geldiğinde gündüzden geceye veya geceden gündüze geçiş "Doğuş-Batış Süresi (Sn)" parametresine girilen sürede gerçekleşir.'  : null;
+
+
+    //Aydınlatma dimmersiz
+    kod=="info19" ? metin=' Kümesin aydınlatma sistemi saat "Aç Saati 1" e geldiğinde çalışır, "Kapa Saati 1" e geldiğinde de kapanır. \n\nEğer'
+    ' "Aç-Kapa Saati 2 Aktif" seçeneği aktif edilirse sistemi 2 kez aç-kapa yapmaya olanak sağlar ve aynı çalışma sistemi geçerlidir.\n\n'
+    ' Kümesin aydınlatma sistemi saat "Aç Saati 2" e geldiğinde çalışır, "Kapa Saati 2" e geldiğinde de kapanır.'  : null;
 
 
     //endregion
@@ -855,9 +947,9 @@ class Dil{
     kod=="tv83" ? metin='SILO' : null;
     kod=="tv84" ? metin='Silo Map' : null;
     kod=="tv85" ? metin='Other Outputs' : null;
-    kod=="tv86" ? metin='ALARM' : null;
-    kod=="tv87" ? metin='WARNING' : null;
-    kod=="tv88" ? metin='LIGHT' : null;
+    kod=="tv86" ? metin='ALARM OUT' : null;
+    kod=="tv87" ? metin='WARNING OUT' : null;
+    kod=="tv88" ? metin='LIGHT OUT' : null;
     kod=="tv89" ? metin='Feed 1 Forward' : null;
     kod=="tv90" ? metin='Feed 2 Forward' : null;
     kod=="tv91" ? metin='Feed 3 Forward' : null;
@@ -874,16 +966,16 @@ class Dil{
     kod=="tv102" ? metin='CONTROL' : null;
     kod=="tv103" ? metin='DATA LOG' : null;
     kod=="tv104" ? metin='ALARM SET.' : null;
-    kod=="tv105" ? metin='INSTALLATION' : null;
+    kod=="tv105" ? metin='SYSTEM' : null;
     kod=="tv106" ? metin='CONTROL SETTINGS' : null;
-    kod=="tv107" ? metin='TEMP. and HUM.' : null;
+    kod=="tv107" ? metin='TEMP. & HUM.' : null;
     kod=="tv108" ? metin='FLAP' : null;
-    kod=="tv109" ? metin='COOLING' : null;
+    kod=="tv109" ? metin='COOL. & HUM.' : null;
     kod=="tv110" ? metin='MIN. VENT.' : null;
-    kod=="tv111" ? metin='HEATER' : null;
+    kod=="tv111" ? metin='OTHER OPT.' : null;
     kod=="tv112" ? metin='LIGHTING' : null;
-    kod=="tv113" ? metin='SILO and FEED' : null;
-    kod=="tv114" ? metin='P. WIZARD' : null;
+    kod=="tv113" ? metin='FEED & WATER' : null;
+    kod=="tv114" ? metin='HELPER OPT.' : null;
     kod=="tv115" ? metin='Set temperature' : null;
     kod=="tv116" ? metin='Natural Zone finish temp.' : null;
     kod=="tv117" ? metin='Cross vent. finish temp.' : null;
@@ -1098,6 +1190,77 @@ class Dil{
     kod=="tv326" ? metin='Intermittent Set 1' : null;
     kod=="tv327" ? metin='Intermittent Set 2' : null;
     kod=="tv328" ? metin='Intermittent Set 3' : null;
+    kod=="tv329" ? metin='On Time 1' : null;
+    kod=="tv330" ? metin='On Time 2' : null;
+    kod=="tv331" ? metin='Off Time 1' : null;
+    kod=="tv332" ? metin='Off Time 2' : null;
+    kod=="tv333" ? metin='On-Off Time 2\nActivity' : null;
+    kod=="tv334" ? metin='Dimmer' : null;
+    kod=="tv335" ? metin='Daytime Lig. Percent' : null;
+    kod=="tv336" ? metin='Nighttime Lig. Percent' : null;
+    kod=="tv337" ? metin='Sunrise-Sunset\nTime (Sec)' : null;
+    kod=="tv338" ? metin='Hour' : null;
+    kod=="tv339" ? metin='Minute' : null;
+    kod=="tv340" ? metin='Light Percent(%)' : null;
+    kod=="tv341" ? metin='Instant Light Percent(%)' : null;
+    kod=="tv342" ? metin='Lighting Percent Diagram' : null;
+    kod=="tv343" ? metin='Daytime Percent 1' : null;
+    kod=="tv344" ? metin='Daytime Percent 2' : null;
+    kod=="tv345" ? metin='Nighttime Percent 1' : null;
+    kod=="tv346" ? metin='Nighttime Percent 2' : null;
+    kod=="tv347" ? metin='HERD' : null;
+    kod=="tv348" ? metin='CALIBRATION' : null;
+    kod=="tv349" ? metin='Inputs' : null;
+    kod=="tv350" ? metin='INPUTS' : null;
+    kod=="tv351" ? metin='Input Assignments' : null;
+    kod=="tv352" ? metin='Emer. Stop' : null;
+    kod=="tv353" ? metin='Phase Cont.' : null;
+    kod=="tv354" ? metin='Power Cur' : null;
+    kod=="tv355" ? metin='Fan Fuse' : null;
+    kod=="tv356" ? metin='Klp Fuse' : null;
+    kod=="tv357" ? metin='Ped Fuse' : null;
+    kod=="tv358" ? metin='Klp1 Open Swc' : null;
+    kod=="tv359" ? metin='Klp2 Open Swc' : null;
+    kod=="tv360" ? metin='Klp3 Open Swc' : null;
+    kod=="tv361" ? metin='Klp4 Open Swc' : null;
+    kod=="tv362" ? metin='Klp5 Open Swc' : null;
+    kod=="tv363" ? metin='Klp6 Open Swc' : null;
+    kod=="tv364" ? metin='Klp7 Open Swc' : null;
+    kod=="tv365" ? metin='Klp8 Open Swc' : null;
+    kod=="tv366" ? metin='Klp9 Open Swc' : null;
+    kod=="tv367" ? metin='Klp10 Open Swc' : null;
+    kod=="tv368" ? metin='Klp1 Close Swc' : null;
+    kod=="tv369" ? metin='Klp2 Close Swc' : null;
+    kod=="tv370" ? metin='Klp3 Close Swc' : null;
+    kod=="tv371" ? metin='Klp4 Close Swc' : null;
+    kod=="tv372" ? metin='Klp5 Close Swc' : null;
+    kod=="tv373" ? metin='Klp6 Close Swc' : null;
+    kod=="tv374" ? metin='Klp7 Close Swc' : null;
+    kod=="tv375" ? metin='Klp8 Close Swc' : null;
+    kod=="tv376" ? metin='Klp9 Close Swc' : null;
+    kod=="tv377" ? metin='Klp10 Close Swc' : null;
+    kod=="tv378" ? metin='Air1 Open Swc' : null;
+    kod=="tv379" ? metin='Air2 Open Swc' : null;
+    kod=="tv380" ? metin='Air1 Close Swc' : null;
+    kod=="tv381" ? metin='Air2 Close Swc' : null;
+    kod=="tv382" ? metin='A.Inlet Fuse' : null;
+    kod=="tv383" ? metin='B.Fan Fuse' : null;
+    kod=="tv384" ? metin='Isıtıcı Fuse' : null;
+    kod=="tv385" ? metin='Sirk. Fuse' : null;
+    kod=="tv386" ? metin='WaterMeter 1' : null;
+    kod=="tv387" ? metin='WaterMeter 2' : null;
+    kod=="tv388" ? metin='WaterMeter 3' : null;
+    kod=="tv389" ? metin='WaterMeter 4' : null;
+    kod=="tv390" ? metin='WaterMeter 5' : null;
+    kod=="tv391" ? metin='WaterMeter 6' : null;
+    kod=="tv392" ? metin='WaterMeter 7' : null;
+    kod=="tv393" ? metin='WaterMeter 8' : null;
+    kod=="tv394" ? metin='WaterMeter 9' : null;
+    kod=="tv395" ? metin='WaterMeter 10' : null;
+    kod=="tv396" ? metin='WaterMeter 11' : null;
+    kod=="tv397" ? metin='WaterMeter 12' : null;
+    kod=="tv398" ? metin='WaterMeter\nQuantity' : null;
+    kod=="tv399" ? metin='Liter\nPer Pals' : null;
 
 
     
@@ -1228,6 +1391,10 @@ class Dil{
     kod=="toast70" ? metin='Calibration started...' : null;
     kod=="toast71" ? metin='Calibration stopped...' : null;
     kod=="toast72" ? metin='This parameter can be activated when "Intermittent Cycle Time" is 10 min ' : null;
+    kod=="toast73" ? metin='The parameter changes are not sent to system!' : null;
+    kod=="toast74" ? metin='Please firstly do active "On-Off Time 2 Activity" option!' : null;
+    kod=="toast75" ? metin='It is passive while dimmer option is checked!' : null;
+    kod=="toast76" ? metin='Please define an input number for all inputs!' : null;
 
 
     //endregion

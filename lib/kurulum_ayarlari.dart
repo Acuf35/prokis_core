@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
 import 'package:prokis/adetler.dart';
 import 'package:prokis/airinlet_haritasi.dart';
 import 'package:prokis/aluyay.dart';
@@ -12,6 +13,7 @@ import 'package:prokis/dil_secimi.dart';
 import 'package:prokis/fan_haritasi.dart';
 import 'package:prokis/fan_yontemi.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:prokis/girisler.dart';
 import 'package:prokis/isisensor_haritasi.dart';
 import 'package:prokis/isitici_haritasi.dart';
 import 'package:prokis/klepe_haritasi.dart';
@@ -22,6 +24,7 @@ import 'package:prokis/mh_yontemi.dart';
 import 'package:prokis/ped_haritasi.dart';
 import 'package:prokis/silo_haritasi.dart';
 import 'package:prokis/uz_debi_nem.dart';
+import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x1.dart';
@@ -52,6 +55,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
   String sifre = "0";
   
   List<Map> dbVeriler;
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -78,6 +82,41 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
       appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv299',Colors.grey[600]),
       body: Column(
         children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemTime(),
+                            style: TextStyle(
+                                  //color: Color(0xff2d386b),
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+              //Spacer(flex: 6,),
+              Expanded(
+                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemDate(),
+                            style: TextStyle(
+                                  //color: Color(0xff2d386b),
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+            ],
+          ),
           Expanded(
             flex: 40,
             child: Column(
@@ -353,20 +392,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                Spacer(),
-                //2. Satır
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(
-                        flex: 3,
+                        flex: 1,
                       ),
                       //MH Yöntemi
                       Expanded(
@@ -432,8 +458,22 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
+                      
                       Spacer(
-                        flex: 1,
+                        flex: 3,
+                      ),
+                      
+                    ],
+                  ),
+                ),
+                Spacer(),
+                //2. Satır
+                Expanded(
+                  flex: 10,
+                  child: Row(
+                    children: <Widget>[
+                      Spacer(
+                        flex: 3,
                       ),
                       //KLP Yöntemi
                       Expanded(
@@ -635,20 +675,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                Spacer(),
-                //3. Satır
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(
-                        flex: 3,
+                        flex: 1,
                       ),
                       //KLP Haritası
                       Expanded(
@@ -782,8 +809,22 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
+                      
                       Spacer(
-                        flex: 1,
+                        flex: 3,
+                      ),
+                      
+                    ],
+                  ),
+                ),
+                Spacer(),
+                //3. Satır
+                Expanded(
+                  flex: 10,
+                  child: Row(
+                    children: <Widget>[
+                      Spacer(
+                        flex: 3,
                       ),
                       //Isı Sensor Haritası
                       Expanded(
@@ -917,20 +958,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                Spacer(),
-                //4. Satır
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(
-                        flex: 3,
+                        flex: 1,
                       ),
                       //Air Inlet Haritası
                       Expanded(
@@ -1131,8 +1159,22 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
+                      
                       Spacer(
-                        flex: 1,
+                        flex: 3,
+                      ),
+                      
+                    ],
+                  ),
+                ),
+                Spacer(),
+                //4. Satır
+                Expanded(
+                  flex: 10,
+                  child: Row(
+                    children: <Widget>[
+                      Spacer(
+                        flex: 3,
                       ),
                       //Alarm-Uyarı-Aydınlatma
                       Expanded(
@@ -1199,7 +1241,74 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
+                        flex: 1,
+                      ),
+                      //Girişlerin tanımlanması
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv349'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: 
+                                RawMaterialButton(
+                                      onPressed: () {
+                                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Girisler(dbVeriler,false)),
+                                    );
+
+                                      },
+                                      child: LayoutBuilder(
+                                          builder: (context, constraint) {
+                                        return Icon(
+                                          Icons.settings,
+                                          size: constraint.biggest.height,
+                                          color: Colors.grey[700],
+                                        );
+                                      }),
+                                    ),
+                                
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 18,
                       ),
                       
                     ],

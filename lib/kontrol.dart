@@ -15,6 +15,8 @@ import 'package:prokis/sicvefan_lineer_normal.dart';
 import 'package:prokis/sicvefan_pid_capraz.dart';
 import 'package:prokis/sicvefan_pid_normal.dart';
 import 'package:prokis/sogutma.dart';
+import 'package:timer_builder/timer_builder.dart';
+import 'aydinlatma.dart';
 import 'deneme.dart';
 import 'genel/database_helper.dart';
 import 'genel/metotlar.dart';
@@ -67,7 +69,6 @@ class KontrolState extends State<Kontrol> {
 
       if (dbVeri[i]["id"] == 7) {
         mhYontemi = dbVeri[i]["veri1"];
-        mhYontemi = "1";
       }
 
       if (dbVeri[i]["id"] == 8) {
@@ -91,6 +92,40 @@ class KontrolState extends State<Kontrol> {
       appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv106'),
       body: Column(
         children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemTime(),
+                            style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+              
+              Expanded(
+                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemDate(),
+                            style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+            ],
+          ),
+          
           Expanded(
             flex: 40,
             child: Column(
@@ -558,7 +593,7 @@ class KontrolState extends State<Kontrol> {
                                     Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Deneme(dbVeriler)),
+                                              builder: (context) => Aydinlatma(dbVeriler)),
                                         );
                                   },
                                   child: Container(
@@ -624,7 +659,7 @@ class KontrolState extends State<Kontrol> {
                                       image: DecorationImage(
                                         alignment: Alignment.center,
                                         image: AssetImage(
-                                            'assets/images/silo_icon.png'),
+                                            'assets/images/su_silo_icon.png'),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -683,7 +718,7 @@ class KontrolState extends State<Kontrol> {
                                       image: DecorationImage(
                                         alignment: Alignment.center,
                                         image: AssetImage(
-                                            'assets/images/wizard_icon.png'),
+                                            'assets/images/diger_ops_icon.png'),
                                         fit: BoxFit.contain,
                                       ),
                                     ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 
 class Metotlar {
@@ -628,9 +630,25 @@ class Metotlar {
     );
   }
 
+/*
+  String getSystemTime() {
+      var now = new DateTime.now();
+      //return new DateFormat("H:m:s").format(now);
+      return new DateFormat('dd-MM-yyyy hh:mm:ss ').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
+      //return DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second).toString();
+  }
+  */
 
 
+  String getSystemTime() {
+      var now = new DateTime.now();
+      return new DateFormat('HH:mm:ss').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
+  }
 
+  String getSystemDate() {
+      var now = new DateTime.now();
+      return new DateFormat('dd-MM-yyyy').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
+  }
 
 
 

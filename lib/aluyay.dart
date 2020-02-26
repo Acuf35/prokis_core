@@ -12,6 +12,7 @@ import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
+import 'genel/deger_giris_4x0.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
@@ -36,6 +37,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
   int dbSatirSayisi = 0;
   String dilSecimi = "TR";
   String kurulumDurum = "0";
+  String sayacAdet = "0";
+  String palsBasinaLitre = "0";
 
   List<int> cikisAluyayNo = new List(4);
   List<int> cikisAluyayNoGecici = new List(4);
@@ -46,6 +49,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
   List<int> cikisYem3No = new List(3);
   List<int> cikisYem3NoGecici = new List(3);
 
+  int _binlerOut = 3;
+  int _yuzlerOut = 3;
   int _onlarOut = 3;
   int _birlerOut = 3;
   int _degerNo = 0;
@@ -61,6 +66,11 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
   List<int> tumCikislar = new List(111);
 
   bool durum;
+  bool dimmer=false;
+
+  List<bool> yrd = new List(5);
+
+  List<String> adet12 = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -70,6 +80,11 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
+      }
+
+      if (dbVeri[i]["id"] == 33) {
+        sayacAdet = dbVeri[i]["veri1"];
+        palsBasinaLitre = dbVeri[i]["veri2"];
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -86,12 +101,14 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       if (dbVeri[i]["id"] == 31) {
         String xx;
         String yy;
+        String zz;
 
         if (dbVeri[i]["veri1"] == "ok") {
           aluyayCikislarOK = true;
           veriGonderildi = true;
           xx = dbVeri[i]["veri2"];
           yy = dbVeri[i]["veri3"];
+          zz = dbVeri[i]["veri4"];
           var aluyayNolar = xx.split("#");
           var aktifYemCikislar = yy.split("#");
           cikisAluyayNo[1] = int.parse(aluyayNolar[0]);
@@ -106,6 +123,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
           yem1Aktif = aktifYemCikislar[0] == "1" ? true : false;
           yem2Aktif = aktifYemCikislar[1] == "1" ? true : false;
           yem3Aktif = aktifYemCikislar[2] == "1" ? true : false;
+          dimmer=zz=='1' ? true : false;
         }
       }
     }
@@ -141,12 +159,23 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       cikisYem3NoGecici[i] = cikisYem3No[i];
     }
     durum=drm;
+
+    yrd[1]=yem1Aktif;
+    yrd[2]=yem2Aktif;
+    yrd[3]=yem3Aktif;
+    yrd[4]=dimmer;
+
+
+
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+
   @override
   Widget build(BuildContext context) {
+
+
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
     var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
@@ -158,6 +187,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
             child: FittedBox(
                         child: FloatingActionButton(
                 onPressed: () {
+                  if(!veriGonderildi)
+                    Toast.show(Dil().sec(dilSecimi, "toast73"), context,duration: 3);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
@@ -214,14 +245,21 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Spacer(
-                  flex: 1,
-                ),
+                
+                Expanded(flex:5,child: _unsurAdetWidget(
+                            Dil().sec(dilSecimi, "tv398"),
+                            'assets/images/kurulum_fan_icon.png',
+                            oran,
+                            sayacAdet,
+                            adet12,
+                            1)),
+                
                 //Çıkışların olduğu bölüm
                 Expanded(
-                  flex: 12,
+                  flex: 21,
                   child: Column(
                     children: <Widget>[
+                      
                       Spacer(),
                       Expanded(
                         flex: 2,
@@ -233,7 +271,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisAluyay(1, oran),
+                                    _alarmVeUyariUnsur(1, oran),
                                   ],
                                 ),
                               ),
@@ -242,7 +280,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisAluyay(2, oran),
+                                    _alarmVeUyariUnsur(2, oran),
                                   ],
                                 ),
                               ),
@@ -250,12 +288,65 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                               Expanded(
                                 flex: 5,
                                 child: Column(
+                                    children: <Widget>[
+                                      _aydinlatmaUnsur(3, oran),
+                                    ],
+                                  ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    _aluyayGrupCikisAluyay(3, oran),
+                                    Expanded(child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi,"tv334"),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+                            Expanded(flex: 2,
+                                                          child: RawMaterialButton(
+                                        onPressed: () {
+                                          if (dimmer) {
+                                            dimmer = false;
+                                          } else {
+                                            dimmer = true;
+                                            cikisAluyayNo[3]=0;
+                                          }
+                                          if(dimmer!=yrd[4]){
+                                            veriGonderildi=false;
+                                          }
+                                          setState(() {});
+                                        },
+                                        child: Icon(
+                                          dimmer == true
+                                              ? Icons.check_box
+                                              : Icons.check_box_outline_blank,
+                                          color: dimmer == true
+                                              ? Colors.green[600]
+                                              : Colors.black,
+                                          size: 25 * oran,
+                                        ),
+                                        padding: EdgeInsets.all(0),
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        constraints: BoxConstraints(),
+                                      ),
+                            ),
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              
                             ],
                           ),
                         ),
@@ -288,6 +379,9 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                         } else {
                                           yem1Aktif = true;
                                         }
+                                        if(yem1Aktif!=yrd[1]){
+                                            veriGonderildi=false;
+                                          }
                                         setState(() {});
                                       },
                                       child: Icon(
@@ -329,6 +423,9 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                         } else {
                                           yem2Aktif = true;
                                         }
+                                        if(yem2Aktif!=yrd[2]){
+                                            veriGonderildi=false;
+                                          }
                                         setState(() {});
                                       },
                                       child: Icon(
@@ -370,6 +467,9 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                         } else {
                                           yem3Aktif = true;
                                         }
+                                        if(yem3Aktif!=yrd[3]){
+                                            veriGonderildi=false;
+                                          }
                                         setState(() {});
                                       },
                                       child: Icon(
@@ -389,7 +489,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              Spacer(flex: 2,),
                             ],
                           ),
                         ),
@@ -427,7 +527,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              Spacer(flex: 2,),
                             ],
                           ),
                         ),
@@ -465,7 +565,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                   ],
                                 ),
                               ),
-                              Spacer(),
+                              Spacer(flex: 2,),
                             ],
                           ),
                         ),
@@ -474,11 +574,9 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                     ],
                   ),
                 ),
-                Spacer(
-                  flex: 1,
-                ),
+                Spacer(),
                 Expanded(
-                  flex: 6,
+                  flex: 11,
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -792,9 +890,6 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 cikisVeri1 + cikisAluyayNo[i].toString() + "#";
                           }
 
-                          print(cikisYem1NoGecici);
-                          print(cikisYem1No);
-
                           for (int i = 1; i <= 2; i++) {
                             if (cikisYem1No[i] == 0 && yem1Aktif) {
                               noKontrol = false;
@@ -827,6 +922,16 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                 cikisKullanimda = true;
                               }
                             }
+
+                            if (cikisAluyayNo[i] == 0) {
+                              if(i==3 && dimmer){
+
+                              }else{
+                                noKontrol = false;
+                              }
+                            }
+
+
                           }
 
                           for (int i = 1; i <= 2; i++) {
@@ -920,8 +1025,8 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                     cikisVeri3 +
                                     cikisVeri4,
                                 cikisVeri5,
-                                "0",
-                                "0");
+                                dimmer==true?"1":"0",
+                                sayacAdet+"#"+palsBasinaLitre);
                             _veriGonder(
                                 "25", "27", tumCikislarVeri, "0", "0", "0");
                             dbHelper
@@ -933,15 +1038,19 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                                         cikisVeri3 +
                                         cikisVeri4,
                                     cikisVeri5,
-                                    "0")
+                                    dimmer==true?"1":"0")
                                 .then((deneme) {
                               dbHelper
                                   .veriYOKSAekleVARSAguncelle(
                                       22, "ok", tumCikislarVeri, "0", "0")
-                                  .then((onValue) {
-                                _dbVeriCekme();
+                                  .then((value) {
+                  dbHelper.veriYOKSAekleVARSAguncelle(
+                      33, sayacAdet, palsBasinaLitre, "0", "0").then((onValue){
+                        _dbVeriCekme();
+                      });
                               });
                             });
+
                             for (int i = 1; i <= 3; i++) {
                               cikisAluyayNoGecici[i] = cikisAluyayNo[i];
                             }
@@ -952,6 +1061,10 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                               cikisYem3NoGecici[i] = cikisYem3No[i];
                             }
                           }
+                          yrd[1]=yem1Aktif;
+                          yrd[2]=yem2Aktif;
+                          yrd[3]=yem3Aktif;
+                          yrd[4]=dimmer;
                         },
                         highlightColor: Colors.green,
                         splashColor: Colors.red,
@@ -1052,6 +1165,39 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     });
   }
 
+  Future _degergiris4X0(int binlerUnsur,int yuzlerUnsur,int onlarUnsur, int birlerUnsur, int indexNo,
+      double oran, String dil, String baslik, String onBaslik) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return DegerGiris4X0.Deger(
+            binlerUnsur, yuzlerUnsur,onlarUnsur,birlerUnsur, indexNo, oran, dil, baslik,onBaslik);
+      },
+    ).then((val) {
+      
+      if (_binlerOut != val[0] || _yuzlerOut != val[1] || _onlarOut != val[2] || _birlerOut != val[3]) {
+      veriGonderildi = false;
+    }
+
+    _binlerOut = val[0];
+    _yuzlerOut = val[1];
+    _onlarOut = val[2];
+    _birlerOut = val[3];
+    _degerNo = val[4];
+
+    palsBasinaLitre=(_binlerOut*1000+_yuzlerOut*100+_onlarOut*10+_birlerOut).toString();
+
+    setState(() {});
+
+    });
+  }
+
+
   
   Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int indexNo,
       double oran, String dil, String baslik, int degerGirisKodu) async {
@@ -1082,7 +1228,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     });
   }
 
-  //Üst görünüşten haritadaki sensörlere numara atama işlemi
+  //Alarm uyarı ve aydınlatma 
   degerGiris2X0Yrd1(var val) {
     if (_onlarOut != val[0] || _birlerOut != val[1]) {
       veriGonderildi = false;
@@ -1147,7 +1293,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     setState(() {});
   }
 
-//Üst görünüşten haritadaki sensörlere numara atama işlemi
+//Yem 1 ileri
   degerGiris2X0Yrd2(var val) {
     if (_onlarOut != val[0] || _birlerOut != val[1]) {
       veriGonderildi = false;
@@ -1215,7 +1361,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     setState(() {});
   }
 
-//Üst görünüşten haritadaki sensörlere numara atama işlemi
+//Yem 2 ileri
   degerGiris2X0Yrd3(var val) {
     if (_onlarOut != val[0] || _birlerOut != val[1]) {
       veriGonderildi = false;
@@ -1283,7 +1429,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     setState(() {});
   }
 
-//Üst görünüşten haritadaki sensörlere numara atama işlemi
+//Yem 3 ileri
   degerGiris2X0Yrd4(var val) {
     if (_onlarOut != val[0] || _birlerOut != val[1]) {
       veriGonderildi = false;
@@ -1351,6 +1497,9 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     setState(() {});
   }
 
+  
+
+
   _veriGonder(String dbKod, String id, String v1, String v2, String v3,
       String v4) async {
     Socket socket;
@@ -1393,22 +1542,32 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     }
   }
 
-  Widget _aluyayGrupCikisAluyay(int index, double oran) {
+  Widget _alarmVeUyariUnsur(int index, double oran) {
     return Expanded(
       flex: 2,
       child: Column(
         children: <Widget>[
-          Text(
-            Dil().sec(dilSecimi,
-                index == 1 ? "tv86" : (index == 2 ? "tv87" : "tv88")),
-            style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Kelly Slab',
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
-          ),
-          Expanded(
+          Expanded(child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi,
+                                  index == 1 ? "tv86" : (index == 2 ? "tv87" : "tv88")),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+
+          
+          Expanded(flex: 2,
             child: Row(
               children: <Widget>[
                 Spacer(),
@@ -1471,22 +1630,128 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
     );
   }
 
+  Widget _aydinlatmaUnsur(int index, double oran) {
+    return Expanded(
+      flex: 2,
+      child: Column(
+        children: <Widget>[
+          Expanded(child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi,
+                                  index == 1 ? "tv86" : (index == 2 ? "tv87" : "tv88")),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+
+          
+          Expanded(flex: 2,
+            child: Row(
+              children: <Widget>[
+                Spacer(),
+                Expanded(
+                  flex: 4,
+                  child: RawMaterialButton(
+                    onPressed: () {
+
+                      if(dimmer){
+                        Toast.show(Dil().sec(dilSecimi, "toast75"), context,duration: 3);
+                      }else{
+
+
+                      _onlarOut = cikisAluyayNo[index] < 10
+                          ? 0
+                          : (cikisAluyayNo[index] ~/ 10).toInt();
+                      _birlerOut = cikisAluyayNo[index] % 10;
+                      _degerNo = index;
+
+                      _degergiris2X0(
+                          _onlarOut,
+                          _birlerOut,
+                          index,
+                          oran,
+                          dilSecimi,
+                          index == 1 ? "tv86" : (index == 2 ? "tv87" : "tv88"),
+                          1);
+                      }
+
+                    },
+                    fillColor: dimmer ? Colors.grey[600] : Colors.green[300],
+                    child: Padding(
+                      padding: EdgeInsets.all(3.0 * oran),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  cikisAluyayNo[index].toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    constraints: BoxConstraints(minWidth: double.infinity),
+                  ),
+                ),
+                Spacer()
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+
   Widget _aluyayGrupCikisYem1(int index, double oran, bool aktif) {
     return Expanded(
       flex: 2,
       child: Column(
         children: <Widget>[
-          Text(
-            Dil()
+          Expanded(child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil()
                 .sec(dilSecimi, index == 1 ? "tv89" : "tv92"),
-            style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Kelly Slab',
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
-          ),
-          Expanded(
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+
+          
+          Expanded(flex: 2,
             child: Row(
               children: <Widget>[
                 Spacer(),
@@ -1549,17 +1814,25 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       flex: 2,
       child: Column(
         children: <Widget>[
-          Text(
-            Dil()
+          Expanded(child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil()
                 .sec(dilSecimi, index == 1 ? "tv90" : "tv93"),
-            style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Kelly Slab',
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
-          ),
-          Expanded(
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+          Expanded(flex: 2,
             child: Row(
               children: <Widget>[
                 Spacer(),
@@ -1622,17 +1895,25 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       flex: 2,
       child: Column(
         children: <Widget>[
-          Text(
-            Dil()
+          Expanded(child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil()
                 .sec(dilSecimi, index == 1 ? "tv91" : "tv94"),
-            style: TextStyle(
-                fontSize: 14,
-                fontFamily: 'Kelly Slab',
-                color: Colors.black,
-                fontWeight: FontWeight.bold),
-            textScaleFactor: oran,
-          ),
-          Expanded(
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+          Expanded(flex: 2,
             child: Row(
               children: <Widget>[
                 Spacer(),
@@ -1689,6 +1970,97 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       ),
     );
   }
+
+  Widget _sayacUnsur(int index, double oran) {
+    return Expanded(
+      flex: 4,
+      child: Column(
+        children: <Widget>[
+          Expanded(flex: 2,
+            child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi,"tv399"),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 2,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+
+          
+          Expanded(flex: 2,
+            child: Row(
+              children: <Widget>[
+                Spacer(),
+                Expanded(
+                  flex: 4,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      int sayi=int.parse(palsBasinaLitre);
+                      _binlerOut = sayi < 1000 ? 0 : (sayi ~/ 1000).toInt();
+                      _yuzlerOut = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                      _onlarOut = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                      _birlerOut = sayi % 10;
+                      _degerNo = index;
+
+                      _degergiris4X0(
+                        _binlerOut,
+                        _yuzlerOut,
+                          _onlarOut,
+                          _birlerOut,
+                          index,
+                          oran,
+                          dilSecimi,
+                          "tv399",
+                          "");
+                    },
+                    fillColor: Colors.orange[700],
+                    child: Padding(
+                      padding: EdgeInsets.all(3.0 * oran),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  palsBasinaLitre.toString(),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    constraints: BoxConstraints(minWidth: double.infinity),
+                  ),
+                ),
+                Spacer()
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _cikislarUnsur(int index, double oran) {
     return Expanded(
@@ -1978,6 +2350,81 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
 
     return sonuc;
   }
+
+  Widget _unsurAdetWidget(String baslik, String imagePath, double oran,
+      String dropDownValue, List<String> liste, int adetCode) {
+    return Column(
+      children: <Widget>[
+        Spacer(flex: 2,),
+        Expanded(
+          flex: 2,
+          child: SizedBox(
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              child: AutoSizeText(
+                baslik,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Kelly Slab',
+                    color: Colors.black,
+                    fontSize: 50,
+                    fontWeight: FontWeight.bold),
+                maxLines: 2,
+                minFontSize: 8,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: Container(
+            color: Colors.grey[300],
+            child: DropdownButton<String>(
+              isDense: true,
+              value: dropDownValue,
+              elevation: 16,
+              iconEnabledColor: Colors.black,
+              iconSize: 40 * oran,
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Kelly Slab',
+                fontSize: 30 * oran,
+                fontWeight: FontWeight.bold,
+              ),
+              underline: Container(
+                height: 1,
+                color: Colors.black,
+              ),
+              onChanged: (String newValue) {
+                  
+                  if(sayacAdet!=newValue){
+                    veriGonderildi=false;
+                  }
+                  
+                  sayacAdet = newValue;
+
+                setState(() {});
+              },
+              items: liste.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Container(
+
+                    child: Text(value),
+                    padding: EdgeInsets.only(left: 10*oran, bottom: 0*oran, top: 0*oran),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+        ),
+        Spacer(flex: 2,),
+        _sayacUnsur(1, oran),
+        Spacer(flex: 3,)
+      ],
+    );
+  }
+
 
 
 //--------------------------METOTLAR--------------------------------

@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/dil_secimi.dart';
 import 'package:prokis/kontrol.dart';
 import 'package:prokis/kurulum_ayarlari.dart';
+import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/metotlar.dart';
@@ -59,6 +60,40 @@ class GenelAyarlarState extends State<GenelAyarlar> {
       appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue),
       body: Column(
         children: <Widget>[
+          Row(
+            children: <Widget>[
+              Expanded(
+                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemTime(),
+                            style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+              
+              Expanded(
+                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemDate(),
+                            style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+            ],
+          ),
+          
           Expanded(
             flex: 40,
             child: Column(
@@ -253,6 +288,65 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                             ],
                           )),
                       Spacer(
+                        flex: 1,
+                      ),
+                      //ALARM AYAR.
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv104'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 2,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {},
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/alarm_ayarlari_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
                         flex: 3,
                       ),
                       
@@ -266,6 +360,128 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                     children: <Widget>[
                       Spacer(
                         flex: 3,
+                      ),
+                      //SÜRÜ
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv347'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    print(oran);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/suru_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 1,
+                      ),
+                      //KALİBRASYON
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv348'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    print(oran);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/kalibrasyon_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 1,
                       ),
                       //DATALOG
                       Expanded(
@@ -328,65 +544,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                       Spacer(
                         flex: 1,
                       ),
-                      //ALARM AYAR.
-                      Expanded(
-                          flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv104'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 2,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: RawMaterialButton(
-                                  onPressed: () {},
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        alignment: Alignment.center,
-                                        image: AssetImage(
-                                            'assets/images/alarm_ayarlari_icon.png'),
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      
                       //KURULUM
                       Expanded(
                           flex: 4,

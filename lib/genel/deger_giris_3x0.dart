@@ -287,7 +287,7 @@ class _DegerGiris3X0State extends State<DegerGiris3X0> {
                 child: RaisedButton(
                   color: Colors.indigo,
                   onPressed: () {
-                    var deger = [yuzlerX,onlarX1, birlerX1, index];
+                    var deger = [yuzlerX1,onlarX1, birlerX1, index];
                     Navigator.of(context).pop(deger);
                   },
                   child: Text(

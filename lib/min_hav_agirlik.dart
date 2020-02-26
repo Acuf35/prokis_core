@@ -9,6 +9,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel/metotlar.dart';
 import 'package:prokis/kontrol.dart';
+import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_1x2.dart';
@@ -129,6 +130,40 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
         appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276'),
         body: Column(
           children: <Widget>[
+            Row(
+            children: <Widget>[
+              Expanded(
+                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemTime(),
+                            style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+              
+              Expanded(
+                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
+                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                          return Text(
+                            Metotlar().getSystemDate(),
+                            style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontFamily: 'Kelly Slab',
+                                  fontSize: 12*oran,
+                                  fontWeight: FontWeight.bold),
+                          );
+                        }),
+                              ),
+              ),
+            ],
+          ),
+          
             Expanded(
               child: Container(
                 padding: EdgeInsets.only(bottom: 10 * oran),
