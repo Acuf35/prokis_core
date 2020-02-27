@@ -148,7 +148,6 @@ class AdetlerState extends State<Adetler> {
         klepeAdet = dbVeri[i]["veri2"];
         pedAdet = dbVeri[i]["veri3"];
         var xx=dbVeri[i]["veri4"].split('#');
-        print(xx);
         isiSensAdet = xx[0];
         if(xx.length>1){
           wifiOlcum = xx[1]=="1" ? true : false;
@@ -434,7 +433,7 @@ class AdetlerState extends State<Adetler> {
       socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
-      print('connected');
+      
 
       // listen to the received data event stream
       socket.listen((List<int> event) {

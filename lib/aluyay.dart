@@ -880,7 +880,6 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
                           String tumCikislarVeri = "";
                           bool noKontrol = false;
                           bool cikisKullanimda = false;
-                          print(cikisYem1No);
 
                           for (int i = 1; i <= 3; i++) {
                             if (cikisAluyayNo[i] != 0) {
@@ -1508,7 +1507,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
       socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
-      print('connected');
+      
 
       // listen to the received data event stream
       socket.listen((List<int> event) {

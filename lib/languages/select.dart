@@ -421,6 +421,20 @@ class Dil{
     kod=="tv397" ? metin='Su Sayacı 12' : null;
     kod=="tv398" ? metin='Su Sayaç\nSayısı' : null;
     kod=="tv399" ? metin='Pals Başına\nLitre' : null;
+    kod=="tv400" ? metin='KURULUM' : null;
+    kod=="tv401" ? metin='SİSTEM AYARLARI' : null;
+    kod=="tv402" ? metin='SAAT & TARİH' : null;
+    kod=="tv403" ? metin='SAAT & TARİH AYARLARI' : null;
+    kod=="tv404" ? metin='YIL' : null;
+    kod=="tv405" ? metin='AY' : null;
+    kod=="tv406" ? metin='GÜN' : null;
+    kod=="tv407" ? metin='SAAT' : null;
+    kod=="tv408" ? metin='DAKİKA' : null;
+    kod=="tv409" ? metin='Saat Formatı\n00:00-23:59' : null;
+    kod=="tv410" ? metin='Tarih Formatı 1\nGG-AA-YYYY' : null;
+    kod=="tv411" ? metin='Tarih Formatı 1\nAA-GG-YYYY' : null;
+    kod=="tv412" ? metin='SAATİ ONAYLA' : null;
+    kod=="tv413" ? metin='TARİHİ ONAYLA' : null;
 
    
 
@@ -1261,6 +1275,20 @@ class Dil{
     kod=="tv397" ? metin='WaterMeter 12' : null;
     kod=="tv398" ? metin='WaterMeter\nQuantity' : null;
     kod=="tv399" ? metin='Liter\nPer Pals' : null;
+    kod=="tv400" ? metin='INSTALLATION' : null;
+    kod=="tv401" ? metin='SYSTEM SETTINGS' : null;
+    kod=="tv402" ? metin='TIME & DATE' : null;
+    kod=="tv403" ? metin='TIME & DATE SETTINGS' : null;
+    kod=="tv404" ? metin='YEAR' : null;
+    kod=="tv405" ? metin='MONTH' : null;
+    kod=="tv406" ? metin='DAY' : null;
+    kod=="tv407" ? metin='HOUR' : null;
+    kod=="tv408" ? metin='MINUTE' : null;
+    kod=="tv409" ? metin='Hour Format\n00:00-23:59' : null;
+    kod=="tv410" ? metin='Date Format 1\nDD-MM-YYYY' : null;
+    kod=="tv411" ? metin='Date Format 1\nMM-DD-YYYY' : null;
+    kod=="tv412" ? metin='CONFIRM TIME' : null;
+    kod=="tv413" ? metin='CONFIRM DATE' : null;
 
 
     

@@ -129,7 +129,6 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
           var klepeNolar = xx.split("#");
           var cikisNolarAc = yy.split("#");
           var cikisNolarKapa = zz.split("#");
-          print(zz);
           for (int i = 1; i <= 2; i++) {
             airinletNo[i] = int.parse(klepeNolar[i - 1]);
             cikisNoAc[i] = int.parse(cikisNolarAc[i - 1]);
@@ -1278,7 +1277,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
       socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
-      print('connected');
+      
 
       // listen to the received data event stream
       socket.listen((List<int> event) {

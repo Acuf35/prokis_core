@@ -67,6 +67,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   SicVeFanKlasikCaprazState(List<Map> dbVeri) {
+    dbVeriler = dbVeri;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -123,7 +124,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                               child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemTime(),
+                            Metotlar().getSystemTime(dbVeriler),
                             style: TextStyle(
                                   color: Colors.grey[700],
                                   fontFamily: 'Kelly Slab',
@@ -138,7 +139,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                               child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemDate(),
+                            Metotlar().getSystemDate(dbVeriler),
                             style: TextStyle(
                                   color: Colors.grey[700],
                                   fontFamily: 'Kelly Slab',

@@ -23,6 +23,7 @@ import 'package:prokis/kumes_olustur.dart';
 import 'package:prokis/mh_yontemi.dart';
 import 'package:prokis/ped_haritasi.dart';
 import 'package:prokis/silo_haritasi.dart';
+import 'package:prokis/sistem.dart';
 import 'package:prokis/uz_debi_nem.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
@@ -60,6 +61,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   KurulumAyarlariState(List<Map> dbVeri) {
+    dbVeriler = dbVeri;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -88,7 +90,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemTime(),
+                            Metotlar().getSystemTime(dbVeriler),
                             style: TextStyle(
                                   //color: Color(0xff2d386b),
                                   color: Colors.grey[700],
@@ -104,7 +106,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemDate(),
+                            Metotlar().getSystemDate(dbVeriler),
                             style: TextStyle(
                                   //color: Color(0xff2d386b),
                                   color: Colors.grey[700],
@@ -1326,7 +1328,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => GenelAyarlar(dbVeriler)),
+                MaterialPageRoute(builder: (context) => Sistem(dbVeriler)),
               );
             },
             backgroundColor: Colors.grey[700],

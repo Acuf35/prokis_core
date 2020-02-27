@@ -135,6 +135,8 @@ flutter:
   - assets/images/su_silo_icon.png
   - assets/images/diger_ops_icon.png
   - assets/images/suru_icon.png
+  - assets/images/kurulum_icon.png
+  - assets/images/saat_tarih_ayar_icon.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

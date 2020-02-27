@@ -931,7 +931,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
       socket = await Socket.connect('192.168.1.110', 2233);
       String gelen_mesaj = "";
 
-      print('connected');
+      
 
       // listen to the received data event stream
       socket.listen((List<int> event) {

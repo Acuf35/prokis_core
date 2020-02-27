@@ -5,6 +5,8 @@ import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 
 class Metotlar {
+
+
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
     return SizedBox(
       width: 320 * oran,
@@ -631,7 +633,7 @@ class Metotlar {
   }
 
 /*
-  String getSystemTime() {
+  String getSystemTime(dbVeriler) {
       var now = new DateTime.now();
       //return new DateFormat("H:m:s").format(now);
       return new DateFormat('dd-MM-yyyy hh:mm:ss ').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
@@ -639,15 +641,56 @@ class Metotlar {
   }
   */
 
+  String getSystemTime(List<Map> dbVeri) {
 
-  String getSystemTime() {
+    bool format24saatlik=true;
+    int sat_fark=0;
+    int dkk_fark=0;
+    
+
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+
+      if (dbVeri[i]["id"] == 34) {
+        format24saatlik = dbVeri[i]["veri1"] =="1" ? true: false;
+      }
+      if (dbVeri[i]["id"] == 36) {
+        sat_fark = int.parse(dbVeri[i]["veri1"]);
+        dkk_fark = int.parse(dbVeri[i]["veri2"]);
+
+      }
+    }
+    print(sat_fark);
+    print(dkk_fark);
+
+
       var now = new DateTime.now();
-      return new DateFormat('HH:mm:ss').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
+      return new DateFormat(format24saatlik ? 'HH:mm:ss' : 'hh:mm:ss a').format(DateTime(now.year, now.month, now.day,now.hour, now.minute+dkk_fark, now.second));
   }
 
-  String getSystemDate() {
+  String getSystemDate(List<Map> dbVeri) {
+
+    bool tarihFormati1=true;
+
+    int yil_fark=0;
+    int ayy_fark=0;
+    int gun_fark=0;
+
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+
+      if (dbVeri[i]["id"] == 34) {
+        tarihFormati1 = dbVeri[i]["veri2"] =="1" ? true: false;
+      }
+      if (dbVeri[i]["id"] == 35) {
+        gun_fark = int.parse(dbVeri[i]["veri1"]);
+        ayy_fark = int.parse(dbVeri[i]["veri2"]);
+        yil_fark = int.parse(dbVeri[i]["veri3"]);
+        
+      }
+    }
+
+
       var now = new DateTime.now();
-      return new DateFormat('dd-MM-yyyy').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
+      return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(DateTime(now.year+yil_fark, now.month+ayy_fark, now.day+gun_fark));
   }
 
 
