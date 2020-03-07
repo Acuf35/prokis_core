@@ -57,6 +57,8 @@ class SaatTarihState extends State<SaatTarih> {
   bool tarihFormati1=true;
   bool tarihFormati2=false;
 
+  bool baglanti = false;
+
   List<String> adet15 = [
     '2020',
     '2021',
@@ -377,6 +379,7 @@ class SaatTarihState extends State<SaatTarih> {
                               ayy_fark=(int.parse(ayy)-DateTime.now().month).toString();
                               yil_fark=(int.parse(yil)-DateTime.now().year).toString();
                               dbHelper.veriYOKSAekleVARSAguncelle(35, gun_fark, ayy_fark, yil_fark, "0").then((value) => _dbVeriCekme());
+                              _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk");
                               setState(() {});
                               
                             },
@@ -419,6 +422,7 @@ class SaatTarihState extends State<SaatTarih> {
                               sat_fark=(int.parse(sat)-DateTime.now().hour).toString();
                               dkk_fark=(int.parse(dkk)-DateTime.now().minute).toString();
                               dbHelper.veriYOKSAekleVARSAguncelle(36, sat_fark, dkk_fark, "0", "0").then((value) => _dbVeriCekme());
+                              _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk");
                               setState(() {});
                               
                             },
@@ -600,6 +604,47 @@ class SaatTarihState extends State<SaatTarih> {
       dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
   }
+
+
+_veriGonder(String emir) async {
+    try {
+      String gelenMesaj = "";
+      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
+      await Socket.connect('192.168.1.110', 2235).then((socket) {
+        String gelen_mesaj = "";
+
+        socket.add(utf8.encode(emir));
+
+        socket.listen(
+          (List<int> event) {
+            print(utf8.decode(event));
+            gelen_mesaj = utf8.decode(event);
+            var gelen_mesaj_parcali = gelen_mesaj.split("*");
+
+            if (gelen_mesaj_parcali[0] == 'ok') {
+              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 2);
+            } else {
+              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
+            }
+          },
+          onDone: () {
+            baglanti = false;
+            socket.close();
+            setState(() {});
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+        baglanti = false;
+      });
+    } catch (e) {
+      print(e);
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
+      baglanti = false;
+    }
+  }
+
 
 Widget _unsurAdetWidget(String baslik, double oran,
       String dropDownValue, List<String> liste, int adetCode,int flexValue) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -659,8 +660,6 @@ class Metotlar {
 
       }
     }
-    print(sat_fark);
-    print(dkk_fark);
 
 
       var now = new DateTime.now();
@@ -690,8 +689,10 @@ class Metotlar {
 
 
       var now = new DateTime.now();
+      
       return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(DateTime(now.year+yil_fark, now.month+ayy_fark, now.day+gun_fark));
   }
+
 
 
 

@@ -8,9 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/dil_secimi.dart';
+import 'package:prokis/kalibrasyon.dart';
 import 'package:prokis/kontrol.dart';
 import 'package:prokis/kurulum_ayarlari.dart';
+import 'package:prokis/oto_man.dart';
 import 'package:prokis/sistem.dart';
+import 'package:prokis/suru.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
@@ -274,7 +277,14 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              OtoMan(dbVeriler)),
+                                    );
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -405,7 +415,12 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    print(oran);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SuruBilgisi(dbVeriler)),
+                                    );
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -466,7 +481,12 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    print(oran);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Kalibrasyon(dbVeriler)),
+                                    );
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

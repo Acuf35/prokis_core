@@ -1260,6 +1260,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                               Dil().sec(
                                                   dilSecimi, "tv212")+Dil().sec(
                                                   dilSecimi, "tv192")+" $klepeNo",
+                                                  textScaleFactor: oran,
                                               style: TextStyle(
                                                   fontFamily: 'Kelly Slab',
                                                   fontWeight: FontWeight.bold),

@@ -300,7 +300,7 @@ class Dil{
     kod=="tv276" ? metin='MİNİMUM HAVALANDIRMA' : null;
     kod=="tv277" ? metin='Min. Hav.\nFan Sayısı' : null;
     kod=="tv278" ? metin='Hayv. Başına\nihtiyaç(m3/h)' : null;
-    kod=="tv279" ? metin='7 Haftalık Hayvan Başına İhtiyaç(m3/h)' : null;
+    kod=="tv279" ? metin='Hayvan Başına Min. Hav. İhtiyacı(m3/h)' : null;
     kod=="tv280" ? metin='1-7 Gün' : null;
     kod=="tv281" ? metin='8-14 Gün' : null;
     kod=="tv282" ? metin='15-21 Gün' : null;
@@ -310,7 +310,7 @@ class Dil{
     kod=="tv286" ? metin='43-49 Gün' : null;
     kod=="tv287" ? metin='50 ve Sonrası' : null;
     kod=="tv288" ? metin='Default Değerlere Dön' : null;
-    kod=="tv289" ? metin='Dönemlik Hayvan Başına Hava İhtiyacı(m3/h)' : null;
+    kod=="tv289" ? metin='Hayvan Başına Min. Hav. İhtiyacı(m3/h)' : null;
     kod=="tv290" ? metin='7-20 Hafta' : null;
     kod=="tv291" ? metin='21-52 Hafta' : null;
     kod=="tv292" ? metin='53 ve Sonrası' : null;
@@ -435,6 +435,70 @@ class Dil{
     kod=="tv411" ? metin='Tarih Formatı 1\nAA-GG-YYYY' : null;
     kod=="tv412" ? metin='SAATİ ONAYLA' : null;
     kod=="tv413" ? metin='TARİHİ ONAYLA' : null;
+    kod=="tv414" ? metin='SÜRÜ BİLGİLERİ' : null;
+    kod=="tv415" ? metin='Sürü Doğum\nTarihi' : null;
+    kod=="tv416" ? metin='Sürü Giriş\nTarihi' : null;
+    kod=="tv417" ? metin='Hayvan Sayısı\n(girişte)' : null;
+    kod=="tv418" ? metin='Ölü Hayvan\nSayısı' : null;
+    kod=="tv419" ? metin='Kategorilere Göre Ölü Hayvan Sayısı Girişi' : null;
+    kod=="tv420" ? metin='Hastalık Kaynaklı' : null;
+    kod=="tv421" ? metin='Ekipman Kaynaklı' : null;
+    kod=="tv422" ? metin='Hayv. Saldırısı Kaynaklı' : null;
+    kod=="tv423" ? metin='Havalandırma Kaynaklı' : null;
+    kod=="tv424" ? metin='Yem Kaynaklı' : null;
+    kod=="tv425" ? metin='Su Kaynaklı' : null;
+    kod=="tv426" ? metin='Ölüm\noranı (%)' : null;
+    kod=="tv427" ? metin='Güncel Hayvan\nSayısı' : null;
+    kod=="tv428" ? metin='Sürü Yaşı\n(Günlük)' : null;
+    kod=="tv429" ? metin='Sürü Yaşı\n(Haftalık)' : null;
+    kod=="tv430" ? metin='Sürü Parametre Detayları' : null;
+    kod=="tv431" ? metin='SENSÖR KALİBRASYONU' : null;
+    kod=="tv432" ? metin='Nem. Sen. Ölçüm Yöntemi' : null;
+    kod=="tv433" ? metin='Wifi' : null;
+    kod=="tv434" ? metin='Analog' : null;
+    kod=="tv435" ? metin='Isı Sensörleri' : null;
+    kod=="tv436" ? metin='Artı-Eksi Sensor Kalibrasyon Değeri Gir' : null;
+    kod=="tv437" ? metin='Sıcaklık\nDeğeri (°C)' : null;
+    kod=="tv438" ? metin='+ Değer' : null;
+    kod=="tv439" ? metin='- Değer' : null;
+    kod=="tv440" ? metin='Nem Sensörleri' : null;
+    kod=="tv441" ? metin='İç Nem' : null;
+    kod=="tv442" ? metin='Dış Nem' : null;
+    kod=="tv443" ? metin='Analog1' : null;
+    kod=="tv444" ? metin='Analog2' : null;
+    kod=="tv445" ? metin='Analog3' : null;
+    kod=="tv446" ? metin='Analog4' : null;
+    kod=="tv447" ? metin='Analog5' : null;
+    kod=="tv448" ? metin='Analog6' : null;
+    kod=="tv449" ? metin='Analog7' : null;
+    kod=="tv450" ? metin='Analog8' : null;
+    kod=="tv451" ? metin='Analog9' : null;
+    kod=="tv452" ? metin='Analog10' : null;
+    kod=="tv453" ? metin='Kalibrasyon Detayları' : null;
+    kod=="tv454" ? metin='OTOMATİK-MANUEL SEÇİMİ' : null;
+    kod=="tv455" ? metin='OTO' : null;
+    kod=="tv456" ? metin='MAN' : null;
+    kod=="tv457" ? metin='MAN Kontrol' : null;
+    kod=="tv458" ? metin='T.FAN' : null;
+    kod=="tv459" ? metin='PED POMPA' : null;
+    kod=="tv460" ? metin='AIR INLET' : null;
+    kod=="tv461" ? metin='BACA FAN' : null;
+    kod=="tv462" ? metin='ISITICI' : null;
+    kod=="tv463" ? metin='YEM ARABA' : null;
+    kod=="tv464" ? metin='TÜNEL FANLARININ MANUEL KONTROLÜ' : null;
+    kod=="tv465" ? metin='PED POMPALARININ MANUEL KONTROLÜ' : null;
+    kod=="tv466" ? metin='AYDINLATMA SİSTEMİNİN MANUEL KONTROLÜ' : null;
+    kod=="tv467" ? metin='BACA FANLARININ MANUEL KONTROLÜ' : null;
+    kod=="tv468" ? metin='ISITICILARIN MANUEL KONTROLÜ' : null;
+    kod=="tv469" ? metin='YEM ARABALARININ MANUEL KONTROLÜ' : null;
+    kod=="tv470" ? metin='Manuel Aydınlık Yüzdesi (%)' : null;
+    kod=="tv471" ? metin='MANUEL KONTROL' : null;
+    kod=="tv472" ? metin='Klepe Hareket Süresi (Sn)' : null;
+    kod=="tv473" ? metin='AÇ' : null;
+    kod=="tv474" ? metin='KAPA' : null;
+    kod=="tv475" ? metin='KLEPE OTO-MAN SEÇİMİ' : null;
+    kod=="tv476" ? metin='AIR INLET OTO-MAN SEÇİMİ' : null;
+    kod=="tv477" ? metin='Air Inlet Hareket Süresi (Sn)' : null;
 
    
 
@@ -545,8 +609,8 @@ class Dil{
     kod=="toast57" ? metin='Lütfen toplam silo sayısına eşit veya daha küçük bir sayı tanımlayınız!' : null;
     kod=="toast58" ? metin='Aynı Silo No iki farklı silo için tanımlanmış! Lütfen kontrol ediniz' : null;
     kod=="toast59" ? metin='Lütfen aktif tüm çıkışlar için sıfırdan farklı bir çıkış no tanımlayınız!' : null;
-    kod=="toast60" ? metin='Isı sensör için wifi bağlantı seçildi.' : null;
-    kod=="toast61" ? metin='Isı sensör için Analog bağlantı seçildi.' : null;
+    kod=="toast60" ? metin='Sensör için wifi bağlantı seçildi.' : null;
+    kod=="toast61" ? metin='Sensör için Analog bağlantı seçildi.' : null;
     kod=="toast62" ? metin='Önce haritayı oluşturup onaylamanız gerekli!' : null;
     kod=="toast63" ? metin='Lütfen sıfırdan farklı B.fan Grup Çıkış No tanımlayınız!' : null;
     kod=="toast64" ? metin='Kurulum başarıyla tamamlandı...' : null;
@@ -562,6 +626,11 @@ class Dil{
     kod=="toast74" ? metin='Lütfen önce "Ac-Kapa Saati 2 Aktif" seçeneğini işaretleyin!' : null;
     kod=="toast75" ? metin='Dimmer aktifken devre dışıdır!' : null;
     kod=="toast76" ? metin='Lütfen tüm girişler için atama yapınız!' : null;
+    kod=="toast77" ? metin='Geçersiz tarih hatası! Lütfen geçmiş bir tarih giriniz...' : null;
+    kod=="toast78" ? metin='Şu anda Klepe kapama işlemi yapıyor, açma işlemi devre dışıdır! ' : null;
+    kod=="toast79" ? metin='Şu anda Klepe açma işlemi yapıyor, kapama işlemi devre dışıdır! ' : null;
+    kod=="toast80" ? metin='Şu anda Air Inlet kapama işlemi yapıyor, açma işlemi devre dışıdır! ' : null;
+    kod=="toast81" ? metin='Şu anda Air Inlet açma işlemi yapıyor, kapama işlemi devre dışıdır! ' : null;
     
 
 
@@ -718,9 +787,9 @@ class Dil{
 
     //MH Ağırlık(Civciv-Broiler) (Air inletli)
     kod=="info12" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. 7 Haftalık büyüme döneminde hayvanın her hafta için ağırlığına göre ihtiyaç duyduğu m3/h bazında '
-    ' hava ihtiyacı bilgisi katalogtan elde edilerek "7 Haftalık Hayvan Başına İhtiyaç(m3/h)" alanına girilir.\n\n'
-    '     Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
+    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. \n\n'
+    '     Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
+    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
     ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
     ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yok da tünel fanlarından birkaçı Min. Hav. için'
     ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
@@ -741,9 +810,9 @@ class Dil{
 
     //MH Ağırlık(Civciv-Broiler) (Air inletsiz)
     kod=="info13" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. 7 Haftalık büyüme döneminde hayvanın her hafta için ağırlığına göre ihtiyaç duyduğu m3/h bazında'
-    ' hava ihtiyacı bilgisi katalogtan elde edilerek "7 Haftalık Hayvan Başına İhtiyaç(m3/h)" alanına girilir.\n\n'
-    '   Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
+    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir.\n\n'
+    '    Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
+    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
     ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır'
     ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yoksa tünel fanlarından birkaçı Min. Hav. için'
     ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
@@ -760,9 +829,9 @@ class Dil{
 
      //MH Ağırlık(Tavuk) (Air inletli)
     kod=="info14" ? metin='     Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. Sürünün "Dönemlik Hayvan Başına Hava İhtiyacı(m3/h)" alanında belirtilen her dönem için ağırlığına '
-    ' göre ihtiyaç duyduğu m3/h bazında hava ihtiyacı bilgisi katalogtan elde edilerek "Dönemlik Hayvan Başına Hava İhtiyacı(m3/h)" alanına girilir.\n\n'
-    ' Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
+    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. \n\n'
+    ' Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
+    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
     ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
     ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yoksa tünel fanlarından birkaçı Min. Hav. için'
     ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
@@ -783,9 +852,9 @@ class Dil{
 
     //MH Ağırlık(Tavuk) (Air inletsiz)
     kod=="info15" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. Sürünün "Dönemlik Hayvan Başına Hava İhtiyacı(m3/h)" alanında belirtilen her dönem için ağırlığına '
-    ' göre ihtiyaç duyduğu m3/h bazında hava ihtiyacı bilgisi katalogtan elde edilerek "Dönemlik Hayvan Başına Hava İhtiyacı(m3/h)" alanına girilir.\n\n'
-    ' Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
+    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir.\n\n'
+    ' Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
+    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
     ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
     ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yoksa tünel fanlarından birkaçı Min. Hav. için'
     ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
@@ -856,6 +925,37 @@ class Dil{
     kod=="info19" ? metin=' Kümesin aydınlatma sistemi saat "Aç Saati 1" e geldiğinde çalışır, "Kapa Saati 1" e geldiğinde de kapanır. \n\nEğer'
     ' "Aç-Kapa Saati 2 Aktif" seçeneği aktif edilirse sistemi 2 kez aç-kapa yapmaya olanak sağlar ve aynı çalışma sistemi geçerlidir.\n\n'
     ' Kümesin aydınlatma sistemi saat "Aç Saati 2" e geldiğinde çalışır, "Kapa Saati 2" e geldiğinde de kapanır.'  : null;
+
+
+    //Sürü Bilgileri
+    kod=="info20" ? metin=' Bu bölümde kafese konulan hayvanlar ile ilgili bilgiler girilir. "Sürü Doğum Tarihi" alanına getirilen hayvanların yumurtadan çıkış tarihi'
+    ' "Sürü Giriş Tarihi" alanına da hayvanların kafese konulduğu tarih girilmelidir. "Hayvan Sayısı (girişte)" alanına hayvanların kafese konulduğu ilk günkü adet'
+    ' girilmelidir ki genelde bu toplam kafes kapasitesidir. "Ölü Hayvan Sayısı" alanında gösterilen değer toplam değerdir. Bu alana tıklandığınızda ölü sayısını'
+    ' kategorilere uygun şekilde gireceğiniz bir pencere açılır. Meydana gelen ölümleri bu kategorilere göre girerek kafesle ilgili daha doğru analiz yapacak veriler'
+    ' oluşturabilirsiniz.\n\n'
+    ' "Ölüm Oranı(%)"\n'
+    ' İlk gün kafese konulan toplam hayvan sayısının bu güne kadar yüzde kaçının öldüğünü gösterir.\n\n'
+    ' "Güncel Hayvan Sayısı"\n'
+    ' Ölü hayvan sayısı çıkarılarak an itibariyle kafeste kaç hayvan olduğunu gösterir\n\n'
+    ' "Sürü Yaşı (Günlük) ve (Haftalık)"\n'
+    ' Girilen doğum günü bilgisine göre sürünün gün ve hafta bazında yaşını gösterir\n\n'
+    ' "Hayvan Başına Min. Hav. İhtiyacı(m3/h)"\n'
+    ' Sürünün bu alanda belirtilen her dönem için ağırlığına göre ihtiyaç duyduğu m3/h bazında hava ihtiyacı bilgisi katalogtan elde edilerek'
+    ' bu alana girilir. Böylece sistem sürü yaşına göre ihtiyaç duyduğu min. hav. miktarını hesaplar ve ilgili kontrol yöntemi seçilmişse'
+    ' Min. Hav. sistemini bu bilgiye göre kontrol eder.'  : null;
+
+     //Sensör Kalibrasyon
+    kod=="info21" ? metin=' Eğer Kurulum Ayarları--> Adetler kısmından ısı sensörleri ölçüm yöntemi "Wifi Yöntemi" seçilmişse wifi üzerinden en az bir kere bağlanmış'
+    ' olan sensörler görünür olacaktır. Görünür haldeki bu sensörlerden yeşil renkte olanı hala bağlı olduğunu kırmızı renkli olanlar ise bağlantılarının koptuğu'
+    ' anlamına gelir.Bu durumda sensör, wifi sağlayıcısı veya server PC kontrol edilmelidir. İlgili sensör üzerine tıklandığında ekranın alt tarafından sensör değerine'
+    ' + ve - olarak kalibrasyon değerini ilave edebileceğiniz bir pencere açılır.\n\n'
+    ' Eğer Kurulum Ayarları--> Adetler kısmından ısı sensörleri ölçüm yöntemi "Analog Yöntemi" seçilmişse ısı sensörü adedi kadar sensör görünür olacaktır.'
+    ' Görünür haldeki bu sensörlerden yeşil renkte olanı verilerin kablolar üzerinden okunabildiğini, kırmızı renkli olanlar ise okunamadığını gösterir.'
+    ' Bu durumda analog modul, sensör veya kablolar kontrol edilmelidir. İlgili sensör üzerine tıklandığında ekranın alt tarafından sensör değerine + ve - olarak'
+    ' kalibrasyon değerini ilave edebileceğiniz bir pencere açılır.\n\n'
+    ' Sadece yeşil rekteki sensörlere kalibrasyon değeri girilebilmektedir.'  : null;
+
+
 
 
     //endregion
@@ -1289,6 +1389,71 @@ class Dil{
     kod=="tv411" ? metin='Date Format 1\nMM-DD-YYYY' : null;
     kod=="tv412" ? metin='CONFIRM TIME' : null;
     kod=="tv413" ? metin='CONFIRM DATE' : null;
+    kod=="tv414" ? metin='HERD INFORMATIONS' : null;
+    kod=="tv415" ? metin='Herd Birth\nDate' : null;
+    kod=="tv416" ? metin='Herd Enter\nTime' : null;
+    kod=="tv417" ? metin='Number of Animals\n(at enterance)' : null;
+    kod=="tv418" ? metin='Number of Death\nAnimals' : null;
+    kod=="tv419" ? metin='Entering Number of Death Animals According to Categories' : null;
+    kod=="tv420" ? metin='Disease Related' : null;
+    kod=="tv421" ? metin='Equipment Related' : null;
+    kod=="tv422" ? metin='Animal Attact Related' : null;
+    kod=="tv423" ? metin='Ventilation Related' : null;
+    kod=="tv424" ? metin='Feed Related' : null;
+    kod=="tv425" ? metin='Water Related' : null;
+    kod=="tv426" ? metin='Death\nRate (%)' : null;
+    kod=="tv427" ? metin='Actual Number\nof Animals' : null;
+    kod=="tv428" ? metin='Herd Age\n(Daily)' : null;
+    kod=="tv429" ? metin='Herd Age\n(Weekly)' : null;
+    kod=="tv430" ? metin='Herd Parameter Details' : null;
+    kod=="tv431" ? metin='SENSOR CALIBRATION' : null;
+    kod=="tv432" ? metin='Hum. Sen. Measure Method' : null;
+    kod=="tv433" ? metin='Wifi' : null;
+    kod=="tv434" ? metin='Analog' : null;
+    kod=="tv435" ? metin='Temperature Sensors' : null;
+    kod=="tv436" ? metin='Enter Positive-Negative Sensor Calibration Value' : null;
+    kod=="tv437" ? metin='Temperature\nValue (°C)' : null;
+    kod=="tv438" ? metin='+ Value' : null;
+    kod=="tv439" ? metin='- Value' : null;
+    kod=="tv440" ? metin='Hum. Sensors' : null;
+    kod=="tv441" ? metin='Inside Hum.' : null;
+    kod=="tv442" ? metin='Outside Hum.' : null;
+    kod=="tv443" ? metin='Analog1' : null;
+    kod=="tv444" ? metin='Analog2' : null;
+    kod=="tv445" ? metin='Analog3' : null;
+    kod=="tv446" ? metin='Analog4' : null;
+    kod=="tv447" ? metin='Analog5' : null;
+    kod=="tv448" ? metin='Analog6' : null;
+    kod=="tv449" ? metin='Analog7' : null;
+    kod=="tv450" ? metin='Analog8' : null;
+    kod=="tv451" ? metin='Analog9' : null;
+    kod=="tv452" ? metin='Analog10' : null;
+    kod=="tv453" ? metin='Calibration Details' : null;
+    kod=="tv454" ? metin='AUTO-MAN SELECTION' : null;
+    kod=="tv455" ? metin='AUTO' : null;
+    kod=="tv456" ? metin='MAN' : null;
+    kod=="tv457" ? metin='MAN Control' : null;
+    kod=="tv458" ? metin='T.FAN' : null;
+    kod=="tv459" ? metin='PED PUMP' : null;
+    kod=="tv460" ? metin='AIR INLET' : null;
+    kod=="tv461" ? metin='CHIMNEY FAN' : null;
+    kod=="tv462" ? metin='HEATER' : null;
+    kod=="tv463" ? metin='FEED CAR' : null;
+    kod=="tv464" ? metin='MANUAL CONTROL OF TUNNEL FANS' : null;
+    kod=="tv465" ? metin='MANUAL CONTROL OF PED PUMPS' : null;
+    kod=="tv466" ? metin='MANUAL CONTROL OF LIGHTING SYSTEM' : null;
+    kod=="tv467" ? metin='MANUAL CONTROL OF CHIMNEY FANS' : null;
+    kod=="tv468" ? metin='MANUAL CONTROL OF HEATERS' : null;
+    kod=="tv469" ? metin='MANUAL CONTROL OF FEED CARS' : null;
+    kod=="tv470" ? metin='Manual Lighting Percent (%)' : null;
+    kod=="tv471" ? metin='MANUAL CONTROL' : null;
+    kod=="tv472" ? metin='Flap Step Time (Sec)' : null;
+    kod=="tv473" ? metin='OPEN' : null;
+    kod=="tv474" ? metin='CLOSE' : null;
+    kod=="tv475" ? metin='FLAP AUTO-MAN SELECTION' : null;
+    kod=="tv476" ? metin='AIR INLET AUTO-MAN SELECTION' : null;
+    kod=="tv477" ? metin='Air Inlet Step Time (Sec)' : null;
+    
 
 
     
@@ -1405,8 +1570,8 @@ class Dil{
     kod=="toast57" ? metin='Please define a number equal or smaller than total silo quantity' : null;
     kod=="toast58" ? metin='Same Silo Number assigned for two different silo! Please check.' : null;
     kod=="toast59" ? metin='Please define output number as nonzero for all active outputs!' : null;
-    kod=="toast60" ? metin='Wifi connection is selected for temp. sensor' : null;
-    kod=="toast61" ? metin='Analog connection is selected for temp. sensor' : null;
+    kod=="toast60" ? metin='Wifi connection is selected for the sensor' : null;
+    kod=="toast61" ? metin='Analog connection is selected for the sensor' : null;
     kod=="toast62" ? metin='The map must be created and approved!' : null;
     kod=="toast63" ? metin='Please define C.Fan Group Output No as nonzero' : null;
     kod=="toast64" ? metin='Installation completed succesfully...' : null;
@@ -1423,7 +1588,11 @@ class Dil{
     kod=="toast74" ? metin='Please firstly do active "On-Off Time 2 Activity" option!' : null;
     kod=="toast75" ? metin='It is passive while dimmer option is checked!' : null;
     kod=="toast76" ? metin='Please define an input number for all inputs!' : null;
-
+    kod=="toast77" ? metin='Invalid date error! Please enter a passed date...' : null;
+    kod=="toast78" ? metin='Flap is closing now! Openning option is inactive!' : null;
+    kod=="toast79" ? metin='Flap is openning now! Closing option is inactive!' : null;
+    kod=="toast80" ? metin='Air Inlet is closing now! Openning option is inactive!' : null;
+    kod=="toast81" ? metin='Air Inlet is openning now! Closing option is inactive!' : null;
 
     //endregion
 

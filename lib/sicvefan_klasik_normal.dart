@@ -75,7 +75,6 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
 
       if (dbVeri[i]["id"] == 4) {
         fanAdet = dbVeri[i]["veri1"];
-        fanAdet = "14";
       }
 
     }

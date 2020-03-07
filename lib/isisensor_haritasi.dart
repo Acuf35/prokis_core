@@ -1265,22 +1265,19 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
             if (gelenMesaj != "") {
               var sensorler = gelenMesaj.split('*');
               print(sensorler);
-              aktifSenSay = ((sensorler.length - 1) ~/ 3).toInt();
+              aktifSenSay = (sensorler.length - 1).toInt();
 
               for (int i = 1; i <= 15; i++) {
                 if (i <= aktifSenSay) {
                   aktifSensorVisibility[i] = true;
                 }
               }
-              int sayac = 0;
-              for (int i = 0; i <= sensorler.length - 2; i++) {
-                if (i % 3 == 0) {
-                  sayac++;
-                  aktifSensorID[sayac] = sensorler[i];
-                  aktifSensorValue[sayac] = sensorler[i + 1];
-                  aktifSensorDurum[sayac] =
-                      sensorler[i + 2] == 'ok' ? true : false;
-                }
+              
+              for(int i=0;i<=sensorler.length-2;i++){
+                var deger=sensorler[i].split('+');
+                aktifSensorID[i+1]=deger[0];
+                aktifSensorValue[i+1]=deger[1];
+                aktifSensorDurum[i+1]=deger[2] == 'ok' ? true : false;
               }
 
               socket.add(utf8.encode('ok'));
@@ -1340,16 +1337,16 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
               aktifSensorVisibility[11] = isisensorAdet>=9 ? true :false;
               aktifSensorVisibility[14] = isisensorAdet>=10 ? true :false;
 
-              aktifSensorID[1] = 'Analog1';
-              aktifSensorID[4] = 'Analog2';
-              aktifSensorID[7] = 'Analog3';
-              aktifSensorID[10] = 'Analog4';
-              aktifSensorID[13] = 'Analog5';
-              aktifSensorID[2] = 'Analog6';
-              aktifSensorID[5] = 'Analog7';
-              aktifSensorID[8] = 'Analog8';
-              aktifSensorID[11] = 'Analog9';
-              aktifSensorID[14] = 'Analog10';
+              aktifSensorID[1] = Dil().sec(dilSecimi, "tv443");
+              aktifSensorID[4] = Dil().sec(dilSecimi, "tv444");
+              aktifSensorID[7] = Dil().sec(dilSecimi, "tv445");
+              aktifSensorID[10] = Dil().sec(dilSecimi, "tv446");
+              aktifSensorID[13] = Dil().sec(dilSecimi, "tv447");
+              aktifSensorID[2] = Dil().sec(dilSecimi, "tv448");
+              aktifSensorID[5] = Dil().sec(dilSecimi, "tv449");
+              aktifSensorID[8] = Dil().sec(dilSecimi, "tv450");
+              aktifSensorID[11] = Dil().sec(dilSecimi, "tv451");
+              aktifSensorID[14] = Dil().sec(dilSecimi, "tv452");
               aktifSensorValue[1]   = sensorler[0] ;
               aktifSensorValue[4]   = sensorler[1] ;
               aktifSensorValue[7]   = sensorler[2] ;
@@ -1434,46 +1431,43 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                 },
                 fillColor:
                     aktifSensorDurum[index] ? Colors.green[300] : Colors.red,
-                child: Padding(
-                  padding: EdgeInsets.all(3.0 * oran),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: SizedBox(
-                          child: Container(
-                            alignment: Alignment.bottomCenter,
-                            child: AutoSizeText(
-                              aktifSensorID[index] + " :",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 50.0,
-                                  fontFamily: 'Kelly Slab'),
-                              maxLines: 1,
-                              minFontSize: 8,
-                            ),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: SizedBox(
+                        child: Container(
+                          alignment: Alignment.bottomCenter,
+                          child: AutoSizeText(
+                            aktifSensorID[index] + " :",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 50.0,
+                                fontFamily: 'Kelly Slab'),
+                            maxLines: 1,
+                            minFontSize: 8,
                           ),
                         ),
                       ),
-                      Expanded(
-                        child: SizedBox(
-                          child: Container(
-                            alignment: Alignment.bottomCenter,
-                            child: AutoSizeText(
-                              aktifSensorValue[index] + "°C",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 50.0,
-                                  fontFamily: 'Kelly Slab'),
-                              maxLines: 1,
-                              minFontSize: 8,
-                            ),
+                    ),
+                    Expanded(
+                      child: SizedBox(
+                        child: Container(
+                          alignment: Alignment.bottomCenter,
+                          child: AutoSizeText(
+                            aktifSensorValue[index] + "°C",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 50.0,
+                                fontFamily: 'Kelly Slab'),
+                            maxLines: 1,
+                            minFontSize: 8,
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 constraints: BoxConstraints(minWidth: double.infinity),

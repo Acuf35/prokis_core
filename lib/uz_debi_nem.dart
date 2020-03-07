@@ -194,7 +194,10 @@ class UzDebiNemState extends State<UzDebiNem> {
         tunelFanDebi = dbVeri[i]["veri1"];
         bacaFanDebi = dbVeri[i]["veri2"];
         hacimOrani = dbVeri[i]["veri3"];
-        disNem = dbVeri[i]["veri4"] == "1" ? true : false;
+        disNem=dbVeri[i]["veri4"]=="1" ? true : false;
+
+        
+        //disNem = dbVeri[i]["veri4"] == "1" ? true : false;
       }
     }
 
@@ -557,9 +560,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                                         tunelFanDebi,
                                                         bacaFanDebi,
                                                         hacimOrani,
-                                                        disNem == true
-                                                            ? "1"
-                                                            : "0");
+                                                        disNem == true ? "1" : "0");
                                                 _veriGonder(
                                                     "11",
                                                     "18",
@@ -601,7 +602,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                               child: Column(
                             children: <Widget>[
                               Expanded(
-                                flex: 5,
+                                flex: 7,
                                 child: Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
@@ -613,6 +614,7 @@ class UzDebiNemState extends State<UzDebiNem> {
                                   ),
                                 ),
                               ),
+                              
                             ],
                           )),
                           //Klepe uzunluk girişi

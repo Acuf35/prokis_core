@@ -95,6 +95,8 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
 
   @override
   Widget build(BuildContext context) {
+
+    
     if (timerSayac == 0) {
       _takipEt();
 
@@ -1391,7 +1393,10 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
               ),
             ),
           ),
-        ));
+        )
+        
+        );
+  
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
