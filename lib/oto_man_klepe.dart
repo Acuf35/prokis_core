@@ -256,7 +256,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                       alignment: Alignment.center,
                       child: Text(
                         Dil().sec(
-                            dilSecimi, "tv123"), //Sıcaklık diyagramı
+                            dilSecimi, "tv81"), //Sıcaklık diyagramı
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -268,114 +268,9 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                       color: Colors.yellow[700],
                     ),
                   ),
+                  
                   Expanded(
-                    flex: 7,
-                    child: DrawerHeader(
-                      padding: EdgeInsets.only(left: 10),
-                      margin: EdgeInsets.all(0),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  alignment: Alignment.center,
-                                  image: AssetImage(
-                                      "assets/images/diagram_klasik_capraz.jpg"),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              color: Colors.grey[100],
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(
-                                          "A",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "A+B",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "D",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "F",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "G",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv115"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv116"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv118"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv120"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv121"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 10,
+                    flex: 17,
                     child: Container(
                       color: Colors.yellow[100],
                       child: ListView(
@@ -386,7 +281,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                             dense: false,
                             title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
                             subtitle: Text(
-                              Dil().sec(dilSecimi, "info4"),
+                              Dil().sec(dilSecimi, "info16_2"),
                               style: TextStyle(
                                 fontSize: 13 * oran,
                               ),

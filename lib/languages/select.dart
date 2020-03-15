@@ -37,7 +37,7 @@ class Dil{
     kod=="tv13" ? metin='Klepe Sayısı' : null;
     kod=="tv14" ? metin='Ped Pompa Sayısı' : null;
     kod=="tv15" ? metin='Isı Sens. Sayısı' : null;
-    kod=="tv16" ? metin='Bacafan Grup Sayısı' : null;
+    kod=="tv16" ? metin='Bacafan Var Mı?' : null;
     kod=="tv17" ? metin='A.Inlet M.Sayısı' : null;
     kod=="tv18" ? metin='Isıtıcı Sayısı' : null;
     kod=="tv19" ? metin='Silo Sayısı' : null;
@@ -86,9 +86,9 @@ class Dil{
     kod=="tv62" ? metin='ÇIKIŞLAR' : null;
     kod=="tv63" ? metin='Grup:' : null;
     kod=="tv64" ? metin='Bfan Grup No' : null;
-    kod=="tv65" ? metin='B.Fan Gr-1 Çkş No' : null;
-    kod=="tv66" ? metin='B.Fan Gr-2 Çkş No' : null;
-    kod=="tv67" ? metin='B.Fan Gr-3 Çkş No' : null;
+    kod=="tv65" ? metin='B.Fan Çıkış No' : null;
+    kod=="tv66" ? metin='Dijital\nÇıkış' : null;
+    kod=="tv67" ? metin='Analog\nÇıkış' : null;
     kod=="tv68" ? metin='Baca Fan Haritası' : null;
     kod=="tv69" ? metin='Bfan Grup Çıkış No' : null;
     kod=="tv70" ? metin='Dış Sıc. Sen.' : null;
@@ -102,7 +102,7 @@ class Dil{
     kod=="tv78" ? metin='Isıtıcı Gr-2 Çkş No' : null;
     kod=="tv79" ? metin='Isıtıcı Gr-3 Çkş No' : null;
     kod=="tv80" ? metin='Isıtıcı Grup No' : null;
-    kod=="tv81" ? metin='Boşta' : null;
+    kod=="tv81" ? metin='Oto-Man Detayları' : null;
     kod=="tv82" ? metin='Silo:' : null;
     kod=="tv83" ? metin='SİLO NO' : null;
     kod=="tv84" ? metin='Silo Haritası' : null;
@@ -134,7 +134,7 @@ class Dil{
     kod=="tv110" ? metin='MİN. HAV.' : null;
     kod=="tv111" ? metin='ISITMA' : null;
     kod=="tv112" ? metin='AYDINLATMA' : null;
-    kod=="tv113" ? metin='YEM & SU' : null;
+    kod=="tv113" ? metin='YEMLEME' : null;
     kod=="tv114" ? metin='YARD. OPS.' : null;
     kod=="tv115" ? metin='Set Sıcaklığı' : null;
     kod=="tv116" ? metin='Doğal bölge bitiş sıcaklığı' : null;
@@ -270,9 +270,9 @@ class Dil{
     kod=="tv246" ? metin='DURMA SICAKLIĞI FARK(C) :' : null;
     kod=="tv247" ? metin='Çalışma Sıc. Fark' : null;
     kod=="tv248" ? metin='Durma Sıc. Fark' : null;
-    kod=="tv249" ? metin='SOĞUTMA PED POMPALARI' : null;
-    kod=="tv250" ? metin='Maks. Nem' : null;
-    kod=="tv251" ? metin='Nem Fark' : null;
+    kod=="tv249" ? metin='SOĞUTMA VE NEM' : null;
+    kod=="tv250" ? metin='Maks. Nem (%)' : null;
+    kod=="tv251" ? metin='Nem Fark (%)' : null;
     kod=="tv252" ? metin='Maksimum Nem' : null;
     kod=="tv253" ? metin='Soğutma Diyagramı' : null;
     kod=="tv254" ? metin='Çalışma Sıcaklığı' : null;
@@ -499,6 +499,90 @@ class Dil{
     kod=="tv475" ? metin='KLEPE OTO-MAN SEÇİMİ' : null;
     kod=="tv476" ? metin='AIR INLET OTO-MAN SEÇİMİ' : null;
     kod=="tv477" ? metin='Air Inlet Hareket Süresi (Sn)' : null;
+    kod=="tv478" ? metin='İlk Kaç Gün Sadece\nMin.Hav. Yapsın?' : null;
+    kod=="tv479" ? metin='Sadece Min. Hav.\nModu Aktif' : null;
+    kod=="tv480" ? metin='Min. Hav.\'dan Geçişte\nDebi Korunsun mu?' : null;
+    kod=="tv481" ? metin='YARDIMCI OPSİYONLAR' : null;
+    kod=="tv482" ? metin='Min. Nem (%)' : null;
+    kod=="tv483" ? metin='Sıcaklık-Açıklık Diyagramı' : null;
+    kod=="tv484" ? metin='Minimum Nem' : null;
+    kod=="tv485" ? metin='Dusuk Nemde\nPed Çalışsın' : null;
+    kod=="tv486" ? metin='Sıc. Öncelikli' : null;
+    kod=="tv487" ? metin='Ped P. 1' : null;
+    kod=="tv488" ? metin='Ped P. 2-3' : null;
+    kod=="tv489" ? metin='Yüksek Nemde\nTüm Fanlar Çalışsın' : null;
+    kod=="tv490" ? metin='Dış Nem\nÜst Limit Aktif' : null;
+    kod=="tv491" ? metin='Dış Nem\nÜst Limit' : null;
+    kod=="tv492" ? metin='0-10V Çıkış' : null;
+    kod=="tv493" ? metin='4-20mA Çıkış' : null;
+    kod=="tv494" ? metin='Bacafan\nMotor Hızı (Hz)' : null;
+    kod=="tv495" ? metin='Baca Fanları' : null;
+    kod=="tv496" ? metin='OPSİYON 1' : null;
+    kod=="tv497" ? metin='OPSİYON 2' : null;
+    kod=="tv498" ? metin='Yakın Sıcaklık Sensörlerine\nGöre Klepe Kontrolü' : null;
+    kod=="tv499" ? metin='AYARLARI GİR' : null;
+    kod=="tv500" ? metin='SENSÖR KLEPE KONTROL' : null;
+    kod=="tv501" ? metin='Sıcaklık Farkı(°C)' : null;
+    kod=="tv502" ? metin='Sens. No1' : null;
+    kod=="tv503" ? metin='Sens. No2' : null;
+    kod=="tv504" ? metin='Set Sıc.- Sıc. Farkı' : null;
+    kod=="tv505" ? metin='Mevcut Klepe Açıklığı' : null;
+    kod=="tv506" ? metin='00:00' : null;
+    kod=="tv507" ? metin='00:30' : null;
+    kod=="tv508" ? metin='01:00' : null;
+    kod=="tv509" ? metin='01:30' : null;
+    kod=="tv510" ? metin='02:00' : null;
+    kod=="tv511" ? metin='02:30' : null;
+    kod=="tv512" ? metin='03:00' : null;
+    kod=="tv513" ? metin='03:30' : null;
+    kod=="tv514" ? metin='04:00' : null;
+    kod=="tv515" ? metin='04:30' : null;
+    kod=="tv516" ? metin='05:00' : null;
+    kod=="tv517" ? metin='05:30' : null;
+    kod=="tv518" ? metin='06:00' : null;
+    kod=="tv519" ? metin='06:30' : null;
+    kod=="tv520" ? metin='07:00' : null;
+    kod=="tv521" ? metin='07:30' : null;
+    kod=="tv522" ? metin='08:00' : null;
+    kod=="tv523" ? metin='08:30' : null;
+    kod=="tv524" ? metin='09:00' : null;
+    kod=="tv525" ? metin='09:30' : null;
+    kod=="tv526" ? metin='10:00' : null;
+    kod=="tv527" ? metin='10:30' : null;
+    kod=="tv528" ? metin='11:00' : null;
+    kod=="tv529" ? metin='11:30' : null;
+    kod=="tv530" ? metin='12:00' : null;
+    kod=="tv531" ? metin='12:30' : null;
+    kod=="tv532" ? metin='13:00' : null;
+    kod=="tv533" ? metin='13:30' : null;
+    kod=="tv534" ? metin='14:00' : null;
+    kod=="tv535" ? metin='14:30' : null;
+    kod=="tv536" ? metin='15:00' : null;
+    kod=="tv537" ? metin='15:30' : null;
+    kod=="tv538" ? metin='16:00' : null;
+    kod=="tv539" ? metin='16:30' : null;
+    kod=="tv540" ? metin='17:00' : null;
+    kod=="tv541" ? metin='17:30' : null;
+    kod=="tv542" ? metin='18:00' : null;
+    kod=="tv543" ? metin='18:30' : null;
+    kod=="tv544" ? metin='19:00' : null;
+    kod=="tv545" ? metin='19:30' : null;
+    kod=="tv546" ? metin='20:00' : null;
+    kod=="tv547" ? metin='20:30' : null;
+    kod=="tv548" ? metin='21:00' : null;
+    kod=="tv549" ? metin='21:30' : null;
+    kod=="tv550" ? metin='22:00' : null;
+    kod=="tv551" ? metin='22:30' : null;
+    kod=="tv552" ? metin='23:00' : null;
+    kod=="tv553" ? metin='23:30' : null;
+    kod=="tv554" ? metin='YEM ÇIKIŞ 1' : null;
+    kod=="tv555" ? metin='YEM ÇIKIŞ 2' : null;
+    kod=="tv556" ? metin='YEM ÇIKIŞ 3' : null;
+    kod=="tv557" ? metin='İleri' : null;
+    kod=="tv558" ? metin='Geri' : null;
+    kod=="tv559" ? metin='YEMLEME ZAMANI ATAMA' : null;
+    kod=="tv560" ? metin='Yemleme Detayları' : null;
+    kod=="tv561" ? metin='Sinyal Süresi (Sn) : ' : null;
 
    
 
@@ -588,11 +672,11 @@ class Dil{
     kod=="toast36" ? metin='Lütfen seçili tüm pedler için sıfırdan farklı Ped No ve Çıkış No tanımlayınız!' : null;
     kod=="toast37" ? metin='Lütfen seçili tüm klepeler için sıfırdan farklı Klepe No ve Çıkış No tanımlayınız!' : null;
     kod=="toast38" ? metin='Atanacak çıkışlardan biri şu anda kullanımda! Lütfen önce ilgili çıkışı boşa çıkarın' : null;
-    kod=="toast39" ? metin='Lütfen harita üzerinde seçili tüm bacafanları için sıfırdan farklı grup no tanımlayınız!' : null;
+    kod=="toast39" ? metin='Lütfen harita üzerinde seçili tüm bacafanları için sıfırdan farklı no tanımlayınız!' : null;
     kod=="toast40" ? metin='Lütfen toplam sensör sayısına eşit veya daha küçük bir sayı tanımlayınız!' : null;
     kod=="toast41" ? metin='Seçilen sensör numarası harita üzerinde tanımlı değil!' : null;
     kod=="toast42" ? metin='Aynı Air Inlet No iki farklı air inlet için tanımlanmış! Lütfen kontrol ediniz!' : null;
-    kod=="toast43" ? metin='Lütfen toplam bacafan grup sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
+    kod=="toast43" ? metin='Booooooooooooooooooooooooooooooooooooooooooooooşta! ' : null;
     kod=="toast44" ? metin='Lütfen toplam air inlet motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast45" ? metin='Lütfen toplam ped motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast46" ? metin='Lütfen toplam klepe motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
@@ -612,7 +696,7 @@ class Dil{
     kod=="toast60" ? metin='Sensör için wifi bağlantı seçildi.' : null;
     kod=="toast61" ? metin='Sensör için Analog bağlantı seçildi.' : null;
     kod=="toast62" ? metin='Önce haritayı oluşturup onaylamanız gerekli!' : null;
-    kod=="toast63" ? metin='Lütfen sıfırdan farklı B.fan Grup Çıkış No tanımlayınız!' : null;
+    kod=="toast63" ? metin='Lütfen sıfırdan farklı B.Fan Çıkış No tanımlayınız!' : null;
     kod=="toast64" ? metin='Kurulum başarıyla tamamlandı...' : null;
     kod=="toast65" ? metin='Civciv ve Broyler kafeslerinde aktif değildir.' : null;
     kod=="toast66" ? metin='Baca fanı olmayan Civciv veya Broyler kafeslerinde PID kontrol aktif değildir.' : null;
@@ -631,6 +715,13 @@ class Dil{
     kod=="toast79" ? metin='Şu anda Klepe açma işlemi yapıyor, kapama işlemi devre dışıdır! ' : null;
     kod=="toast80" ? metin='Şu anda Air Inlet kapama işlemi yapıyor, açma işlemi devre dışıdır! ' : null;
     kod=="toast81" ? metin='Şu anda Air Inlet açma işlemi yapıyor, kapama işlemi devre dışıdır! ' : null;
+    kod=="toast82" ? metin='Şu anda tanımlı bir dış nem sensörü olmadığı için devre dışıdır! ' : null;
+    kod=="toast83" ? metin='Bu numarada tanımlı bir sensor yok! ' : null;
+    kod=="toast84" ? metin='Bu numara dış sıcaklık sensörü için tanımlanmış, Lütfen farklı bir numara seçin! ' : null;
+    kod=="toast85" ? metin='Yem çıkış 1 kurulum ayarlarında tanımlanmamış! Lütfen kontrol edin.' : null;
+    kod=="toast86" ? metin='Yem çıkış 2 kurulum ayarlarında tanımlanmamış! Lütfen kontrol edin.' : null;
+    kod=="toast87" ? metin='Yem çıkış 3 kurulum ayarlarında tanımlanmamış! Lütfen kontrol edin.' : null;
+    kod=="toast88" ? metin='1500sn\'den (25dk) büyük değer giremezsiniz!' : null;
     
 
 
@@ -660,7 +751,11 @@ class Dil{
     ' Tünel havalandırma (A+B) sıcaklığında yani "DOĞAL BÖLGE" bitiş sıcaklığında başlar. (A+B) sıcaklığında minimum adet kadar fanı devreye sokar, (A+B+C+H)'
     ' sıcaklığına kadar çalışan fan sayısını lineer olarak artırır.Lineer artış kademesi "Fan Kademesi" parametresi ile belirlenir. Buna göre ortalama'
     ' sıcaklık arttıkça artış miktarında tanımlanan adet kadar fan devreye girer ve (A+B+C+H) sıcaklığında tüm fanlar devrede olur. Böylece tünel fanları (E) bölgesinde'
-    ' baca fanlarıyla birlikte, (D) bölgesinde ise tek başına devrede olmuş olur.\n\n\n' : null;
+    ' baca fanlarıyla birlikte, (D) bölgesinde ise tek başına devrede olmuş olur.\n\n'
+    ' Min. Hav. Durduğunda Debi Korunsun mu?:\n'
+    ' Minimum havalandırma fanlarının durup, sadece tünel havalandırma fanlarının çalıştığı moda geçilirken debi kaybı olmasın diye çalışan tünel fan sayısını'
+    ' kapanan min. hav. fanlarının debisi kadar artırır.Bir diğer deyişle tünel havalandırma modunda minimum çalışan minimum tünel fan sayısını, min. hav. fanlarının toplam'
+    ' debisini sağlayacak sayıda ayarlar.\n\n\n' : null;
 
 
     //TF mod: Lineer ,  Bacafan: Yok
@@ -674,7 +769,11 @@ class Dil{
     'Tünel Havalandırma:\n'
     ' Tünel havalandırma (A+B) sıcaklığında yani "DOĞAL BÖLGE" bitiş sıcaklığında başlar. (A+B) sıcaklığında minimum adet kadar fanı devreye sokar, (A+B+C+H)'
     ' sıcaklığına kadar çalışan fan sayısını lineer olarak artırır. Lineer artış kademesi "Fan Kademesi" parametresi ile belirlenir. Buna göre ortalama'
-    ' sıcaklık arttıkça artış miktarında tanımlanan adet kadar fan devreye girer ve (A+B+C+H) sıcaklığında tüm fanlar devrede olur.\n\n\n' : null;
+    ' sıcaklık arttıkça artış miktarında tanımlanan adet kadar fan devreye girer ve (A+B+C+H) sıcaklığında tüm fanlar devrede olur.\n\n'
+    ' Min. Hav. Durduğunda Debi Korunsun mu?:\n'
+    ' Minimum havalandırma fanlarının durup, sadece tünel havalandırma fanlarının çalıştığı moda geçilirken debi kaybı olmasın diye çalışan tünel fan sayısını'
+    ' kapanan min. hav. fanlarının debisi kadar artırır.Bir diğer deyişle tünel havalandırma modunda minimum çalışan minimum tünel fan sayısını, min. hav. fanlarının toplam'
+    ' debisini sağlayacak sayıda ayarlar.\n\n\n' : null;
 
 
 
@@ -774,10 +873,14 @@ class Dil{
 
     //Soğutma ayarları
     kod=="info10" ? metin=' Ortalama sıcaklık değeri ilgili ped pompasının \"Çalışma Sıcaklığı(A+B)\" değerine yükseldiğinde ped pompası çalışmaya başlar. Ortalama sıcaklık değeri'
-    ' ilgili ped pompasının \"Durma Sıcaklığı(A+C)\" değerine düşünceye kadar ped pompası çalışmaya devam eder.\n\n Kümes içi nem değeri girilen \"Maksimum Nem(D)\" değerine ulaştığu zaman'
-    ' sistem \"Yüksek Nem Aktif\" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez. İç nem değeri \"Maksimum Nem\" değerinin \"Nem Fark(E)\" kadar altına düştüğünde'
-    ' \"Yüksek Nem Pasif\" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n Ped pompaları ortalama sıcaklığa göre çalışma durumuna geçtiğinde çalışmayı fasılalı'
-    ' olarak yapar. \"Çalışma Sür.(Sn)\" kadar çalışır, \"Durma Sür.(Sn)\" kadar bekler.' : null;
+    ' ilgili ped pompasının \"Durma Sıcaklığı(A+C)\" değerine düşünceye kadar ped pompası çalışmaya devam eder.\n\n'
+    ' Kümes içi nem değeri girilen \"Maksimum Nem(D)\" değerine ulaştığı zaman sistem \"Yüksek Nem Aktif\" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez.'
+    ' İç nem değeri \"Maksimum Nem\" değerinin \"Nem Fark(E)\" kadar altına düştüğünde \"Yüksek Nem Pasif\" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n'
+    ' Kümes içi nem değeri girilen \"Minimum Nem\" değerinin altına düştüğünde eğer \"Düşük Nemde Ped Çalışsın\" opsiyonu aktifse seçiminize göre ped 1 veya'
+    ' ped 2-3 veya her 3 pompayı birden devreye sokar. Kümes içi nem değeri \"Minimum Nem\" değerinin \"Nem Fark\" kadar üstüne çıktığında seçili ped pompalarını durdurur.'
+    ' Eğer \"Sıcaklık Öncelikli\" opsiyonunu aktif ederseniz ve ortalama sıcaklık set sıcaklığının altında olursa ped pompaları düşük nem şartları sağlansa bile devreye girmez.'
+    ' Çalışma prensibini gösterir diyagram Yüksek Nem durumunu anlatan diyagram ile aynıdır.\n\n' 
+    ' Ped pompaları ortalama sıcaklığa göre çalışma durumuna geçtiğinde çalışmayı fasılalı olarak yapar. \"Çalışma Sür.(Sn)\" kadar çalışır, \"Durma Sür.(Sn)\" kadar bekler.' : null;
 
 
     //Isıtma ayarları
@@ -785,115 +888,154 @@ class Dil{
     'Ortalama sıcaklık ilgili ısıtıcı grubunun \"Durma Sıcaklığı(A-C)\" değerine yükseldiğinde ısıtıcı grubu stop duruma geçer.' : null;
 
 
-    //MH Ağırlık(Civciv-Broiler) (Air inletli)
-    kod=="info12" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. \n\n'
-    '     Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
+    //MH Ağırlık-Dijital Çıkış
+    kod=="info12_1" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
+    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. Minimum havalandırma fanları set değerinin üzerinde bulunan doğal bölgede ve çapraz havalandırma'
+    ' bölgesinde sürekli, set değerinin altında fasılalı olarak çalışır.\n'
+    '     Sistem sürü yaşına göre hayvan başına düşen minimum hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
     ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
     ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
     ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yok da tünel fanlarından birkaçı Min. Hav. için'
-    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
-    '     Fasılada Maks. Çalışma Yüzdesi:\n'
-    ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava '
-    ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin'
-    ' altına düşürmeye çalışır.\n\n'
-    '     Air Inlet Öncelik Süresi:\n'
-    ' Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir\n\n'
-    '     Hava Giriş Yüzdesi:\n'
-    ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
-    '     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
-    ' Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapa pozisyona gelme'
-    ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'
-    '     Fasıla Döngü Süresi:\n'
-    ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durur.'  : null;
+    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'  : null;
 
-    //MH Ağırlık(Civciv-Broiler) (Air inletsiz)
-    kod=="info13" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir.\n\n'
-    '    Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
-    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
-    ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır'
-    ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yoksa tünel fanlarından birkaçı Min. Hav. için'
-    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
-    '     Fasılada Maks. Çalışma Yüzdesi:\n'
-    ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava'
-    ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin'
-    ' altına düşürmeye çalışır.\n\n'
-    '     Hava Giriş Yüzdesi:\n'
-    ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
-    '     Fasıla Döngü Süresi:\n'
-    ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durur.'  : null;
+    //MH Ağırlık-Analog Çıkış
+    kod=="info12_2" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
+    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. Minimum havalandırma fanları set değerinin üzerinde bulunan doğal bölgede ve çapraz havalandırma'
+    ' bölgesinde maksimum hız olan 50Hz\'de ve sürekli, set değerinin altında hesaplanan hızda ve yine sürekli olarak çalışır.\n'
+    '     Sistem sürü yaşına göre hayvan başına düşen minimum hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
+    ' tespit eder ve bu bilgi üzerinden tüm sürü için gerekli hava miktarını içeri alacak şekilde bacafan motorlarının hızlarını sürücü üzerinden ayarlar.'
+    ' Sistem bacafanlarını ayarladığı hızda sürekli olarak çalıştırır\n\n'  : null;
 
 
-     //MH Ağırlık(Tavuk) (Air inletli)
-    kod=="info14" ? metin='     Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir. \n\n'
-    ' Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
-    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
-    ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
-    ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yoksa tünel fanlarından birkaçı Min. Hav. için'
-    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
-    '     Fasılada Maks. Çalışma Yüzdesi:\n'
-    ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava '
-    ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin '
-    ' altına düşürmeye çalışır.\n\n'
-    '     Air Inlet Öncelik Süresi:\n'
-    ' Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir\n\n'
-    '     Hava Giriş Yüzdesi:\n'
-    ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
-    '     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
-    ' Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapa pozisyona gelme'
-    ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'
-    '     Fasıla Döngü Süresi:\n'
-    ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durur.'  : null;
+    //MH Ağırlık-Fasılada Maksimum Çalışma Yüzdesi
+    kod=="info12_3" ? metin='     Fasılada Maks. Çalışma Yüzdesi:\n'
+    'Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. '
+    ' Örneğin döngü süresi 5 dk yani 300sn seçilmişse ve bu parametreye de %70 girilmişse fanların fasıla yaparken çalışma süresi en fazla 210 Sn olabilir. '
+    ' Eğer 1 fan ile hava ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma'
+    ' süresini bu parametredeki değerin altına düşürmeye çalışır.\n\n'  : null;
 
-    //MH Ağırlık(Tavuk) (Air inletsiz)
-    kod=="info15" ? metin='   Minimum Havalandırma Ağırlık Modu\'nda sistem hayvanların ağırlıklarına göre saatlik temiz hava ihtiyaçları üzerinden gerekli hesaplamaları yapar ve'
-    ' minimum havalandırma için belirlenen fanlar buna göre kontrol edilir.\n\n'
-    ' Sistem sürü yaşına göre hayvan başına düşen hava ihtiyacını "SÜRÜ BİLGİLERİ" sayfasındaki "Hayvan Başına Min. Hav. İhtiyacı(m3/h)" alanına girilen verilere göre'
-    ' tespit eder ve bu bilgi üzerinden tüm sürü için 5dk\'daki veya 10dk\'daki toplam hava ihtiyacını hesaplar.'
-    ' Hesaplanan bu hava ihtiyacını karşılamak için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
-    ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yoksa tünel fanlarından birkaçı Min. Hav. için'
-    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan hava ihtiyacına göre sistem belirler\n\n'
-    '     Fasılada Maks. Çalışma Yüzdesi:\n'
-    ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava '
-    ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin '
-    ' altına düşürmeye çalışır.\n\n'
-    '     Hava Giriş Yüzdesi:\n'
-    ' Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
-    '     Fasıla Döngü Süresi:\n'
-    ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durur.'  : null;
+
+    //MH Ağırlık-Air inlet Öncelik Süresi
+    kod=="info12_4" ? metin='     Air Inlet Öncelik Süresi:\n'
+    'Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir. Bu sayede bacafanları'
+    ' çalıştığında air inletler açık olacağından kümes içinde oluşacak vakum etkisi önlenmiş olur.\n\n'  : null;
+
+
+    //MH Ağırlık-Hava giriş yüzdesi
+    kod=="info12_5" ? metin='     Hava Giriş Yüzdesi:\n'
+    'Hesaplanan toplam hava ihtiyacının % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'  : null;
+
+
+    //MH Ağırlık-Fasıla durma da air inlet kapansın mı?
+    kod=="info12_6" ? metin='     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
+    'Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapalı pozisyona gelme'
+    ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'  : null;
+
+
+    //MH Ağırlık-Fasıla döngü süresi
+    kod=="info12_7" ? metin='     Fasıla Döngü Süresi:\n'
+    'Minimum havalandırma fasıla modundayken fasıla döngüsünü bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
+    ' Min. Hav fanları durur.\n\n'  : null;
+
+
+    //MH Ağırlık-Sadece Min. Hav. Modu Aktif
+    kod=="info12_8" ? metin='     Sadece Min. Hav. Modu Aktif:\n'
+    'Hayvanların belirli bir yaşa gelene kadar kümesin sadece Minimum Havalandırma modu ile havalandırılması isteniyorsa bu seçenek aktif edilmelidir. Aktif edildiğinde'
+    ' günlük bazda kaç günlük oluncaya kadar sadece Min. Hav. yapılmasını belirleyeceğiniz bir seçenek görünür olacaktır.\n\n'  : null;
+
+
+     //MH Ağırlık-İlk Kaç Gün Sadece Min. Hav. Yapsın
+    kod=="info12_9" ? metin='     İlk Kaç Gün Sadece Min. Hav. Yapsın:\n'
+    'Hayvanların günlük bazda kaç yaşına gelinceye kadar sadece min. hav. aktif olsun durumunun belirlendiği parametredir. Örn. bu parametreye 10 değeri girilirse'
+    ' sürü yaşı 11 olunca sistem sadece min. hav. yap modundan çıkarak normal işleyişine döner.\n\n'  : null;
+
+
+    
 
 
 
-    //MH Hacim (Air inletli)
-    kod=="info16" ? metin='   Minimum Havalandırma Hacim Modu\'nda sistem kurulum ayarlarından girilen bina ölçüleri ve hacim oranı değerine göre hesaplanan kümes içindeki'
-    ' aktif hacim miktarı kadar havanın seçilen döngü süresinde kümes dışına atılması, dışarı atılan kirli hava kadar taze havanın da kümes içine alınmasını sağlar.\n\n'
+
+    //MH Hacim-Dijital Çıkış
+    kod=="info13_1" ? metin='   Minimum Havalandırma Hacim Modu\'nda sistem kurulum ayarlarından girilen bina ölçüleri ve hacim oranı değerlerine göre hesaplanan kümes içindeki'
+    ' aktif hacim miktarı kadar havanın seçilen döngü süresinde kümes dışına atılması, dışarı atılan kirli hava kadar taze havanın da kümes içine alınmasını sağlar.'
+    ' Minimum havalandırma fanları set değerinin üzerinde bulunan doğal bölgede ve çapraz havalandırma bölgesinde sürekli, set değerinin altında fasılalı olarak çalışır.\n'
     '     Hesaplanan aktif hacmin değişimi için 5dk\'nın veya 10dk\'nın bir kısmında durma, bir kısmında çalışma şeklinde fasıla yaparak Min. Hav. fanlarını çalıştırır '
     ' Baca fanı varsa baca fanlarının toplam debisini hesaba katarak fasıla sürelerini hesaplar. Eğer baca fanı yok da tünel fanlarından birkaçı Min. Hav. için'
-    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan aktif hacim miktarına göre sistem belirler\n\n'
-    '     Fasılada Maks. Çalışma Yüzdesi:\n'
-    ' Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. Örneğin 1 fan ile hava '
-    ' ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma süresini bu parametredeki değerin'
-    ' altına düşürmeye çalışır.\n\n'
-    '     Air Inlet Öncelik Süresi:\n'
-    ' Fasıla sırasında Min. Hav. fanları devreye girmeden kaç sn önce Air Inlet\'lerin açılmaya başlamasını belirleyen parametredir\n\n'
-    '     Hava Giriş Yüzdesi:\n'
-    ' Hesaplanan toplam aktif hacim değişiminin % kaçının Min. Hav. fanlarıyla karşılanacağını belirleyen parametredir.\n\n'
-    '     Fasıla Durma\'da Air Inlet Kapansın mı?:\n'
-    ' Bu parametre aktifleştirildiğinde sistem fasılanın durma pozisyonunda air inletleri kapatır. Eğer air inletlerin tam açık pozisyondan tam kapa pozisyona gelme'
-    ' süresi Fasıla Durma süresinden büyük olduğunda bu özellik devre dışıdır.\n\n'
-    '     Fasıla Döngü Süresi:\n'
-    ' Minimum havalandırma fasıla modundayken fasılayı bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
-    ' Min. Hav fanları durur.'  : null;
+    ' kullanılacaksa kaç tane tünel fanının çalışacağını ve ne kadar fasıla yapacağını hesaplanan aktif hacim miktarına göre sistem belirler\n\n'  : null;
+
+
+    //MH Hacim-Analog Çıkış
+    kod=="info13_2" ? metin='   Minimum Havalandırma Hacim Modu\'nda sistem kurulum ayarlarından girilen bina ölçüleri ve hacim oranı değerlerine göre hesaplanan kümes içindeki'
+    ' aktif hacim miktarı kadar havanın seçilen döngü süresinde kümes dışına atılması, dışarı atılan kirli hava kadar taze havanın da kümes içine alınmasını sağlar.'
+    ' Minimum havalandırma fanları set değerinin üzerinde bulunan doğal bölgede ve çapraz havalandırma bölgesinde maksimum hız olan 50Hz\'de ve sürekli, set değerinin'
+    ' altında hesaplanan hızda ve yine sürekli olarak çalışır.\n'
+    '     Sistem kümes içerisinde bulunan hava dolu aktif hacmi hesaplayarak bu bilgi üzerinden tüm sürü için gerekli hava miktarını içeri alacak şekilde bacafan motorlarının'
+    ' hızlarını sürücü üzerinden ayarlar. Eğer döngü süresi 5dk seçilirse aktif hacmi 5dk\'da bir dışarı atacak şekilde bacafan motor hızlarını ayarlar, eğer 10 dk seçilirse'
+    ' aynı şekilde aktif hacmi 10 dk\'da bir dışarı atacak şekilde bacafan motorlarının hızlarını ayarlar. Sistem bacafanlarını ayarladığı hızda sürekli olarak çalıştırır\n\n'  : null;
+
+
+    //MH Ağırlık-Toplam aktif hacim kac dk da yenilensin - dijital çıkış
+    kod=="info13_3" ? metin='     Toplam Aktif Hacim kaç dk\'da bir yenilensin?:\n'
+    'Minimum havalandırma fasıla modundayken fasıla döngüsünü bu parametreye göre yapar. Seçili sürenin hesaplanan bir kısmında Min. Hav fanları çalışır, kalan kısmında'
+    ' Min. Hav fanları durur. Eğer x2 seçeneği aktif edilirse aktif hacmi 5 dk\'da bir değiştirmek üzere çalışma ve durma süresini hesaplar sadece çalışma ve durma'
+    ' sürelerini 2 ile çarparak çalışma ve durma sürelerinin toplamını 10 dk olarak ayarlar. \n\n'  : null;
+
+    //MH Ağırlık-Toplam aktif hacim kac dk da yenilensin? - analog çıkış
+    kod=="info13_4" ? metin='     Toplam Aktif Hacim kaç dk\'da bir yenilensin?:\n'
+    'Ortalama sıcaklık set değerinin altındayken bacafan motorlarının hızlarını bu parametrede seçilen süreye göre ayarlar. Eğer 5dk seçilirse aktif hacmi 5dk\'da bir'
+    ' değiştirecek şekilde motor hızlarını ayarlar, 10dk seçilirse aynı şekilde aktif hacmi 10 dk\'da bir değiştirecek şekilde motor hızlarını ayarlar.\n\n'  : null;
 
 
 
-    //MH Klasik
+    //MH Ek bilgi 1
+    kod=="info14_1" ? metin='     Eğer kümes içerisinde belirli seviyede yüksek nem varsa "Hava Giriş Yüzdesi(%)" parametre değeri, %5 artırılmalıdır.'
+    ' Kümes içerisinde amonyak yüksekse "Hava Giriş Yüzdesi(%)" parametre değeri %5 veya %10 artırılmalıdır. Eğer kümes içerisinde toz var ise bu sefer'
+    ' "Hava Giriş Yüzdesi(%)" parametre değeri %5 azaltılmalıdır.\n\n'  : null;
+
+    //MH Ek bilgi 2
+    kod=="info14_2" ? metin='     Eğer kümes içerisinde belirli seviyede yüksek nem varsa "Çalışma Süresi" parametre değerleri, %5 artırılmalıdır.'
+    ' Kümes içerisinde amonyak yüksekse "Çalışma Süresi" parametre değerleri %5 veya %10 artırılmalıdır. Eğer kümes içerisinde toz var ise bu sefer'
+    ' "Çalışma Süresi" parametre değerleri %5 azaltılmalıdır.\n\n'  : null;
+
+    //Klepe Prob Kontrol - YRD Opsiyonlar - Opsiyon 2
+    kod=="info15" ? metin='     Klepe açıklıklarının "KLEPE" ayarları sayfasında belirtilen parametrelere göre açılıp kapanmasına ek olarak'
+    ' bu sayfadaki parametreleri aktif hale getirirsek klepe açıklıklarına etki ederler. Eğer ilgili klepeye yakın seçeceğimiz bir ya da iki adet ısı sensörünün'
+    ' değerlerinin klepe açıklıklarına etki etmesini istiyorsak ilgili klepeyi aktif hale getirmemiz gerekmektedir. Bu opsiyonun aktif hale getirdiğimiz klepenin'
+    ' açıklık oranına etkisi şu şikdedir:\n\n'
+    ' Klepenin hangi ısı sensörüne veya sensörlerine göre çalışmasını istiyorsak, Sens. No1 ve Sens. No2 parametrelerine ilgili ısı sensörünün numarası girilir.'
+    ' Eğer bir ısı sensörüne göre çalışacaksa Sens. No2\'ye 0 girilmelidir. İki sensör tanımlandıysa, bu sensörlerin ortalaması, bir sensör tanımladıksa tanımlanan'
+    ' bu sensörün değeri set sıcaklığının(A) altına düştüğünde klepe açıklığı oransal olarak küçültülür. Seçilen sensör veya sensörlerin ortalaması set değerinden'
+    ' sıcaklık farkı(X) kadar altına yani (A-X) değerine düşerken mevcut klepe açıklığı da (K) değerinden (K/2) değerine yani yarısına düşer.\n\n'
+    ' Bu opsiyon aktif edilse dahi sadece sistem çapraz havalandırma veya tünel havalandırma modunda iken çalışır. Yani kümes içi tüm sensörlerin ortalaması'
+    ' doğal bölge bitiş sıcaklığının üstündeyken aynı zamanda ilgili klepe için seçilen sensörlerin ortalaması da set değerinin altında olduğunda bu opsiyon'
+    ' klepe açıklığına etki eder. \n\n'  : null;
+
+
+    //Unsur OTO-MAN seçimi ve Manuel kontrol
+    kod=="info16_1" ? metin='     Sistemde içerisinde soğutma-havalandırma veya yemleme için kullanılan tüm unsurların OTOMATİK veya MANUEL moda alındığı'
+    ' sayfadır. İlgili unsur OTOMATİK\'e alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem unsuru çalıştırmaya başlar.'
+    ' İlgili unsur MANUEL\'e alındığında unsuru manuel kontrol etmemizi sağlayan diyalog penceresini açan buton hemen OTO-MAN butonlarının altında'
+    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden unsuru manuel olarak kontrol edebilirsiniz.\n\n'
+    ' KLEPE ve AIR INLET için de OTO-MAN butonuna tıklayarak ilgili sayfaya gidebilirsiniz. \n\n'  : null;
+
+    //Klepe OTO-MAN seçimi ve Manuel kontrol
+    kod=="info16_2" ? metin='     Sistemde içerisinde kullanılan Klepelerin OTOMATİK veya MANUEL moda alındığı'
+    ' sayfadır. İlgili klepe OTOMATİK\'e alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem klepeyi çalıştırmaya başlar.'
+    ' İlgili klepe MANUEL\'e alındığında klepeyi manuel kontrol etmemizi sağlayan diyalog penceresini açan buton hemen OTO-MAN butonlarının altında'
+    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden klepeyi manuel olarak kontrol edebilirsiniz.\n\n'  : null;
+
+    //Air Inlet OTO-MAN seçimi ve Manuel kontrol
+    kod=="info16_3" ? metin='     Sistemde içerisinde kullanılan Air Inlet\'lerin OTOMATİK veya MANUEL moda alındığı'
+    ' sayfadır. İlgili Air Inlet OTOMATİK\'e alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem Air Inlet\'i çalıştırmaya başlar.'
+    ' İlgili Air Inlet MANUEL\'e alındığında Air Inlet\'i manuel kontrol etmemizi sağlayan diyalog penceresini açan buton hemen OTO-MAN butonlarının altında'
+    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden Air Inlet\'i manuel olarak kontrol edebilirsiniz.\n\n'  : null;
+
+
+
+
+
+
+    //MH Klasik (Bacafan ve air inlet olmayan Tavuk kümeslerinde kullanılır)
     kod=="info17" ? metin='   Doğal Bölge\'de ve set değerinin altında 4 adete kadar fanın hangi fasıla süreleriyle çalışacağının kullanıcı tarafından belirlendiği'
     ' sistemdir. 4 adet fandan hangisi veya hangileri seçilmişse sistem min. hav. modundaysa sadece seçili bu fanlar çalışır.\n\n'
     ' (K) Bölgesi:\n'
@@ -907,7 +1049,7 @@ class Dil{
     ' Ortalama sıcaklık, Fasıla Set 2(D) değerinden küçük veya eşit Fasıla Set 3(E) değerinden büyük olduğunda fanlar "Çalışma Süresi 3" kadar çalışır '
     ' "Durma Süresi 3" kadar durur.\n\n'
     ' (J) Bölgesi:\n'
-    ' Ortalama sıcaklık, Fasıla Set 3(E) değerinden küçük veya eşit olduğunda fanlar "Çalışma Süresi 4" kadar çalışır "Durma Süresi 4" kadar durur.'  : null;
+    ' Ortalama sıcaklık, Fasıla Set 3(E) değerinden küçük veya eşit olduğunda fanlar "Çalışma Süresi 4" kadar çalışır "Durma Süresi 4" kadar durur.\n\n'  : null;
 
 
 
@@ -957,6 +1099,19 @@ class Dil{
 
 
 
+     //Sensör Kalibrasyon
+    kod=="info22" ? metin='     YEMLEME sayfası, yem arabalarını istenilen saatte kümesin arkasına göndermeye, istenilen saatte de kümesin önüne getirmeye'
+    ' yarayan parametrelerin girildiği sayfadır.\n\nÖncelikle YEM ÇIKIŞ 1, YEM ÇIKIŞ 2 ve YEM ÇIKIŞ 3 çıkışlarına istenilen zamanda görev atamak için yanındaki kutucukların'
+    ' işaretlenmesi gerekmektedir. Bu kutucukların işaretlenebilmesi için KURULUM AYARLARI\'ndan ilgili çıkış işaretlenmiş ve PLC çıkış numarası atanmış olması gerekmektedir.'
+    ' Eğer ilgili çıkış KURULUM AYARLARI\'ndan işaretlenmişse buradaki kutucuk işaretlendiğinde ileri-geri butonları ve zaman çizelgesi görünür olacaktır.'
+    ' Sol tarafta bulunan ileri ve geri butonlarına tıklandığında sayfanın alt tarafında zaman atama diyalog penceresi açılacaktır. Açılan diyalog penceresinde'
+    ' tanımlı saatlerden görevin icra edilmesini istediğiniz saatleri işaretleyebilirsiniz. Açılan diyalog penceresinde tanımlı tüm saatler için aynı anda işaretleme'
+    ' yapabilirsiniz bir sınır bulunmamaktadır. Ana ekranda ilgili çıkış için atanmış zamanların kutucukları yeşil olacak, görev atanmamış zamanların kutucukları'
+    ' siyah olacaktır.\n\n'
+    ' Sistem zamanı görev atanan saate geldiğinde ilgili çıkış "Sinyal Süresi (sn)" parametresine girilen süre kadar çıkış verecektir.'  : null;
+
+
+
 
     //endregion
 
@@ -991,7 +1146,7 @@ class Dil{
     kod=="tv13" ? metin='Flap Number' : null;
     kod=="tv14" ? metin='Ped Pump Number' : null;
     kod=="tv15" ? metin='Temp. Sens. Number' : null;
-    kod=="tv16" ? metin='Chimney F. Group Number' : null;
+    kod=="tv16" ? metin='Chimney Fan Exist?' : null;
     kod=="tv17" ? metin='A.Inlet M.Number' : null;
     kod=="tv18" ? metin='Heater Number' : null;
     kod=="tv19" ? metin='Silo Number' : null;
@@ -1041,8 +1196,8 @@ class Dil{
     kod=="tv63" ? metin='Group:' : null;
     kod=="tv64" ? metin='Cfan Group No' : null;
     kod=="tv65" ? metin='C.Fan Gr-1 Out No' : null;
-    kod=="tv66" ? metin='C.Fan Gr-2 Out No' : null;
-    kod=="tv67" ? metin='C.Fan Gr-3 Out No' : null;
+    kod=="tv66" ? metin='Digital\nOutput' : null;
+    kod=="tv67" ? metin='Analog\nOutput' : null;
     kod=="tv68" ? metin='Chimney Fan Map' : null;
     kod=="tv69" ? metin='Cfan Group Out No' : null;
     kod=="tv70" ? metin='Out Temp. Sen.' : null;
@@ -1056,7 +1211,7 @@ class Dil{
     kod=="tv78" ? metin='Heater Gr-2 Out No' : null;
     kod=="tv79" ? metin='Heater Gr-3 Out No' : null;
     kod=="tv80" ? metin='Heater Group No' : null;
-    kod=="tv81" ? metin='Boşta' : null;
+    kod=="tv81" ? metin='Auto-Man Details' : null;
     kod=="tv82" ? metin='Silo:' : null;
     kod=="tv83" ? metin='SILO' : null;
     kod=="tv84" ? metin='Silo Map' : null;
@@ -1088,7 +1243,7 @@ class Dil{
     kod=="tv110" ? metin='MIN. VENT.' : null;
     kod=="tv111" ? metin='OTHER OPT.' : null;
     kod=="tv112" ? metin='LIGHTING' : null;
-    kod=="tv113" ? metin='FEED & WATER' : null;
+    kod=="tv113" ? metin='FEEDING' : null;
     kod=="tv114" ? metin='HELPER OPT.' : null;
     kod=="tv115" ? metin='Set temperature' : null;
     kod=="tv116" ? metin='Natural Zone finish temp.' : null;
@@ -1224,7 +1379,7 @@ class Dil{
     kod=="tv246" ? metin='STOP TEMPERATURE DIFF.' : null;
     kod=="tv247" ? metin='Start Temp. Diff.' : null;
     kod=="tv248" ? metin='Stop Temp. Diff.' : null;
-    kod=="tv249" ? metin='COOLING PED PUMPS' : null;
+    kod=="tv249" ? metin='COOLING AND HUMIDITY' : null;
     kod=="tv250" ? metin='Max. Hum.' : null;
     kod=="tv251" ? metin='Hum. Diff.' : null;
     kod=="tv252" ? metin='Maximum Hum.' : null;
@@ -1453,6 +1608,91 @@ class Dil{
     kod=="tv475" ? metin='FLAP AUTO-MAN SELECTION' : null;
     kod=="tv476" ? metin='AIR INLET AUTO-MAN SELECTION' : null;
     kod=="tv477" ? metin='Air Inlet Step Time (Sec)' : null;
+    kod=="tv478" ? metin='How Many Days to Perform\nMin.Vent After the Start?' : null;
+    kod=="tv479" ? metin='Only Min. Vent\nMode Active' : null;
+    kod=="tv480" ? metin='Keep Flow in transition\nto Min. Vent?' : null;
+    kod=="tv481" ? metin='HELPER OPTIONS' : null;
+    kod=="tv482" ? metin='Min. Hum (%)' : null;
+    kod=="tv483" ? metin='Temperature-Interval Diagram' : null;
+    kod=="tv484" ? metin='Minimum Hum.' : null;
+    kod=="tv485" ? metin='At Low Hum.\nPed Pumps Run' : null;
+    kod=="tv486" ? metin='Temp. Priority' : null;
+    kod=="tv487" ? metin='Ped P. 1' : null;
+    kod=="tv488" ? metin='Ped P. 2-3' : null;
+    kod=="tv489" ? metin='At High Hum.\nAll Fans Run' : null;
+    kod=="tv490" ? metin='Out Hum\nHigh Limit Active' : null;
+    kod=="tv491" ? metin='Out Hum\nHigh Limit' : null;
+    kod=="tv492" ? metin='0-10V Output' : null;
+    kod=="tv493" ? metin='4-20mA Output' : null;
+    kod=="tv494" ? metin='Chimney F.\nMotor Speed (Hz)' : null;
+    kod=="tv495" ? metin='Chimney Fans' : null;
+    kod=="tv496" ? metin='OPTION 1' : null;
+    kod=="tv497" ? metin='OPTION 2' : null;
+    kod=="tv498" ? metin='Flap Control According\nto Nearby Temp. Sensor' : null;
+    kod=="tv499" ? metin='ENTER SETTINGS' : null;
+    kod=="tv500" ? metin='SENSOR FLAP CONTROL' : null;
+    kod=="tv501" ? metin='Temp. Diff.(°C)' : null;
+    kod=="tv502" ? metin='Sens. No1' : null;
+    kod=="tv503" ? metin='Sens. No2' : null;
+    kod=="tv504" ? metin='Set Temp. - Temp. Diff.' : null;
+    kod=="tv505" ? metin='Current Flap Interval' : null;
+    kod=="tv506" ? metin='12:00 AM' : null;
+    kod=="tv507" ? metin='12:30 AM' : null;
+    kod=="tv508" ? metin='1:00 AM' : null;
+    kod=="tv509" ? metin='1:30 AM' : null;
+    kod=="tv510" ? metin='2:00 AM' : null;
+    kod=="tv511" ? metin='2:30 AM' : null;
+    kod=="tv512" ? metin='3:00 AM' : null;
+    kod=="tv513" ? metin='3:30 AM' : null;
+    kod=="tv514" ? metin='4:00 AM' : null;
+    kod=="tv515" ? metin='4:30 AM' : null;
+    kod=="tv516" ? metin='5:00 AM' : null;
+    kod=="tv517" ? metin='5:30 AM' : null;
+    kod=="tv518" ? metin='6:00 AM' : null;
+    kod=="tv519" ? metin='6:30 AM' : null;
+    kod=="tv520" ? metin='7:00 AM' : null;
+    kod=="tv521" ? metin='7:30 AM' : null;
+    kod=="tv522" ? metin='8:00 AM' : null;
+    kod=="tv523" ? metin='8:30 AM' : null;
+    kod=="tv524" ? metin='9:00 AM' : null;
+    kod=="tv525" ? metin='9:30 AM' : null;
+    kod=="tv526" ? metin='10:00 AM' : null;
+    kod=="tv527" ? metin='10:30 AM' : null;
+    kod=="tv528" ? metin='11:00 AM' : null;
+    kod=="tv529" ? metin='11:30 AM' : null;
+    kod=="tv530" ? metin='12:00 PM' : null;
+    kod=="tv531" ? metin='12:30 PM' : null;
+    kod=="tv532" ? metin='1:00 PM' : null;
+    kod=="tv533" ? metin='1:30 PM' : null;
+    kod=="tv534" ? metin='2:00 PM' : null;
+    kod=="tv535" ? metin='2:30 PM' : null;
+    kod=="tv536" ? metin='3:00 PM' : null;
+    kod=="tv537" ? metin='3:30 PM' : null;
+    kod=="tv538" ? metin='4:00 PM' : null;
+    kod=="tv539" ? metin='4:30 PM' : null;
+    kod=="tv540" ? metin='5:00 PM' : null;
+    kod=="tv541" ? metin='5:30 PM' : null;
+    kod=="tv542" ? metin='6:00 PM' : null;
+    kod=="tv543" ? metin='6:30 PM' : null;
+    kod=="tv544" ? metin='7:00 PM' : null;
+    kod=="tv545" ? metin='7:30 PM' : null;
+    kod=="tv546" ? metin='8:00 PM' : null;
+    kod=="tv547" ? metin='8:30 PM' : null;
+    kod=="tv548" ? metin='9:00 PM' : null;
+    kod=="tv549" ? metin='9:30 PM' : null;
+    kod=="tv550" ? metin='10:00 PM' : null;
+    kod=="tv551" ? metin='10:30 PM' : null;
+    kod=="tv552" ? metin='11:00 PM' : null;
+    kod=="tv553" ? metin='11:30 PM' : null;
+    kod=="tv554" ? metin='FEED OUTPUT 1' : null;
+    kod=="tv555" ? metin='FEED OUTPUT 2' : null;
+    kod=="tv556" ? metin='FEED OUTPUT 3' : null;
+    kod=="tv557" ? metin='Forth' : null;
+    kod=="tv558" ? metin='Back' : null;
+    kod=="tv559" ? metin='CHOOSING FEEDING TIME' : null;
+    kod=="tv560" ? metin='Feeding Details' : null;
+    kod=="tv561" ? metin='Signal Time (Sec) : ' : null;
+    
     
 
 
@@ -1549,11 +1789,11 @@ class Dil{
     kod=="toast36" ? metin='Please define Ped Number and Output number as nonzero for all selected peds' : null;
     kod=="toast37" ? metin='Please define Flap Number and Output number as nonzero for all selected klepes' : null;
     kod=="toast38" ? metin='One of target outputs in use! Please release first the target output' : null;
-    kod=="toast39" ? metin='Please define Chimney Fan Grup Number as nonzero for all selected chimney fans on the map' : null;
+    kod=="toast39" ? metin='Please define Chimney Fan Number as nonzero for all selected chimney fans on the map' : null;
     kod=="toast40" ? metin='Please define a number equal or smaller than total sensor quantity' : null;
     kod=="toast41" ? metin='Selected sensor number is not define on the map!' : null;
     kod=="toast42" ? metin='Same Air Inlet Number assigned for two different air inlet! Please check.' : null;
-    kod=="toast43" ? metin='Please define a number equal or smaller than total chimney fan grup quantity' : null;
+    kod=="toast43" ? metin='Booooooooooooooooooooooooooooooooooooooooooooooşta' : null;
     kod=="toast44" ? metin='Please define a number equal or smaller than total air inlet motor quantity' : null;
     kod=="toast45" ? metin='Please define a number equal or smaller than total ped motor quantity' : null;
     kod=="toast46" ? metin='Please define a number equal or smaller than total klepe motor quantity' : null;
@@ -1573,7 +1813,7 @@ class Dil{
     kod=="toast60" ? metin='Wifi connection is selected for the sensor' : null;
     kod=="toast61" ? metin='Analog connection is selected for the sensor' : null;
     kod=="toast62" ? metin='The map must be created and approved!' : null;
-    kod=="toast63" ? metin='Please define C.Fan Group Output No as nonzero' : null;
+    kod=="toast63" ? metin='Please define C.Fan Output No as nonzero' : null;
     kod=="toast64" ? metin='Installation completed succesfully...' : null;
     kod=="toast65" ? metin='It is passive for Rearing and Broiler Cages.' : null;
     kod=="toast66" ? metin='PID Control Method is passive for Rearing and Broiler Cages which have not chimney fans.' : null;
@@ -1593,6 +1833,13 @@ class Dil{
     kod=="toast79" ? metin='Flap is openning now! Closing option is inactive!' : null;
     kod=="toast80" ? metin='Air Inlet is closing now! Openning option is inactive!' : null;
     kod=="toast81" ? metin='Air Inlet is openning now! Closing option is inactive!' : null;
+    kod=="toast82" ? metin='This option is inactive because of there is no out hum. sensor which defined ' : null;
+    kod=="toast83" ? metin='There is no temperature sensor defined with this number! ' : null;
+    kod=="toast84" ? metin='This number defined for outside temp. sensor! Please choose a different number. ' : null;
+    kod=="toast85" ? metin='Feed 1 Output isn\'t defined in installation settings! Please check.' : null;
+    kod=="toast86" ? metin='Feed 1 Output isn\'t defined in installation settings! Please check.' : null;
+    kod=="toast87" ? metin='Feed 1 Output isn\'t defined in installation settings! Please check.' : null;
+    kod=="toast88" ? metin='The value more then 1500 sec (25min) is invalid value!' : null;
 
     //endregion
 

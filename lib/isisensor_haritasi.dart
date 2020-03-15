@@ -852,7 +852,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                               veriGonderildi = true;
 
                               _veriGonder("22", "26", noVeri, noVeriAktif,
-                                  idVeriAktif, "0");
+                                  idVeriAktif, isisensorNo[22].toString());
                               dbHelper.veriYOKSAekleVARSAguncelle(
                                   21, "ok", noVeri, noVeriAktif, idVeriAktif);
                             }
@@ -1225,7 +1225,10 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       },
     ).then((val) {
       if (val) {
+
+
         veriGonderildi = false;
+        
         for (int i = 1; i <= 22; i++) {
           isisensorHarita[i] = 0;
           isisensorNo[i] = 0;

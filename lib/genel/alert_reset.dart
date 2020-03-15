@@ -32,7 +32,7 @@ class _ResetAlertState extends State<ResetAlert> {
     var oran;
 
     try {
-      var oran = MediaQuery.of(context).size.width / 731.4;
+      oran = MediaQuery.of(context).size.width / 731.4;
     } catch (Exception) {
       print("Hata VAR!!!");
     }

@@ -46,6 +46,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
   String maksFanFarkiH = "5.0";
   String fanKademesi = "1";
 
+  bool mhDANthYAGECISTEdebiyiKORU=false;
+
   double gun1 = 33.0;
   double gun7 = 31.0;
   double gun14 = 29.0;
@@ -1368,7 +1370,70 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                             ),
                           ),
                         ),
-                        Spacer(),
+                        Expanded(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: <Widget>[
+                                            
+                                            Expanded(
+                                              flex: 2,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment: Alignment.center,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, "tv480"),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.black,
+                                                      fontSize: 60,
+                                                      fontWeight: FontWeight.bold
+                                                    ),
+                                                    maxLines: 3,
+                                                    minFontSize: 8,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Expanded(
+                                              flex: 4,
+                                              child: IconButton(
+                                                padding: EdgeInsets.all(0),
+                                                onPressed: () {
+
+                                                  _index = 5;
+                                                  if (!mhDANthYAGECISTEdebiyiKORU) {
+                                                    mhDANthYAGECISTEdebiyiKORU = true;
+                                                  } else {
+                                                    mhDANthYAGECISTEdebiyiKORU = false;
+                                                  }
+
+                                                  String veri=mhDANthYAGECISTEdebiyiKORU==true ? '1' : '0';
+                                                  yazmaSonrasiGecikmeSayaci=0;
+                                                  _veriGonder("1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri");
+      
+
+
+
+                                                  setState(() {});
+                                                  
+
+                                                },
+                                                icon: Icon(
+                                                    mhDANthYAGECISTEdebiyiKORU == true
+                                                        ? Icons.check_box
+                                                        : Icons.check_box_outline_blank),
+                                                color: mhDANthYAGECISTEdebiyiKORU == true
+                                                    ? Colors.green.shade500
+                                                    : Colors.blue.shade600,
+                                                iconSize: 30 * oran,
+                                              ),
+                                            ),
+                                            //Spacer(flex: 1,)
+                                          ],
+                                        ),
+                                      ),
+                           
                       ],
                     ),
                   ),
@@ -2068,8 +2133,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
         capHavFarkC = "0";
-        _veriGonder(
-            "1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi");
+        String veri=mhDANthYAGECISTEdebiyiKORU==true ? '1' : '0';
+        _veriGonder("1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri");
       }
 
       setState(() {});
@@ -2098,8 +2163,8 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
         capHavFarkC = "0";
-        _veriGonder(
-            "1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi");
+        String veri=mhDANthYAGECISTEdebiyiKORU==true ? '1' : '0';
+        _veriGonder("1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri");
       }
 
       setState(() {});
@@ -2278,6 +2343,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
               maksFanFarkiH = degerler[9];
               fanKademesi = degerler[10];
               setSicA = degerler[11];
+              mhDANthYAGECISTEdebiyiKORU=degerler[12]=="True" ? true : false;
 
               socket.add(utf8.encode('ok'));
             }

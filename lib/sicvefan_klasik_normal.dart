@@ -43,8 +43,6 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
 
   String dogalBolgeB = "1.0";
   String setSicA = "21.0";
-  String maksFanFarkiH = "5.0";
-  String fanKademesi = "1";
 
   
   List<double> fanSet = new List(61);

@@ -14,10 +14,11 @@ import 'package:prokis/sicvefan_lineer_capraz.dart';
 import 'package:prokis/sicvefan_lineer_normal.dart';
 import 'package:prokis/sicvefan_pid_capraz.dart';
 import 'package:prokis/sicvefan_pid_normal.dart';
-import 'package:prokis/sogutma.dart';
+import 'package:prokis/sogutma_nem.dart';
+import 'package:prokis/yemleme.dart';
+import 'package:prokis/yrd_opsiyon.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'aydinlatma.dart';
-import 'deneme.dart';
 import 'genel/database_helper.dart';
 import 'genel/metotlar.dart';
 import 'isitma.dart';
@@ -182,6 +183,7 @@ class KontrolState extends State<Kontrol> {
                                   onPressed: () {
 
                                     if(fanYontemi=="2" && bacaFanAdet!="0"){
+                                      print("Deneme");
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -314,7 +316,7 @@ class KontrolState extends State<Kontrol> {
                                       image: DecorationImage(
                                         alignment: Alignment.center,
                                         image: AssetImage(
-                                            'assets/images/klepe_icon2.png'),
+                                            'assets/images/klepe_icon.png'),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -371,7 +373,7 @@ class KontrolState extends State<Kontrol> {
                                     Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Sogutma(dbVeriler)),
+                                              builder: (context) => SogutmaNem(dbVeriler)),
                                         );
 
                                   },
@@ -654,13 +656,20 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+
+                                    Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Yemleme(dbVeriler)),
+                                        );
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         alignment: Alignment.center,
                                         image: AssetImage(
-                                            'assets/images/su_silo_icon.png'),
+                                            'assets/images/feeding_icon.png'),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -712,7 +721,13 @@ class KontrolState extends State<Kontrol> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => YrdOpsiyon(dbVeriler)),
+                                        );
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,

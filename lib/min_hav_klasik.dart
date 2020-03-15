@@ -1970,7 +1970,8 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                             textScaleFactor: oran,
                           ),
                           subtitle: Text(
-                            Dil().sec(dilSecimi, "info17"),
+                            Dil().sec(dilSecimi, "info17")+
+                              Dil().sec(dilSecimi, "info14_2"),
                             style: TextStyle(
                               fontSize: 13 * oran,
                             ),

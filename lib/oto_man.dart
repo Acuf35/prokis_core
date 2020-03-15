@@ -319,7 +319,7 @@ class OtoManState extends State<OtoMan> {
                       alignment: Alignment.center,
                       child: Text(
                         Dil().sec(
-                            dilSecimi, "tv123"), //Sıcaklık diyagramı
+                            dilSecimi, "tv81"), //Sıcaklık diyagramı
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -332,113 +332,7 @@ class OtoManState extends State<OtoMan> {
                     ),
                   ),
                   Expanded(
-                    flex: 7,
-                    child: DrawerHeader(
-                      padding: EdgeInsets.only(left: 10),
-                      margin: EdgeInsets.all(0),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  alignment: Alignment.center,
-                                  image: AssetImage(
-                                      "assets/images/diagram_klasik_capraz.jpg"),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              color: Colors.grey[100],
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: <Widget>[
-                                        Text(
-                                          "A",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "A+B",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "D",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "F",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                        Text(
-                                          "G",
-                                          style: TextStyle(fontSize: 10 * oran),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv115"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv116"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv118"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv120"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                        Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv121"),
-                                          style: TextStyle(fontSize: 13 * oran),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 10,
+                    flex: 17,
                     child: Container(
                       color: Colors.yellow[100],
                       child: ListView(
@@ -449,7 +343,7 @@ class OtoManState extends State<OtoMan> {
                             dense: false,
                             title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
                             subtitle: Text(
-                              Dil().sec(dilSecimi, "info4"),
+                              Dil().sec(dilSecimi, "info16_1"),
                               style: TextStyle(
                                 fontSize: 13 * oran,
                               ),
@@ -1645,13 +1539,15 @@ class OtoManState extends State<OtoMan> {
                                                                     children: <Widget>[
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
+                                                                          Spacer(flex: 11,),
+                                                                          bottomDrawerManUnsur(index ,"tv495", bfaMan[1] , oran,1,bacafanAdet),
+                                                                          Spacer(flex: 11,),
+                                                                          /*
+                                                                          bottomDrawerManUnsur(index ,"tv495", bfaMan[2] , oran,2,bacafanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv64", bfaMan[1] , oran,1,bacafanAdet),
+                                                                          bottomDrawerManUnsur(index ,"tv495", bfaMan[3] , oran,3,bacafanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv64", bfaMan[2] , oran,2,bacafanAdet),
-                                                                          Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv64", bfaMan[3] , oran,3,bacafanAdet),
-                                                                          Spacer(),
+                                                                          */
                                                                         ],
                                                                       ),
                                                                       ],
@@ -1960,7 +1856,7 @@ class OtoManState extends State<OtoMan> {
              child: Container(padding: EdgeInsets.only(top: 5*oran,bottom: 5*oran),
                child: Row(mainAxisAlignment: MainAxisAlignment.center,
                  children: <Widget>[
-                   Text(Dil().sec(dilSecimi, isim)+(index==4 || index==8 ? "" : " $unsurNo"),style: TextStyle(fontFamily: "Kelly Slab",
+                   Text(Dil().sec(dilSecimi, isim)+(index==4 || index==8 || index==6 ? "" : " $unsurNo"),style: TextStyle(fontFamily: "Kelly Slab",
                    color: otoManDurum ? Colors.white : Colors.black ,
                    fontWeight: FontWeight.bold,
                    fontSize: 16),

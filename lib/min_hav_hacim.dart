@@ -38,7 +38,7 @@ class MinHavHacimState extends State<MinHavHacim> {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   String airInletAdet = "1";
-  String info = "info12";
+  String bacafaniAdet = "1";
   List<Map> dbVeriler;
 
   int _yuzler = 0;
@@ -58,6 +58,10 @@ class MinHavHacimState extends State<MinHavHacim> {
   String donguSecimi='5';
   String fasilaDoubleX2='0';
 
+  String bacafanMotorHizi='0.0';
+  bool dijitalCikis = false;
+  bool analogCikis = false;
+
   String calismaSure = "120";
   String durmaSure = "240";
   String minHavFanSayisi = "2";
@@ -74,7 +78,13 @@ class MinHavHacimState extends State<MinHavHacim> {
       }
       if (dbVeri[i]["id"] == 5) {
         airInletAdet = dbVeri[i]["veri2"];
-        airInletAdet = "1";
+        bacafaniAdet = dbVeri[i]["veri1"];
+      }
+      if (dbVeri[i]["id"] == 24) {
+        var xx = dbVeri[i]["veri4"];
+        var yy=xx.split('*');
+        dijitalCikis=yy[0]=="1" ? true : false;
+        analogCikis=yy[1]=="1" ? true : false;
       }
     }
 
@@ -158,88 +168,90 @@ class MinHavHacimState extends State<MinHavHacim> {
                             flex: 2,
                             child: Row(
                               children: <Widget>[
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    child: Column(
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: SizedBox(
-                                            child: Container(
-                                              alignment: Alignment.bottomCenter,
-                                              child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv272"),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    fontSize: 50.0,
-                                                    fontFamily: 'Kelly Slab',
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                                maxLines: 2,
-                                                minFontSize: 8,
+                                Visibility(visible: bacafaniAdet=="0" ? true : false,
+                                                                  child: Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment: Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv272"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 2,
+                                                  minFontSize: 8,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          flex: 3,
-                                          child: RawMaterialButton(
-                                            onPressed: () {
-                                              int sayi = int.parse(
-                                                  calismaSuresiUstSinir);
-                                              _index = 1;
-                                              _yuzler =
-                                                  sayi < 100 ? 0 : sayi ~/ 100;
-                                              _onlar = sayi < 10
-                                                  ? 0
-                                                  : (sayi > 99
-                                                      ? (sayi -
-                                                              100 * _yuzler) ~/
-                                                          10
-                                                      : sayi ~/ 10);
-                                              _birler = sayi % 10;
+                                          Expanded(
+                                            flex: 3,
+                                            child: RawMaterialButton(
+                                              onPressed: () {
+                                                int sayi = int.parse(
+                                                    calismaSuresiUstSinir);
+                                                _index = 1;
+                                                _yuzler =
+                                                    sayi < 100 ? 0 : sayi ~/ 100;
+                                                _onlar = sayi < 10
+                                                    ? 0
+                                                    : (sayi > 99
+                                                        ? (sayi -
+                                                                100 * _yuzler) ~/
+                                                            10
+                                                        : sayi ~/ 10);
+                                                _birler = sayi % 10;
 
-                                              _degergiris3X0(
-                                                  _yuzler,
-                                                  _onlar,
-                                                  _birler,
-                                                  _index,
-                                                  3,
-                                                  oran,
-                                                  dilSecimi,
-                                                  "tv272",
-                                                  "");
-                                            },
-                                            child: Stack(
-                                              alignment: Alignment.center,
-                                              children: <Widget>[
-                                                LayoutBuilder(builder:
-                                                    (context, constraint) {
-                                                  return Icon(
-                                                    Icons.brightness_1,
-                                                    size: constraint
-                                                        .biggest.height,
-                                                    color: Colors.blue[700],
-                                                  );
-                                                }),
-                                                Text(
-                                                  calismaSuresiUstSinir,
-                                                  style: TextStyle(
-                                                      fontSize: 25 * oran,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ],
+                                                _degergiris3X0(
+                                                    _yuzler,
+                                                    _onlar,
+                                                    _birler,
+                                                    _index,
+                                                    3,
+                                                    oran,
+                                                    dilSecimi,
+                                                    "tv272",
+                                                    "");
+                                              },
+                                              child: Stack(
+                                                alignment: Alignment.center,
+                                                children: <Widget>[
+                                                  LayoutBuilder(builder:
+                                                      (context, constraint) {
+                                                    return Icon(
+                                                      Icons.brightness_1,
+                                                      size: constraint
+                                                          .biggest.height,
+                                                      color: Colors.blue[700],
+                                                    );
+                                                  }),
+                                                  Text(
+                                                    calismaSuresiUstSinir,
+                                                    style: TextStyle(
+                                                        fontSize: 25 * oran,
+                                                        fontFamily: 'Kelly Slab',
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color: Colors.white),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                                Visibility(visible: airInletAdet!="0" ? true : false,
+                                Visibility(visible: airInletAdet!="0" && dijitalCikis ? true : false,
                                                                   child: Expanded(
                                     flex: 1,
                                     child: Container(
@@ -411,7 +423,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                             child: Column(
                               children: <Widget>[
                                 Expanded(
-                                  child: Visibility(visible: airInletAdet!="0" ? true : false,
+                                  child: Visibility(visible: airInletAdet!="0" && dijitalCikis ? true : false,
                                                                       child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: <Widget>[
@@ -536,9 +548,9 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                   ),
                                                   Container(width: 10*oran,),
                                                   Visibility(maintainState: true,maintainSize: true,maintainAnimation: true,
-                                                    visible:donguSecimi=='5' ? true : false,child: Text("x2",textScaleFactor: oran,)),
+                                                    visible:donguSecimi=='5' && dijitalCikis ? true : false,child: Text("x2",textScaleFactor: oran,)),
                                                   Visibility(maintainState: true,maintainSize: true,maintainAnimation: true,
-                                                    visible:donguSecimi=='5' ? true : false,
+                                                    visible:donguSecimi=='5' && dijitalCikis ? true : false,
                                                     child: RawMaterialButton(materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,constraints: BoxConstraints(),
                                                       padding: EdgeInsets.all(0),
                                                       onPressed: () {
@@ -620,26 +632,43 @@ class MinHavHacimState extends State<MinHavHacim> {
                             child: Row(
                               children: <Widget>[
                                 Spacer(),
-                                Expanded(
-                                  child: Column(mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(Dil().sec(dilSecimi, "tv270"),
-                                      style: TextStyle(fontFamily: 'Kelly Slab',color: Colors.grey[600]),textScaleFactor: oran,
-                                      ),
-                                      Text(calismaSure,style: TextStyle(fontFamily: 'Kelly Slab',fontWeight: FontWeight.bold,fontSize: 40,color: Colors.blue[200]),textScaleFactor: oran,)
-                                    ],
+                                Visibility(visible: dijitalCikis,
+                                                                  child: Expanded(
+                                    child: Column(mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text(Dil().sec(dilSecimi, "tv270"),
+                                        style: TextStyle(fontFamily: 'Kelly Slab',color: Colors.grey[600]),textScaleFactor: oran,
+                                        ),
+                                        Text(calismaSure,style: TextStyle(fontFamily: 'Kelly Slab',fontWeight: FontWeight.bold,fontSize: 40,color: Colors.blue[200]),textScaleFactor: oran,)
+                                      ],
+                                    ),
                                   ),
                                 ),
-                                Expanded(
-                                                                  child: Column(mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(Dil().sec(dilSecimi, "tv271"),
-                                      style: TextStyle(fontFamily: 'Kelly Slab',color: Colors.grey[600]),textScaleFactor: oran,
-                                      ),
-                                      Text(durmaSure,style: TextStyle(fontFamily: 'Kelly Slab',fontWeight: FontWeight.bold,fontSize: 40,color: Colors.blue[200]),textScaleFactor: oran,)
-                                    ],
+                                Visibility(visible: dijitalCikis,
+                                                                  child: Expanded(
+                                                                    child: Column(mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text(Dil().sec(dilSecimi, "tv271"),
+                                        style: TextStyle(fontFamily: 'Kelly Slab',color: Colors.grey[600]),textScaleFactor: oran,
+                                        ),
+                                        Text(durmaSure,style: TextStyle(fontFamily: 'Kelly Slab',fontWeight: FontWeight.bold,fontSize: 40,color: Colors.blue[200]),textScaleFactor: oran,)
+                                      ],
+                                    ),
                                   ),
                                 ),
+                                Visibility(visible: analogCikis,
+                                    child: Expanded(
+                                      child: Column(mainAxisAlignment: MainAxisAlignment.end,
+                                      children: <Widget>[
+                                        Text(Dil().sec(dilSecimi, "tv494"),textAlign: TextAlign.center,
+                                        style: TextStyle(fontFamily: 'Kelly Slab',color: Colors.grey[600]),textScaleFactor: oran,
+                                        ),
+                                        Text(bacafanMotorHizi,style: TextStyle(fontFamily: 'Kelly Slab',fontWeight: FontWeight.bold,fontSize: 40,color: Colors.blue[200]),textScaleFactor: oran,)
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                
                                 Expanded(
                                                                   child: Column(mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
@@ -651,7 +680,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                   ),
                                 ),
                                 
-                                Visibility(visible: airInletAdet!="0" ? false : true,
+                                Visibility(visible: bacafaniAdet=="0" ? true : false,
                                   child: Expanded(
                                                                     child: Column(mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
@@ -734,7 +763,13 @@ class MinHavHacimState extends State<MinHavHacim> {
                               textScaleFactor: oran,
                             ),
                             subtitle: Text(
-                              Dil().sec(dilSecimi, info),
+                              (dijitalCikis ?  Dil().sec(dilSecimi, "info13_1") : Dil().sec(dilSecimi, "info13_2")) +
+                              (dijitalCikis ? Dil().sec(dilSecimi, "info12_3") : "")+
+                              (dijitalCikis && airInletAdet!="0" ? Dil().sec(dilSecimi, "info12_4") : "")+
+                              Dil().sec(dilSecimi, "info12_5")+
+                              (dijitalCikis && airInletAdet!="0" ? Dil().sec(dilSecimi, "info12_6") : "")+
+                              (dijitalCikis ? Dil().sec(dilSecimi, "info13_3") : Dil().sec(dilSecimi, "info13_4"))+
+                              Dil().sec(dilSecimi, "info14_1"),
                               style: TextStyle(
                                 fontSize: 13 * oran,
                               ),
@@ -885,8 +920,9 @@ class MinHavHacimState extends State<MinHavHacim> {
               durmaSure=degerler[5];
               minHavFanSayisi=degerler[6];
               hayvanBasinaIhtiyac=degerler[7];
-              fasilaDoubleX2=degerler[8]=='300000' ? '0' : (donguSecimi=='5' ? '1' : '0');
               donguSecimi=degerler[9];
+              fasilaDoubleX2=degerler[8]=='300000' ? '0' : (donguSecimi=='5' ? '1' : '0');
+              bacafanMotorHizi=degerler[10];
 
 
               //socket.add(utf8.encode('ok'));

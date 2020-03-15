@@ -105,6 +105,7 @@ flutter:
   - assets/images/cooling_icon.png
   - assets/images/heating_icon.png
   - assets/images/klepe_icon2.png
+  - assets/images/klepe_icon.png
   - assets/images/minvent_icon.png
   - assets/images/mancontrol_icon.png
   - assets/images/mancontrol_icon_red.png
@@ -127,8 +128,10 @@ flutter:
   - assets/images/diagram_klasik_capraz.jpg
   - assets/images/diagram_pid_normal.jpg
   - assets/images/diagram_pid_capraz.jpg
+  - assets/images/diagram_klepe_prob_kontrol.jpg
   - assets/images/acikmavi_oval_icon.png
   - assets/images/turkuaz_oval_icon.png
+  - assets/images/feeding_icon.png
   - assets/images/diagram_klepe_klasik1.jpg
   - assets/images/diagram_klepe_klasik2.jpg
   - assets/images/diagram_klepe_tunel.jpg

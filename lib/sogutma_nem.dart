@@ -16,19 +16,19 @@ import 'genel/deger_giris_2x1.dart';
 import 'genel/deger_giris_3x0.dart';
 import 'languages/select.dart';
 
-class Sogutma extends StatefulWidget {
+class SogutmaNem extends StatefulWidget {
   List<Map> gelenDBveri;
-  Sogutma(List<Map> dbVeriler) {
+  SogutmaNem(List<Map> dbVeriler) {
     gelenDBveri = dbVeriler;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return SogutmaState(gelenDBveri);
+    return SogutmaNemState(gelenDBveri);
   }
 }
 
-class SogutmaState extends State<Sogutma> {
+class SogutmaNemState extends State<SogutmaNem> {
   //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
@@ -56,6 +56,11 @@ class SogutmaState extends State<Sogutma> {
   List<String> durmaSicakligiFark = new List(11);
 
   String maksimumNem = "0.0";
+  String minimumNem = "0.0";
+  bool dusukNemdePedCalissin = false;
+  bool sicaklikOncelikli = false;
+  bool ped1 = false;
+  bool ped23 = false;
   String nemFark = "0.0";
   String calismaSure = "240";
   String durmaSure = "360";
@@ -63,7 +68,7 @@ class SogutmaState extends State<Sogutma> {
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  SogutmaState(List<Map> dbVeri) {
+  SogutmaNemState(List<Map> dbVeri) {
     dbVeriler = dbVeri;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
@@ -151,7 +156,7 @@ class SogutmaState extends State<Sogutma> {
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                      flex: 15,
+                      flex: 13,
                       child: Column(
                         children: <Widget>[
                           //Beyaz alan üst boşluk
@@ -281,19 +286,19 @@ class SogutmaState extends State<Sogutma> {
                                 ),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 0,
-                                    child: _klepeKlasikUnsur(oran, 1)),
+                                    child: _pedUnsur(oran, 1)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 1,
-                                    child: _klepeKlasikUnsur(oran, 2)),
+                                    child: _pedUnsur(oran, 2)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 2,
-                                    child: _klepeKlasikUnsur(oran, 3)),
+                                    child: _pedUnsur(oran, 3)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 3,
-                                    child: _klepeKlasikUnsur(oran, 4)),
+                                    child: _pedUnsur(oran, 4)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 4,
-                                    child: _klepeKlasikUnsur(oran, 5)),
+                                    child: _pedUnsur(oran, 5)),
                               ],
                             ),
                           ),
@@ -433,25 +438,420 @@ class SogutmaState extends State<Sogutma> {
                                 ),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 5,
-                                    child: _klepeKlasikUnsur(oran, 6)),
+                                    child: _pedUnsur(oran, 6)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 6,
-                                    child: _klepeKlasikUnsur(oran, 7)),
+                                    child: _pedUnsur(oran, 7)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 7,
-                                    child: _klepeKlasikUnsur(oran, 8)),
+                                    child: _pedUnsur(oran, 8)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 8,
-                                    child: _klepeKlasikUnsur(oran, 9)),
+                                    child: _pedUnsur(oran, 9)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 9,
-                                    child: _klepeKlasikUnsur(oran, 10)),
+                                    child: _pedUnsur(oran, 10)),
                               ],
                             ),
                           ),
                         ],
                       ),
                     ),
+                    Expanded(
+                      flex: 2,
+                      child: Column(
+                        children: <Widget>[
+                          //Min. Nem ve Düşük nem de ped çalışma durumu
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: <Widget>[
+                                //Min. Nem
+                                Expanded(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Spacer(),
+                                      Expanded(
+                                        flex: 10,
+                                        child: RawMaterialButton(
+                                          onPressed: () {
+                                            _index = 25;
+                                            _onlar = int.parse(minimumNem
+                                                        .split(".")[0]) <
+                                                    10
+                                                ? 0
+                                                : (int.parse(minimumNem
+                                                        .split(".")[0]) ~/
+                                                    10);
+                                            _birler = int.parse(
+                                                    minimumNem.split(".")[0]) %
+                                                10;
+                                            _ondalik = int.parse(
+                                                minimumNem.split(".")[1]);
+
+                                            _degergiris2X1(
+                                                _onlar,
+                                                _birler,
+                                                _ondalik,
+                                                _index,
+                                                oran,
+                                                dilSecimi,
+                                                "tv484",
+                                                "");
+                                          },
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                    alignment:
+                                                        Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(
+                                                          dilSecimi, "tv482"),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily:
+                                                            'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                      ),
+                                                      maxLines: 2,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: Stack(
+                                                  children: <Widget>[
+                                                    LayoutBuilder(builder:
+                                                        (context, constraint) {
+                                                      return Center(
+                                                        child: Icon(
+                                                          Icons.brightness_1,
+                                                          size: constraint
+                                                              .biggest.height,
+                                                          color:
+                                                              Colors.cyan[800],
+                                                        ),
+                                                      );
+                                                    }),
+                                                    Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        minimumNem,
+                                                        style: TextStyle(
+                                                            fontSize: 20 * oran,
+                                                            fontFamily:
+                                                                'Kelly Slab',
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color:
+                                                                Colors.white),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer()
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer()
+                                    ],
+                                  ),
+                                ),
+                                //Düşük nemde ped çalışsın
+                                Expanded(
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              
+                                              Expanded(
+                                                flex: 2,
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(dilSecimi, "tv485"),
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Kelly Slab',
+                                                        color: Colors.black,
+                                                        fontSize: 60,
+                                                        //fontWeight: FontWeight.bold
+                                                      ),
+                                                      maxLines: 3,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 4,
+                                                child: IconButton(alignment: Alignment.topCenter,
+                                                  padding: EdgeInsets.all(0),
+                                                  onPressed: () {
+
+                                                    _index = 26;
+                                                    if (!dusukNemdePedCalissin) {
+                                                      dusukNemdePedCalissin = true;
+                                                    } else {
+                                                      dusukNemdePedCalissin = false;
+                                                    }
+
+                                                    String veri=dusukNemdePedCalissin==true ? '1' : '0';
+                                                    yazmaSonrasiGecikmeSayaci=0;
+                                                    _veriGonder(
+                                                        "10*$_index*$veri");
+                                                    setState(() {});
+                                                    
+
+                                                  },
+                                                  icon: Icon(
+                                                      dusukNemdePedCalissin == true
+                                                          ? Icons.check_box
+                                                          : Icons.check_box_outline_blank),
+                                                  color: dusukNemdePedCalissin == true
+                                                      ? Colors.green.shade500
+                                                      : Colors.blue.shade600,
+                                                  iconSize: 30 * oran,
+                                                ),
+                                              ),
+                                              
+                                            ],
+                                          ),
+                                        ),
+                              ],
+                            ),
+                          ),
+                          //Sicaklik öndelikli ve ped1, ped2-3 seçimi
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                    flex: 6,
+                                    child: Visibility(visible: dusukNemdePedCalissin,
+                                                                          child: Column(
+                                        children: <Widget>[
+                                          //Sıcaklık Öncelikli
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: SizedBox(
+                                                    child: Container(
+                                                      alignment: Alignment.center,
+                                                      child: AutoSizeText(
+                                                        Dil().sec(dilSecimi, "tv486"),
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Kelly Slab',
+                                                          color: Colors.black,
+                                                          fontSize: 60,
+                                                          //fontWeight: FontWeight.bold
+                                                        ),
+                                                        maxLines: 3,
+                                                        minFontSize: 8,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 4,
+                                                  child: IconButton(alignment: Alignment.topCenter,
+                                                    padding: EdgeInsets.all(0),
+                                                    onPressed: () {
+
+                                                      _index = 27;
+                                                      if (!sicaklikOncelikli) {
+                                                        sicaklikOncelikli = true;
+                                                      } else {
+                                                        sicaklikOncelikli = false;
+                                                      }
+
+                                                      String veri=sicaklikOncelikli==true ? '1' : '0';
+                                                      yazmaSonrasiGecikmeSayaci=0;
+                                                      _veriGonder(
+                                                          "10*$_index*$veri");
+                                                      setState(() {});
+                                                      
+
+                                                    },
+                                                    icon: Icon(
+                                                        sicaklikOncelikli == true
+                                                            ? Icons.check_box
+                                                            : Icons.check_box_outline_blank),
+                                                    color: sicaklikOncelikli == true
+                                                        ? Colors.green.shade500
+                                                        : Colors.blue.shade600,
+                                                    iconSize: 30 * oran,
+                                                  ),
+                                                ),
+                                                //Spacer(flex: 1,)
+                                              ],
+                                            ),
+                                          ),
+                                          //Ped 1
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: SizedBox(
+                                                    child: Container(color: Colors.yellow,
+                                                      alignment: Alignment.bottomCenter,
+                                                      child: AutoSizeText(
+                                                        Dil().sec(dilSecimi, "tv487"),
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Kelly Slab',
+                                                          color: Colors.black,
+                                                          fontSize: 60,
+                                                          //fontWeight: FontWeight.bold
+                                                        ),
+                                                        maxLines: 3,
+                                                        minFontSize: 8,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Container(alignment: Alignment.topCenter,
+                                                    child: 
+                                                    RawMaterialButton(
+                                                      
+                                          onPressed: () {
+                                            _index = 28;
+                                            if (ped1) {
+                                              ped1 = false;
+                                            } else {
+                                              ped1 = true;
+                                            }
+
+                                            String veri=ped1==true ? '1' : '0';
+                                                      yazmaSonrasiGecikmeSayaci=0;
+                                                      _veriGonder(
+                                                          "10*$_index*$veri");
+
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            ped1 == true
+                                                ? Icons.check_box
+                                                : Icons.check_box_outline_blank,
+                                            color: ped1 == true
+                                                ? Colors.green[600]
+                                                : Colors.black,
+                                            size: 25 * oran,
+                                          ),
+                                          padding: EdgeInsets.all(0),
+                                          materialTapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          constraints: BoxConstraints(),
+                                        ),
+                                                  
+                                                  ),
+                                                ),
+                                                //Spacer(flex: 1,)
+                                              ],
+                                            ),
+                                          ),
+                                          //Ped 2-3
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: SizedBox(
+                                                    child: Container(color: Colors.yellow,
+                                                      alignment: Alignment.bottomCenter,
+                                                      child: AutoSizeText(
+                                                        Dil().sec(dilSecimi, "tv488"),
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Kelly Slab',
+                                                          color: Colors.black,
+                                                          fontSize: 60,
+                                                          //fontWeight: FontWeight.bold
+                                                        ),
+                                                        maxLines: 3,
+                                                        minFontSize: 8,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Container(alignment: Alignment.topCenter,
+                                                    child: RawMaterialButton(
+                                                      
+                                          onPressed: () {
+                                            _index = 29;
+                                            if (ped23) {
+                                              ped23 = false;
+                                            } else {
+                                              ped23 = true;
+                                            }
+                                            String veri=ped23==true ? '1' : '0';
+                                                      yazmaSonrasiGecikmeSayaci=0;
+                                                      _veriGonder(
+                                                          "10*$_index*$veri");
+
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            ped23 == true
+                                                ? Icons.check_box
+                                                : Icons.check_box_outline_blank,
+                                            color: ped23 == true
+                                                ? Colors.green[600]
+                                                : Colors.black,
+                                            size: 25 * oran,
+                                          ),
+                                          padding: EdgeInsets.all(0),
+                                          materialTapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          constraints: BoxConstraints(),
+                                        ),
+                                                  ),
+                                                ),
+                                                //Spacer(flex: 1,)
+                                              ],
+                                            ),
+                                          ),
+                                                                                    
+                                        ],
+                                      ),
+                                    )
+                                    ),
+                                Spacer(
+                                  flex: 1,
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  
                     Expanded(
                       flex: 2,
                       child: Column(
@@ -896,7 +1296,8 @@ class SogutmaState extends State<Sogutma> {
                           )
                         ],
                       ),
-                    )
+                    ),
+                    
                   ],
                 ),
               ),
@@ -982,7 +1383,7 @@ class SogutmaState extends State<Sogutma> {
                                             child: Container(
                                                 alignment: Alignment.centerRight,
                                                 child: Text(
-                                                  "A",
+                                                  "A+X",
                                                   style: TextStyle(
                                                       fontSize: 11 * oran),
                                                 ))),
@@ -1082,7 +1483,7 @@ class SogutmaState extends State<Sogutma> {
                                             alignment: Alignment.centerLeft,
                                             child: Text(
                                               " : " +
-                                                  Dil().sec(dilSecimi, "tv115"),
+                                                  Dil().sec(dilSecimi, "tv115")+" + "+Dil().sec(dilSecimi, "tv187"),
                                               style:
                                                   TextStyle(fontSize: 11 * oran),
                                             ),
@@ -1391,6 +1792,14 @@ class SogutmaState extends State<Sogutma> {
         veri = nemFark;
       }
 
+      if (_index == 25) {
+        minimumNem = (_onlar == 0 ? "" : _onlar.toString()) +
+            _birler.toString() +
+            "." +
+            _ondalik.toString();
+        veri = minimumNem;
+      }
+
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
         _veriGonder("10*$_index*$veri");
@@ -1503,6 +1912,13 @@ class SogutmaState extends State<Sogutma> {
               nemFark = degerler[3];
               calismaSure = degerler[4];
               durmaSure = degerler[5];
+              
+              minimumNem = degerler[6];
+              dusukNemdePedCalissin = degerler[7]=="True" ? true : false;
+              sicaklikOncelikli =  degerler[8]=="True" ? true : false;
+              ped1 =  degerler[9]=="True" ? true : false;
+              ped23 =  degerler[10]=="True" ? true : false;
+
 
               //socket.add(utf8.encode('ok'));
             }
@@ -1527,7 +1943,7 @@ class SogutmaState extends State<Sogutma> {
     }
   }
 
-  Widget _klepeKlasikUnsur(double oran, int pedNo) {
+  Widget _pedUnsur(double oran, int pedNo) {
     return Expanded(
       flex: 5,
       child: Column(

@@ -40,13 +40,16 @@ class AdetlerState extends State<Adetler> {
   String klepeAdet = "1";
   String pedAdet = "1";
   String isiSensAdet = "1";
-  String bacafanAdet = "0";
+  String bacafanVarMi = "0";
   String airinletAdet = "0";
   String isiticiAdet = "0";
   String siloAdet = "0";
 
   bool wifiOlcum = false;
+  bool wifiOlcumGecici = false;
   bool analogOlcum = true;
+
+  bool isiSensorOlcumTuruSecildi = false;
 
   bool durum;
 
@@ -151,13 +154,14 @@ class AdetlerState extends State<Adetler> {
         isiSensAdet = xx[0];
         if(xx.length>1){
           wifiOlcum = xx[1]=="1" ? true : false;
+          wifiOlcumGecici = xx[1]=="1" ? true : false;
           analogOlcum = xx[1]=="2" ? true : false;
         }
         
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet = dbVeri[i]["veri1"];
+        bacafanVarMi = dbVeri[i]["veri1"];
         airinletAdet = dbVeri[i]["veri2"];
         isiticiAdet = dbVeri[i]["veri3"];
         siloAdet = dbVeri[i]["veri4"];
@@ -300,11 +304,11 @@ class AdetlerState extends State<Adetler> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         //Bacafan
-                        _unsurAdetWidget(
+                        _unsurAdetWidgetBaca(
                             Dil().sec(dilSecimi, "tv16"),
                             'assets/images/kurulum_bacafan_icon.png',
                             oran,
-                            bacafanAdet,
+                            bacafanVarMi,
                             adet3,
                             5),
                         //Air inlet
@@ -443,8 +447,57 @@ class AdetlerState extends State<Adetler> {
         var gelen_mesaj_parcali = gelen_mesaj.split("*");
 
         if (gelen_mesaj_parcali[0] == 'ok') {
+          if(!isiSensorOlcumTuruSecildi){
+            Toast.show(
+                          Dil().sec(dilSecimi, "toast8"), context,
+                          duration: 2);
+          }
+          
+          isiSensorOlcumTuruSecildi=false;
+        } else {
+          Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
+          isiSensorOlcumTuruSecildi=false;
+        }
+
+        setState(() {});
+      });
+
+      socket.add(utf8.encode('$dbKod*$id*$v1*$v2*$v3*$v4'));
+
+      // wait 5 seconds
+      await Future.delayed(Duration(seconds: 5));
+
+      // .. and close the socket
+      socket.close();
+    } catch (e) {
+      print(e);
+      Toast.show(Dil().sec(dilSecimi, "toast20"), context,
+          duration: 3);
+          isiSensorOlcumTuruSecildi=false;
+    }
+  }
+
+  _veriGonder2(String dbKod, String id, String v1, String v2, String v3,
+      String v4) async {
+    Socket socket;
+
+    try {
+      socket = await Socket.connect('192.168.1.110', 2233);
+      String gelen_mesaj = "";
+
+      
+
+      // listen to the received data event stream
+      socket.listen((List<int> event) {
+        //socket.add(utf8.encode('ok'));
+        print(utf8.decode(event));
+        gelen_mesaj = utf8.decode(event);
+        var gelen_mesaj_parcali = gelen_mesaj.split("*");
+
+        if (gelen_mesaj_parcali[0] == 'ok') {
+          String ekMesaj=wifiOlcum ? Dil().sec(dilSecimi, "toast60")+" " : Dil().sec(dilSecimi, "toast61")+" ";
           Toast.show(
-              Dil().sec(dilSecimi, "toast8"), context,
+              ekMesaj+Dil().sec(dilSecimi, "toast8"), context,
               duration: 2);
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
@@ -466,6 +519,8 @@ class AdetlerState extends State<Adetler> {
           duration: 3);
     }
   }
+
+
 
   Widget _unsurAdetWidget(String baslik, String imagePath, double oran,
       String dropDownValue, List<String> liste, int adetCode) {
@@ -537,7 +592,7 @@ class AdetlerState extends State<Adetler> {
                       } else if (adetCode == 4) {
                         isiSensAdet = newValue;
                       } else if (adetCode == 5) {
-                        bacafanAdet = newValue;
+                        bacafanVarMi = newValue;
                       } else if (adetCode == 6) {
                         airinletAdet = newValue;
                       } else if (adetCode == 7) {
@@ -547,15 +602,21 @@ class AdetlerState extends State<Adetler> {
                       }
                       if (adetCode < 5) {
                         _veriGonder(
-                            "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet);
+                            "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
                         dbHelper.veriYOKSAekleVARSAguncelle(
                             4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2")).then((onValue){
                               _dbVeriCekme();
                             });
+                          if(wifiOlcum!=wifiOlcumGecici){
+                          dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                          dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                          _veriGonder("23", "0", "0", "0", "0", "0");
+                          wifiOlcumGecici=wifiOlcum;
+                        }
                       } else {
-                        _veriGonder("3", "6", bacafanAdet, airinletAdet,
+                        _veriGonder("3", "6", bacafanVarMi, airinletAdet,
                             isiticiAdet, siloAdet);
-                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanAdet,
+                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi,
                             airinletAdet, isiticiAdet, siloAdet).then((onValue){
                               _dbVeriCekme();
                             });
@@ -582,6 +643,117 @@ class AdetlerState extends State<Adetler> {
       ),
     );
   }
+
+  Widget _unsurAdetWidgetBaca(String baslik, String imagePath, double oran,
+      String dropDownValue, List<String> liste, int adetCode) {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          Expanded(
+            child: SizedBox(
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: AutoSizeText(
+                  baslik,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.black,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 4,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Spacer(),
+                Expanded(
+                  flex: 4,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        alignment: Alignment.center,
+                        image: AssetImage(imagePath),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(flex: 1,),
+                Expanded(flex: 4,
+                                            child: Container(alignment: Alignment.centerLeft,
+                                              child: RawMaterialButton(
+                                                
+                                          onPressed: () {
+
+                                            if (bacafanVarMi=="1") {
+                                              bacafanVarMi="0";
+                                            } else {
+                                              bacafanVarMi="1";
+                                            }
+
+                                            if (adetCode < 5) {
+                                            _veriGonder(
+                                              "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+                                            dbHelper.veriYOKSAekleVARSAguncelle(
+                                              4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2")).then((onValue){
+                                                _dbVeriCekme();
+                                              });
+                                              if(wifiOlcum!=wifiOlcumGecici){
+                                              dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                                              dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                                              _veriGonder("23", "0", "0", "0", "0", "0");
+                                              wifiOlcumGecici=wifiOlcum;
+                                            }
+                                            } else {
+                                            _veriGonder("3", "6", bacafanVarMi, airinletAdet,
+                                              isiticiAdet, siloAdet);
+                                            dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi,
+                                              airinletAdet, isiticiAdet, siloAdet).then((onValue){
+                                                _dbVeriCekme();
+                                              });
+                                            }
+
+                                            setState(() {});
+
+
+                                          },
+                                          child: Icon(
+                                            bacafanVarMi =="1"
+                                            ? Icons.check_box
+                                            : Icons.check_box_outline_blank,
+                                            color: bacafanVarMi == "1"
+                                            ? Colors.green[600]
+                                            : Colors.black,
+                                            size: 30 * oran,
+                                          ),
+                                          padding: EdgeInsets.all(0),
+                                          materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                          constraints: BoxConstraints(),
+                                        ),
+                                            ),
+                                          ),
+                                           
+
+
+
+
+                
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 
   Widget _unsurAdetWidgetIsiSens(String baslik, String imagePath, double oran,
       String dropDownValue, List<String> liste, int adetCode) {
@@ -613,9 +785,24 @@ class AdetlerState extends State<Adetler> {
                   child: RawMaterialButton(
                     onPressed: () {
                       if (wifiOlcum == false) {
+
                         wifiOlcum = true;
                         analogOlcum = false;
-                        Toast.show(Dil().sec(dilSecimi, "toast60"), context,duration: 3);
+
+                        _veriGonder2(
+                            "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+                        dbHelper.veriYOKSAekleVARSAguncelle(
+                            4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+
+                        if(wifiOlcum!=wifiOlcumGecici){
+                          isiSensorOlcumTuruSecildi=true;
+                          dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                          dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                          _veriGonder("23", "0", "0", "0", "0", "0");
+                          wifiOlcumGecici=wifiOlcum;
+                        }
+
+
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast60"), context,duration: 3);
                       }
@@ -637,12 +824,29 @@ class AdetlerState extends State<Adetler> {
                   child: RawMaterialButton(
                     onPressed: () {
                       if (analogOlcum == false) {
+
                         analogOlcum = true;
                         wifiOlcum = false;
-                      Toast.show(Dil().sec(dilSecimi, "toast61"), context,duration: 3);
+
+                        
+                        _veriGonder2(
+                            "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+                        dbHelper.veriYOKSAekleVARSAguncelle(
+                            4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+
+                        if(wifiOlcum!=wifiOlcumGecici){
+                          isiSensorOlcumTuruSecildi=true;
+                          dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                          dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                          _veriGonder("23", "0", "0", "0", "0", "0");
+                          wifiOlcumGecici=wifiOlcum;
+                        }
+
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast61"), context,duration: 3);
                       }
+
+
 
                       setState(() {});
                     },
@@ -708,7 +912,7 @@ class AdetlerState extends State<Adetler> {
                       } else if (adetCode == 4) {
                         isiSensAdet = newValue;
                       } else if (adetCode == 5) {
-                        bacafanAdet = newValue;
+                        bacafanVarMi = newValue;
                       } else if (adetCode == 6) {
                         airinletAdet = newValue;
                       } else if (adetCode == 7) {
@@ -721,10 +925,18 @@ class AdetlerState extends State<Adetler> {
                             "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
                         dbHelper.veriYOKSAekleVARSAguncelle(
                             4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+
+                        if(wifiOlcum!=wifiOlcumGecici){
+                          dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                          dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                          _veriGonder("23", "0", "0", "0", "0", "0");
+                          wifiOlcumGecici=wifiOlcum;
+                        }
+
                       } else {
-                        _veriGonder("3", "6", bacafanAdet, airinletAdet,
+                        _veriGonder("3", "6", bacafanVarMi, airinletAdet,
                             isiticiAdet, siloAdet);
-                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanAdet,
+                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi,
                             airinletAdet, isiticiAdet, siloAdet);
                       }
 
