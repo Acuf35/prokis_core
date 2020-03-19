@@ -53,7 +53,7 @@ class _SifreGirisAdminState extends State<SifreGirisAdmin> {
                   SizedBox(width: 200*oran,
                                       child: Container(color: Colors.white,
                                         child: TextField(
-                    
+                    keyboardType: TextInputType.number,
                     style: TextStyle(
                       color: Colors.black,
                         fontSize: 22 * oran,

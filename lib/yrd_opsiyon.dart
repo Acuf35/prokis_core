@@ -13,6 +13,7 @@ import 'package:prokis/kontrol.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
+import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_3x0.dart';
 import 'languages/select.dart';
 
@@ -54,6 +55,12 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
   bool yuksekNemdeTumFanlarCalissin = false;
   bool disNemUstLimitAktif = false;
   String disNemUstLimit = "85";
+
+  String fanMinimumCalismaSuresi="10";
+
+  bool elekKesildigindeSistemiDurdur=false;
+  String tFanYumGecisDongu="3";
+  String tFanYumGecisAdet="3";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -107,7 +114,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                           return Text(
                             Metotlar().getSystemTime(dbVeriler),
                             style: TextStyle(
-                                  color: Colors.grey[700],
+                                  color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
                                   fontSize: 12*oran,
                                   fontWeight: FontWeight.bold),
@@ -122,7 +129,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                           return Text(
                             Metotlar().getSystemDate(dbVeriler),
                             style: TextStyle(
-                                  color: Colors.grey[700],
+                                  color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
                                   fontSize: 12*oran,
                                   fontWeight: FontWeight.bold),
@@ -465,13 +472,327 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                   ),
                                 ),
                                 Spacer(),
-                                Spacer(flex: 20,),
+                                Expanded(
+                                  flex: 20,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(Dil().sec(dilSecimi, "tv496"),style: TextStyle(
+                                        fontFamily: 'Kelly Slab'
+                                      ),
+                                      textScaleFactor: oran,
+                                      ),
+                                      Expanded(
+                                         child: Container(color: Colors.blue[50],
+                                           child: Row(
+                                            children: <Widget>[
+                                              Expanded(flex: 5,
+                                               child: Column(
+                                                   children: <Widget>[
+                                                     Expanded(
+                                                       child: SizedBox(
+                                                         child: Container(
+                                                           alignment: Alignment.bottomCenter,
+                                                           child: AutoSizeText(
+                                                             Dil().sec(dilSecimi, "tv562"),
+                                                             textAlign: TextAlign.center,
+                                                             style: TextStyle(
+                                                                 fontSize: 50.0,
+                                                                 fontFamily: 'Kelly Slab',
+                                                                 fontWeight:
+                                                                     FontWeight.bold),
+                                                             maxLines: 2,
+                                                             minFontSize: 8,
+                                                           ),
+                                                         ),
+                                                       ),
+                                                     ),
+                                                     Expanded(
+                                                       flex: 3,
+                                                       child: RawMaterialButton(
+                                                         onPressed: () {
+                                                           int sayi=int.parse(fanMinimumCalismaSuresi);
+                                                                  _index = 4;
+                                                                  _onlar=sayi<10 ? 0 :sayi~/10;
+                                                                  _birler=sayi%10;
+
+                                                                  _degergiris2X0(_onlar, _birler, _index, 1, oran, dilSecimi, "tv200");
+                                                                  
+                                                         },
+                                                         child: Stack(
+                                                           alignment: Alignment.center,
+                                                           children: <Widget>[
+                                                             LayoutBuilder(builder:
+                                                                 (context, constraint) {
+                                                               return Icon(
+                                                                 Icons.brightness_1,
+                                                                 size: constraint
+                                                                     .biggest.height,
+                                                                 color: Colors.blue[700],
+                                                               );
+                                                             }),
+                                                             Text(
+                                                               fanMinimumCalismaSuresi,
+                                                               style: TextStyle(
+                                                                   fontSize: 25 * oran,
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight:
+                                                                       FontWeight.bold,
+                                                                   color: Colors.white),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   ],
+                                              ),
+                                                ),                                             
+                                            ],
+                                        ),
+                                         ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Spacer(),
                               ],
                             ),
                           ),
+
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: <Widget>[
+                                Spacer(),
+                                Expanded(
+                                  flex: 20,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(Dil().sec(dilSecimi, "tv565"),style: TextStyle(
+                                        fontFamily: 'Kelly Slab'
+                                      ),
+                                      textScaleFactor: oran,
+                                      ),
+                                      Expanded(
+                                         child: Container(color: Colors.blue[50],
+                                           child: Row(
+                                            children: <Widget>[
+                                              Expanded(flex: 1,
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+                                                    
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: SizedBox(
+                                                        child: Container(
+                                                          alignment: Alignment.center,
+                                                          child: AutoSizeText(
+                                                            Dil().sec(dilSecimi, "tv566"),
+                                                            textAlign: TextAlign.center,
+                                                            style: TextStyle(
+                                                              fontFamily: 'Kelly Slab',
+                                                              color: Colors.black,
+                                                              fontSize: 60,
+                                                              fontWeight: FontWeight.bold
+                                                            ),
+                                                            maxLines: 3,
+                                                            minFontSize: 8,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      flex: 4,
+                                                      child: IconButton(
+                                                        padding: EdgeInsets.all(0),
+                                                        onPressed: () {
+
+                                                          _index = 5;
+                                                          if (!elekKesildigindeSistemiDurdur) {
+                                                            elekKesildigindeSistemiDurdur = true;
+                                                          } else {
+                                                            elekKesildigindeSistemiDurdur = false;
+                                                          }
+
+                                                          String veri=elekKesildigindeSistemiDurdur==true ? '1' : '0';
+                                                          yazmaSonrasiGecikmeSayaci=0;
+                                                          _veriGonder(
+                                                              "32*$_index*$veri");
+                                                          setState(() {});
+                                                          
+
+                                                        },
+                                                        icon: Icon(
+                                                            elekKesildigindeSistemiDurdur == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank),
+                                                        color: elekKesildigindeSistemiDurdur == true
+                                                            ? Colors.green.shade500
+                                                            : Colors.blue.shade600,
+                                                        iconSize: 30 * oran,
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,)
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(flex: 1,
+                                               child: Column(
+                                                   children: <Widget>[
+                                                     Expanded(
+                                                       child: SizedBox(
+                                                         child: Container(
+                                                           alignment: Alignment.bottomCenter,
+                                                           child: AutoSizeText(
+                                                             Dil().sec(dilSecimi, "tv567"),
+                                                             textAlign: TextAlign.center,
+                                                             style: TextStyle(
+                                                                 fontSize: 50.0,
+                                                                 fontFamily: 'Kelly Slab',
+                                                                 fontWeight:
+                                                                     FontWeight.bold),
+                                                             maxLines: 2,
+                                                             minFontSize: 8,
+                                                           ),
+                                                         ),
+                                                       ),
+                                                     ),
+                                                     Expanded(
+                                                       flex: 3,
+                                                       child: RawMaterialButton(
+                                                         onPressed: () {
+                                                           int sayi =
+                                                               int.parse(tFanYumGecisDongu);
+                                                           _index = 6;
+                                                           _onlar = sayi < 10
+                                                               ? 0
+                                                               : sayi ~/ 10;
+                                                           _birler = sayi % 10;
+
+                                                           _degergiris2X0(
+                                                               _onlar,
+                                                               _birler,
+                                                               _index,
+                                                               1,
+                                                               oran,
+                                                               dilSecimi,
+                                                               "tv567"
+                                                               );
+                                                         },
+                                                         child: Stack(
+                                                           alignment: Alignment.center,
+                                                           children: <Widget>[
+                                                             LayoutBuilder(builder:
+                                                                 (context, constraint) {
+                                                               return Icon(
+                                                                 Icons.brightness_1,
+                                                                 size: constraint
+                                                                     .biggest.height,
+                                                                 color: Colors.blue[700],
+                                                               );
+                                                             }),
+                                                             Text(
+                                                               tFanYumGecisDongu,
+                                                               style: TextStyle(
+                                                                   fontSize: 25 * oran,
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight:
+                                                                       FontWeight.bold,
+                                                                   color: Colors.white),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   ],
+                                              ),
+                                                ),                                             
+                                              Expanded(flex: 1,
+                                               child: Column(
+                                                   children: <Widget>[
+                                                     Expanded(
+                                                       child: SizedBox(
+                                                         child: Container(
+                                                           alignment: Alignment.bottomCenter,
+                                                           child: AutoSizeText(
+                                                             Dil().sec(dilSecimi, "tv568"),
+                                                             textAlign: TextAlign.center,
+                                                             style: TextStyle(
+                                                                 fontSize: 50.0,
+                                                                 fontFamily: 'Kelly Slab',
+                                                                 fontWeight:
+                                                                     FontWeight.bold),
+                                                             maxLines: 2,
+                                                             minFontSize: 8,
+                                                           ),
+                                                         ),
+                                                       ),
+                                                     ),
+                                                     Expanded(
+                                                       flex: 3,
+                                                       child: RawMaterialButton(
+                                                         onPressed: () {
+                                                           int sayi =
+                                                               int.parse(tFanYumGecisAdet);
+                                                           _index = 7;
+                                                           _onlar = sayi < 10
+                                                               ? 0
+                                                               : sayi ~/ 10;
+                                                           _birler = sayi % 10;
+
+                                                           _degergiris2X0(
+                                                               _onlar,
+                                                               _birler,
+                                                               _index,
+                                                               1,
+                                                               oran,
+                                                               dilSecimi,
+                                                               "tv568"
+                                                               );
+                                                         },
+                                                         child: Stack(
+                                                           alignment: Alignment.center,
+                                                           children: <Widget>[
+                                                             LayoutBuilder(builder:
+                                                                 (context, constraint) {
+                                                               return Icon(
+                                                                 Icons.brightness_1,
+                                                                 size: constraint
+                                                                     .biggest.height,
+                                                                 color: Colors.blue[700],
+                                                               );
+                                                             }),
+                                                             Text(
+                                                               tFanYumGecisAdet,
+                                                               style: TextStyle(
+                                                                   fontSize: 25 * oran,
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight:
+                                                                       FontWeight.bold,
+                                                                   color: Colors.white),
+                                                             ),
+                                                           ],
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   ],
+                                              ),
+                                                ),                                             
+
+                                            ],
+                                        ),
+                                         ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Spacer(flex: 43,),
+                                
+                              ],
+                            ),
+                          ),
                           
-                          Spacer(flex: 4,)
+                          Spacer(flex: 2,)
                         
                         ],
                       ),
@@ -620,6 +941,45 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
     });
   }
 
+Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int paramIndex,
+      double oran, String dil, String baslik) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return DegerGiris2X0.Deger(
+            onlarUnsur, birlerUnsur, klepeIndex, oran, dil, baslik);
+      },
+    ).then((val) {
+      bool veriGonderilsinMi = false;
+      if (
+          _onlar != val[0] ||
+          _birler != val[1] ||
+          _index != val[2]) {
+          veriGonderilsinMi = true;
+      }
+
+      _onlar = val[0];
+      _birler = val[1];
+      _index = val[2];
+
+      
+      fanMinimumCalismaSuresi=(_yuzler*100+_onlar*10+_birler).toString();
+      
+
+
+      if (veriGonderilsinMi) {
+        yazmaSonrasiGecikmeSayaci = 0;
+        _veriGonder("32*$_index*$fanMinimumCalismaSuresi");
+      }
+
+
+    });
+  }
   
 
   _veriGonder(String emir) async {
@@ -680,6 +1040,11 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
               yuksekNemdeTumFanlarCalissin = degerler[0]=="True" ? true : false;
               disNemUstLimitAktif = degerler[1]=="True" ? true : false;
               disNemUstLimit = degerler[2];
+              fanMinimumCalismaSuresi = degerler[3];
+              elekKesildigindeSistemiDurdur = degerler[4]=="True" ? true : false;
+              tFanYumGecisDongu = degerler[5];
+              tFanYumGecisAdet = degerler[6];
+
 
               
 
@@ -707,6 +1072,9 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
       baglanti = false;
     }
   }
+
+  
+
 
   
   //--------------------------METOTLAR--------------------------------

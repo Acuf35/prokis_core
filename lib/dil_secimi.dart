@@ -6,7 +6,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/adetler.dart';
 import 'package:prokis/airinlet_haritasi.dart';
-import 'package:prokis/aluyay.dart';
+import 'package:prokis/diger_cikislar.dart';
 import 'package:prokis/bacafan_haritasi.dart';
 import 'package:prokis/fan_haritasi.dart';
 import 'package:prokis/kurulum_ayarlari.dart';
@@ -15,7 +15,7 @@ import 'package:toast/toast.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'isisensor_haritasi.dart';
-import 'kumes_olustur.dart';
+import 'temel_ayarlar.dart';
 import 'languages/select.dart';
 
 class DilSecimi extends StatefulWidget {
@@ -219,7 +219,7 @@ class DilSecimiState extends State<DilSecimi> {
                       onPressed: () {
                         Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler,true)),
+                        MaterialPageRoute(builder: (context) => TemelAyarlar(dbVeriler,true)),
                       );
                       },
                       child: Column(

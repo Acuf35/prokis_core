@@ -8,7 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:toast/toast.dart';
-import 'aluyay.dart';
+import 'diger_cikislar.dart';
 import 'genel/database_helper.dart';
 import 'languages/select.dart';
 
@@ -147,7 +147,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    AluyayHaritasi(dbVeriler,true)),
+                                    DigerCikislar(dbVeriler,true)),
                           );
                         
                         //Navigator.pop(context);

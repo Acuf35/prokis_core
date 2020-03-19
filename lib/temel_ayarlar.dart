@@ -9,26 +9,26 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/dil_secimi.dart';
 import 'package:toast/toast.dart';
 import 'adetler.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
+import 'genel/sayfa_geri_alert.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
-class KumesOlustur extends StatefulWidget {
+class TemelAyarlar extends StatefulWidget {
   List<Map> gelenDBveri;
   bool gelenDurum;
-  KumesOlustur(List<Map> dbVeriler, bool durum) {
+  TemelAyarlar(List<Map> dbVeriler, bool durum) {
     gelenDBveri = dbVeriler;
     gelenDurum =durum;
   }
 
   @override
   State<StatefulWidget> createState() {
-    return KumesOlusturState(gelenDBveri,gelenDurum);
+    return TemelAyarlarState(gelenDBveri,gelenDurum);
   }
 }
 
-class KumesOlusturState extends State<KumesOlustur> {
+class TemelAyarlarState extends State<TemelAyarlar> {
 //++++++++++++++++++++++++++DATABASE ve DİĞER DEĞİŞKENLER+++++++++++++++++++++++++++++++
   List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
@@ -48,7 +48,9 @@ class KumesOlusturState extends State<KumesOlustur> {
 
   String kumesIsmi = "";
   String sifreAna = "";
+  String sifreAnaGecici = "";
   String sifreTekrar = "";
+  String sifreTekrarGecici = "";
   bool sifreUyusma = false;
   bool sifreOnaylandi = false;
 
@@ -83,7 +85,7 @@ class KumesOlusturState extends State<KumesOlustur> {
   }
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  KumesOlusturState(List<Map> dbVeri,bool drm) {
+  TemelAyarlarState(List<Map> dbVeri,bool drm) {
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
@@ -109,6 +111,11 @@ class KumesOlusturState extends State<KumesOlustur> {
         kumesNo = dbVeri[i]["veri2"];
         kumesIsmi = dbVeri[i]["veri3"];
         sifreAna = dbVeri[i]["veri4"];
+        sifreAnaGecici = dbVeri[i]["veri4"];
+        sifreTekrar = dbVeri[i]["veri4"];
+        sifreTekrarGecici = dbVeri[i]["veri4"];
+        sifreOnaylandi=true;
+        sifreUyusma=true;
       }
     }
 
@@ -126,8 +133,12 @@ class KumesOlusturState extends State<KumesOlustur> {
   Widget build(BuildContext context) {
 
     TextEditingController tec1 = new TextEditingController(text: kumesIsmi);
+    TextEditingController tec2 = new TextEditingController(text: sifreAna);
+    TextEditingController tec3 = new TextEditingController(text: sifreTekrar);
 
     _textFieldCursorPosition(tec1, kumesIsmi);
+    _textFieldCursorPosition(tec2, sifreAna);
+    _textFieldCursorPosition(tec3, sifreTekrar);
 
 //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
     var oran = MediaQuery.of(context).size.width / 731.4;
@@ -441,6 +452,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                             textScaleFactor: oran,
                                           ),
                                           TextField(
+                                            controller: tec2,
                                             style: TextStyle(
                                                 fontFamily: 'Audio wide',
                                                 color: Colors.white,
@@ -452,6 +464,8 @@ class KumesOlusturState extends State<KumesOlustur> {
                                                 ? false
                                                 : true,
                                             onChanged: (String metin) {
+
+
                                               adminSifreLimit1 =
                                                   4 - metin.length;
                                               sifreAna = metin;
@@ -461,6 +475,17 @@ class KumesOlusturState extends State<KumesOlustur> {
                                               } else {
                                                 sifreUyusma = false;
                                               }
+
+                                              if(sifreAna==sifreTekrar && sifreAna!=sifreAnaGecici){
+                                                sifreOnaylandi=false;
+                                              }
+
+                                              if(sifreAna==sifreTekrar && sifreAna==sifreAnaGecici){
+                                                sifreOnaylandi=true;
+                                              }
+
+
+
                                               setState(() {});
                                             },
                                             decoration: InputDecoration(
@@ -485,9 +510,10 @@ class KumesOlusturState extends State<KumesOlustur> {
                                         ],
                                       )),
                                   IconButton(
+                                    color: Colors.white,
                                     icon: Icon(sifreGor1 == false
-                                        ? Icons.lock_outline
-                                        : Icons.lock_open),
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
                                     onPressed: () {
                                       sifreGor1 == true
                                           ? sifreGor1 = false
@@ -519,6 +545,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                             textScaleFactor: oran,
                                           ),
                                           TextField(
+                                            controller: tec3,
                                             style: TextStyle(
                                                 fontFamily: 'Audio wide',
                                                 color: Colors.white,
@@ -539,6 +566,16 @@ class KumesOlusturState extends State<KumesOlustur> {
                                               } else {
                                                 sifreUyusma = false;
                                               }
+
+                                              if(sifreAna==sifreTekrar && sifreTekrar!=sifreTekrarGecici){
+                                                sifreOnaylandi=false;
+                                              }
+
+                                              if(sifreAna==sifreTekrar && sifreTekrar==sifreTekrarGecici){
+                                                sifreOnaylandi=true;
+                                              }
+
+
                                               setState(() {});
                                             },
                                             decoration: InputDecoration(
@@ -563,9 +600,10 @@ class KumesOlusturState extends State<KumesOlustur> {
                                         ],
                                       )),
                                   IconButton(
+                                    color: Colors.white,
                                     icon: Icon(sifreGor2 == false
-                                        ? Icons.lock_outline
-                                        : Icons.lock_open),
+                                        ? Icons.visibility_off
+                                        : Icons.visibility),
                                     onPressed: () {
                                       sifreGor2 == true
                                           ? sifreGor2 = false
@@ -605,6 +643,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                                           dilSecimi, "toast2"),
                                                   context,
                                                   duration: 2);
+                                                  
                                             } else {
                                               _veriGonderSifre(
                                                   "2",
@@ -735,6 +774,7 @@ class KumesOlusturState extends State<KumesOlustur> {
                                                       dilSecimi, "toast2"),
                                                   context,
                                                   duration: 2);
+                                                  
                                             } else if (!sifreUyusma) {
                                               //Şifreler uyuşmuyor!
                                               Toast.show(
@@ -785,10 +825,18 @@ class KumesOlusturState extends State<KumesOlustur> {
             child: FittedBox(
                         child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
-                  );
+                  if(sifreOnaylandi){
+
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                      );
+
+                  }else{
+                    _sayfaGeriAlert(dilSecimi,"tv563");
+                  }
+
+
                 },
                 backgroundColor: Colors.grey[700],
                 child: Icon(
@@ -894,6 +942,8 @@ class KumesOlusturState extends State<KumesOlustur> {
               Dil().sec(dilSecimi, "toast21"), context,
               duration: 2);
           sifreOnaylandi = true;
+          sifreAnaGecici=sifreAna;
+          sifreTekrarGecici=sifreTekrar;
         } else {
           Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
         }
@@ -918,6 +968,35 @@ class KumesOlusturState extends State<KumesOlustur> {
   _textFieldCursorPosition(TextEditingController tec, String str){
     tec..text = str
                     ..selection = TextSelection.collapsed(offset: str.length!=null ? str.length : 0 );
+  }
+
+
+  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
+      },
+    ).then((val) {
+      if (val) {
+
+        if(val){
+
+          Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                      );
+
+        }
+
+
+      }
+    });
   }
 
 //--------------------------METOTLAR--------------------------------

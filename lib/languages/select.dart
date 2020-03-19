@@ -428,7 +428,7 @@ class Dil{
     kod=="tv404" ? metin='YIL' : null;
     kod=="tv405" ? metin='AY' : null;
     kod=="tv406" ? metin='GÜN' : null;
-    kod=="tv407" ? metin='SAAT' : null;
+    kod=="tv407" ? metin='SAAT DİLİMİ' : null;
     kod=="tv408" ? metin='DAKİKA' : null;
     kod=="tv409" ? metin='Saat Formatı\n00:00-23:59' : null;
     kod=="tv410" ? metin='Tarih Formatı 1\nGG-AA-YYYY' : null;
@@ -583,6 +583,13 @@ class Dil{
     kod=="tv559" ? metin='YEMLEME ZAMANI ATAMA' : null;
     kod=="tv560" ? metin='Yemleme Detayları' : null;
     kod=="tv561" ? metin='Sinyal Süresi (Sn) : ' : null;
+    kod=="tv562" ? metin='Otomatikte Devreye Giren Tünel\nFanlarının Min. Çalş. Süresi (Sn)' : null;
+    kod=="tv563" ? metin='Yeni şifreyi onaylamadınız!\nYine de çıkmak istiyor musunuz?' : null;
+    kod=="tv564" ? metin='Yapılan değişiklikleri göndermediniz!\nYine de çıkmak istiyor musunuz?' : null;
+    kod=="tv565" ? metin='OPSİYON 4' : null;
+    kod=="tv566" ? metin='Elek. Kesildiğinde\nSistemi Durdur' : null;
+    kod=="tv567" ? metin='T.Fan. Yumuşak\nGeçiş Döngüsü(Sn)' : null;
+    kod=="tv568" ? metin='T.Fan. Yumuşak\nGeçiş Adedi' : null;
 
    
 
@@ -706,7 +713,7 @@ class Dil{
     kod=="toast70" ? metin='Kalibrasyon başladı...' : null;
     kod=="toast71" ? metin='Kalibrasyon sonlandırıldı...' : null;
     kod=="toast72" ? metin='Bu parametre "Fasıla Döngü Süresi" 10 dk olarak seçiliyse aktif edilebilir' : null;
-    kod=="toast73" ? metin='Yapılan değişiklikleri sisteme göndemediniz!' : null;
+    kod=="toast73" ? metin='Boooooooooooooooooooooooooşta' : null;
     kod=="toast74" ? metin='Lütfen önce "Ac-Kapa Saati 2 Aktif" seçeneğini işaretleyin!' : null;
     kod=="toast75" ? metin='Dimmer aktifken devre dışıdır!' : null;
     kod=="toast76" ? metin='Lütfen tüm girişler için atama yapınız!' : null;
@@ -722,6 +729,7 @@ class Dil{
     kod=="toast86" ? metin='Yem çıkış 2 kurulum ayarlarında tanımlanmamış! Lütfen kontrol edin.' : null;
     kod=="toast87" ? metin='Yem çıkış 3 kurulum ayarlarında tanımlanmamış! Lütfen kontrol edin.' : null;
     kod=="toast88" ? metin='1500sn\'den (25dk) büyük değer giremezsiniz!' : null;
+    kod=="toast89" ? metin='Tarih formatı AM/PM için hatalı saat girişi yaptınız!' : null;
     
 
 
@@ -1537,7 +1545,7 @@ class Dil{
     kod=="tv404" ? metin='YEAR' : null;
     kod=="tv405" ? metin='MONTH' : null;
     kod=="tv406" ? metin='DAY' : null;
-    kod=="tv407" ? metin='HOUR' : null;
+    kod=="tv407" ? metin='TIME ZONE' : null;
     kod=="tv408" ? metin='MINUTE' : null;
     kod=="tv409" ? metin='Hour Format\n00:00-23:59' : null;
     kod=="tv410" ? metin='Date Format 1\nDD-MM-YYYY' : null;
@@ -1638,48 +1646,48 @@ class Dil{
     kod=="tv505" ? metin='Current Flap Interval' : null;
     kod=="tv506" ? metin='12:00 AM' : null;
     kod=="tv507" ? metin='12:30 AM' : null;
-    kod=="tv508" ? metin='1:00 AM' : null;
-    kod=="tv509" ? metin='1:30 AM' : null;
-    kod=="tv510" ? metin='2:00 AM' : null;
-    kod=="tv511" ? metin='2:30 AM' : null;
-    kod=="tv512" ? metin='3:00 AM' : null;
-    kod=="tv513" ? metin='3:30 AM' : null;
-    kod=="tv514" ? metin='4:00 AM' : null;
-    kod=="tv515" ? metin='4:30 AM' : null;
-    kod=="tv516" ? metin='5:00 AM' : null;
-    kod=="tv517" ? metin='5:30 AM' : null;
-    kod=="tv518" ? metin='6:00 AM' : null;
-    kod=="tv519" ? metin='6:30 AM' : null;
-    kod=="tv520" ? metin='7:00 AM' : null;
-    kod=="tv521" ? metin='7:30 AM' : null;
-    kod=="tv522" ? metin='8:00 AM' : null;
-    kod=="tv523" ? metin='8:30 AM' : null;
-    kod=="tv524" ? metin='9:00 AM' : null;
-    kod=="tv525" ? metin='9:30 AM' : null;
+    kod=="tv508" ? metin='01:00 AM' : null;
+    kod=="tv509" ? metin='01:30 AM' : null;
+    kod=="tv510" ? metin='02:00 AM' : null;
+    kod=="tv511" ? metin='02:30 AM' : null;
+    kod=="tv512" ? metin='03:00 AM' : null;
+    kod=="tv513" ? metin='03:30 AM' : null;
+    kod=="tv514" ? metin='04:00 AM' : null;
+    kod=="tv515" ? metin='04:30 AM' : null;
+    kod=="tv516" ? metin='05:00 AM' : null;
+    kod=="tv517" ? metin='05:30 AM' : null;
+    kod=="tv518" ? metin='06:00 AM' : null;
+    kod=="tv519" ? metin='06:30 AM' : null;
+    kod=="tv520" ? metin='07:00 AM' : null;
+    kod=="tv521" ? metin='07:30 AM' : null;
+    kod=="tv522" ? metin='08:00 AM' : null;
+    kod=="tv523" ? metin='08:30 AM' : null;
+    kod=="tv524" ? metin='09:00 AM' : null;
+    kod=="tv525" ? metin='09:30 AM' : null;
     kod=="tv526" ? metin='10:00 AM' : null;
     kod=="tv527" ? metin='10:30 AM' : null;
     kod=="tv528" ? metin='11:00 AM' : null;
     kod=="tv529" ? metin='11:30 AM' : null;
     kod=="tv530" ? metin='12:00 PM' : null;
     kod=="tv531" ? metin='12:30 PM' : null;
-    kod=="tv532" ? metin='1:00 PM' : null;
-    kod=="tv533" ? metin='1:30 PM' : null;
-    kod=="tv534" ? metin='2:00 PM' : null;
-    kod=="tv535" ? metin='2:30 PM' : null;
-    kod=="tv536" ? metin='3:00 PM' : null;
-    kod=="tv537" ? metin='3:30 PM' : null;
-    kod=="tv538" ? metin='4:00 PM' : null;
-    kod=="tv539" ? metin='4:30 PM' : null;
-    kod=="tv540" ? metin='5:00 PM' : null;
-    kod=="tv541" ? metin='5:30 PM' : null;
-    kod=="tv542" ? metin='6:00 PM' : null;
-    kod=="tv543" ? metin='6:30 PM' : null;
-    kod=="tv544" ? metin='7:00 PM' : null;
-    kod=="tv545" ? metin='7:30 PM' : null;
-    kod=="tv546" ? metin='8:00 PM' : null;
-    kod=="tv547" ? metin='8:30 PM' : null;
-    kod=="tv548" ? metin='9:00 PM' : null;
-    kod=="tv549" ? metin='9:30 PM' : null;
+    kod=="tv532" ? metin='01:00 PM' : null;
+    kod=="tv533" ? metin='01:30 PM' : null;
+    kod=="tv534" ? metin='02:00 PM' : null;
+    kod=="tv535" ? metin='02:30 PM' : null;
+    kod=="tv536" ? metin='03:00 PM' : null;
+    kod=="tv537" ? metin='03:30 PM' : null;
+    kod=="tv538" ? metin='04:00 PM' : null;
+    kod=="tv539" ? metin='04:30 PM' : null;
+    kod=="tv540" ? metin='05:00 PM' : null;
+    kod=="tv541" ? metin='05:30 PM' : null;
+    kod=="tv542" ? metin='06:00 PM' : null;
+    kod=="tv543" ? metin='06:30 PM' : null;
+    kod=="tv544" ? metin='07:00 PM' : null;
+    kod=="tv545" ? metin='07:30 PM' : null;
+    kod=="tv546" ? metin='08:00 PM' : null;
+    kod=="tv547" ? metin='08:30 PM' : null;
+    kod=="tv548" ? metin='09:00 PM' : null;
+    kod=="tv549" ? metin='09:30 PM' : null;
     kod=="tv550" ? metin='10:00 PM' : null;
     kod=="tv551" ? metin='10:30 PM' : null;
     kod=="tv552" ? metin='11:00 PM' : null;
@@ -1692,6 +1700,13 @@ class Dil{
     kod=="tv559" ? metin='CHOOSING FEEDING TIME' : null;
     kod=="tv560" ? metin='Feeding Details' : null;
     kod=="tv561" ? metin='Signal Time (Sec) : ' : null;
+    kod=="tv562" ? metin='Tunnel Fans\'s Minimum Run\nTime after first run in auto mode (Sec)' : null;
+    kod=="tv563" ? metin='You didn\'t approve new password! Do you still want to quit?' : null;
+    kod=="tv564" ? metin='You didn\'t send the changes! Do you still want to quit?' : null;
+    kod=="tv565" ? metin='OPTION 4' : null;
+    kod=="tv566" ? metin='Elek. Kesildiğinde\nSistemi Durdur' : null;
+    kod=="tv567" ? metin='T.Fan. Soft\nPassing Cycle' : null;
+    kod=="tv568" ? metin='T.Fan. Soft\nPassing Quantity' : null;
     
     
 
@@ -1824,7 +1839,7 @@ class Dil{
     kod=="toast70" ? metin='Calibration started...' : null;
     kod=="toast71" ? metin='Calibration stopped...' : null;
     kod=="toast72" ? metin='This parameter can be activated when "Intermittent Cycle Time" is 10 min ' : null;
-    kod=="toast73" ? metin='The parameter changes are not sent to system!' : null;
+    kod=="toast73" ? metin='Boooooooooooooooooooooooooşta' : null;
     kod=="toast74" ? metin='Please firstly do active "On-Off Time 2 Activity" option!' : null;
     kod=="toast75" ? metin='It is passive while dimmer option is checked!' : null;
     kod=="toast76" ? metin='Please define an input number for all inputs!' : null;
@@ -1840,6 +1855,8 @@ class Dil{
     kod=="toast86" ? metin='Feed 1 Output isn\'t defined in installation settings! Please check.' : null;
     kod=="toast87" ? metin='Feed 1 Output isn\'t defined in installation settings! Please check.' : null;
     kod=="toast88" ? metin='The value more then 1500 sec (25min) is invalid value!' : null;
+    kod=="toast89" ? metin='Tarih formatı AM/PM için yanlış saat değeri girdiniz!' : null;
+    kod=="toast89" ? metin='It is invalid hour entering for AM/PM format!' : null;
 
     //endregion
 

@@ -7,7 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:prokis/adetler.dart';
 import 'package:prokis/airinlet_haritasi.dart';
-import 'package:prokis/aluyay.dart';
+import 'package:prokis/diger_cikislar.dart';
 import 'package:prokis/bacafan_haritasi.dart';
 import 'package:prokis/dil_secimi.dart';
 import 'package:prokis/fan_haritasi.dart';
@@ -19,7 +19,7 @@ import 'package:prokis/isitici_haritasi.dart';
 import 'package:prokis/klepe_haritasi.dart';
 import 'package:prokis/klp_yontemi.dart';
 import 'package:prokis/kontrol.dart';
-import 'package:prokis/kumes_olustur.dart';
+import 'package:prokis/temel_ayarlar.dart';
 import 'package:prokis/mh_yontemi.dart';
 import 'package:prokis/ped_haritasi.dart';
 import 'package:prokis/silo_haritasi.dart';
@@ -1225,7 +1225,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              AluyayHaritasi(dbVeriler,false)),
+                                              DigerCikislar(dbVeriler,false)),
                                     );
 
                                       },
@@ -1379,7 +1379,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  KumesOlustur(dbVeriler,false)),
+                  TemelAyarlar(dbVeriler,false)),
         );
 
 

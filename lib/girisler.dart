@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-import 'package:prokis/aluyay.dart';
+import 'package:prokis/diger_cikislar.dart';
 import 'package:prokis/kurulum_ozet.dart';
 import 'package:prokis/kurulumu_tamamla.dart';
 import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
+import 'genel/sayfa_geri_alert.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
@@ -147,12 +148,14 @@ class GirislerState extends State<Girisler> {
             child: FittedBox(
                         child: FloatingActionButton(
                 onPressed: () {
-                  if(!veriGonderildi)
-                    Toast.show(Dil().sec(dilSecimi, "toast73"), context,duration: 3);
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
-                  );
+                  if(veriGonderildi){
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                      );
+                  }else{
+                    _sayfaGeriAlert(dilSecimi, "tv564");
+                  }
                 },
                 backgroundColor: Colors.white,
                 child: Icon(
@@ -701,7 +704,7 @@ class GirislerState extends State<Girisler> {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AluyayHaritasi(dbVeriler,true)),
+                                  builder: (context) => DigerCikislar(dbVeriler,true)),
                             );
                           
                           //Navigator.pop(context, tumCikislar);
@@ -1111,6 +1114,35 @@ class GirislerState extends State<Girisler> {
     }
 
   }
+
+    Future _sayfaGeriAlert(String dilSecimi, String uyariMetni) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
+      },
+    ).then((val) {
+      if (val) {
+
+        if(val){
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+          );
+
+        }
+
+
+      }
+    });
+  }
+
 
 //--------------------------METOTLAR--------------------------------
 

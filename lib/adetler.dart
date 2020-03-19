@@ -8,9 +8,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:toast/toast.dart';
 import 'fan_yontemi.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
-import 'kumes_olustur.dart';
+import 'temel_ayarlar.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
@@ -372,7 +371,7 @@ class AdetlerState extends State<Adetler> {
                           
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => KumesOlustur(dbVeriler,true)),
+                            MaterialPageRoute(builder: (context) => TemelAyarlar(dbVeriler,true)),
                             //MaterialPageRoute(builder: (context) => UzDebiNem(dbVeriler)),
                           );
                           

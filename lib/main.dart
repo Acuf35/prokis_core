@@ -1,13 +1,9 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prokis/genel_ayarlar.dart';
-import 'package:toast/toast.dart';
 import 'dil_secimi.dart';
-import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
 import 'languages/select.dart';
 
@@ -17,6 +13,7 @@ void main() {
     title: "PROKOS PANEL",
     home: Giris(),
   ));
+
 }
 
 class Giris extends StatefulWidget {

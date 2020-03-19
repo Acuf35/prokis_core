@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,10 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:prokis/dil_secimi.dart';
-import 'package:prokis/genel_ayarlar.dart';
-import 'package:prokis/kontrol.dart';
-import 'package:prokis/kurulum_ayarlari.dart';
 import 'package:prokis/sistem.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
@@ -46,12 +41,14 @@ class SaatTarihState extends State<SaatTarih> {
   String gun="1";
   String sat="12";
   String dkk="30";
+  String san="00";
+  String saatDilimi="GMT +03:00";
 
-  String yil_fark="0";
-  String ayy_fark="0";
-  String gun_fark="0";
-  String sat_fark="0";
-  String dkk_fark="0";
+  String yilFark="0";
+  String ayyFark="0";
+  String gunFark="0";
+  String satFark="0";
+  String dkkFark="0";
 
   bool format24saatlik=true;
   bool tarihFormati1=true;
@@ -59,6 +56,59 @@ class SaatTarihState extends State<SaatTarih> {
 
   bool baglanti = false;
 
+  List<String> gmtList = [
+  
+    'GMT -12:00',
+    'GMT -11:30',
+    'GMT -11:00',
+    'GMT -10:30',
+    'GMT -10:00',
+    'GMT -09:30',
+    'GMT -09:00',
+    'GMT -08:30',
+    'GMT -08:00',
+    'GMT -07:30',
+    'GMT -07:00',
+    'GMT -06:30',
+    'GMT -06:00',
+    'GMT -05:30',
+    'GMT -05:00',
+    'GMT -04:30',
+    'GMT -04:00',
+    'GMT -03:30',
+    'GMT -03:00',
+    'GMT -02:30',
+    'GMT -02:00',
+    'GMT -01:30',
+    'GMT -01:00',
+    'GMT -00:30',
+    'GMT ±00:00',
+    'GMT +00:30',
+    'GMT +01:00',
+    'GMT +01:30',
+    'GMT +02:00',
+    'GMT +02:30',
+    'GMT +03:00',
+    'GMT +03:30',
+    'GMT +04:00',
+    'GMT +04:30',
+    'GMT +05:00',
+    'GMT +05:30',
+    'GMT +06:00',
+    'GMT +06:30',
+    'GMT +07:00',
+    'GMT +07:30',
+    'GMT +08:00',
+    'GMT +08:30',
+    'GMT +09:00',
+    'GMT +09:30',
+    'GMT +10:00',
+    'GMT +10:30',
+    'GMT +11:00',
+    'GMT +11:30',
+    'GMT +12:00'
+    
+  ];
   List<String> adet15 = [
     '2020',
     '2021',
@@ -230,24 +280,44 @@ class SaatTarihState extends State<SaatTarih> {
       }
 
       if (dbVeri[i]["id"] == 35) {
-        gun_fark = dbVeri[i]["veri1"];
-        ayy_fark = dbVeri[i]["veri2"];
-        yil_fark = dbVeri[i]["veri3"];
+        gunFark = dbVeri[i]["veri1"];
+        ayyFark = dbVeri[i]["veri2"];
+        yilFark = dbVeri[i]["veri3"];
       }
 
       if (dbVeri[i]["id"] == 36) {
-        sat_fark = dbVeri[i]["veri1"];
-        dkk_fark = dbVeri[i]["veri2"];
+        satFark = dbVeri[i]["veri1"];
+        dkkFark = dbVeri[i]["veri2"];
+        saatDilimi = dbVeri[i]["veri3"];
+        
       }
     }
 
-    yil=(DateTime.now().year+int.parse(yil_fark)).toString();
-    gun=(DateTime.now().day+int.parse(gun_fark)).toString();
-    ayy=(DateTime.now().month+int.parse(ayy_fark)).toString();
-    sat=int.parse(Metotlar().getSystemTime(dbVeri).split(":")[0]).toString();
-    dkk=(DateTime.now().minute+int.parse(dkk_fark)).toString();
+    //yil=((DateTime.now().year+int.parse(yilFark)).abs()).toString();
+    //gun=((DateTime.now().day+int.parse(gunFark)).abs()).toString();
+    //ayy=((DateTime.now().month+int.parse(ayyFark).abs())).toString();
+    //dkk=((DateTime.now().minute+int.parse(dkkFark)).abs()).toString();
 
-
+    
+    if(tarihFormati1){
+      gun=int.parse(Metotlar().getSystemDate(dbVeri).split("-")[0]).toString();
+      ayy=int.parse(Metotlar().getSystemDate(dbVeri).split("-")[1]).toString();
+      yil=int.parse(Metotlar().getSystemDate(dbVeri).split("-")[2]).toString();
+    }
+    if(tarihFormati2){
+      gun=int.parse(Metotlar().getSystemDate(dbVeri).split("-")[1]).toString();
+      ayy=int.parse(Metotlar().getSystemDate(dbVeri).split("-")[0]).toString();
+      yil=int.parse(Metotlar().getSystemDate(dbVeri).split("-")[2]).toString();
+    }
+    if(format24saatlik){
+      sat=int.parse(Metotlar().getSystemTime(dbVeri).split(":")[0]).toString();
+    }else{
+      String xx=Metotlar().getSystemTime(dbVeri).split(":")[0];
+      sat=xx.split(" ")[1];
+    }
+    
+    dkk=int.parse(Metotlar().getSystemTime(dbVeri).split(":")[1]).toString();
+    
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -288,7 +358,7 @@ class SaatTarihState extends State<SaatTarih> {
                           return Text(
                             Metotlar().getSystemTime(dbVeriler),
                             style: TextStyle(
-                                  color: Colors.grey[700],
+                                  color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
                                   fontSize: 12*oran,
                                   fontWeight: FontWeight.bold),
@@ -303,7 +373,7 @@ class SaatTarihState extends State<SaatTarih> {
                           return Text(
                             Metotlar().getSystemDate(dbVeriler),
                             style: TextStyle(
-                                  color: Colors.grey[700],
+                                  color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
                                   fontSize: 12*oran,
                                   fontWeight: FontWeight.bold),
@@ -348,20 +418,14 @@ class SaatTarihState extends State<SaatTarih> {
                               padding: EdgeInsets.only(top: 10*oran,bottom: 10*oran),
                               child: Container(width: 2,color: Colors.black,),
                             ),
-                      //SAAT
-                        _unsurAdetWidget(
+
+                            //SAAT
+                        _unsurAdetWidgetSaat(
                             Dil().sec(dilSecimi, "tv407"),
                             oran,
-                            sat,
-                            format24saatlik ? adet24 : adet12,
-                            4,2),
-                      //DAKİKA
-                        _unsurAdetWidget(
-                            Dil().sec(dilSecimi, "tv408"),
-                            oran,
-                            dkk,
-                            adet60,
-                            5,2),
+                            saatDilimi,
+                            gmtList,
+                            4,4),
                       
                     ],
                   ),
@@ -374,12 +438,13 @@ class SaatTarihState extends State<SaatTarih> {
                                           child: RawMaterialButton(
                             onPressed: () {
 
-                              
-                              gun_fark=(int.parse(gun)-DateTime.now().day).toString();
-                              ayy_fark=(int.parse(ayy)-DateTime.now().month).toString();
-                              yil_fark=(int.parse(yil)-DateTime.now().year).toString();
-                              dbHelper.veriYOKSAekleVARSAguncelle(35, gun_fark, ayy_fark, yil_fark, "0").then((value) => _dbVeriCekme());
-                              _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk");
+                              gunFark=(int.parse(gun)-DateTime.now().day).toString();
+                              ayyFark=(int.parse(ayy)-DateTime.now().month).toString();
+                              yilFark=(int.parse(yil)-DateTime.now().year).toString();
+                              san=(DateTime.now().second+2).toString();
+
+                              dbHelper.veriYOKSAekleVARSAguncelle(35, gunFark, ayyFark, yilFark, "0").then((value) => _dbVeriCekme());
+                              _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk*$san");
                               setState(() {});
                               
                             },
@@ -418,12 +483,30 @@ class SaatTarihState extends State<SaatTarih> {
                                           child: RawMaterialButton(
                             onPressed: () {
 
+                              san=(DateTime.now().second+2).toString();
                               
-                              sat_fark=(int.parse(sat)-DateTime.now().hour).toString();
-                              dkk_fark=(int.parse(dkk)-DateTime.now().minute).toString();
-                              dbHelper.veriYOKSAekleVARSAguncelle(36, sat_fark, dkk_fark, "0", "0").then((value) => _dbVeriCekme());
-                              _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk");
+                              var veri=saattDakikaFarkGetir(saatDilimi);
+                              satFark=veri[0];
+                              dkkFark=veri[1];
+                              
+                              dbHelper.veriYOKSAekleVARSAguncelle(36, satFark, dkkFark, saatDilimi, "0").then((value) {
+
+                                dbSatirlar = dbHelper.satirlariCek();
+                                final satirSayisi = dbHelper.satirSayisi();
+                                satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+                                satirSayisi.whenComplete(() {
+                                  dbSatirlar.then((List<Map> satir) {
+                                    _satirlar(satir);
+                                    sat=int.parse(Metotlar().getSystemTime(dbVeriler).split(":")[0]).toString();
+                                    dkk=int.parse(Metotlar().getSystemTime(dbVeriler).split(":")[1]).toString();
+                                    _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk*$san");
+                                  });
+                                });
+                              });
+                              
                               setState(() {});
+
+                              
                               
                             },
                             fillColor: Colors.green[300],
@@ -480,18 +563,42 @@ class SaatTarihState extends State<SaatTarih> {
                                                 MaterialTapTargetSize.shrinkWrap,
                                             constraints: BoxConstraints(),
                                             onPressed: () {
+
                                               if (!format24saatlik) {
                                                 format24saatlik = true;
-                                                sat=(int.parse(sat)+12).toString();
+
+                                                String xx=Metotlar().getSystemTime(dbVeriler);
+                                                if(xx.substring(9,11)=="AM" && int.parse(sat)==12){
+                                                  sat='12';
+                                                }else if(xx.substring(9,11)=="PM" && int.parse(sat)==12){
+                                                  sat='0   ';
+                                                }else if(xx.substring(9,11)=="PM"){
+                                                  sat=(int.parse(sat)+12).toString();
+                                                }
+
                                               } else {
+
                                                 format24saatlik = false;
-                                                sat=(int.parse(sat)-12).toString();
+
+                                                int xx=int.parse(Metotlar().getSystemTime(dbVeriler).split(":")[0]);
+
+                                                if(xx==0 && xx==12){
+                                                  sat='12';
+                                                }else if(int.parse(sat)>12){
+                                                  sat=(int.parse(sat)-12).toString();
+                                                }
                                               }
+
+
+
                                               String v1=format24saatlik ? "1" : "0";
                                               String v2=tarihFormati1 ? "1" : "0";
                                               String v3=tarihFormati2 ? "1" : "0";
-                                               dbHelper.veriYOKSAekleVARSAguncelle(34, v1, v2, v3, "0").then((value) => _dbVeriCekme());
-                                              setState(() {});
+                                               dbHelper.veriYOKSAekleVARSAguncelle(34, v1, v2, v3, "0").then((value) {
+                                                 _dbVeriCekme();
+                                                 setState(() { 
+                                                 });
+                                               });
                                             },
                                             child: Icon(
                                                 format24saatlik == true
@@ -596,7 +703,7 @@ class SaatTarihState extends State<SaatTarih> {
     dbVeriler = satirlar;
   }
 
-  _dbVeriCekme() {
+  _dbVeriCekme(){
     dbSatirlar = dbHelper.satirlariCek();
     final satirSayisi = dbHelper.satirSayisi();
     satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
@@ -630,7 +737,7 @@ _veriGonder(String emir) async {
           onDone: () {
             baglanti = false;
             socket.close();
-            setState(() {});
+            //setState(() {});
           },
         );
       }).catchError((Object error) {
@@ -700,29 +807,8 @@ Widget _unsurAdetWidget(String baslik, double oran,
                     } else if (adetCode == 3) {
                       gun = newValue;
                     } else if (adetCode == 4) {
-                      sat = newValue;
-                    } else if (adetCode == 5) {
-                      dkk = newValue;
+                      saatDilimi= newValue;
                     }
-
-                    /*
-                    if (adetCode < 5) {
-                      _veriGonder(
-                          "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet);
-                      dbHelper.veriYOKSAekleVARSAguncelle(
-                          4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2")).then((onValue){
-                            _dbVeriCekme();
-                          });
-                    } else {
-                      _veriGonder("3", "6", bacafanAdet, airinletAdet,
-                          isiticiAdet, siloAdet);
-                      dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanAdet,
-                          airinletAdet, isiticiAdet, siloAdet).then((onValue){
-                            _dbVeriCekme();
-                          });
-                    }
-
-                    */
 
                     setState(() {});
                   },
@@ -745,6 +831,151 @@ Widget _unsurAdetWidget(String baslik, double oran,
       ),
     );
   }
+
+Widget _unsurAdetWidgetSaat(String baslik, double oran,
+      String dropDownValue, List<String> liste, int adetCode,int flexValue) {
+    return Expanded(flex: flexValue,
+      child: Column(
+        children: <Widget>[
+          Spacer(),
+          Expanded(
+            child: SizedBox(
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: AutoSizeText(
+                  baslik,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.black,
+                      fontSize: 50,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
+                ),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              Spacer(),
+              Container(
+                color: Colors.grey[300],
+                child: DropdownButton<String>(
+                  isDense: true,
+                  value: dropDownValue,
+                  elevation: 16,
+                  iconEnabledColor: Colors.black,
+                  iconSize: 40 * oran,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'Audio Wide',
+                    fontSize: 25 * oran,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  underline: Container(
+                    height: 1,
+                    color: Colors.black,
+                  ),
+                  onChanged: (String newValue) {
+                    if (adetCode == 1) {
+                      yil = newValue;
+                    } else if (adetCode == 2) {
+                      ayy = newValue;
+                    } else if (adetCode == 3) {
+                      gun = newValue;
+                    } else if (adetCode == 4) {
+                      saatDilimi = newValue;
+                    }
+
+
+
+
+                    setState(() {});
+                  },
+                  items: liste.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Container(
+                        child: Text(value),
+                        padding: EdgeInsets.only(left: 10, bottom: 5, top: 5),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+              Spacer(),
+            ],
+          ),
+          Spacer(),
+        ],
+      ),
+    );
+  }
+
+  List<String> saattDakikaFarkGetir(String gmt){
+    List<String> veri=new List(3);
+
+    
+
+    if(gmt=='GMT -12:00'){veri[0]='12';veri[1]='0';}
+    if(gmt=='GMT -11:30'){veri[0]='-11';veri[1]='-30';}
+    if(gmt=='GMT -11:00'){veri[0]='-11';veri[1]='0';}
+    if(gmt=='GMT -10:30'){veri[0]='-10';veri[1]='-30';}
+    if(gmt=='GMT -10:00'){veri[0]='-10';veri[1]='0';}
+    if(gmt=='GMT -09:30'){veri[0]='-9';veri[1]='-30';}
+    if(gmt=='GMT -09:00'){veri[0]='-9';veri[1]='0';}
+    if(gmt=='GMT -08:30'){veri[0]='-8';veri[1]='-30';}
+    if(gmt=='GMT -08:00'){veri[0]='-8';veri[1]='0';}
+    if(gmt=='GMT -07:30'){veri[0]='-7';veri[1]='-30';}
+    if(gmt=='GMT -07:00'){veri[0]='-7';veri[1]='0';}
+    if(gmt=='GMT -06:30'){veri[0]='-6';veri[1]='-30';}
+    if(gmt=='GMT -06:00'){veri[0]='-6';veri[1]='0';}
+    if(gmt=='GMT -05:30'){veri[0]='-5';veri[1]='-30';}
+    if(gmt=='GMT -05:00'){veri[0]='-5';veri[1]='0';}
+    if(gmt=='GMT -04:30'){veri[0]='-4';veri[1]='-30';}
+    if(gmt=='GMT -04:00'){veri[0]='-4';veri[1]='0';}
+    if(gmt=='GMT -03:30'){veri[0]='-3';veri[1]='-30';}
+    if(gmt=='GMT -03:00'){veri[0]='-3';veri[1]='0';}
+    if(gmt=='GMT -02:30'){veri[0]='-2';veri[1]='-30';}
+    if(gmt=='GMT -02:00'){veri[0]='-2';veri[1]='0';}
+    if(gmt=='GMT -01:30'){veri[0]='-1';veri[1]='-30';}
+    if(gmt=='GMT -01:00'){veri[0]='-1';veri[1]='0';}
+    if(gmt=='GMT -00:30'){veri[0]='0';veri[1]='-30';}
+
+    if(gmt=='GMT ±00:00'){veri[0]='0';veri[1]='0';}
+
+    if(gmt=='GMT +00:30'){veri[0]='0';veri[1]='30';}
+    if(gmt=='GMT +01:00'){veri[0]='1';veri[1]='0';}
+    if(gmt=='GMT +01:30'){veri[0]='1';veri[1]='30';}
+    if(gmt=='GMT +02:00'){veri[0]='2';veri[1]='0';}
+    if(gmt=='GMT +02:30'){veri[0]='2';veri[1]='30';}
+    if(gmt=='GMT +03:00'){veri[0]='3';veri[1]='0';}
+    if(gmt=='GMT +03:30'){veri[0]='3';veri[1]='30';}
+    if(gmt=='GMT +04:00'){veri[0]='4';veri[1]='0';}
+    if(gmt=='GMT +04:30'){veri[0]='4';veri[1]='30';}
+    if(gmt=='GMT +05:00'){veri[0]='5';veri[1]='0';}
+    if(gmt=='GMT +05:30'){veri[0]='5';veri[1]='30';}
+    if(gmt=='GMT +06:00'){veri[0]='6';veri[1]='0';}
+    if(gmt=='GMT +06:30'){veri[0]='6';veri[1]='30';}
+    if(gmt=='GMT +07:00'){veri[0]='7';veri[1]='0';}
+    if(gmt=='GMT +07:30'){veri[0]='7';veri[1]='30';}
+    if(gmt=='GMT +08:00'){veri[0]='8';veri[1]='0';}
+    if(gmt=='GMT +08:30'){veri[0]='8';veri[1]='30';}
+    if(gmt=='GMT +09:00'){veri[0]='9';veri[1]='0';}
+    if(gmt=='GMT +09:30'){veri[0]='9';veri[1]='30';}
+    if(gmt=='GMT +10:00'){veri[0]='10';veri[1]='0';}
+    if(gmt=='GMT +10:30'){veri[0]='10';veri[1]='30';}
+    if(gmt=='GMT +11:00'){veri[0]='11';veri[1]='0';}
+    if(gmt=='GMT +11:30'){veri[0]='11';veri[1]='30';}
+    if(gmt=='GMT +12:00'){veri[0]='12';veri[1]='0';}
+
+    return veri;
+
+
+  }
+
 
 
 }

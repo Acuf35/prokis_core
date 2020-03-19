@@ -37,6 +37,7 @@ class YemlemeState extends State<Yemleme> {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   String disNemAktif = "1";
+  bool format24saatlik=true;
 
   
   List<Map> dbVeriler;
@@ -84,6 +85,10 @@ class YemlemeState extends State<Yemleme> {
       }
       if (dbVeri[i]["id"] == 13) {
         disNemAktif = dbVeri[i]["veri4"];
+      }
+
+      if (dbVeri[i]["id"] == 34) {
+        format24saatlik = dbVeri[i]["veri1"] =="1" ? true: false;
       }
 
       if (dbVeri[i]["id"] == 31) {
@@ -158,7 +163,7 @@ class YemlemeState extends State<Yemleme> {
                       return Text(
                         Metotlar().getSystemTime(dbVeriler),
                         style: TextStyle(
-                            color: Colors.grey[700],
+                            color: Colors.blue[800],
                             fontFamily: 'Kelly Slab',
                             fontSize: 12 * oran,
                             fontWeight: FontWeight.bold),
@@ -176,7 +181,7 @@ class YemlemeState extends State<Yemleme> {
                       return Text(
                         Metotlar().getSystemDate(dbVeriler),
                         style: TextStyle(
-                            color: Colors.grey[700],
+                            color: Colors.blue[800],
                             fontFamily: 'Kelly Slab',
                             fontSize: 12 * oran,
                             fontWeight: FontWeight.bold),
@@ -384,7 +389,7 @@ class YemlemeState extends State<Yemleme> {
                                   ),
                                   Expanded(flex: 3,
                                     child: Visibility(visible: yemCikis1Aktif,
-                                      child: yemSaatGostergeUnsurCOK(oran,yemIleri1,yemGeri1)),
+                                      child: yemSaatGostergeUnsurCOK(oran,yemIleri1,yemGeri1,format24saatlik)),
                                   ),
                                 ],
                               ),
@@ -534,7 +539,7 @@ class YemlemeState extends State<Yemleme> {
                                     ),
                                     Expanded(flex: 3,
                                       child: Visibility(visible: yemCikis2Aktif,
-                                        child: yemSaatGostergeUnsurCOK(oran,yemIleri2,yemGeri2)),
+                                        child: yemSaatGostergeUnsurCOK(oran,yemIleri2,yemGeri2,format24saatlik)),
                                     ),
                                   ],
                                 ),
@@ -680,7 +685,7 @@ class YemlemeState extends State<Yemleme> {
                                   ),
                                   Expanded(flex: 3,
                                     child: Visibility(visible: yemCikis3Aktif,
-                                      child: yemSaatGostergeUnsurCOK(oran,yemIleri3,yemGeri3)),
+                                      child: yemSaatGostergeUnsurCOK(oran,yemIleri3,yemGeri3,format24saatlik)),
                                   ),
                                 ],
                               ),
@@ -1001,7 +1006,7 @@ class YemlemeState extends State<Yemleme> {
                 alignment: Alignment.bottomCenter,
                 child: RotatedBox(quarterTurns: -1,
                                 child: AutoSizeText(
-                    Dil().sec(dilSecimi, saatGetir(saatNo)),
+                    Dil().sec(format24saatlik ? 'TR' : 'EN', saatGetir(saatNo)),
                     textAlign:
                         TextAlign.center,
                     style: TextStyle(
@@ -1037,9 +1042,10 @@ class YemlemeState extends State<Yemleme> {
     );
   }
 
-  Widget yemSaatGostergeUnsurCOK(double oran, List<bool> yemArabaIleri, List<bool> yemArabaGeri) {
-    
-    return Row(mainAxisAlignment: MainAxisAlignment.end,
+  Widget yemSaatGostergeUnsurCOK(double oran, List<bool> yemArabaIleri, List<bool> yemArabaGeri, bool format) {
+
+    if(format){
+      return Row(mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
                          
                           yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 1),
@@ -1093,9 +1099,74 @@ class YemlemeState extends State<Yemleme> {
 
                         ],
                       );
-                    
+     
+    }else{
+
+      return Row(mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                         
+                          
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 3),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 4),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 5),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 6),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 7),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 8),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 9),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 10),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 11),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 12),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 13),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 14),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 15),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 16),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 17),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 18),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 19),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 20),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 21),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 22),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 23),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 24),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 1),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 2),
+
+                          
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 27),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 28),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 29),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 30),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 31),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 32),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 33),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 34),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 35),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 36),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 37),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 38),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 39),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 40),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 41),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 42),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 43),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 44),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 45),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 46),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 47),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 48),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 25),
+                          yemSaatGostergeUnsurTEK(yemArabaIleri,yemArabaGeri, oran, 26),
+
+                        ],
+                      );
+
+    }
+    
+                   
   
   }
+
+
 
 
   String saatGetir(int saatNo) {
@@ -1288,129 +1359,7 @@ class YemlemeState extends State<Yemleme> {
                                                           //Fan Set Sıcaklıkları giriş bölümü
                                                           Expanded(flex: 10,
                                                             child: Container(color: Colors.white,alignment: Alignment.center,
-                                                            child: Column(
-                                                              children: <Widget>[
-
-                                                                Expanded(flex: 3,
-                                                                  child: Row(
-                                                                  children: <Widget>[
-                                                                    Spacer(),
-
-                                                                    checBoxUnsur(oran, 1, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 2, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 3, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 4, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 5, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 6, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 7, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 8, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 9, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 10, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 11, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 12, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 13, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 14, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 15, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 16, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 17, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 18, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 19, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 20, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 21, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 22, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 23, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 24, yemArabaTur,state),
-
-                                                                    Spacer()
-
-
-                                                                    /*
-                                                                    checBoxUnsur(oran, 25, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 26, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 27, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 28, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 29, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 30, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 31, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 32, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 33, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 34, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 35, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 36, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 37, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 38, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 39, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 40, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 41, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 42, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 43, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 44, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 45, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 46, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 47, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 48, yemArabaTur,state),
-                                                                    */
-
-                                                                    
-
-
-
-                                                                  ],
-                                                                ),),
-                                                                Spacer(),
-                                                                Expanded(flex: 3,
-                                                                  child: Row(
-                                                                  children: <Widget>[
-                                                                    Spacer(),
-
-                                                                    
-                                                                    checBoxUnsur(oran, 25, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 26, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 27, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 28, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 29, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 30, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 31, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 32, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 33, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 34, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 35, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 36, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 37, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 38, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 39, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 40, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 41, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 42, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 43, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 44, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 45, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 46, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 47, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 48, yemArabaTur,state),
-                                                                    
-                                                                    
-
-                                                                    Spacer()
-
-
-                                                                    
-
-                                                                    
-
-
-
-                                                                  ],
-                                                                ),),
-                                                                Spacer(),
-                                                                
-
-
-
-
-                                                              ],
-                                                            ),
-                                                              
+                                                            child:checkBoxUnsorCOKLU(format24saatlik, oran, yemArabaTur, state)
                                                             ),
 
                                                           ),
@@ -1509,9 +1458,10 @@ class YemlemeState extends State<Yemleme> {
        children: <Widget>[
          RotatedBox(quarterTurns: -1,
                     child: Text(
-             Dil().sec(dilSecimi, saatGetir(index)),
+             Dil().sec(format24saatlik ? 'TR' : 'EN', saatGetir(index)),
              style: TextStyle(
-               fontFamily: 'Kelly Slab'
+               fontFamily: 'Kelly Slab',
+               fontSize: 12,
              ),
              textScaleFactor: oran,
              ),
@@ -1612,12 +1562,211 @@ class YemlemeState extends State<Yemleme> {
                     constraints: BoxConstraints(),
 
                   ),
+       
+       
        ],
      ),
    );
                                                                   
 
  }
+  
+
+
+Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter state){
+  Widget ww;
+  if(format){
+    return Column(
+                                                              children: <Widget>[
+
+                                                                Expanded(flex: 5,
+                                                                  child: Row(
+                                                                  children: <Widget>[
+                                                                    Spacer(),
+
+                                                                    checBoxUnsur(oran, 1, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 2, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 3, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 4, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 5, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 6, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 7, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 8, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 9, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 10, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 11, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 12, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 13, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 14, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 15, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 16, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 17, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 18, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 19, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 20, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 21, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 22, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 23, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 24, yemArabaTur,state),
+
+                                                                    Spacer()
+
+
+                                                                  ],
+                                                                ),),
+                                                                Spacer(),
+                                                                Expanded(flex: 5,
+                                                                  child: Row(
+                                                                  children: <Widget>[
+                                                                    Spacer(),
+
+                                                                    
+                                                                    checBoxUnsur(oran, 25, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 26, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 27, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 28, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 29, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 30, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 31, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 32, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 33, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 34, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 35, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 36, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 37, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 38, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 39, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 40, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 41, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 42, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 43, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 44, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 45, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 46, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 47, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 48, yemArabaTur,state),
+                                                                    
+                                                                    
+
+                                                                    Spacer()
+
+
+                                                                    
+
+                                                                    
+
+
+
+                                                                  ],
+                                                                ),),
+                                                                Spacer(),
+                                                                
+
+
+
+
+                                                              ],
+                                                            );
+                                                            
+  }else{
+
+    return Column(
+                                                              children: <Widget>[
+
+                                                                Expanded(flex: 5,
+                                                                  child: Row(
+                                                                  children: <Widget>[
+                                                                    Spacer(),
+
+                                                                    
+                                                                    checBoxUnsur(oran, 3, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 4, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 5, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 6, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 7, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 8, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 9, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 10, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 11, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 12, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 13, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 14, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 15, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 16, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 17, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 18, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 19, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 20, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 21, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 22, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 23, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 24, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 1, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 2, yemArabaTur,state),
+                                                                    Spacer()
+
+
+                                                                  ],
+                                                                ),),
+                                                                Spacer(),
+                                                                Expanded(flex: 5,
+                                                                  child: Row(
+                                                                  children: <Widget>[
+                                                                    Spacer(),
+
+                                                                    
+                                                                    
+                                                                    checBoxUnsur(oran, 27, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 28, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 29, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 30, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 31, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 32, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 33, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 34, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 35, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 36, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 37, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 38, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 39, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 40, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 41, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 42, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 43, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 44, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 45, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 46, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 47, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 48, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 25, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 26, yemArabaTur,state),
+                                                                    
+                                                                    
+
+                                                                    Spacer()
+
+
+                                                                    
+
+                                                                    
+
+
+
+                                                                  ],
+                                                                ),),
+                                                                Spacer(),
+                                                                
+
+
+
+
+                                                              ],
+                                                            );
+
+  }
+
+}
+  
   //--------------------------METOTLAR--------------------------------
 
 }

@@ -8,6 +8,7 @@ import 'package:toast/toast.dart';
 class Metotlar {
 
 
+
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
     return SizedBox(
       width: 320 * oran,
@@ -643,10 +644,12 @@ class Metotlar {
   */
 
   String getSystemTime(List<Map> dbVeri) {
-
+    
     bool format24saatlik=true;
-    int sat_fark=0;
-    int dkk_fark=0;
+    int dkkFark=0;
+    int satFark=0;
+    
+    
     
 
     for (int i = 0; i <= dbVeri.length - 1; i++) {
@@ -655,24 +658,25 @@ class Metotlar {
         format24saatlik = dbVeri[i]["veri1"] =="1" ? true: false;
       }
       if (dbVeri[i]["id"] == 36) {
-        sat_fark = int.parse(dbVeri[i]["veri1"]);
-        dkk_fark = int.parse(dbVeri[i]["veri2"]);
+        satFark = int.parse(dbVeri[i]["veri1"]);
+        dkkFark = int.parse(dbVeri[i]["veri2"]);
 
       }
     }
 
 
       var now = new DateTime.now();
-      return new DateFormat(format24saatlik ? 'HH:mm:ss' : 'hh:mm:ss a').format(DateTime(now.year, now.month, now.day,now.hour, now.minute+dkk_fark, now.second));
+      return new DateFormat(
+        format24saatlik ? 'HH:mm:ss' : 'a hh:mm:ss').format(DateTime(now.year,now.month,now.day,now.hour+satFark, now.minute+dkkFark, now.second));
   }
 
   String getSystemDate(List<Map> dbVeri) {
 
     bool tarihFormati1=true;
 
-    int yil_fark=0;
-    int ayy_fark=0;
-    int gun_fark=0;
+    int yilFark=0;
+    int ayyFark=0;
+    int gunFark=0;
 
     for (int i = 0; i <= dbVeri.length - 1; i++) {
 
@@ -680,9 +684,9 @@ class Metotlar {
         tarihFormati1 = dbVeri[i]["veri2"] =="1" ? true: false;
       }
       if (dbVeri[i]["id"] == 35) {
-        gun_fark = int.parse(dbVeri[i]["veri1"]);
-        ayy_fark = int.parse(dbVeri[i]["veri2"]);
-        yil_fark = int.parse(dbVeri[i]["veri3"]);
+        gunFark = int.parse(dbVeri[i]["veri1"]);
+        ayyFark = int.parse(dbVeri[i]["veri2"]);
+        yilFark = int.parse(dbVeri[i]["veri3"]);
         
       }
     }
@@ -690,7 +694,7 @@ class Metotlar {
 
       var now = new DateTime.now();
       
-      return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(DateTime(now.year+yil_fark, now.month+ayy_fark, now.day+gun_fark));
+      return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(DateTime(now.year+yilFark, now.month+ayyFark, now.day+gunFark));
   }
 
 

@@ -13,23 +13,24 @@ import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_4x0.dart';
+import 'genel/sayfa_geri_alert.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
-class AluyayHaritasi extends StatefulWidget {
+class DigerCikislar extends StatefulWidget {
   List<Map> gelenDBveri;
   bool gelenDurum;
-  AluyayHaritasi(List<Map> dbVeriler,bool durum) {
+  DigerCikislar(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
     gelenDurum = durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return AluyayHaritasiState(gelenDBveri,gelenDurum);
+    return DigerCikislarState(gelenDBveri,gelenDurum);
   }
 }
 
-class AluyayHaritasiState extends State<AluyayHaritasi> {
+class DigerCikislarState extends State<DigerCikislar> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
@@ -75,7 +76,7 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  AluyayHaritasiState(List<Map> dbVeri,bool drm) {
+  DigerCikislarState(List<Map> dbVeri,bool drm) {
     bool tumCikislarVar = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
@@ -187,12 +188,19 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
             child: FittedBox(
                         child: FloatingActionButton(
                 onPressed: () {
-                  if(!veriGonderildi)
-                    Toast.show(Dil().sec(dilSecimi, "toast73"), context,duration: 3);
-                  Navigator.pushReplacement(
+
+                  if(veriGonderildi){
+                    Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
                   );
+                  }else{
+                    _sayfaGeriAlert(dilSecimi, "tv564");
+                  }
+                    
+                  
+
+
                 },
                 backgroundColor: Colors.white,
                 child: Icon(
@@ -2422,6 +2430,34 @@ class AluyayHaritasiState extends State<AluyayHaritasi> {
         Spacer(flex: 3,)
       ],
     );
+  }
+
+  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
+      },
+    ).then((val) {
+      if (val) {
+
+        if(val){
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+          );
+
+        }
+
+
+      }
+    });
   }
 
 

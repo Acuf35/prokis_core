@@ -125,7 +125,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                           return Text(
                             Metotlar().getSystemTime(dbVeriler),
                             style: TextStyle(
-                                  color: Colors.grey[700],
+                                  color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
                                   fontSize: 12*oran,
                                   fontWeight: FontWeight.bold),
@@ -140,7 +140,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                           return Text(
                             Metotlar().getSystemDate(dbVeriler),
                             style: TextStyle(
-                                  color: Colors.grey[700],
+                                  color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
                                   fontSize: 12*oran,
                                   fontWeight: FontWeight.bold),

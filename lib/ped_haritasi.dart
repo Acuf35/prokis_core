@@ -11,6 +11,7 @@ import 'package:toast/toast.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x2x0.dart';
+import 'genel/sayfa_geri_alert.dart';
 import 'klepe_haritasi.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
@@ -182,10 +183,15 @@ class PedHaritasiState extends State<PedHaritasi> {
             child: FittedBox(
                         child: FloatingActionButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  if(veriGonderildi){
+                    Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
                   );
+                  }else{
+                    _sayfaGeriAlert(dilSecimi, "tv564");
+                  }
+                  
                 },
                 backgroundColor: Colors.white,
                 child: Icon(
@@ -1866,6 +1872,36 @@ class PedHaritasiState extends State<PedHaritasi> {
 
     return sonuc;
   }
+
+
+    Future _sayfaGeriAlert(String dilSecimi, String uyariMetni) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
+      },
+    ).then((val) {
+      if (val) {
+
+        if(val){
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+          );
+
+        }
+
+
+      }
+    });
+  }
+
 
 //--------------------------METOTLAR--------------------------------
 

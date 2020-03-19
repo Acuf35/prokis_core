@@ -7,24 +7,29 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:prokis/languages/select.dart';
 
-class CikisAlert extends StatefulWidget {
+class SayfaGeriAlert extends StatefulWidget {
   String dilSecimi = "TR";
+  String gelenuyariMetni = "";
 
-  CikisAlert.deger(String x) {
+  SayfaGeriAlert.deger(String x, String y) {
     print(x);
     dilSecimi = x;
+    gelenuyariMetni=y;
   }
 
   @override
-  _CikisAlertState createState() => new _CikisAlertState.deger(dilSecimi);
+  _SayfaGeriAlertState createState() => new _SayfaGeriAlertState.deger(dilSecimi,gelenuyariMetni);
 }
 
 
-class _CikisAlertState extends State<CikisAlert> {
+class _SayfaGeriAlertState extends State<SayfaGeriAlert> {
   String dilSecimi = "TR";
+  String uyariMetni = "";
 
-  _CikisAlertState.deger(String x) {
+  _SayfaGeriAlertState.deger(String x, String y) {
     dilSecimi = x;
+    uyariMetni=y;
+
   }
 
   @override
@@ -39,8 +44,8 @@ class _CikisAlertState extends State<CikisAlert> {
 
     return AlertDialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(32.0))),
-      backgroundColor: Colors.blueGrey.shade600,
+          borderRadius: BorderRadius.all(Radius.circular(32.0*oran))),
+      backgroundColor: Colors.deepOrange.shade800,
       title: Container(
         padding: EdgeInsets.all(10 * oran),
         alignment: Alignment.center,
@@ -50,10 +55,10 @@ class _CikisAlertState extends State<CikisAlert> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  Dil().sec(dilSecimi, 'tv16'),
+                  Dil().sec(dilSecimi, uyariMetni),
                   style:
                       TextStyle(color: Colors.white, fontFamily: 'Kelly Slab'),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.center,textScaleFactor: oran,
                 )
               ],
             ),
@@ -64,14 +69,14 @@ class _CikisAlertState extends State<CikisAlert> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.only(right: 10 * oran),
+                    margin: EdgeInsets.only(right: 20 * oran),
                     child: RaisedButton(
-                      color: Colors.green.shade600,
+                      color: Colors.indigo,
                       onPressed: () {
-                        exit(0);
+                        Navigator.of(context).pop(true);
                       },
                       child: Text(
-                        Dil().sec(dilSecimi, 'btn4'),
+                        Dil().sec(dilSecimi, 'btn7'),
                         textScaleFactor: oran,
                         style: TextStyle(
                             color: Colors.white,
@@ -82,12 +87,12 @@ class _CikisAlertState extends State<CikisAlert> {
                   ),
                   Container(
                     child: RaisedButton(
-                      color: Colors.green.shade600,
+                      color: Colors.indigo,
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pop(false);
                       },
                       child: Text(
-                        Dil().sec(dilSecimi, 'btn5'),
+                        Dil().sec(dilSecimi, 'btn8'),
                         textScaleFactor: oran,
                         style: TextStyle(
                             color: Colors.white,
