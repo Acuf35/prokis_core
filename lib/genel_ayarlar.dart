@@ -1,21 +1,16 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/dil_secimi.dart';
+import 'package:prokis/izleme.dart';
 import 'package:prokis/kalibrasyon.dart';
 import 'package:prokis/kontrol.dart';
-import 'package:prokis/kurulum_ayarlari.dart';
 import 'package:prokis/oto_man.dart';
 import 'package:prokis/sistem.dart';
 import 'package:prokis/suru.dart';
 import 'package:timer_builder/timer_builder.dart';
-import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/metotlar.dart';
 import 'languages/select.dart';
@@ -218,7 +213,16 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Izleme(dbVeriler)),
+                                    );
+
+                                    
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
@@ -343,7 +347,25 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                               Expanded(
                                 flex: 5,
                                 child: RawMaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+
+                                    for (var i = 0; i < 100; i++) {
+
+                                      dbHelper.veriSil(i);
+                                      
+                                    }
+                                    
+                                    print("veriler silindi");
+
+                                    /*
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Alarm(dbVeriler)),
+                                    );
+                                    */
+                                  },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(

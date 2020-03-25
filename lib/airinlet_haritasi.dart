@@ -6,8 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/isisensor_haritasi.dart';
+import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'bacafan_haritasi.dart';
+import 'diger_cikislar.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x2x2x0.dart';
@@ -46,6 +49,9 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
   List<int> cikisNoGeciciKapa = new List(3);
   bool haritaOnay = false;
   int airinletAdet = 0;
+  String bacafanAdet = '0';
+  String isiticiAdet = '0';
+  String siloAdet = '0';
 
   int _onlarairinlet = 0;
   int _birlerairinlet = 0;
@@ -81,6 +87,9 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
 
       if (dbVeri[i]["id"] == 5) {
         airinletAdet = int.parse(dbVeri[i]["veri2"]);
+        bacafanAdet=dbVeri[i]["veri1"];
+        isiticiAdet=dbVeri[i]["veri3"];
+        siloAdet=dbVeri[i]["veri4"];
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -916,12 +925,23 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                         onPressed: () {
                           timerCancel = true;
                           
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      BacafanHaritasi(dbVeriler,true)),
-                            );
+                          if(bacafanAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BacafanHaritasi(dbVeriler,true)),
+                              );
+                            }else{
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        IsiSensorHaritasi(dbVeriler,true)),
+                                );
+                              }
                           
                           
                           //Navigator.pop(context, tumCikislar);
@@ -951,26 +971,35 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
                                   duration: 3);
                             } else {
 
+
+
+                              if(isiticiAdet!='0'){
+
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                builder: (context) =>
-                    IsiticiHaritasi(dbVeriler,true)),
+                                    builder: (context) =>
+                                        IsiticiHaritasi(dbVeriler,true)),
                               );
+                            }else if(siloAdet!='0'){
 
-                              /*
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                builder: (context) =>
-                    IsiticiHaritasi(dbVeriler)),
-                              ).then((onValue) {
-                                _dbVeriCekme();
-                                for (int i = 1; i <= 110; i++) {
-                                  tumCikislar[i] = onValue[i];
-                                }
-                              });
-                              */
+                                    builder: (context) =>
+                                        SiloHaritasi(dbVeriler,true)),
+                              );
+                            }else{
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DigerCikislar(dbVeriler,true)),
+                                );
+                              }
+
+
                             }
                           },
                           color: Colors.black,

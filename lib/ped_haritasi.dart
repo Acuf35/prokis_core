@@ -1439,13 +1439,15 @@ class PedHaritasiState extends State<PedHaritasi> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                                  dilSecimi, "tv45") +
+                                          " "+Dil().sec(
+                                                  dilSecimi, "tv72") +
                                               pedNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab'),
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                           maxLines: 1,
                                           minFontSize: 8,
                                         ),
@@ -1473,7 +1475,9 @@ class PedHaritasiState extends State<PedHaritasi> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab'),
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
                                           maxLines: 1,
                                           minFontSize: 8,
                                         ),

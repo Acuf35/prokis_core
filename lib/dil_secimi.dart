@@ -4,17 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/adetler.dart';
-import 'package:prokis/airinlet_haritasi.dart';
-import 'package:prokis/diger_cikislar.dart';
-import 'package:prokis/bacafan_haritasi.dart';
-import 'package:prokis/fan_haritasi.dart';
 import 'package:prokis/kurulum_ayarlari.dart';
-import 'package:prokis/uz_debi_nem.dart';
-import 'package:toast/toast.dart';
 import 'genel/cikis_alert.dart';
 import 'genel/database_helper.dart';
-import 'isisensor_haritasi.dart';
 import 'temel_ayarlar.dart';
 import 'languages/select.dart';
 

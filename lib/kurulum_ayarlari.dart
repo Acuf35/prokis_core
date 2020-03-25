@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
 import 'package:prokis/adetler.dart';
 import 'package:prokis/airinlet_haritasi.dart';
 import 'package:prokis/diger_cikislar.dart';
@@ -12,13 +11,11 @@ import 'package:prokis/bacafan_haritasi.dart';
 import 'package:prokis/dil_secimi.dart';
 import 'package:prokis/fan_haritasi.dart';
 import 'package:prokis/fan_yontemi.dart';
-import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/girisler.dart';
 import 'package:prokis/isisensor_haritasi.dart';
 import 'package:prokis/isitici_haritasi.dart';
 import 'package:prokis/klepe_haritasi.dart';
 import 'package:prokis/klp_yontemi.dart';
-import 'package:prokis/kontrol.dart';
 import 'package:prokis/temel_ayarlar.dart';
 import 'package:prokis/mh_yontemi.dart';
 import 'package:prokis/ped_haritasi.dart';
@@ -28,7 +25,6 @@ import 'package:prokis/uz_debi_nem.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
-import 'genel/deger_giris_2x1.dart';
 import 'genel/metotlar.dart';
 import 'genel/sifre_giris_admin.dart';
 import 'languages/select.dart';
@@ -54,6 +50,10 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   String sifre = "0";
+  String bacafanAdet = "0";
+  String airinletAdet = "0";
+  String isiticiAdet = "0";
+  String siloAdet = "0";
   
   List<Map> dbVeriler;
 
@@ -68,6 +68,12 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
       }
       if (dbVeri[i]["id"] == 3) {
         sifre = dbVeri[i]["veri4"];
+      }
+      if (dbVeri[i]["id"] == 5) {
+        bacafanAdet = dbVeri[i]["veri1"];
+        airinletAdet = dbVeri[i]["veri2"];
+        isiticiAdet = dbVeri[i]["veri3"];
+        siloAdet = dbVeri[i]["veri4"];
       }
     }
 
@@ -898,66 +904,73 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                       //BacaFan Haritası
                       Expanded(
                           flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv68'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
+                          child: Visibility(visible: bacafanAdet!="0",
+                                                      child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 1,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, 'tv68'),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 50.0,
+                                                        fontFamily: 'Kelly Slab',
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: 
-                                RawMaterialButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              BacafanHaritasi(dbVeriler,false)),
-                                    );
+                                Expanded(
+                                  flex: 5,
+                                  child: 
+                                  RawMaterialButton(
+                                        onPressed: () {
 
-                                      },
-                                      child: LayoutBuilder(
-                                          builder: (context, constraint) {
-                                        return Icon(
-                                          Icons.settings,
-                                          size: constraint.biggest.height,
-                                          color: Colors.grey[700],
-                                        );
-                                      }),
-                                    ),
-                                
-                              ),
-                            ],
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      BacafanHaritasi(dbVeriler,false)),
+                                            );
+
+                                          
+
+                                          
+
+                                        },
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.settings,
+                                            size: constraint.biggest.height,
+                                            color: Colors.grey[700],
+                                          );
+                                        }),
+                                      ),
+                                  
+                                ),
+                              ],
+                            ),
                           )),
                       Spacer(
                         flex: 1,
@@ -965,66 +978,68 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                       //Air Inlet Haritası
                       Expanded(
                           flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv71'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
+                          child: Visibility(visible: airinletAdet!="0",
+                                                      child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 1,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, 'tv71'),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 50.0,
+                                                        fontFamily: 'Kelly Slab',
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: 
-                                RawMaterialButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AirInletHaritasi(dbVeriler,false)),
-                                    );
+                                Expanded(
+                                  flex: 5,
+                                  child: 
+                                  RawMaterialButton(
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AirInletHaritasi(dbVeriler,false)),
+                                      );
 
-                                      },
-                                      child: LayoutBuilder(
-                                          builder: (context, constraint) {
-                                        return Icon(
-                                          Icons.settings,
-                                          size: constraint.biggest.height,
-                                          color: Colors.grey[700],
-                                        );
-                                      }),
-                                    ),
-                                
-                              ),
-                            ],
+                                        },
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.settings,
+                                            size: constraint.biggest.height,
+                                            color: Colors.grey[700],
+                                          );
+                                        }),
+                                      ),
+                                  
+                                ),
+                              ],
+                            ),
                           )),
                       Spacer(
                         flex: 1,
@@ -1032,67 +1047,69 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                       //Isıtıcı Haritası
                       Expanded(
                           flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv76'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
+                          child: Visibility(visible: isiticiAdet!="0",
+                                                      child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 1,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, 'tv76'),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 50.0,
+                                                        fontFamily: 'Kelly Slab',
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: 
-                                RawMaterialButton(
-                                      onPressed: () {
+                                Expanded(
+                                  flex: 5,
+                                  child: 
+                                  RawMaterialButton(
+                                        onPressed: () {
 
-                                        Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              IsiticiHaritasi(dbVeriler,false)),
-                                    );
+                                          Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                IsiticiHaritasi(dbVeriler,false)),
+                                      );
 
-                                      },
-                                      child: LayoutBuilder(
-                                          builder: (context, constraint) {
-                                        return Icon(
-                                          Icons.settings,
-                                          size: constraint.biggest.height,
-                                          color: Colors.grey[700],
-                                        );
-                                      }),
-                                    ),
-                                
-                              ),
-                            ],
+                                        },
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.settings,
+                                            size: constraint.biggest.height,
+                                            color: Colors.grey[700],
+                                          );
+                                        }),
+                                      ),
+                                  
+                                ),
+                              ],
+                            ),
                           )),
                       Spacer(
                         flex: 1,
@@ -1100,66 +1117,68 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                       //Silo Haritası
                       Expanded(
                           flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv84'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
+                          child: Visibility(visible: siloAdet!="0",
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    children: <Widget>[
+                                      Expanded(
+                                        flex: 2,
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              flex: 1,
+                                              child: SizedBox(
+                                                child: Container(
+                                                  alignment:
+                                                      Alignment.bottomCenter,
+                                                  child: AutoSizeText(
+                                                    Dil().sec(dilSecimi, 'tv84'),
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                        fontSize: 50.0,
+                                                        fontFamily: 'Kelly Slab',
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                    maxLines: 1,
+                                                    minFontSize: 8,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: 
-                                RawMaterialButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              SiloHaritasi(dbVeriler,false)),
-                                    );
+                                Expanded(
+                                  flex: 5,
+                                  child: 
+                                  RawMaterialButton(
+                                        onPressed: () {
+                                          Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SiloHaritasi(dbVeriler,false)),
+                                      );
 
-                                      },
-                                      child: LayoutBuilder(
-                                          builder: (context, constraint) {
-                                        return Icon(
-                                          Icons.settings,
-                                          size: constraint.biggest.height,
-                                          color: Colors.grey[700],
-                                        );
-                                      }),
-                                    ),
-                                
-                              ),
-                            ],
+                                        },
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.settings,
+                                            size: constraint.biggest.height,
+                                            color: Colors.grey[700],
+                                          );
+                                        }),
+                                      ),
+                                  
+                                ),
+                              ],
+                            ),
                           )),
                       
                       Spacer(

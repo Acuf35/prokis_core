@@ -116,6 +116,8 @@ class TemelAyarlarState extends State<TemelAyarlar> {
         sifreTekrarGecici = dbVeri[i]["veri4"];
         sifreOnaylandi=true;
         sifreUyusma=true;
+        adminSifreLimit1=0;
+        adminSifreLimit2=0;
       }
     }
 

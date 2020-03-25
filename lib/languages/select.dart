@@ -590,6 +590,7 @@ class Dil{
     kod=="tv566" ? metin='Elek. Kesildiğinde\nSistemi Durdur' : null;
     kod=="tv567" ? metin='T.Fan. Yumuşak\nGeçiş Döngüsü(Sn)' : null;
     kod=="tv568" ? metin='T.Fan. Yumuşak\nGeçiş Adedi' : null;
+    kod=="tv569" ? metin='SİSTEM İZLEME' : null;
 
    
 
@@ -1707,6 +1708,7 @@ class Dil{
     kod=="tv566" ? metin='Elek. Kesildiğinde\nSistemi Durdur' : null;
     kod=="tv567" ? metin='T.Fan. Soft\nPassing Cycle' : null;
     kod=="tv568" ? metin='T.Fan. Soft\nPassing Quantity' : null;
+    kod=="tv569" ? metin='SYSTEM MONITORING' : null;
     
     
 

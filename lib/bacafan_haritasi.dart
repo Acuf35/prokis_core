@@ -7,13 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/airinlet_haritasi.dart';
+import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
+import 'diger_cikislar.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
 import 'genel/sayfa_geri_alert.dart';
 import 'isisensor_haritasi.dart';
+import 'isitici_haritasi.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
@@ -45,6 +48,9 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
   List<int> cikisNoGecici = new List(4);
   bool haritaOnay = false;
   int bacafanVarMi = 0;
+  String airinletAdet = '0';
+  String isiticiAdet = '0';
+  String siloAdet = '0';
   
   bool dijitalCikis=true;
   bool analogCikis=false;
@@ -81,6 +87,9 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
 
       if (dbVeri[i]["id"] == 5) {
         bacafanVarMi = int.parse(dbVeri[i]["veri1"]);
+        airinletAdet=dbVeri[i]["veri2"];
+        isiticiAdet=dbVeri[i]["veri3"];
+        siloAdet=dbVeri[i]["veri4"];
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -1369,12 +1378,40 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                                 duration: 3);
                           } else {
 
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AirInletHaritasi(dbVeriler,true)),
-                            );
+                            if(airinletAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AirInletHaritasi(dbVeriler,true)),
+                              );
+                            }else if(isiticiAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        IsiticiHaritasi(dbVeriler,true)),
+                              );
+                            }else if(siloAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SiloHaritasi(dbVeriler,true)),
+                              );
+                            }else{
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DigerCikislar(dbVeriler,true)),
+                              );
+                            }
+
                           }
                         },
                         color: Colors.black,

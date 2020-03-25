@@ -9,11 +9,14 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/airinlet_haritasi.dart';
 import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
+import 'bacafan_haritasi.dart';
+import 'diger_cikislar.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_2x2x0.dart';
 import 'genel/sayfa_geri_alert.dart';
+import 'isisensor_haritasi.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
@@ -45,6 +48,9 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
   List<int> cikisNoGecici = new List(4);
   bool haritaOnay = false;
   int isiticiAdet = 0;
+  String bacafanAdet = '0';
+  String airinletAdet = '0';
+  String siloAdet = '0';
 
   int _onlarisitici = 0;
   int _birlerisitici = 0;
@@ -76,7 +82,9 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        isiticiAdet = int.parse(dbVeri[i]["veri1"]);
+        bacafanAdet = dbVeri[i]["veri1"];
+        airinletAdet = dbVeri[i]["veri2"];
+        isiticiAdet = int.parse(dbVeri[i]["veri3"]);
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -1013,14 +1021,31 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                         onPressed: () {
                           timerCancel = true;
                           
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      AirInletHaritasi(dbVeriler,true)),
-                            );
-                          
-                          //Navigator.pop(context, tumCikislar);
+                          if(airinletAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AirInletHaritasi(dbVeriler,true)),
+                              );
+                            }else if(bacafanAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        BacafanHaritasi(dbVeriler,true)),
+                              );
+                            }else{
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        IsiSensorHaritasi(dbVeriler,true)),
+                                );
+                              }
                         },
                       ),
                     )),
@@ -1049,11 +1074,23 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                 duration: 3);
                           } else {
 
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SiloHaritasi(dbVeriler,true)),
-                            );
+                            if(siloAdet!='0'){
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SiloHaritasi(dbVeriler,true)),
+                              );
+                            }else{
+
+                              Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        DigerCikislar(dbVeriler,true)),
+                                );
+                              }
 
 
                           }
