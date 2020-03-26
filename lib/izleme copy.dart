@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:timer_builder/timer_builder.dart';
-import 'package:toast/toast.dart';
 import 'genel/database_helper.dart';
 import 'genel/metotlar.dart';
 import 'languages/select.dart';
@@ -35,13 +32,11 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   List<Map> dbVeriler;
-  String fanAdet="0";
 
   int unsurAdet = 0;
   int sutunSayisi;
   List<int> fanHaritaGrid = new List(121);
   List<String> fanNo = new List(121);
-  List<bool> fanDurum = new List(121);
 
   List<String> klepeNo = new List(19);
   List<String> klepeAciklik = new List(11);
@@ -50,11 +45,6 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
 
   List<String> isisensorNo = new List(23);
   List<String> isisensorDeger = new List(16);
-
-  int timerSayac = 0;
-  int yazmaSonrasiGecikmeSayaci = 0;
-  bool timerCancel = false;
-  bool baglanti = false;
 
   
 
@@ -67,11 +57,6 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
-
-      if (dbVeri[i]["id"] ==  4) {
-        fanAdet = dbVeri[i]["veri1"];
-      }
-
 
       if (dbVeri[i]["id"] == 15) {
         var xx = dbVeri[i]["veri4"].split("*");
@@ -129,7 +114,6 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
           var fanNolar = xx.split("#");
           for (int i = 1; i <= 120; i++) {
             fanNo[i] = fanNolar[i - 1];
-            fanDurum[i]=false;
           }
         }
       }
@@ -142,8 +126,6 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
       pedDurum[i]=false;
     }
 
-    fanDurum[0]=false;
-
 
     klepeAciklik[3]="100";
     klepeAciklik[1]="100";
@@ -154,27 +136,36 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+  AnimationController _controller1;
+  AnimationController _controller2;
   
-  
+
+  @override
+  Future initState() {
+    super.initState();
+
+    _controller1 = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1000),
+    );
+    _controller2 = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 2000),
+    );
+
+    Duration _periot = new Duration(hours: 60, seconds: 0, milliseconds: 0);
+
+    //_controller1.animateBack(1.0);
+    _controller1.repeat();
+    _controller2.stop();
+ 
+
+  }
+
+  int timerSayac=0;
+
   @override
   Widget build(BuildContext context) {
-
-    if (timerSayac == 0) {
-      _takipEt();
-
-      Timer.periodic(Duration(seconds: 2), (timer) {
-        yazmaSonrasiGecikmeSayaci++;
-        if (timerCancel) {
-          timer.cancel();
-        }
-        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
-          baglanti = true;
-          _takipEt();
-        }
-      });
-    }
-
-    timerSayac++;
 
 
     var oran = MediaQuery.of(context).size.width / 731.4;
@@ -189,7 +180,7 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
             child: FittedBox(
               child: FloatingActionButton(
                 onPressed: () {
-                  timerCancel = true;
+                  _controller1.dispose();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -271,7 +262,40 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
                           ),
                         ),
                         //Fan Harita Bölümü
-                        FanModDiger(dbVeriler,sutunSayisi,unsurAdet,fanHaritaGrid,fanNo,dilSecimi,fanDurum).build(context),
+                        Expanded(
+                          flex: 6,
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                                left: 5.0 * oran,
+                                right: 5.0 * oran,
+                                bottom: 5.0 * oran),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(width: 3 * oran)),
+                              child: Row(
+                                children: <Widget>[
+                                  //Spacer(flex: 1,),
+                                  Expanded(
+                                    flex: 2,
+                                    child: Row(
+                                      children: <Widget>[
+                                        //Spacer(flex: 1,),
+                                        Expanded(
+                                          flex: 2,
+                                          child: seciliHaritaGrid(
+                                            oran,
+                                          ),
+                                        ),
+                                        //Spacer(flex: 1,)
+                                      ],
+                                    ),
+                                  ),
+                                  //Spacer(flex: 1,)
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                         Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
@@ -302,7 +326,6 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
                               Expanded(flex: 5,
                                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: <Widget>[
-                                    /*
                                     Container(color: Colors.yellow,
                                       child: IconButton(icon: Icon(Icons.assistant,size: 60,), onPressed: (){
                                         _controller1.stop();
@@ -313,16 +336,12 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
                                         _controller1.repeat();
                                       }),
                                     ),
-*/
-                                    
+
                                     Container(color: Colors.blue,
                                       child: IconButton(icon: Icon(Icons.access_time,size: 60,), onPressed: (){
-                                        if(fanDurum[9]){
-                                          fanDurum[9]=false;
-                                        }else{
-                                          fanDurum[9]=true;
-                                        }
-                                        print(fanDurum[9]);
+                                        setState(() {
+                                          
+                                        });
                                       }),
                                     ),
                                   ],
@@ -1049,48 +1068,59 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
     });
   }
 
- _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2237).then((socket) {
-        socket.add(utf8.encode('1*$fanAdet'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-
-              for(int i=1; i<=int.parse(fanAdet) ; i++){
-                fanDurum[i]=degerler[i-1]=='1' ? true : false;
-              }
-
-              
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,duration: 3);
-      baglanti = false;
-    }
+  Widget seciliHaritaGrid(double oran) {
+    return GridView.count(
+      //maxCrossAxisExtent: oranHarita/sutunSayisi,
+      //childAspectRatio:2,
+      crossAxisCount: sutunSayisi,
+      children: List.generate(unsurAdet, (index) {
+        return Center(child: _fanIzlemeUnsur(oran, index));
+      }),
+    );
   }
 
+  Widget _fanIzlemeUnsur(double oran, int index) {
+    return Column(
+      children: <Widget>[
+        Stack(
+          alignment: Alignment.bottomLeft,
+          children: <Widget>[
+            RotationTransition(
+              turns: fanHaritaGrid[index] == 2 ? _controller1 : _controller2,
+              child: RotationTransition(
+                turns: Tween(begin: 0.0, end: 0.0).animate(
+                    fanHaritaGrid[index] == 2 ? _controller1 : _controller2),
+                child: Image.asset(
+                  fanHaritaGrid[index] == 2
+                      ? "assets/images/giris_rotate_icon.png"
+                      : "assets/images/duvar_icon.png",
+                  scale: 1.5 / oran,
+                ),
+              ),
+            ),
+            Visibility(
+                visible: fanHaritaGrid[index] == 2 ? true : false,
+                child: Image.asset(
+                  "assets/images/giris_sabit_icon.png",
+                  scale: 1.5 / oran,
+                )),
+            Visibility(
+              visible: fanHaritaGrid[index] == 2 ? true : false,
+              child: Padding(
+                padding: EdgeInsets.only(left: 2 * oran),
+                child: Text(
+                  fanNo[index+1],
+                  style: TextStyle(),
+                  textScaleFactor: oran,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 
-  
-  
   Widget _klepeIzlemeUnsurOnSol(double oran, String klpNo){
 
     String aciklik=klepeAciklik[int.parse(klpNo)];
@@ -1423,174 +1453,28 @@ class IzlemeState extends State<Izleme> with TickerProviderStateMixin {
 }
 
 
-class FanModDiger extends State<Izleme> with TickerProviderStateMixin{
-
-  List<Map> gelenDBveri;
-  int sutunSayisi;
-  int unsurAdet;
-  List<int> fanHaritaGrid = new List(121);
-  List<String> fanNo = new List(121);
-  List<bool> fanDurum = new List(121);
-  AnimationController _controller1;
-  AnimationController _controller2;
-  String dilSecimi="TR";
-  FanModDiger(List<Map> dbVeriler, int sutunSay, int unsurAd,List<int> fanHarGrid, List<String> fNo, String dilSecim, List<bool> fDurum) {
-    gelenDBveri = dbVeriler;
-    sutunSayisi=sutunSay;
-    unsurAdet=unsurAd;
-    fanHaritaGrid=fanHarGrid;
-    fanNo=fNo;
-    dilSecimi=dilSecim;
-    fanDurum=fDurum;
-  }
-
-  
-
-  
+class WaitingforSomething extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-    _controller1 = AnimationController(vsync: this,duration: Duration(milliseconds: 1000),);
-    _controller2 = AnimationController(vsync: this,duration: Duration(milliseconds: 1000),);
-    
-    _controller1.repeat();
-    _controller2.stop();
-    
-
-    var oran = MediaQuery.of(context).size.width / 731.4;
-
     return StreamBuilder(
       initialData: "Working . . .",
-      stream: _someData(dilSecimi),
+      stream: _someData(),
       builder: (context, snapshot) {
-        return Expanded(
-                          flex: 6,
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                                left: 5.0 * oran,
-                                right: 5.0 * oran,
-                                bottom: 5.0 * oran),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  border: Border.all(width: 3 * oran)),
-                              child: Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: Row(
-                                      children: <Widget>[
-                                        Expanded(
-                                          flex: 2,
-                                          child: seciliHaritaGrid(
-                                            oran
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                        
+        return Scaffold(
+          bottomNavigationBar: Text(snapshot.data.toString()),
+          floatingActionButton: IconButton(
+              icon: Icon(Icons.ac_unit),
+              onPressed: () => print(snapshot.data.toString())),
+        );
       },
     );
   }
-
-
-  Widget seciliHaritaGrid(double oran) {
-    return GridView.count(
-      //maxCrossAxisExtent: oranHarita/sutunSayisi,
-      //childAspectRatio:2,
-      crossAxisCount: sutunSayisi,
-      children: List.generate(unsurAdet, (index) {
-        return Center(child: _fanIzlemeUnsur(oran, index));
-      }),
-    );
-  }
-
-  Widget _fanIzlemeUnsur(double oran, int index) {
-    return Column(
-      children: <Widget>[
-        Stack(
-          alignment: Alignment.bottomLeft,
-          children: <Widget>[
-            RotationTransition(
-              turns: fanDurum[index] ? _controller1 : _controller2,
-              child: RotationTransition(
-                turns: Tween(begin: 0.0, end: 0.0).animate(
-                    fanDurum[index] ? _controller1 : _controller2,),
-                child: Image.asset(
-                  fanHaritaGrid[index] == 2
-                      ? "assets/images/giris_rotate_icon.png"
-                      : "assets/images/duvar_icon.png",
-                  scale: 1.5 / oran,
-                ),
-              ),
-            ),
-            Visibility(
-                visible: fanHaritaGrid[index] == 2 ? true : false,
-                child: Image.asset(
-                  "assets/images/giris_sabit_icon.png",
-                  scale: 1.5 / oran,
-                )),
-            Visibility(
-              visible: fanHaritaGrid[index] == 2 ? true : false,
-              child: Padding(
-                padding: EdgeInsets.only(left: 2 * oran),
-                child: Text(
-                  fanNo[index+1],
-                  style: TextStyle(),
-                  textScaleFactor: oran,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
 }
 
-Stream<int> _someData(String dilSecimi) async* {
+Stream<List<int>> _someData() async* {
+  List<int> x= new List(3);
   yield* Stream.periodic(Duration(seconds: 1), (int a) {
-    //_takipEt(dilSecimi);
-    return a++;
+    x[2]=a++;
+    return x;
   });
 }
-
-_takipEt(String dilSecimi) async {
-    var degerler;
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('10*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              degerler = gelenMesaj.split('*');
-              print(degerler);
-              
-              
-
-
-              //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            socket.close();
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-      });
-    } catch (e) {
-      print(e);
-    }
-  }
-
