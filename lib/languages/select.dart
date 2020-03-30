@@ -591,6 +591,34 @@ class Dil{
     kod=="tv567" ? metin='T.Fan. Yumuşak\nGeçiş Döngüsü(Sn)' : null;
     kod=="tv568" ? metin='T.Fan. Yumuşak\nGeçiş Adedi' : null;
     kod=="tv569" ? metin='SİSTEM İZLEME' : null;
+    kod=="tv570" ? metin='Tünel Fanları' : null;
+    kod=="tv571" ? metin='MOD :' : null;
+    kod=="tv572" ? metin='Sistem Kapalı' : null;
+    kod=="tv573" ? metin='Min. Hav. Fasılalı' : null;
+    kod=="tv574" ? metin='Min. Hav. Sürekli' : null;
+    kod=="tv575" ? metin='Çapraz Havalandırma' : null;
+    kod=="tv576" ? metin='Tünel Havalandırma' : null;
+    kod=="tv577" ? metin='Yüksek Nem' : null;
+    kod=="tv578" ? metin='Düşük Nem' : null;
+    kod=="tv579" ? metin='Çal.' : null;
+    kod=="tv580" ? metin='Dur.' : null;
+    kod=="tv581" ? metin='Sirk. Fan' : null;
+    kod=="tv582" ? metin='Set\nSıc' : null;
+    kod=="tv583" ? metin='Ort\nSıc' : null;
+    kod=="tv584" ? metin='Doğ.B.Bitiş' : null;
+    kod=="tv585" ? metin='Çap.B.Bitiş' : null;
+    kod=="tv586" ? metin='Air Inlet' : null;
+    kod=="tv587" ? metin='A.In.1' : null;
+    kod=="tv588" ? metin='A.In.2' : null;
+    kod=="tv589" ? metin='Durum' : null;
+    kod=="tv590" ? metin='Açık' : null;
+    kod=="tv591" ? metin='Kapalı' : null;
+    kod=="tv592" ? metin='Isıtıcı' : null;
+    kod=="tv593" ? metin='Gr. 1:' : null;
+    kod=="tv594" ? metin='Gr. 2:' : null;
+    kod=="tv595" ? metin='Gr. 3:' : null;
+    kod=="tv596" ? metin='Açılıyor' : null;
+    kod=="tv597" ? metin='Kapanıyor:' : null;
 
    
 
@@ -1522,9 +1550,9 @@ class Dil{
     kod=="tv380" ? metin='Air1 Close Swc' : null;
     kod=="tv381" ? metin='Air2 Close Swc' : null;
     kod=="tv382" ? metin='A.Inlet Fuse' : null;
-    kod=="tv383" ? metin='B.Fan Fuse' : null;
-    kod=="tv384" ? metin='Isıtıcı Fuse' : null;
-    kod=="tv385" ? metin='Sirk. Fuse' : null;
+    kod=="tv383" ? metin='C.Fan Fuse' : null;
+    kod=="tv384" ? metin='Heater Fuse' : null;
+    kod=="tv385" ? metin='Sirc. Fuse' : null;
     kod=="tv386" ? metin='WaterMeter 1' : null;
     kod=="tv387" ? metin='WaterMeter 2' : null;
     kod=="tv388" ? metin='WaterMeter 3' : null;
@@ -1709,6 +1737,34 @@ class Dil{
     kod=="tv567" ? metin='T.Fan. Soft\nPassing Cycle' : null;
     kod=="tv568" ? metin='T.Fan. Soft\nPassing Quantity' : null;
     kod=="tv569" ? metin='SYSTEM MONITORING' : null;
+    kod=="tv570" ? metin='Tunnel Fans' : null;
+    kod=="tv571" ? metin='MODE :' : null;
+    kod=="tv572" ? metin='System Off' : null;
+    kod=="tv573" ? metin='Min.Vent. Intermittent' : null;
+    kod=="tv574" ? metin='Min. Hav. Continuously' : null;
+    kod=="tv575" ? metin='Cross Ventilation' : null;
+    kod=="tv576" ? metin='Tunnel Ventilation' : null;
+    kod=="tv577" ? metin='High Hum.' : null;
+    kod=="tv578" ? metin='Low Hum.' : null;
+    kod=="tv579" ? metin='On' : null;
+    kod=="tv580" ? metin='Off' : null;
+    kod=="tv581" ? metin='Sirc. Fan' : null;
+    kod=="tv582" ? metin='Set\nTem' : null;
+    kod=="tv583" ? metin='Avr\nTem' : null;
+    kod=="tv584" ? metin='Nat.Z.End' : null;
+    kod=="tv585" ? metin='Cro.Z.End' : null;
+    kod=="tv586" ? metin='Air Inlet' : null;
+    kod=="tv587" ? metin='A.In.1' : null;
+    kod=="tv588" ? metin='A.In.2' : null;
+    kod=="tv589" ? metin='State' : null;
+    kod=="tv590" ? metin='Open' : null;
+    kod=="tv591" ? metin='Close' : null;
+    kod=="tv592" ? metin='Heater' : null;
+    kod=="tv593" ? metin='Gr. 1:' : null;
+    kod=="tv594" ? metin='Gr. 2:' : null;
+    kod=="tv595" ? metin='Gr. 3:' : null;
+    kod=="tv596" ? metin='Openning' : null;
+    kod=="tv597" ? metin='Closing:' : null;
     
     
 

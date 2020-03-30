@@ -1228,7 +1228,7 @@ class FanHaritasiState extends State<FanHaritasi> {
                   if (fanHaritaGrid[indexNo] == 2) {
                     _onlarFan = fanNo[indexNo+1] < 10
                         ? 0
-                        : (fanNo[indexNo] ~/ 10).toInt();
+                        : (fanNo[indexNo+1] ~/ 10).toInt();
                     _birlerFan = fanNo[indexNo+1] % 10;
                     _onlarOut = cikisNo[indexNo+1] < 10
                         ? 0

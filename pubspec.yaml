@@ -72,6 +72,9 @@ flutter:
   - assets/images/kurulum_bacafan_icon.png
   - assets/images/kurulum_airinlet_icon.png
   - assets/images/kurulum_isitici_icon.png
+  - assets/images/kurulum_isitici_kucuk_icon.png
+  - assets/images/kurulum_sirkfan_icon.png
+  - assets/images/kurulum_sirkfan_kucuk_icon.png
   - assets/images/kurulum_silo_icon.png
   - assets/images/kurulum_aydinlatma_icon.png
   - assets/images/kurulum_aydinlatma_icon1.png
@@ -97,6 +100,7 @@ flutter:
   - assets/images/ped_harita_icon.png
   - assets/images/bina_catisiz_ust_gorunum.png
   - assets/images/harita_isi_sensor_icon.png
+  - assets/images/harita_isi_sensor_kucuk_icon.png
   - assets/images/bina_perspektif_gorunum.png
   - assets/images/bina_catili_ust_gorunum.png
   - assets/images/harita_bacafan_icon.png
@@ -153,6 +157,7 @@ flutter:
   - assets/images/kurulum_icon.png
   - assets/images/saat_tarih_ayar_icon.png
   - assets/images/giris_rotate_icon.png
+  - assets/images/bfan_rotate_icon.png
   - assets/images/giris_sabit_icon.png
   - assets/images/ped_izleme_icon_off.png
   - assets/images/ped_izleme_icon_on.png
