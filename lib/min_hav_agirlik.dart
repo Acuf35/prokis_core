@@ -39,7 +39,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
   String kurulumDurum = "0";
   String kumesTuru = "1";
   String airInletAdet = "1";
-  String bacafaniAdet = "1";
+  String bacafanAdet = "1";
   List<Map> dbVeriler;
 
   int _yuzler = 0;
@@ -83,7 +83,8 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
       }
       if (dbVeri[i]["id"] == 5) {
         airInletAdet = dbVeri[i]["veri2"];
-        bacafaniAdet = dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
       }
       if (dbVeri[i]["id"] == 24) {
         var xx = dbVeri[i]["veri4"];
@@ -173,7 +174,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
                             flex: 2,
                             child: Row(
                               children: <Widget>[
-                                Visibility(visible: bacafaniAdet=="0" ? true : false,
+                                Visibility(visible: bacafanAdet=="0" ? true : false,
                                                                   child: Expanded(
                                     flex: 1,
                                     child: Container(
@@ -806,7 +807,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
                                   ),
                                 ),
                               
-                                Visibility(visible: bacafaniAdet=="0" ? true : false,
+                                Visibility(visible: bacafanAdet=="0" ? true : false,
                                                                   child: Expanded(
                                                                     child: Column(mainAxisAlignment: MainAxisAlignment.end,
                                       children: <Widget>[
@@ -1060,7 +1061,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
               sadeceMHyapGunSayisi=degerler[10];
               bacafanMotorHizi=degerler[11];
 
-              print(bacafaniAdet);
+              print(bacafanAdet);
 
 
 

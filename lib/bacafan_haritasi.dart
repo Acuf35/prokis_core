@@ -6,14 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/airinlet_haritasi.dart';
+import 'package:prokis/airinlet_ve_sirkfan.dart';
 import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'diger_cikislar.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
-import 'genel/deger_giris_2x2x0.dart';
 import 'genel/sayfa_geri_alert.dart';
 import 'isisensor_haritasi.dart';
 import 'isitici_haritasi.dart';
@@ -45,16 +44,20 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
   List<bool> bacafanVisibility = new List(27);
   List<int> bacafanNo = new List(27);
   List<int> cikisNo = new List(4);
-  List<int> cikisNoGecici = new List(4);
+  List<int> cikisNoGecici = new List.filled(4,0);
   bool haritaOnay = false;
-  int bacafanVarMi = 0;
+  int bacafanAdet = 0;
+  bool sirkfanVarMi = false;
   String airinletAdet = '0';
   String isiticiAdet = '0';
   String siloAdet = '0';
+
+  int bfanCikisNo=0;
   
   bool dijitalCikis=true;
   bool analogCikis=false;
   String cikisTur="1";    //1:0-10V   2:4-20mA
+  bool bacafanKapakVarMi=false;
 
   int _onlarbacafan = 0;
   int _birlerbacafan = 0;
@@ -86,7 +89,9 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanVarMi = int.parse(dbVeri[i]["veri1"]);
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = int.parse(xx[0])+int.parse(xx[1]*2);
+        sirkfanVarMi = xx[1]=="1" ? true : false;
         airinletAdet=dbVeri[i]["veri2"];
         isiticiAdet=dbVeri[i]["veri3"];
         siloAdet=dbVeri[i]["veri4"];
@@ -138,17 +143,17 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
           zz = dbVeri[i]["veri4"];
           var bacafanNolar = xx.split("#");
           var bacafanCikis = yy.split("#");
-          var bacafanCikisVeri = zz.split("*");
+          var bacafanAnalogVeKapakVeri = zz.split("*");
           for (int i = 1; i <= 26; i++) {
             bacafanNo[i] = int.parse(bacafanNolar[i - 1]);
           }
           for (int i = 1; i <= 3; i++) {
             cikisNo[i] = int.parse(bacafanCikis[i - 1]);
           }
-          dijitalCikis=bacafanCikisVeri[0]=="1" ? true :false;
-          analogCikis=bacafanCikisVeri[1]=="1" ? true :false;
-          cikisTur=bacafanCikisVeri[2];
-
+          dijitalCikis=bacafanAnalogVeKapakVeri[0]=="1" ? true :false;
+          analogCikis=bacafanAnalogVeKapakVeri[1]=="1" ? true :false;
+          cikisTur=bacafanAnalogVeKapakVeri[2];
+          bacafanKapakVarMi=bacafanAnalogVeKapakVeri[3]=="1" ? true :false;
         }
       }
 
@@ -165,7 +170,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
 
     if (!bacafanNoOK) {
       for (int i = 1; i <= 26; i++) {
-        if (bacafanVarMi == 1) {
+        if (bacafanAdet == 1) {
           bacafanNo[i] = 1;
         } else {
           bacafanNo[i] = 0;
@@ -280,8 +285,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                         child: Container(
                           child: Row(
                             children: <Widget>[
-                              Spacer(),
-                              Expanded(flex: 2,
+                              Expanded(flex: 4,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
@@ -342,7 +346,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                                             ),
                                           ),
                               Spacer(),
-                              Expanded(flex: 2,
+                              Expanded(flex: 4,
                                             child: Column(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: <Widget>[
@@ -377,6 +381,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                                             if (!analogCikis) {
                                               dijitalCikis=false;
                                               analogCikis=true;
+                                              cikisNo[1]=0;
                                               veriGonderildi=false;
                                             }
                                             setState(() {});
@@ -402,140 +407,234 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                                             ),
                                           ),
                               Spacer(),
-                              Expanded(flex: 2,
-                                            child: Visibility(visible: analogCikis,
-                                                                                          child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Spacer(),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child: SizedBox(
-                                                      child: Container(
-                                                        alignment: Alignment.bottomCenter,
-                                                        child: AutoSizeText(
-                                                          Dil().sec(dilSecimi, "tv492"),
-                                                          textAlign: TextAlign.center,
-                                                          style: TextStyle(
-                                                            fontFamily: 'Kelly Slab',
-                                                            color: Colors.grey[600],
-                                                            fontSize: 60,
-                                                            fontWeight: FontWeight.bold
-                                                          ),
-                                                          maxLines: 3,
-                                                          minFontSize: 8,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: Container(alignment: Alignment.topCenter,
-                                                      child: RawMaterialButton(
-                                                        
-                                          onPressed: () {
-
-                                              if (cikisTur!="1") {
-                                                cikisTur="1";
-                                                veriGonderildi=false;
-                                              }
-
-                                              setState(() {});
-                                          },
-                                          child: Icon(
-                                              cikisTur=="1"
-                                                  ? Icons.check_box
-                                                  : Icons.check_box_outline_blank,
-                                              color: cikisTur=="1"
-                                                  ? Colors.green[600]
-                                                  : Colors.black,
-                                              size: 25 * oran,
-                                          ),
-                                          padding: EdgeInsets.all(0),
-                                          materialTapTargetSize:
-                                                MaterialTapTargetSize.shrinkWrap,
-                                          constraints: BoxConstraints(),
-                                        ),
-                                                    ),
-                                                  ),
-                                                  //Spacer(flex: 1,)
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                              Spacer(),
-                              Expanded(flex: 2,
-                                            child: Visibility(visible: analogCikis,
-                                                                                          child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: <Widget>[
-                                                  Spacer(),
-                                                  Expanded(
-                                                    flex: 2,
-                                                    child: SizedBox(
-                                                      child: Container(
-                                                        alignment: Alignment.bottomCenter,
-                                                        child: AutoSizeText(
-                                                          Dil().sec(dilSecimi, "tv493"),
-                                                          textAlign: TextAlign.center,
-                                                          style: TextStyle(
-                                                            fontFamily: 'Kelly Slab',
-                                                            color: Colors.grey[600],
-                                                            fontSize: 60,
-                                                            fontWeight: FontWeight.bold
-                                                          ),
-                                                          maxLines: 3,
-                                                          minFontSize: 8,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: Container(alignment: Alignment.topCenter,
-                                                      child: RawMaterialButton(
-                                                        
-                                          onPressed: () {
-
-                                              if (cikisTur!="2") {
-                                                cikisTur="2";
-                                                veriGonderildi=false;
-                                              }
-                                              setState(() {});
-                                          },
-                                          child: Icon(
-                                              cikisTur=="2"
-                                                  ? Icons.check_box
-                                                  : Icons.check_box_outline_blank,
-                                              color: cikisTur=="2"
-                                                  ? Colors.green[600]
-                                                  : Colors.black,
-                                              size: 25 * oran,
-                                          ),
-                                          padding: EdgeInsets.all(0),
-                                          materialTapTargetSize:
-                                                MaterialTapTargetSize.shrinkWrap,
-                                          constraints: BoxConstraints(),
-                                        ),
-                                                    ),
-                                                  ),
-                                                  //Spacer(flex: 1,)
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                              Spacer(),
-                              Expanded(
-                                flex: 5,
+                              Expanded(flex: 4,
                                 child: Column(
-                                    children: <Widget>[
-                                      Spacer(),
-                                      _bacaFanGrupCikis(1, oran),
-                                      Spacer(),
-                                    ],
-                                  ),
+                                  children: <Widget>[
+                                    Expanded(flex: 2,
+                                        child: Visibility(visible: analogCikis,
+                                                                                      child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Spacer(),
+                                              Expanded(
+                                                flex: 2,
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    alignment: Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(dilSecimi, "tv492"),
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Kelly Slab',
+                                                        color: Colors.grey[600],
+                                                        fontSize: 60,
+                                                        fontWeight: FontWeight.bold
+                                                      ),
+                                                      maxLines: 3,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(alignment: Alignment.topCenter,
+                                                  child: RawMaterialButton(
+                                                    
+                                      onPressed: () {
+
+                                          if (cikisTur!="1") {
+                                            cikisTur="1";
+                                            veriGonderildi=false;
+                                          }
+
+                                          setState(() {});
+                                      },
+                                      child: Icon(
+                                          cikisTur=="1"
+                                              ? Icons.check_box
+                                              : Icons.check_box_outline_blank,
+                                          color: cikisTur=="1"
+                                              ? Colors.green[600]
+                                              : Colors.black,
+                                          size: 25 * oran,
+                                      ),
+                                      padding: EdgeInsets.all(0),
+                                      materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                      constraints: BoxConstraints(),
+                                    ),
+                                                ),
+                                              ),
+                                              //Spacer(flex: 1,)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    
+                                    Expanded(flex: 2,
+                                        child: Visibility(visible: analogCikis,
+                                                                                      child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Spacer(),
+                                              Expanded(
+                                                flex: 2,
+                                                child: SizedBox(
+                                                  child: Container(
+                                                    alignment: Alignment.bottomCenter,
+                                                    child: AutoSizeText(
+                                                      Dil().sec(dilSecimi, "tv493"),
+                                                      textAlign: TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontFamily: 'Kelly Slab',
+                                                        color: Colors.grey[600],
+                                                        fontSize: 60,
+                                                        fontWeight: FontWeight.bold
+                                                      ),
+                                                      maxLines: 3,
+                                                      minFontSize: 8,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                              Expanded(
+                                                flex: 3,
+                                                child: Container(alignment: Alignment.topCenter,
+                                                  child: RawMaterialButton(
+                                                    
+                                      onPressed: () {
+
+                                          if (cikisTur!="2") {
+                                            cikisTur="2";
+                                            veriGonderildi=false;
+                                          }
+                                          setState(() {});
+                                      },
+                                      child: Icon(
+                                          cikisTur=="2"
+                                              ? Icons.check_box
+                                              : Icons.check_box_outline_blank,
+                                          color: cikisTur=="2"
+                                              ? Colors.green[600]
+                                              : Colors.black,
+                                          size: 25 * oran,
+                                      ),
+                                      padding: EdgeInsets.all(0),
+                                      materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                      constraints: BoxConstraints(),
+                                    ),
+                                                ),
+                                              ),
+                                              //Spacer(flex: 1,)
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                              
+                                  ],
+                                ),
                               ),
                               Spacer(),
+                              Expanded(flex: 6,
+                                child: Visibility(visible: analogCikis ? false: true,
+                                                                  child: Column(
+                                      children: <Widget>[
+                                        Spacer(),
+                                        _bacaFanGrupCikis(1, oran),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                ),
+                              ),
+                              Spacer(),
+                              Expanded(flex: 4,
+                                            child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: SizedBox(
+                                                    child: Container(
+                                                      alignment: Alignment.bottomCenter,
+                                                      child: AutoSizeText(
+                                                        Dil().sec(dilSecimi, "tv624"),
+                                                        textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Kelly Slab',
+                                                          color: Colors.black,
+                                                          fontSize: 60,
+                                                          fontWeight: FontWeight.bold
+                                                        ),
+                                                        maxLines: 3,
+                                                        minFontSize: 6,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  flex: 3,
+                                                  child: Container(alignment: Alignment.topCenter,
+                                                    child: RawMaterialButton(
+                                                      
+                                          onPressed: () {
+
+                                            if (!bacafanKapakVarMi) {
+                                              bacafanKapakVarMi=true;
+                                              veriGonderildi=false;
+                                            }else{
+                                              bacafanKapakVarMi=false;
+                                              cikisNo[2]=0;
+                                              cikisNo[3]=0;
+                                            }
+                                            
+                                            setState(() {});
+                                          },
+                                          child: Icon(
+                                            bacafanKapakVarMi
+                                                ? Icons.check_box
+                                                : Icons.check_box_outline_blank,
+                                            color: bacafanKapakVarMi
+                                                ? Colors.green[600]
+                                                : Colors.blue[700],
+                                            size: 30 * oran,
+                                          ),
+                                          padding: EdgeInsets.all(0),
+                                          materialTapTargetSize:
+                                              MaterialTapTargetSize.shrinkWrap,
+                                          constraints: BoxConstraints(),
+                                        ),
+                                                  ),
+                                                ),
+                                                //Spacer(flex: 1,)
+                                              ],
+                                            ),
+                                          ),
+                              Spacer(),
+                              Expanded(flex: 6,
+                                child: Visibility(visible: bacafanKapakVarMi,
+                                  child: Column(
+                                      children: <Widget>[
+                                        Spacer(),
+                                        _bacaFanGrupCikis(2, oran),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                ),
+                              ),
+                              Spacer(),
+                              Expanded(flex: 6,
+                                child: Visibility(visible: bacafanKapakVarMi,
+                                  child: Column(
+                                      children: <Widget>[
+                                        Spacer(),
+                                        _bacaFanGrupCikis(3, oran),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                ),
+                              ),
                               
                             ],
                           ),
@@ -1228,15 +1327,23 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                               noVeri = noVeri + bacafanNo[i].toString() + "#";
                             }
                             for (int i = 1; i <= 3; i++) {
-                              if (cikisNo[i] == 0 && bacafanVarMi >= i) {
-                                noKontrol2 = true;
+                              if (cikisNo[i] == 0 && bacafanAdet >= i) {
+                                if(i==1){
+                                  if(!analogCikis){
+                                    noKontrol2 = true;
+                                  }
+                                  
+                                }else if(i!=1 && bacafanKapakVarMi){
+                                  noKontrol2 = true;
+                                }
+
                               }
 
                               cikisNolar =
                                   cikisNolar + cikisNo[i].toString() + "#";
                             }
 
-                            cikisTurSecimi=(dijitalCikis ? "1" : "0") + "*" + (analogCikis ? "1" : "0")+"*"+cikisTur;
+                            cikisTurSecimi=(dijitalCikis ? "1" : "0") + "*" + (analogCikis ? "1" : "0")+"*"+cikisTur+"*"+(bacafanKapakVarMi ? "1" : "0");
 
                             for (int i = 1; i <= 3; i++) {
                               if (cikisNoGecici[i] != cikisNo[i]) {
@@ -1378,13 +1485,12 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                                 duration: 3);
                           } else {
 
-                            if(airinletAdet!='0'){
-
+                            if(airinletAdet!='0' || sirkfanVarMi){
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AirInletHaritasi(dbVeriler,true)),
+                                        AirInletVeSirkFan(dbVeriler,true)),
                               );
                             }else if(isiticiAdet!='0'){
 
@@ -1477,49 +1583,58 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
 
   //Üst görünüşten haritadaki sensörlere numara atama işlemi
   degerGiris2X0Yrd1(var val) {
+    bool farkVar=false;
     if (_onlarbacafan != val[0] || _birlerbacafan != val[1]) {
       veriGonderildi = false;
+      farkVar=true;
     }
+    if (farkVar){
+      _onlarbacafan = val[0];
+      _birlerbacafan = val[1];
+      _degerNo = val[2];
 
-    _onlarbacafan = val[0];
-    _birlerbacafan = val[1];
-    _degerNo = val[2];
+      bacafanNo[_degerNo] =
+          int.parse(_onlarbacafan.toString() + _birlerbacafan.toString());
 
-    bacafanNo[_degerNo] =
-        int.parse(_onlarbacafan.toString() + _birlerbacafan.toString());
-
-    setState(() {});
+      setState(() {});
+    }
+    
   }
 
   //Üst görünüşten haritadaki sensörlere numara atama işlemi
   degerGiris2X0Yrd2(var val) {
+    bool farkVar=false;
     if (_onlarOut != val[0] || _birlerOut != val[1]) {
       veriGonderildi = false;
+      farkVar=true;
     }
 
-    _onlarOut = val[0];
-    _birlerOut = val[1];
-    _degerNo = val[2];
+    if(farkVar){
+      _onlarOut = val[0];
+      _birlerOut = val[1];
+      _degerNo = val[2];
 
-    cikisNo[_degerNo] = int.parse(_onlarOut.toString() + _birlerOut.toString());
-    cikisNoTekerrur = false;
+      cikisNo[_degerNo] = int.parse(_onlarOut.toString() + _birlerOut.toString());
+      cikisNoTekerrur = false;
 
-    for (int i = 1; i <= 3; i++) {
-      for (int k = 1; k <= 3; k++) {
-        if (i != k &&
-            cikisNo[i] == cikisNo[k] &&
-            cikisNo[i] != 0 &&
-            cikisNo[k] != 0) {
-          cikisNoTekerrur = true;
-          break;
-        }
-        if (cikisNoTekerrur) {
-          break;
+      for (int i = 1; i <= 3; i++) {
+        for (int k = 1; k <= 3; k++) {
+          if (i != k &&
+              cikisNo[i] == cikisNo[k] &&
+              cikisNo[i] != 0 &&
+              cikisNo[k] != 0) {
+            cikisNoTekerrur = true;
+            break;
+          }
+          if (cikisNoTekerrur) {
+            break;
+          }
         }
       }
-    }
 
-    setState(() {});
+      setState(() {});
+    }
+    
   }
 
   Widget _bacafanHaritaUnsur(
@@ -1717,28 +1832,37 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
 
   Widget _bacaFanGrupCikis(int index, double oran) {
     return Expanded(
-      flex: 2,
+      flex: 4,
       child: Visibility(
-        visible: bacafanVarMi >= index,
+        visible: bacafanAdet >= index,
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
         child: Column(
           children: <Widget>[
-            Text(
-              Dil().sec(dilSecimi,
-                  index == 1 ? "tv65" : (index == 2 ? "tv66" : "tv67")),
-              style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'Kelly Slab',
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.bold),
-              textScaleFactor: oran,
+            Expanded(flex: 4,
+              child: SizedBox(
+                child: Container(
+                  alignment: Alignment.bottomCenter,
+                  child: AutoSizeText(
+                    Dil().sec(dilSecimi,
+                  index == 1 ? "tv65" : (index == 2 ? "tv625" : "tv626")),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.grey[600],
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold
+                    ),
+                    maxLines: 3,
+                    minFontSize: 8,
+                  ),
+                ),
+              ),
             ),
-            Expanded(
+            Expanded(flex: 5,
               child: Row(
                 children: <Widget>[
-                  Spacer(),
                   Expanded(
                     flex: 4,
                     child: RawMaterialButton(
@@ -1782,7 +1906,7 @@ class BacafanHaritasiState extends State<BacafanHaritasi> {
                       constraints: BoxConstraints(minWidth: double.infinity),
                     ),
                   ),
-                  Spacer()
+             
                 ],
               ),
             ),

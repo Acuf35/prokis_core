@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/airinlet_haritasi.dart';
+import 'package:prokis/airinlet_ve_sirkfan.dart';
 import 'package:prokis/bacafan_haritasi.dart';
 import 'package:prokis/diger_cikislar.dart';
 import 'package:prokis/isitici_haritasi.dart';
@@ -52,6 +52,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
   String siloAdet = '0';
   int isisensorAdet = 0;
   int isisensorBaglanti = 1;
+  bool sirkfanVarMi = false;
 
   int _onlarisisensor = 0;
   int _birlerisisensor = 0;
@@ -98,7 +99,9 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet=dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
+        sirkfanVarMi = xx[1]=="1" ? true : false;
         airinletAdet=dbVeri[i]["veri2"];
         isiticiAdet=dbVeri[i]["veri3"];
         siloAdet=dbVeri[i]["veri4"];
@@ -696,7 +699,9 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                             for (int i = 1; i <= 22; i++) {
                               if (isisensorHarita[i] == 1) {
                                 sayac++;
+                                isisensorNo[i]=sayac;
                               }
+                              
                             }
 
                             if (sayac < isisensorAdet) {
@@ -805,6 +810,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
+                            print(isisensorNo);
                             bool noKontrol = false;
                             bool enAzBirAtama = false;
                             bool sensSayYukNo = false;
@@ -951,13 +957,13 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                                     builder: (context) =>
                                         BacafanHaritasi(dbVeriler,true)),
                               );
-                            }else if(airinletAdet!='0'){
+                            }else if(airinletAdet!='0' || sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AirInletHaritasi(dbVeriler,true)),
+                                        AirInletVeSirkFan(dbVeriler,true)),
                               );
                             }else if(isiticiAdet!='0'){
 
@@ -1541,7 +1547,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
     );
   }
 
-    Future _sayfaGeriAlert(String dilSecimi, String uyariMetni) async {
+  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni) async {
     // flutter defined function
 
     await showDialog(

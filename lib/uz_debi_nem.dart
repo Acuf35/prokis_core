@@ -142,7 +142,8 @@ class UzDebiNemState extends State<UzDebiNem> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacaFanAdet = int.parse(dbVeri[i]["veri1"]);
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacaFanAdet = int.parse(xx[0]);
       }
 
       if (dbVeri[i]["id"] == 9) {

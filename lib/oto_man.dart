@@ -113,10 +113,8 @@ class OtoManState extends State<OtoMan> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet = dbVeri[i]["veri1"];
-      }
-
-      if (dbVeri[i]["id"] == 5) {
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
         isiticiAdet = dbVeri[i]["veri3"];
       }
 

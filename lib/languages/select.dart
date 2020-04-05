@@ -37,8 +37,8 @@ class Dil{
     kod=="tv13" ? metin='Klepe Sayısı' : null;
     kod=="tv14" ? metin='Ped Pompa Sayısı' : null;
     kod=="tv15" ? metin='Isı Sens. Sayısı' : null;
-    kod=="tv16" ? metin='Bacafan Var Mı?' : null;
-    kod=="tv17" ? metin='A.Inlet M.Sayısı' : null;
+    kod=="tv16" ? metin='Bacafan Var mı?' : null;
+    kod=="tv17" ? metin='A.Inlet & Sirk. Fan' : null;
     kod=="tv18" ? metin='Isıtıcı Sayısı' : null;
     kod=="tv19" ? metin='Silo Sayısı' : null;
     kod=="tv20" ? metin='Fan Kontrol Yontemi' : null;
@@ -85,14 +85,14 @@ class Dil{
     kod=="tv61" ? metin='ISISen NO Atama' : null;
     kod=="tv62" ? metin='ÇIKIŞLAR' : null;
     kod=="tv63" ? metin='Grup:' : null;
-    kod=="tv64" ? metin='Bfan Grup No' : null;
-    kod=="tv65" ? metin='B.Fan Çıkış No' : null;
+    kod=="tv64" ? metin='Bfan No' : null;
+    kod=="tv65" ? metin='B.Fan\nÇıkış No' : null;
     kod=="tv66" ? metin='Dijital\nÇıkış' : null;
     kod=="tv67" ? metin='Analog\nÇıkış' : null;
     kod=="tv68" ? metin='Baca Fan Haritası' : null;
     kod=="tv69" ? metin='Bfan Grup Çıkış No' : null;
     kod=="tv70" ? metin='Dış Sıc. Sen.' : null;
-    kod=="tv71" ? metin='Air Inlet Haritası' : null;
+    kod=="tv71" ? metin='Air Inlet & Sirk. Fanı' : null;
     kod=="tv72" ? metin='No:' : null;
     kod=="tv73" ? metin='Çkş:' : null;
     kod=="tv74" ? metin='A.INLET NO' : null;
@@ -215,12 +215,12 @@ class Dil{
     kod=="tv191" ? metin='PID Set Kaydırma' : null;
     kod=="tv192" ? metin='KLEPE' : null;
     kod=="tv193" ? metin='Fan - Klepe Diyagramı' : null;
-    kod=="tv194" ? metin='Aktüel Açıklık :' : null;
+    kod=="tv194" ? metin='Aktüel Açıklık (%) :' : null;
     kod=="tv195" ? metin='Çalışan Fan Say. 1-2 :' : null;
     kod=="tv196" ? metin='Klepe Açıklık 1-2 :' : null;
     kod=="tv197" ? metin='Çalışan Fan Say. 3-4 :' : null;
     kod=="tv198" ? metin='Klepe Açıklık 3-4 :' : null;
-    kod=="tv199" ? metin='Min.Hav. Açıklık :' : null;
+    kod=="tv199" ? metin='Min.Hav. Açıklık (%) :' : null;
     kod=="tv200" ? metin='Çalışan Fan Say. 1' : null;
     kod=="tv201" ? metin='Çalışan Fan Say. 2' : null;
     kod=="tv202" ? metin='Çalışan Fan Say. 3' : null;
@@ -237,7 +237,7 @@ class Dil{
     kod=="tv213" ? metin='Klp Baş. Düş. Fan Mik. :' : null;
     kod=="tv214" ? metin='Klp Baş. Düş. Fan Modu :' : null;
     kod=="tv215" ? metin='Çalışma Sırası :' : null;
-    kod=="tv216" ? metin='Min-Maks. Açıklık :' : null;
+    kod=="tv216" ? metin='Min-Maks. Açıklık (%) :' : null;
     kod=="tv217" ? metin='Klp Baş. Düşen\nFan Mik. Man' : null;
     kod=="tv218" ? metin='Maks. Açıklık :' : null;
     kod=="tv219" ? metin='Min. Açıklık :' : null;
@@ -373,52 +373,52 @@ class Dil{
     kod=="tv349" ? metin='Girişler' : null;
     kod=="tv350" ? metin='GİRİŞLER' : null;
     kod=="tv351" ? metin='Girişlerin Atanması' : null;
-    kod=="tv352" ? metin='Acil Stop' : null;
-    kod=="tv353" ? metin='Faz Koruma' : null;
-    kod=="tv354" ? metin='Elk. Kesildi' : null;
-    kod=="tv355" ? metin='Fan Termik' : null;
-    kod=="tv356" ? metin='Klp Termik' : null;
-    kod=="tv357" ? metin='Ped Termik' : null;
-    kod=="tv358" ? metin='Klp1 Aç Swç' : null;
-    kod=="tv359" ? metin='Klp2 Aç Swç' : null;
-    kod=="tv360" ? metin='Klp3 Aç Swç' : null;
-    kod=="tv361" ? metin='Klp4 Aç Swç' : null;
-    kod=="tv362" ? metin='Klp5 Aç Swç' : null;
-    kod=="tv363" ? metin='Klp6 Aç Swç' : null;
-    kod=="tv364" ? metin='Klp7 Aç Swç' : null;
-    kod=="tv365" ? metin='Klp8 Aç Swç' : null;
-    kod=="tv366" ? metin='Klp9 Aç Swç' : null;
-    kod=="tv367" ? metin='Klp10 Aç Swç' : null;
-    kod=="tv368" ? metin='Klp1 Kapa Swç' : null;
-    kod=="tv369" ? metin='Klp2 Kapa Swç' : null;
-    kod=="tv370" ? metin='Klp3 Kapa Swç' : null;
-    kod=="tv371" ? metin='Klp4 Kapa Swç' : null;
-    kod=="tv372" ? metin='Klp5 Kapa Swç' : null;
-    kod=="tv373" ? metin='Klp6 Kapa Swç' : null;
-    kod=="tv374" ? metin='Klp7 Kapa Swç' : null;
-    kod=="tv375" ? metin='Klp8 Kapa Swç' : null;
-    kod=="tv376" ? metin='Klp9 Kapa Swç' : null;
-    kod=="tv377" ? metin='Klp10 Kapa Swç' : null;
-    kod=="tv378" ? metin='Air1 Aç Swç' : null;
-    kod=="tv379" ? metin='Air2 Aç Swç' : null;
-    kod=="tv380" ? metin='Air1 Kapa Swç' : null;
-    kod=="tv381" ? metin='Air2 Kapa Swç' : null;
-    kod=="tv382" ? metin='A.Inlet Term.' : null;
-    kod=="tv383" ? metin='B.Fan Term.' : null;
-    kod=="tv384" ? metin='Isıtıcı Term.' : null;
-    kod=="tv385" ? metin='Sirk. Term.' : null;
-    kod=="tv386" ? metin='Su Sayacı 1' : null;
-    kod=="tv387" ? metin='Su Sayacı 2' : null;
-    kod=="tv388" ? metin='Su Sayacı 3' : null;
-    kod=="tv389" ? metin='Su Sayacı 4' : null;
-    kod=="tv390" ? metin='Su Sayacı 5' : null;
-    kod=="tv391" ? metin='Su Sayacı 6' : null;
-    kod=="tv392" ? metin='Su Sayacı 7' : null;
-    kod=="tv393" ? metin='Su Sayacı 8' : null;
-    kod=="tv394" ? metin='Su Sayacı 9' : null;
-    kod=="tv395" ? metin='Su Sayacı 10' : null;
-    kod=="tv396" ? metin='Su Sayacı 11' : null;
-    kod=="tv397" ? metin='Su Sayacı 12' : null;
+    kod=="tv352" ? metin='Acil\nStop' : null;
+    kod=="tv353" ? metin='Faz\nKoruma' : null;
+    kod=="tv354" ? metin='Elk.\nKesildi' : null;
+    kod=="tv355" ? metin='Fan\nTermik' : null;
+    kod=="tv356" ? metin='Klp\nTermik' : null;
+    kod=="tv357" ? metin='Ped\nTermik' : null;
+    kod=="tv358" ? metin='Klp1\nAç Swç' : null;
+    kod=="tv359" ? metin='Klp2\nAç Swç' : null;
+    kod=="tv360" ? metin='Klp3\nAç Swç' : null;
+    kod=="tv361" ? metin='Klp4\nAç Swç' : null;
+    kod=="tv362" ? metin='Klp5\nAç Swç' : null;
+    kod=="tv363" ? metin='Klp6\nAç Swç' : null;
+    kod=="tv364" ? metin='Klp7\nAç Swç' : null;
+    kod=="tv365" ? metin='Klp8\nAç Swç' : null;
+    kod=="tv366" ? metin='Klp9\nAç Swç' : null;
+    kod=="tv367" ? metin='Klp10\nAç Swç' : null;
+    kod=="tv368" ? metin='Klp1\nKapa Swç' : null;
+    kod=="tv369" ? metin='Klp2\nKapa Swç' : null;
+    kod=="tv370" ? metin='Klp3\nKapa Swç' : null;
+    kod=="tv371" ? metin='Klp4\nKapa Swç' : null;
+    kod=="tv372" ? metin='Klp5\nKapa Swç' : null;
+    kod=="tv373" ? metin='Klp6\nKapa Swç' : null;
+    kod=="tv374" ? metin='Klp7\nKapa Swç' : null;
+    kod=="tv375" ? metin='Klp8\nKapa Swç' : null;
+    kod=="tv376" ? metin='Klp9\nKapa Swç' : null;
+    kod=="tv377" ? metin='Klp10\nKapa Swç' : null;
+    kod=="tv378" ? metin='Air In.\nAç Swç' : null;
+    kod=="tv379" ? metin='Air In.\nkapa Swç' : null;
+    kod=="tv380" ? metin='Bfan\nKapa Swç' : null;
+    kod=="tv381" ? metin='Bfan\nKapa Swç' : null;
+    kod=="tv382" ? metin='Air In\nTermik' : null;
+    kod=="tv383" ? metin='Bfan\nTermik' : null;
+    kod=="tv384" ? metin='Isıtıcı \nTermik' : null;
+    kod=="tv385" ? metin='Sirk. Fan\nTermik' : null;
+    kod=="tv386" ? metin='Su Sayacı\n1' : null;
+    kod=="tv387" ? metin='Su Sayacı\n2' : null;
+    kod=="tv388" ? metin='Su Sayacı\n3' : null;
+    kod=="tv389" ? metin='Su Sayacı\n4' : null;
+    kod=="tv390" ? metin='Su Sayacı\n5' : null;
+    kod=="tv391" ? metin='Su Sayacı\n6' : null;
+    kod=="tv392" ? metin='Su Sayacı\n7' : null;
+    kod=="tv393" ? metin='Su Sayacı\n8' : null;
+    kod=="tv394" ? metin='Su Sayacı\n9' : null;
+    kod=="tv395" ? metin='Su Sayacı\n10' : null;
+    kod=="tv396" ? metin='Su Sayacı\n11' : null;
+    kod=="tv397" ? metin='Su Sayacı\n12' : null;
     kod=="tv398" ? metin='Su Sayaç\nSayısı' : null;
     kod=="tv399" ? metin='Pals Başına\nLitre' : null;
     kod=="tv400" ? metin='KURULUM' : null;
@@ -513,8 +513,8 @@ class Dil{
     kod=="tv489" ? metin='Yüksek Nemde\nTüm Fanlar Çalışsın' : null;
     kod=="tv490" ? metin='Dış Nem\nÜst Limit Aktif' : null;
     kod=="tv491" ? metin='Dış Nem\nÜst Limit' : null;
-    kod=="tv492" ? metin='0-10V Çıkış' : null;
-    kod=="tv493" ? metin='4-20mA Çıkış' : null;
+    kod=="tv492" ? metin='0-10V' : null;
+    kod=="tv493" ? metin='4-20mA' : null;
     kod=="tv494" ? metin='Bacafan\nMotor Hızı (Hz)' : null;
     kod=="tv495" ? metin='Baca Fanları' : null;
     kod=="tv496" ? metin='OPSİYON 1' : null;
@@ -592,7 +592,7 @@ class Dil{
     kod=="tv568" ? metin='T.Fan. Yumuşak\nGeçiş Adedi' : null;
     kod=="tv569" ? metin='SİSTEM İZLEME' : null;
     kod=="tv570" ? metin='Tünel Fanları' : null;
-    kod=="tv571" ? metin='MOD :' : null;
+    kod=="tv571" ? metin='MOD' : null;
     kod=="tv572" ? metin='Sistem Kapalı' : null;
     kod=="tv573" ? metin='Min. Hav. Fasılalı' : null;
     kod=="tv574" ? metin='Min. Hav. Sürekli' : null;
@@ -619,6 +619,42 @@ class Dil{
     kod=="tv595" ? metin='Gr. 3:' : null;
     kod=="tv596" ? metin='Açılıyor' : null;
     kod=="tv597" ? metin='Kapanıyor:' : null;
+    kod=="tv598" ? metin='İZLEME-1' : null;
+    kod=="tv599" ? metin='İZLEME-2' : null;
+    kod=="tv600" ? metin='S1:' : null;//Silo 1
+    kod=="tv601" ? metin='S2:' : null;//Silo 1
+    kod=="tv602" ? metin='S3:' : null;//Silo 1
+    kod=="tv603" ? metin='S4:' : null;//Silo 1
+    kod=="tv604" ? metin='Kg' : null;
+    kod=="tv605" ? metin='Günlük Top.\nTüketim(Kg)' : null;
+    kod=="tv606" ? metin='Günlük\nHay.Baş\nTüketim(Kg)' : null;
+    kod=="tv607" ? metin='Bir sonraki\nYemleme Zamanı' : null;
+    kod=="tv608" ? metin='Etkin Aç-Kapa\nSaatleri' : null;
+    kod=="tv609" ? metin='SU SAYACLARI' : null;
+    kod=="tv610" ? metin='Su Tüketimleri(Lt)' : null;
+    kod=="tv611" ? metin='Günlük Top. Tük:' : null;
+    kod=="tv612" ? metin='Gün. Hayv. Baş:' : null;
+    kod=="tv613" ? metin='Ayd. Yüz.(%):' : null;
+    kod=="tv614" ? metin='Ölç.Maks. Sic' : null;
+    kod=="tv615" ? metin='Ölç.Min. Sıc' : null;
+    kod=="tv616" ? metin='Maks.Sic Saati' : null;
+    kod=="tv617" ? metin='Min.Sic Saati' : null;
+    kod=="tv618" ? metin='İç Nem' : null;
+    kod=="tv619" ? metin='Dış Nem' : null;
+    kod=="tv620" ? metin='Ort.Hissedilir Sıc.' : null;
+    kod=="tv621" ? metin='Sistemde\nyemleme\nçıkışları\naktif değil!' : null;
+    kod=="tv622" ? metin='Sistemde\nsu sayac\ngirişleri\naktif değil!' : null;
+    kod=="tv623" ? metin='Sistemde\nyem silo ağırlık\nokumaları\naktif değil!' : null;
+    kod=="tv624" ? metin='Bacafan\nKapak\nVar mı?' : null;
+    kod=="tv625" ? metin='Kapak Aç\nÇıkış No' : null;
+    kod=="tv626" ? metin='Kapak Kapa\nÇıkış No' : null;
+    kod=="tv627" ? metin='Sirk. Fan\nÇıkış No' : null;
+    kod=="tv628" ? metin='Air Aç\nÇıkış No' : null;
+    kod=="tv629" ? metin='Air Kapa\nÇıkış No' : null;
+    kod=="tv630" ? metin='Adetler kısmında\nSirk. Fan\nseçili değil!' : null;
+    kod=="tv631" ? metin='Adetler kısmında\nAir Inlet\nseçili değil!' : null;
+    kod=="tv632" ? metin='YemAraba\nTermik' : null;
+    kod=="tv633" ? metin='Ayd.\nSigorta' : null;
 
    
 
@@ -712,12 +748,12 @@ class Dil{
     kod=="toast40" ? metin='Lütfen toplam sensör sayısına eşit veya daha küçük bir sayı tanımlayınız!' : null;
     kod=="toast41" ? metin='Seçilen sensör numarası harita üzerinde tanımlı değil!' : null;
     kod=="toast42" ? metin='Aynı Air Inlet No iki farklı air inlet için tanımlanmış! Lütfen kontrol ediniz!' : null;
-    kod=="toast43" ? metin='Booooooooooooooooooooooooooooooooooooooooooooooşta! ' : null;
+    kod=="toast43" ? metin='Booooooooooooooooooooooşta' : null;
     kod=="toast44" ? metin='Lütfen toplam air inlet motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast45" ? metin='Lütfen toplam ped motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast46" ? metin='Lütfen toplam klepe motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast47" ? metin='Lütfen toplam fan sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
-    kod=="toast48" ? metin='En az bir tane ısıtıcı haritada işaretlenmiş olmalıdır! ' : null;
+    kod=="toast48" ? metin='En az bir tane ısıtıcı haritada işaretlenmiş olmalıdır!' : null;
     kod=="toast49" ? metin='Haritada seçilen ped sayısı, tanımlanandan eksik!' : null;
     kod=="toast50" ? metin='Haritada seçilen ped sayısı, tanımlanandan fazla!' : null;
     kod=="toast51" ? metin='Haritada seçilen ısı sensör sayısı, tanımlanandan eksik!' : null;
@@ -732,7 +768,7 @@ class Dil{
     kod=="toast60" ? metin='Sensör için wifi bağlantı seçildi.' : null;
     kod=="toast61" ? metin='Sensör için Analog bağlantı seçildi.' : null;
     kod=="toast62" ? metin='Önce haritayı oluşturup onaylamanız gerekli!' : null;
-    kod=="toast63" ? metin='Lütfen sıfırdan farklı B.Fan Çıkış No tanımlayınız!' : null;
+    kod=="toast63" ? metin='Lütfen sıfırdan farklı bir Çıkış No tanımlayınız!' : null;
     kod=="toast64" ? metin='Kurulum başarıyla tamamlandı...' : null;
     kod=="toast65" ? metin='Civciv ve Broyler kafeslerinde aktif değildir.' : null;
     kod=="toast66" ? metin='Baca fanı olmayan Civciv veya Broyler kafeslerinde PID kontrol aktif değildir.' : null;
@@ -742,7 +778,7 @@ class Dil{
     kod=="toast70" ? metin='Kalibrasyon başladı...' : null;
     kod=="toast71" ? metin='Kalibrasyon sonlandırıldı...' : null;
     kod=="toast72" ? metin='Bu parametre "Fasıla Döngü Süresi" 10 dk olarak seçiliyse aktif edilebilir' : null;
-    kod=="toast73" ? metin='Boooooooooooooooooooooooooşta' : null;
+    kod=="toast73" ? metin='Lütfen sıfırdan farklı bir Grup No tanımlayınız!' : null;
     kod=="toast74" ? metin='Lütfen önce "Ac-Kapa Saati 2 Aktif" seçeneğini işaretleyin!' : null;
     kod=="toast75" ? metin='Dimmer aktifken devre dışıdır!' : null;
     kod=="toast76" ? metin='Lütfen tüm girişler için atama yapınız!' : null;
@@ -759,6 +795,7 @@ class Dil{
     kod=="toast87" ? metin='Yem çıkış 3 kurulum ayarlarında tanımlanmamış! Lütfen kontrol edin.' : null;
     kod=="toast88" ? metin='1500sn\'den (25dk) büyük değer giremezsiniz!' : null;
     kod=="toast89" ? metin='Tarih formatı AM/PM için hatalı saat girişi yaptınız!' : null;
+    kod=="toast90" ? metin='Lütfen sıfırdan farklı bir Isıtıcı Grup Çıkış No tanımlayınız!' : null;
     
 
 
@@ -1183,8 +1220,8 @@ class Dil{
     kod=="tv13" ? metin='Flap Number' : null;
     kod=="tv14" ? metin='Ped Pump Number' : null;
     kod=="tv15" ? metin='Temp. Sens. Number' : null;
-    kod=="tv16" ? metin='Chimney Fan Exist?' : null;
-    kod=="tv17" ? metin='A.Inlet M.Number' : null;
+    kod=="tv16" ? metin='Chim. Fan?' : null;
+    kod=="tv17" ? metin='A.Inlet & Sirc. Fan' : null;
     kod=="tv18" ? metin='Heater Number' : null;
     kod=="tv19" ? metin='Silo Number' : null;
     kod=="tv20" ? metin='Fan Control Method' : null;
@@ -1231,14 +1268,14 @@ class Dil{
     kod=="tv61" ? metin='TEMPSens NO Sign' : null;
     kod=="tv62" ? metin='OUTPUTS' : null;
     kod=="tv63" ? metin='Group:' : null;
-    kod=="tv64" ? metin='Cfan Group No' : null;
+    kod=="tv64" ? metin='Cfan No' : null;
     kod=="tv65" ? metin='C.Fan Gr-1 Out No' : null;
     kod=="tv66" ? metin='Digital\nOutput' : null;
     kod=="tv67" ? metin='Analog\nOutput' : null;
     kod=="tv68" ? metin='Chimney Fan Map' : null;
     kod=="tv69" ? metin='Cfan Group Out No' : null;
     kod=="tv70" ? metin='Out Temp. Sen.' : null;
-    kod=="tv71" ? metin='Air Inlet Map' : null;
+    kod=="tv71" ? metin='Air Inlet & Sirc. Fan' : null;
     kod=="tv72" ? metin='No:' : null;
     kod=="tv73" ? metin='Out:' : null;
     kod=="tv74" ? metin='A.INLET NO' : null;
@@ -1268,7 +1305,7 @@ class Dil{
     kod=="tv98" ? metin='Complete Installation' : null;
     kod=="tv99" ? metin='GENERAL SETTING' : null;
     kod=="tv100" ? metin='WATCH' : null;
-    kod=="tv101" ? metin='OTO-MAN' : null;
+    kod=="tv101" ? metin='AUTO-MAN' : null;
     kod=="tv102" ? metin='CONTROL' : null;
     kod=="tv103" ? metin='DATA LOG' : null;
     kod=="tv104" ? metin='ALARM SET.' : null;
@@ -1361,12 +1398,12 @@ class Dil{
     kod=="tv191" ? metin='PID Set Shift' : null;
     kod=="tv192" ? metin='FLAP' : null;
     kod=="tv193" ? metin='Fan - Flap Diagram' : null;
-    kod=="tv194" ? metin='Aktuel Interval :' : null;
+    kod=="tv194" ? metin='Aktuel Interval (%) :' : null;
     kod=="tv195" ? metin='Working Fan 1-2 :' : null;
     kod=="tv196" ? metin='Flap Interval 1-2 :' : null;
     kod=="tv197" ? metin='Working Fan 3-4 :' : null;
     kod=="tv198" ? metin='Flap Interval 3-4 :' : null;
-    kod=="tv199" ? metin='Min.Vent. Interval :' : null;
+    kod=="tv199" ? metin='Min.Vent. Interval (%) :' : null;
     kod=="tv200" ? metin='Working Fan 1' : null;
     kod=="tv201" ? metin='Working Fan 2' : null;
     kod=="tv202" ? metin='Working Fan 3' : null;
@@ -1383,7 +1420,7 @@ class Dil{
     kod=="tv213" ? metin='Fan Number per Flp :' : null;
     kod=="tv214" ? metin='Fan Number Per Flp Mod :' : null;
     kod=="tv215" ? metin='Work Queue :' : null;
-    kod=="tv216" ? metin='Min-Max. Interval :' : null;
+    kod=="tv216" ? metin='Min-Max. Interval (%) :' : null;
     kod=="tv217" ? metin='Fan Number per\nFlp for Man:' : null;
     kod=="tv218" ? metin='Max. Interval :' : null;
     kod=="tv219" ? metin='Min. Interval :' : null;
@@ -1659,8 +1696,8 @@ class Dil{
     kod=="tv489" ? metin='At High Hum.\nAll Fans Run' : null;
     kod=="tv490" ? metin='Out Hum\nHigh Limit Active' : null;
     kod=="tv491" ? metin='Out Hum\nHigh Limit' : null;
-    kod=="tv492" ? metin='0-10V Output' : null;
-    kod=="tv493" ? metin='4-20mA Output' : null;
+    kod=="tv492" ? metin='0-10V' : null;
+    kod=="tv493" ? metin='4-20mA' : null;
     kod=="tv494" ? metin='Chimney F.\nMotor Speed (Hz)' : null;
     kod=="tv495" ? metin='Chimney Fans' : null;
     kod=="tv496" ? metin='OPTION 1' : null;
@@ -1765,6 +1802,22 @@ class Dil{
     kod=="tv595" ? metin='Gr. 3:' : null;
     kod=="tv596" ? metin='Openning' : null;
     kod=="tv597" ? metin='Closing:' : null;
+    kod=="tv598" ? metin='MONITOR-1' : null;
+    kod=="tv599" ? metin='MONITOR-1' : null;
+    kod=="tv600" ? metin='S1:' : null;//Silo 1
+    kod=="tv601" ? metin='S2:' : null;//Silo 1
+    kod=="tv602" ? metin='S3:' : null;//Silo 1
+    kod=="tv603" ? metin='S4:' : null;//Silo 1
+    kod=="tv604" ? metin='Kg' : null;
+    kod=="tv605" ? metin='Daily Tot.\nCons.(Kg)' : null;
+    kod=="tv606" ? metin='Daily\nPer Bird\nCons.(Kg)' : null;
+    kod=="tv607" ? metin='Next Feed\nTime' : null;
+    kod=="tv608" ? metin='Light On-Off\nTime' : null;
+    kod=="tv609" ? metin='WATERMETERS' : null;
+    kod=="tv610" ? metin='Water Consumptions(Lt)' : null;
+    kod=="tv611" ? metin='Daily Tot. Cons:' : null;
+    kod=="tv612" ? metin='Daily Per Bird:' : null;
+    kod=="tv613" ? metin='Light Per.(%):' : null;
     
     
 

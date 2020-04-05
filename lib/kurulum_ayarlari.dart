@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/adetler.dart';
-import 'package:prokis/airinlet_haritasi.dart';
+import 'package:prokis/airinlet_ve_sirkfan.dart';
 import 'package:prokis/diger_cikislar.dart';
 import 'package:prokis/bacafan_haritasi.dart';
 import 'package:prokis/dil_secimi.dart';
@@ -54,6 +54,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
   String airinletAdet = "0";
   String isiticiAdet = "0";
   String siloAdet = "0";
+  bool sirkfanVarMi = false;
   
   List<Map> dbVeriler;
 
@@ -70,7 +71,9 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
         sifre = dbVeri[i]["veri4"];
       }
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet = dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
+        sirkfanVarMi = xx[1]=="1" ? true : false;
         airinletAdet = dbVeri[i]["veri2"];
         isiticiAdet = dbVeri[i]["veri3"];
         siloAdet = dbVeri[i]["veri4"];
@@ -978,7 +981,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                       //Air Inlet Haritası
                       Expanded(
                           flex: 4,
-                          child: Visibility(visible: airinletAdet!="0",
+                          child: Visibility(visible: airinletAdet=="0" && !sirkfanVarMi ? false : true,
                                                       child: Column(
                               children: <Widget>[
                                 Expanded(
@@ -1023,7 +1026,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                AirInletHaritasi(dbVeriler,false)),
+                                                AirInletVeSirkFan(dbVeriler,false)),
                                       );
 
                                         },

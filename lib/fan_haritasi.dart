@@ -42,7 +42,7 @@ class FanHaritasiState extends State<FanHaritasi> {
   List<int> fanHaritaGrid = new List(121);
   List<int> fanNo = new List(121);
   List<int> cikisNo = new List(121);
-  List<int> cikisNoGecici = new List(121);
+  List<int> cikisNoGecici = new List.filled(121,0);
   bool haritaOnay = false;
   int fanAdet = 0;
 

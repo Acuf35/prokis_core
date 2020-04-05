@@ -42,7 +42,7 @@ class PedHaritasiState extends State<PedHaritasi> {
   List<bool> pedVisibility = new List(25);
   List<int> pedNo = new List(25);
   List<int> cikisNo = new List(25);
-  List<int> cikisNoGecici = new List(25);
+  List<int> cikisNoGecici = new List.filled(25,0);
   bool haritaOnay = false;
   int pedAdet = 0;
 

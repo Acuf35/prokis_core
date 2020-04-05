@@ -9,9 +9,10 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/diger_cikislar.dart';
 import 'package:prokis/bacafan_haritasi.dart';
 import 'package:toast/toast.dart';
-import 'airinlet_haritasi.dart';
+import 'airinlet_ve_sirkfan.dart';
 import 'genel/alert_reset.dart';
 import 'genel/database_helper.dart';
+import 'genel/deger_giris_1x0.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/sayfa_geri_alert.dart';
 import 'isisensor_haritasi.dart';
@@ -40,14 +41,15 @@ class SiloHaritasiState extends State<SiloHaritasi> {
   int dbSatirSayisi = 0;
   String dilSecimi = "TR";
   String kurulumDurum = "0";
-  List<int> siloHarita = new List(21);
-  List<bool> siloVisibility = new List(21);
-  List<int> siloNo = new List(21);
+  List<int> siloHarita = new List(31);
+  List<bool> siloVisibility = new List(31);
+  List<int> siloNo = new List(31);
   bool haritaOnay = false;
   int siloAdet = 0;
   String bacafanAdet = '0';
   String airinletAdet = '0';
   String isiticiAdet = '0';
+  bool sirkfanVarMi = false;
 
   int _onlarsilo = 0;
   int _birlersilo = 0;
@@ -59,6 +61,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
   List<int> tumCikislar = new List(111);
 
   bool durum;
+
+  bool sistemeBagliSiloVarMi=false;
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -73,7 +77,9 @@ class SiloHaritasiState extends State<SiloHaritasi> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet = dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
+        sirkfanVarMi = xx[1]=="1" ? true : false;
         airinletAdet = dbVeri[i]["veri2"];
         isiticiAdet = dbVeri[i]["veri3"];
         siloAdet = int.parse(dbVeri[i]["veri4"]);
@@ -83,7 +89,6 @@ class SiloHaritasiState extends State<SiloHaritasi> {
         if (dbVeri[i]["veri1"] == "ok") {
           tumCikislarVar = true;
           var tcikislar = dbVeri[i]["veri2"].split("#");
-
           for (int i = 1; i <= 110; i++) {
             tumCikislar[i] = int.parse(tcikislar[i - 1]);
           }
@@ -95,14 +100,14 @@ class SiloHaritasiState extends State<SiloHaritasi> {
           siloHaritaOK = true;
           String xx = dbVeri[i]["veri2"];
           var fHaritalar = xx.split("#");
-          for (int i = 1; i <= 20; i++) {
+          for (int i = 1; i <=30; i++) {
             siloHarita[i] = int.parse(fHaritalar[i - 1]);
             if (fHaritalar[i - 1] != "0") {
               haritaOnay = true;
             }
           }
 
-          for (int i = 1; i <= 20; i++) {
+          for (int i = 1; i <=30; i++) {
             if (siloHarita[i] != 0) {
               siloVisibility[i] = true;
             } else {
@@ -120,7 +125,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
           veriGonderildi = true;
           xx = dbVeri[i]["veri2"];
           var siloNolar = xx.split("#");
-          for (int i = 1; i <= 20; i++) {
+          for (int i = 1; i <=30; i++) {
             siloNo[i] = int.parse(siloNolar[i - 1]);
           }
         }
@@ -128,14 +133,14 @@ class SiloHaritasiState extends State<SiloHaritasi> {
     }
 
     if (!siloHaritaOK) {
-      for (int i = 1; i <= 20; i++) {
+      for (int i = 1; i <= 30; i++) {
         siloHarita[i] = 0;
         siloVisibility[i] = true;
       }
     }
 
     if (!siloNoOK) {
-      for (int i = 1; i <= 20; i++) {
+      for (int i = 1; i <= 30; i++) {
         siloNo[i] = 0;
       }
     }
@@ -146,6 +151,8 @@ class SiloHaritasiState extends State<SiloHaritasi> {
       }
     }
     durum=drm;
+
+    
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -219,280 +226,362 @@ class SiloHaritasiState extends State<SiloHaritasi> {
         Expanded(
           flex: 5,
           child: Container(
-            color: Colors.white,
-            alignment: Alignment.center,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Spacer(
-                  flex: 1,
+              color: Colors.white,
+              alignment: Alignment.center,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Spacer(
+                    flex: 1,
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: Column(
+                      children: <Widget>[
+                        Expanded(
+          flex: 7,
+          child: Row(
+            children: <Widget>[
+              Spacer(
+                flex: 6,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(7, oran, "tv83", 1),
+                    _siloHaritaUnsur(6, oran, "tv83", 1),
+                  ],
                 ),
-                Expanded(
-                  flex: 8,
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        flex: 7,
-                        child: Row(
-                          children: <Widget>[
-                            Spacer(
-                              flex: 6,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                children: <Widget>[
-                                  _siloHaritaUnsur(6, oran, "tv83", 1),
-                                  _siloHaritaUnsur(5, oran, "tv83", 1),
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 9,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                children: <Widget>[
-                                  _siloHaritaUnsur(8, oran, "tv83", 1),
-                                  _siloHaritaUnsur(7, oran, "tv83", 1),
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 9,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                children: <Widget>[
-                                  _siloHaritaUnsur(10, oran, "tv83", 1),
-                                  _siloHaritaUnsur(9, oran, "tv83", 1),
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 6,
-                            ),
-                          ],
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    Spacer(),
+                    _siloHaritaUnsur(8, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 3,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    Spacer(),
+                    _siloHaritaUnsur(9, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(11, oran, "tv83", 1),
+                    _siloHaritaUnsur(10, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    Spacer(),
+                    _siloHaritaUnsur(12, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 3,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    Spacer(),
+                    _siloHaritaUnsur(13, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(15, oran, "tv83", 1),
+                    _siloHaritaUnsur(14, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 6,
+              ),
+            ],
+          ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 13,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      Dil()
-                                          .sec(dilSecimi, "tv58"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Row(
-                                      children: <Widget>[
-                                        _siloHaritaUnsur(4, oran, "tv83", 1),
-                                        _siloHaritaUnsur(3, oran, "tv83", 1),
-                                      ],
-                                    ),
-                                  ),
-                                  Spacer(
-                                    flex: 1,
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: <Widget>[
-                                        _siloHaritaUnsur(2, oran, "tv83", 1),
-                                        _siloHaritaUnsur(1, oran, "tv83", 1),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                                flex: 27,
-                                child: Stack(
-                                  children: <Widget>[
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        //color: Colors.pink,
-                                        image: DecorationImage(
-                                          alignment: Alignment.center,
-                                          image: AssetImage(
-                                              "assets/images/bina_catili_ust_gorunum.png"),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                                    Column(
-                                      children: <Widget>[
-                                        Spacer(
-                                          flex: 7,
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Row(
-                                            children: <Widget>[
-                                              Spacer(),
-                                              Expanded(
-                                                flex: 2,
-                                                child: SizedBox(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: AutoSizeText(
-                                                      Dil()
-                                                          .sec(
-                                                              dilSecimi,
-                                                              "tv57"),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 40,
-                                                      ),
-                                                      maxLines: 1,
-                                                      minFontSize: 8,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Spacer()
-                                            ],
-                                          ),
-                                        ),
-                                        Spacer(
-                                          flex: 7,
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                )),
-                            Expanded(
-                              flex: 5,
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Row(
-                                      children: <Widget>[
-                                        _siloHaritaUnsur(11, oran, "tv83", 1),
-                                        _siloHaritaUnsur(12, oran, "tv83", 1),
-                                      ],
-                                    ),
-                                  ),
-                                  Spacer(
-                                    flex: 1,
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      children: <Widget>[
-                                        _siloHaritaUnsur(13, oran, "tv83", 1),
-                                        _siloHaritaUnsur(14, oran, "tv83", 1),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: RotatedBox(
-                                quarterTurns: -45,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      Dil()
-                                          .sec(dilSecimi, "tv59"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 40,
-                                      ),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                        Expanded(
+          flex: 13,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: RotatedBox(
+                  quarterTurns: -45,
+                  child: SizedBox(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        Dil()
+                            .sec(dilSecimi, "tv58"),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 40,
                         ),
+                        maxLines: 1,
+                        minFontSize: 8,
                       ),
-                      Expanded(
-                        flex: 7,
-                        child: Row(
-                          children: <Widget>[
-                            Spacer(
-                              flex: 6,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                children: <Widget>[
-                                  _siloHaritaUnsur(19, oran, "tv83", 1),
-                                  _siloHaritaUnsur(20, oran, "tv83", 1),
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 9,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                children: <Widget>[
-                                  _siloHaritaUnsur(17, oran, "tv83", 1),
-                                  _siloHaritaUnsur(18, oran, "tv83", 1),
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 9,
-                            ),
-                            Expanded(
-                              flex: 3,
-                              child: Column(
-                                children: <Widget>[
-                                  _siloHaritaUnsur(15, oran, "tv83", 1),
-                                  _siloHaritaUnsur(16, oran, "tv83", 1),
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 6,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
-                Spacer(
-                  flex: 1,
-                )
-              ],
-            ),
+              ),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          _siloHaritaUnsur(4, oran, "tv83", 1),
+                          _siloHaritaUnsur(3, oran, "tv83", 1),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          Spacer(),
+                          _siloHaritaUnsur(3, oran, "tv83", 1),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          _siloHaritaUnsur(2, oran, "tv83", 1),
+                          _siloHaritaUnsur(1, oran, "tv83", 1),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                  flex: 27,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        decoration: BoxDecoration(
+                          //color: Colors.pink,
+                          image: DecorationImage(
+                            alignment: Alignment.center,
+                            image: AssetImage(
+                                "assets/images/bina_catili_ust_gorunum.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                      Column(
+                        children: <Widget>[
+                          Spacer(
+                            flex: 7,
+                          ),
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: <Widget>[
+                                Spacer(),
+                                Expanded(
+                                  flex: 2,
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil()
+                                            .sec(
+                                                dilSecimi,
+                                                "tv57"),
+                                        textAlign:
+                                            TextAlign.center,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 40,
+                                        ),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Spacer()
+                              ],
+                            ),
+                          ),
+                          Spacer(
+                            flex: 7,
+                          )
+                        ],
+                      )
+                    ],
+                  )),
+              Expanded(
+                flex: 5,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          _siloHaritaUnsur(16, oran, "tv83", 1),
+                          _siloHaritaUnsur(17, oran, "tv83", 1),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          _siloHaritaUnsur(18, oran, "tv83", 1),
+                          Spacer()
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: Row(
+                        children: <Widget>[
+                          _siloHaritaUnsur(19, oran, "tv83", 1),
+                          _siloHaritaUnsur(20, oran, "tv83", 1),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: RotatedBox(
+                  quarterTurns: -45,
+                  child: SizedBox(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: AutoSizeText(
+                        Dil()
+                            .sec(dilSecimi, "tv59"),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 40,
+                        ),
+                        maxLines: 1,
+                        minFontSize: 8,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
+                        ),
+                        Expanded(
+          flex: 7,
+          child: Row(
+            children: <Widget>[
+              Spacer(
+                flex: 6,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(29, oran, "tv83", 1),
+                    _siloHaritaUnsur(30, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(28, oran, "tv83", 1),
+                    Spacer()
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 3,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(27, oran, "tv83", 1),
+                    Spacer()
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(25, oran, "tv83", 1),
+                    _siloHaritaUnsur(26, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(24, oran, "tv83", 1),
+                    Spacer()
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 3,
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(23, oran, "tv83", 1),
+                    Spacer()
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 3,
+                child: Column(
+                  children: <Widget>[
+                    _siloHaritaUnsur(21, oran, "tv83", 1),
+                    _siloHaritaUnsur(22, oran, "tv83", 1),
+                  ],
+                ),
+              ),
+              Spacer(
+                flex: 6,
+              ),
+            ],
+          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  )
+                ],
+              ),
+            ),
         ),
 
         //ileri geri ok bölümü
@@ -516,9 +605,10 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
+                            print(siloHarita);
                             int sayac = 0;
 
-                            for (int i = 1; i <= 20; i++) {
+                            for (int i = 1; i <=30; i++) {
                               if (siloHarita[i] == 1) {
                                 sayac++;
                               }
@@ -547,7 +637,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                   duration: 3);
                               haritaOnay = true;
 
-                              for (int i = 1; i <= 20; i++) {
+                              for (int i = 1; i <=30; i++) {
                                 if (siloHarita[i] != 0) {
                                   siloVisibility[i] = true;
                                 } else {
@@ -557,7 +647,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
 
                               String veri = "";
 
-                              for (int i = 1; i <= 20; i++) {
+                              for (int i = 1; i <=30; i++) {
                                 veri = veri + siloHarita[i].toString() + "#";
                               }
 
@@ -632,7 +722,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                             bool noKontrol = false;
                             bool sensSayYukNo = false;
                             String noVeri = "";
-                            for (int i = 1; i <= 20; i++) {
+                            for (int i = 1; i <=30; i++) {
                               if (siloHarita[i] == 1) {
                                 if (siloNo[i] == 0) {
                                   noKontrol = true;
@@ -710,13 +800,13 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                     builder: (context) =>
                                         IsiticiHaritasi(dbVeriler,true)),
                               );
-                            }else if(airinletAdet!='0'){
+                            }else if(airinletAdet!='0' || sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AirInletHaritasi(dbVeriler,true)),
+                                        AirInletVeSirkFan(dbVeriler,true)),
                               );
                             }else if(bacafanAdet!='0'){
 
@@ -807,39 +897,31 @@ class SiloHaritasiState extends State<SiloHaritasi> {
     return imagePath;
   }
 
-  Future _degergiris2X0(int onlarX, birlerX, index, double oran, String dil,
-      baslik, int degerGirisKodu) async {
-    // flutter defined function
-
+  Future _degergiris1X0(
+      int birlerX, index, double oran, String dil, baslik, int ustLimit) async {
     await showDialog(
       barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         // return object of type Dialog
 
-        return DegerGiris2X0.Deger(onlarX, birlerX, index, oran, dil, baslik);
+        return DegerGiris1X0.Deger(ustLimit, birlerX, index, oran, dil, baslik);
       },
     ).then((val) {
-      if (degerGirisKodu == 1) degerGiris2X0Yrd1(val);
-    });
-  }
-
-  //Üst görünüşten haritadaki sensörlere numara atama işlemi
-  degerGiris2X0Yrd1(var val) {
-    if (_onlarsilo != val[0] || _birlersilo != val[1]) {
+      if (_birlersilo != val[0]) {
       veriGonderildi = false;
     }
 
-    _onlarsilo = val[0];
-    _birlersilo = val[1];
-    _degerNo = val[2];
+    
+    _birlersilo = val[0];
+    _degerNo = val[1];
 
     siloNo[_degerNo] =
-        int.parse(_onlarsilo.toString() + _birlersilo.toString());
+        int.parse(_birlersilo.toString());
     siloNoTekerrur = false;
 
-    for (int i = 1; i <= 20; i++) {
-      for (int k = 1; k <= 20; k++) {
+    for (int i = 1; i <=30; i++) {
+      for (int k = 1; k <=30; k++) {
         if (i != k &&
             siloNo[i] == siloNo[k] &&
             siloNo[i] != 0 &&
@@ -854,7 +936,9 @@ class SiloHaritasiState extends State<SiloHaritasi> {
     }
 
     setState(() {});
+    });
   }
+
 
   Widget _siloHaritaUnsur(
       int indexNo, double oran, String baslik, int degerGirisKodu) {
@@ -872,13 +956,10 @@ class SiloHaritasiState extends State<SiloHaritasi> {
               child: RawMaterialButton(
                   onPressed: () {
                     if (haritaOnay) {
-                      _onlarsilo = siloNo[indexNo] < 10
-                          ? 0
-                          : (siloNo[indexNo] ~/ 10).toInt();
                       _birlersilo = siloNo[indexNo] % 10;
                       _degerNo = indexNo;
-                      _degergiris2X0(_onlarsilo, _birlersilo, indexNo, oran,
-                          dilSecimi, baslik, degerGirisKodu);
+                      _degergiris1X0(_birlersilo, indexNo, oran,
+                          dilSecimi, baslik, siloAdet);
                     } else {
                       if (siloHarita[indexNo] == 0 ||
                           siloHarita[indexNo] == null) {
@@ -888,27 +969,38 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                       }
 
                       setState(() {});
+                      print(siloHarita[indexNo]);
                     }
                   },
-                  child: Stack(
+                  child: Stack(fit: StackFit.expand,
                     children: <Widget>[
-                      Opacity(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            //color: Colors.pink,
-                            image: DecorationImage(
-                              alignment: Alignment.center,
-                              image:
-                                  AssetImage(imageGetir(siloHarita[indexNo])),
-                              fit: BoxFit.contain,
+                      Row(
+                        children: <Widget>[
+                          Visibility(visible: !haritaOnay && siloHarita[indexNo]==0 ? false: true,
+                            child: Spacer()),
+                          Expanded(flex: 3,
+                            child: Opacity(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  //color: Colors.pink,
+                                  image: DecorationImage(
+                                    alignment: Alignment.center,
+                                    image:
+                                        AssetImage(imageGetir(siloHarita[indexNo])),
+                                    fit: siloHarita[indexNo]==1 ? BoxFit.fill : BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                              opacity: siloVisibility[indexNo] &&
+                                      haritaOnay &&
+                                      siloHarita[indexNo] == 1
+                                  ? 1
+                                  : 1,
                             ),
                           ),
-                        ),
-                        opacity: siloVisibility[indexNo] &&
-                                haritaOnay &&
-                                siloHarita[indexNo] == 1
-                            ? 1
-                            : 1,
+                          Visibility(visible: !haritaOnay && siloHarita[indexNo]==0 ? false: true,
+                            child: Spacer())
+                        ],
                       ),
                       Visibility(
                         visible: haritaOnay && siloHarita[indexNo] != 0
@@ -925,16 +1017,15 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                             //silo No
                             Expanded(
                               flex: 8,
-                              child: Row(
+                              child: Column(
                                 children: <Widget>[
+                                  Spacer(flex: 3,),
                                   Expanded(
-                                    flex: 1,
+                                    flex: 12,
                                     child: SizedBox(
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                                  dilSecimi, "tv82") +
                                               siloNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
@@ -947,6 +1038,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
                                       ),
                                     ),
                                   ),
+                                  Spacer(flex: 5,)
                                 ],
                               ),
                             ),
@@ -1019,7 +1111,7 @@ class SiloHaritasiState extends State<SiloHaritasi> {
     ).then((val) {
       if (val) {
         veriGonderildi = false;
-        for (int i = 1; i <= 20; i++) {
+        for (int i = 1; i <=30; i++) {
           siloHarita[i] = 0;
           siloNo[i] = 0;
           siloVisibility[i] = true;

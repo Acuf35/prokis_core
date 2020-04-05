@@ -19,20 +19,20 @@ import 'isitici_haritasi.dart';
 import 'kurulum_ayarlari.dart';
 import 'languages/select.dart';
 
-class AirInletHaritasi extends StatefulWidget {
+class AirInletHaritasi2 extends StatefulWidget {
   List<Map> gelenDBveri;
   bool gelenDurum;
-  AirInletHaritasi(List<Map> dbVeriler,bool durum) {
+  AirInletHaritasi2(List<Map> dbVeriler,bool durum) {
     gelenDBveri = dbVeriler;
     gelenDurum=durum;
   }
   @override
   State<StatefulWidget> createState() {
-    return AirInletHaritasiState(gelenDBveri,gelenDurum);
+    return AirInletHaritasi2State(gelenDBveri,gelenDurum);
   }
 }
 
-class AirInletHaritasiState extends State<AirInletHaritasi> {
+class AirInletHaritasi2State extends State<AirInletHaritasi2> {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   List<Map> dbVeriler;
   final dbHelper = DatabaseHelper.instance;
@@ -76,7 +76,7 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  AirInletHaritasiState(List<Map> dbVeri,bool drm) {
+  AirInletHaritasi2State(List<Map> dbVeri,bool drm) {
     bool airinletHaritaOK = false;
     bool airinletCikisOK = false;
     bool tumCikislarVar = false;
@@ -87,7 +87,8 @@ class AirInletHaritasiState extends State<AirInletHaritasi> {
 
       if (dbVeri[i]["id"] == 5) {
         airinletAdet = int.parse(dbVeri[i]["veri2"]);
-        bacafanAdet=dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
         isiticiAdet=dbVeri[i]["veri3"];
         siloAdet=dbVeri[i]["veri4"];
       }

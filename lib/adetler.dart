@@ -40,7 +40,8 @@ class AdetlerState extends State<Adetler> {
   String pedAdet = "1";
   String isiSensAdet = "1";
   String bacafanVarMi = "0";
-  String airinletAdet = "0";
+  String sirkfanVarMi = "0";
+  String airinletVarMi = "0";
   String isiticiAdet = "0";
   String siloAdet = "0";
 
@@ -52,7 +53,6 @@ class AdetlerState extends State<Adetler> {
 
   bool durum;
 
-  List<String> adet2 = ['0', '1', '2'];
   List<String> adet3 = ['0', '1', '2', '3'];
   List<String> adet4 = ['0', '1', '2', '3', '4'];
   List<String> adet10 = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
@@ -160,8 +160,10 @@ class AdetlerState extends State<Adetler> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanVarMi = dbVeri[i]["veri1"];
-        airinletAdet = dbVeri[i]["veri2"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanVarMi = xx[0];
+        sirkfanVarMi = xx[1];
+        airinletVarMi = dbVeri[i]["veri2"];
         isiticiAdet = dbVeri[i]["veri3"];
         siloAdet = dbVeri[i]["veri4"];
       }
@@ -306,17 +308,15 @@ class AdetlerState extends State<Adetler> {
                         _unsurAdetWidgetBaca(
                             Dil().sec(dilSecimi, "tv16"),
                             'assets/images/kurulum_bacafan_icon.png',
+                            'assets/images/kurulum_sirkfan_icon.png',
                             oran,
-                            bacafanVarMi,
-                            adet3,
                             5),
                         //Air inlet
-                        _unsurAdetWidget(
+                        _unsurAdetWidgetAirveSirk(
                             Dil().sec(dilSecimi, "tv17"),
                             'assets/images/kurulum_airinlet_icon.png',
+                            'assets/images/kurulum_sirkfan_icon.png',
                             oran,
-                            airinletAdet,
-                            adet2,
                             6),
                       ],
                     ),
@@ -593,7 +593,7 @@ class AdetlerState extends State<Adetler> {
                       } else if (adetCode == 5) {
                         bacafanVarMi = newValue;
                       } else if (adetCode == 6) {
-                        airinletAdet = newValue;
+                        airinletVarMi = newValue;
                       } else if (adetCode == 7) {
                         isiticiAdet = newValue;
                       } else if (adetCode == 8) {
@@ -613,10 +613,10 @@ class AdetlerState extends State<Adetler> {
                           wifiOlcumGecici=wifiOlcum;
                         }
                       } else {
-                        _veriGonder("3", "6", bacafanVarMi, airinletAdet,
+                        _veriGonder("3", "6", bacafanVarMi+"#"+sirkfanVarMi, airinletVarMi,
                             isiticiAdet, siloAdet);
-                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi,
-                            airinletAdet, isiticiAdet, siloAdet).then((onValue){
+                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi+"#"+sirkfanVarMi,
+                            airinletVarMi, isiticiAdet, siloAdet).then((onValue){
                               _dbVeriCekme();
                             });
                       }
@@ -643,50 +643,48 @@ class AdetlerState extends State<Adetler> {
     );
   }
 
-  Widget _unsurAdetWidgetBaca(String baslik, String imagePath, double oran,
-      String dropDownValue, List<String> liste, int adetCode) {
+  Widget _unsurAdetWidgetBaca(String baslik, String imagePathBfan,String imagePathSirk, double oran,
+     int adetCode) {
     return Expanded(
       child: Column(
         children: <Widget>[
+          //Başlık
           Expanded(
-            child: SizedBox(
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                child: AutoSizeText(
-                  baslik,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Kelly Slab',
-                      color: Colors.black,
-                      fontSize: 50,
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  minFontSize: 8,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.bottomCenter,
+                            child: AutoSizeText(
+                              baslik,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: 'Kelly Slab',
+                                  color: Colors.black,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              minFontSize: 8,
+                            ),
+                          ),
+                        ),
+                      ),
+          //Gövde    
+          Expanded(flex: 4,
+                      child: Row(
               children: <Widget>[
-                Spacer(),
-                Expanded(
-                  flex: 4,
+                Spacer(flex: 1,),
+                Expanded(flex: 3,
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
-                        image: AssetImage(imagePath),
+                        image: AssetImage(imagePathBfan),
                         fit: BoxFit.contain,
                       ),
                     ),
                   ),
-                ),
-                Spacer(flex: 1,),
-                Expanded(flex: 4,
-                                            child: Container(alignment: Alignment.centerLeft,
+                ),                
+                Expanded(flex: 3,
+                                            child: Container(alignment: Alignment.center,
                                               child: RawMaterialButton(
                                                 
                                           onPressed: () {
@@ -711,10 +709,10 @@ class AdetlerState extends State<Adetler> {
                                               wifiOlcumGecici=wifiOlcum;
                                             }
                                             } else {
-                                            _veriGonder("3", "6", bacafanVarMi, airinletAdet,
+                                            _veriGonder("3", "6", bacafanVarMi+"#"+sirkfanVarMi, airinletVarMi,
                                               isiticiAdet, siloAdet);
-                                            dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi,
-                                              airinletAdet, isiticiAdet, siloAdet).then((onValue){
+                                            dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi+"#"+sirkfanVarMi,
+                                              airinletVarMi, isiticiAdet, siloAdet).then((onValue){
                                                 _dbVeriCekme();
                                               });
                                             }
@@ -739,12 +737,209 @@ class AdetlerState extends State<Adetler> {
                                         ),
                                             ),
                                           ),
-                                           
-
-
-
-
+                Spacer(flex: 1,),
                 
+              
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+Widget _unsurAdetWidgetAirveSirk(String baslik, String imagePathBfan,String imagePathSirk, double oran, int adetCode) {
+    return Expanded(
+      child: Column(
+        children: <Widget>[
+          //Başlık
+          Expanded(
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.bottomCenter,
+                            child: AutoSizeText(
+                              baslik,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: 'Kelly Slab',
+                                  color: Colors.black,
+                                  fontSize: 50,
+                                  fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              minFontSize: 8,
+                            ),
+                          ),
+                        ),
+                      ),
+          //Gövde    
+          Expanded(flex: 4,
+                      child: Row(
+              children: <Widget>[
+
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(flex: 6,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.center,
+                              image: AssetImage(imagePathBfan),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),                
+                      Expanded(flex: 3,
+                                                  child: Container(alignment: Alignment.topCenter,
+                                                    child: RawMaterialButton(
+                                                      
+                                                onPressed: () {
+
+                                                  if (airinletVarMi=="1") {
+                                                    airinletVarMi="0";
+                                                  } else {
+                                                    airinletVarMi="1";
+                                                  }
+
+                                                  if (adetCode < 5) {
+                                                  _veriGonder(
+                                                    "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+                                                  dbHelper.veriYOKSAekleVARSAguncelle(
+                                                    4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2")).then((onValue){
+                                                      _dbVeriCekme();
+                                                    });
+                                                    if(wifiOlcum!=wifiOlcumGecici){
+                                                    dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                                                    dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                                                    _veriGonder("23", "0", "0", "0", "0", "0");
+                                                    wifiOlcumGecici=wifiOlcum;
+                                                  }
+                                                  } else {
+                                                  _veriGonder("3", "6", bacafanVarMi+"#"+sirkfanVarMi, airinletVarMi,
+                                                    isiticiAdet, siloAdet);
+                                                  dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi+"#"+sirkfanVarMi,
+                                                    airinletVarMi, isiticiAdet, siloAdet).then((onValue){
+                                                      _dbVeriCekme();
+                                                    });
+                                                  }
+
+                                                  setState(() {});
+
+
+                                                },
+                                                child: Icon(
+                                                  airinletVarMi =="1"
+                                                  ? Icons.check_box
+                                                  : Icons.check_box_outline_blank,
+                                                  color: airinletVarMi == "1"
+                                                  ? Colors.green[600]
+                                                  : Colors.black,
+                                                  size: 30 * oran,
+                                                ),
+                                                padding: EdgeInsets.all(0),
+                                                materialTapTargetSize:
+                                                  MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                              ),
+                                                  ),
+                                                ),
+                      Spacer(flex: 1,),                        
+
+
+
+
+                      
+                    ],
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(flex: 6,
+                        child: Row(
+                          children: <Widget>[
+                            Spacer(),
+                            Expanded(flex: 3,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    alignment: Alignment.center,
+                                    image: AssetImage(imagePathSirk),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Spacer()
+                          ],
+                        ),
+                      ),                
+                      Expanded(flex: 3,
+                                                  child: Container(alignment: Alignment.topCenter,
+                                                    child: RawMaterialButton(
+                                                      
+                                                onPressed: () {
+
+                                                  if (sirkfanVarMi=="1") {
+                                                    sirkfanVarMi="0";
+                                                  } else {
+                                                    sirkfanVarMi="1";
+                                                  }
+
+                                                  if (adetCode < 5) {
+                                                  _veriGonder(
+                                                    "2", "4", fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2"));
+                                                  dbHelper.veriYOKSAekleVARSAguncelle(
+                                                    4, fanAdet, klepeAdet, pedAdet, isiSensAdet+ (wifiOlcum==true ? "#1" : "#2")).then((onValue){
+                                                      _dbVeriCekme();
+                                                    });
+                                                    if(wifiOlcum!=wifiOlcumGecici){
+                                                    dbHelper.veriYOKSAekleVARSAguncelle(20, "0", "0", "0", "0");
+                                                    dbHelper.veriYOKSAekleVARSAguncelle(21, "0", "0", "0", "0");
+                                                    _veriGonder("23", "0", "0", "0", "0", "0");
+                                                    wifiOlcumGecici=wifiOlcum;
+                                                  }
+                                                  } else {
+                                                  _veriGonder("3", "6", bacafanVarMi+"#"+sirkfanVarMi, airinletVarMi,
+                                                    isiticiAdet, siloAdet);
+                                                  dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi+"#"+sirkfanVarMi,
+                                                    airinletVarMi, isiticiAdet, siloAdet).then((onValue){
+                                                      _dbVeriCekme();
+                                                    });
+                                                  }
+
+                                                  setState(() {});
+
+
+                                                },
+                                                child: Icon(
+                                                  sirkfanVarMi =="1"
+                                                  ? Icons.check_box
+                                                  : Icons.check_box_outline_blank,
+                                                  color: sirkfanVarMi == "1"
+                                                  ? Colors.green[600]
+                                                  : Colors.black,
+                                                  size: 30 * oran,
+                                                ),
+                                                padding: EdgeInsets.all(0),
+                                                materialTapTargetSize:
+                                                  MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                              ),
+                                                  ),
+                                                ),
+                      Spacer(flex: 1,),                        
+
+
+
+
+                      
+                    ],
+                  ),
+                ),
+                
+              
               ],
             ),
           ),
@@ -913,7 +1108,7 @@ class AdetlerState extends State<Adetler> {
                       } else if (adetCode == 5) {
                         bacafanVarMi = newValue;
                       } else if (adetCode == 6) {
-                        airinletAdet = newValue;
+                        airinletVarMi = newValue;
                       } else if (adetCode == 7) {
                         isiticiAdet = newValue;
                       } else if (adetCode == 8) {
@@ -933,10 +1128,10 @@ class AdetlerState extends State<Adetler> {
                         }
 
                       } else {
-                        _veriGonder("3", "6", bacafanVarMi, airinletAdet,
+                        _veriGonder("3", "6", bacafanVarMi+"#"+sirkfanVarMi, airinletVarMi,
                             isiticiAdet, siloAdet);
-                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi,
-                            airinletAdet, isiticiAdet, siloAdet);
+                        dbHelper.veriYOKSAekleVARSAguncelle(5, bacafanVarMi+"#"+sirkfanVarMi,
+                            airinletVarMi, isiticiAdet, siloAdet);
                       }
 
                       setState(() {});

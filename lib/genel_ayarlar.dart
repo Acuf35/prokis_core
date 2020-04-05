@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/izleme.dart';
 import 'package:prokis/kalibrasyon.dart';
 import 'package:prokis/kontrol.dart';
 import 'package:prokis/oto_man.dart';
@@ -13,6 +12,7 @@ import 'package:prokis/suru.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'genel/database_helper.dart';
 import 'genel/metotlar.dart';
+import 'izleme.dart';
 import 'languages/select.dart';
 
 class GenelAyarlar extends StatefulWidget {

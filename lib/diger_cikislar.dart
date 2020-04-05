@@ -14,7 +14,7 @@ import 'package:prokis/kurulum_ozet.dart';
 import 'package:prokis/kurulumu_tamamla.dart';
 import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
-import 'airinlet_haritasi.dart';
+import 'airinlet_ve_sirkfan.dart';
 import 'genel/database_helper.dart';
 import 'genel/deger_giris_2x0.dart';
 import 'genel/deger_giris_4x0.dart';
@@ -49,6 +49,7 @@ class DigerCikislarState extends State<DigerCikislar> {
   String airinletAdet = '0';
   String isiticiAdet = '0';
   String siloAdet = '0';
+  bool sirkfanVarMi = false;
 
   List<int> cikisAluyayNo = new List(4);
   List<int> cikisAluyayNoGecici = new List(4);
@@ -97,7 +98,9 @@ class DigerCikislarState extends State<DigerCikislar> {
         palsBasinaLitre = dbVeri[i]["veri2"];
       }
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet=dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
+        sirkfanVarMi = xx[1]=="1" ? true : false;
         airinletAdet=dbVeri[i]["veri2"];
         isiticiAdet=dbVeri[i]["veri3"];
         siloAdet=dbVeri[i]["veri4"];
@@ -1133,13 +1136,13 @@ class DigerCikislarState extends State<DigerCikislar> {
                                     builder: (context) =>
                                         IsiticiHaritasi(dbVeriler,true)),
                               );
-                            }else if(airinletAdet!='0'){
+                            }else if(airinletAdet!='0' || sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AirInletHaritasi(dbVeriler,true)),
+                                        AirInletVeSirkFan(dbVeriler,true)),
                               );
                             }else if(bacafanAdet!='0'){
 

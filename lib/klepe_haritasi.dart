@@ -42,9 +42,9 @@ class KlepeHaritasiState extends State<KlepeHaritasi> {
   List<bool> klepeVisibility = new List(19);
   List<int> klepeNo = new List(19);
   List<int> cikisNoAc = new List(19);
-  List<int> cikisNoGeciciAc = new List(19);
+  List<int> cikisNoGeciciAc = new List.filled(19,0);
   List<int> cikisNoKapa = new List(19);
-  List<int> cikisNoGeciciKapa = new List(19);
+  List<int> cikisNoGeciciKapa = new List.filled(19,0);
   bool haritaOnay = false;
   int klepeAdet = 0;
 

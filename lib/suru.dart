@@ -42,7 +42,6 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   String kumesTuru = "1";
-  String airInletAdet = "1";
   List<Map> dbVeriler;
 
   DateTime suruDogumTarihi = DateTime(2020, 1, 1);
@@ -104,10 +103,6 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       if (dbVeri[i]["id"] == 3) {
         kumesTuru = dbVeri[i]["veri1"];
         kumesTuru = "2";
-      }
-      if (dbVeri[i]["id"] == 3) {
-        airInletAdet = dbVeri[i]["veri2"];
-        airInletAdet = "0";
       }
     }
 
@@ -983,30 +978,27 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                   ],
                                 ),
                               ),
-                              Visibility(
-                                visible: airInletAdet != "0" ? false : true,
-                                child: Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Text(
-                                        Dil().sec(dilSecimi, "tv429"),
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600]),
-                                        textScaleFactor: oran,textAlign:TextAlign.center,
-                                      ),
-                                      Text(
-                                        suruYasiHaftalik,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30,
-                                            color: Colors.blue[200]),
-                                        textScaleFactor: oran,
-                                      )
-                                    ],
-                                  ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    Text(
+                                      Dil().sec(dilSecimi, "tv429"),
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.grey[600]),
+                                      textScaleFactor: oran,textAlign:TextAlign.center,
+                                    ),
+                                    Text(
+                                      suruYasiHaftalik,
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 30,
+                                          color: Colors.blue[200]),
+                                      textScaleFactor: oran,
+                                    )
+                                  ],
                                 ),
                               ),
                             ],
@@ -1467,38 +1459,24 @@ class SuruBilgisiState extends State<SuruBilgisi> {
               guncelHayvanSayisi=degerler[13];
               suruYasiGunluk=degerler[14];
               suruYasiHaftalik=degerler[15];
+              olumOrani=degerler[16];
 
 
               
 
               if (kumesTuru == '1') {
-                haftalik_7_20 = degerler[16];
-                haftalik_21_52 = degerler[17];
-                haftalik_53veSonrasi = degerler[18];
+                haftalik_7_20 = degerler[17];
+                haftalik_21_52 = degerler[18];
+                haftalik_53veSonrasi = degerler[19];
               } else {
-                gunluk_1_7 = degerler[16];
-                gunluk_8_14 = degerler[17];
-                gunluk_15_21 = degerler[18];
-                gunluk_22_28 = degerler[19];
-                gunluk_29_35 = degerler[20];
-                gunluk_36_42 = degerler[21];
-                gunluk_43_49 = degerler[22];
-                gunluk_50veSonrasi = degerler[23];
-              }
-              int olum1=int.parse(olum1hastalikNedeniyleOluSayisi);
-              int olum2=int.parse(olum2ekipmanDeformasyonuKaynakliOluSayisi);
-              int olum3=int.parse(olum3digerHayvanSaldirilariKaynakliOluSayisi);
-              int olum4=int.parse(olum4havalandirmaKaynakliOluSayisi);
-              int olum5=int.parse(olum5yemKaynakliOluSayisi);
-              int olum6=int.parse(olum6suKaynakliOluSayisi);
-              toplamOluSayisi=(olum1+olum2+olum3+olum4+olum5+olum6).toString();
-              double veri=(double.parse(toplamOluSayisi) / (double.parse(suruGirisSayisi)==0 ? 1.0 : double.parse(suruGirisSayisi)))*100;
-              print(toplamOluSayisi);
-              if(veri>=100){
-                veri=100.0;
-                olumOrani = veri.toStringAsFixed(1);
-              }else{
-                olumOrani = veri.toStringAsFixed(2);
+                gunluk_1_7 = degerler[20];
+                gunluk_8_14 = degerler[21];
+                gunluk_15_21 = degerler[22];
+                gunluk_22_28 = degerler[23];
+                gunluk_29_35 = degerler[24];
+                gunluk_36_42 = degerler[25];
+                gunluk_43_49 = degerler[26];
+                gunluk_50veSonrasi = degerler[27];
               }
               
 

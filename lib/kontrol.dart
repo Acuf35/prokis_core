@@ -62,7 +62,8 @@ class KontrolState extends State<Kontrol> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacaFanAdet = dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacaFanAdet = xx[0];
       }
 
       if (dbVeri[i]["id"] == 6) {

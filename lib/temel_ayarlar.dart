@@ -123,7 +123,14 @@ class TemelAyarlarState extends State<TemelAyarlar> {
 
     if (dbVeri.length < 3) {
       kumesTuru = Dil().sec(dilSecimi, "dd1");
+      kumesTuruIndex=1;
     }
+
+    print("dbVeri uzunluğu: ");
+    print(dbVeri.length);
+    print(kumesTuru);
+    print(kumesNo);
+    print(kumesIsmi);
 
     durum=drm;
 
@@ -252,6 +259,8 @@ class TemelAyarlarState extends State<TemelAyarlar> {
                                             setState(() {});
                                           },
                                           items: <String>[
+                                            Dil().sec(
+                                                dilSecimi, "tv627"),
                                             Dil().sec(
                                                 dilSecimi, "dd1"),
                                             Dil().sec(

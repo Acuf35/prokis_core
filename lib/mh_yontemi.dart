@@ -74,7 +74,8 @@ class MhYontemiState extends State<MhYontemi> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet = dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
       }
     }
     durum=drm;

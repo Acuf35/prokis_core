@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/airinlet_haritasi.dart';
+import 'package:prokis/airinlet_ve_sirkfan.dart';
 import 'package:prokis/silo_haritasi.dart';
 import 'package:toast/toast.dart';
 import 'bacafan_haritasi.dart';
@@ -45,12 +45,13 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
   List<bool> isiticiVisibility = new List(19);
   List<int> isiticiNo = new List(19);
   List<int> cikisNo = new List(4);
-  List<int> cikisNoGecici = new List(4);
+  List<int> cikisNoGecici = new List.filled(4,0);
   bool haritaOnay = false;
   int isiticiAdet = 0;
   String bacafanAdet = '0';
   String airinletAdet = '0';
   String siloAdet = '0';
+  bool sirkfanVarMi = false;
 
   int _onlarisitici = 0;
   int _birlerisitici = 0;
@@ -82,9 +83,13 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
       }
 
       if (dbVeri[i]["id"] == 5) {
-        bacafanAdet = dbVeri[i]["veri1"];
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
+        sirkfanVarMi = xx[1]=="1" ? true : false;
         airinletAdet = dbVeri[i]["veri2"];
+        siloAdet = dbVeri[i]["veri4"];
         isiticiAdet = int.parse(dbVeri[i]["veri3"]);
+        
       }
 
       if (dbVeri[i]["id"] == 22) {
@@ -808,36 +813,40 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                           onPressed: () {
                             //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-                            bool seciliHeaterVarmi = false;
 
-                            Toast.show(
-                                Dil()
-                                    .sec(dilSecimi, "toast8"),
-                                context,
-                                duration: 3);
-                            haritaOnay = true;
+                            bool enAzbirIsiticiIsaretliMi = false;
 
                             for (int i = 1; i <= 18; i++) {
-                              if (isiticiHarita[i] != 0) {
-                                isiticiVisibility[i] = true;
-                                seciliHeaterVarmi = true;
-                              } else {
-                                isiticiVisibility[i] = false;
+                              if (isiticiHarita[i] == 1) {
+                                enAzbirIsiticiIsaretliMi=true;
                               }
                             }
+                            
 
                             String veri = "";
 
                             for (int i = 1; i <= 18; i++) {
                               veri = veri + isiticiHarita[i].toString() + "#";
                             }
-                            if (!seciliHeaterVarmi) {
+
+
+                            if (!enAzbirIsiticiIsaretliMi) {
+                              //Haritada seçilen ped sayısı eksik
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast48"),
                                   context,
                                   duration: 3);
                             } else {
+
+                              for (int i = 1; i <= 18; i++) {
+                              if (isiticiHarita[i] != 1) {
+                                isiticiVisibility[i]=false;
+                              }
+                            }
+
+
+                              haritaOnay = true;
                               dbHelper.veriYOKSAekleVARSAguncelle(
                                   27, "ok", veri, "0", "0");
 
@@ -906,7 +915,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            bool noKontrol = false;
+                            bool noKontrol1 = false;
+                            bool noKontrol2 = false;
                             bool cikisKullanimda = false;
                             String noVeri = "";
                             String cikisVeri = "";
@@ -914,14 +924,14 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                             for (int i = 1; i <= 18; i++) {
                               if (isiticiHarita[i] == 1) {
                                 if (isiticiNo[i] == 0) {
-                                  noKontrol = true;
+                                  noKontrol1 = true;
                                 }
                               }
                               noVeri = noVeri + isiticiNo[i].toString() + "#";
                             }
                             for (int i = 1; i <= 3; i++) {
                               if (cikisNo[i] == 0 && isiticiAdet >= i) {
-                                noKontrol = true;
+                                noKontrol2 = true;
                               }
 
                               cikisVeri =
@@ -938,10 +948,16 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                               }
                             }
 
-                            if (noKontrol) {
+                            if (noKontrol1) {
                               Toast.show(
                                   Dil()
-                                      .sec(dilSecimi, "toast39"),
+                                      .sec(dilSecimi, "toast73"),
+                                  context,
+                                  duration: 3);
+                            } if (noKontrol2) {
+                              Toast.show(
+                                  Dil()
+                                      .sec(dilSecimi, "toast90"),
                                   context,
                                   duration: 3);
                             } else if (cikisNoTekerrur) {
@@ -957,6 +973,8 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                                   context,
                                   duration: 3);
                             } else {
+
+
                               for (int i = 1; i <= 3; i++) {
                                 if (cikisNo[i] != 0) {
                                   tumCikislar[cikisNo[i]] = 1;
@@ -1015,19 +1033,19 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                 Expanded(
                     flex: 2,
                     child: Visibility(visible: durum,maintainState: true,maintainSize: true,maintainAnimation: true,
-                                          child: IconButton(
+                      child: IconButton(
                         icon: Icon(Icons.arrow_back_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
                           timerCancel = true;
                           
-                          if(airinletAdet!='0'){
+                          if(airinletAdet!='0' || sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        AirInletHaritasi(dbVeriler,true)),
+                                        AirInletVeSirkFan(dbVeriler,true)),
                               );
                             }else if(bacafanAdet!='0'){
 

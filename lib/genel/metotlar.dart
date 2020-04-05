@@ -634,14 +634,6 @@ class Metotlar {
     );
   }
 
-/*
-  String getSystemTime(dbVeriler) {
-      var now = new DateTime.now();
-      //return new DateFormat("H:m:s").format(now);
-      return new DateFormat('dd-MM-yyyy hh:mm:ss ').format(DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second));
-      //return DateTime(now.year, now.month, now.day, now.hour, now.minute, now.second).toString();
-  }
-  */
 
   String getSystemTime(List<Map> dbVeri) {
     
@@ -696,9 +688,6 @@ class Metotlar {
       
       return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(DateTime(now.year+yilFark, now.month+ayyFark, now.day+gunFark));
   }
-
-
-
 
 
 
