@@ -198,7 +198,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
                   if(veriGonderildi){
                     Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                   }else{
                     _sayfaGeriAlert(dilSecimi, "tv564");
@@ -1805,7 +1805,7 @@ class IsiticiHaritasiState extends State<IsiticiHaritasi> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
           );
 
         }

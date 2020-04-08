@@ -174,7 +174,7 @@ class SistemState extends State<Sistem> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              KurulumAyarlari(dbVeriler)),
+                                              KurulumAyarlari()),
                                     );
                                   },
                                   child: Container(

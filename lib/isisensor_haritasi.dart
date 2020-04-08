@@ -241,7 +241,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
                     timerCancel=true;
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                   }else{
                     _sayfaGeriAlert(dilSecimi, "tv564");
@@ -1565,7 +1565,7 @@ class IsiSensorHaritasiState extends State<IsiSensorHaritasi> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
           );
 
         }

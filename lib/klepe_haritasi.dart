@@ -184,7 +184,7 @@ durum=drm;
                   if(veriGonderildi){
                       Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                      MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                     );
                   }else{
                     _sayfaGeriAlert(dilSecimi, "tv564");
@@ -1890,7 +1890,7 @@ durum=drm;
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
           );
 
         }

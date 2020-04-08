@@ -186,7 +186,7 @@ class PedHaritasiState extends State<PedHaritasi> {
                   if(veriGonderildi){
                     Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                   }else{
                     _sayfaGeriAlert(dilSecimi, "tv564");
@@ -1896,7 +1896,7 @@ class PedHaritasiState extends State<PedHaritasi> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
           );
 
         }

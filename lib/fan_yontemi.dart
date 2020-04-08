@@ -100,7 +100,7 @@ class FanYontemiState extends State<FanYontemi> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                 },
                 backgroundColor: Colors.white,

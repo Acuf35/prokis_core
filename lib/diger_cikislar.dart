@@ -210,7 +210,7 @@ class DigerCikislarState extends State<DigerCikislar> {
                   if(veriGonderildi){
                     Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                   }else{
                     _sayfaGeriAlert(dilSecimi, "tv564");
@@ -1190,7 +1190,7 @@ class DigerCikislarState extends State<DigerCikislar> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Girisler(dbVeriler,true)),
+                                  builder: (context) => Girisler(true)),
                             );
                            
                           
@@ -2504,7 +2504,7 @@ class DigerCikislarState extends State<DigerCikislar> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
           );
 
         }

@@ -132,7 +132,7 @@ class AirInletVeSirkFanState extends State<AirInletVeSirkFan> {
                   if(veriGonderildi){
                     Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                   }else{
                     _sayfaGeriAlert(dilSecimi, "tv564");
@@ -1452,7 +1452,7 @@ class AirInletVeSirkFanState extends State<AirInletVeSirkFan> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
           );
 
         }

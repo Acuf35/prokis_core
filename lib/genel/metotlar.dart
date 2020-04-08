@@ -1,13 +1,21 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/genel/sayfa_geri_alert.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 
+import '../kurulum_ayarlari.dart';
+import '../temel_ayarlar.dart';
+
 class Metotlar {
-
-
 
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
     return SizedBox(
@@ -585,16 +593,18 @@ class Metotlar {
     );
   }
 
-
-  Widget appBarSade(
-      String dilSecimi, BuildContext context, double oran, String baslik,Color color) {
+  Widget appBarSade(String dilSecimi, BuildContext context, double oran,
+      String baslik, Color color) {
     return PreferredSize(
       preferredSize: Size.fromHeight(30 * oran),
       child: AppBar(
-        flexibleSpace: Container(color: color,
+        flexibleSpace: Container(
+          color: color,
           child: Row(
             children: <Widget>[
-              Spacer(flex: 2,),
+              Spacer(
+                flex: 2,
+              ),
               Expanded(
                 flex: 10,
                 child: Center(
@@ -608,7 +618,9 @@ class Metotlar {
                   ),
                 ),
               ),
-              Spacer(flex: 2,),
+              Spacer(
+                flex: 2,
+              ),
             ],
           ),
         ),
@@ -634,62 +646,183 @@ class Metotlar {
     );
   }
 
-
   String getSystemTime(List<Map> dbVeri) {
-    
-    bool format24saatlik=true;
-    int dkkFark=0;
-    int satFark=0;
-    
-    
-    
+    bool format24saatlik = true;
+    int dkkFark = 0;
+    int satFark = 0;
 
     for (int i = 0; i <= dbVeri.length - 1; i++) {
-
       if (dbVeri[i]["id"] == 34) {
-        format24saatlik = dbVeri[i]["veri1"] =="1" ? true: false;
+        format24saatlik = dbVeri[i]["veri1"] == "1" ? true : false;
       }
       if (dbVeri[i]["id"] == 36) {
         satFark = int.parse(dbVeri[i]["veri1"]);
         dkkFark = int.parse(dbVeri[i]["veri2"]);
-
       }
     }
 
-
-      var now = new DateTime.now();
-      return new DateFormat(
-        format24saatlik ? 'HH:mm:ss' : 'a hh:mm:ss').format(DateTime(now.year,now.month,now.day,now.hour+satFark, now.minute+dkkFark, now.second));
+    var now = new DateTime.now();
+    return new DateFormat(format24saatlik ? 'HH:mm:ss' : 'a hh:mm:ss').format(
+        DateTime(now.year, now.month, now.day, now.hour + satFark,
+            now.minute + dkkFark, now.second));
   }
 
   String getSystemDate(List<Map> dbVeri) {
+    bool tarihFormati1 = true;
 
-    bool tarihFormati1=true;
-
-    int yilFark=0;
-    int ayyFark=0;
-    int gunFark=0;
+    int yilFark = 0;
+    int ayyFark = 0;
+    int gunFark = 0;
 
     for (int i = 0; i <= dbVeri.length - 1; i++) {
-
       if (dbVeri[i]["id"] == 34) {
-        tarihFormati1 = dbVeri[i]["veri2"] =="1" ? true: false;
+        tarihFormati1 = dbVeri[i]["veri2"] == "1" ? true : false;
       }
       if (dbVeri[i]["id"] == 35) {
         gunFark = int.parse(dbVeri[i]["veri1"]);
         ayyFark = int.parse(dbVeri[i]["veri2"]);
         yilFark = int.parse(dbVeri[i]["veri3"]);
-        
       }
     }
 
+    var now = new DateTime.now();
 
-      var now = new DateTime.now();
-      
-      return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(DateTime(now.year+yilFark, now.month+ayyFark, now.day+gunFark));
+    return new DateFormat(tarihFormati1 ? 'dd-MM-yyyy' : 'MM-dd-yyyy').format(
+        DateTime(now.year + yilFark, now.month + ayyFark, now.day + gunFark));
+  }
+
+  Future sayfaGeriAlert(BuildContext context, String dilSecimi,
+      String uyariMetni, int sayfaKodu) async {
+    /*
+
+    Sayfa Kodları:
+
+    1: KurulumAyarları
+    
+    */
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SayfaGeriAlert.deger(dilSecimi, uyariMetni);
+      },
+    ).then((val) {
+      if (val) {
+        if (sayfaKodu == 1) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
+          );
+        }
+      }
+    });
   }
 
 
 
+String durum;
+  Future<String> veriGonder(String komut, BuildContext context, int portNo, String toastMesaj, String dilSecimi, var provider) async {
+
+    //final provider = Provider.of<TemelAyarlarProvider>(context,listen: false);
+
+    
+
+      await Socket.connect('192.168.1.110', portNo).then((socket) {
+
+        bool gonderimDurumu = false;
+        String gelenmsj="";
+
+        socket.add(utf8.encode(komut));
+
+        socket.listen(
+          (List<int> event) {
+            print(utf8.decode(event));
+            gelenmsj=utf8.decode(event);
+            gonderimDurumu = gelenmsj =="ok" ? true : false;
+
+            if (gonderimDurumu) {
+              Toast.show(Dil().sec(dilSecimi, toastMesaj), context, duration: 2);
+              //durum=Future.value("1");
+              //provider.setsifreOnaylandi=true;
+              durum="1";
+            } else {
+              Toast.show(gelenmsj, context, duration: 2);
+              //durum=Future.value("2");
+              durum="2";
+            }
+          },
+          onDone: () {
+            socket.close();
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+        //durum=Future.value("3");
+        durum="3";
+      });
+
+    return durum;
+     
+
+/*
+    return await Future.delayed(Duration(seconds: 3), (){
+      return durum;
+    });
+    */
+  }
+
+
+
+String _errorData;
+String _secureResponse;
+
+Future<String> handle(String komut, BuildContext context, int portNo, String toastMesaj, String dilSecimi) async {
+    _errorData = "Server_Error";
+    if (komut != null) {
+        print("Request has data");
+
+          // =============================================================
+          Socket _socket;
+          await Socket.connect("192.168.1.110", 2233,
+          timeout: Duration(seconds: 5)
+          
+          ).then((Socket sock) {
+            _socket = sock;
+          }).then((_) {
+            print("Socket sends data to database");
+            // SENT TO SERVER ************************
+            _socket.write(komut);
+            return _socket.first;
+          }).then((data) {
+            print("Socket start to listen to database");
+            // GET FROM SERVER *********************
+            _secureResponse =  new String.fromCharCodes(data).trim();
+            print("(1) $_secureResponse");
+          }).catchError((error) {
+            _secureResponse = "gelen veriyi okumada hata var";
+            Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+            print("(3) $_secureResponse");
+            //exit(1);
+          });
+      // ==============================================================
+      
+    } else {
+      _secureResponse = _errorData;
+      print("(4) $_secureResponse");
+    }
+  print("(6) $_secureResponse");
+  print("Future Ends Here");
+  return _secureResponse;
+} 
+
 
 }
+
+
+
+
+

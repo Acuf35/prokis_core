@@ -135,6 +135,7 @@ class AdetlerState extends State<Adetler> {
     '59',
     '60'
   ];
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -189,7 +190,7 @@ class AdetlerState extends State<Adetler> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => KurulumAyarlari(dbVeriler)),
+                    MaterialPageRoute(builder: (context) => KurulumAyarlari()),
                   );
                 },
                 backgroundColor: Colors.white,
@@ -371,7 +372,7 @@ class AdetlerState extends State<Adetler> {
                           
                           Navigator.pushReplacement(
                             context,
-                            MaterialPageRoute(builder: (context) => TemelAyarlar(dbVeriler,true)),
+                            MaterialPageRoute(builder: (context) => TemelAyarlar(true)),
                             //MaterialPageRoute(builder: (context) => UzDebiNem(dbVeriler)),
                           );
                           

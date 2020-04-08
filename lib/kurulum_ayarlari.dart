@@ -30,14 +30,10 @@ import 'genel/sifre_giris_admin.dart';
 import 'languages/select.dart';
 
 class KurulumAyarlari extends StatefulWidget {
-  List<Map> gelenDBveri;
-  KurulumAyarlari(List<Map> dbVeriler) {
-    gelenDBveri = dbVeriler;
-  }
 
   @override
   State<StatefulWidget> createState() {
-    return KurulumAyarlariState(gelenDBveri);
+    return KurulumAyarlariState();
   }
 }
 
@@ -61,7 +57,8 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  KurulumAyarlariState(List<Map> dbVeri) {
+/*
+  KurulumAyarlariState() {
     dbVeriler = dbVeri;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
@@ -82,6 +79,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 
     _dbVeriCekme();
   }
+*/
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
@@ -188,7 +186,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              DilSecimi(dbVeriler,false)),
+                                              DilSecimi(false)),
                                     );
 
                                       },
@@ -1314,7 +1312,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Girisler(dbVeriler,false)),
+                                              Girisler(false)),
                                     );
 
                                       },
@@ -1401,7 +1399,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
           context,
           MaterialPageRoute(
               builder: (context) =>
-                  TemelAyarlar(dbVeriler,false)),
+                  TemelAyarlar(false)),
         );
 
 
