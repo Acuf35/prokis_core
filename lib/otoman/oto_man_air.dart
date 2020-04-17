@@ -6,13 +6,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
-import 'yardimci/deger_giris_2x1.dart';
-import 'yardimci/metotlar.dart';
-import 'languages/select.dart';
+import 'package:prokis/yardimci/deger_giris_2x1.dart';
+import 'package:prokis/yardimci/deger_giris_3x0.dart';
+import 'package:prokis/yardimci/metotlar.dart';
+import 'package:prokis/languages/select.dart';
 
 class OtoManAir extends StatefulWidget {
   List<Map> gelenDBveri;

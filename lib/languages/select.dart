@@ -64,8 +64,8 @@ class Dil{
     kod=="tv40" ? metin='KLEPE NO' : null;
     kod=="tv41" ? metin='AÇ ÇKŞ NO' : null;
     kod=="tv42" ? metin='KP ÇKŞ NO' : null;
-    kod=="tv43" ? metin='ÇkşAç:' : null;
-    kod=="tv44" ? metin='ÇkşKp:' : null;
+    kod=="tv43" ? metin='Aç:' : null;
+    kod=="tv44" ? metin='Kp:' : null;
     kod=="tv45" ? metin='Ped:' : null;
     kod=="tv46" ? metin='PED NO' : null;
     kod=="tv47" ? metin='Ped Pompa Haritası' : null;
@@ -84,7 +84,7 @@ class Dil{
     kod=="tv60" ? metin='Sisteme bağlı aktif sensör yok...' : null;
     kod=="tv61" ? metin='ISISen NO Atama' : null;
     kod=="tv62" ? metin='ÇIKIŞLAR' : null;
-    kod=="tv63" ? metin='Grup:' : null;
+    kod=="tv63" ? metin='Gr:' : null;
     kod=="tv64" ? metin='Bfan No' : null;
     kod=="tv65" ? metin='B.Fan\nÇıkış No' : null;
     kod=="tv66" ? metin='Dijital\nÇıkış' : null;
@@ -655,6 +655,9 @@ class Dil{
     kod=="tv631" ? metin='Adetler kısmında\nAir Inlet\nseçili değil!' : null;
     kod=="tv632" ? metin='YemAraba\nTermik' : null;
     kod=="tv633" ? metin='Ayd.\nSigorta' : null;
+    kod=="tv634" ? metin='Fan Haritası Yükleniyor...' : null;
+    kod=="tv635" ? metin='Klepe Haritası Yükleniyor...' : null;
+    kod=="tv636" ? metin='Çıkışlar Yükleniyor...' : null;
 
    
 
@@ -711,8 +714,8 @@ class Dil{
     kod=="toast3" ? metin='Şifreler uyuşmuyor!' : null;
     kod=="toast4" ? metin='Fan kontrol yöntemlerinden en az biri seçilmiş olmalıdır!' : null;
     kod=="toast5" ? metin='Tanımlanan klepe sayısından büyük sayı girdiniz. Lütfen kontrol ediniz!' : null;
-    kod=="toast6" ? metin='Klepe no , X(m) veya Y(m) değerinden biri veya birkaçı boş' : null;
-    kod=="toast7" ? metin='X(m) veya Y(m) değerlerinden birine geçersiz bir girişi yapıldı' : null;
+    kod=="toast6" ? metin='Klepe No , X(m) veya Y(m) değerinden biri veya birkaçı boş' : null;
+    kod=="toast7" ? metin='KlepeNo, X(m) veya Y(m) değerlerinden birine geçersiz bir girişi yapıldı' : null;
     kod=="toast8" ? metin='Başarılı' : null;
     kod=="toast9" ? metin='Bir veya daha fazla Klepe uzunluk değerleri girilmemiş' : null;
     kod=="toast10" ? metin='A(m), B(m), C(m) değerlerinden biri veya birkaçı boş!' : null;
@@ -748,7 +751,7 @@ class Dil{
     kod=="toast40" ? metin='Lütfen toplam sensör sayısına eşit veya daha küçük bir sayı tanımlayınız!' : null;
     kod=="toast41" ? metin='Seçilen sensör numarası harita üzerinde tanımlı değil!' : null;
     kod=="toast42" ? metin='Aynı Air Inlet No iki farklı air inlet için tanımlanmış! Lütfen kontrol ediniz!' : null;
-    kod=="toast43" ? metin='Booooooooooooooooooooooşta' : null;
+    kod=="toast43" ? metin='Görev komutu göndermede komut alanı boş!' : null;
     kod=="toast44" ? metin='Lütfen toplam air inlet motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast45" ? metin='Lütfen toplam ped motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
     kod=="toast46" ? metin='Lütfen toplam klepe motor sayısına eşit veya daha küçük bir no tanımlayınız! ' : null;
@@ -796,6 +799,8 @@ class Dil{
     kod=="toast88" ? metin='1500sn\'den (25dk) büyük değer giremezsiniz!' : null;
     kod=="toast89" ? metin='Tarih formatı AM/PM için hatalı saat girişi yaptınız!' : null;
     kod=="toast90" ? metin='Lütfen sıfırdan farklı bir Isıtıcı Grup Çıkış No tanımlayınız!' : null;
+    kod=="toast91" ? metin='Bağlantı zaman aşımına uğradı!' : null;
+    kod=="toast92" ? metin='Geçersiz bir çıkış seçtiniz! Lütfen "ÇIKIŞLAR" alanında listelenenlerden birini seçiniz' : null;
     
 
 
@@ -1219,7 +1224,7 @@ class Dil{
     kod=="tv12" ? metin='Fan Number' : null;
     kod=="tv13" ? metin='Flap Number' : null;
     kod=="tv14" ? metin='Ped Pump Number' : null;
-    kod=="tv15" ? metin='Temp. Sens. Number' : null;
+    kod=="tv15" ? metin='Temp.S.Number' : null;
     kod=="tv16" ? metin='Chim. Fan?' : null;
     kod=="tv17" ? metin='A.Inlet & Sirc. Fan' : null;
     kod=="tv18" ? metin='Heater Number' : null;
@@ -1267,7 +1272,7 @@ class Dil{
     kod=="tv60" ? metin='There is no active sensor that connected to system...' : null;
     kod=="tv61" ? metin='TEMPSens NO Sign' : null;
     kod=="tv62" ? metin='OUTPUTS' : null;
-    kod=="tv63" ? metin='Group:' : null;
+    kod=="tv63" ? metin='Gr:' : null;
     kod=="tv64" ? metin='Cfan No' : null;
     kod=="tv65" ? metin='C.Fan Gr-1 Out No' : null;
     kod=="tv66" ? metin='Digital\nOutput' : null;
@@ -1818,6 +1823,29 @@ class Dil{
     kod=="tv611" ? metin='Daily Tot. Cons:' : null;
     kod=="tv612" ? metin='Daily Per Bird:' : null;
     kod=="tv613" ? metin='Light Per.(%):' : null;
+    kod=="tv614" ? metin='Mea.Max. Temp' : null;
+    kod=="tv615" ? metin='Mea.Min. Temp' : null;
+    kod=="tv616" ? metin='Max.Temp Time' : null;
+    kod=="tv617" ? metin='Min.Temp Time' : null;
+    kod=="tv618" ? metin='In Hum.' : null;
+    kod=="tv619" ? metin='Out Hum.' : null;
+    kod=="tv620" ? metin='Avr.Sensible Temp.' : null;
+    kod=="tv621" ? metin='Feeding\noutput\nisn\'t active\nin system!' : null;
+    kod=="tv622" ? metin='Watermeter\ninputs\nisn\'t active\nin system!' : null;
+    kod=="tv623" ? metin='Feed silo Weight\nreadings\nisn\'t active\nin system' : null;
+    kod=="tv624" ? metin='Chim.Fan\nShutter\nExist?' : null;
+    kod=="tv625" ? metin='Shutter On\nOutput No' : null;
+    kod=="tv626" ? metin='Shutter Off\nOutput No' : null;
+    kod=="tv627" ? metin='Sirc. Fan\nOutput No' : null;
+    kod=="tv628" ? metin='Air Op\nOutput No' : null;
+    kod=="tv629" ? metin='Air Cls\nOutput No' : null;
+    kod=="tv630" ? metin='Sirc. Fan\n isn\'t active\n in Numbers Page!' : null;
+    kod=="tv631" ? metin='Air Inlet\n isn\'t active\n in Numbers Page!' : null;
+    kod=="tv632" ? metin='Feed Car\nFuse' : null;
+    kod=="tv633" ? metin='Light\nFuse' : null;
+    kod=="tv634" ? metin='Fan map loading...' : null;
+    kod=="tv635" ? metin='Flap map loading...' : null;
+    kod=="tv636" ? metin='Outputs Loading...' : null;
     
     
 
@@ -1883,7 +1911,7 @@ class Dil{
     kod=="toast4" ? metin='One of Fan Control Method must be selected!' : null;
     kod=="toast5" ? metin='You entered bigger than defined klepe number.Please check again!' : null;
     kod=="toast6" ? metin='One of Flap no , X(m), Y(m) values or more are empty!' : null;
-    kod=="toast7" ? metin='Invalid entry for x(m) or Y(m) value! Please check.' : null;
+    kod=="toast7" ? metin='Invalid entry for Flap No, x(m) or Y(m) value! Please check.' : null;
     kod=="toast8" ? metin='Successful' : null;
     kod=="toast9" ? metin='One or more Flaps dimensions must be defined!' : null;
     kod=="toast10" ? metin='One of A(m), B(m), C(m) values or more are empty!' : null;
@@ -1919,7 +1947,7 @@ class Dil{
     kod=="toast40" ? metin='Please define a number equal or smaller than total sensor quantity' : null;
     kod=="toast41" ? metin='Selected sensor number is not define on the map!' : null;
     kod=="toast42" ? metin='Same Air Inlet Number assigned for two different air inlet! Please check.' : null;
-    kod=="toast43" ? metin='Booooooooooooooooooooooooooooooooooooooooooooooşta' : null;
+    kod=="toast43" ? metin='Command area is empty for sending task command!' : null;
     kod=="toast44" ? metin='Please define a number equal or smaller than total air inlet motor quantity' : null;
     kod=="toast45" ? metin='Please define a number equal or smaller than total ped motor quantity' : null;
     kod=="toast46" ? metin='Please define a number equal or smaller than total klepe motor quantity' : null;
@@ -1939,7 +1967,7 @@ class Dil{
     kod=="toast60" ? metin='Wifi connection is selected for the sensor' : null;
     kod=="toast61" ? metin='Analog connection is selected for the sensor' : null;
     kod=="toast62" ? metin='The map must be created and approved!' : null;
-    kod=="toast63" ? metin='Please define C.Fan Output No as nonzero' : null;
+    kod=="toast63" ? metin='Please define Output No as nonzero' : null;
     kod=="toast64" ? metin='Installation completed succesfully...' : null;
     kod=="toast65" ? metin='It is passive for Rearing and Broiler Cages.' : null;
     kod=="toast66" ? metin='PID Control Method is passive for Rearing and Broiler Cages which have not chimney fans.' : null;
@@ -1968,6 +1996,9 @@ class Dil{
     kod=="toast88" ? metin='The value more then 1500 sec (25min) is invalid value!' : null;
     kod=="toast89" ? metin='Tarih formatı AM/PM için yanlış saat değeri girdiniz!' : null;
     kod=="toast89" ? metin='It is invalid hour entering for AM/PM format!' : null;
+    kod=="toast90" ? metin='Please define Heater group Output No as nonzero!' : null;
+    kod=="toast91" ? metin='Connection timed out!' : null;
+    kod=="toast92" ? metin='Invalid output selected! Please select one of outputs that shows on "OUTPUTS" area' : null;
 
     //endregion
 

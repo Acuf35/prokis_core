@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/cupertino.dart';
-import 'package:prokis/genel/database_helper.dart';
+import 'package:prokis/yardimci/database_helper.dart';
 
 class DBProkis with ChangeNotifier{
 
@@ -13,7 +13,6 @@ class DBProkis with ChangeNotifier{
 
   //Obje ilk okunduğunda database deki verileri List halinde "dbVeri" içine yazar
   DBProkis(){
-    print("Deneme");
     dbVeriCekme();
   }
 
@@ -39,14 +38,14 @@ class DBProkis with ChangeNotifier{
 
   dbSatirSil(int ilk, int son){
     for (var i = ilk; i <= son; i++) {
-      dbHelper.veriSil(ilk).then((value) => dbVeriCekme());
+      dbHelper.veriSil(i).then((value) => dbVeriCekme());
     }
     
   }
 
   
 
-  String dbVeriGetir(int id, int veriNo) {
+  dbVeriGetir(int id, int veriNo, var kayitYoksaDeger) {
 
     String veri="yok";
 
@@ -57,7 +56,7 @@ class DBProkis with ChangeNotifier{
       }
 
     }
-    return veri;
+    return veri=="yok" ? kayitYoksaDeger : veri;
   }
 
 

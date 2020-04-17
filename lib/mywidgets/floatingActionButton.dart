@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:prokis/genel/metotlar.dart';
-import 'package:prokis/kurulum_ayarlari.dart';
+import 'package:prokis/yardimci/metotlar.dart';
+import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 
 class MyFloatingActionBackButton extends StatelessWidget {
   bool ilkKurulumMu = true;
@@ -38,6 +39,7 @@ class MyFloatingActionBackButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dbProkis = Provider.of<DBProkis>(context,listen: false);
     return Visibility(
       visible: ilkKurulumMu,
       child: Container(
@@ -47,7 +49,7 @@ class MyFloatingActionBackButton extends StatelessWidget {
           child: FloatingActionButton(
             onPressed: () {
               if (alertGetir) {
-                Metotlar().sayfaGeriAlert(context, DBProkis().dbVeriGetir(1, 1),
+                Metotlar().sayfaGeriAlert(context, dbProkis.dbVeriGetir(1, 1,""),
                     uyariMetni, sayfaKodu);
               } else {
                 if (sayfaKodu == 1) {

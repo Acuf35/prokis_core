@@ -1,15 +1,12 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/provider/dbprokis.dart';
-import 'package:prokis/temel_ayarlar.dart';
 import 'package:provider/provider.dart';
-import 'dil_secimi.dart';
-import 'genel/database_helper.dart';
-import 'languages/select.dart';
+import 'package:prokis/yardimci/database_helper.dart';
+import 'package:prokis/sistem/kurulum/dil_secimi.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -19,7 +16,7 @@ void main() {
     ],
     child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "PROKOS PANEL",
+      title: "PROKIS PANEL",
       home: Giris(),
     ),
   ));
