@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:prokis/sistem/kurulum/klepe_yontemi.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/yardimci/sifre_giris_admin.dart';
@@ -12,12 +14,12 @@ import 'package:prokis/sistem/kurulum/fan_yontemi.dart';
 import 'package:prokis/sistem/kurulum/isisensor_haritasi.dart';
 import 'package:prokis/sistem/kurulum/isitici_haritasi.dart';
 import 'package:prokis/sistem/kurulum/klepe_haritasi.dart';
-import 'package:prokis/sistem/kurulum/klp_yontemi.dart';
 import 'package:prokis/sistem/kurulum/mh_yontemi.dart';
 import 'package:prokis/sistem/kurulum/ped_haritasi.dart';
 import 'package:prokis/sistem/kurulum/temel_ayarlar.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:prokis/genel_ayarlar/sistem.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 
@@ -57,36 +59,24 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
-  //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-/*
-  KurulumAyarlariState() {
-    dbVeriler = dbVeri;
-    for (int i = 0; i <= dbVeri.length - 1; i++) {
-      if (dbVeri[i]["id"] == 1) {
-        dilSecimi = dbVeri[i]["veri1"];
-      }
-      if (dbVeri[i]["id"] == 3) {
-        sifre = dbVeri[i]["veri4"];
-      }
-      if (dbVeri[i]["id"] == 5) {
-        var xx=dbVeri[i]["veri1"].split('#'); 
-        bacafanAdet = xx[0];
-        sirkfanVarMi = xx[1]=="1" ? true : false;
-        airinletAdet = dbVeri[i]["veri2"];
-        isiticiAdet = dbVeri[i]["veri3"];
-        siloAdet = dbVeri[i]["veri4"];
-      }
-    }
-
-    _dbVeriCekme();
-  }
-*/
-//--------------------------CONSTRUCTER METHOD--------------------------------
-
   @override
   Widget build(BuildContext context) {
 
     var oran = MediaQuery.of(context).size.width / 731.4;
+    final dbProkis = Provider.of<DBProkis>(context);
+    dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
+    sifre = dbProkis.dbVeriGetir(3, 4, "");
+    var yy=dbProkis.dbVeriGetir(5, 1, "0#0").split('#'); 
+    bacafanAdet = yy[0];
+    sirkfanVarMi = yy[1]=="1" ? true : false;
+    airinletAdet=dbProkis.dbVeriGetir(5, 2, "0");
+    isiticiAdet=dbProkis.dbVeriGetir(5, 3, "0");
+    siloAdet=dbProkis.dbVeriGetir(5, 4, "0");
+
+
+
+
+
 
     return Scaffold(
       appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv299',Colors.grey[600]),
@@ -98,7 +88,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemTime(dbVeriler),
+                            Metotlar().getSystemTime(dbProkis.getDbVeri),
                             style: TextStyle(
                                   //color: Color(0xff2d386b),
                                   color: Colors.grey[700],
@@ -114,7 +104,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemDate(dbVeriler),
+                            Metotlar().getSystemDate(dbProkis.getDbVeri),
                             style: TextStyle(
                                   //color: Color(0xff2d386b),
                                   color: Colors.grey[700],
@@ -1349,7 +1339,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Sistem(dbVeriler)),
+                MaterialPageRoute(builder: (context) => Sistem()),
               );
             },
             backgroundColor: Colors.grey[700],

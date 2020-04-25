@@ -10,7 +10,6 @@ import 'package:prokis/mywidgets/showModalBottomSheetQ%20.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/alert_reset.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
@@ -18,7 +17,6 @@ import 'package:prokis/sistem/kurulum/airinlet_ve_sirkfan.dart';
 import 'package:prokis/sistem/kurulum/diger_cikislar.dart';
 import 'package:prokis/sistem/kurulum/isisensor_haritasi.dart';
 import 'isitici_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'silo_haritasi.dart';
 
 
@@ -51,14 +49,14 @@ class BacafanHaritasi extends StatelessWidget {
               }
 
 
-              return Scaffold(
+    return Scaffold(
       floatingActionButton: MyFloatingActionBackButton(
       !ilkKurulumMu,
-      !provider.getveriGonderildi,
+      !provider.veriGonderildi,
       oran,
       40,
-      Colors.grey[700],
       Colors.white,
+      Colors.grey[700],
       Icons.arrow_back,
       1,
       "tv564"),
@@ -67,36 +65,26 @@ class BacafanHaritasi extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv68"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv68"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //bacafan Harita Oluşturma Bölümü
         Expanded(
-          flex: 5,
+          flex: 9,
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
@@ -148,7 +136,7 @@ class BacafanHaritasi extends StatelessWidget {
                                                       
                                           onPressed: () {
 
-                                            if (!provider.getdijitalCikis) {
+                                            if (!provider.dijitalCikis) {
                                               provider.setdijitalCikis=true;
                                               provider.setanalogCikis=false;
                                               provider.setveriGonderildi=false;
@@ -156,10 +144,10 @@ class BacafanHaritasi extends StatelessWidget {
 
                                           },
                                           child: Icon(
-                                            provider.getdijitalCikis
+                                            provider.dijitalCikis
                                                 ? Icons.check_box
                                                 : Icons.check_box_outline_blank,
-                                            color: provider.getdijitalCikis
+                                            color: provider.dijitalCikis
                                                 ? Colors.green[600]
                                                 : Colors.blue[700],
                                             size: 30 * oran,
@@ -208,20 +196,19 @@ class BacafanHaritasi extends StatelessWidget {
                                                       
                                           onPressed: () {
 
-                                            if (!provider.getanalogCikis) {
+                                            if (!provider.analogCikis) {
                                               provider.setdijitalCikis=false;
                                               provider.setanalogCikis=true;
-                                              provider.listIslem(provider.getcikisNo, null, 3, 1, 0, 4);
-
+                                              provider.cikisNo[1]=0;
                                               provider.setveriGonderildi=false;
                                             }
 
                                           },
                                           child: Icon(
-                                            provider.getanalogCikis
+                                            provider.analogCikis
                                                 ? Icons.check_box
                                                 : Icons.check_box_outline_blank,
-                                            color: provider.getanalogCikis
+                                            color: provider.analogCikis
                                                 ? Colors.green[600]
                                                 : Colors.blue[700],
                                             size: 30 * oran,
@@ -242,7 +229,7 @@ class BacafanHaritasi extends StatelessWidget {
                                 child: Column(
                                   children: <Widget>[
                                     Expanded(flex: 2,
-                                        child: Visibility(visible: provider.getanalogCikis,
+                                        child: Visibility(visible: provider.analogCikis,
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: <Widget>[
@@ -274,16 +261,16 @@ class BacafanHaritasi extends StatelessWidget {
                                                     
                                       onPressed: () {
 
-                                          if (provider.getcikisTur!="1") {
+                                          if (provider.cikisTur!="1") {
                                             provider.setcikisTur="1";
                                             provider.setveriGonderildi=false;
                                           }
                                       },
                                       child: Icon(
-                                          provider.getcikisTur=="1"
+                                          provider.cikisTur=="1"
                                               ? Icons.check_box
                                               : Icons.check_box_outline_blank,
-                                          color: provider.getcikisTur=="1"
+                                          color: provider.cikisTur=="1"
                                               ? Colors.green[600]
                                               : Colors.black,
                                           size: 25 * oran,
@@ -302,7 +289,7 @@ class BacafanHaritasi extends StatelessWidget {
                                       ),
                                     
                                     Expanded(flex: 2,
-                                        child: Visibility(visible: provider.getanalogCikis,
+                                        child: Visibility(visible: provider.analogCikis,
                                           child: Column(
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: <Widget>[
@@ -334,16 +321,16 @@ class BacafanHaritasi extends StatelessWidget {
                                                     
                                       onPressed: () {
 
-                                          if (provider.getcikisTur!="2") {
+                                          if (provider.cikisTur!="2") {
                                             provider.setcikisTur="2";
                                             provider.setveriGonderildi=false;
                                           }
                                       },
                                       child: Icon(
-                                          provider.getcikisTur=="2"
+                                          provider.cikisTur=="2"
                                               ? Icons.check_box
                                               : Icons.check_box_outline_blank,
-                                          color: provider.getcikisTur=="2"
+                                          color: provider.cikisTur=="2"
                                               ? Colors.green[600]
                                               : Colors.black,
                                           size: 25 * oran,
@@ -366,11 +353,11 @@ class BacafanHaritasi extends StatelessWidget {
                               ),
                               Spacer(),
                               Expanded(flex: 6,
-                                child: Visibility(visible: provider.getanalogCikis ? false: true,
+                                child: Visibility(visible: provider.analogCikis ? false: true,
                                                                   child: Column(
                                       children: <Widget>[
                                         Spacer(),
-                                        _bacaFanGrupCikis(1, oran, provider, provider.getbacafanAdet==1, context),
+                                        _bacaFanGrupCikis(1, oran, provider, provider.bacafanAdet==1, context),
                                         Spacer(),
                                       ],
                                     ),
@@ -408,22 +395,22 @@ class BacafanHaritasi extends StatelessWidget {
                                                       
                                           onPressed: () {
 
-                                            if (!provider.getbacafanKapakVarMi) {
+                                            if (!provider.bacafanKapakVarMi) {
                                               provider.setbacafanKapakVarMi=true;
                                               provider.setveriGonderildi=false;
                                             }else{
                                               provider.setbacafanKapakVarMi=false;
-                                              provider.listIslem(provider.getcikisNo, null, 3, 2, 0, 4);
-                                              provider.listIslem(provider.getcikisNo, null, 3, 3, 0, 4);
+                                              provider.cikisNo[2]=0;
+                                              provider.cikisNo[3]=0;
                                             }
                                             
                                             
                                           },
                                           child: Icon(
-                                            provider.getbacafanKapakVarMi
+                                            provider.bacafanKapakVarMi
                                                 ? Icons.check_box
                                                 : Icons.check_box_outline_blank,
-                                            color: provider.getbacafanKapakVarMi
+                                            color: provider.bacafanKapakVarMi
                                                 ? Colors.green[600]
                                                 : Colors.blue[700],
                                             size: 30 * oran,
@@ -435,13 +422,12 @@ class BacafanHaritasi extends StatelessWidget {
                                         ),
                                                   ),
                                                 ),
-                                                //Spacer(flex: 1,)
                                               ],
                                             ),
                                           ),
                               Spacer(),
                               Expanded(flex: 6,
-                                child: Visibility(visible: provider.getbacafanKapakVarMi,
+                                child: Visibility(visible: provider.bacafanKapakVarMi,
                                   child: Column(
                                       children: <Widget>[
                                         Spacer(),
@@ -453,7 +439,7 @@ class BacafanHaritasi extends StatelessWidget {
                               ),
                               Spacer(),
                               Expanded(flex: 6,
-                                child: Visibility(visible: provider.getbacafanKapakVarMi,
+                                child: Visibility(visible: provider.bacafanKapakVarMi,
                                   child: Column(
                                       children: <Widget>[
                                         Spacer(),
@@ -734,7 +720,7 @@ class BacafanHaritasi extends StatelessWidget {
                   flex: 1,
                 ),
 
-                Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 6, provider.getharitaOnay, sayac, dilSecimi),
+                Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 6, provider.haritaOnay, sayac, dilSecimi),
               
               ],
             ),
@@ -743,6 +729,7 @@ class BacafanHaritasi extends StatelessWidget {
 
         //ileri geri ok bölümü
         Expanded(
+          flex: 2,
           child: Container(
             color: Colors.grey.shade600,
             child: Row(
@@ -756,7 +743,7 @@ class BacafanHaritasi extends StatelessWidget {
                     children: <Widget>[
                       //Haritayı Onayla Butonu
                       Visibility(
-                        visible: !provider.getharitaOnay,
+                        visible: !provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -764,30 +751,20 @@ class BacafanHaritasi extends StatelessWidget {
                           onPressed: () {
                             //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                             bool seciliHeaterVarmi = false;
-                            Toast.show(
-                                Dil()
-                                    .sec(dilSecimi, "toast8"),
-                                context,
-                                duration: 3);
-                            provider.setharitaOnay = true;
+                            
                             int no=0;
                             for (int i = 1; i <= 26; i++) {
-                              if (provider.getbacafanHarita[i] != 0) {
-                                provider.listIslem(provider.getbacafanVisibility, null, 3, i, true, null);
-
+                              if (provider.bacafanHarita[i] != 0) {
                                 seciliHeaterVarmi = true;
-                                no++;
-                                provider.listIslem(provider.getbacafanNo, null, 3, i, no, null);
-                                
-                              } else {
-                                provider.listIslem(provider.getbacafanVisibility, null, 3, i, false, null);
+                                break;
                               }
                             }
+
 
                             String veri = "";
 
                             for (int i = 1; i <= 26; i++) {
-                              veri = veri + provider.getbacafanHarita[i].toString() + "#";
+                              veri = veri + provider.bacafanHarita[i].toString() + "#";
                             }
 
                             if (!seciliHeaterVarmi) {
@@ -798,11 +775,26 @@ class BacafanHaritasi extends StatelessWidget {
                                   duration: 3);
                             } else {
 
+
+                              for (int i = 1; i <= 26; i++) {
+                                if (provider.bacafanHarita[i] != 0) {
+                                  provider.bacafanVisibility[i]=true;
+                                  no++;
+                                  provider.bacafanNo[i]=no;
+                                } else {
+                                  provider.bacafanVisibility[i]=false;
+                                }
+                              }
+
+                              provider.tekerrurTespit();
+
                               Metotlar().veriGonder("26*28*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
                                 if(value=="ok"){
                                   dbProkis.dbSatirEkleGuncelle(23, "ok", veri, "0", "0");
                                 }
                               });
+
+                              provider.setharitaOnay = true;
 
                             }
 
@@ -830,7 +822,7 @@ class BacafanHaritasi extends StatelessWidget {
 
                       //Haritayı Sıfırla Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -860,70 +852,76 @@ class BacafanHaritasi extends StatelessWidget {
 
                       //Verileri Gönder Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            bool noKontrol1 = false;
-                            bool noKontrol2 = false;
+                            bool sifirNoVarMi = false;
+                            bool atanmamisCikisVarMi = false;
                             bool cikisKullanimda = false;
                             String noVeri = "";
                             String cikisNolar = "";
                             String cikisTurSecimi = "";
                             String tumCikislarVeri = "";
+
+
                             for (int i = 1; i <= 26; i++) {
-                              if (provider.getbacafanHarita[i] == 1) {
-                                if (provider.getbacafanNo[i] == 0) {
-                                  noKontrol1 = true;
+                              if (provider.bacafanHarita[i] == 1) {
+                                if (provider.bacafanNo[i] == 0) {
+                                  sifirNoVarMi = true;
                                 }
                               }
-                              noVeri = noVeri + provider.getbacafanNo[i].toString() + "#";
+                              noVeri = noVeri + provider.bacafanNo[i].toString() + "#";
                             }
-                            for (int i = 1; i <= 3; i++) {
-                              if (provider.getcikisNo[i] == 0 && provider.getbacafanAdet >= i) {
-                                if(i==1){
-                                  if(!provider.getanalogCikis){
-                                    noKontrol2 = true;
-                                  }
-                                  
-                                }else if(i!=1 && provider.getbacafanKapakVarMi){
-                                  noKontrol2 = true;
-                                }
 
+                            if(provider.dijitalCikis && provider.cikisNo[1]==0){
+                              atanmamisCikisVarMi=true;
+                            }
+                            if(provider.bacafanKapakVarMi){
+                              if(provider.cikisNo[1]==0 || provider.cikisNo[2]==0){
+                                atanmamisCikisVarMi=true;
                               }
+                            }
 
+
+                            for (int i = 1; i <= 3; i++) {
                               cikisNolar =
-                                  cikisNolar + provider.getcikisNo[i].toString() + "#";
+                                  cikisNolar + provider.cikisNo[i].toString() + "#";
                             }
 
-                            cikisTurSecimi=(provider.getdijitalCikis ? "1" : "0") + "*" + (provider.getanalogCikis ? "1" : "0")+"*"+provider.getcikisTur+"*"+(provider.getbacafanKapakVarMi ? "1" : "0");
+                            cikisTurSecimi=(provider.dijitalCikis ? "1" : "0") + "*" + (provider.analogCikis ? "1" : "0")+"*"+provider.cikisTur+"*"+(provider.bacafanKapakVarMi ? "1" : "0");
 
                             for (int i = 1; i <= 3; i++) {
-                              if (provider.getcikisNoGecici[i] != provider.getcikisNo[i]) {
-                                if (provider.gettumCikislar[provider.getcikisNo[i]] == 0) {
-                                  provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoGecici[i], 0, null);
+                              if (provider.cikisNoGecici[i] != provider.cikisNo[i]) {
+                                if (provider.tumCikislar[provider.cikisNo[i]] == 0) {
+                                  provider.tumCikislar[provider.cikisNoGecici[i]]=0;
                                 } else {
                                   cikisKullanimda = true;
                                 }
                               }
                             }
 
-                            if (noKontrol1) {
+                            if (sifirNoVarMi) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast39"),
                                   context,
                                   duration: 3);
-                            }
-                            else if (noKontrol2) {
+                            }else if (atanmamisCikisVarMi) {
                               Toast.show(
                                   Dil()
-                                      .sec(dilSecimi, "toast63"),
+                                      .sec(dilSecimi, "toast97"),
                                   context,
                                   duration: 3);
-                            } else if (provider.getcikisNoTekerrur) {
+                            }else if (provider.bacafanNoTekerrur) {
+                              Toast.show(
+                                  Dil()
+                                      .sec(dilSecimi, "toast96"),
+                                  context,
+                                  duration: 3);
+                            } else if (provider.cikisNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast26"),
@@ -938,17 +936,17 @@ class BacafanHaritasi extends StatelessWidget {
                             } else {
 
                               for (int i = 1; i <= 3; i++) {
-                                if (provider.getcikisNo[i] != 0) {
-                                  provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNo[i], 1, null);
+                                if (provider.cikisNo[i] != 0) {
+                                  provider.tumCikislar[provider.cikisNo[i]]=1;
                                 }
                               }
 
                               for (int i = 1; i <= 110; i++) {
                                 tumCikislarVeri = tumCikislarVeri +
-                                    provider.gettumCikislar[i].toString() +
+                                    provider.tumCikislar[i].toString() +
                                     "#";
                               }
-                              provider.setveriGonderildi = true;
+                              
                               String komut="27*29*$noVeri*$cikisNolar*$cikisTurSecimi*0";
                               Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                                 if(value=="ok"){
@@ -960,16 +958,18 @@ class BacafanHaritasi extends StatelessWidget {
                                   });
                                 }
                               });
+                              
+                              for (int i = 0; i < 4; i++) {
+                                provider.cikisNoGecici[i]=provider.cikisNo[i];
+                              }
+                              provider.setveriGonderildi = true;
 
-                
-                              provider.listIslem(null, null, 6, null, null, 4);
-                            
                             }
                           },
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
                           color:
-                              provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                              provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -1005,7 +1005,6 @@ class BacafanHaritasi extends StatelessWidget {
                                       IsiSensorHaritasi(true)),
                             );
                           
-                          //Navigator.pop(context, tumCikislar);
                         },
                       ),
                     )),
@@ -1020,13 +1019,13 @@ class BacafanHaritasi extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
-                          if (!provider.getharitaOnay) {
+                          if (!provider.haritaOnay) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast62"),
                                 context,
                                 duration: 3);
-                          } else if (!provider.getveriGonderildi) {
+                          } else if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast27"),
@@ -1034,14 +1033,14 @@ class BacafanHaritasi extends StatelessWidget {
                                 duration: 3);
                           } else {
 
-                            if(provider.getairinletAdet!='0' || provider.getsirkfanVarMi){
+                            if(provider.airinletAdet!='0' || provider.sirkfanVarMi){
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
                                         AirInletVeSirkFan(true)),
                               );
-                            }else if(provider.getisiticiAdet!='0'){
+                            }else if(provider.isiticiAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -1049,7 +1048,7 @@ class BacafanHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         IsiticiHaritasi(true)),
                               );
-                            }else if(provider.getsiloAdet!='0'){
+                            }else if(provider.siloAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -1081,6 +1080,7 @@ class BacafanHaritasi extends StatelessWidget {
         ),
       ],
     ));
+            
             }
           )
     );
@@ -1103,7 +1103,7 @@ class BacafanHaritasi extends StatelessWidget {
       int indexNo, double oran, String baslik, int degerGirisKodu, BacafanHaritasiProvider provider, BuildContext context) {
     return Expanded(
       child: Visibility(
-        visible: provider.getbacafanVisibility[indexNo] ? true : false,
+        visible: provider.bacafanVisibility[indexNo] ? true : false,
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
@@ -1114,9 +1114,9 @@ class BacafanHaritasi extends StatelessWidget {
               flex: 6,
               child: RawMaterialButton(
                   onPressed: () {
-                    if (provider.getharitaOnay) {
+                    if (provider.haritaOnay) {
 
-                int sayi = provider.getbacafanNo[indexNo];
+                int sayi = provider.bacafanNo[indexNo];
                 int pOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                 int pBirler = sayi % 10;
 
@@ -1127,7 +1127,8 @@ class BacafanHaritasi extends StatelessWidget {
 
                           if (gelenVeri) {
                               sayi =value[1] * 10 + value[2];
-                              provider.listIslem(provider.getbacafanNo, null, 3, indexNo, sayi, null);
+                              provider.bacafanNo[indexNo]=sayi;
+                              provider.tekerrurTespit();
                           }
 
                 });
@@ -1153,13 +1154,13 @@ class BacafanHaritasi extends StatelessWidget {
                           image: DecorationImage(
                             alignment: Alignment.center,
                             image: AssetImage(
-                                imageGetir(provider.getbacafanHarita[indexNo])),
+                                imageGetir(provider.bacafanHarita[indexNo])),
                             fit: BoxFit.contain,
                           ),
                         ),
                       ),
                       Visibility(
-                        visible: provider.getharitaOnay && provider.getbacafanHarita[indexNo] != 0
+                        visible: provider.haritaOnay && provider.bacafanHarita[indexNo] != 0
                             ? true
                             : false,
                         maintainState: true,
@@ -1180,7 +1181,7 @@ class BacafanHaritasi extends StatelessWidget {
                                         child: AutoSizeText(
                                           Dil().sec(
                                                   dilSecimi, "tv72") +
-                                              provider.getbacafanNo[indexNo].toString(),
+                                              provider.bacafanNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: Colors.white,
@@ -1224,19 +1225,32 @@ class BacafanHaritasi extends StatelessWidget {
         provider.setveriGonderildi = false;
         String tumCikislarVeri = "";
 
-        provider.listIslem(provider.tumCikislar, provider.getcikisNo, 4, 0, 0, 4);
+        for (int i = 0; i < 4; i++) {
+          provider.cikisNo[i]=provider.cikisNoGecici[i];
+        }
+
+        for (int i = 1; i < 4; i++) {
+          if (provider.cikisNo[i] != 0) {
+            provider.tumCikislar[provider.cikisNo[i]] = 0;
+          }
+        }
 
 
         for (int i = 1; i <= 110; i++) {
-          tumCikislarVeri = tumCikislarVeri + provider.gettumCikislar[i].toString() + "#";
+          tumCikislarVeri = tumCikislarVeri + provider.tumCikislar[i].toString() + "#";
         }
 
-        provider.listIslem(provider.getbacafanHarita, null, 2, 0, 0, 27);
-        provider.listIslem(provider.getbacafanNo, null, 2, 0, 0, 27);
-        provider.listIslem(provider.getcikisNo, null, 2, 0, 0, 4);
-        provider.listIslem(provider.getbacafanVisibility, null, 2, 0, true, 27);
-        provider.setharitaOnay = false;
+        for (int i = 0; i < 27; i++) {
+          provider.bacafanHarita[i]=0;
+          provider.bacafanNo[i]=0;
+          provider.bacafanVisibility[i]=true;
+        }
 
+        for (int i = 1; i < 4; i++) {
+          provider.cikisNo[i]=0;
+        }
+
+        provider.setharitaOnay = false;
         provider.setdijitalCikis=true;
         provider.setanalogCikis=false;
         provider.setbacafanKapakVarMi=false;
@@ -1296,18 +1310,26 @@ class BacafanHaritasi extends StatelessWidget {
                     child: RawMaterialButton(
                       onPressed: () {
 
-                String outNoMetin = provider.getcikisNo[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisNo[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisNo[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -1327,7 +1349,9 @@ class BacafanHaritasi extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisNo, null, 3, index, cikisNo, null);
+                              
+                              provider.cikisNo[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
 
@@ -1350,7 +1374,7 @@ class BacafanHaritasi extends StatelessWidget {
                                 child: Container(
                                   alignment: Alignment.bottomCenter,
                                   child: AutoSizeText(
-                                    Metotlar().outConvSAYItoQ(provider.getcikisNo[index]),
+                                    Metotlar().outConvSAYItoQ(provider.cikisNo[index]),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -1381,34 +1405,6 @@ class BacafanHaritasi extends StatelessWidget {
   }
 
 
- Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
-
 
 
 }
@@ -1437,32 +1433,36 @@ class BacafanHaritasiProvider with ChangeNotifier {
 
   bool veriGonderildi = false;
   bool cikisNoTekerrur = false;
+  bool bacafanNoTekerrur = false;
+
+  BuildContext context;
+  DBProkis dbProkis;
 
   List<int> tumCikislar = new List.filled(111,0);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
+  tekerrurTespit(){
+    cikisNoTekerrur = false;
+      bacafanNoTekerrur = false;
+
+      for (int i = 1; i <= 26; i++) {
+        for (int k = 1; k <= 26; k++) {
+          if (i != k &&
+              bacafanNo[i] == bacafanNo[k] &&
+              bacafanNo[i] != 0 &&
+              bacafanNo[k] != 0) {
+            bacafanNoTekerrur = true;
+            break;
           }
         }
-      break;
-      case 5:
-      cikisNoTekerrur = false;
+        if (bacafanNoTekerrur) {
+            break;
+          }
+      }
 
       for (int i = 1; i <= 3; i++) {
         for (int k = 1; k <= 3; k++) {
@@ -1473,137 +1473,78 @@ class BacafanHaritasiProvider with ChangeNotifier {
             cikisNoTekerrur = true;
             break;
           }
-          if (cikisNoTekerrur) {
+        }
+        if (cikisNoTekerrur) {
             break;
           }
-        }
       }
-      break;
-      case 6:
-      for (int i = 0; i < listLenght; i++) {
-        cikisNoGecici[i]=cikisNo[i];
-      }
-      break;
 
-    }
-    
-    notifyListeners();
+
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-  int get getsayac => sayac;
+  
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-
-  List<int> get getbacafanHarita => bacafanHarita;
-  List<bool> get getbacafanVisibility => bacafanVisibility;
-  List<int> get getbacafanNo => bacafanNo;
-  List<int> get getcikisNo => cikisNo;
-  List<int> get getcikisNoGecici => cikisNoGecici;
-  List<int> get gettumCikislar => tumCikislar;
-
-  bool get getharitaOnay => haritaOnay;
-
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
-
-  int get getbacafanAdet => bacafanAdet;
-
   set setbacafanAdet(int value) {
     bacafanAdet = value;
     notifyListeners();
   }
-
-  String get getairinletAdet => airinletAdet;
-
   set setairinletAdet(String value) {
     airinletAdet = value;
     notifyListeners();
   }
-
-  String get getisiticiAdet => isiticiAdet;
-
   set setisiticiAdet(String value) {
     isiticiAdet = value;
     notifyListeners();
   }
-
-  String get getsiloAdet => siloAdet;
-
   set setsiloAdet(String value) {
     siloAdet = value;
     notifyListeners();
   }
-
-  bool get getsirkfanVarMi => sirkfanVarMi;
-
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
     notifyListeners();
   }
-
-  int get getbfanCikisNo => bfanCikisNo;
-
   set setbfanCikisNo(int value) {
     bfanCikisNo = value;
     notifyListeners();
   }
-
-  bool get getdijitalCikis => dijitalCikis;
-
   set setdijitalCikis(bool value) {
     dijitalCikis = value;
     notifyListeners();
   }
-
-  bool get getanalogCikis => analogCikis;
-
   set setanalogCikis(bool value) {
     analogCikis = value;
     notifyListeners();
   }
-
-  String get getcikisTur => cikisTur;
-
   set setcikisTur(String value) {
     cikisTur = value;
     notifyListeners();
   }
-
-  bool get getbacafanKapakVarMi => bacafanKapakVarMi;
-
   set setbacafanKapakVarMi(bool value) {
     bacafanKapakVarMi = value;
     notifyListeners();
   }
 
-  BuildContext context;
-  DBProkis dbProkis;
+  
 
   BacafanHaritasiProvider(this.context, this.dbProkis) {
-
 
     var yy=dbProkis.dbVeriGetir(5, 1, "0#0").split('#'); 
     bacafanAdet = int.parse(yy[0]);

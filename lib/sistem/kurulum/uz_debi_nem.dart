@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/sistem/kurulum/klepe_yontemi.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
@@ -9,7 +10,6 @@ import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/sistem/kurulum/fan_haritasi.dart';
-import 'klp_yontemi.dart';
 
 
 
@@ -131,7 +131,7 @@ class UzDebiNem extends StatelessWidget {
                   String v2=provider.bacaFanDebi=="" ? "0" : provider.bacaFanDebi;
                   String v3=provider.hacimOrani=="" ? "0" : provider.hacimOrani;
                   String v4=provider.disNem == true ? "1" : "0";
-                  String komut="11*18*"+"*"+v1+"*"+v2+"*"+v3+"*"+v4;
+                  String komut="11*18*"+v1+"*"+v2+"*"+v3+"*"+v4;
                   if(provider.gettunelFanDebi!=""){
                     Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
                       dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
@@ -184,13 +184,13 @@ class UzDebiNem extends StatelessWidget {
               });
 
               return Scaffold(
-          floatingActionButton: MyFloatingActionBackButton(
+                  floatingActionButton: MyFloatingActionBackButton(
                   !ilkKurulumMu,
                   false,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -1340,7 +1340,6 @@ class UzDebiNem extends StatelessWidget {
 
 
 class UzDebiNemProvider with ChangeNotifier {
-  String _dilSecimi;
   bool disNem;
   int klepeAdet;
   int bacaFanAdet;
@@ -1603,8 +1602,6 @@ class UzDebiNemProvider with ChangeNotifier {
   DBProkis dbProkis;
 
   UzDebiNemProvider(this.context, this.dbProkis) {
-    _dilSecimi = dbProkis.dbVeriGetir(1, 1,"EN");
-  
 
     klepeAdet=int.parse(dbProkis.dbVeriGetir(4, 2, "1"));
     var xx=dbProkis.dbVeriGetir(5, 1, "0#0").split("#"); 

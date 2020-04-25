@@ -286,7 +286,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              OtoMan(dbVeriler)),
+                                              OtoMan1()),
                                     );
                                   },
                                   child: Container(
@@ -348,7 +348,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-
+/*
                                     for (var i = 0; i < 100; i++) {
 
                                       dbHelper.veriSil(i);
@@ -357,7 +357,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                     
                                     print("veriler silindi");
 
-                                    /*
+                                    
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -636,7 +636,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Sistem(dbVeriler)),
+                                              Sistem()),
                                     );
                                   },
                                   child: Container(

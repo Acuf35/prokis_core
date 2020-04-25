@@ -45,11 +45,11 @@ class SiloHaritasi extends StatelessWidget {
               return Scaffold(
       floatingActionButton: MyFloatingActionBackButton(
       !ilkKurulumMu,
-      !provider.getveriGonderildi,
+      !provider.veriGonderildi,
       oran,
       40,
-      Colors.grey[700],
       Colors.white,
+      Colors.grey[700],
       Icons.arrow_back,
       1,
       "tv564"),
@@ -58,36 +58,26 @@ class SiloHaritasi extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv84"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv84"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //silo Harita Oluşturma Bölümü
         Expanded(
-          flex: 5,
+          flex: 9,
           child: Container(
               color: Colors.white,
               alignment: Alignment.center,
@@ -449,6 +439,7 @@ class SiloHaritasi extends StatelessWidget {
 
         //ileri geri ok bölümü
         Expanded(
+          flex: 2,
           child: Container(
             color: Colors.grey.shade600,
             child: Row(
@@ -462,7 +453,7 @@ class SiloHaritasi extends StatelessWidget {
                     children: <Widget>[
                       //Haritayı Onayla Butonu
                       Visibility(
-                        visible: !provider.getharitaOnay,
+                        visible: !provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -471,19 +462,19 @@ class SiloHaritasi extends StatelessWidget {
                             int sayac = 0;
 
                             for (int i = 1; i <=30; i++) {
-                              if (provider.getsiloHarita[i] == 1) {
+                              if (provider.siloHarita[i] == 1) {
                                 sayac++;
                               }
                             }
 
-                            if (sayac < provider.getsiloAdet) {
+                            if (sayac < provider.siloAdet) {
                               //Haritada seçilen silo sayısı eksik
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast54"),
                                   context,
                                   duration: 3);
-                            } else if (sayac > provider.getsiloAdet) {
+                            } else if (sayac > provider.siloAdet) {
                               //Haritada seçilen silo sayısı yüksek
                               Toast.show(
                                   Dil()
@@ -500,17 +491,19 @@ class SiloHaritasi extends StatelessWidget {
                               provider.setharitaOnay = true;
 
                               for (int i = 1; i <=30; i++) {
-                                if (provider.getsiloHarita[i] != 0) {
-                                  provider.listIslem(provider.getsiloVisibility, null, 3, i, true, 31);
+                                if (provider.siloHarita[i] != 0) {
+                                  
+                                  provider.siloVisibility[i]=true;
                                 } else {
-                                  provider.listIslem(provider.getsiloVisibility, null, 3, i, false, 31);
+                                  
+                                  provider.siloVisibility[i]=false;
                                 }
                               }
 
                               String veri = "";
 
                               for (int i = 1; i <=30; i++) {
-                                veri = veri + provider.getsiloHarita[i].toString() + "#";
+                                veri = veri + provider.siloHarita[i].toString() + "#";
                               }
 
                               Metotlar().veriGonder("35*34*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
@@ -544,7 +537,7 @@ class SiloHaritasi extends StatelessWidget {
 
                       //Haritayı Sıfırla Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -574,7 +567,7 @@ class SiloHaritasi extends StatelessWidget {
 
                       //Verileri Gönder Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -584,15 +577,15 @@ class SiloHaritasi extends StatelessWidget {
                             bool sensSayYukNo = false;
                             String noVeri = "";
                             for (int i = 1; i <=30; i++) {
-                              if (provider.getsiloHarita[i] == 1) {
-                                if (provider.getsiloNo[i] == 0) {
+                              if (provider.siloHarita[i] == 1) {
+                                if (provider.siloNo[i] == 0) {
                                   noKontrol = true;
                                 }
-                                if (provider.getsiloNo[i] > provider.getsiloAdet) {
+                                if (provider.siloNo[i] > provider.siloAdet) {
                                   sensSayYukNo = true;
                                 }
                               }
-                              noVeri = noVeri + provider.getsiloNo[i].toString() + "#";
+                              noVeri = noVeri + provider.siloNo[i].toString() + "#";
                             }
 
                             if (noKontrol) {
@@ -607,7 +600,7 @@ class SiloHaritasi extends StatelessWidget {
                                       .sec(dilSecimi, "toast57"),
                                   context,
                                   duration: 3);
-                            } else if (provider.getsiloNoTekerrur) {
+                            } else if (provider.siloNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast58"),
@@ -627,7 +620,7 @@ class SiloHaritasi extends StatelessWidget {
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
                           color:
-                              provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                              provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -656,7 +649,7 @@ class SiloHaritasi extends StatelessWidget {
                         iconSize: 50 * oran,
                         onPressed: () {
 
-                          if(provider.getisiticiAdet!='0'){
+                          if(provider.isiticiAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -664,7 +657,7 @@ class SiloHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         IsiticiHaritasi(true)),
                               );
-                            }else if(provider.getairinletAdet!='0' || provider.getsirkfanVarMi){
+                            }else if(provider.airinletAdet!='0' || provider.sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
@@ -672,7 +665,7 @@ class SiloHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         AirInletVeSirkFan(true)),
                               );
-                            }else if(provider.getbacafanAdet!='0'){
+                            }else if(provider.bacafanAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -703,13 +696,13 @@ class SiloHaritasi extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
-                          if (!provider.getharitaOnay) {
+                          if (!provider.haritaOnay) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast62"),
                                 context,
                                 duration: 3);
-                          }else if (!provider.getveriGonderildi) {
+                          }else if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast27"),
@@ -759,7 +752,7 @@ class SiloHaritasi extends StatelessWidget {
       int indexNo, double oran, String baslik, SiloHaritasiProvider provider, BuildContext context) {
     return Expanded(
       child: Visibility(
-        visible: provider.getsiloVisibility[indexNo] ? true : false,
+        visible: provider.siloVisibility[indexNo] ? true : false,
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
@@ -770,9 +763,9 @@ class SiloHaritasi extends StatelessWidget {
               flex: 6,
               child: RawMaterialButton(
                   onPressed: () {
-                    if (provider.getharitaOnay) {
+                    if (provider.haritaOnay) {
 
-                      int sayi = provider.getsiloNo[indexNo];
+                      int sayi = provider.siloNo[indexNo];
                       int pBirler = sayi % 10;
 
                       MyshowModalBottomSheet1x0(dilSecimi, context, oran, pBirler,"tv49","tv35",4)
@@ -781,7 +774,9 @@ class SiloHaritasi extends StatelessWidget {
                                 bool gelenVeri=value==null ? false : value[0];
 
                                 if (gelenVeri) {
-                                    provider.listIslem(provider.getsiloNo, null, 3, indexNo, value[1], null);
+                                    
+                                    provider.siloNo[indexNo]=value[1];
+                                    provider.dinlemeyiTetikle();
                                 }
 
                       });
@@ -792,7 +787,7 @@ class SiloHaritasi extends StatelessWidget {
 
                     } else {
 
-                      var xx=provider.getsiloHarita;
+                      var xx=provider.siloHarita;
                       if (xx[indexNo] == 0 ||
                           xx[indexNo] == null) {
                         xx[indexNo] = 1;
@@ -809,7 +804,7 @@ class SiloHaritasi extends StatelessWidget {
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Visibility(visible: !provider.getharitaOnay && provider.getsiloHarita[indexNo]==0 ? false: true,
+                          Visibility(visible: !provider.haritaOnay && provider.siloHarita[indexNo]==0 ? false: true,
                             child: Spacer()),
                           Expanded(flex: 3,
                             child: Container(
@@ -818,18 +813,18 @@ class SiloHaritasi extends StatelessWidget {
                                 image: DecorationImage(
                                   alignment: Alignment.center,
                                   image:
-                                      AssetImage(imageGetir(provider.getsiloHarita[indexNo])),
-                                  fit: provider.getsiloHarita[indexNo]==1 ? BoxFit.fill : BoxFit.contain,
+                                      AssetImage(imageGetir(provider.siloHarita[indexNo])),
+                                  fit: provider.siloHarita[indexNo]==1 ? BoxFit.fill : BoxFit.contain,
                                 ),
                               ),
                             ),
                           ),
-                          Visibility(visible: !provider.getharitaOnay && provider.getsiloHarita[indexNo]==0 ? false: true,
+                          Visibility(visible: !provider.haritaOnay && provider.siloHarita[indexNo]==0 ? false: true,
                             child: Spacer())
                         ],
                       ),
                       Visibility(
-                        visible: provider.getharitaOnay && provider.getsiloHarita[indexNo] != 0
+                        visible: provider.haritaOnay && provider.siloHarita[indexNo] != 0
                             ? true
                             : false,
                         maintainState: true,
@@ -852,7 +847,7 @@ class SiloHaritasi extends StatelessWidget {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                              provider.getsiloNo[indexNo].toString(),
+                                              provider.siloNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
@@ -896,9 +891,11 @@ class SiloHaritasi extends StatelessWidget {
       if (val) {
         provider.setveriGonderildi = false;
 
-        provider.listIslem(provider.getsiloHarita, null, 2, 0, 0, 31);
-        provider.listIslem(provider.getsiloNo, null, 2, 0, 0, 31);
-        provider.listIslem(provider.getsiloVisibility, null, 2, 0, true, 31);
+        for (int i = 0; i < 31; i++) {
+          provider.siloHarita[i]=0;
+          provider.siloNo[i]=0;
+          provider.siloVisibility[i]=true;
+        }
 
         provider.setharitaOnay = false;
 
@@ -913,42 +910,15 @@ class SiloHaritasi extends StatelessWidget {
     });
   }
 
-    Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
 
 }
 
 class SiloHaritasiProvider with ChangeNotifier {
   int sayac=0;
 
-  List<int> siloHarita = new List(31);
-  List<bool> siloVisibility = new List(31);
-  List<int> siloNo = new List(31);
+  List<int> siloHarita = new List.filled(31,0);
+  List<bool> siloVisibility = new List.filled(31,true);
+  List<int> siloNo = new List.filled(31,0);
   bool haritaOnay = false;
   int siloAdet = 0;
   String bacafanAdet = '0';
@@ -961,29 +931,13 @@ class SiloHaritasiProvider with ChangeNotifier {
 
   List<int> tumCikislar = new List.filled(111,0);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      siloNoTekerrur = false;
+  tekerrurTespit(){
+    siloNoTekerrur = false;
 
     for (int i = 1; i <=30; i++) {
       for (int k = 1; k <=30; k++) {
@@ -999,92 +953,52 @@ class SiloHaritasiProvider with ChangeNotifier {
         }
       }
     }
-      break;
-
-    }
-    
-    notifyListeners();
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-
-  List<int> get getsiloHarita => siloHarita;
-  List<bool> get getsiloVisibility => siloVisibility;
-  List<int> get getsiloNo => siloNo;
-  List<int> get gettumCikislar => tumCikislar;
-
-  bool get getharitaOnay => haritaOnay;
-
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
-
-  String get getbacafanAdet => bacafanAdet;
-
   set setbacafanAdet(String value) {
     bacafanAdet = value;
     notifyListeners();
   }
-
-  String get getairinletAdet => airinletAdet;
-
   set setairinletAdet(String value) {
     airinletAdet = value;
     notifyListeners();
   }
-
-  String get getisiticiAdet => isiticiAdet;
-
   set setisiticiAdet(String value) {
     isiticiAdet = value;
     notifyListeners();
   }
-
-  int get getsiloAdet => siloAdet;
-
   set setsiloAdet(int value) {
     siloAdet = value;
     notifyListeners();
   }
-
-  bool get getsirkfanVarMi => sirkfanVarMi;
-
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getsiloNoTekerrur => siloNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     siloNoTekerrur = value;
     notifyListeners();
   }
 
   
-
   BuildContext context;
   DBProkis dbProkis;
 
   SiloHaritasiProvider(this.context, this.dbProkis) {
-
 
     var yy=dbProkis.dbVeriGetir(5, 1, "0#0").split('#'); 
     bacafanAdet = yy[0];
@@ -1093,14 +1007,12 @@ class SiloHaritasiProvider with ChangeNotifier {
     isiticiAdet=dbProkis.dbVeriGetir(5, 3, "0");
     siloAdet=int.parse(dbProkis.dbVeriGetir(5, 4, "0"));
 
-
     String tumCikislarKAYIT = dbProkis.dbVeriGetir(22, 1, "");
     String haritaKAYIT = dbProkis.dbVeriGetir(29, 1, "");
     String cikisKAYIT = dbProkis.dbVeriGetir(30, 1, "");
     var tcikislar;
     var fHaritalar;
     var siloNolar;
-    
 
     if (tumCikislarKAYIT == "ok") {
       tcikislar = dbProkis.dbVeriGetir(22, 2, "").split("#");

@@ -107,6 +107,8 @@ class AydinlatmaState extends State<Aydinlatma> {
 
   @override
   Widget build(BuildContext context) {
+
+    
     if (timerSayac == 0) {
       _takipEt();
 

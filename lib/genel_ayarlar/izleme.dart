@@ -5,11 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:prokis/izleme/izleme_bfanairistc.dart';
+import 'package:prokis/izleme/izleme_fanklpped.dart';
+import 'package:prokis/izleme/izleme_yemsuayd.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/izleme/izleme_temel.dart';
-import 'package:prokis/izleme/izleme_diger.dart';
 import 'package:prokis/languages/select.dart';
 
 class Izleme extends StatefulWidget {
@@ -64,7 +65,7 @@ class IzlemeState extends State<Izleme> {
                 MaterialPageRoute(builder: (context) => GenelAyarlar(dbVeriler)),
               );
             },
-            backgroundColor: Colors.grey[700],
+            backgroundColor: Colors.blue,
             child: Icon(
               Icons.arrow_back,
               size: 50,
@@ -115,19 +116,17 @@ class IzlemeState extends State<Izleme> {
             child: Column(
               children: <Widget>[
                 Spacer(),
-                Expanded(
-                  flex: 10,
+                Expanded(flex: 30,
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 3,
+                        flex: 1,
                       ),
-                      //IZLEME - TEMEL
-                      Expanded(
-                          flex: 4,
+                      //IZLEME - FAN PED ISISENSOR KLEPE
+                      Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
-                              Expanded(
+                              Expanded(flex: 2,
                                 child: Column(
                                   children: <Widget>[
                                     Expanded(
@@ -157,18 +156,74 @@ class IzlemeState extends State<Izleme> {
                                         ],
                                       ),
                                     ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv641"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.grey[600],
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv642"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.grey[600],
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                flex: 5,
+                              Expanded(flex: 4,
                                 child: RawMaterialButton(
                                     onPressed: () {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                IzlemeTemel(dbVeriler)),
+                                                IzlemeFanKlpPed(dbVeriler)),
                                       );
                                     },
                                     child: Stack(
@@ -213,12 +268,11 @@ class IzlemeState extends State<Izleme> {
                       Spacer(
                         flex: 1,
                       ),
-                      //IZLEME - DİĞER
-                      Expanded(
-                          flex: 4,
+                      //IZLEME - BACAFAN AIR INLET SİRKÜLASYON FAN ISITICI
+                      Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
-                              Expanded(
+                              Expanded(flex: 2,
                                 child: Column(
                                   children: <Widget>[
                                     Expanded(
@@ -248,11 +302,67 @@ class IzlemeState extends State<Izleme> {
                                         ],
                                       ),
                                     ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv643"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.grey[600],
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv644"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.grey[600],
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    
                                   ],
                                 ),
                               ),
-                              Expanded(
-                                flex: 5,
+                              Expanded(flex: 4,
                                 child: RawMaterialButton(
                                   onPressed: () {
                                     
@@ -260,7 +370,7 @@ class IzlemeState extends State<Izleme> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              IzlemeDiger(dbVeriler)),
+                                              IzlemeBfanAirIstc(dbVeriler)),
                                     );
                                     
                                   },
@@ -304,15 +414,162 @@ class IzlemeState extends State<Izleme> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
+                        flex: 1,
+                      ),
+                      //IZLEME - AYDINLATMA YEMLEME SU SAYAC SİLO
+                      Expanded(flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(flex: 2,
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv647'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv645"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.grey[600],
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv646"),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.grey[600],
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    
+                                  ],
+                                ),
+                              ),
+                              Expanded(flex: 4,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IzlemeYemSuAyd(dbVeriler)),
+                                    );
+                                    
+                                  },
+                                  child: Stack(
+                                    alignment:
+                                        Alignment.center,
+                                    children: <Widget>[
+                                      LayoutBuilder(builder:
+                                          (context,
+                                              constraint) {
+                                        return Icon(
+                                          Icons
+                                              .brightness_1,
+                                          size: constraint
+                                              .biggest
+                                              .height,
+                                          color: Colors
+                                              .blue[700],
+                                        );
+                                      }),
+
+                                      RotatedBox(quarterTurns: 1,
+                                        child: LayoutBuilder(builder:
+                                            (context,
+                                                constraint) {
+                                          return Icon(
+                                            Icons
+                                                .search,
+                                            size: constraint
+                                                .biggest
+                                                .width,
+                                            color: Colors
+                                                .black,
+                                          );
+                                        }),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 1,
                       ),
                       
                     ],
                   ),
                 ),
                 Spacer(),
-                Expanded(
-                  flex: 10,
+                Expanded(flex: 30,
                   child: Row(
                     children: <Widget>[
                       Spacer(

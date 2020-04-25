@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/main.dart';
+import 'package:prokis/sistem/kurulum/girisler.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/languages/select.dart';
@@ -147,7 +149,7 @@ class KurulumuTamamlaState extends State<KurulumuTamamla> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    DigerCikislar(true)),
+                                    Girisler(true)),
                           );
                         
                         //Navigator.pop(context);

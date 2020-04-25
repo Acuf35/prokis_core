@@ -37,6 +37,7 @@ class DBProkis with ChangeNotifier{
   }
 
   dbSatirSil(int ilk, int son){
+    print("VERİLER SİLİNDİ");
     for (var i = ilk; i <= son; i++) {
       dbHelper.veriSil(i).then((value) => dbVeriCekme());
     }

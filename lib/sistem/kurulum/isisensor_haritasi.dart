@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
-import 'package:prokis/mywidgets/showModalBottomSheet1to6x0.dart';
 import 'package:prokis/mywidgets/showModalBottomSheet2x0.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/alert_reset.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum/ped_haritasi.dart';
 import 'package:prokis/sistem/kurulum/silo_haritasi.dart';
 import 'package:prokis/languages/select.dart';
@@ -20,7 +18,6 @@ import 'package:prokis/sistem/kurulum/airinlet_ve_sirkfan.dart';
 import 'package:prokis/sistem/kurulum/bacafan_haritasi.dart';
 import 'package:prokis/sistem/kurulum/diger_cikislar.dart';
 import 'isitici_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 
 
 
@@ -44,9 +41,8 @@ class IsiSensorHaritasi extends StatelessWidget {
 
 
 
-              if (provider.getsayac == 0) {
-                if(provider.getisisensorBaglanti==1){
-                  
+              if (provider.sayac == 0) {
+                if(provider.isisensorBaglanti==1){
                   Metotlar().takipEt("24a*", context, 2233, dilSecimi).then((veri){
                     takipEtWifiIsleme(veri, provider);
                   });
@@ -59,10 +55,10 @@ class IsiSensorHaritasi extends StatelessWidget {
                 Timer.periodic(Duration(seconds: 5), (timer) {
 
 
-                  if (!provider.getbaglanti && !provider.timerCancel) {
+                  if (!provider.baglanti && !provider.timerCancel) {
                     provider.setbaglanti = true;
 
-                    if(provider.getisisensorBaglanti==1){
+                    if(provider.isisensorBaglanti==1){
                       Metotlar().takipEt("24a*", context, 2233, dilSecimi).then((veri){
                         takipEtWifiIsleme(veri, provider);
                       });
@@ -73,12 +69,12 @@ class IsiSensorHaritasi extends StatelessWidget {
                     }
                   }
 
-                  if (provider.gettimerCancel) {
+                  if (provider.timerCancel) {
                     timer.cancel();
                   }
 
                 });
-              provider.setsayac=provider.getsayac+1;
+              provider.setsayac=provider.sayac+1;
               }
 
 
@@ -89,52 +85,42 @@ class IsiSensorHaritasi extends StatelessWidget {
 
 
 
-              return Scaffold(
+    return Scaffold(
       floatingActionButton: MyFloatingActionBackButton(
-                               !ilkKurulumMu,
-                               !provider.getveriGonderildi,
-                               oran,
-                               40,
-                               Colors.grey[700],
-                               Colors.white,
-                               Icons.arrow_back,
-                               1,
-                               "tv564"),
+      !ilkKurulumMu,
+      !provider.veriGonderildi,
+      oran,
+      40,
+      Colors.white,
+      Colors.grey[700],
+      Icons.arrow_back,
+      1,
+      "tv564"),
    
         body: Column(
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv48"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv48"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //isisensor Harita Oluşturma Bölümü
         Expanded(
-          flex: 5,
+          flex: 9,
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
@@ -186,7 +172,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                           child: Stack(
                             children: <Widget>[
                               Visibility(
-                                visible: provider.getisisensorBaglanti==2  ? false : (provider.getaktifSenSay==0 ? true : false),
+                                visible: provider.isisensorBaglanti==2  ? false : (provider.aktifSenSay==0 ? true : false),
                                 child: Center(
                                     child: Text(
                                   Dil()
@@ -517,6 +503,7 @@ class IsiSensorHaritasi extends StatelessWidget {
 
         //ileri geri ok bölümü
         Expanded(
+          flex: 2,
           child: Container(
             color: Colors.grey.shade600,
             child: Row(
@@ -530,7 +517,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                     children: <Widget>[
                       //Haritayı Onayla Butonu
                       Visibility(
-                        visible: !provider.getharitaOnay,
+                        visible: !provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -539,21 +526,21 @@ class IsiSensorHaritasi extends StatelessWidget {
                             int sayac = 0;
 
                             for (int i = 1; i <= 22; i++) {
-                              if (provider.getisisensorHarita[i] == 1) {
+                              if (provider.isisensorHarita[i] == 1) {
                                 sayac++;
-                                provider.listIslem(provider.getisisensorNo, null, 3, i, sayac, 22);
+                                provider.isisensorNo[i]=sayac;
                               }
                               
                             }
 
-                            if (sayac < provider.getisisensorAdet) {
+                            if (sayac < provider.isisensorAdet) {
                               //Haritada seçilen isisensor sayısı eksik
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast51"),
                                   context,
                                   duration: 3);
-                            } else if (sayac > provider.getisisensorAdet) {
+                            } else if (sayac > provider.isisensorAdet) {
                               //Haritada seçilen isisensor sayısı yüksek
                               Toast.show(
                                   Dil()
@@ -567,21 +554,20 @@ class IsiSensorHaritasi extends StatelessWidget {
                                       .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
-                              provider.setharitaOnay = true;
+                              
 
                               for (int i = 1; i <= 22; i++) {
-                                if (provider.getisisensorHarita[i] != 0) {
-                                  provider.listIslem(provider.isisensorVisibility, null, 3, i, true, null);
+                                if (provider.isisensorHarita[i] != 0) {
+                                  provider.isisensorVisibility[i]=true;
                                 } else {
-                                  provider.listIslem(provider.isisensorVisibility, null, 3, i, false, null);
+                                  provider.isisensorVisibility[i]=false;
                                 }
                               }
 
                               String veri = "";
 
                               for (int i = 1; i <= 22; i++) {
-                                veri =
-                                    veri + provider.getisisensorHarita[i].toString() + "#";
+                                veri = veri + provider.isisensorHarita[i].toString() + "#";
                               }
 
                               Metotlar().veriGonder("21*25*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
@@ -589,6 +575,8 @@ class IsiSensorHaritasi extends StatelessWidget {
                                   dbProkis.dbSatirEkleGuncelle(20, "ok", veri, "0", "0");
                                 }
                               });
+
+                              provider.setharitaOnay = true;
 
                             }
 
@@ -616,7 +604,7 @@ class IsiSensorHaritasi extends StatelessWidget {
 
                       //Haritayı Sıfırla Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -646,41 +634,39 @@ class IsiSensorHaritasi extends StatelessWidget {
 
                       //Verileri Gönder Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            bool noKontrol = false;
+                            bool sifirNoVarMi = false;
                             bool enAzBirAtama = false;
                             bool sensSayYukNo = false;
                             String noVeri = "";
                             String noVeriAktif = "";
                             String idVeriAktif = "";
                             for (int i = 1; i <= 22; i++) {
-                              if (provider.getisisensorHarita[i] == 1) {
-                                if (provider.getisisensorNo[i] == 0) {
-                                  noKontrol = true;
+                              if (provider.isisensorHarita[i] == 1) {
+                                if (provider.isisensorNo[i] == 0) {
+                                  sifirNoVarMi = true;
                                 }
-                                if (provider.getisisensorNo[i] > provider.getisisensorAdet) {
+                                if (provider.isisensorNo[i] > provider.isisensorAdet) {
                                   sensSayYukNo = true;
                                 }
                               }
-                              noVeri = noVeri + provider.getisisensorNo[i].toString() + "#";
+                              noVeri = noVeri + provider.isisensorNo[i].toString() + "#";
                             }
                             for (int i = 1; i <= 15; i++) {
-                              noVeriAktif = noVeriAktif +
-                                  provider.getaktifSensorNo[i].toString() +
-                                  "#";
-                              idVeriAktif = idVeriAktif +
-                                  provider.getaktifSensorID[i].toString() +
-                                  "#";
-                              if (provider.getaktifSensorNo[i] != 0) {
+                              noVeriAktif = noVeriAktif + provider.aktifSensorNo[i].toString() + "#";
+                              idVeriAktif = idVeriAktif + provider.aktifSensorID[i].toString() + "#";
+
+                              if (provider.aktifSensorNo[i] != 0) {
                                 enAzBirAtama = true;
                               }
+
                             }
-                            if (noKontrol) {
+                            if (sifirNoVarMi) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast35"),
@@ -692,7 +678,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                                       .sec(dilSecimi, "toast40"),
                                   context,
                                   duration: 3);
-                            } else if (provider.getisisensorNoTekerrur) {
+                            } else if (provider.isisensorNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast31"),
@@ -704,32 +690,33 @@ class IsiSensorHaritasi extends StatelessWidget {
                                       .sec(dilSecimi, "toast34"),
                                   context,
                                   duration: 3);
-                            } else if (!provider.getatanacakSensorVarmi) {
+                            } else if (!provider.atanacakSensorVarmi) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast41"),//Aktif sensorlere numara verirken harita üzerindeki numaralar içinde var mı yok mu kontrol  eder. 
                                   context,
                                   duration: 3);
-                            } else if (provider.getaktifSensorNoTekerrur) {
+                            } else if (provider.aktifSensorNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast33"),
                                   context,
                                   duration: 3);
                             } else {
-                              provider.setveriGonderildi = true;
-                              String komut="22*26*"+noVeri+"*"+noVeriAktif+"*"+idVeriAktif+"*"+provider.getisisensorNo[22].toString();
+                              
+                              String komut="22*26*"+noVeri+"*"+noVeriAktif+"*"+idVeriAktif+"*"+provider.isisensorNo[22].toString();
                               Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                                 if(value=="ok"){
                                   dbProkis.dbSatirEkleGuncelle(21, "ok", noVeri, noVeriAktif, idVeriAktif);
                                 }
                               });
+                              provider.setveriGonderildi = true;
                             }
                           },
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
                           color:
-                              provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                              provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -781,8 +768,8 @@ class IsiSensorHaritasi extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
-                          print(provider.getisisensorHarita);
-                          if (!provider.getveriGonderildi) {
+                          print(provider.isisensorHarita);
+                          if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast27"),
@@ -792,7 +779,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                             provider.settimerCancel = true;
 
 
-                            if(provider.getbacafanAdet!="0"){
+                            if(provider.bacafanAdet!="0"){
 
                               Navigator.pushReplacement(
                                 context,
@@ -800,7 +787,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         BacafanHaritasi(true)),
                               );
-                            }else if(provider.getairinletAdet!='0' || provider.getsirkfanVarMi){
+                            }else if(provider.airinletAdet!='0' || provider.sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
@@ -808,7 +795,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         AirInletVeSirkFan(true)),
                               );
-                            }else if(provider.getisiticiAdet!='0'){
+                            }else if(provider.isiticiAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -816,7 +803,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         IsiticiHaritasi(true)),
                               );
-                            }else if(provider.getsiloAdet!='0'){
+                            }else if(provider.siloAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -865,17 +852,16 @@ class IsiSensorHaritasi extends StatelessWidget {
     provider.setaktifSenSay = (sensorler.length - 1).toInt();
   
     for (int i = 1; i <= 15; i++) {
-      if (i <= provider.getaktifSenSay) {
-        provider.listIslem(provider.getaktifSensorVisibility, null, 3, i, true, null);
+      if (i <= provider.aktifSenSay) {
+        provider.aktifSensorVisibility[i]=true;
       }
     }
     
     for(int i=0;i<=sensorler.length-2;i++){
       var deger=sensorler[i].split('+');
-      provider.listIslem(provider.getaktifSensorID, null, 3, i+1, deger[0], null);
-      provider.listIslem(provider.getaktifSensorValue, null, 3, i+1, deger[1], null);
-      provider.listIslem(provider.getaktifSensorDurum, null, 3, i+1, (deger[2] == 'ok' ? true : false), null);
-      
+      provider.aktifSensorID[i+1]=deger[0];
+      provider.aktifSensorValue[i+1]=deger[1];
+      provider.aktifSensorDurum[i+1]=deger[2] == 'ok' ? true : false;
     }
 
     provider.setbaglanti = false;
@@ -886,14 +872,14 @@ class IsiSensorHaritasi extends StatelessWidget {
 
     print(veri);
 
-    List<bool> aktifSensorVisibility=provider.getaktifSensorVisibility;
-    List<bool> aktifSensorDurum=provider.getaktifSensorDurum;
-    List<String> aktifSensorID=provider.getaktifSensorID;
-    List<String> aktifSensorValue=provider.getaktifSensorValue;
-    int isisensorAdet=provider.getisisensorAdet;
+    List<bool> aktifSensorVisibility=provider.aktifSensorVisibility;
+    List<bool> aktifSensorDurum=provider.aktifSensorDurum;
+    List<String> aktifSensorID=provider.aktifSensorID;
+    List<String> aktifSensorValue=provider.aktifSensorValue;
+    int isisensorAdet=provider.isisensorAdet;
 
     var sensorler = veri.split('#');
-        print(sensorler);
+    
         for (int i = 1; i <= 15; i++) {
           if (i%3 != 0) {
             aktifSensorVisibility[i] = true;
@@ -967,7 +953,7 @@ class IsiSensorHaritasi extends StatelessWidget {
 
     return Expanded(
       child: Visibility(
-        visible: provider.getisisensorVisibility[indexNo] ? true : false,
+        visible: provider.isisensorVisibility[indexNo] ? true : false,
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
@@ -978,10 +964,10 @@ class IsiSensorHaritasi extends StatelessWidget {
               flex: 6,
               child: RawMaterialButton(
                   onPressed: () {
-                    if (provider.getharitaOnay) {
+                    if (provider.haritaOnay) {
 
 
-                int sayi = provider.getisisensorNo[indexNo];
+                int sayi = provider.isisensorNo[indexNo];
                 int pOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                 int pBirler = sayi % 10;
 
@@ -992,7 +978,8 @@ class IsiSensorHaritasi extends StatelessWidget {
 
                           if (gelenVeri) {
                               sayi =value[1] * 10 + value[2];
-                              provider.listIslem(provider.getisisensorNo, null, 3, indexNo, sayi, null);
+                              provider.isisensorNo[indexNo]=sayi;
+                              provider.tekerrurTespit(indexNo);
                           }
 
                 });
@@ -1017,13 +1004,13 @@ class IsiSensorHaritasi extends StatelessWidget {
                           image: DecorationImage(
                             alignment: Alignment.center,
                             image: AssetImage(
-                                imageGetir(provider.getisisensorHarita[indexNo])),
+                                imageGetir(provider.isisensorHarita[indexNo])),
                             fit: BoxFit.contain,
                           ),
                         ),
                       ),
                       Visibility(
-                        visible: provider.getharitaOnay && provider.getisisensorHarita[indexNo] != 0
+                        visible: provider.haritaOnay && provider.isisensorHarita[indexNo] != 0
                             ? true
                             : false,
                         maintainState: true,
@@ -1047,7 +1034,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                                         child: AutoSizeText(
                                           Dil().sec(
                                                   dilSecimi, "tv50") +
-                                              provider.getisisensorNo[indexNo].toString(),
+                                              provider.isisensorNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
@@ -1088,14 +1075,17 @@ class IsiSensorHaritasi extends StatelessWidget {
     ).then((val) {
       if (val) {
 
+        for (int i = 0; i < 23; i++) {
+          provider.isisensorHarita[i]=0;
+          provider.isisensorNo[i]=0;
+          provider.isisensorVisibility[i]=true;
+        }
+
+        for (int i = 0; i < 16; i++) {
+          provider.aktifSensorNo[i]=0;
+        }
 
         provider.setveriGonderildi = false;
-
-        provider.listIslem(provider.getisisensorHarita, null, 2, null, 0, 23);
-        provider.listIslem(provider.getisisensorNo, null, 2, null, 0, 23);
-        provider.listIslem(provider.getisisensorVisibility, null, 2, null, true, 23);
-        
-        provider.listIslem(provider.getaktifSensorNo, null, 2, null, 0, 16);
         provider.setharitaOnay = false;
 
         Metotlar().veriGonder("23*0*0*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
@@ -1111,7 +1101,7 @@ class IsiSensorHaritasi extends StatelessWidget {
   Widget _aktifSensor(int index, double oran, IsisensorHaritasiProvider provider, BuildContext context) {
     return Expanded(
       child: Visibility(
-        visible: provider.getaktifSensorVisibility[index],
+        visible: provider.aktifSensorVisibility[index],
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
@@ -1119,13 +1109,13 @@ class IsiSensorHaritasi extends StatelessWidget {
           children: <Widget>[
             Text(
               Dil().sec(dilSecimi, "tv50") +
-                  provider.getaktifSensorNo[index].toString(),
+                  provider.aktifSensorNo[index].toString(),
               style: TextStyle(
                   fontSize: 14,
-                  color: provider.getaktifSensorNo[index] == 0
+                  color: provider.aktifSensorNo[index] == 0
                       ? Colors.black
                       : Colors.blue[700],
-                  fontWeight: provider.getaktifSensorNo[index] == 0
+                  fontWeight: provider.aktifSensorNo[index] == 0
                       ? FontWeight.normal
                       : FontWeight.bold),
               textScaleFactor: oran,
@@ -1134,7 +1124,7 @@ class IsiSensorHaritasi extends StatelessWidget {
               child: RawMaterialButton(
                 onPressed: () {
 
-                  int sayi = provider.getaktifSensorNo[index];
+                  int sayi = provider.aktifSensorNo[index];
                 int pOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                 int pBirler = sayi % 10;
 
@@ -1145,7 +1135,8 @@ class IsiSensorHaritasi extends StatelessWidget {
 
                           if (gelenVeri) {
                               sayi =value[1] * 10 + value[2];
-                              provider.listIslem(provider.getaktifSensorNo, null, 3, index, sayi, null);
+                              provider.aktifSensorNo[index]=sayi;
+                              provider.tekerrurTespit(index);
                           }
 
                 });
@@ -1155,7 +1146,7 @@ class IsiSensorHaritasi extends StatelessWidget {
 
                 },
                 fillColor:
-                    provider.getaktifSensorDurum[index] ? Colors.green[300] : Colors.red,
+                    provider.aktifSensorDurum[index] ? Colors.green[300] : Colors.red,
                 child: Row(
                   children: <Widget>[
                     Expanded(
@@ -1163,7 +1154,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                         child: Container(
                           alignment: Alignment.bottomCenter,
                           child: AutoSizeText(
-                            provider.getaktifSensorID[index] + " :",
+                            provider.aktifSensorID[index] + " :",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.white,
@@ -1180,7 +1171,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                         child: Container(
                           alignment: Alignment.bottomCenter,
                           child: AutoSizeText(
-                            provider.getaktifSensorValue[index] + "°C",
+                            provider.aktifSensorValue[index] + "°C",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 color: Colors.black,
@@ -1203,35 +1194,6 @@ class IsiSensorHaritasi extends StatelessWidget {
       ),
     );
   }
-
-  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
-
 
 
 
@@ -1256,7 +1218,7 @@ class IsisensorHaritasiProvider with ChangeNotifier {
   bool isisensorNoTekerrur = false;
 
   int sayacAktifSensor = 0;
-  bool baglanti = false;
+  bool baglanti = true;
   bool timerCancel = false;
 
   List<bool> aktifSensorVisibility = new List.filled(16,false);
@@ -1270,29 +1232,13 @@ class IsisensorHaritasiProvider with ChangeNotifier {
 
   List<int> tumCikislar = new List.filled(111,0);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      isisensorNoTekerrur = false;
+  tekerrurTespit(int index){
+
+    isisensorNoTekerrur = false;
 
       for (int i = 1; i <= 22; i++) {
         for (int k = 1; k <= 22; k++) {
@@ -1309,10 +1255,8 @@ class IsisensorHaritasiProvider with ChangeNotifier {
         }
       }
 
-      break;
 
-      case 6:
-      aktifSensorNoTekerrur = false;
+    aktifSensorNoTekerrur = false;
 
       for (int i = 1; i <= 15; i++) {
         for (int k = 1; k <= 15; k++) {
@@ -1336,142 +1280,74 @@ class IsisensorHaritasiProvider with ChangeNotifier {
           break;
         }
       }
-
-      break;
-
-    }
-    
-    notifyListeners();
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
 
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
   }
-
-  List<int> get getisisensorHarita => isisensorHarita;
-  List<bool> get getisisensorVisibility => isisensorVisibility;
-  List<int> get getisisensorNo => isisensorNo;
-  List<bool> get getaktifSensorVisibility => aktifSensorVisibility;
-  List<int> get getaktifSensorNo => aktifSensorNo;
-  List<String> get getaktifSensorID => aktifSensorID;
-  List<String> get getaktifSensorValue => aktifSensorValue;
-  List<bool> get getaktifSensorDurum => aktifSensorDurum;
-  List<int> get gettumCikislar => tumCikislar;
-
-  bool get getharitaOnay => haritaOnay;
-
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
-
-  String get getbacafanAdet => bacafanAdet;
-
   set setbacafanAdet(String value) {
     bacafanAdet = value;
     notifyListeners();
   }
-
-  String get getairinletAdet => airinletAdet;
-
   set setairinletAdet(String value) {
     airinletAdet = value;
     notifyListeners();
   }
-
-  String get getisiticiAdet => isiticiAdet;
-
   set setisiticiAdet(String value) {
     isiticiAdet = value;
     notifyListeners();
   }
-
-  String get getsiloAdet => siloAdet;
-
   set setsiloAdet(String value) {
     siloAdet = value;
     notifyListeners();
   }
-
-  int get getisisensorAdet => isisensorAdet;
-
   set setisisensorAdet(int value) {
     isisensorAdet = value;
     notifyListeners();
   }
-
-  int get getisisensorBaglanti => isisensorBaglanti;
-
   set setisisensorBaglanti(int value) {
     isisensorBaglanti = value;
     notifyListeners();
   }
-
-  bool get getsirkfanVarMi => sirkfanVarMi;
-
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getisisensorNoTekerrur => isisensorNoTekerrur;
-
   set setisisensorNoTekerrur(bool value) {
     isisensorNoTekerrur = value;
     notifyListeners();
   }
-
-  int get getsayacAktifSensor => sayacAktifSensor;
-
   set setsayacAktifSensor(int value) {
     sayacAktifSensor = value;
     notifyListeners();
   }
-
-  bool get getbaglanti => baglanti;
-
   set setbaglanti(bool value) {
     baglanti = value;
     notifyListeners();
   }
-
-  bool get gettimerCancel => timerCancel;
-
   set settimerCancel(bool value) {
     timerCancel = value;
     notifyListeners();
   }
-
-  int get getaktifSenSay => aktifSenSay;
-
   set setaktifSenSay(int value) {
     aktifSenSay = value;
     notifyListeners();
   }
-  
-
-  bool get getaktifSensorNoTekerrur => aktifSensorNoTekerrur;
-
   set setaktifSensorNoTekerrur(bool value) {
     aktifSensorNoTekerrur = value;
     notifyListeners();
   }
-
-  bool get getatanacakSensorVarmi => atanacakSensorVarmi;
-
   set setatanacakSensorVarmi(bool value) {
     atanacakSensorVarmi = value;
     notifyListeners();

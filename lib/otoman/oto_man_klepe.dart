@@ -230,7 +230,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                 timerCancel = true;
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => OtoMan(dbVeriler)),
+                  MaterialPageRoute(builder: (context) => OtoMan1()),
                 );
               },
               backgroundColor: Colors.blue,

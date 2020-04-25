@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/saat_tarih.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
@@ -13,45 +15,22 @@ import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/languages/select.dart';
 
 class Sistem extends StatefulWidget {
-  List<Map> gelenDBveri;
-  Sistem(List<Map> dbVeriler) {
-    gelenDBveri = dbVeriler;
-  }
 
   @override
   State<StatefulWidget> createState() {
-    return SistemState(gelenDBveri);
+    return SistemState();
   }
 }
 
 class SistemState extends State<Sistem> {
-  //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
-  final dbHelper = DatabaseHelper.instance;
-  var dbSatirlar;
-  int dbSatirSayisi = 0;
-  int dbSayac = 0;
   String dilSecimi = "EN";
-  String kurulumDurum = "0";
-  List<Map> dbVeriler;
-//--------------------------DATABASE DEĞİŞKENLER--------------------------------
-
-  //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
-  SistemState(List<Map> dbVeri) {
-    dbVeriler = dbVeri;
-    for (int i = 0; i <= dbVeri.length - 1; i++) {
-      if (dbVeri[i]["id"] == 1) {
-        dilSecimi = dbVeri[i]["veri1"];
-      }
-    }
-
-    _dbVeriCekme();
-  }
-//--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
 
     var oran = MediaQuery.of(context).size.width / 731.4;
+    final dbProkis = Provider.of<DBProkis>(context);
+    dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
 
     return Scaffold(
       appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv401',Colors.grey[600]),
@@ -61,7 +40,7 @@ class SistemState extends State<Sistem> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => GenelAyarlar(dbVeriler)),
+                MaterialPageRoute(builder: (context) => GenelAyarlar(dbProkis.getDbVeri)),
               );
             },
             backgroundColor: Colors.grey[700],
@@ -82,7 +61,7 @@ class SistemState extends State<Sistem> {
                               child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemTime(dbVeriler),
+                            Metotlar().getSystemTime(dbProkis.getDbVeri),
                             style: TextStyle(
                                   color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
@@ -97,7 +76,7 @@ class SistemState extends State<Sistem> {
                               child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemDate(dbVeriler),
+                            Metotlar().getSystemDate(dbProkis.getDbVeri),
                             style: TextStyle(
                                   color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
@@ -234,7 +213,7 @@ class SistemState extends State<Sistem> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              SaatTarih (dbVeriler)),
+                                              SaatTarih (dbProkis.getDbVeri)),
                                     );
                                   },
                                   child: Container(
@@ -279,18 +258,5 @@ class SistemState extends State<Sistem> {
         ],
       )
       );
-  }
-
-  _satirlar(List<Map> satirlar) {
-    dbVeriler = satirlar;
-  }
-
-  _dbVeriCekme() {
-    dbSatirlar = dbHelper.satirlariCek();
-    final satirSayisi = dbHelper.satirSayisi();
-    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
-    satirSayisi.whenComplete(() {
-      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
-    });
   }
 }

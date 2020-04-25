@@ -36,8 +36,8 @@ class FanYontemi extends StatelessWidget {
                   false,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -387,7 +387,6 @@ class FanYontemi extends StatelessWidget {
 
 
 class FanYontemiProvider with ChangeNotifier {
-  String _dilSecimi;
   bool _kyDurum = false;
   bool _lyDurum = false;
   bool _pyDurum = false;
@@ -434,9 +433,8 @@ class FanYontemiProvider with ChangeNotifier {
   DBProkis dbProkis;
 
   FanYontemiProvider(this.context, this.dbProkis) {
-    _dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
 
-    String xx=dbProkis.dbVeriGetir(6, 1, "1");
+    String xx=dbProkis.dbVeriGetir(6, 1, "0");
     _kyDurum= xx=="1" ? true : false;
     _lyDurum= xx=="2" ? true : false;
     _pyDurum= xx=="3" ? true : false;

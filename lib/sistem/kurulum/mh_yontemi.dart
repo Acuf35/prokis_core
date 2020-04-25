@@ -10,7 +10,7 @@ import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'fan_yontemi.dart';
-import 'klp_yontemi.dart';
+import 'klepe_yontemi.dart';
 
 class MhYontemi extends StatelessWidget {
   bool ilkKurulumMu = true;
@@ -36,8 +36,8 @@ class MhYontemi extends StatelessWidget {
                   false,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -383,7 +383,6 @@ class MhYontemi extends StatelessWidget {
 
 
 class MhYontemiProvider with ChangeNotifier {
-  String _dilSecimi;
 
   bool _kyDurum = false;
   bool _ayDurum = false;
@@ -431,10 +430,8 @@ class MhYontemiProvider with ChangeNotifier {
   DBProkis dbProkis;
 
   MhYontemiProvider(this.context, this.dbProkis) {
-    _dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
 
-
-    String xx=dbProkis.dbVeriGetir(7, 1, "2");
+    String xx=dbProkis.dbVeriGetir(7, 1, "0");
     _kyDurum= xx=="1" ? true : false;
     _ayDurum= xx=="2" ? true : false;
     _hyDurum= xx=="3" ? true : false;

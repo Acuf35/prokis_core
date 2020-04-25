@@ -10,7 +10,6 @@ import 'package:prokis/mywidgets/showModalBottomSheetQ%20.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/yardimci/sabitVeriler.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum/girisler.dart';
 import 'package:prokis/sistem/kurulum/isitici_haritasi.dart';
 import 'package:prokis/sistem/kurulum/silo_haritasi.dart';
@@ -20,7 +19,6 @@ import 'package:toast/toast.dart';
 import 'package:prokis/sistem/kurulum/airinlet_ve_sirkfan.dart';
 import 'package:prokis/sistem/kurulum/bacafan_haritasi.dart';
 import 'package:prokis/sistem/kurulum/isisensor_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 
 class DigerCikislar extends StatelessWidget {
   bool ilkKurulumMu = true;
@@ -53,11 +51,11 @@ class DigerCikislar extends StatelessWidget {
               return Scaffold(
       floatingActionButton: MyFloatingActionBackButton(
       !ilkKurulumMu,
-      !provider.getveriGonderildi,
+      !provider.veriGonderildi,
       oran,
       40,
-      Colors.grey[700],
       Colors.white,
+      Colors.grey[700],
       Icons.arrow_back,
       1,
       "tv564"),
@@ -66,36 +64,26 @@ class DigerCikislar extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv85"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv85"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //aluyay Harita Oluşturma Bölümü
         Expanded(
-          flex: 5,
+          flex: 9,
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
@@ -106,7 +94,7 @@ class DigerCikislar extends StatelessWidget {
                 Expanded(flex:5,child: _unsurAdetWidget(
                             Dil().sec(dilSecimi, "tv398"),
                             oran,
-                            provider.getsayacAdet,
+                            provider.sayacAdet,
                             SabitVeriler().adetOdan12ye,
                             1,provider,context)
                             ),
@@ -172,23 +160,24 @@ class DigerCikislar extends StatelessWidget {
                               ),
                             ),),
                             Expanded(flex: 2,
-                                                          child: RawMaterialButton(
+                              child: RawMaterialButton(
                                         onPressed: () {
-                                          if (provider.getdimmer) {
+                                          if (provider.dimmer) {
                                             provider.setdimmer = false;
                                           } else {
                                             provider.setdimmer = true;
-                                            provider.listIslem(provider.cikisAluyayNo, null, 3, 3, 0, null);
+                                            
+                                            provider.cikisAluyayNo[3]=0;
                                           }
-                                          if(provider.getdimmer!=provider.getyrd[4]){
+                                          if(provider.dimmer!=provider.yrd[4]){
                                             provider.setveriGonderildi=false;
                                           }
                                         },
                                         child: Icon(
-                                          provider.getdimmer == true
+                                          provider.dimmer == true
                                               ? Icons.check_box
                                               : Icons.check_box_outline_blank,
-                                          color: provider.getdimmer == true
+                                          color: provider.dimmer == true
                                               ? Colors.green[600]
                                               : Colors.black,
                                           size: 25 * oran,
@@ -230,20 +219,20 @@ class DigerCikislar extends StatelessWidget {
                                     ),
                                     RawMaterialButton(
                                       onPressed: () {
-                                        if (provider.getyem1Aktif) {
+                                        if (provider.yem1Aktif) {
                                           provider.setyem1Aktif = false;
                                         } else {
                                           provider.setyem1Aktif = true;
                                         }
-                                        if(provider.getyem1Aktif!=provider.getyrd[1]){
+                                        if(provider.yem1Aktif!=provider.yrd[1]){
                                             provider.setveriGonderildi=false;
                                           }
                                       },
                                       child: Icon(
-                                        provider.getyem1Aktif == true
+                                        provider.yem1Aktif == true
                                             ? Icons.check_box
                                             : Icons.check_box_outline_blank,
-                                        color: provider.getyem1Aktif == true
+                                        color: provider.yem1Aktif == true
                                             ? Colors.green[600]
                                             : Colors.black,
                                         size: 25 * oran,
@@ -273,20 +262,20 @@ class DigerCikislar extends StatelessWidget {
                                     ),
                                     RawMaterialButton(
                                       onPressed: () {
-                                        if (provider.getyem2Aktif) {
+                                        if (provider.yem2Aktif) {
                                           provider.setyem2Aktif = false;
                                         } else {
                                           provider.setyem2Aktif = true;
                                         }
-                                        if(provider.getyem2Aktif!=provider.getyrd[2]){
+                                        if(provider.yem2Aktif!=provider.yrd[2]){
                                             provider.setveriGonderildi=false;
                                           }
                                       },
                                       child: Icon(
-                                        provider.getyem2Aktif == true
+                                        provider.yem2Aktif == true
                                             ? Icons.check_box
                                             : Icons.check_box_outline_blank,
-                                        color: provider.getyem2Aktif == true
+                                        color: provider.yem2Aktif == true
                                             ? Colors.green[600]
                                             : Colors.black,
                                         size: 25 * oran,
@@ -316,20 +305,20 @@ class DigerCikislar extends StatelessWidget {
                                     ),
                                     RawMaterialButton(
                                       onPressed: () {
-                                        if (provider.getyem3Aktif) {
+                                        if (provider.yem3Aktif) {
                                           provider.setyem3Aktif = false;
                                         } else {
                                           provider.setyem3Aktif = true;
                                         }
-                                        if(provider.getyem3Aktif!=provider.getyrd[3]){
+                                        if(provider.yem3Aktif!=provider.yrd[3]){
                                             provider.setveriGonderildi=false;
                                           }
                                       },
                                       child: Icon(
-                                        provider.getyem3Aktif == true
+                                        provider.yem3Aktif == true
                                             ? Icons.check_box
                                             : Icons.check_box_outline_blank,
-                                        color: provider.getyem3Aktif == true
+                                        color: provider.yem3Aktif == true
                                             ? Colors.green[600]
                                             : Colors.black,
                                         size: 25 * oran,
@@ -358,7 +347,7 @@ class DigerCikislar extends StatelessWidget {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisYem1(1, oran, provider.getyem1Aktif,provider,context),
+                                    _aluyayGrupCikisYem1(1, oran, provider.yem1Aktif,provider,context),
                                   ],
                                 ),
                               ),
@@ -367,7 +356,7 @@ class DigerCikislar extends StatelessWidget {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisYem2(1, oran, provider.getyem2Aktif,provider,context),
+                                    _aluyayGrupCikisYem2(1, oran, provider.yem2Aktif,provider,context),
                                   ],
                                 ),
                               ),
@@ -376,7 +365,7 @@ class DigerCikislar extends StatelessWidget {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisYem3(1, oran, provider.getyem3Aktif,provider,context),
+                                    _aluyayGrupCikisYem3(1, oran, provider.yem3Aktif,provider,context),
                                   ],
                                 ),
                               ),
@@ -396,7 +385,7 @@ class DigerCikislar extends StatelessWidget {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisYem1(2, oran, provider.getyem1Aktif,provider,context),
+                                    _aluyayGrupCikisYem1(2, oran, provider.yem1Aktif,provider,context),
                                   ],
                                 ),
                               ),
@@ -405,7 +394,7 @@ class DigerCikislar extends StatelessWidget {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisYem2(2, oran, provider.getyem2Aktif,provider,context),
+                                    _aluyayGrupCikisYem2(2, oran, provider.yem2Aktif,provider,context),
                                   ],
                                 ),
                               ),
@@ -414,7 +403,7 @@ class DigerCikislar extends StatelessWidget {
                                 flex: 5,
                                 child: Column(
                                   children: <Widget>[
-                                    _aluyayGrupCikisYem3(2, oran, provider.getyem3Aktif,provider,context),
+                                    _aluyayGrupCikisYem3(2, oran, provider.yem3Aktif,provider,context),
                                   ],
                                 ),
                               ),
@@ -428,7 +417,7 @@ class DigerCikislar extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 11, true, sayac, dilSecimi)
+                Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 11, true, sayac, dilSecimi)
               ],
             ),
           ),
@@ -436,12 +425,13 @@ class DigerCikislar extends StatelessWidget {
 
         //ileri geri ok bölümü
         Expanded(
+          flex: 2,
           child: Container(
             color: Colors.grey.shade600,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                //Spacer(),
+                //Verileri Gönder Bölümü
                 Expanded(
                   flex: 20,
                   child: Row(
@@ -450,6 +440,7 @@ class DigerCikislar extends StatelessWidget {
                       //Verileri Gönder Butonu
                       FlatButton(
                         onPressed: () {
+                          
                           String cikisVeri1 = "";
                           String cikisVeri2 = "";
                           String cikisVeri3 = "";
@@ -457,82 +448,81 @@ class DigerCikislar extends StatelessWidget {
                           String cikisVeri5 = "";
 
                           String tumCikislarVeri = "";
-                          bool noKontrol = false;
+                          bool cikisSifirMi = false;
                           bool cikisKullanimda = false;
 
                           for (int i = 1; i <= 3; i++) {
-                            if (provider.getcikisAluyayNo[i] != 0) {
-                              noKontrol = true;
+                            if (provider.cikisAluyayNo[i] == 0) {
+                              if(i==3 && provider.dimmer){
+
+                              }else{
+                                cikisSifirMi = true;
+                              }
                             }
                             cikisVeri1 =
-                                cikisVeri1 + provider.getcikisAluyayNo[i].toString() + "#";
+                                cikisVeri1 + provider.cikisAluyayNo[i].toString() + "#";
                           }
+
 
                           for (int i = 1; i <= 2; i++) {
-                            if (provider.getcikisYem1No[i] == 0 && provider.getyem1Aktif) {
-                              noKontrol = false;
+                            if (provider.cikisYem1No[i] == 0 && provider.yem1Aktif) {
+                              cikisSifirMi = true;
                             }
-                            if (provider.getcikisYem2No[i] == 0 && provider.getyem2Aktif) {
-                              noKontrol = false;
+                            if (provider.cikisYem2No[i] == 0 && provider.yem2Aktif) {
+                              cikisSifirMi = true;
                             }
-                            if (provider.getcikisYem3No[i] == 0 && provider.getyem3Aktif) {
-                              noKontrol = false;
+                            if (provider.cikisYem3No[i] == 0 && provider.yem3Aktif) {
+                              cikisSifirMi = true;
                             }
                             cikisVeri2 =
-                                cikisVeri2 + (provider.getyem1Aktif ? provider.getcikisYem1No[i].toString() : "0") + "#";
+                                cikisVeri2 + (provider.yem1Aktif ? provider.cikisYem1No[i].toString() : "0") + "#";
                             cikisVeri3 =
-                                cikisVeri3 + (provider.getyem2Aktif ? provider.getcikisYem2No[i].toString() : "0") + "#";
+                                cikisVeri3 + (provider.yem2Aktif ? provider.cikisYem2No[i].toString() : "0") + "#";
                             cikisVeri4 =
-                                cikisVeri4 + (provider.getyem3Aktif ? provider.getcikisYem3No[i].toString() : "0") + "#";
+                                cikisVeri4 + (provider.yem3Aktif ? provider.cikisYem3No[i].toString() : "0") + "#";
                           }
 
-                          cikisVeri5 = (provider.getyem1Aktif ? "1" : "0") +
+                          cikisVeri5 = (provider.yem1Aktif ? "1" : "0") +
                               "#" +
-                              (provider.getyem2Aktif ? "1" : "0") +
+                              (provider.yem2Aktif ? "1" : "0") +
                               "#" +
-                              (provider.getyem3Aktif ? "1" : "0");
+                              (provider.yem3Aktif ? "1" : "0");
 
 
                           for (int i = 1; i <= 3; i++) {
-                            if (provider.getcikisAluyayNoGecici[i] != provider.getcikisAluyayNo[i]) {
-                              if (provider.gettumCikislar[provider.getcikisAluyayNo[i]] == 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisAluyayNoGecici[i], 0, null);
+                            if (provider.cikisAluyayNoGecici[i] != provider.cikisAluyayNo[i]) {
+                              if (provider.tumCikislar[provider.cikisAluyayNo[i]] == 0) {
+                                
+                                provider.tumCikislar[provider.cikisAluyayNoGecici[i]]=0;
                               } else {
                                 cikisKullanimda = true;
                               }
                             }
-
-                            if (provider.getcikisAluyayNo[i] == 0) {
-                              if(i==3 && provider.getdimmer){
-
-                              }else{
-                                noKontrol = false;
-                              }
-                            }
-
 
                           }
 
                           for (int i = 1; i <= 2; i++) {
-                            if (provider.getcikisYem1NoGecici[i] != provider.getcikisYem1No[i]) {
-                              if (provider.gettumCikislar[provider.getcikisYem1No[i]] == 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem1NoGecici[i], 0, null);
+                            if (provider.cikisYem1NoGecici[i] != provider.cikisYem1No[i]) {
+                              if (provider.tumCikislar[provider.cikisYem1No[i]] == 0) {
+                                
+                                provider.tumCikislar[provider.cikisYem1NoGecici[i]]=0;
                               } else {
                                 cikisKullanimda = true;
                               }
                             }
 
-                            if (provider.getcikisYem2NoGecici[i] != provider.getcikisYem2No[i]) {
-                              if (provider.gettumCikislar[provider.getcikisYem2No[i]] == 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem2NoGecici[i], 0, null);
+                            if (provider.cikisYem2NoGecici[i] != provider.cikisYem2No[i]) {
+                              if (provider.tumCikislar[provider.cikisYem2No[i]] == 0) {
+                                
+                                provider.tumCikislar[provider.cikisYem2NoGecici[i]]=0;
                               } else {
                                 cikisKullanimda = true;
                               }
                             }
 
-                            if (provider.getcikisYem3NoGecici[i] != provider.getcikisYem3No[i]) {
-                              if (provider.gettumCikislar[provider.getcikisYem3No[i]] == 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem3NoGecici[i], 0, null);
+                            if (provider.cikisYem3NoGecici[i] != provider.cikisYem3No[i]) {
+                              if (provider.tumCikislar[provider.cikisYem3No[i]] == 0) {
+                                provider.tumCikislar[provider.cikisYem3NoGecici[i]]=0;
                               } else {
                                 cikisKullanimda = true;
                               }
@@ -540,13 +530,13 @@ class DigerCikislar extends StatelessWidget {
                           }
                           
 
-                          if (!noKontrol) {
+                          if (cikisSifirMi) {
                             Toast.show(
                                 Dil()
-                                    .sec(dilSecimi, "toast59"),
+                                    .sec(dilSecimi, "toast97"),
                                 context,
                                 duration: 3);
-                          } else if (provider.getcikisNoTekerrur) {
+                          } else if (provider.cikisNoTekerrur) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast26"),
@@ -556,48 +546,48 @@ class DigerCikislar extends StatelessWidget {
 
 
                             for (int i = 1; i <= 3; i++) {
-                              if (provider.getcikisAluyayNo[i] != 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisAluyayNo[i], 1, null);
+                              if (provider.cikisAluyayNo[i] != 0) {
+                                provider.tumCikislar[provider.cikisAluyayNo[i]]=1;
                               }
                             }
 
                             for (int i = 1; i <= 2; i++) {
-                              if (provider.getcikisYem1No[i] != 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem1No[i], 1, null);
+                              if (provider.cikisYem1No[i] != 0) {
+                                provider.tumCikislar[provider.cikisYem1No[i]]=1;
                               }
-                              if (provider.getcikisYem2No[i] != 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem2No[i], 1, null);
+                              if (provider.cikisYem2No[i] != 0) {
+                                provider.tumCikislar[provider.cikisYem2No[i]]=1;
                               }
-                              if (provider.getcikisYem3No[i] != 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem3No[i], 1, null);
+                              if (provider.cikisYem3No[i] != 0) {
+                                provider.tumCikislar[provider.cikisYem3No[i]]=1;
                               }
                             }
 
 
                             for (int i = 1; i <= 2; i++) {
-                            if (!provider.getyem1Aktif) {
-                              provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem1NoGecici[i], 0, null);
-                              provider.listIslem(provider.getcikisYem1No, null, 3, i, 0, 3);
+                            if (!provider.yem1Aktif) {
+                              provider.tumCikislar[provider.cikisYem1NoGecici[i]]=0;
+                              provider.cikisYem1No[i]=0;
                             }
-                            if (!provider.getyem2Aktif) {
-                              provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem2NoGecici[i], 0, null);
-                              provider.listIslem(provider.getcikisYem2No, null, 3, i, 0, 3);
+                            if (!provider.yem2Aktif) {
+                              provider.tumCikislar[provider.cikisYem2NoGecici[i]]=0;
+                              provider.cikisYem2No[i]=0;
                             }
-                            if (!provider.getyem3Aktif) {
-                              provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisYem3NoGecici[i], 0, null);
-                              provider.listIslem(provider.getcikisYem3No, null, 3, i, 0, 3);
+                            if (!provider.yem3Aktif) {
+                              provider.tumCikislar[provider.cikisYem3NoGecici[i]]=0;
+                              provider.cikisYem3No[i]=0;
                             }
                           }
 
                             for (int i = 1; i <= 110; i++) {
                               tumCikislarVeri = tumCikislarVeri +
-                                  provider.gettumCikislar[i].toString() +
+                                  provider.tumCikislar[i].toString() +
                                   "#";
                             }
                             provider.setveriGonderildi = true;
-                            bool xx=provider.getdimmer;
+                            bool xx=provider.dimmer;
                             String yy= xx ? "1" : "0";
-                            String komut="38*36*"+cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4+"*"+cikisVeri5+"*"+yy+"*"+provider.getsayacAdet+"#"+ provider.getpalsBasinaLitre;
+                            String komut="38*36*"+cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4+"*"+cikisVeri5+"*"+yy+"*"+provider.sayacAdet+"#"+ provider.palsBasinaLitre+"#"+ (provider.suAlarm==true ? "1" : "0");
                             Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                               if(value=="ok"){
                                  Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
@@ -605,7 +595,7 @@ class DigerCikislar extends StatelessWidget {
                                      String veri=cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4;
                                      dbProkis.dbSatirEkleGuncelle(31, "ok", veri, cikisVeri5 , yy );
                                      dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0" , "0" );
-                                     dbProkis.dbSatirEkleGuncelle(33, provider.getsayacAdet, provider.getpalsBasinaLitre, "0" , "0" );
+                                     dbProkis.dbSatirEkleGuncelle(33, provider.sayacAdet, provider.palsBasinaLitre, (provider.suAlarm ? "1" : "0") , "0" );
 
                                    }
 
@@ -613,14 +603,28 @@ class DigerCikislar extends StatelessWidget {
                               }
                             });
 
-                            provider.listIslem(null, null, 6, null, null, null);
+                            for (int i = 1; i <= 3; i++) {
+                              provider.cikisAluyayNoGecici[i] = provider.cikisAluyayNo[i];
+                            }
+
+                            for (int i = 1; i <= 2; i++) {
+                              provider.cikisYem1NoGecici[i] = provider.cikisYem1No[i];
+                              provider.cikisYem2NoGecici[i] = provider.cikisYem2No[i];
+                              provider.cikisYem3NoGecici[i] = provider.cikisYem3No[i];
+                            }
+                            provider.yrd[1]=provider.yem1Aktif;
+                            provider.yrd[2]=provider.yem2Aktif;
+                            provider.yrd[3]=provider.yem3Aktif;
+                            provider.yrd[4]=provider.dimmer;
+
+                            provider.setveriGonderildi = true;
                             
                           }
                           
                         },
                         highlightColor: Colors.green,
                         splashColor: Colors.red,
-                        color: provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                        color: provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                         child: Row(
                           children: <Widget>[
                             Icon(
@@ -647,7 +651,7 @@ class DigerCikislar extends StatelessWidget {
                         iconSize: 50 * oran,
                         onPressed: () {
 
-                          if(provider.getsiloAdet!="0"){
+                          if(provider.siloAdet!="0"){
 
                               Navigator.pushReplacement(
                                 context,
@@ -655,7 +659,7 @@ class DigerCikislar extends StatelessWidget {
                                     builder: (context) =>
                                         SiloHaritasi(true)),
                               );
-                            }else if(provider.getisiticiAdet!='0'){
+                            }else if(provider.isiticiAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -663,7 +667,7 @@ class DigerCikislar extends StatelessWidget {
                                     builder: (context) =>
                                         IsiticiHaritasi(true)),
                               );
-                            }else if(provider.getairinletAdet!='0' || provider.getsirkfanVarMi){
+                            }else if(provider.airinletAdet!='0' || provider.sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
@@ -671,7 +675,7 @@ class DigerCikislar extends StatelessWidget {
                                     builder: (context) =>
                                         AirInletVeSirkFan(true)),
                               );
-                            }else if(provider.getbacafanAdet!='0'){
+                            }else if(provider.bacafanAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -704,7 +708,7 @@ class DigerCikislar extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
-                          if (!provider.getveriGonderildi) {
+                          if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil().sec(dilSecimi, "toast27"),
                                 context,
@@ -777,18 +781,26 @@ class DigerCikislar extends StatelessWidget {
                   child: RawMaterialButton(
                     onPressed: () {
 
-                      String outNoMetin = provider.getcikisAluyayNo[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisAluyayNo[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisAluyayNo[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -808,7 +820,9 @@ class DigerCikislar extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisAluyayNo, null, 3, index, cikisNo, null);
+                              
+                              provider.cikisAluyayNo[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
 
@@ -818,14 +832,6 @@ class DigerCikislar extends StatelessWidget {
 
 
                 });
-
-
-
-
-
-
-
-
 
                     },
                     fillColor: Colors.green[300],
@@ -838,7 +844,7 @@ class DigerCikislar extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  Metotlar().outConvSAYItoQ(provider.getcikisAluyayNo[index]),
+                                  Metotlar().outConvSAYItoQ(provider.cikisAluyayNo[index]),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -901,22 +907,30 @@ class DigerCikislar extends StatelessWidget {
                   child: RawMaterialButton(
                     onPressed: () {
 
-                      if(provider.getdimmer){
+                      if(provider.dimmer){
                         Toast.show(Dil().sec(dilSecimi, "toast75"), context,duration: 3);
                       }else{
 
-                        String outNoMetin = provider.getcikisAluyayNo[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisAluyayNo[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                        String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisAluyayNo[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -936,7 +950,9 @@ class DigerCikislar extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisAluyayNo, null, 3, index, cikisNo, null);
+                              
+                              provider.cikisAluyayNo[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
 
@@ -950,25 +966,10 @@ class DigerCikislar extends StatelessWidget {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                       }
 
                     },
-                    fillColor: provider.getdimmer ? Colors.grey[600] : Colors.green[300],
+                    fillColor: provider.dimmer ? Colors.grey[600] : Colors.green[300],
                     child: Padding(
                       padding: EdgeInsets.all(3.0 * oran),
                       child: Row(
@@ -978,7 +979,7 @@ class DigerCikislar extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  Metotlar().outConvSAYItoQ(provider.getcikisAluyayNo[index]),
+                                  Metotlar().outConvSAYItoQ(provider.cikisAluyayNo[index]),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1042,20 +1043,28 @@ class DigerCikislar extends StatelessWidget {
                   child: RawMaterialButton(
                     onPressed: () {
 
-                      if (provider.getyem1Aktif) {
+                      if (provider.yem1Aktif) {
 
-                        String outNoMetin = provider.getcikisYem1No[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisYem1No[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisYem1No[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -1075,7 +1084,9 @@ class DigerCikislar extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisYem1No, null, 3, index, cikisNo, null);
+                              
+                              provider.cikisYem1No[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
 
@@ -1114,7 +1125,7 @@ class DigerCikislar extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  Metotlar().outConvSAYItoQ(provider.getcikisYem1No[index]),
+                                  Metotlar().outConvSAYItoQ(provider.cikisYem1No[index]),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1176,20 +1187,28 @@ class DigerCikislar extends StatelessWidget {
                     onPressed: () {
 
 
-                      if (provider.getyem2Aktif) {
+                      if (provider.yem2Aktif) {
 
-                        String outNoMetin = provider.getcikisYem2No[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisYem2No[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                        String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisYem2No[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -1209,8 +1228,8 @@ class DigerCikislar extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisYem2No, null, 3, index, cikisNo, null);
-
+                              provider.cikisYem2No[index]=cikisNo;
+                              provider.tekerrurTespit();
                             }
 
 
@@ -1235,7 +1254,7 @@ class DigerCikislar extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  Metotlar().outConvSAYItoQ(provider.getcikisYem2No[index]),
+                                  Metotlar().outConvSAYItoQ(provider.cikisYem2No[index]),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1295,20 +1314,28 @@ class DigerCikislar extends StatelessWidget {
                   flex: 4,
                   child: RawMaterialButton(
                     onPressed: () {
-                      if (provider.getyem3Aktif) {
+                      if (provider.yem3Aktif) {
 
-                        String outNoMetin = provider.getcikisYem3No[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisYem3No[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                        String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisYem3No[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -1328,7 +1355,8 @@ class DigerCikislar extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisYem3No, null, 3, index, cikisNo, null);
+                              provider.cikisYem3No[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
 
@@ -1358,7 +1386,7 @@ class DigerCikislar extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  Metotlar().outConvSAYItoQ(provider.getcikisYem3No[index]),
+                                  Metotlar().outConvSAYItoQ(provider.cikisYem3No[index]),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1422,10 +1450,10 @@ class DigerCikislar extends StatelessWidget {
                     onPressed: () {
 
 
-                      int sayi = int.parse(provider.getpalsBasinaLitre);
+                      int sayi = int.parse(provider.palsBasinaLitre);
                       int pBinler = sayi < 1000 ? 0 : (sayi ~/ 1000).toInt();
                       int pYuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                      int pOnlar = sayi < 10 ? 0 : sayi ~/ 10;
+                      int pOnlar = sayi < 10 ? 0 : (sayi%100) ~/ 10;
                       int pBirler = sayi % 10;
 
                 MyshowModalBottomSheet4x0(dilSecimi, context, oran,pBinler, pYuzler,pOnlar, pBirler,"tv49","tv35")
@@ -1442,12 +1470,6 @@ class DigerCikislar extends StatelessWidget {
                       
 
 
-
-
-
-
-
-
                     },
                     fillColor: Colors.orange[700],
                     child: Padding(
@@ -1459,7 +1481,7 @@ class DigerCikislar extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  provider.getpalsBasinaLitre.toString(),
+                                  provider.palsBasinaLitre.toString(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -1492,7 +1514,7 @@ class DigerCikislar extends StatelessWidget {
       String dropDownValue, List<String> liste, int adetCode, DigerCikislarProvider provider, BuildContext context) {
     return Column(
       children: <Widget>[
-        Spacer(flex: 2,),
+        Spacer(flex: 1,),
         Expanded(
           flex: 2,
           child: SizedBox(
@@ -1534,7 +1556,7 @@ class DigerCikislar extends StatelessWidget {
               ),
               onChanged: (String newValue) {
                   
-                  if(provider.getsayacAdet!=newValue){
+                  if(provider.sayacAdet!=newValue){
                     provider.setveriGonderildi=false;
                   }
                   
@@ -1553,42 +1575,61 @@ class DigerCikislar extends StatelessWidget {
             ),
           ),
         ),
-        Spacer(flex: 2,),
+        Spacer(flex: 1,),
         _sayacUnsur(oran,provider, context),
-        Spacer(flex: 3,)
+        Spacer(flex: 1,),
+        Expanded(flex: 2,
+          child: 
+          SizedBox(
+                              child: Container(
+                                alignment: Alignment.bottomCenter,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi,"tv637"),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 50.0,
+                                      fontFamily: 'Kelly Slab'),
+                                  maxLines: 2,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                            ),),
+        Expanded(flex: 1,
+            child: RawMaterialButton(
+                      onPressed: () {
+                        if (provider.suAlarm) {
+                          provider.setsuAlarm = false;
+                        } else {
+                          provider.setsuAlarm = true;
+                        }
+
+                        if(provider.suAlarm!=provider.yrd[4]){
+                          provider.setveriGonderildi=false;
+                        }
+                      },
+                      child: Icon(
+                        provider.suAlarm == true
+                            ? Icons.check_box
+                            : Icons.check_box_outline_blank,
+                        color: provider.suAlarm == true
+                            ? Colors.green[600]
+                            : Colors.black,
+                        size: 25 * oran,
+                      ),
+                      padding: EdgeInsets.all(0),
+                      materialTapTargetSize:
+                          MaterialTapTargetSize.shrinkWrap,
+                      constraints: BoxConstraints(),
+                    ),
+          ),
+        Spacer()
       ],
     );
   }
 
-  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
-
-
+ 
 
 
 }
@@ -1624,222 +1665,110 @@ class DigerCikislarProvider with ChangeNotifier {
   List<int> tumCikislar = new List.filled(111,0);
 
   bool dimmer=false;
+  bool suAlarm=false;
 
   List<bool> yrd = new List.filled(5,false);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
-
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      cikisNoTekerrur = false;
-
-    for (int i = 1; i <= 2; i++) {
-      for (int k = 1; k <= 2; k++) {
-        if (i != k &&
-            cikisYem2No[i] == cikisYem2No[k] &&
-            cikisYem2No[i] != 0 &&
-            cikisYem2No[k] != 0) {
-          cikisNoTekerrur = true;
-          break;
-        }
-        if (cikisNoTekerrur) {
-          break;
-        }
-      }
-      for (int k = 1; k <= 2; k++) {
-        if (i != k &&
-            cikisYem2No[i] == cikisYem1No[k] &&
-            cikisYem2No[i] != 0 &&
-            cikisYem1No[k] != 0) {
-          cikisNoTekerrur = true;
-          break;
-        }
-        if (cikisNoTekerrur) {
-          break;
-        }
-      }
-      for (int k = 1; k <= 2; k++) {
-        if (i != k &&
-            cikisYem2No[i] == cikisYem3No[k] &&
-            cikisYem2No[i] != 0 &&
-            cikisYem3No[k] != 0) {
-          cikisNoTekerrur = true;
-          break;
-        }
-        if (cikisNoTekerrur) {
-          break;
-        }
-      }
-      for (int k = 1; k <= 3; k++) {
-        if (i != k &&
-            cikisYem2No[i] == cikisAluyayNo[k] &&
-            cikisYem2No[i] != 0 &&
-            cikisAluyayNo[k] != 0) {
-          cikisNoTekerrur = true;
-          break;
-        }
-        if (cikisNoTekerrur) {
-          break;
-        }
-      }
-    }
-      break;
-      case 6:
-      for (int i = 1; i <= 3; i++) {
-        cikisAluyayNoGecici[i] = cikisAluyayNo[i];
-      }
-
-      for (int i = 1; i <= 2; i++) {
-        cikisYem1NoGecici[i] = cikisYem1No[i];
-        cikisYem2NoGecici[i] = cikisYem2No[i];
-        cikisYem3NoGecici[i] = cikisYem3No[i];
-      }
-      yrd[1]=yem1Aktif;
-      yrd[2]=yem2Aktif;
-      yrd[3]=yem3Aktif;
-      yrd[4]=dimmer;
-
-    }
-    
-    notifyListeners();
-  }
-
+  
   dinlemeyiTetikle(){
     notifyListeners();
   }
 
-  int get getsayac => sayac;
+  tekerrurTespit(){
+    cikisNoTekerrur = false;
+
+    List<int> cikislar = new List.filled(10,0);
+
+    cikislar[1]=cikisAluyayNo[1];
+    cikislar[2]=cikisAluyayNo[2];
+    cikislar[3]=cikisAluyayNo[3];
+    cikislar[4]=cikisYem1No[1];
+    cikislar[5]=cikisYem1No[2];
+    cikislar[6]=cikisYem2No[1];
+    cikislar[7]=cikisYem2No[2];
+    cikislar[8]=cikisYem3No[1];
+    cikislar[9]=cikisYem3No[2];
+
+    for (int i = 1; i <= 9; i++) {
+      for (int k = 1; k <= 9; k++) {
+        if (i != k &&
+            cikislar[i] == cikislar[k] &&
+            cikislar[i] != 0 &&
+            cikislar[k] != 0) {
+          cikisNoTekerrur = true;
+          break;
+        }
+        if (cikisNoTekerrur) {
+          break;
+        }
+      }
+    }
+      notifyListeners();
+  }
+
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-  
-  List<int> get getcikisAluyayNo => cikisAluyayNo;
-  List<int> get getcikisAluyayNoGecici => cikisAluyayNoGecici;
-  List<int> get getcikisYem1No => cikisYem1No;
-  List<int> get getcikisYem1NoGecici => cikisYem1NoGecici;
-  List<int> get getcikisYem2No => cikisYem2No;
-  List<int> get getcikisYem2NoGecici => cikisYem2NoGecici;
-  List<int> get getcikisYem3No => cikisYem3No;
-  List<int> get getcikisYem3NoGecici => cikisYem3NoGecici;
-  List<bool> get getyrd => yrd;
-  List<int> get gettumCikislar => tumCikislar;
-
-  String get getsayacAdet => sayacAdet;
-
   set setsayacAdet(String value) {
     sayacAdet = value;
     notifyListeners();
   }
-
-  String get getpalsBasinaLitre => palsBasinaLitre;
-
   set setpalsBasinaLitre(String value) {
     palsBasinaLitre = value;
     notifyListeners();
   }
-
-  String get getbacafanAdet => bacafanAdet;
-
   set setbacafanAdet(String value) {
     bacafanAdet = value;
     notifyListeners();
   }
-
-  String get getairinletAdet => airinletAdet;
-
   set setairinletAdet(String value) {
     airinletAdet = value;
     notifyListeners();
   }
-
-  String get getisiticiAdet => isiticiAdet;
-
   set setisiticiAdet(String value) {
     isiticiAdet = value;
     notifyListeners();
   }
-
-  String get getsiloAdet => siloAdet;
-
   set setsiloAdet(String value) {
     siloAdet = value;
     notifyListeners();
   }
-
-  bool get getsirkfanVarMi => sirkfanVarMi;
-
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
     notifyListeners();
   }
-
-
-  bool get getyem1Aktif => yem1Aktif;
-
   set setyem1Aktif(bool value) {
     yem1Aktif = value;
     notifyListeners();
   }
-
-  bool get getyem2Aktif => yem2Aktif;
-
   set setyem2Aktif(bool value) {
     yem2Aktif = value;
     notifyListeners();
   }
-
-  bool get getyem3Aktif => yem3Aktif;
-
   set setyem3Aktif(bool value) {
     yem3Aktif = value;
     notifyListeners();
   }
-
-  bool get getaluyayCikislarOK => aluyayCikislarOK;
-
   set setaluyayCikislarOK(bool value) {
     aluyayCikislarOK = value;
     notifyListeners();
   }
-
-  bool get getdimmer => dimmer;
-
   set setdimmer(bool value) {
     dimmer = value;
+    notifyListeners();
+  }
+  set setsuAlarm(bool value) {
+    suAlarm = value;
     notifyListeners();
   }
 
@@ -1855,6 +1784,10 @@ class DigerCikislarProvider with ChangeNotifier {
     airinletAdet=dbProkis.dbVeriGetir(5, 2, "0");
     isiticiAdet=dbProkis.dbVeriGetir(5, 3, "0");
     siloAdet=dbProkis.dbVeriGetir(5, 4, "0");
+
+    sayacAdet=dbProkis.dbVeriGetir(33, 1, "0");
+    palsBasinaLitre=dbProkis.dbVeriGetir(33, 2, "0");
+    suAlarm=dbProkis.dbVeriGetir(33, 3, false)=="1" ? true : false;
 
 
     String tumCikislarKAYIT = dbProkis.dbVeriGetir(22, 1, "");

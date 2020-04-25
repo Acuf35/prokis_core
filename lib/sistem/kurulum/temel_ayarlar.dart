@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/sistem/kurulum/adetler1.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/yardimci/sabitVeriler.dart';
 import 'package:prokis/languages/select.dart';

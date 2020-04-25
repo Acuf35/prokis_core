@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/mywidgets/showModalBottomSheet2x0veQ.dart';
+import 'package:prokis/mywidgets/showModalBottomSheetQ%20.dart';
 import 'package:prokis/yardimci/alert_reset.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/yardimci/sayfa_geri_alert.dart';
@@ -25,6 +26,7 @@ class FanHaritasi extends StatelessWidget {
   int sayac=0;
   int sayac2=0;
   int sayac3=0;
+  int otoCikisAtamaBaslangicNo=1;
 
   
 
@@ -54,12 +56,12 @@ class FanHaritasi extends StatelessWidget {
           
 
           if(sayac2==0){
-            new Timer.periodic(Duration(seconds:0, milliseconds: provider.getharitaOnay==true ? 100 : 1 ), (timer){
+            new Timer.periodic(Duration(seconds:0, milliseconds: provider.haritaOnay==true ? 100 : 1 ), (timer){
                 
-                int unsurAdet=provider.getharitaOnay==true ? provider.getunsurAdet : 120;
+                int unsurAdet=provider.haritaOnay==true ? provider.unsurAdet : 120;
 
-                if(provider.getsayac<unsurAdet){
-                  provider.setsayac=provider.getsayac+1;
+                if(provider.sayac<unsurAdet){
+                  provider.setsayac=provider.sayac+1;
                 }
                 
                 sayac=sayac+1;
@@ -87,14 +89,13 @@ class FanHaritasi extends StatelessWidget {
           
 
           return Scaffold(
-              extendBody: true,
               floatingActionButton: MyFloatingActionBackButton(
                   !ilkKurulumMu,
-                  !provider.getveriGonderildi,
+                  !provider.veriGonderildi,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -107,15 +108,138 @@ class FanHaritasi extends StatelessWidget {
                       children: <Widget>[
                         //Çatı resmi
                         Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                alignment: Alignment.center,
-                                image:
-                                    AssetImage('assets/images/cati_icon.png'),
-                                fit: BoxFit.fill,
+                          child: Stack(fit: StackFit.expand,
+                            children: <Widget>[
+                              Container(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    alignment: Alignment.center,
+                                    image:
+                                        AssetImage('assets/images/cati_icon.png'),
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
                               ),
-                            ),
+                              //Otomatik çıkış atama
+                                            Row(
+                                              children: <Widget>[
+                                                Spacer(flex: 7,),
+                                                
+                                                Expanded(
+                                                  child: Visibility(
+                                                    visible: provider.haritaOnay,
+                                                    maintainState: true,
+                                                    maintainSize: true,
+                                                    maintainAnimation: true,
+                                                    child: RawMaterialButton(
+                                                      padding:
+                                                          EdgeInsets.only(bottom: 2*oran, top: 1*oran),
+                                                      onPressed: () {
+
+
+
+                                                        
+                    String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisNo[1]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
+
+                MyshowModalBottomSheetQ(dilSecimi, context, oran,
+                        qByteOnlar, qByteBirler, qBit,"tv648","tv648")
+                    .then((value) {
+
+                          bool gelenVeri=value==null ? false : value[0];
+
+                          if (gelenVeri) {
+
+                            
+                            outNoMetin = "Q" + (value[1] == 0 ? "" : value[1].toString()) + value[2].toString() + "." + value[3].toString();
+                            int cikisNo = Metotlar().outConvQtoSAYI(outNoMetin);
+                            int deger=0;
+
+
+
+                            if (cikisNo == 0) {
+                              Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
+                            } else {
+
+                              for (var i = cikisNo; i < cikisNo+provider.unsurAdet; i++) {
+
+                                if(provider.fanHaritaGrid[i-1]==2){
+                                  deger=deger+cikisNo;
+                                  provider.cikisNo[i]=deger;
+                                }
+
+                              }
+                              provider.tekerrurTespit();
+
+                            }
+
+
+
+                          }
+
+
+                });
+                                                        
+                                                      },
+                                                      highlightColor: Colors.green,
+                                                      splashColor: Colors.red,
+                                                      materialTapTargetSize:
+                                                          MaterialTapTargetSize
+                                                              .shrinkWrap,
+                                                      constraints: BoxConstraints(),
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Expanded(flex: 1,
+                                                            child: SizedBox(
+                                                              child: Container(
+                                                                alignment: Alignment.center,
+                                                                child: AutoSizeText(
+                                                                  Dil().sec(dilSecimi, "tv455"),
+                                                                  textAlign: TextAlign.center,
+                                                                  style: TextStyle(
+                                                                      fontFamily: 'Kelly Slab',
+                                                                      color: Colors.blue,
+                                                                      fontSize: 60,
+                                                                      fontWeight: FontWeight.bold),
+                                                                  maxLines: 1,
+                                                                  minFontSize: 8,
+                                                                ),
+                                                              ),
+                                                            )),
+                                                          Expanded(
+                                                            child: Icon(
+                                                              Icons.queue,
+                                                              size: 30 * oran,
+                                                              color: Colors.blue,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+
+                            ],
                           ),
                         ),
                         //Fan Harita Bölümü
@@ -140,7 +264,7 @@ class FanHaritasi extends StatelessWidget {
                                           flex: 2,
                                         ),
                                         Expanded(
-                                          flex: provider.getharitaFlex,
+                                          flex: provider.haritaFlex,
 
                                           child: provider.haritaOnay
                                               ? seciliHaritaGrid(
@@ -172,36 +296,26 @@ class FanHaritasi extends StatelessWidget {
                       children: <Widget>[
                         //Başlık bölümü
                         Expanded(
-                            child: Container(
-                          color: Colors.grey.shade600,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                flex: 3,
-                                child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      Dil().sec(dilSecimi, "tv31"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.white,
-                                          fontSize: 60,
-                                          fontWeight: FontWeight.bold),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
+                            child: SizedBox(
+                              child: Container(
+                                color: Colors.grey.shade600,
+                                alignment: Alignment.center,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi, "tv31"),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Kelly Slab',
+                                      color: Colors.white,
+                                      fontSize: 60,
+                                      fontWeight: FontWeight.bold),
+                                  maxLines: 1,
+                                  minFontSize: 8,
                                 ),
                               ),
-                            ],
-                          ),
-                          alignment: Alignment.center,
-                        )),
+                            )),
   
                         //Çıkışlar
-                        Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 9,provider.getharitaOnay,provider.getsayac1,dilSecimi),
+                        Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 9,provider.haritaOnay,provider.sayac1,dilSecimi),
 
                         //ileri geri ok bölümü
                         Expanded(
@@ -214,421 +328,347 @@ class FanHaritasi extends StatelessWidget {
                                 //Onayla-sıfırla-gönder
                                 Expanded(
                                   flex: 8,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        right: 3 * oran, left: 3 * oran),
-                                    child: Stack(
-                                      alignment: Alignment.center,
-                                      fit: StackFit.expand,
-                                      children: <Widget>[
-                                        //Haritayı Onayla Butonu
-                                        Padding(
-                                          padding: EdgeInsets.all(8.0 * oran),
-                                          child: Visibility(
-                                            visible: !provider.getharitaOnay,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    fit: StackFit.expand,
+                                    children: <Widget>[
+                                      //Haritayı Onayla Butonu
+                                      Padding(
+                                        padding: EdgeInsets.all(8.0 * oran),
+                                        child: Visibility(
+                                          visible: !provider.haritaOnay,
+                                          maintainState: true,
+                                          maintainSize: true,
+                                          maintainAnimation: true,
+                                          child: FlatButton(
+                                            onPressed: () async {
+
+                                              int haritadakiFanAdet = 0;
+                                              for (int i = 1; i <= 120; i++) {
+                                                if (provider.fanHarita[i] == 2) {
+                                                  haritadakiFanAdet++;
+                                                }
+                                              }
+
+                                              if (haritadakiFanAdet <
+                                                  provider.fanAdet) {
+                                                //Haritada seçilen fan sayısı eksik
+                                                Toast.show(
+                                                    Dil().sec(
+                                                        dilSecimi, "toast16"),
+                                                    context,
+                                                    duration: 3);
+                                              } else if (haritadakiFanAdet >
+                                                  provider.fanAdet) {
+                                                //Haritada seçilen fan sayısı yüksek
+                                                Toast.show(
+                                                    Dil().sec(
+                                                        dilSecimi, "toast17"),
+                                                    context,
+                                                    duration: 3);
+                                              } else if (provider.dikdortgenHataVarMi()) {
+                                                //Dikdörtgen seçim hatası
+                                                Toast.show(
+                                                    Dil().sec(
+                                                        dilSecimi, "toast18"),
+                                                    context,
+                                                    duration: 3);
+                                              } else {
+                                                //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                                                
+                                                
+
+                                                int sayac = 0;
+                                                int sayac2 = 0;
+                                                bool xx = false;
+                                                List<int> aa = provider.fanHarita;
+                                                List<int> bb = provider.fanHaritaGrid;
+
+                                                for (int i = 1; i <= 120; i++) {
+                                                  if (aa[i] != 0) {
+
+                                                    bb[sayac]=aa[i];
+                                                    sayac++;
+                                                    xx=true;
+                                                    provider.setunsurAdet =provider.unsurAdet +1;
+                                                    provider.setsayac=provider.unsurAdet;
+                                                  }
+                                                  if(xx){
+                                                    if(aa[i] == 0){
+                                                      sayac2++;
+                                                    }
+                                                    if(sayac2==0){
+                                                      provider.setsutunSayisi =provider.sutunSayisi + 1;
+                                                    }
+                                                  }
+
+
+                                                }
+
+                                                if (provider.sutunSayisi == 1) {
+                                                  provider.setharitaFlex = 1;
+                                                } else if (provider.sutunSayisi == 2) {
+                                                  provider.setharitaFlex = 2;
+                                                }
+
+                                                String veri = "";
+
+                                                for (int i = 1;i <= 120; i++) {
+                                                  veri = veri + aa[i] .toString() + "#";
+                                                }
+
+                                                Metotlar()
+                                                    .veriGonder(
+                                                        "12*19*$veri*0*0*0",
+                                                        context,
+                                                        2233,
+                                                        "toast8",
+                                                        dilSecimi)
+                                                    .then((value) { 
+                                                  dbProkis.dbSatirEkleGuncelle(
+                                                          14,
+                                                          "ok",
+                                                          veri,
+                                                          "0",
+                                                          "0");
+                                                });
+                                                provider.setharitaOnay = true;
+                                                print(provider.cikisNo);
+                                              }
+
+                                              //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
+                                            },
+                                            highlightColor: Colors.green,
+                                            splashColor: Colors.red,
+                                            color: Colors.white,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Icon(
+                                                  Icons.map,
+                                                  size: 30 * oran,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          //Haritayı Sıfırla Butonu
+                                          Visibility(
+                                            visible: provider.haritaOnay,
                                             maintainState: true,
                                             maintainSize: true,
                                             maintainAnimation: true,
-                                            child: FlatButton(
-                                              onPressed: () async {
-                                                int sayac = 0;
-                                                List<int> satir = new List(11);
-                                                bool dikdortgenHata = false;
-
-                                                for (int i = 1; i <= 10; i++) {
-                                                  satir[i] = 0;
-                                                }
-
-                                                for (int i = 1; i <= 12; i++) {
-                                                  if (provider
-                                                          .getfanHarita[i] !=
-                                                      0) {
-                                                    satir[1]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 12] !=
-                                                      0) {
-                                                    satir[2]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 24] !=
-                                                      0) {
-                                                    satir[3]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 36] !=
-                                                      0) {
-                                                    satir[4]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 48] !=
-                                                      0) {
-                                                    satir[5]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 60] !=
-                                                      0) {
-                                                    satir[6]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 72] !=
-                                                      0) {
-                                                    satir[7]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 84] !=
-                                                      0) {
-                                                    satir[8]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 96] !=
-                                                      0) {
-                                                    satir[9]++;
-                                                  }
-                                                  if (provider.getfanHarita[
-                                                          i + 108] !=
-                                                      0) {
-                                                    satir[10]++;
-                                                  }
-                                                }
-
-                                                for (int i = 1; i <= 10; i++) {
-                                                  for (int k = 1;
-                                                      k <= 10;
-                                                      k++) {
-                                                    if (satir[i] != satir[k] &&
-                                                        satir[i] != 0 &&
-                                                        satir[k] != 0) {
-                                                      dikdortgenHata = true;
-                                                    }
-                                                  }
-                                                }
-
-                                                for (int i = 1; i <= 120; i++) {
-                                                  if (provider.getfanHarita[i] == 2) {
-                                                    sayac++;
-                                                  }
-                                                }
-
-                                                if (sayac <
-                                                    provider.getfanAdet) {
-                                                  //Haritada seçilen fan sayısı eksik
-                                                  Toast.show(
-                                                      Dil().sec(
-                                                          dilSecimi, "toast16"),
-                                                      context,
-                                                      duration: 3);
-                                                } else if (sayac >
-                                                    provider.getfanAdet) {
-                                                  //Haritada seçilen fan sayısı yüksek
-                                                  Toast.show(
-                                                      Dil().sec(
-                                                          dilSecimi, "toast17"),
-                                                      context,
-                                                      duration: 3);
-                                                } else if (dikdortgenHata) {
-                                                  //Dikdörtgen seçim hatası
-                                                  Toast.show(
-                                                      Dil().sec(
-                                                          dilSecimi, "toast18"),
-                                                      context,
-                                                      duration: 3);
-                                                } else {
-                                                  //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                                                  Toast.show(
-                                                      Dil().sec(
-                                                          dilSecimi, "toast8"),
-                                                      context,
-                                                      duration: 3);
-                                                  
-                                                  provider.setharitaOnay = true;
-
-                                                  int sayac = 0;
-                                                  int sayac2 = 0;
-                                                  bool xx = false;
-                                                  List<int> aa = provider.getfanHarita;
-                                                  List<int> bb = provider.getfanHaritaGrid;
-
-                                                  for (int i = 1; i <= 120; i++) {
-                                                    if (aa[i] != 0) {
-
-                                                      bb[sayac]=aa[i];
-                                                      sayac++;
-                                                      xx=true;
-                                                      provider.setunsurAdet =provider.getunsurAdet +1;
-                                                      provider.setsayac=provider.getunsurAdet;
-                                                    }
-                                                    if(xx){
-                                                      if(aa[i] == 0){
-                                                        sayac2++;
-                                                      }
-                                                      if(sayac2==0){
-                                                        provider.setsutunSayisi =provider.getsutunSayisi + 1;
-                                                      }
-                                                    }
-                                                  }
-
-                                                  if (provider.getsutunSayisi == 1) {
-                                                    provider.setharitaFlex = 1;
-                                                  } else if (provider.getsutunSayisi == 2) {
-                                                    provider.setharitaFlex = 2;
-                                                  }
-
-                                                  String veri = "";
-
-                                                  for (int i = 1;i <= 120; i++) {
-                                                    veri = veri + aa[i] .toString() + "#";
-                                                  }
-
-                                                  Metotlar()
-                                                      .veriGonder(
-                                                          "12*19*$veri*0*0*0",
-                                                          context,
-                                                          2233,
-                                                          "toast8",
-                                                          dilSecimi)
-                                                      .then((value) { 
-                                                    dbProkis.dbSatirEkleGuncelle(
-                                                            14,
-                                                            "ok",
-                                                            veri,
-                                                            "0",
-                                                            "0");
-                                                  });
-                                                }
-
-                                                //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
+                                            child: RawMaterialButton(
+                                              padding:
+                                                  EdgeInsets.all(3 * oran),
+                                              onPressed: () {
+                                                _resetAlert(
+                                                    dilSecimi,
+                                                    context,
+                                                    provider,
+                                                    dbProkis);
                                               },
                                               highlightColor: Colors.green,
                                               splashColor: Colors.red,
-                                              color: Colors.white,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              constraints: BoxConstraints(),
+                                              fillColor: Colors.white,
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: <Widget>[
                                                   Icon(
-                                                    Icons.map,
+                                                    Icons.refresh,
                                                     size: 30 * oran,
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
-                                        ),
 
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            //Haritayı Sıfırla Butonu
-                                            Visibility(
-                                              visible: provider.getharitaOnay,
-                                              maintainState: true,
-                                              maintainSize: true,
-                                              maintainAnimation: true,
-                                              child: RawMaterialButton(
-                                                padding:
-                                                    EdgeInsets.all(3 * oran),
-                                                onPressed: () {
-                                                  _resetAlert(
-                                                      dilSecimi,
+                                          //Verileri Gönder Butonu
+                                          Visibility(
+                                            visible: provider.haritaOnay,
+                                            maintainState: true,
+                                            maintainSize: true,
+                                            maintainAnimation: true,
+                                            child: RawMaterialButton(
+                                              padding:
+                                                  EdgeInsets.all(3 * oran),
+                                              onPressed: () {
+                                                bool sifirNoVarMi = false;
+                                                bool cikisKullanimda = false;
+                                                bool fanNoYuksek = false;
+                                                String cikisVeri = "";
+                                                String noVeri = "";
+                                                String gridVeri = "";
+                                                String gridHaritaVeri = "";
+                                                String tumCikislarVeri = "";
+
+
+                                                for (int i = 1;i <= 120;i++) {
+                                                  if (provider.fanHaritaGrid[i-1] == 2) {
+                                                    if (provider.fanNo[i] == 0) {
+                                                      sifirNoVarMi = true;
+                                                    }
+                                                    if (provider.fanNo[i] > provider.fanAdet) {
+                                                      fanNoYuksek = true;
+                                                    }
+                                                  }
+
+
+                                                  if (provider.cikisNoGecici[i] !=provider.cikisNo[i]) {
+                                                    if (provider.tumCikislar[provider.cikisNo[i]] ==0) {
+                                                      
+                                                      provider.tumCikislar[provider.cikisNoGecici[i]] = 0;
+
+                                                    } else {
+                                                      cikisKullanimda = true;
+                                                    }
+                                                  }
+
+                                                  cikisVeri = cikisVeri + provider.cikisNo[i].toString() +"#";
+                                                  noVeri = noVeri +provider.fanNo[i].toString() +"#";
+                                                  gridHaritaVeri =gridHaritaVeri +provider.fanHaritaGrid[i-1].toString() +"#";
+                                                }
+
+                                                gridVeri = gridHaritaVeri +"*" +provider.sutunSayisi.toString() +"*" +provider.unsurAdet.toString();
+
+                                                
+
+                                                if (sifirNoVarMi) {
+                                                  Toast.show(
+                                                      Dil().sec(dilSecimi,
+                                                          "toast24"),
                                                       context,
-                                                      provider,
-                                                      dbProkis);
-                                                },
-                                                highlightColor: Colors.green,
-                                                splashColor: Colors.red,
-                                                materialTapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                                constraints: BoxConstraints(),
-                                                fillColor: Colors.white,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.refresh,
-                                                      size: 30 * oran,
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                                                      duration: 3);
+                                                } else if (fanNoYuksek) {
+                                                  Toast.show(
+                                                      Dil().sec(dilSecimi,
+                                                          "toast47"),
+                                                      context,
+                                                      duration: 3);
+                                                } else if (provider
+                                                    .fanNoTekerrur) {
+                                                  Toast.show(
+                                                      Dil().sec(dilSecimi,
+                                                          "toast25"),
+                                                      context,
+                                                      duration: 3);
+                                                } else if (provider
+                                                    .cikisNoTekerrur) {
+                                                  Toast.show(
+                                                      Dil().sec(dilSecimi,
+                                                          "toast26"),
+                                                      context,
+                                                      duration: 3);
+                                                } else if (cikisKullanimda) {
+                                                  Toast.show(
+                                                      Dil().sec(dilSecimi,
+                                                          "toast38"),
+                                                      context,
+                                                      duration: 3);
+                                                } else {
 
-                                            //Verileri Gönder Butonu
-                                            Visibility(
-                                              visible: provider.getharitaOnay,
-                                              maintainState: true,
-                                              maintainSize: true,
-                                              maintainAnimation: true,
-                                              child: RawMaterialButton(
-                                                padding:
-                                                    EdgeInsets.all(3 * oran),
-                                                onPressed: () {
-                                                  bool noKontrol = false;
-                                                  bool cikisKullanimda = false;
-                                                  bool fanNOyuksek = false;
-                                                  String cikisVeri = "";
-                                                  String noVeri = "";
-                                                  String gridVeri = "";
-                                                  String gridHaritaVeri = "";
-                                                  String tumCikislarVeri = "";
-                                                  for (int i = 1;i <= 120;i++) {
-                                                    if (provider.getfanHaritaGrid[i-1] == 2) {
-                                                      if (provider.getfanNo[i] == 0 || provider.getcikisNo[i] == 0) {
-                                                        noKontrol = true;
-                                                      }
-                                                      if (provider.getfanNo[i] > provider.getfanAdet) {
-                                                        fanNOyuksek = true;
-                                                      }
-                                                    }
-                                                    cikisVeri = cikisVeri + provider.getcikisNo[i].toString() +"#";
-                                                    noVeri = noVeri +provider.getfanNo[i].toString() +"#";
-                                                    gridHaritaVeri =gridHaritaVeri +provider.getfanHaritaGrid[i-1].toString() +"#";
-                                                  }
-
-                                                  gridVeri = gridHaritaVeri +
-                                                      "*" +
-                                                      provider.getsutunSayisi
-                                                          .toString() +
-                                                      "*" +
-                                                      provider.getunsurAdet
-                                                          .toString();
-
-                                                  List<int> aa = provider.gettumCikislar;
+                                                  List<int> aa =provider.tumCikislar;
 
                                                   for (int i = 1;i <= 120;i++) {
-                                                    if (provider.getcikisNoGecici[i] !=provider.getcikisNo[i]) {
-                                                      if (aa[provider.getcikisNo[i]] ==0) {
-                                                        
-                                                        aa[provider.getcikisNoGecici[i]] = 0;
-
-                                                      } else {
-                                                        cikisKullanimda = true;
-                                                      }
+                                                    if (provider.cikisNo[i] !=0) {
+                                                      aa[provider.cikisNo[i]] = 1;
                                                     }
                                                   }
 
-                                                  if (noKontrol) {
-                                                    Toast.show(
-                                                        Dil().sec(dilSecimi,
-                                                            "toast24"),
-                                                        context,
-                                                        duration: 3);
-                                                  } else if (fanNOyuksek) {
-                                                    Toast.show(
-                                                        Dil().sec(dilSecimi,
-                                                            "toast47"),
-                                                        context,
-                                                        duration: 3);
-                                                  } else if (provider
-                                                      .getfanNoTekerrur) {
-                                                    Toast.show(
-                                                        Dil().sec(dilSecimi,
-                                                            "toast25"),
-                                                        context,
-                                                        duration: 3);
-                                                  } else if (provider
-                                                      .getcikisNoTekerrur) {
-                                                    Toast.show(
-                                                        Dil().sec(dilSecimi,
-                                                            "toast26"),
-                                                        context,
-                                                        duration: 3);
-                                                  } else if (cikisKullanimda) {
-                                                    Toast.show(
-                                                        Dil().sec(dilSecimi,
-                                                            "toast38"),
-                                                        context,
-                                                        duration: 3);
-                                                  } else {
+                                                  for (int i = 1;
+                                                      i <= 110;
+                                                      i++) {
+                                                    tumCikislarVeri =
+                                                        tumCikislarVeri +
+                                                            provider
+                                                                .tumCikislar[
+                                                                    i]
+                                                                .toString() +
+                                                            "#";
+                                                  }
 
-                                                    List<int> aa =provider.gettumCikislar;
-
-                                                    for (int i = 1;i <= 120;i++) {
-                                                      if (provider.getcikisNo[i] !=0) {
-                                                        aa[provider.getcikisNo[i]] = 1;
-                                                      }
-                                                    }
-
-                                                    for (int i = 1;
-                                                        i <= 110;
-                                                        i++) {
-                                                      tumCikislarVeri =
-                                                          tumCikislarVeri +
-                                                              provider
-                                                                  .gettumCikislar[
-                                                                      i]
-                                                                  .toString() +
-                                                              "#";
-                                                    }
-
-                                                    provider.setveriGonderildi =true;
-
+                                                  Metotlar()
+                                                      .veriGonder(
+                                                          "13*20*$noVeri*$cikisVeri*0*0",
+                                                          context,
+                                                          2233,
+                                                          "toast8",
+                                                          dilSecimi)
+                                                      .then((value) {
                                                     Metotlar()
                                                         .veriGonder(
-                                                            "13*20*$noVeri*$cikisVeri*0*0",
+                                                            "25*27*$tumCikislarVeri*0*0*0",
                                                             context,
                                                             2233,
                                                             "toast8",
                                                             dilSecimi)
                                                         .then((value) {
-                                                      Metotlar()
-                                                          .veriGonder(
-                                                              "25*27*$tumCikislarVeri*0*0*0",
-                                                              context,
-                                                              2233,
-                                                              "toast8",
-                                                              dilSecimi)
-                                                          .then((value) {
-                                                        dbProkis
-                                                            .dbSatirEkleGuncelle(
-                                                                15,
-                                                                "ok",
-                                                                noVeri,
-                                                                cikisVeri,
-                                                                gridVeri);
-                                                        dbProkis
-                                                            .dbSatirEkleGuncelle(
-                                                                22,
-                                                                "ok",
-                                                                tumCikislarVeri,
-                                                                "0",
-                                                                "0");
-                                                      });
+                                                      dbProkis
+                                                          .dbSatirEkleGuncelle(
+                                                              15,
+                                                              "ok",
+                                                              noVeri,
+                                                              cikisVeri,
+                                                              gridVeri);
+                                                      dbProkis
+                                                          .dbSatirEkleGuncelle(
+                                                              22,
+                                                              "ok",
+                                                              tumCikislarVeri,
+                                                              "0",
+                                                              "0");
+                                                    }).then((value){
+                                                      dbProkis.dbVeriCekme();
                                                     });
-                                                    
-                                                    provider.listIslem(null, null, 6 , null, null, 121);
+                                                  });
+                                                  
+
+                                                  for (int i = 0; i < 121; i++) {
+                                                    provider.cikisNoGecici[i]=provider.cikisNo[i];
                                                   }
-                                                },
-                                                highlightColor: Colors.green,
-                                                splashColor: Colors.red,
-                                                materialTapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                                constraints: BoxConstraints(),
-                                                fillColor:
-                                                    provider.getveriGonderildi
-                                                        ? Colors.green[500]
-                                                        : Colors.blue,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Icon(
-                                                      Icons.send,
-                                                      size: 30 * oran,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ],
-                                                ),
+                                                  provider.setveriGonderildi =true;
+
+
+                                                }
+                                              },
+                                              highlightColor: Colors.green,
+                                              splashColor: Colors.red,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                              constraints: BoxConstraints(),
+                                              fillColor:
+                                                  provider.veriGonderildi
+                                                      ? Colors.green[500]
+                                                      : Colors.blue,
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: <Widget>[
+                                                  Icon(
+                                                    Icons.send,
+                                                    size: 30 * oran,
+                                                    color: Colors.white,
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 //geri ok
@@ -650,7 +690,6 @@ class FanHaritasi extends StatelessWidget {
                                                     UzDebiNem(true)),
                                           );
 
-                                          //Navigator.pop(context);
                                         },
                                       ),
                                     )),
@@ -670,13 +709,13 @@ class FanHaritasi extends StatelessWidget {
                                         iconSize: 50 * oran,
                                         onPressed: () {
 
-                                          if (!provider.getharitaOnay) {
+                                          if (!provider.haritaOnay) {
                                             Toast.show(
                                                 Dil().sec(dilSecimi, "toast62"),
                                                 context,
                                                 duration: 3);
                                           } else if (!provider
-                                              .getveriGonderildi) {
+                                              .veriGonderildi) {
                                             Toast.show(
                                                 Dil().sec(dilSecimi, "toast27"),
                                                 context,
@@ -764,7 +803,7 @@ class FanHaritasi extends StatelessWidget {
           child: RawMaterialButton(
               onPressed: () {
                 
-                List<int> xx = provider.getfanHarita;
+                List<int> xx = provider.fanHarita;
                 if (xx[indexNo + 1] == 0 || xx[indexNo + 1] == null) {
                     xx[indexNo + 1] = 1;
                     provider.dinlemeyiTetikle();
@@ -776,17 +815,6 @@ class FanHaritasi extends StatelessWidget {
                   provider.dinlemeyiTetikle();
                 }
 
-
-                /*  YUKARIDAKİ İŞLEMİN ALTERNATİFİ
-                if (provider.getfanHarita[indexNo + 1] == 0 || provider.getfanHarita[indexNo + 1] == null) {
-                    provider.listIslem(provider.getfanHarita, null, 3, indexNo + 1, 1, null);
-                } else if (provider.getfanHarita[indexNo + 1] == 1) {
-                  provider.listIslem(provider.getfanHarita, null, 3, indexNo + 1, 2, null);
-                } else if (provider.getfanHarita[indexNo + 1] == 2) {
-                  provider.listIslem(provider.getfanHarita, null, 3, indexNo + 1, 0, null);
-                }
-                 */
-
                 
               },
               child: Stack(
@@ -797,24 +825,24 @@ class FanHaritasi extends StatelessWidget {
                         image: DecorationImage(
                           alignment: Alignment.center,
                           image: AssetImage(
-                              imageGetir(provider.getfanHarita[indexNo + 1])),
+                              imageGetir(provider.fanHarita[indexNo + 1])),
                           fit: BoxFit.contain,
                         ),
                       ),
                     ),
-                    opacity: provider.getfanHaritaGrid[indexNo + 1] == 2 &&
-                            provider.getharitaOnay
+                    opacity: provider.fanHaritaGrid[indexNo + 1] == 2 &&
+                            provider.haritaOnay
                         ? 0.6
                         : 1,
                   ),
                   Visibility(
-                    visible: provider.getharitaOnay &&
-                            provider.getfanHarita[indexNo + 1] != 0
+                    visible: provider.haritaOnay &&
+                            provider.fanHarita[indexNo + 1] != 0
                         ? true
                         : false,
                     child: Visibility(
-                      visible: provider.getharitaOnay &&
-                              provider.getfanHarita[indexNo + 1] == 2
+                      visible: provider.haritaOnay &&
+                              provider.fanHarita[indexNo + 1] == 2
                           ? true
                           : false,
                       child: Row(
@@ -837,7 +865,7 @@ class FanHaritasi extends StatelessWidget {
                                             alignment: Alignment.bottomCenter,
                                             child: AutoSizeText(
                                               Dil().sec(dilSecimi, "tv32") +
-                                                  provider.getfanNo[indexNo + 1]
+                                                  provider.fanNo[indexNo + 1]
                                                       .toString(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
@@ -865,7 +893,7 @@ class FanHaritasi extends StatelessWidget {
                                             child: AutoSizeText(
                                               Dil().sec(dilSecimi, "tv33") +
                                                   provider
-                                                      .getcikisNo[indexNo + 1]
+                                                      .cikisNo[indexNo + 1]
                                                       .toString(),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
@@ -904,23 +932,32 @@ class FanHaritasi extends StatelessWidget {
         Expanded(
           child: RawMaterialButton(
               onPressed: () {
-                if (provider.getharitaOnay) {
-                  if (provider.getfanHaritaGrid[indexNo] == 2) {
-                    int sayi = provider.getfanNo[indexNo + 1];
+                if (provider.haritaOnay) {
+                  if (provider.fanHaritaGrid[indexNo] == 2) {
+                    int sayi = provider.fanNo[indexNo + 1];
                     int fOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                     int fBirler = sayi % 10;
-                    String outNoMetin = provider.getcikisNo[indexNo + 1] == 0
-                        ? "Q0.0"
-                        : Metotlar()
-                            .outConvSAYItoQ(provider.getcikisNo[indexNo + 1]);
-                    int qByteOnlar = int.parse(outNoMetin.length > 4
-                        ? outNoMetin.substring(1, 2)
-                        : "0");
-                    int qByteBirler = int.parse(outNoMetin.length > 4
-                        ? outNoMetin.substring(2, 3)
-                        : outNoMetin.substring(1, 2));
-                    int qBit =
-                        int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisNo[indexNo + 1]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
+                    
 
                     MyshowModalBottomSheet2x0veQ(dilSecimi, context, oran,
                             qByteOnlar, qByteBirler, qBit, fOnlar, fBirler,"tv34","tv35")
@@ -934,17 +971,15 @@ class FanHaritasi extends StatelessWidget {
                                 outNoMetin = "Q" + (value[1] == 0 ? "" : value[1].toString()) + value[2].toString() + "." + value[3].toString();
                                 int cikisNo = Metotlar().outConvQtoSAYI(outNoMetin);
 
+                                sayi =value[4] * 10 + value[5];
 
-
-                                if (sayi == 0) {
+                                if (cikisNo == 0) {
                                   Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                                 } else {
 
-                                  sayi =value[4] * 10 + value[5];
-                                  provider.listIslem(provider.getfanNo, null, 3, indexNo+1, sayi, null);
-
-                                 
-                                  provider.listIslem(provider.getcikisNo, null, 3, indexNo+1, cikisNo, null);
+                                  provider.fanNo[indexNo+1]=sayi;
+                                  provider.cikisNo[indexNo+1]=cikisNo;
+                                  provider.tekerrurTespit();
 
                                 }
 
@@ -966,19 +1001,19 @@ class FanHaritasi extends StatelessWidget {
                         image: DecorationImage(
                           alignment: Alignment.center,
                           image: AssetImage(
-                              imageGetir(provider.getfanHaritaGrid[indexNo])),
+                              imageGetir(provider.fanHaritaGrid[indexNo])),
                           fit: BoxFit.contain,
                         ),
                       ),
                     ),
-                    opacity: provider.getfanHaritaGrid[indexNo] == 2 &&
-                            provider.getharitaOnay
+                    opacity: provider.fanHaritaGrid[indexNo] == 2 &&
+                            provider.haritaOnay
                         ? 0.6
                         : 1,
                   ),
                   Visibility(
-                    visible: provider.getharitaOnay &&
-                            provider.getfanHaritaGrid[indexNo] == 2
+                    visible: provider.haritaOnay &&
+                            provider.fanHaritaGrid[indexNo] == 2
                         ? true
                         : false,
                     child: Row(
@@ -1001,7 +1036,7 @@ class FanHaritasi extends StatelessWidget {
                                           alignment: Alignment.bottomCenter,
                                           child: AutoSizeText(
                                             Dil().sec(dilSecimi, "tv32") +
-                                                provider.getfanNo[indexNo + 1]
+                                                provider.fanNo[indexNo + 1]
                                                     .toString(),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -1028,13 +1063,7 @@ class FanHaritasi extends StatelessWidget {
                                           alignment: Alignment.topCenter,
                                           child: AutoSizeText(
                                             Dil().sec(dilSecimi, "tv33") +
-                                                (provider.getcikisNo[
-                                                            indexNo + 1] ==
-                                                        0
-                                                    ? "Q0.0"
-                                                    : Metotlar().outConvSAYItoQ(
-                                                        provider.getcikisNo[
-                                                            indexNo + 1])),
+                                                Metotlar().outConvSAYItoQ(provider.cikisNo[indexNo + 1]),
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 50.0,
@@ -1080,18 +1109,26 @@ class FanHaritasi extends StatelessWidget {
         provider.setveriGonderildi = false;
         String tumCikislarVeri = "";
 
-
-        //tüm çıkışlardaki fanCıkısNo ya ait tüm çıkışları sıfırlar
-        provider.listIslem(provider.tumCikislar, provider.getcikisNo, 4, 0, 0, 121);
-
-        List<int> xx=provider.gettumCikislar;
-        for (int i = 1; i <= 110; i++) {
-          tumCikislarVeri = tumCikislarVeri + xx[i].toString() + "#";
+        for (int i = 0; i < 121; i++) {
+          provider.cikisNo[i]=provider.cikisNoGecici[i];
         }
 
-        provider.listIslem(provider.getfanHarita, null, 2, 0, 0, 121);
-        provider.listIslem(provider.getfanNo, null, 2, 0, 0, 121);
-        provider.listIslem(provider.getcikisNo, null, 2, 0, 0, 121);
+        //tüm çıkışlardaki fanCıkısNo ya ait tüm çıkışları sıfırlar
+        for (int i = 1; i < 121; i++) {
+          if (provider.cikisNo[i] != 0) {
+            provider.tumCikislar[provider.cikisNo[i]] = 0;
+          }
+        }
+
+        for (int i = 1; i <= 110; i++) {
+          tumCikislarVeri = tumCikislarVeri + provider.tumCikislar[i].toString() + "#";
+        }
+
+        for (var i = 0; i < 121; i++) {
+          provider.fanHarita[i]=0;
+          provider.fanNo[i]=0;
+          provider.cikisNo[i]=0;
+        }
 
         provider.setharitaOnay = false;
         provider.setunsurAdet = 0;
@@ -1116,37 +1153,13 @@ class FanHaritasi extends StatelessWidget {
     });
   }
 
-  Future _sayfaGeriAlert(
-      String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi, uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-        if (val) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-        }
-      }
-    });
-  }
-
   Widget defaultHaritaGrid(
       double oran, BuildContext context, FanHaritasiProvider provider) {
     return GridView.count(
       padding: EdgeInsets.all(0),
       crossAxisCount: 12,
       //childAspectRatio: 1.4,
-      children: List.generate(provider.getsayac, (index) {
+      children: List.generate(provider.sayac, (index) {
         return Center(child: _fanHaritaUnsur(index, oran, context, provider));
       }),
     );
@@ -1159,8 +1172,8 @@ class FanHaritasi extends StatelessWidget {
       padding: EdgeInsets.all(0),
       //maxCrossAxisExtent: oranHarita/sutunSayisi,
       //childAspectRatio:2,
-      crossAxisCount: provider.getsutunSayisi,
-      children: List.generate(provider.getsayac, (index) {
+      crossAxisCount: provider.sutunSayisi,
+      children: List.generate(provider.sayac, (index) {
         return Center(
             child: _fanHaritaUnsurSecili(index, oran, context, provider));
       }),
@@ -1175,7 +1188,6 @@ class FanHaritasi extends StatelessWidget {
 }
 
 class FanHaritasiProvider with ChangeNotifier {
-  String _dilSecimi;
   int sayac=0;
   int sayac1=0;
 
@@ -1198,30 +1210,12 @@ class FanHaritasiProvider with ChangeNotifier {
 
   List<int> tumCikislar = new List.filled(111, 0);
 
-  listIslem(List<int> list, List<int> aktarilacaklist, int islemTuru, int index, int value, int listLenght) {
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (var i = 0; i < listLenght; i++) {
-        list[i]=0;
-      }
-      list=List.filled(listLenght, value);
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      fanNoTekerrur = false;
+  tekerrurTespit(){
+    fanNoTekerrur = false;
       cikisNoTekerrur = false;
 
       for (int i = 1; i <= 120; i++) {
@@ -1230,114 +1224,164 @@ class FanHaritasiProvider with ChangeNotifier {
               fanNo[i] == fanNo[k] &&
               fanNo[i] != 0 &&
               fanNo[k] != 0) {
+                print("Giriyor");
             fanNoTekerrur = true;
-            break;
-          }
-          if (fanNoTekerrur) {
             break;
           }
           if (i != k &&
               cikisNo[i] == cikisNo[k] &&
               cikisNo[i] != 0 &&
               cikisNo[k] != 0) {
+                print("İ:$i   k:$k");
             cikisNoTekerrur = true;
             break;
           }
-          if (cikisNoTekerrur) {
-            break;
-          }
+          
         } 
+        if (cikisNoTekerrur || fanNoTekerrur) {
+          break;
+        }
       }
-      break;
-      case 6:
-      for (int i = 0; i < listLenght; i++) {
+      notifyListeners();
+  }
+
+  cikislariDatabasedenGuncelle(DBProkis dbProkis){
+    var cikisNolar;
+
+    String cikisKAYIT = dbProkis.dbVeriGetir(15, 1, "");
+    if(cikisKAYIT=="ok"){
+      cikisNolar = dbProkis.dbVeriGetir(15, 3, "").split("#");
+      for (var i = 1; i <= 3; i++) {
+        cikisNo[i] = int.parse(cikisNolar[i - 1]);
+        cikisNoGecici[i] = cikisNo[i];
+      }
+    }else{
+      for (var i = 1; i <= 3; i++) {
+        cikisNo[i] = 0;
         cikisNoGecici[i]=cikisNo[i];
       }
-      break;
-
     }
     
-    notifyListeners();
+
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
+  bool dikdortgenHataVarMi(){
+
+    List<int> satir = new List(11);
+    bool dikdortgenHata = false;
+
+    for (int i = 1; i <= 10; i++) {
+      satir[i] = 0;
+    }
+
+    for (int i = 1; i <= 12; i++) {
+      if (fanHarita[i] !=0) {
+        satir[1]++;
+      }
+      if (fanHarita[i + 12] != 0) {
+        satir[2]++;
+      }
+      if (fanHarita[
+              i + 24] !=
+          0) {
+        satir[3]++;
+      }
+      if (fanHarita[
+              i + 36] !=
+          0) {
+        satir[4]++;
+      }
+      if (fanHarita[
+              i + 48] !=
+          0) {
+        satir[5]++;
+      }
+      if (fanHarita[
+              i + 60] !=
+          0) {
+        satir[6]++;
+      }
+      if (fanHarita[
+              i + 72] !=
+          0) {
+        satir[7]++;
+      }
+      if (fanHarita[
+              i + 84] !=
+          0) {
+        satir[8]++;
+      }
+      if (fanHarita[
+              i + 96] !=
+          0) {
+        satir[9]++;
+      }
+      if (fanHarita[
+              i + 108] !=
+          0) {
+        satir[10]++;
+      }
+    }
+
+    for (int i = 1; i <= 10; i++) {
+      for (int k = 1;
+          k <= 10;
+          k++) {
+        if (satir[i] != satir[k] &&
+            satir[i] != 0 &&
+            satir[k] != 0) {
+          dikdortgenHata = true;
+        }
+      }
+    }
+
+    return dikdortgenHata;
   }
-
-
-
-
-  List<int> get getfanHarita => fanHarita;
-  List<int> get getfanHaritaGrid => fanHaritaGrid;
-  List<int> get getfanNo => fanNo;
-  List<int> get getcikisNo => cikisNo;
-  List<int> get getcikisNoGecici => cikisNoGecici;
-  List<int> get gettumCikislar => tumCikislar;
-
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
 
-  int get getsayac1 => sayac1;
-
   set setsayac1(int value) {
     sayac1 = value;
     notifyListeners();
   }
-
-  bool get getharitaOnay => haritaOnay;
 
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
 
-  int get getfanAdet => fanAdet;
-
   set setfanAdet(int value) {
     fanAdet = value;
     notifyListeners();
   }
-
-  int get getsutunSayisi => sutunSayisi;
 
   set setsutunSayisi(int value) {
     sutunSayisi = value;
     notifyListeners();
   }
 
-  int get getunsurAdet => unsurAdet;
-
   set setunsurAdet(int value) {
     unsurAdet = value;
     notifyListeners();
   }
-
-  int get getharitaFlex => haritaFlex;
 
   set setharitaFlex(int value) {
     haritaFlex = value;
     notifyListeners();
   }
 
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
 
-  bool get getfanNoTekerrur => fanNoTekerrur;
-
   set setfanNoTekerrur(bool value) {
     fanNoTekerrur = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
 
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
@@ -1348,7 +1392,6 @@ class FanHaritasiProvider with ChangeNotifier {
   DBProkis dbProkis;
 
   FanHaritasiProvider(this.context, this.dbProkis) {
-    _dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
 
     fanAdet = int.parse(dbProkis.dbVeriGetir(4, 1, "1"));
     String tumCikislarKAYIT = dbProkis.dbVeriGetir(22, 1, "");

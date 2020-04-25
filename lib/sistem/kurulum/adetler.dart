@@ -100,8 +100,8 @@ class _AdetlerState extends State<Adetler> {
                 false,
                 oran,
                 40,
-                Colors.grey[700],
                 Colors.white,
+                Colors.grey[700],
                 Icons.arrow_back,
                 1,
                 "tv564"),
@@ -1055,10 +1055,8 @@ class AdetlerBloC {
 
   //eventler için stream controller
   final _bloCVeriEventStreamController = StreamController<String>();
-  Stream<String> get _bloCVeriEventStream =>
-      _bloCVeriEventStreamController.stream;
-  StreamSink<String> get bloCVeriEventSink =>
-      _bloCVeriEventStreamController.sink;
+  Stream<String> get _bloCVeriEventStream => _bloCVeriEventStreamController.stream;
+  StreamSink<String> get bloCVeriEventSink => _bloCVeriEventStreamController.sink;
 
   AdetlerBloC(DBProkis dbProkis) {
 

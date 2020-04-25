@@ -7,6 +7,7 @@ import 'package:prokis/languages/select.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/kurulum/bacafan_haritasi.dart';
+import 'package:prokis/sistem/kurulum/diger_cikislar.dart';
 import 'package:prokis/sistem/kurulum/isitici_haritasi.dart';
 import 'package:prokis/sistem/kurulum/ped_haritasi.dart';
 import 'package:provider/provider.dart';
@@ -201,7 +202,7 @@ class _DilSecimiState extends State<DilSecimi>{
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    IsiticiHaritasi(true)),
+                                    TemelAyarlar(true)),
                           );
                           
                         },

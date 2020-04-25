@@ -43,6 +43,7 @@ class IsiticiHaritasi extends StatelessWidget {
               final provider = Provider.of<IsiticiHaritasiProvider>(context);
 
               if(sayac==0){
+                print(provider.sayac);
                 new Timer(Duration(seconds: 0, milliseconds: 1000), (){
                   provider.setsayac=1;
                   sayac++;
@@ -55,11 +56,11 @@ class IsiticiHaritasi extends StatelessWidget {
               return Scaffold(
       floatingActionButton: MyFloatingActionBackButton(
       !ilkKurulumMu,
-      !provider.getveriGonderildi,
+      !provider.veriGonderildi,
       oran,
       40,
-      Colors.grey[700],
       Colors.white,
+      Colors.grey[700],
       Icons.arrow_back,
       1,
       "tv564"),
@@ -68,36 +69,26 @@ class IsiticiHaritasi extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv76"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv76"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //isitici Harita Oluşturma Bölümü
         Expanded(
-          flex: 5,
+          flex: 9,
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
@@ -353,7 +344,7 @@ class IsiticiHaritasi extends StatelessWidget {
                 Spacer(
                   flex: 1,
                 ),
-                Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 6, provider.getharitaOnay, sayac, dilSecimi),
+                Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 6, provider.haritaOnay, sayac, dilSecimi),
               ],
             ),
           ),
@@ -361,6 +352,7 @@ class IsiticiHaritasi extends StatelessWidget {
 
         //ileri geri ok bölümü
         Expanded(
+          flex: 2,
           child: Container(
             color: Colors.grey.shade600,
             child: Row(
@@ -374,7 +366,7 @@ class IsiticiHaritasi extends StatelessWidget {
                     children: <Widget>[
                       //Haritayı Onayla Butonu
                       Visibility(
-                        visible: !provider.getharitaOnay,
+                        visible: !provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -386,7 +378,7 @@ class IsiticiHaritasi extends StatelessWidget {
                             bool enAzbirIsiticiIsaretliMi = false;
 
                             for (int i = 1; i <= 18; i++) {
-                              if (provider.getisiticiHarita[i] == 1) {
+                              if (provider.isiticiHarita[i] == 1) {
                                 enAzbirIsiticiIsaretliMi=true;
                               }
                             }
@@ -395,7 +387,7 @@ class IsiticiHaritasi extends StatelessWidget {
                             String veri = "";
 
                             for (int i = 1; i <= 18; i++) {
-                              veri = veri + provider.getisiticiHarita[i].toString() + "#";
+                              veri = veri + provider.isiticiHarita[i].toString() + "#";
                             }
 
 
@@ -409,13 +401,10 @@ class IsiticiHaritasi extends StatelessWidget {
                             } else {
 
                               for (int i = 1; i <= 18; i++) {
-                              if (provider.getisiticiHarita[i] != 1) {
-                                provider.listIslem(provider.getisiticiVisibility, null, 3, i, false, 19);
+                              if (provider.isiticiHarita[i] != 1) {
+                                provider.isiticiVisibility[i]=false;
                               }
                             }
-
-
-                              provider.setharitaOnay = true;
 
                               Metotlar().veriGonder("32*32*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
                                 if(value=="ok"){
@@ -423,6 +412,7 @@ class IsiticiHaritasi extends StatelessWidget {
                                 }
                               });
 
+                              provider.setharitaOnay = true;
                             }
 
                             //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
@@ -449,7 +439,7 @@ class IsiticiHaritasi extends StatelessWidget {
 
                       //Haritayı Sıfırla Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -479,7 +469,7 @@ class IsiticiHaritasi extends StatelessWidget {
 
                       //Verileri Gönder Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -492,26 +482,28 @@ class IsiticiHaritasi extends StatelessWidget {
                             String cikisVeri = "";
                             String tumCikislarVeri = "";
                             for (int i = 1; i <= 18; i++) {
-                              if (provider.getisiticiHarita[i] == 1) {
-                                if (provider.getisiticiNo[i] == 0) {
+                              if (provider.isiticiHarita[i] == 1) {
+                                if (provider.isiticiNo[i] == 0) {
                                   noKontrol1 = true;
+                                  print("GiRİYOR");
                                 }
                               }
-                              noVeri = noVeri + provider.getisiticiNo[i].toString() + "#";
+                              noVeri = noVeri + provider.isiticiNo[i].toString() + "#";
                             }
                             for (int i = 1; i <= 3; i++) {
-                              if (provider.getcikisNo[i] == 0 && provider.getisiticiAdet >= i) {
+                              if (provider.cikisNo[i] == 0 && provider.isiticiAdet >= i) {
                                 noKontrol2 = true;
                               }
 
                               cikisVeri =
-                                  cikisVeri + provider.getcikisNo[i].toString() + "#";
+                                  cikisVeri + provider.cikisNo[i].toString() + "#";
                             }
 
                             for (int i = 1; i <= 3; i++) {
-                              if (provider.getcikisNoGecici[i] != provider.getcikisNo[i]) {
-                                if (provider.gettumCikislar[provider.getcikisNo[i]] == 0) {
-                                  provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoGecici[i], 0, null);
+                              if (provider.cikisNoGecici[i] != provider.cikisNo[i]) {
+                                if (provider.tumCikislar[provider.cikisNo[i]] == 0) {
+                                  
+                                  provider.tumCikislar[provider.cikisNoGecici[i]]=0;
                                 } else {
                                   cikisKullanimda = true;
                                 }
@@ -521,16 +513,16 @@ class IsiticiHaritasi extends StatelessWidget {
                             if (noKontrol1) {
                               Toast.show(
                                   Dil()
-                                      .sec(dilSecimi, "toast73"),
-                                  context,
-                                  duration: 3);
-                            } if (noKontrol2) {
-                              Toast.show(
-                                  Dil()
                                       .sec(dilSecimi, "toast90"),
                                   context,
                                   duration: 3);
-                            } else if (provider.getcikisNoTekerrur) {
+                            }else if (noKontrol2) {
+                              Toast.show(
+                                  Dil()
+                                      .sec(dilSecimi, "toast97"),
+                                  context,
+                                  duration: 3);
+                            } else if (provider.cikisNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast26"),
@@ -546,14 +538,15 @@ class IsiticiHaritasi extends StatelessWidget {
 
 
                               for (int i = 1; i <= 3; i++) {
-                                if (provider.getcikisNo[i] != 0) {
-                                  provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNo[i], 1, null);
+                                if (provider.cikisNo[i] != 0) {
+                                  
+                                  provider.tumCikislar[provider.cikisNo[i]]=1;
                                 }
                               }
                               for(int i=1;i<=110;i++){
-                                  tumCikislarVeri = tumCikislarVeri + provider.gettumCikislar[i].toString() + "#";
+                                  tumCikislarVeri = tumCikislarVeri + provider.tumCikislar[i].toString() + "#";
                               }
-                              provider.setveriGonderildi = true;
+                              
                               String komut="33*33*$noVeri*$cikisVeri*0*0";
                               Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                                 if(value=="ok"){
@@ -566,13 +559,18 @@ class IsiticiHaritasi extends StatelessWidget {
                                 }
                               });
 
-                              provider.listIslem(null, null, 6, null, null, 4);
+
+                              for (int i = 0; i < 4; i++) {
+                                provider.cikisNoGecici[i]=provider.cikisNo[i];
+                              }
+
+                              provider.setveriGonderildi = true;
                             }
                           },
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
                           color:
-                              provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                              provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -601,7 +599,7 @@ class IsiticiHaritasi extends StatelessWidget {
                         iconSize: 50 * oran,
                         onPressed: () {
                           
-                          if(provider.getairinletAdet!='0' || provider.getsirkfanVarMi){
+                          if(provider.airinletAdet!='0' || provider.sirkfanVarMi){
 
                               Navigator.pushReplacement(
                                 context,
@@ -609,7 +607,7 @@ class IsiticiHaritasi extends StatelessWidget {
                                     builder: (context) =>
                                         AirInletVeSirkFan(true)),
                               );
-                            }else if(provider.getbacafanAdet!='0'){
+                            }else if(provider.bacafanAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -640,13 +638,14 @@ class IsiticiHaritasi extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
-                          if (!provider.getharitaOnay) {
+
+                          if (!provider.haritaOnay) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast62"),
                                 context,
                                 duration: 3);
-                          } else if (!provider.getveriGonderildi) {
+                          } else if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast27"),
@@ -654,7 +653,7 @@ class IsiticiHaritasi extends StatelessWidget {
                                 duration: 3);
                           } else {
 
-                            if(provider.getsiloAdet!='0'){
+                            if(provider.siloAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -710,7 +709,7 @@ class IsiticiHaritasi extends StatelessWidget {
       int indexNo, double oran, String baslik, IsiticiHaritasiProvider provider, BuildContext context) {
     return Expanded(flex: 3,
       child: Visibility(
-        visible: provider.getisiticiVisibility[indexNo] ? true : false,
+        visible: provider.isiticiVisibility[indexNo] ? true : false,
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
@@ -721,9 +720,9 @@ class IsiticiHaritasi extends StatelessWidget {
               flex: 6,
               child: RawMaterialButton(
                   onPressed: () {
-                    if (provider.getharitaOnay) {
+                    if (provider.haritaOnay) {
 
-                      int sayi = provider.getisiticiNo[indexNo];
+                      int sayi = provider.isiticiNo[indexNo];
                       int pOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                       int pBirler = sayi % 10;
 
@@ -734,7 +733,8 @@ class IsiticiHaritasi extends StatelessWidget {
 
                                 if (gelenVeri) {
                                     sayi =value[1] * 10 + value[2];
-                                    provider.listIslem(provider.getisiticiNo, null, 3, indexNo, sayi, null);
+                                    provider.isiticiNo[indexNo]=sayi;
+                                    provider.dinlemeyiTetikle();
                                 }
 
                       });
@@ -766,7 +766,7 @@ class IsiticiHaritasi extends StatelessWidget {
                                 image: DecorationImage(
                                   alignment: Alignment.center,
                                   image: AssetImage(
-                                      imageGetir(provider.getisiticiHarita[indexNo])),
+                                      imageGetir(provider.isiticiHarita[indexNo])),
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -776,7 +776,7 @@ class IsiticiHaritasi extends StatelessWidget {
                         ],
                       ),
                       Visibility(
-                        visible: provider.getharitaOnay && provider.getisiticiHarita[indexNo] != 0
+                        visible: provider.haritaOnay && provider.isiticiHarita[indexNo] != 0
                             ? true
                             : false,
                         maintainState: true,
@@ -800,7 +800,7 @@ class IsiticiHaritasi extends StatelessWidget {
                                         child: AutoSizeText(
                                           Dil().sec(
                                                   dilSecimi, "tv63") +
-                                              provider.getisiticiNo[indexNo].toString(),
+                                              provider.isiticiNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               color: Colors.black,
@@ -844,17 +844,31 @@ class IsiticiHaritasi extends StatelessWidget {
         provider.setveriGonderildi = false;
         String tumCikislarVeri = "";
 
-        provider.listIslem(provider.tumCikislar, provider.getcikisNo, 4, 0, 0, 4);
-
-        for (int i = 1; i <= 110; i++) {
-          tumCikislarVeri = tumCikislarVeri + provider.gettumCikislar[i].toString() + "#";
+        for (int i = 0; i < 4; i++) {
+          provider.cikisNo[i]=provider.cikisNoGecici[i];
         }
 
 
-        provider.listIslem(provider.getisiticiHarita, null, 2, 0, 0, 19);
-        provider.listIslem(provider.getisiticiNo, null, 2, 0, 0, 19);
-        provider.listIslem(provider.getcikisNo, null, 2, 0, 0, 4);
-        provider.listIslem(provider.getisiticiVisibility, null, 2, 0, true, 19);
+        for (int i = 1; i < 4; i++) {
+          if (provider.cikisNo[i] != 0) {
+            provider.tumCikislar[provider.cikisNo[i]] = 0;
+          }
+        }
+
+        for (int i = 1; i <= 110; i++) {
+          tumCikislarVeri = tumCikislarVeri + provider.tumCikislar[i].toString() + "#";
+        }
+
+        for (int i = 0; i < 19; i++) {
+          provider.isiticiHarita[i]=0;
+          provider.isiticiNo[i]=0;
+          provider.isiticiVisibility[i]=true;
+        }
+
+        for (int i = 0; i < 4; i++) {
+          provider.cikisNo[i]=0;
+        }
+
         provider.setharitaOnay = false;
 
         Metotlar()
@@ -877,7 +891,7 @@ class IsiticiHaritasi extends StatelessWidget {
     return Expanded(
       flex: 2,
       child: Visibility(
-        visible: provider.getisiticiAdet >= index,
+        visible: provider.isiticiAdet >= index,
         maintainAnimation: true,
         maintainSize: true,
         maintainState: true,
@@ -903,18 +917,26 @@ class IsiticiHaritasi extends StatelessWidget {
                       onPressed: () {
 
 
-                         String outNoMetin = provider.getcikisNo[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisNo[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                 String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisNo[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -934,7 +956,9 @@ class IsiticiHaritasi extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisNo, null, 3, index, cikisNo, null);
+                              
+                              provider.cikisNo[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
 
@@ -958,7 +982,7 @@ class IsiticiHaritasi extends StatelessWidget {
                                 child: Container(
                                   alignment: Alignment.bottomCenter,
                                   child: AutoSizeText(
-                                    Metotlar().outConvSAYItoQ(provider.getcikisNo[index]),
+                                    Metotlar().outConvSAYItoQ(provider.cikisNo[index]),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Colors.white,
@@ -988,34 +1012,6 @@ class IsiticiHaritasi extends StatelessWidget {
     );
   }
 
-  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
-
 }
 
 class IsiticiHaritasiProvider with ChangeNotifier {
@@ -1041,30 +1037,13 @@ class IsiticiHaritasiProvider with ChangeNotifier {
 
   List<int> tumCikislar = new List.filled(111,0);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      cikisNoTekerrur = false;
-
+  tekerrurTespit(){
+    cikisNoTekerrur = false;
       for (int i = 1; i <= 3; i++) {
         for (int k = 1; k <= 3; k++) {
           if (i != k &&
@@ -1079,101 +1058,50 @@ class IsiticiHaritasiProvider with ChangeNotifier {
           }
         }
       }
-      break;
-      case 6:
-      for (int i = 0; i < listLenght; i++) {
-        cikisNoGecici[i]=cikisNo[i];
-      }
-      break;
-
-    }
-    
-    notifyListeners();
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-
-  List<int> get getisiticiHarita => isiticiHarita;
-  List<bool> get getisiticiVisibility => isiticiVisibility;
-  List<int> get getisiticiNo => isiticiNo;
-  List<int> get getcikisNo => cikisNo;
-  List<int> get getcikisNoGecici => cikisNoGecici;
-  List<int> get gettumCikislar => tumCikislar;
-
-  bool get getharitaOnay => haritaOnay;
-
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
-
-  String get getbacafanAdet => bacafanAdet;
-
   set setbacafanAdet(String value) {
     bacafanAdet = value;
     notifyListeners();
   }
-
-  String get getairinletAdet => airinletAdet;
-
   set setairinletAdet(String value) {
     airinletAdet = value;
     notifyListeners();
   }
-
-  int get getisiticiAdet => isiticiAdet;
-
   set setisiticiAdet(int value) {
     isiticiAdet = value;
     notifyListeners();
   }
-
-  String get getsiloAdet => siloAdet;
-
   set setsiloAdet(String value) {
     siloAdet = value;
     notifyListeners();
   }
-
-  bool get getsirkfanVarMi => sirkfanVarMi;
-
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
     notifyListeners();
   }
-
-  bool get getbaglanti => baglanti;
-
   set setbaglanti(bool value) {
     baglanti = value;
     notifyListeners();
   }
-
-  bool get gettimerCancel => timerCancel;
-
   set settimerCancel(bool value) {
     timerCancel = value;
     notifyListeners();

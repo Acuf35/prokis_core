@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,23 +9,69 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/oto_man_air.dart';
 import 'package:prokis/otoman/oto_man_klepe.dart';
-import 'package:prokis/provider/dbprokis.dart';
-import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:toast/toast.dart';
+import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/deger_giris_3x0.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
 
+class OtoMan extends StatefulWidget {
+  List<Map> gelenDBveri;
+  OtoMan(List<Map> dbVeriler) {
+    gelenDBveri = dbVeriler;
+  }
 
-class OtoMan1 extends StatelessWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return OtoManState(gelenDBveri);
+  }
+}
+
+class OtoManState extends State<OtoMan> {
+//++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  List<Map> dbVeriler;
+  final dbHelper = DatabaseHelper.instance;
+  var dbSatirlar;
+  int dbSatirSayisi = 0;
   String dilSecimi = "EN";
-  double oran;
-  int sayac=0;
+  String kurulumDurum = "0";
+  String fanAdet = "0";
+  String pedAdet = "0";
+  String bacafanAdet = "0";
+  String sirkFanVarMi = "0";
+  
+  String isiticiAdet = "0";
+  int yemUnsurAdet = 6;
+  String dimmer = "0";
+  String manuelAydinlikYuzdesi = "50";
 
   int _yuzler = 0;
   int _onlar = 0;
   int _birler = 0;
   int _index = 0;
+
+  bool yem1Aktif = false;
+  bool yem2Aktif = false;
+  bool yem3Aktif = false;
+
+  bool otoTFAN=false;
+  bool otoBFAN=false;
+  bool otoPEDM=false;
+  bool otoAIRI=false;
+  bool otoKLPE=false;
+  bool otoISTC=false;
+  bool otoYEMA=false;
+  bool otoAYDL=false;
+  bool otoSIRK=false;
+
+  List<bool> fanMan = new List(61);
+  List<bool> pedMan = new List(11);
+  List<bool> aydMan = new List(2);
+  List<bool> bfaMan = new List(4);
+  List<bool> istMan = new List(4);
+  List<bool> yemMan = new List(7);
+  List<bool> sirMan = new List(2);
 
   bool timerCancel = false;
   bool timerCancelFan = false;
@@ -53,66 +101,110 @@ class OtoMan1 extends StatelessWidget {
   int yazmaSonrasiGecikmeSayaciSIRK = 8;
   bool takipEtiGeciciDurdur=false;
 
+//--------------------------DATABASE DEĞİŞKENLER--------------------------------
+
+//++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
+  OtoManState(List<Map> dbVeri) {
+    dbVeriler = dbVeri;
+    for (int i = 0; i <= dbVeri.length - 1; i++) {
+      if (dbVeri[i]["id"] == 1) {
+        dilSecimi = dbVeri[i]["veri1"];
+      }
+
+      if (dbVeri[i]["id"] == 4) {
+        fanAdet = dbVeri[i]["veri1"];
+      }
+
+      if (dbVeri[i]["id"] == 4) {
+        pedAdet = dbVeri[i]["veri3"];
+      }
+
+      if (dbVeri[i]["id"] == 5) {
+        var xx=dbVeri[i]["veri1"].split('#'); 
+        bacafanAdet = xx[0];
+        sirkFanVarMi = xx[1];
+        isiticiAdet = dbVeri[i]["veri3"];
+      }
+
+      if (dbVeri[i]["id"] == 31) {
+        dimmer = dbVeri[i]["veri4"];
+        String xx=dbVeri[i]["veri3"];
+        yem1Aktif = xx.split("#")[0]=="1" ? true : false;
+        yem2Aktif = xx.split("#")[1]=="1" ? true : false;
+        yem3Aktif = xx.split("#")[2]=="1" ? true : false;
+      }
+
+
+    }
+
+    for(int i=1; i<=60;i++){
+      fanMan[i]=false;
+    }
+
+    for(int i=1; i<=10;i++){
+      pedMan[i]=false;
+    }
+
+    aydMan[0]=false;
+    aydMan[1]=false;
+
+    for(int i=1; i<=3;i++){
+      bfaMan[i]=false;
+      istMan[i]=false;
+    }
+
+    for(int i=1; i<=6;i++){
+      yemMan[i]=false;
+    }
+/*
+    if(yem1Aktif){
+      yemUnsurAdet=yemUnsurAdet+2;
+    }
+    if(yem2Aktif){
+      yemUnsurAdet=yemUnsurAdet+2;
+    }
+    if(yem3Aktif){
+      yemUnsurAdet=yemUnsurAdet+2;
+    }
+*/
+    sirMan[1]=false;
+
+    _dbVeriCekme();
+  }
+//--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
-    final dbProkis = Provider.of<DBProkis>(context);
-    dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
-    oran = MediaQuery.of(context).size.width / 731.4;
-    
-    return ChangeNotifierProvider<OtoMan1Provider>(
-          create: (context) => OtoMan1Provider(context, dbProkis),
-          child: LayoutBuilder(
-            builder: (context, constraints){
-              final provider = Provider.of<OtoMan1Provider>(context);
 
-              if (timerSayac == 0) {
-              Metotlar().takipEt('16*', context, 2236, dilSecimi).then((value){
-                var degerler = value.split('*');
-                provider.otoTFAN=degerler[0]=="True" ? true : false;
-                provider.otoPEDM=degerler[1]=="True" ? true : false;
-                provider.otoAYDL=degerler[2]=="True" ? true : false;
-                provider.otoBFAN=degerler[3]=="True" ? true : false;
-                provider.otoISTC=degerler[4]=="True" ? true : false;
-                provider.otoYEMA=degerler[5]=="True" ? true : false;
-                provider.otoSIRK=degerler[6]=="True" ? true : false;
-                provider.dinlemeyiTetikle();
+    if (timerSayac == 0) {
+      _takipEt('16*');
 
-              });
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        if(!takipEtiGeciciDurdur)
+          yazmaSonrasiGecikmeSayaci++;
 
-              Timer.periodic(Duration(seconds: 2), (timer) {
-                if(!takipEtiGeciciDurdur)
-                  yazmaSonrasiGecikmeSayaci++;
+        if (timerCancel) {
+          timer.cancel();
+        }
 
-                if (timerCancel) {
-                  timer.cancel();
-                }
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3 && !takipEtiGeciciDurdur) {
+          baglanti = true;
+          _takipEt("16*");
+        }
+      });
+    }
 
-                if (!baglanti && yazmaSonrasiGecikmeSayaci > 3 && !takipEtiGeciciDurdur) {
-                  baglanti = true;
-                  Metotlar().takipEt('16*', context, 2236, dilSecimi).then((value){
-                    
-                var degerler = value.split('*');
-                print(degerler);
-                provider.otoTFAN=degerler[0]=="True" ? true : false;
-                provider.otoPEDM=degerler[1]=="True" ? true : false;
-                provider.otoAYDL=degerler[2]=="True" ? true : false;
-                provider.otoBFAN=degerler[3]=="True" ? true : false;
-                provider.otoISTC=degerler[4]=="True" ? true : false;
-                provider.otoYEMA=degerler[5]=="True" ? true : false;
-                provider.otoSIRK=degerler[6]=="True" ? true : false;
-                baglanti=false;
-                provider.dinlemeyiTetikle();
-
-              });
-                }
-              });
-            }
-
-            timerSayac++;
+    timerSayac++;
 
 
-              return Scaffold(
+
+
+//++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
+    var oran = MediaQuery.of(context).size.width / 731.4;
+//--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------
+
+//++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
+    return Scaffold(
       appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv454'),
       body: Column(
         children: <Widget>[
@@ -129,7 +221,7 @@ class OtoMan1 extends StatelessWidget {
                     child: TimerBuilder.periodic(Duration(seconds: 1),
                         builder: (context) {
                       return Text(
-                        Metotlar().getSystemTime(dbProkis.getDbVeri),
+                        Metotlar().getSystemTime(dbVeriler),
                         style: TextStyle(
                             color: Colors.blue[800],
                             fontFamily: 'Kelly Slab',
@@ -147,7 +239,7 @@ class OtoMan1 extends StatelessWidget {
                     child: TimerBuilder.periodic(Duration(seconds: 1),
                         builder: (context) {
                       return Text(
-                        Metotlar().getSystemDate(dbProkis.getDbVeri),
+                        Metotlar().getSystemDate(dbVeriler),
                         style: TextStyle(
                             color: Colors.blue[800],
                             fontFamily: 'Kelly Slab',
@@ -170,17 +262,17 @@ class OtoMan1 extends StatelessWidget {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv458"),'assets/images/kurulum_fan_icon.png',oran,provider.otoTFAN,1,context,provider),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv458"),'assets/images/kurulum_fan_icon.png',oran,otoTFAN,1),
                             Expanded(
                               child: Column(
                                 children: <Widget>[
-                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,provider.otoKLPE,2,context,dbProkis),
-                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv460"),'assets/images/kurulum_airinlet_icon.png',oran,provider.otoAIRI,5,context,dbProkis),
+                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,otoKLPE,2),
+                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv460"),'assets/images/kurulum_airinlet_icon.png',oran,otoAIRI,5),
                                 ],
                               ),
                             ),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv459"),'assets/images/kurulum_ped_icon.png',oran,provider.otoPEDM,3,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv112"),'assets/images/kurulum_aydinlatma_icon1.png',oran,provider.otoAYDL,4,context,provider),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv459"),'assets/images/kurulum_ped_icon.png',oran,otoPEDM,3),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv112"),'assets/images/kurulum_aydinlatma_icon1.png',oran,otoAYDL,4),
                           ],
                       ) 
                     ),
@@ -189,10 +281,10 @@ class OtoMan1 extends StatelessWidget {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv461"),'assets/images/kurulum_bacafan_icon.png',oran,provider.otoBFAN,6,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv462"),'assets/images/kurulum_isitici_icon.png',oran,provider.otoISTC,7,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv463"),'assets/images/kurulum_yemleme_icon.png',oran,provider.otoYEMA,8,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv653"),'assets/images/kurulum_sirkfan_icon.png',oran,provider.otoSIRK,9,context,provider),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv461"),'assets/images/kurulum_bacafan_icon.png',oran,otoBFAN,6),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv462"),'assets/images/kurulum_isitici_icon.png',oran,otoISTC,7),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv463"),'assets/images/kurulum_yemleme_icon.png',oran,otoYEMA,8),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv653"),'assets/images/kurulum_sirkfan_icon.png',oran,otoSIRK,9),
                           ],
                       ) 
                     ),
@@ -216,7 +308,7 @@ class OtoMan1 extends StatelessWidget {
                 timerCancel = true;
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => GenelAyarlar(dbProkis.getDbVeri)),
+                  MaterialPageRoute(builder: (context) => GenelAyarlar(dbVeriler)),
                 );
               },
               backgroundColor: Colors.blue,
@@ -287,15 +379,205 @@ class OtoMan1 extends StatelessWidget {
         )
         
     );
- 
-            }
-          )
-    );
+      
+        
+
+//--------------------------SCAFFOLD--------------------------------
   }
 
-  
-  Widget _unsurOtoManWidget(String baslik, String imagePath, double oran, 
-  bool otomanDurum,int index, BuildContext context, OtoMan1Provider provider){
+//++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
+
+  _satirlar(List<Map> satirlar) {
+    dbVeriler = satirlar;
+  }
+
+  _dbVeriCekme() {
+    dbSatirlar = dbHelper.satirlariCek();
+    final satirSayisi = dbHelper.satirSayisi();
+    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
+    satirSayisi.whenComplete(() {
+      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
+    });
+  }
+
+  _takipEt(String komut) async {
+    try {
+      String gelenMesaj = "";
+      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
+      await Socket.connect('192.168.1.110', 2236).then((socket) {
+        socket.add(utf8.encode(komut));
+
+        socket.listen(
+          (List<int> event) {
+            gelenMesaj = utf8.decode(event);
+            if (gelenMesaj != "") {
+              var degerler = gelenMesaj.split('*');
+              print(gelenMesaj);
+              print(degerler);
+              print(yazmaSonrasiGecikmeSayaci);
+              //print(yazmaSonrasiGecikmeSayaciTFAN);
+              //print(yazmaSonrasiGecikmeSayaciPED);
+              print(yazmaSonrasiGecikmeSayaciAYD);
+
+              if(komut.split("*")[0]=="16"){
+                otoTFAN=degerler[0]=="True" ? true : false;
+                otoPEDM=degerler[1]=="True" ? true : false;
+                otoAYDL=degerler[2]=="True" ? true : false;
+                otoBFAN=degerler[3]=="True" ? true : false;
+                otoISTC=degerler[4]=="True" ? true : false;
+                otoYEMA=degerler[5]=="True" ? true : false;
+                otoSIRK=degerler[6]=="True" ? true : false;
+              }
+
+              if(komut.split("*")[0]=="17"){
+                for(int i=1;i<=int.parse(fanAdet);i++){
+                  fanMan[i]=degerler[i-1]=="True" ? true : false;
+                }
+              }
+
+              if(komut.split("*")[0]=="18"){
+                for(int i=1;i<=int.parse(pedAdet);i++){
+                  pedMan[i]=degerler[i-1]=="True" ? true : false;
+                }
+              }
+
+              if(komut.split("*")[0]=="19"){
+                manuelAydinlikYuzdesi=degerler[0];
+                aydMan[1]=degerler[1]=="True" ? true : false;
+              }
+
+              if(komut.split("*")[0]=="20"){
+                for(int i=1;i<=int.parse(bacafanAdet);i++){
+                  bfaMan[i]=degerler[i-1]=="True" ? true : false;
+                }
+              }
+
+              if(komut.split("*")[0]=="21"){
+                for(int i=1;i<=int.parse(isiticiAdet);i++){
+                  istMan[i]=degerler[i-1]=="True" ? true : false;
+                }
+              }
+
+              if(komut.split("*")[0]=="22"){
+                  yemMan[1]=degerler[0]=="True" ? true : false;
+                  yemMan[2]=degerler[1]=="True" ? true : false;
+                  yemMan[3]=degerler[2]=="True" ? true : false;
+                  yemMan[4]=degerler[3]=="True" ? true : false;
+                  yemMan[5]=degerler[4]=="True" ? true : false;
+                  yemMan[6]=degerler[5]=="True" ? true : false;
+              }
+
+
+              if(komut.split("*")[0]=="22a"){
+                  sirMan[1]=degerler[0]=="True" ? true : false;
+              }
+
+              socket.add(utf8.encode('ok'));
+            }
+          },
+          onDone: () {
+            baglanti = false;
+            baglantiFan = false;
+            baglantiPed = false;
+            baglantiAyd = false;
+            baglantiBfa = false;
+            baglantiIst = false;
+            baglantiYml = false;
+            baglantiSrk = false;
+            socket.close();
+            if (!timerCancel) {
+              setState(() {});
+            }
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+        baglanti = false;
+        baglantiFan = false;
+        baglantiPed = false;
+        baglantiAyd = false;
+        baglantiBfa = false;
+        baglantiIst = false;
+        baglantiYml = false;
+        baglantiSrk = false;
+      });
+    } catch (e) {
+      print(e);
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
+          duration: 3);
+      baglanti = false;
+      baglantiFan = false;
+      baglantiPed = false;
+      baglantiAyd = false;
+      baglantiBfa = false;
+      baglantiIst = false;
+      baglantiYml = false;
+      baglantiSrk = false;
+    }
+  }
+
+  _veriGonder(String emir) async {
+    try {
+      String gelenMesaj = "";
+      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
+      await Socket.connect('192.168.1.110', 2235).then((socket) {
+        String gelen_mesaj = "";
+
+        socket.add(utf8.encode(emir));
+
+        socket.listen(
+          (List<int> event) {
+            print(utf8.decode(event));
+            gelen_mesaj = utf8.decode(event);
+            var gelen_mesaj_parcali = gelen_mesaj.split("*");
+
+            if (gelen_mesaj_parcali[0] == 'ok') {
+              Toast.show(
+                  Dil().sec(dilSecimi, "toast8"), context,
+                  duration: 2);
+            } else {
+              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
+            }
+          },
+          onDone: () {
+            baglanti = false;
+            socket.close();
+            if(emir.split("*")[0]=='20')
+              _takipEt("16*");
+            if(emir.split("*")[0]=='21')
+              _takipEt("17*$fanAdet");
+            if(emir.split("*")[0]=='22')
+              _takipEt("18*$pedAdet");
+            if(emir.split("*")[0]=='23')
+              _takipEt("19*");
+            if(emir.split("*")[0]=='24')
+              _takipEt("20*$bacafanAdet");
+            if(emir.split("*")[0]=='25')
+              _takipEt("21*$isiticiAdet");
+            if(emir.split("*")[0]=='26')
+              _takipEt("22*");
+            if(emir.split("*")[0]=='26a')
+              _takipEt("22a*");
+
+
+            setState(() {});
+          },
+        );
+      }).catchError((Object error) {
+        print(error);
+        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
+        baglanti = false;
+      });
+    } catch (e) {
+      print(e);
+      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
+          duration: 3);
+      baglanti = false;
+    }
+  }
+
+  Widget _unsurOtoManWidget(String baslik, String imagePath, double oran, bool otomanDurum,int index) {
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -337,56 +619,46 @@ class OtoMan1 extends StatelessWidget {
 
                                      
                                       yazmaSonrasiGecikmeSayaci=0;
-                                      Metotlar().veriGonder("20*$index*1", context, 2235, "toast8", dilSecimi).then((value){
-                                        Metotlar().takipEt("16*", context, 2236, dilSecimi).then((value){
-                                          var degerler = value.split('*');
-                                          provider.otoTFAN=degerler[0]=="True" ? true : false;
-                                          provider.otoPEDM=degerler[1]=="True" ? true : false;
-                                          provider.otoAYDL=degerler[2]=="True" ? true : false;
-                                          provider.otoBFAN=degerler[3]=="True" ? true : false;
-                                          provider.otoISTC=degerler[4]=="True" ? true : false;
-                                          provider.otoYEMA=degerler[5]=="True" ? true : false;
-                                          provider.otoSIRK=degerler[6]=="True" ? true : false;
-                                          provider.dinlemeyiTetikle();
-                                        });
-                                      });
+                                      _veriGonder("20*$index*1");
 
                                       if(index==1){
-                                        provider.otoTFAN=true;
-                                        for(int i=1;i<=int.parse(provider.fanAdet);i++){
-                                          provider.fanMan[i]=false;
+                                        otoTFAN=true;
+                                        for(int i=1;i<=int.parse(fanAdet);i++){
+                                          fanMan[i]=false;
                                         }
                                       }else if(index==3){
-                                        provider.otoPEDM=true;
-                                        for(int i=1;i<=int.parse(provider.pedAdet);i++){
-                                          provider.pedMan[i]=false;
+                                        otoPEDM=true;
+                                        for(int i=1;i<=int.parse(pedAdet);i++){
+                                          pedMan[i]=false;
                                         }
                                       }else if(index==4){
-                                        provider.otoAYDL=true;
-                                        provider.aydMan[1]=false;
+                                        otoAYDL=true;
+                                        aydMan[1]=false;
                                       }else if(index==6){
-                                        provider.otoBFAN=true;
-                                        for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
-                                         provider.bfaMan[i]=false;
+                                        otoBFAN=true;
+                                        for(int i=1;i<=int.parse(bacafanAdet);i++){
+                                         bfaMan[i]=false;
                                         }
                                       }else if(index==7){
-                                        provider.otoISTC=true;
-                                        for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
-                                          provider.istMan[i]=false;
+                                        otoISTC=true;
+                                        for(int i=1;i<=int.parse(isiticiAdet);i++){
+                                          istMan[i]=false;
                                         }
                                       }else if(index==8){
-                                        provider.otoYEMA=true;
+                                        otoYEMA=true;
                                         for(int i=1;i<=6;i++){
-                                          provider.yemMan[i]=false;
+                                          yemMan[i]=false;
                                         }
                                       }else if(index==9){
-                                        provider.otoSIRK=true;
+                                        otoSIRK=true;
                                         for(int i=1;i<=1;i++){
-                                          provider.sirMan[i]=false;
+                                          sirMan[i]=false;
                                         }
                                       }
 
-                                      provider.dinlemeyiTetikle();
+                                      setState(() {
+                                        
+                                      });
 
                                     },
                                     materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
@@ -417,37 +689,27 @@ class OtoMan1 extends StatelessWidget {
                                     elevation: 8,
                                     onPressed: (){
                                       yazmaSonrasiGecikmeSayaci=0;
-                                      Metotlar().veriGonder("20*$index*0", context, 2235, "toast8", dilSecimi).then((value){
-                                        Metotlar().takipEt("16*", context, 2236, dilSecimi).then((value){
-                                          var degerler = value.split('*');
-                                          provider.otoTFAN=degerler[0]=="True" ? true : false;
-                                          provider.otoPEDM=degerler[1]=="True" ? true : false;
-                                          provider.otoAYDL=degerler[2]=="True" ? true : false;
-                                          provider.otoBFAN=degerler[3]=="True" ? true : false;
-                                          provider.otoISTC=degerler[4]=="True" ? true : false;
-                                          provider.otoYEMA=degerler[5]=="True" ? true : false;
-                                          provider.otoSIRK=degerler[6]=="True" ? true : false;
-                                          provider.dinlemeyiTetikle();
-                                        });
-                                      });
+                                      _veriGonder("20*$index*0");
 
                                       if(index==1){
-                                        provider.otoTFAN=false;
+                                        otoTFAN=false;
                                       }else if(index==3){
-                                        provider.otoPEDM=false;
+                                        otoPEDM=false;
                                       }else if(index==4){
-                                        provider.otoAYDL=false;
+                                        otoAYDL=false;
                                       }else if(index==6){
-                                        provider.otoBFAN=false;
+                                        otoBFAN=false;
                                       }else if(index==7){
-                                        provider.otoISTC=false;
+                                        otoISTC=false;
                                       }else if(index==8){
-                                        provider.otoYEMA=false;
+                                        otoYEMA=false;
                                       }else if(index==9){
-                                        provider.otoSIRK=false;
+                                        otoSIRK=false;
                                       }
 
-                                      provider.dinlemeyiTetikle();
+                                      setState(() {
+                                        
+                                      });
                                     },
                                     materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
                                     constraints: BoxConstraints(),
@@ -498,18 +760,12 @@ class OtoMan1 extends StatelessWidget {
                                             }
                                             if(!baglantiFan && yazmaSonrasiGecikmeSayaciTFAN>7){
                                               baglantiFan=true;
-                                              Metotlar().takipEt("17*${provider.fanAdet}", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.fanAdet);i++){
-                                                  provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("17*$fanAdet");
                                             }
                                             
                                           });
 
-                                          _manKontrolTFAN(oran,index,context,provider).then((value){
+                                          _manKontrolTFAN(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelFan=true;
                                         });
@@ -522,18 +778,12 @@ class OtoMan1 extends StatelessWidget {
                                             }
                                             if(!baglantiPed && yazmaSonrasiGecikmeSayaciPED>7){
                                               baglantiPed=true;
-                                              Metotlar().takipEt("18*${provider.pedAdet}", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.pedAdet);i++){
-                                                  provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("18*$pedAdet");
                                             }
                                             
                                           });
 
-                                          _manKontrolPED(oran,index,context,provider).then((value){
+                                          _manKontrolPED(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelPed=true;
                                         });
@@ -546,17 +796,12 @@ class OtoMan1 extends StatelessWidget {
                                             }
                                             if(!baglantiAyd && yazmaSonrasiGecikmeSayaciAYD>7){
                                               baglantiAyd=true;
-                                              Metotlar().takipEt("19*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                provider.manuelAydinlikYuzdesi=degerler[0];
-                                                provider.aydMan[1]=degerler[1]=="True" ? true : false;
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("19*");
                                             }
                                             
                                           });
 
-                                          _manKontrolAYD(oran,index,context,provider).then((value){
+                                          _manKontrolAYD(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelAyd=true;
                                         });
@@ -571,18 +816,12 @@ class OtoMan1 extends StatelessWidget {
                                             }
                                             if(!baglantiBfa && yazmaSonrasiGecikmeSayaciBFAN>7){
                                               baglantiAyd=true;
-                                              Metotlar().takipEt("20*${provider.bacafanAdet}", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
-                                                  provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("20*$bacafanAdet");
                                             }
                                             
                                           });
 
-                                          _manKontrolBFAN(oran,index,context,provider).then((value){
+                                          _manKontrolBFAN(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelBfa=true;
                                         });
@@ -598,18 +837,12 @@ class OtoMan1 extends StatelessWidget {
                                             }
                                             if(!baglantiIst && yazmaSonrasiGecikmeSayaciISTC>7){
                                               baglantiIst=true;
-                                              Metotlar().takipEt("21*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
-                                                  provider.istMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("21*");
                                             }
                                             
                                           });
 
-                                          _manKontrolISTC(oran,index,context,provider).then((value){
+                                          _manKontrolISTC(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelIst=true;
                                         });
@@ -625,21 +858,12 @@ class OtoMan1 extends StatelessWidget {
                                             }
                                             if(!baglantiYml && yazmaSonrasiGecikmeSayaciYEML>7){
                                               baglantiYml=true;
-                                              Metotlar().takipEt("22*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                provider.yemMan[1]=degerler[0]=="True" ? true : false;
-                                                provider.yemMan[2]=degerler[1]=="True" ? true : false;
-                                                provider.yemMan[3]=degerler[2]=="True" ? true : false;
-                                                provider.yemMan[4]=degerler[3]=="True" ? true : false;
-                                                provider.yemMan[5]=degerler[4]=="True" ? true : false;
-                                                provider.yemMan[6]=degerler[5]=="True" ? true : false;
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("22*");
                                             }
                                             
                                           });
 
-                                          _manKontrolYEML(oran,index,context,provider).then((value){
+                                          _manKontrolYEML(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelYml=true;
                                         });
@@ -648,27 +872,31 @@ class OtoMan1 extends StatelessWidget {
 
                                       else if(index==9){
                                         timerCancelSrk=false;
+                                        print("GİRİYOR1");
                                         Timer.periodic(Duration(seconds: 1), (timer) {
+                                          print("GİRİYOR2");
+                                          print(yazmaSonrasiGecikmeSayaciSIRK);
+                                          print(baglantiSrk);
                                             yazmaSonrasiGecikmeSayaciSIRK++;
                                             if (timerCancelSrk) {
                                               timer.cancel();
+                                              print("GİRİYOR3");
                                             }
                                             if(!baglantiSrk && yazmaSonrasiGecikmeSayaciSIRK>7){
                                               baglantiSrk=true;
-                                              Metotlar().takipEt("22a*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                provider.sirMan[1]=degerler[0]=="True" ? true : false;
-                                                provider.dinlemeyiTetikle();
-                                              });
+                                              _takipEt("22a*");
+                                              print("GİRİYOR4");
                                             }
                                             
                                           });
 
-                                          _manKontrolSIRK(oran,index,context,provider).then((value){
+                                          _manKontrolSIRK(oran,index).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelSrk=true;
+                                          print("GİRİYOR5");
                                         });
                                       }
+                                      print("INDEX: $index");
 
 
 
@@ -735,8 +963,7 @@ class OtoMan1 extends StatelessWidget {
   
   }
 
-  Widget _unsurOtoManWidgetKlepeAir(String baslik, String imagePath, double oran, bool otomanDurum,int index
-  , BuildContext context, DBProkis dbProkis) {
+  Widget _unsurOtoManWidgetKlepeAir(String baslik, String imagePath, double oran, bool otomanDurum,int index) {
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -777,7 +1004,7 @@ class OtoMan1 extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              OtoManKlepe(dbProkis.getDbVeri)),
+                                              OtoManKlepe(dbVeriler)),
                                     );
                                 }
 
@@ -787,7 +1014,7 @@ class OtoMan1 extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              OtoManAir(dbProkis.getDbVeri)),
+                                              OtoManAir(dbVeriler)),
                                     );
                                 }
 
@@ -826,7 +1053,7 @@ class OtoMan1 extends StatelessWidget {
   
   }
  
-  Future _manKontrolTFAN(double oran, int index, BuildContext context, OtoMan1Provider provider){
+  Future _manKontrolTFAN(double oran, int index){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -887,157 +1114,157 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[1], oran,1,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", fanMan[1], oran,1,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[2], oran,2,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", fanMan[2], oran,2,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[3], oran,3,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", fanMan[3], oran,3,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[4], oran,4,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", fanMan[4], oran,4,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[5], oran,5,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", fanMan[5], oran,5,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[6], oran,6,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[6], oran,6,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[7], oran,7,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[7], oran,7,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[8], oran,8,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[8], oran,8,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[9], oran,9,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[9], oran,9,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" ,  provider.fanMan[10], oran,10,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" ,  fanMan[10], oran,10,fanAdet),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[11] , oran,11,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[11] , oran,11,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[12] , oran,12,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[12] , oran,12,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[13] , oran,13,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[13] , oran,13,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[14] , oran,14,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[14] , oran,14,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[15] , oran,15,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[15] , oran,15,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[16] , oran,16,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[16] , oran,16,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[17] , oran,17,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[17] , oran,17,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[18] , oran,18,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[18] , oran,18,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[19] , oran,19,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[19] , oran,19,fanAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[20] , oran,20,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , fanMan[20] , oran,20,fanAdet),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
-                                                                      Visibility(visible: int.parse(provider.fanAdet)>20,
+                                                                      Visibility(visible: int.parse(fanAdet)>20,
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[21], oran,21,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[21], oran,21,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[22], oran,22,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[22], oran,22,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[23], oran,23,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[23], oran,23,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[24], oran,24,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[24], oran,24,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[25], oran,25,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[25], oran,25,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[26], oran,26,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[26], oran,26,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[27], oran,27,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[27], oran,27,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[28], oran,28,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[28], oran,28,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[29], oran,29,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[29], oran,29,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[30], oran,30,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[30], oran,30,fanAdet),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                      Visibility(visible: int.parse(provider.fanAdet)>30,
+                                                                      Visibility(visible: int.parse(fanAdet)>30,
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[31], oran,31,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[31], oran,31,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[32], oran,32,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[32], oran,32,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[33], oran,33,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[33], oran,33,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[34], oran,34,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[34], oran,34,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[35], oran,35,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[35], oran,35,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[36], oran,36,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[36], oran,36,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[37], oran,37,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[37], oran,37,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[38], oran,38,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[38], oran,38,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[39], oran,39,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[39], oran,39,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[40], oran,40,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[40], oran,40,fanAdet),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                      Visibility(visible: int.parse(provider.fanAdet)>40,
+                                                                      Visibility(visible: int.parse(fanAdet)>40,
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[41], oran,41,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[41], oran,41,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[42], oran,42,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[42], oran,42,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[43], oran,43,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[43], oran,43,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[44], oran,44,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[44], oran,44,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[45], oran,45,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[45], oran,45,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[46], oran,46,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[46], oran,46,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[47], oran,47,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[47], oran,47,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[48], oran,48,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[48], oran,48,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[49], oran,49,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[49], oran,49,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[50], oran,50,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[50], oran,50,fanAdet),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                      Visibility(visible: int.parse(provider.fanAdet)>50,
+                                                                      Visibility(visible: int.parse(fanAdet)>50,
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[51], oran,51,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[51], oran,51,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[52], oran,52,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[52], oran,52,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[53], oran,53,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[53], oran,53,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[54], oran,54,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[54], oran,54,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[55], oran,55,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[55], oran,55,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[56], oran,56,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[56], oran,56,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[57], oran,57,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[57], oran,57,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[58], oran,58,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[58], oran,58,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[59], oran,59,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[59], oran,59,fanAdet),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[60], oran,60,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , fanMan[60], oran,60,fanAdet),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1059,7 +1286,7 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-  Future _manKontrolPED(double oran,int index,  BuildContext context, OtoMan1Provider provider){
+  Future _manKontrolPED(double oran,int index){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1120,15 +1347,15 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[1] , oran,1,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[1] , oran,1,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[2] , oran,2,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[2] , oran,2,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[3] , oran,3,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[3] , oran,3,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[4] , oran,4,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[4] , oran,4,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[5] , oran,5,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[5] , oran,5,pedAdet),
                                                                           
                                                                           Spacer(),
                                                                         ],
@@ -1136,15 +1363,15 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[6], oran,6,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[6], oran,6,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[7], oran,7,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[7], oran,7,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[8], oran,8,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[8], oran,8,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[9], oran,9,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[9], oran,9,pedAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[10] , oran,10,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", pedMan[10] , oran,10,pedAdet),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1165,7 +1392,7 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-  Future _manKontrolAYD(double oran,int index, BuildContext context , OtoMan1Provider provider){
+  Future _manKontrolAYD(double oran,int index){
 
     bool bottomDrawerAktif=true;
     int sayac1=0;
@@ -1224,7 +1451,7 @@ class OtoMan1 extends StatelessWidget {
                                                                 children: <Widget>[
                                                                   Expanded(child: Column(mainAxisAlignment: MainAxisAlignment.center,
                                                                     children: <Widget>[
-                                                                      Visibility(visible: provider.dimmer=="1",
+                                                                      Visibility(visible: dimmer=="1",
                                                                         child: Text(
                                                                           Dil().sec(dilSecimi, "tv470"),
                                                                           textScaleFactor: oran,
@@ -1239,16 +1466,16 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(flex: 3,),
-                                                                          Visibility(visible: provider.dimmer!="1",
-                                                                            child: bottomDrawerManUnsur(index ,"tv112", provider.aydMan[1] , oran,1,"1",context,provider)
+                                                                          Visibility(visible: dimmer!="1",
+                                                                            child: bottomDrawerManUnsur(index ,"tv112", aydMan[1] , oran,1,"1")
                                                                             ),
 
-                                                                          Visibility(visible: provider.dimmer=="1",
+                                                                          Visibility(visible: dimmer=="1",
                                                                             child: Expanded(
                                                                             child: RawMaterialButton(
                                                                               onPressed: () {
                                                                                 _index = 13;
-                                                                                int sayi=int.parse(provider.manuelAydinlikYuzdesi);
+                                                                                int sayi=int.parse(manuelAydinlikYuzdesi);
                                                                                 _yuzler=sayi<100 ? 0 : sayi~/100;
                                                                                 _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                                 _birler=sayi%10;
@@ -1261,13 +1488,13 @@ class OtoMan1 extends StatelessWidget {
                                                                                     oran,
                                                                                     dilSecimi,
                                                                                     "tv340",
-                                                                                    "",context,provider);
+                                                                                    "");
                                                                               },
                                                                               child: Container(
                                                                                 color: Colors.blue[700],
                                                                                 padding: EdgeInsets.only(top: 5*oran,bottom: 5*oran),
                                                                                 child: Text(
-                                                                                  provider.manuelAydinlikYuzdesi,
+                                                                                  manuelAydinlikYuzdesi,
                                                                                   textScaleFactor: oran,
                                                                                   style: TextStyle(
                                                                                     fontFamily: 'Kelly Slab',
@@ -1308,7 +1535,7 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-  Future _manKontrolBFAN(double oran,int index,BuildContext context, OtoMan1Provider provider){
+  Future _manKontrolBFAN(double oran,int index){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1369,7 +1596,7 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(flex: 11,),
-                                                                          bottomDrawerManUnsur(index ,"tv495", provider.bfaMan[1] , oran,1,provider.bacafanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv495", bfaMan[1] , oran,1,bacafanAdet),
                                                                           Spacer(flex: 11,),
                                                                           /*
                                                                           bottomDrawerManUnsur(index ,"tv495", bfaMan[2] , oran,2,bacafanAdet),
@@ -1396,7 +1623,7 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-  Future _manKontrolISTC(double oran,int index, BuildContext context , OtoMan1Provider provider){
+  Future _manKontrolISTC(double oran,int index){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1457,11 +1684,11 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[1] , oran,1,provider.isiticiAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv80", istMan[1] , oran,1,isiticiAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[2] , oran,2,provider.isiticiAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv80", istMan[2] , oran,2,isiticiAdet),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[3] , oran,3,provider.isiticiAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv80", istMan[3] , oran,3,isiticiAdet),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1482,7 +1709,7 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-  Future _manKontrolYEML(double oran,int index, BuildContext context, OtoMan1Provider provider ){
+  Future _manKontrolYEML(double oran,int index){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1543,19 +1770,9 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv89", provider.yemMan[1] , oran,1,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv89", yemMan[1] , oran,1,yemUnsurAdet.toString()),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv92", provider.yemMan[2] , oran,2,provider.yemUnsurAdet.toString(),context,provider),
-                                                                          Spacer(),
-                                                                        ],
-                                                                      ),
-
-                                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                        children: <Widget>[
-                                                                          Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv90", provider.yemMan[3] , oran,3,provider.yemUnsurAdet.toString(),context,provider),
-                                                                          Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv93", provider.yemMan[4] , oran,4,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv92", yemMan[2] , oran,2,yemUnsurAdet.toString()),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1563,9 +1780,19 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv91", provider.yemMan[5] , oran,5,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv90", yemMan[3] , oran,3,yemUnsurAdet.toString()),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv94", provider.yemMan[6] , oran,6,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv93", yemMan[4] , oran,4,yemUnsurAdet.toString()),
+                                                                          Spacer(),
+                                                                        ],
+                                                                      ),
+
+                                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                        children: <Widget>[
+                                                                          Spacer(),
+                                                                          bottomDrawerManUnsur(index ,"tv91", yemMan[5] , oran,5,yemUnsurAdet.toString()),
+                                                                          Spacer(),
+                                                                          bottomDrawerManUnsur(index ,"tv94", yemMan[6] , oran,6,yemUnsurAdet.toString()),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1586,7 +1813,7 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-  Future _manKontrolSIRK(double oran,int index, BuildContext context, OtoMan1Provider provider ){
+  Future _manKontrolSIRK(double oran,int index){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1647,7 +1874,7 @@ class OtoMan1 extends StatelessWidget {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(flex: 11,),
-                                                                          bottomDrawerManUnsur(index ,"tv581", provider.sirMan[1] , oran,1,provider.sirkFanVarMi,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv581", sirMan[1] , oran,1,sirkFanVarMi),
                                                                           Spacer(flex: 11,),
                                                                           /*
                                                                           bottomDrawerManUnsur(index ,"tv495", bfaMan[2] , oran,2,bacafanAdet),
@@ -1675,7 +1902,7 @@ class OtoMan1 extends StatelessWidget {
   }
 
 
-  Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran, int unsurNo, String adet, BuildContext context, OtoMan1Provider provider) {
+  Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran, int unsurNo, String adet){
 
     return Expanded(flex: 10,
       child: Visibility(visible: int.parse(adet)>=unsurNo, maintainAnimation: true,maintainState: true,maintainSize: true,
@@ -1692,150 +1919,94 @@ class OtoMan1 extends StatelessWidget {
               if(index==1){
                     if(otoManDurum){
                     veri="0";
-                    provider.fanMan[unsurNo]=false;
+                    fanMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.fanMan[unsurNo]=true;
+                    fanMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciTFAN=0;
-                Metotlar().veriGonder("21*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("17*${provider.fanAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.fanAdet);i++){
-                      provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("21*$unsurNo*$veri");
               }
 
               if(index==3){
                     if(otoManDurum){
                     veri="0";
-                    provider.pedMan[unsurNo]=false;
+                    pedMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.pedMan[unsurNo]=true;
+                    pedMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciPED=0;
-                Metotlar().veriGonder("22*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("18*${provider.pedAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.pedAdet);i++){
-                      provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("22*$unsurNo*$veri");
               }
 
               if(index==4){
                     if(otoManDurum){
                     veri="0";
-                    provider.aydMan[unsurNo]=false;
+                    aydMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.aydMan[unsurNo]=true;
+                    aydMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciAYD=0;
-                Metotlar().veriGonder("23*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("19*}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    provider.manuelAydinlikYuzdesi=degerler[0];
-                    provider.aydMan[1]=degerler[1]=="True" ? true : false;
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("23*$unsurNo*$veri");
               }
 
               if(index==6){
                     if(otoManDurum){
                     veri="0";
-                    provider.bfaMan[unsurNo]=false;
+                    bfaMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.bfaMan[unsurNo]=true;
+                    bfaMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciBFAN=0;
-                Metotlar().veriGonder("24*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("20*${provider.bacafanAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
-                      provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("24*$unsurNo*$veri");
               }
 
 
               if(index==7){
                     if(otoManDurum){
                     veri="0";
-                    provider.istMan[unsurNo]=false;
+                    istMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.istMan[unsurNo]=true;
+                    istMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciISTC=0;
-                Metotlar().veriGonder("25*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("21*${provider.isiticiAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
-                      provider.istMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("25*$unsurNo*$veri");
               }
 
               if(index==8){
                     if(otoManDurum){
                     veri="0";
-                    provider.yemMan[unsurNo]=false;
+                    yemMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.yemMan[unsurNo]=true;
+                    yemMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciYEML=0;
-                Metotlar().veriGonder("26*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("22*", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    provider.yemMan[1]=degerler[0]=="True" ? true : false;
-                    provider.yemMan[2]=degerler[1]=="True" ? true : false;
-                    provider.yemMan[3]=degerler[2]=="True" ? true : false;
-                    provider.yemMan[4]=degerler[3]=="True" ? true : false;
-                    provider.yemMan[5]=degerler[4]=="True" ? true : false;
-                    provider.yemMan[6]=degerler[5]=="True" ? true : false;
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("26*$unsurNo*$veri");
               }
 
 
               if(index==9){
                     if(otoManDurum){
                     veri="0";
-                    provider.sirMan[unsurNo]=false;
+                    sirMan[unsurNo]=false;
                   }else{
                     veri="1";
-                    provider.sirMan[unsurNo]=true;
+                    sirMan[unsurNo]=true;
                   }
 
                 yazmaSonrasiGecikmeSayaciSIRK=0;
-                Metotlar().veriGonder("26a*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("22a*", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    provider.sirMan[1]=degerler[0]=="True" ? true : false;
-                    provider.dinlemeyiTetikle();
-                  });
-                });
+                _veriGonder("26a*$unsurNo*$veri");
               }
                       
 
@@ -1860,7 +2031,7 @@ class OtoMan1 extends StatelessWidget {
   }
 
   Future _degergiris3X0(int yuzler , onlar , birler, index, double oran,
-      String dil, baslik, onBaslik, BuildContext context, OtoMan1Provider provider) async {
+      String dil, baslik, onBaslik) async {
     // flutter defined function
 
     await showDialog(
@@ -1889,18 +2060,17 @@ class OtoMan1 extends StatelessWidget {
       String veri = '';
 
       if (index == 13) {
-        provider.manuelAydinlikYuzdesi=(_yuzler*100+_onlar*10+_birler).toString();
-        veri = provider.manuelAydinlikYuzdesi;
+        manuelAydinlikYuzdesi=(_yuzler*100+_onlar*10+_birler).toString();
+        veri = manuelAydinlikYuzdesi;
       }
 
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaciYEML= 0;
-        Metotlar().veriGonder("15*$_index*$veri", context, 2235, "toast8", dilSecimi);
+        _veriGonder("15*$_index*$veri");
       }
 
-      provider.dinlemeyiTetikle();
-
+      setState(() {});
     });
   }
 
@@ -1912,81 +2082,6 @@ class OtoMan1 extends StatelessWidget {
 
 
 
-}
+//--------------------------METOTLAR--------------------------------
 
-class OtoMan1Provider with ChangeNotifier {
-  int sayac=0;
-
-  String fanAdet = "0";
-  String pedAdet = "0";
-  String bacafanAdet = "0";
-  String sirkFanVarMi = "0";
-  
-  String isiticiAdet = "0";
-  int yemUnsurAdet = 0;
-  String dimmer = "0";
-  String manuelAydinlikYuzdesi = "50";
-
-  
-
-  bool yem1Aktif = false;
-  bool yem2Aktif = false;
-  bool yem3Aktif = false;
-
-  bool otoTFAN=false;
-  bool otoBFAN=false;
-  bool otoPEDM=false;
-  bool otoAIRI=false;
-  bool otoKLPE=false;
-  bool otoISTC=false;
-  bool otoYEMA=false;
-  bool otoAYDL=false;
-  bool otoSIRK=false;
-
- 
-  List<bool> fanMan = new List.filled(61,false);
-  List<bool> pedMan = new List.filled(11,false);
-  List<bool> aydMan = new List.filled(2,false);
-  List<bool> bfaMan = new List.filled(4,false);
-  List<bool> istMan = new List.filled(4,false);
-  List<bool> yemMan = new List.filled(7,false);
-  List<bool> sirMan = new List.filled(2,false);
-
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-
-  BuildContext context;
-  DBProkis dbProkis;
-
-  OtoMan1Provider(this.context, this.dbProkis) {
-
-    fanAdet = dbProkis.dbVeriGetir(4, 1, "1");
-    pedAdet = dbProkis.dbVeriGetir(4, 3, "1");
-    var yy=dbProkis.dbVeriGetir(5, 1, "0#0").split('#'); 
-    bacafanAdet = yy[0];
-    sirkFanVarMi = yy[1];
-    isiticiAdet=dbProkis.dbVeriGetir(5, 3, "0");
-
-    if (dbProkis.dbVeriGetir(31, 1, "") == "ok") {
-      var aktifYemCikislar;
-      aktifYemCikislar = dbProkis.dbVeriGetir(31, 3, "").split("#");
-      yem1Aktif = aktifYemCikislar[0] == "1" ? true : false;
-      yem2Aktif = aktifYemCikislar[1] == "1" ? true : false;
-      yem3Aktif = aktifYemCikislar[2] == "1" ? true : false;
-      dimmer=dbProkis.dbVeriGetir(31, 4, false);
-    }
-
-    if(yem1Aktif){
-      yemUnsurAdet=yemUnsurAdet+2;
-    }
-    if(yem2Aktif){
-      yemUnsurAdet=yemUnsurAdet+2;
-    }
-    if(yem3Aktif){
-      yemUnsurAdet=yemUnsurAdet+2;
-    }
-  }
-  
 }

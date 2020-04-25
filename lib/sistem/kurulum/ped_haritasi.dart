@@ -9,13 +9,11 @@ import 'package:prokis/mywidgets/showModalBottomSheet2x0veQ.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/alert_reset.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/sistem/kurulum/isisensor_haritasi.dart';
 import 'klepe_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 
 
 class PedHaritasi extends StatelessWidget {
@@ -48,11 +46,11 @@ class PedHaritasi extends StatelessWidget {
               return Scaffold(
                   floatingActionButton: MyFloatingActionBackButton(
                   !ilkKurulumMu,
-                  !provider.getveriGonderildi,
+                  !provider.veriGonderildi,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -61,33 +59,23 @@ class PedHaritasi extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(flex: 1,
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv47"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv47"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //ped Harita Oluşturma Bölümü
         Expanded(
           flex: 9,
@@ -380,7 +368,7 @@ class PedHaritasi extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 24,provider.getharitaOnay,provider.getsayac,dilSecimi),
+                Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 24,provider.haritaOnay,provider.sayac,dilSecimi),
                 
               ],
             ),
@@ -402,7 +390,7 @@ class PedHaritasi extends StatelessWidget {
                     children: <Widget>[
                       //Haritayı Onayla Butonu
                       Visibility(
-                        visible: !provider.getharitaOnay,
+                        visible: !provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -411,19 +399,19 @@ class PedHaritasi extends StatelessWidget {
                             int sayac = 0;
 
                             for (int i = 1; i <= 24; i++) {
-                              if (provider.getpedHarita[i] == 1) {
+                              if (provider.pedHarita[i] == 1) {
                                 sayac++;
                               }
                             }
 
-                            if (sayac < provider.getpedAdet) {
+                            if (sayac < provider.pedAdet) {
                               //Haritada seçilen ped sayısı eksik
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast49"),
                                   context,
                                   duration: 3);
-                            } else if (sayac > provider.getpedAdet) {
+                            } else if (sayac > provider.pedAdet) {
                               //Haritada seçilen ped sayısı yüksek
                               Toast.show(
                                   Dil()
@@ -437,20 +425,21 @@ class PedHaritasi extends StatelessWidget {
                                       .sec(dilSecimi, "toast8"),
                                   context,
                                   duration: 3);
-                              provider.setharitaOnay = true;
+                              
 
                               for (int i = 1; i <= 24; i++) {
-                                if (provider.getpedHarita[i] != 0) {
-                                  provider.listIslem(provider.getpedVisibility, null, 3, i, true, 19);
+                                if (provider.pedHarita[i] != 0) {
+                                  provider.pedVisibility[i]=true;
                                 } else {
-                                  provider.listIslem(provider.getpedVisibility, null, 3, i, false, 19);
+                                  provider.pedVisibility[i]=false;
                                 }
+
                               }
 
                               String veri = "";
 
                               for (int i = 1; i <= 24; i++) {
-                                veri = veri + provider.getpedHarita[i].toString() + "#";
+                                veri = veri + provider.pedHarita[i].toString() + "#";
                               }
 
                               Metotlar().veriGonder("18*23*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
@@ -459,6 +448,10 @@ class PedHaritasi extends StatelessWidget {
                                           }
 
                                         });
+
+                            provider.setharitaOnay = true;
+
+
                             }
 
                             //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
@@ -485,7 +478,7 @@ class PedHaritasi extends StatelessWidget {
 
                       //Haritayı Sıfırla Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
@@ -515,43 +508,42 @@ class PedHaritasi extends StatelessWidget {
 
                       //Verileri Gönder Butonu
                       Visibility(
-                        visible: provider.getharitaOnay,
+                        visible: provider.haritaOnay,
                         maintainState: true,
                         maintainSize: true,
                         maintainAnimation: true,
                         child: FlatButton(
                           onPressed: () {
-                            bool noKontrol = false;
+                            bool sifirNoVarMi = false;
                             bool cikisKullanimda = false;
                             bool pedNOyuksek = false;
                             String cikisVeri = "";
                             String noVeri = "";
                             String tumCikislarVeri = "";
                             for (int i = 1; i <= 24; i++) {
-                              if (provider.getpedHarita[i] == 1) {
-                                if (provider.getpedNo[i] == 0 || provider.getcikisNo[i] == 0) {
-                                  noKontrol = true;
+                              if (provider.pedHarita[i] == 1) {
+                                if (provider.pedNo[i] == 0 || provider.cikisNo[i] == 0) {
+                                  sifirNoVarMi = true;
                                 }
-                                if (provider.getpedNo[i] > provider.getpedAdet) {
+                                if (provider.pedNo[i] > provider.pedAdet) {
                                   pedNOyuksek = true;
                                 }
                               }
-                              cikisVeri = cikisVeri + provider.getcikisNo[i].toString() + "#";
-                              noVeri = noVeri + provider.getpedNo[i].toString() + "#";
-                            }
-                            print(provider.getcikisNoGecici);
 
-                            for (int i = 1; i <= 24; i++) {
-                              if (provider.getcikisNoGecici[i] != provider.getcikisNo[i]) {
-                                if (provider.gettumCikislar[provider.getcikisNo[i]] == 0) {
-                                  provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoGecici[i], 0, 25);
+                              if (provider.cikisNoGecici[i] != provider.cikisNo[i]) {
+                                if (provider.tumCikislar[provider.cikisNo[i]] == 0) {
+                                  provider.tumCikislar[provider.cikisNoGecici[i]]=0;
                                 } else {
                                   cikisKullanimda = true;
                                 }
                               }
+
+                              cikisVeri = cikisVeri + provider.cikisNo[i].toString() + "#";
+                              noVeri = noVeri + provider.pedNo[i].toString() + "#";
                             }
 
-                            if (noKontrol) {
+
+                            if (sifirNoVarMi) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast36"),
@@ -563,13 +555,13 @@ class PedHaritasi extends StatelessWidget {
                                       .sec(dilSecimi, "toast45"),
                                   context,
                                   duration: 3);
-                            } else if (provider.getpedNoTekerrur) {
+                            } else if (provider.pedNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast32"),
                                   context,
                                   duration: 3);
-                            } else if (provider.getcikisNoTekerrur) {
+                            } else if (provider.cikisNoTekerrur) {
                               Toast.show(
                                   Dil()
                                       .sec(dilSecimi, "toast26"),
@@ -583,17 +575,16 @@ class PedHaritasi extends StatelessWidget {
                                   duration: 3);
                             } else {
                               for (int i = 1; i <= 24; i++) {
-                                if (provider.getcikisNo[i] != 0) {
-                                  provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNo[i], 1, null);
+                                if (provider.cikisNo[i] != 0) {
+                                  provider.tumCikislar[provider.cikisNo[i]]=1;
                                 }
                               }
                               for (int i = 1; i <= 110; i++) {
                                 tumCikislarVeri = tumCikislarVeri +
-                                    provider.gettumCikislar[i].toString() +
+                                    provider.tumCikislar[i].toString() +
                                     "#";
                               }
-                              provider.setveriGonderildi = true;
-                              provider.setveriGonderildi = true;
+                              
                                         String komut="19*24*$noVeri*$cikisVeri*0*0";
                                         Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                                           if(value=="ok"){
@@ -606,13 +597,16 @@ class PedHaritasi extends StatelessWidget {
                                           }
                                         });
 
-                                        provider.listIslem(null, null, 6, null, null, 25);
+                                        for (int i = 0; i < 25; i++) {
+                                          provider.cikisNoGecici[i]=provider.cikisNo[i];
+                                        }
+                                        provider.setveriGonderildi = true;
                             }
                           },
                           highlightColor: Colors.green,
                           splashColor: Colors.red,
                           color:
-                              provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                              provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                           child: Row(
                             children: <Widget>[
                               Icon(
@@ -662,13 +656,13 @@ class PedHaritasi extends StatelessWidget {
                         icon: Icon(Icons.arrow_forward_ios),
                         iconSize: 50 * oran,
                         onPressed: () {
-                          if (!provider.getharitaOnay) {
+                          if (!provider.haritaOnay) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast62"),
                                 context,
                                 duration: 3);
-                          } else if (!provider.getveriGonderildi) {
+                          } else if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast27"),
@@ -682,21 +676,6 @@ class PedHaritasi extends StatelessWidget {
                                   builder: (context) =>
                                       IsiSensorHaritasi(true)),
                             );
-
-
-                            /*
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      IsiSensorHaritasi(dbVeriler)),
-                            ).then((onValue) {
-                              _dbVeriCekme();
-                              for (int i = 1; i <= 110; i++) {
-                                tumCikislar[i] = onValue[i];
-                              }
-                            });
-                            */
                           }
                         },
                         color: Colors.black,
@@ -732,26 +711,33 @@ class PedHaritasi extends StatelessWidget {
 
   Widget _pedHaritaUnsur(int indexNo, double oran, PedHaritasiProvider provider, BuildContext context) {
     return Expanded(
-      child: Visibility(visible:provider.getpedVisibility[indexNo] ? true : false,
+      child: Visibility(visible:provider.pedVisibility[indexNo] ? true : false,
               child: RawMaterialButton(
             onPressed: () {
-              if (provider.getharitaOnay) {
+              if (provider.haritaOnay) {
 
-                int sayi = provider.getpedNo[indexNo];
+                int sayi = provider.pedNo[indexNo];
                 int pOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                 int pBirler = sayi % 10;
-                String outNoMetin = provider.getcikisNo[indexNo] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisNo[indexNo]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+
+                String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisNo[indexNo]);
+                int qByteOnlar;
+                int qByteBirler;
+                int qBit;
+
+                if(outNoMetin=="Q#.#"){
+                  qByteOnlar =0;
+                  qByteBirler =0;
+                  qBit =0;
+                }else{
+                  qByteOnlar = int.parse(outNoMetin.length > 4
+                      ? outNoMetin.substring(1, 2)
+                      : "0");
+                  qByteBirler = int.parse(outNoMetin.length > 4
+                      ? outNoMetin.substring(2, 3)
+                      : outNoMetin.substring(1, 2));
+                  qBit = int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                }
 
                 MyshowModalBottomSheet2x0veQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit, pOnlar, pBirler,"tv46","tv35")
@@ -764,34 +750,25 @@ class PedHaritasi extends StatelessWidget {
                             
                             outNoMetin = "Q" + (value[1] == 0 ? "" : value[1].toString()) + value[2].toString() + "." + value[3].toString();
                             int cikisNo = Metotlar().outConvQtoSAYI(outNoMetin);
-
+                            sayi =value[4] * 10 + value[5];
 
 
                             if (cikisNo == 0) {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              sayi =value[4] * 10 + value[5];
-                              provider.listIslem(provider.getpedNo, null, 3, indexNo, sayi, null);
-
-                             
-                              provider.listIslem(provider.getcikisNo, null, 3, indexNo, cikisNo, null);
+                              provider.pedNo[indexNo]=sayi;
+                              provider.cikisNo[indexNo]=cikisNo;
+                              provider.tekerrurTespit();
+                              print(provider.cikisNo);
 
                             }
-
-
-
                           }
-
-
                 });
-
-                
-
 
               } else {
 
-                List<int> xx = provider.getpedHarita;
+                List<int> xx = provider.pedHarita;
                   if (xx[indexNo] == 0 ||
                       xx[indexNo] == null) {
                     xx[indexNo] = 1;
@@ -807,7 +784,7 @@ class PedHaritasi extends StatelessWidget {
               alignment: Alignment.center,
               child: Visibility(
             visible:
-                provider.getharitaOnay && provider.getpedHarita[indexNo] == 1 ? true : false,
+                provider.haritaOnay && provider.pedHarita[indexNo] == 1 ? true : false,
             child: Column(
               children: <Widget>[
                 Spacer(flex: 4,),
@@ -830,7 +807,7 @@ class PedHaritasi extends StatelessWidget {
                                   child: AutoSizeText(
                                     " "+Dil().sec(
                                             dilSecimi, "tv72") +"\n"+
-                                        provider.getpedNo[indexNo].toString(),
+                                        provider.pedNo[indexNo].toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 50.0,
@@ -860,7 +837,7 @@ class PedHaritasi extends StatelessWidget {
                                   child: AutoSizeText(
                                     Dil().sec(
                                             dilSecimi, "tv33") +"\n"+
-                                        Metotlar().outConvSAYItoQ(provider.getcikisNo[indexNo]),
+                                        Metotlar().outConvSAYItoQ(provider.cikisNo[indexNo]),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         fontSize: 50.0,
@@ -887,8 +864,8 @@ class PedHaritasi extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   alignment: Alignment.center,
-                  image: AssetImage(imageGetir(provider.getpedHarita[indexNo])),
-                  fit: provider.getpedHarita[indexNo]==0 ? BoxFit.contain : BoxFit.fill,
+                  image: AssetImage(imageGetir(provider.pedHarita[indexNo])),
+                  fit: provider.pedHarita[indexNo]==0 ? BoxFit.contain : BoxFit.fill,
                 ),
               ),
             )),
@@ -912,17 +889,27 @@ class PedHaritasi extends StatelessWidget {
         provider.setveriGonderildi = false;
         String tumCikislarVeri = "";
 
-        provider.listIslem(provider.tumCikislar, provider.getcikisNo, 4, 0, 0, 25);
-
-        for (int i = 1; i <= 110; i++) {
-          //tumCikislarVeri = tumCikislarVeri +provider.gettumCikislar[i].toString() + "#";
-          tumCikislarVeri = tumCikislarVeri +"0" + "#";
+        for (int i = 0; i < 25; i++) {
+          provider.cikisNo[i]=provider.cikisNoGecici[i];
         }
 
-        provider.listIslem(provider.getpedHarita, null, 2, 0, 0, 25);
-        provider.listIslem(provider.getpedNo, null, 2, 0, 0, 25);
-        provider.listIslem(provider.getcikisNo, null, 2, 0, 0, 25);
-        provider.listIslem(provider.getpedVisibility, null, 2, 0, true, 25);
+        for (int i = 1; i < 25; i++) {
+          if (provider.cikisNo[i] != 0) {
+            provider.tumCikislar[provider.cikisNo[i]] = 0;
+          }
+        }
+
+        for (int i = 1; i <= 110; i++) {
+          tumCikislarVeri = tumCikislarVeri + provider.tumCikislar[i].toString() + "#";
+        }
+
+        for (var i = 0; i < 25; i++) {
+          provider.pedHarita[i]=0;
+          provider.pedNo[i]=0;
+          provider.cikisNo[i]=0;
+          provider.pedVisibility[i]=true;
+        }
+
         provider.setharitaOnay = false;
 
         Metotlar()
@@ -941,33 +928,6 @@ class PedHaritasi extends StatelessWidget {
     });
   }
 
-    Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context ) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
 
 }
 
@@ -990,29 +950,12 @@ class PedHaritasiProvider with ChangeNotifier {
 
   List<int> tumCikislar = new List.filled(111,0);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      pedNoTekerrur = false;
+  tekerrurTespit(){
+    pedNoTekerrur = false;
       cikisNoTekerrur = false;
 
       for (int i = 1; i <= 24; i++) {
@@ -1024,9 +967,6 @@ class PedHaritasiProvider with ChangeNotifier {
             pedNoTekerrur = true;
             break;
           }
-          if (pedNoTekerrur) {
-            break;
-          }
           if (i != k &&
               cikisNo[i] == cikisNo[k] &&
               cikisNo[i] != 0 &&
@@ -1034,71 +974,35 @@ class PedHaritasiProvider with ChangeNotifier {
             cikisNoTekerrur = true;
             break;
           }
-          if (cikisNoTekerrur) {
+        }
+        if (cikisNoTekerrur || pedNoTekerrur) {
             break;
           }
-        }
       }
-      break;
-      case 6:
-      for (int i = 0; i < listLenght; i++) {
-        cikisNoGecici[i]=cikisNo[i];
-      }
-      break;
-
-    }
-    
-    notifyListeners();
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-
-  List<int> get getpedHarita => pedHarita;
-  List<bool> get getpedVisibility => pedVisibility;
-  List<int> get getpedNo => pedNo;
-  List<int> get getcikisNo => cikisNo;
-  List<int> get getcikisNoGecici => cikisNoGecici;
-  List<int> get gettumCikislar => tumCikislar;
-
-  bool get getharitaOnay => haritaOnay;
-
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
-
-  int get getpedAdet => pedAdet;
-
   set setfanAdet(int value) {
     pedAdet = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getpedNoTekerrur => pedNoTekerrur;
-
   set setpedNoTekerrur(bool value) {
     pedNoTekerrur = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
     notifyListeners();

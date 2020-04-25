@@ -59,11 +59,11 @@ class KlepeHaritasi extends StatelessWidget {
               return Scaffold(
                 floatingActionButton: MyFloatingActionBackButton(
                   !ilkKurulumMu,
-                  !provider.getveriGonderildi,
+                  !provider.veriGonderildi,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -72,33 +72,23 @@ class KlepeHaritasi extends StatelessWidget {
                     children: <Widget>[
                   //Başlık bölümü
                   Expanded(
-                      child: Container(
-                    color: Colors.grey.shade600,
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-                          flex: 3,
-                          child: SizedBox(
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: AutoSizeText(
-                                Dil().sec(dilSecimi, "tv38"),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontFamily: 'Kelly Slab',
-                                    color: Colors.white,
-                                    fontSize: 60,
-                                    fontWeight: FontWeight.bold),
-                                maxLines: 1,
-                                minFontSize: 8,
-                              ),
-                            ),
+                      child: SizedBox(
+                        child: Container(
+                          color: Colors.grey.shade600,
+                          alignment: Alignment.center,
+                          child: AutoSizeText(
+                            Dil().sec(dilSecimi, "tv38"),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'Kelly Slab',
+                                color: Colors.white,
+                                fontSize: 60,
+                                fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                            minFontSize: 8,
                           ),
                         ),
-                      ],
-                    ),
-                    alignment: Alignment.center,
-                  )),
+                      )),
                   //klepe Harita Oluşturma Bölümü
                   Expanded(
                     flex: 9,
@@ -358,7 +348,7 @@ class KlepeHaritasi extends StatelessWidget {
                             flex: 1,
                           ),
                           
-                          Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 24,provider.getharitaOnay,provider.getsayac,dilSecimi),
+                          Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 24,provider.haritaOnay,provider.sayac,dilSecimi),
                         
                         
                         ],
@@ -382,7 +372,7 @@ class KlepeHaritasi extends StatelessWidget {
                               children: <Widget>[
                                 //Haritayı Onayla Butonu
                                 Visibility(
-                                  visible: !provider.getharitaOnay,
+                                  visible: !provider.haritaOnay,
                                   maintainState: true,
                                   maintainSize: true,
                                   maintainAnimation: true,
@@ -391,19 +381,19 @@ class KlepeHaritasi extends StatelessWidget {
                                       int sayac = 0;
 
                                       for (int i = 1; i <= 18; i++) {
-                                        if (provider.getklepeHarita[i] == 1) {
+                                        if (provider.klepeHarita[i] == 1) {
                                           sayac++;
                                         }
                                       }
 
-                                      if (sayac < provider.getklepeAdet) {
+                                      if (sayac < provider.klepeAdet) {
                                         //Haritada seçilen klepe sayısı eksik
                                         Toast.show(
                                             Dil()
                                                 .sec(dilSecimi, "toast29"),
                                             context,
                                             duration: 3);
-                                      } else if (sayac > provider.getklepeAdet) {
+                                      } else if (sayac > provider.klepeAdet) {
                                         //Haritada seçilen klepe sayısı yüksek
                                         Toast.show(
                                             Dil()
@@ -412,34 +402,29 @@ class KlepeHaritasi extends StatelessWidget {
                                             duration: 3);
                                       } else {
                                         //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                                        Toast.show(
-                                            Dil()
-                                                .sec(dilSecimi, "toast8"),
-                                            context,
-                                            duration: 3);
 
-                                        provider.setharitaOnay = true;
+                                        
 
                                         for (int i = 1; i <= 18; i++) {
-                                          if (provider.getklepeHarita[i] != 0) {
-                                            provider.listIslem(provider.getklepeVisibility, null, 3, i, true, 19);
+                                          if (provider.klepeHarita[i] != 0) {
+                                            provider.klepeVisibility[i]=true;
                                           } else {
-                                            provider.listIslem(provider.getklepeVisibility, null, 3, i, false, 19);
+                                            provider.klepeVisibility[i]=false;
                                           }
                                         }
 
                                         String veri = "";
 
                                         for (int i = 1; i <= 18; i++) {
-                                          veri = veri + provider.getklepeHarita[i].toString() + "#";
+                                          veri = veri + provider.klepeHarita[i].toString() + "#";
                                         }
 
                                         Metotlar().veriGonder("15*21*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
                                           if(value=="ok"){
                                             dbProkis.dbSatirEkleGuncelle(16, "ok", veri, "0", "0");
                                           }
-
                                         });
+                                        provider.setharitaOnay = true;
                                       }
 
                                       //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
@@ -466,7 +451,7 @@ class KlepeHaritasi extends StatelessWidget {
 
                                 //Haritayı Sıfırla Butonu
                                 Visibility(
-                                  visible: provider.getharitaOnay,
+                                  visible: provider.haritaOnay,
                                   maintainState: true,
                                   maintainSize: true,
                                   maintainAnimation: true,
@@ -496,13 +481,13 @@ class KlepeHaritasi extends StatelessWidget {
 
                                 //Verileri Gönder Butonu
                                 Visibility(
-                                  visible: provider.getharitaOnay,
+                                  visible: provider.haritaOnay,
                                   maintainState: true,
                                   maintainSize: true,
                                   maintainAnimation: true,
                                   child: FlatButton(
                                     onPressed: () {
-                                      bool noKontrol = false;
+                                      bool sifirNoVarMi = false;
                                       bool cikisKullanimda = false;
                                       bool klepeNOyuksek = false;
                                       String cikisVeriAc = "";
@@ -510,44 +495,44 @@ class KlepeHaritasi extends StatelessWidget {
                                       String noVeri = "";
                                       String tumCikislarVeri = "";
                                       for (int i = 1; i <= 18; i++) {
-                                        if (provider.getklepeHarita[i] == 1) {
-                                          if (provider.getklepeNo[i] == 0 ||
-                                              provider.getcikisNoAc[i] == 0 ||
-                                              provider.getcikisNoKapa[i] == 0) {
-                                            noKontrol = true;
+                                        if (provider.klepeHarita[i] == 1) {
+                                          if (provider.klepeNo[i] == 0) {
+                                            sifirNoVarMi = true;
                                           }
 
-                                          if (provider.getklepeNo[i] > provider.getklepeAdet) {
+                                          if (provider.klepeNo[i] > provider.klepeAdet) {
                                             klepeNOyuksek = true;
                                           }
                                         }
+
+
+                                        if (provider.cikisNoGeciciAc[i] != provider.cikisNoAc[i]) {
+                                          if (provider.tumCikislar[provider.cikisNoAc[i]] == 0) {
+                                            provider.tumCikislar[provider.cikisNoGeciciAc[i]]=0;
+                                          } else {
+                                            cikisKullanimda = true;
+                                          }
+                                        }
+
+                                        if (provider.cikisNoGeciciKapa[i] != provider.cikisNoKapa[i]) {
+                                          if (provider.tumCikislar[provider.cikisNoKapa[i]] == 0) {
+                                            provider.tumCikislar[provider.cikisNoGeciciKapa[i]]=0;
+                                          } else {
+                                            cikisKullanimda = true;
+                                          }
+                                        }
+
+
                                         cikisVeriAc =
-                                            cikisVeriAc + provider.getcikisNoAc[i].toString() + "#";
+                                            cikisVeriAc + provider.cikisNoAc[i].toString() + "#";
                                         cikisVeriKapa = cikisVeriKapa +
-                                            provider.getcikisNoKapa[i].toString() +
+                                            provider.cikisNoKapa[i].toString() +
                                             "#";
-                                        noVeri = noVeri + provider.getklepeNo[i].toString() + "#";
+                                        noVeri = noVeri + provider.klepeNo[i].toString() + "#";
                                       }
 
-                                      for (int i = 1; i <= 18; i++) {
-                                        if (provider.getcikisNoGeciciAc[i] != provider.getcikisNoAc[i]) {
-                                          if (provider.gettumCikislar[provider.getcikisNoAc[i]] == 0) {
-                                            provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoGeciciAc[i], 0, null);
-                                          } else {
-                                            cikisKullanimda = true;
-                                          }
-                                        }
 
-                                        if (provider.getcikisNoGeciciKapa[i] != provider.getcikisNoKapa[i]) {
-                                          if (provider.gettumCikislar[provider.getcikisNoKapa[i]] == 0) {
-                                            provider.listIslem(provider.gettumCikislar, null, 3, provider.cikisNoGeciciKapa[i], 0, null);
-                                          } else {
-                                            cikisKullanimda = true;
-                                          }
-                                        }
-                                      }
-
-                                      if (noKontrol) {
+                                      if (sifirNoVarMi) {
                                         Toast.show(
                                             Dil()
                                                 .sec(dilSecimi, "toast37"),
@@ -559,13 +544,13 @@ class KlepeHaritasi extends StatelessWidget {
                                                 .sec(dilSecimi, "toast46"),
                                             context,
                                             duration: 3);
-                                      } else if (provider.getklepeNoTekerrur) {
+                                      } else if (provider.klepeNoTekerrur) {
                                         Toast.show(
                                             Dil()
                                                 .sec(dilSecimi, "toast28"),
                                             context,
                                             duration: 3);
-                                      } else if (provider.getcikisNoTekerrur) {
+                                      } else if (provider.cikisNoTekerrur) {
                                         Toast.show(
                                             Dil()
                                                 .sec(dilSecimi, "toast26"),
@@ -580,20 +565,20 @@ class KlepeHaritasi extends StatelessWidget {
                                       } else {
 
                                         for (int i = 1; i <= 18; i++) {
-                                          if (provider.getcikisNoAc[i] != 0) {
-                                            provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoAc[i], 1, null);
+                                          if (provider.cikisNoAc[i] != 0) {
+                                            provider.tumCikislar[provider.cikisNoAc[i]]=1;
                                           }
-                                          if (provider.getcikisNoKapa[i] != 0) {
-                                            provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoKapa[i], 1, null);
+                                          if (provider.cikisNoKapa[i] != 0) {
+                                            provider.tumCikislar[provider.cikisNoKapa[i]]=1;
                                           }
                                         }
                                         
                                         for (int i = 1; i <= 110; i++) {
                                           tumCikislarVeri = tumCikislarVeri +
-                                              provider.gettumCikislar[i].toString() +
+                                              provider.tumCikislar[i].toString() +
                                               "#";
                                         }
-                                        provider.setveriGonderildi = true;
+                                        
                                         String komut="16*22*$noVeri*$cikisVeriAc*$cikisVeriKapa*0";
                                         Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                                           if(value=="ok"){
@@ -606,15 +591,18 @@ class KlepeHaritasi extends StatelessWidget {
                                           }
                                         });
 
-                                        provider.listIslem(null, null, 6, null, null, 19);
-                                        provider.listIslem(null, null, 6, null, null, 19);
+                                        for (int i = 0; i < 19; i++) {
+                                          provider.cikisNoGeciciAc[i]=provider.cikisNoAc[i];
+                                          provider.cikisNoGeciciKapa[i]=provider.cikisNoKapa[i];
+                                        }
+                                        provider.setveriGonderildi = true;
 
                                       }
                                     },
                                     highlightColor: Colors.green,
                                     splashColor: Colors.red,
                                     color:
-                                        provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                                        provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                                     child: Row(
                                       children: <Widget>[
                                         Icon(
@@ -665,13 +653,13 @@ class KlepeHaritasi extends StatelessWidget {
                                   icon: Icon(Icons.arrow_forward_ios),
                                   iconSize: 50 * oran,
                                   onPressed: () {
-                                    if (!provider.getharitaOnay) {
+                                    if (!provider.haritaOnay) {
                                       Toast.show(
                                           Dil()
                                               .sec(dilSecimi, "toast62"),
                                           context,
                                           duration: 3);
-                                    } else if (!provider.getveriGonderildi) {
+                                    } else if (!provider.veriGonderildi) {
                                       Toast.show(
                                           Dil()
                                               .sec(dilSecimi, "toast27"),
@@ -720,45 +708,63 @@ class KlepeHaritasi extends StatelessWidget {
 
   Widget _klepeHaritaUnsur(int indexNo, KlepeHaritasiProvider provider, BuildContext context) {
     return Expanded(
-      child: Visibility(visible:provider.getklepeVisibility[indexNo] ? true : false,
+      child: Visibility(visible:provider.klepeVisibility[indexNo] ? true : false,
               child: RawMaterialButton(
                   onPressed: () {
 
 
 
-                    if (provider.getharitaOnay) {
+                    if (provider.haritaOnay) {
 
-                      int sayi = provider.getklepeNo[indexNo];
+                      int sayi = provider.klepeNo[indexNo];
                       int kOnlar = sayi < 10 ? 0 : sayi ~/ 10;
                       int kBirler = sayi % 10;
 
-                      String outAcNoMetin = provider.getcikisNoAc[indexNo] == 0
-                          ? "Q0.0"
-                          : Metotlar()
-                              .outConvSAYItoQ(provider.getcikisNoAc[indexNo]);
+                      String outAcNoMetin = Metotlar()
+                              .outConvSAYItoQ(provider.cikisNoAc[indexNo]);
 
-                      String outKapaNoMetin = provider.getcikisNoKapa[indexNo] == 0
-                          ? "Q0.0"
-                          : Metotlar()
-                              .outConvSAYItoQ(provider.getcikisNoKapa[indexNo]);
+                      String outKapaNoMetin = Metotlar()
+                              .outConvSAYItoQ(provider.cikisNoKapa[indexNo]);
+                      int qByteOnlarAc;
+                      int qByteBirlerAc;
+                      int qBitAc;
+                      int qByteOnlarKapa;
+                      int qByteBirlerKapa;
+                      int qBitKapa;
 
-                      int qByteOnlarAc = int.parse(outAcNoMetin.length > 4
-                          ? outAcNoMetin.substring(1, 2)
-                          : "0");
-                      int qByteBirlerAc = int.parse(outAcNoMetin.length > 4
-                          ? outAcNoMetin.substring(2, 3)
-                          : outAcNoMetin.substring(1, 2));
-                      int qBitAc =
-                          int.parse(outAcNoMetin.substring(outAcNoMetin.length - 1));
+                      if(outAcNoMetin=="Q#.#"){
+                        qByteOnlarAc =0;
+                        qByteBirlerAc =0;
+                        qBitAc =0;
+                      }else{
 
-                      int qByteOnlarKapa = int.parse(outKapaNoMetin.length > 4
-                          ? outKapaNoMetin.substring(1, 2)
-                          : "0");
-                      int qByteBirlerKapa = int.parse(outKapaNoMetin.length > 4
-                          ? outKapaNoMetin.substring(2, 3)
-                          : outKapaNoMetin.substring(1, 2));
-                      int qBitKapa =
-                          int.parse(outKapaNoMetin.substring(outKapaNoMetin.length - 1));
+                        qByteOnlarAc = int.parse(outAcNoMetin.length > 4
+                            ? outAcNoMetin.substring(1, 2)
+                            : "0");
+                        qByteBirlerAc = int.parse(outAcNoMetin.length > 4
+                            ? outAcNoMetin.substring(2, 3)
+                            : outAcNoMetin.substring(1, 2));
+                        qBitAc =
+                            int.parse(outAcNoMetin.substring(outAcNoMetin.length - 1));
+                      }
+
+
+                      if(outKapaNoMetin=="Q#.#"){
+                        qByteOnlarKapa =0;
+                        qByteBirlerKapa =0;
+                        qBitKapa =0;
+                      }else{
+
+                        qByteOnlarKapa = int.parse(outKapaNoMetin.length > 4
+                            ? outKapaNoMetin.substring(1, 2)
+                            : "0");
+                        qByteBirlerKapa = int.parse(outKapaNoMetin.length > 4
+                            ? outKapaNoMetin.substring(2, 3)
+                            : outKapaNoMetin.substring(1, 2));
+                        qBitKapa =
+                            int.parse(outKapaNoMetin.substring(outKapaNoMetin.length - 1));
+                      }
+
 
                       MyshowModalBottomSheet2x0ve2xQ(dilSecimi, context, oran,
                               qByteOnlarAc, qByteBirlerAc, qBitAc, qByteOnlarKapa, qByteBirlerKapa, qBitKapa, kOnlar, kBirler, "tv40", "tv41", "tv42")
@@ -782,12 +788,10 @@ class KlepeHaritasi extends StatelessWidget {
                                   } else {
 
                                     sayi =value[7] * 10 + value[8];
-                                    provider.listIslem(provider.getklepeNo, null, 3, indexNo, sayi, null);
-print(cikisNoAc);
-print(cikisNoKapa);
-                                   
-                                    provider.listIslem(provider.getcikisNoAc, null, 3, indexNo, cikisNoAc, null);
-                                    provider.listIslem(provider.getcikisNoKapa, null, 3, indexNo, cikisNoKapa, null);
+                                    provider.klepeNo[indexNo]=sayi;
+                                    provider.cikisNoAc[indexNo]=cikisNoAc;
+                                    provider.cikisNoKapa[indexNo]=cikisNoKapa;
+                                    provider.tekerrurTespit();
 
                                   }
                                 }
@@ -796,7 +800,7 @@ print(cikisNoKapa);
                     
                     } else {
 
-                      List<int> xx = provider.getklepeHarita;
+                      List<int> xx = provider.klepeHarita;
                       if (xx[indexNo] == 0 ||
                           xx[indexNo] == null) {
                         xx[indexNo] = 1;
@@ -810,7 +814,7 @@ print(cikisNoKapa);
                     
                   },
                   child: Container(
-                    child: Visibility(visible: provider.getharitaOnay && provider.getklepeHarita[indexNo]==1,
+                    child: Visibility(visible: provider.haritaOnay && provider.klepeHarita[indexNo]==1,
                                             child: Column(
                         children: <Widget>[
                           Spacer(),
@@ -824,7 +828,7 @@ print(cikisNoKapa);
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       Dil().sec(dilSecimi, "tv72")+"\n"+
-                                      provider.getklepeNo[indexNo].toString(),
+                                      provider.klepeNo[indexNo].toString(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -845,7 +849,7 @@ print(cikisNoKapa);
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       Dil().sec(dilSecimi, "tv43")+"\n"+
-                                      Metotlar().outConvSAYItoQ(provider.getcikisNoAc[indexNo]),
+                                      Metotlar().outConvSAYItoQ(provider.cikisNoAc[indexNo]),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -866,7 +870,7 @@ print(cikisNoKapa);
                                     alignment: Alignment.center,
                                     child: AutoSizeText(
                                       Dil().sec(dilSecimi, "tv44")+"\n"+
-                                      Metotlar().outConvSAYItoQ(provider.getcikisNoKapa[indexNo]),
+                                      Metotlar().outConvSAYItoQ(provider.cikisNoKapa[indexNo]),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -896,7 +900,7 @@ print(cikisNoKapa);
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         alignment: Alignment.center,
-                        image: AssetImage(imageGetir(provider.getklepeHarita[indexNo])),
+                        image: AssetImage(imageGetir(provider.klepeHarita[indexNo])),
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -922,19 +926,36 @@ print(cikisNoKapa);
         provider.setveriGonderildi = false;
         String tumCikislarVeri = "";
 
-        //tüm çıkışlardaki klepeCıkısNo'lara ait tüm çıkışları sıfırlar
-        provider.listIslem(provider.tumCikislar, provider.getcikisNoAc, 4, 0, 0, 19);
-        provider.listIslem(provider.tumCikislar, provider.getcikisNoKapa, 4, 0, 0, 19);
-
-        for (int i = 1; i <= 110; i++) {
-          tumCikislarVeri = tumCikislarVeri + provider.gettumCikislar[i].toString() + "#";
+        for (int i = 0; i < 19; i++) {
+          provider.cikisNoAc[i]=provider.cikisNoGeciciAc[i];
+          provider.cikisNoKapa[i]=provider.cikisNoGeciciKapa[i];
         }
 
-        provider.listIslem(provider.getklepeHarita, null, 2, 0, 0, 19);
-        provider.listIslem(provider.getklepeNo, null, 2, 0, 0, 19);
-        provider.listIslem(provider.getcikisNoAc, null, 2, 0, 0, 19);
-        provider.listIslem(provider.getcikisNoKapa, null, 2, 0, 0, 19);
-        provider.listIslem(provider.getklepeVisibility, null, 2, 0, true, 19);
+
+
+        //tüm çıkışlardaki klepeCıkısNo'lara ait tüm çıkışları sıfırlar
+        for (int i = 1; i < 19; i++) {
+          if (provider.cikisNoAc[i] != 0) {
+            provider.tumCikislar[provider.cikisNoAc[i]] = 0;
+          }
+
+          if (provider.cikisNoKapa[i] != 0) {
+            provider.tumCikislar[provider.cikisNoKapa[i]] = 0;
+          }
+        }
+
+        for (int i = 1; i <= 110; i++) {
+          tumCikislarVeri = tumCikislarVeri + provider.tumCikislar[i].toString() + "#";
+        }
+
+
+        for (int i = 0; i < 19; i++) {
+          provider.klepeHarita[i]=0;
+          provider.klepeNo[i]=0;
+          provider.cikisNoAc[i]=0;
+          provider.cikisNoKapa[i]=0;
+          provider.klepeVisibility[i]=true;
+        }
 
         provider.setharitaOnay = false;
 
@@ -954,39 +975,10 @@ print(cikisNoKapa);
     });
   }
 
-  Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-
-
-      }
-    });
-  }
-
 }
 
 
 class KlepeHaritasiProvider with ChangeNotifier {
-  String _dilSecimi;
   int sayac=0;
 
   List<int> klepeHarita = new List.filled(19,0);
@@ -1006,29 +998,12 @@ class KlepeHaritasiProvider with ChangeNotifier {
   List<int> tumCikislar = new List.filled(111,0);
 
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      klepeNoTekerrur = false;
+  tekerrurTespit(){
+    klepeNoTekerrur = false;
       cikisNoTekerrur = false;
 
       for (int i = 1; i <= 18; i++) {
@@ -1040,22 +1015,21 @@ class KlepeHaritasiProvider with ChangeNotifier {
             if (cikisNoAc[i] != cikisNoAc[k] ||
                 cikisNoKapa[i] != cikisNoKapa[k]) {
               klepeNoTekerrur = true;
+              break;
             }
+          }
 
-            break;
-          }
-          if (klepeNoTekerrur) {
-            break;
-          }
+
+
+
           if (i != k &&
               cikisNoAc[i] == cikisNoAc[k] &&
               cikisNoAc[i] != 0 &&
               cikisNoAc[k] != 0) {
             if (klepeNo[i] != klepeNo[k]) {
               cikisNoTekerrur = true;
+              break;
             }
-
-            break;
           }
 
           if (i != k &&
@@ -1064,8 +1038,9 @@ class KlepeHaritasiProvider with ChangeNotifier {
               cikisNoKapa[k] != 0) {
             if (klepeNo[i] != klepeNo[k]) {
               cikisNoTekerrur = true;
+              break;
             }
-            break;
+            
           }
           if (cikisNoAc[i] == cikisNoKapa[k] &&
               cikisNoAc[i] != 0 &&
@@ -1074,76 +1049,36 @@ class KlepeHaritasiProvider with ChangeNotifier {
             break;
           }
         }
-        if (cikisNoTekerrur) {
+        if (cikisNoTekerrur || klepeNoTekerrur) {
           break;
         }
       }
-      break;
-      case 6:
-      for (int i = 0; i < listLenght; i++) {
-        cikisNoGeciciAc[i]=cikisNoAc[i];
-        cikisNoGeciciKapa[i]=cikisNoKapa[i];
-      }
-      break;
-
-    }
-    
-    notifyListeners();
+      print(klepeNoTekerrur);
+      print(cikisNoTekerrur);
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-
-
-
-  List<int> get getklepeHarita => klepeHarita;
-  List<bool> get getklepeVisibility => klepeVisibility;
-  List<int> get getklepeNo => klepeNo;
-  List<int> get getcikisNoAc => cikisNoAc;
-  List<int> get getcikisNoGeciciAc => cikisNoGeciciAc;
-  List<int> get getcikisNoKapa => cikisNoKapa;
-  List<int> get getcikisNoGeciciKapa => cikisNoGeciciKapa;
-  List<int> get gettumCikislar => tumCikislar;
-
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-
-  bool get getharitaOnay => haritaOnay;
-
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
-
-  int get getklepeAdet => klepeAdet;
-
   set setklepeAdet(int value) {
     klepeAdet = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getklepeNoTekerrur => klepeNoTekerrur;
-
   set setklepeNoTekerrur(bool value) {
     klepeNoTekerrur = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
     notifyListeners();
@@ -1153,7 +1088,6 @@ class KlepeHaritasiProvider with ChangeNotifier {
   DBProkis dbProkis;
 
   KlepeHaritasiProvider(this.context, this.dbProkis) {
-    _dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
 
     klepeAdet = int.parse(dbProkis.dbVeriGetir(4, 2, "1"));
     String tumCikislarKAYIT = dbProkis.dbVeriGetir(22, 1, "");

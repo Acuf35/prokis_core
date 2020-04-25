@@ -1005,7 +1005,7 @@ class YemlemeState extends State<Yemleme> {
                 alignment: Alignment.bottomCenter,
                 child: RotatedBox(quarterTurns: -1,
                                 child: AutoSizeText(
-                    Dil().sec(format24saatlik ? 'TR' : 'EN', saatGetir(saatNo)),
+                    Dil().sec(format24saatlik ? 'TR' : 'EN', Metotlar().saatGetir(saatNo)),
                     textAlign:
                         TextAlign.center,
                     style: TextStyle(
@@ -1168,157 +1168,7 @@ class YemlemeState extends State<Yemleme> {
 
 
 
-  String saatGetir(int saatNo) {
-    String veri = "";
-
-    if (saatNo == 1) {
-      veri = 'tv506';
-    }
-    if (saatNo == 2) {
-      veri = 'tv507';
-    }
-    if (saatNo == 3) {
-      veri = 'tv508';
-    }
-    if (saatNo == 4) {
-      veri = 'tv509';
-    }
-    if (saatNo == 5) {
-      veri = 'tv510';
-    }
-    if (saatNo == 6) {
-      veri = 'tv511';
-    }
-    if (saatNo == 7) {
-      veri = 'tv512';
-    }
-    if (saatNo == 8) {
-      veri = 'tv513';
-    }
-    if (saatNo == 9) {
-      veri = 'tv514';
-    }
-    if (saatNo == 10) {
-      veri = 'tv515';
-    }
-    if (saatNo == 11) {
-      veri = 'tv516';
-    }
-    if (saatNo == 12) {
-      veri = 'tv517';
-    }
-    if (saatNo == 13) {
-      veri = 'tv518';
-    }
-    if (saatNo == 14) {
-      veri = 'tv519';
-    }
-    if (saatNo == 15) {
-      veri = 'tv520';
-    }
-    if (saatNo == 16) {
-      veri = 'tv521';
-    }
-    if (saatNo == 17) {
-      veri = 'tv522';
-    }
-    if (saatNo == 18) {
-      veri = 'tv523';
-    }
-    if (saatNo == 19) {
-      veri = 'tv524';
-    }
-    if (saatNo == 20) {
-      veri = 'tv525';
-    }
-    if (saatNo == 21) {
-      veri = 'tv526';
-    }
-    if (saatNo == 22) {
-      veri = 'tv527';
-    }
-    if (saatNo == 23) {
-      veri = 'tv528';
-    }
-    if (saatNo == 24) {
-      veri = 'tv529';
-    }
-    if (saatNo == 25) {
-      veri = 'tv530';
-    }
-    if (saatNo == 26) {
-      veri = 'tv531';
-    }
-    if (saatNo == 27) {
-      veri = 'tv532';
-    }
-    if (saatNo == 28) {
-      veri = 'tv533';
-    }
-    if (saatNo == 29) {
-      veri = 'tv534';
-    }
-    if (saatNo == 30) {
-      veri = 'tv535';
-    }
-    if (saatNo == 31) {
-      veri = 'tv536';
-    }
-    if (saatNo == 32) {
-      veri = 'tv537';
-    }
-    if (saatNo == 33) {
-      veri = 'tv538';
-    }
-    if (saatNo == 34) {
-      veri = 'tv539';
-    }
-    if (saatNo == 35) {
-      veri = 'tv540';
-    }
-    if (saatNo == 36) {
-      veri = 'tv541';
-    }
-    if (saatNo == 37) {
-      veri = 'tv542';
-    }
-    if (saatNo == 38) {
-      veri = 'tv543';
-    }
-    if (saatNo == 39) {
-      veri = 'tv544';
-    }
-    if (saatNo == 40) {
-      veri = 'tv545';
-    }
-    if (saatNo == 41) {
-      veri = 'tv546';
-    }
-    if (saatNo == 42) {
-      veri = 'tv547';
-    }
-    if (saatNo == 43) {
-      veri = 'tv548';
-    }
-    if (saatNo == 44) {
-      veri = 'tv549';
-    }
-    if (saatNo == 45) {
-      veri = 'tv550';
-    }
-    if (saatNo == 46) {
-      veri = 'tv551';
-    }
-    if (saatNo == 47) {
-      veri = 'tv552';
-    }
-    if (saatNo == 48) {
-      veri = 'tv553';
-    }
-
-    return veri;
-  }
-
+  
 
  Widget ileriGeriButon (String butonIsim,String baslik,double oran, int yemArabaTur){
 
@@ -1457,7 +1307,7 @@ class YemlemeState extends State<Yemleme> {
        children: <Widget>[
          RotatedBox(quarterTurns: -1,
                     child: Text(
-             Dil().sec(format24saatlik ? 'TR' : 'EN', saatGetir(index)),
+             Dil().sec(format24saatlik ? 'TR' : 'EN', Metotlar().saatGetir(index)),
              style: TextStyle(
                fontFamily: 'Kelly Slab',
                fontSize: 12,

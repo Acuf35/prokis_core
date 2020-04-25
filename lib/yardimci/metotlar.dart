@@ -847,8 +847,6 @@ class Metotlar {
             }else{
               Toast.show(Dil().sec(dilSecimi, "toast20")+"\n"+error.toString(), context, duration: 3);
             }
-
-            _socket.close();
             
           });
       // ==============================================================
@@ -862,7 +860,7 @@ class Metotlar {
 
 
   String outConvSAYItoQ(int deger) {
-    String sonuc = "Q0.0";
+    String sonuc = "Q#.#";
 
     if (deger == 1)
       sonuc = "Q0.0";
@@ -1111,7 +1109,7 @@ class Metotlar {
     else if (deger == 123)
       sonuc = "Q16.0";
     else {
-      sonuc = "Q0.0";
+      sonuc = "Q#.#";
     }
 
     return sonuc;
@@ -1477,6 +1475,367 @@ class Metotlar {
     );
      
   }
+
+
+  String inputConvSAYItoI(int deger) {
+    String sonuc = "I#.#";
+
+    if (deger == 1)
+      sonuc = "I0.0";
+    else if (deger == 2)
+      sonuc = "I0.1";
+    else if (deger == 3)
+      sonuc = "I0.2";
+    else if (deger == 4)
+      sonuc = "I0.3";
+    else if (deger == 5)
+      sonuc = "I0.4";
+    else if (deger == 6)
+      sonuc = "I0.5";
+    else if (deger == 7)
+      sonuc = "I0.6";
+    else if (deger == 8)
+      sonuc = "I0.7";
+    else if (deger == 9)
+      sonuc = "I1.0";
+    else if (deger == 10)
+      sonuc = "I1.1";
+    else if (deger == 11)
+      sonuc = "I1.2";
+    else if (deger == 12)
+      sonuc = "I1.3";
+    else if (deger == 13)
+      sonuc = "I1.4";
+    else if (deger == 14)
+      sonuc = "I1.5";
+    else if (deger == 15)
+      sonuc = "I2.0";
+    else if (deger == 16)
+      sonuc = "I2.1";
+    else if (deger == 17)
+      sonuc = "I2.2";
+    else if (deger == 18)
+      sonuc = "I2.3";
+    else if (deger == 19)
+      sonuc = "I2.4";
+    else if (deger == 20)
+      sonuc = "I2.5";
+    else if (deger == 21)
+      sonuc = "I2.6";
+    else if (deger == 22)
+      sonuc = "I2.7";
+    else if (deger == 23)
+      sonuc = "I3.0";
+    else if (deger == 24)
+      sonuc = "I3.1";
+    else if (deger == 25)
+      sonuc = "I3.2";
+    else if (deger == 26)
+      sonuc = "I3.3";
+    else if (deger == 27)
+      sonuc = "I3.4";
+    else if (deger == 28)
+      sonuc = "I3.5";
+    else if (deger == 29)
+      sonuc = "I3.6";
+    else if (deger == 30)
+      sonuc = "I3.7";
+    else if (deger == 31)
+      sonuc = "I4.0";
+    else if (deger == 32)
+      sonuc = "I4.1";
+    else if (deger == 33)
+      sonuc = "I4.2";
+    else if (deger == 34)
+      sonuc = "I4.3";
+    else if (deger == 35)
+      sonuc = "I4.4";
+    else if (deger == 36)
+      sonuc = "I4.5";
+    else if (deger == 37)
+      sonuc = "I4.6";
+    else if (deger == 38)
+      sonuc = "I4.7";
+    else if (deger == 39)
+      sonuc = "I5.0";
+    else if (deger == 40)
+      sonuc = "I5.1";
+    else if (deger == 41)
+      sonuc = "I5.2";
+    else if (deger == 42)
+      sonuc = "I5.3";
+    else if (deger == 43)
+      sonuc = "I5.4";
+    else if (deger == 44)
+      sonuc = "I5.5";
+    else if (deger == 45)
+      sonuc = "I5.6";
+    else if (deger == 46)
+      sonuc = "I5.7";
+    else if (deger == 47)
+      sonuc = "I6.0";
+    else {
+      sonuc = "I#.#";
+    }
+
+    return sonuc;
+  }
+
+  int inputConvItoSAYI(String deger) {
+    int sonuc = 0;
+
+    if (deger == "I0.0")
+      sonuc = 1;
+    else if (deger == "I0.1")
+      sonuc = 2;
+    else if (deger == "I0.2")
+      sonuc = 3;
+    else if (deger == "I0.3")
+      sonuc = 4;
+    else if (deger == "I0.4")
+      sonuc = 5;
+    else if (deger == "I0.5")
+      sonuc = 6;
+    else if (deger == "I0.6")
+      sonuc = 7;
+    else if (deger == "I0.7")
+      sonuc = 8;
+    else if (deger == "I1.0")
+      sonuc = 9;
+    else if (deger == "I1.1")
+      sonuc = 10;
+    else if (deger == "I1.2")
+      sonuc = 11;
+    else if (deger == "I1.3")
+      sonuc = 12;
+    else if (deger == "I1.4")
+      sonuc = 13;
+    else if (deger == "I1.5")
+      sonuc = 14;
+    else if (deger == "I2.0")
+      sonuc = 15;
+    else if (deger == "I2.1")
+      sonuc = 16;
+    else if (deger == "I2.2")
+      sonuc = 17;
+    else if (deger == "I2.3")
+      sonuc = 18;
+    else if (deger == "I2.4")
+      sonuc = 19;
+    else if (deger == "I2.5")
+      sonuc = 20;
+    else if (deger == "I2.6")
+      sonuc = 21;
+    else if (deger == "I2.7")
+      sonuc = 22;
+    else if (deger == "I3.0")
+      sonuc = 23;
+    else if (deger == "I3.1")
+      sonuc = 24;
+    else if (deger == "I3.2")
+      sonuc = 25;
+    else if (deger == "I3.3")
+      sonuc = 26;
+    else if (deger == "I3.4")
+      sonuc = 27;
+    else if (deger == "I3.5")
+      sonuc = 28;
+    else if (deger == "I3.6")
+      sonuc = 29;
+    else if (deger == "I3.7")
+      sonuc = 30;
+    else if (deger == "I4.0")
+      sonuc = 31;
+    else if (deger == "I4.1")
+      sonuc = 32;
+    else if (deger == "I4.2")
+      sonuc = 33;
+    else if (deger == "I4.3")
+      sonuc = 34;
+    else if (deger == "I4.4")
+      sonuc = 35;
+    else if (deger == "I4.5")
+      sonuc = 36;
+    else if (deger == "I4.6")
+      sonuc = 37;
+    else if (deger == "I4.7")
+      sonuc = 38;
+    else if (deger == "I5.0")
+      sonuc = 39;
+    else if (deger == "I5.1")
+      sonuc = 40;
+    else if (deger == "I5.2")
+      sonuc = 41;
+    else if (deger == "I5.3")
+      sonuc = 42;
+    else if (deger == "I5.4")
+      sonuc = 43;
+    else if (deger == "I5.5")
+      sonuc = 44;
+    else if (deger == "I5.6")
+      sonuc = 45;
+    else if (deger == "I5.7")
+      sonuc = 46;
+    else if (deger == "I6.0")
+      sonuc = 47;
+    else {
+      sonuc = 0;
+    }
+
+    return sonuc;
+  }
+
+  String saatGetir(int saatNo) {
+    String veri = "tv640";
+
+    if (saatNo == 1) {
+      veri = 'tv506';
+    }
+    if (saatNo == 2) {
+      veri = 'tv507';
+    }
+    if (saatNo == 3) {
+      veri = 'tv508';
+    }
+    if (saatNo == 4) {
+      veri = 'tv509';
+    }
+    if (saatNo == 5) {
+      veri = 'tv510';
+    }
+    if (saatNo == 6) {
+      veri = 'tv511';
+    }
+    if (saatNo == 7) {
+      veri = 'tv512';
+    }
+    if (saatNo == 8) {
+      veri = 'tv513';
+    }
+    if (saatNo == 9) {
+      veri = 'tv514';
+    }
+    if (saatNo == 10) {
+      veri = 'tv515';
+    }
+    if (saatNo == 11) {
+      veri = 'tv516';
+    }
+    if (saatNo == 12) {
+      veri = 'tv517';
+    }
+    if (saatNo == 13) {
+      veri = 'tv518';
+    }
+    if (saatNo == 14) {
+      veri = 'tv519';
+    }
+    if (saatNo == 15) {
+      veri = 'tv520';
+    }
+    if (saatNo == 16) {
+      veri = 'tv521';
+    }
+    if (saatNo == 17) {
+      veri = 'tv522';
+    }
+    if (saatNo == 18) {
+      veri = 'tv523';
+    }
+    if (saatNo == 19) {
+      veri = 'tv524';
+    }
+    if (saatNo == 20) {
+      veri = 'tv525';
+    }
+    if (saatNo == 21) {
+      veri = 'tv526';
+    }
+    if (saatNo == 22) {
+      veri = 'tv527';
+    }
+    if (saatNo == 23) {
+      veri = 'tv528';
+    }
+    if (saatNo == 24) {
+      veri = 'tv529';
+    }
+    if (saatNo == 25) {
+      veri = 'tv530';
+    }
+    if (saatNo == 26) {
+      veri = 'tv531';
+    }
+    if (saatNo == 27) {
+      veri = 'tv532';
+    }
+    if (saatNo == 28) {
+      veri = 'tv533';
+    }
+    if (saatNo == 29) {
+      veri = 'tv534';
+    }
+    if (saatNo == 30) {
+      veri = 'tv535';
+    }
+    if (saatNo == 31) {
+      veri = 'tv536';
+    }
+    if (saatNo == 32) {
+      veri = 'tv537';
+    }
+    if (saatNo == 33) {
+      veri = 'tv538';
+    }
+    if (saatNo == 34) {
+      veri = 'tv539';
+    }
+    if (saatNo == 35) {
+      veri = 'tv540';
+    }
+    if (saatNo == 36) {
+      veri = 'tv541';
+    }
+    if (saatNo == 37) {
+      veri = 'tv542';
+    }
+    if (saatNo == 38) {
+      veri = 'tv543';
+    }
+    if (saatNo == 39) {
+      veri = 'tv544';
+    }
+    if (saatNo == 40) {
+      veri = 'tv545';
+    }
+    if (saatNo == 41) {
+      veri = 'tv546';
+    }
+    if (saatNo == 42) {
+      veri = 'tv547';
+    }
+    if (saatNo == 43) {
+      veri = 'tv548';
+    }
+    if (saatNo == 44) {
+      veri = 'tv549';
+    }
+    if (saatNo == 45) {
+      veri = 'tv550';
+    }
+    if (saatNo == 46) {
+      veri = 'tv551';
+    }
+    if (saatNo == 47) {
+      veri = 'tv552';
+    }
+    if (saatNo == 48) {
+      veri = 'tv553';
+    }
+
+    return veri;
+  }
+
 
 }
 

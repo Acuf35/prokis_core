@@ -326,6 +326,7 @@ class SaatTarihState extends State<SaatTarih> {
   Widget build(BuildContext context) {
 
     var oran = MediaQuery.of(context).size.width / 731.4;
+    
 
     return Scaffold(
       appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv403',Colors.grey[600]),
@@ -335,7 +336,7 @@ class SaatTarihState extends State<SaatTarih> {
             onPressed: () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => Sistem(dbVeriler)),
+                MaterialPageRoute(builder: (context) => Sistem()),
               );
             },
             backgroundColor: Colors.grey[700],

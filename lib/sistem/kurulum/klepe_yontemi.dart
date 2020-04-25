@@ -35,8 +35,8 @@ class KlpYontemi extends StatelessWidget {
                   false,
                   oran,
                   40,
-                  Colors.grey[700],
                   Colors.white,
+                  Colors.grey[700],
                   Icons.arrow_back,
                   1,
                   "tv564"),
@@ -301,7 +301,6 @@ class KlpYontemi extends StatelessWidget {
 }
 
 class KlpYontemiProvider with ChangeNotifier {
-  String _dilSecimi;
 
   bool _kyDurum = false;
   bool _tyDurum = false;
@@ -324,9 +323,8 @@ class KlpYontemiProvider with ChangeNotifier {
   DBProkis dbProkis;
 
   KlpYontemiProvider(this.context, this.dbProkis) {
-    _dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
 
-    String xx = dbProkis.dbVeriGetir(8, 1, "2");
+    String xx = dbProkis.dbVeriGetir(8, 1, "0");
     _kyDurum = xx == "1" ? true : false;
     _tyDurum = xx == "2" ? true : false;
   }

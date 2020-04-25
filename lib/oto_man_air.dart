@@ -205,7 +205,7 @@ class OtoManAirState extends State<OtoManAir> {
                 timerCancel = true;
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => OtoMan(dbVeriler)),
+                  MaterialPageRoute(builder: (context) => OtoMan1()),
                 );
               },
               backgroundColor: Colors.blue,

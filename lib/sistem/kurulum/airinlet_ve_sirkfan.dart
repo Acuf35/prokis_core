@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
 import 'package:prokis/mywidgets/showModalBottomSheetQ%20.dart';
 import 'package:prokis/provider/dbprokis.dart';
-import 'package:prokis/yardimci/alert_reset.dart';
-import 'package:prokis/yardimci/database_helper.dart';
-import 'package:prokis/yardimci/deger_giris_2x0.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum/silo_haritasi.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:provider/provider.dart';
@@ -22,7 +16,6 @@ import 'package:prokis/sistem/kurulum/diger_cikislar.dart';
 import 'package:prokis/sistem/kurulum/isisensor_haritasi.dart';
 import 'bacafan_haritasi.dart';
 import 'isitici_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 
 class AirInletVeSirkFan extends StatelessWidget {
   bool ilkKurulumMu = true;
@@ -56,11 +49,11 @@ class AirInletVeSirkFan extends StatelessWidget {
               return Scaffold(
       floatingActionButton: MyFloatingActionBackButton(
       !ilkKurulumMu,
-      !provider.getveriGonderildi,
+      !provider.veriGonderildi,
       oran,
       40,
-      Colors.grey[700],
       Colors.white,
+      Colors.grey[700],
       Icons.arrow_back,
       1,
       "tv564"),
@@ -69,36 +62,26 @@ class AirInletVeSirkFan extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: Container(
-          color: Colors.grey.shade600,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 3,
-                child: SizedBox(
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: AutoSizeText(
-                      Dil().sec(dilSecimi, "tv71"),
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 1,
-                      minFontSize: 8,
-                    ),
-                  ),
+            child: SizedBox(
+              child: Container(
+                color: Colors.grey.shade600,
+                alignment: Alignment.center,
+                child: AutoSizeText(
+                  Dil().sec(dilSecimi, "tv71"),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Kelly Slab',
+                      color: Colors.white,
+                      fontSize: 60,
+                      fontWeight: FontWeight.bold),
+                  maxLines: 1,
+                  minFontSize: 8,
                 ),
               ),
-            ],
-          ),
-          alignment: Alignment.center,
-        )),
+            )),
         //airinlet Harita Oluşturma Bölümü
         Expanded(
-          flex: 5,
+          flex: 9,
           child: Container(
             color: Colors.white,
             alignment: Alignment.center,
@@ -139,7 +122,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                 ),
                                 //Air inlet Resmi
                                 Expanded(flex: 4,
-                                  child: Visibility(visible: provider.getairinletAdet==0 ? false : true,
+                                  child: Visibility(visible: provider.airinletAdet==0 ? false : true,
                                     child: Container(margin: EdgeInsets.only(top: 5*oran),
                                       decoration: BoxDecoration(
                                         image: DecorationImage(
@@ -154,7 +137,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                 ),
                                 //Air Inlet Çıkışları
                                 Expanded(flex: 4,
-                                  child: Visibility(visible: provider.getairinletAdet==0 ? false : true,
+                                  child: Visibility(visible: provider.airinletAdet==0 ? false : true,
                                     child: Row(
                                       children: <Widget>[
                                         Spacer(),
@@ -187,7 +170,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                 Spacer(flex: 2,),
                               ],
                             ),
-                            Visibility(visible: provider.getairinletAdet==0 ? true : false,
+                            Visibility(visible: provider.airinletAdet==0 ? true : false,
                               child: Column(
                                 children: <Widget>[
                                   Spacer(flex: 3,),
@@ -247,7 +230,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                   Expanded(
                                     flex: 4,
                                     child: Visibility(
-                                      visible: provider.getsirkfanVarMi,
+                                      visible: provider.sirkfanVarMi,
                                       child: Container(margin: EdgeInsets.only(top: 5*oran),
                                         decoration: BoxDecoration(
                                           image: DecorationImage(
@@ -264,7 +247,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                   Expanded(
                                     flex: 4,
                                     child: Visibility(
-                                      visible: provider.getsirkfanVarMi,
+                                      visible: provider.sirkfanVarMi,
                                       child: Row(
                                         children: <Widget>[
                                           Spacer(),
@@ -287,7 +270,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                   Spacer(flex: 2,),
                                 ],
                               ),
-                            Visibility(visible: !provider.getsirkfanVarMi,
+                            Visibility(visible: !provider.sirkfanVarMi,
                               child: Column(
                                 children: <Widget>[
                                   Spacer(flex: 3,),
@@ -325,7 +308,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                   flex: 1,
                 ),
                 //Tüm çıkışlar bölümü
-                Metotlar().cikislariGetir(provider.gettumCikislar, oranOzel, oran, 6, true, sayac, dilSecimi)
+                Metotlar().cikislariGetir(provider.tumCikislar, oranOzel, oran, 6, true, sayac, dilSecimi)
               ],
             ),
           ),
@@ -333,6 +316,7 @@ class AirInletVeSirkFan extends StatelessWidget {
 
         //ileri geri ok bölümü
         Expanded(
+          flex: 2,
           child: Container(
             color: Colors.grey.shade600,
             child: Row(
@@ -353,40 +337,37 @@ class AirInletVeSirkFan extends StatelessWidget {
                           String cikisNolar = "";
                           String tumCikislarVeri = "";
 
-                          if(provider.getairinletAdet!=0){
-                            if(provider.getcikisNo[1]==0 || provider.getcikisNo[2]==0){
+                          if(provider.airinletAdet!=0){
+                            if(provider.cikisNo[1]==0 || provider.cikisNo[2]==0){
                               noKontrol2=true;
                             }
 
                           }
 
-                          if(provider.getsirkfanVarMi && provider.getcikisNo[3]==0){
+                          if(provider.sirkfanVarMi && provider.cikisNo[3]==0){
                             noKontrol2=true;
                           }
 
                           for (int i = 1; i <= 3; i++) {
-                            if (provider.getcikisNoGecici[i] != provider.getcikisNo[i]) {
-                              if (provider.gettumCikislar[provider.getcikisNo[i]] == 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNoGecici[i], 0, null);
-                                print("Giriyor");
+                            if (provider.cikisNoGecici[i] != provider.cikisNo[i]) {
+                              if (provider.tumCikislar[provider.cikisNo[i]] == 0) {
+                                
+                                provider.tumCikislar[provider.cikisNoGecici[i]]=0;
                               } else {
                                 cikisKullanimda = true;
                               }
                             }
                             
-                            cikisNolar = cikisNolar + provider.getcikisNo[i].toString() + "#";
+                            cikisNolar = cikisNolar + provider.cikisNo[i].toString() + "#";
                           }
-
-                              print(provider.getcikisNo);
-                              print(provider.getcikisNoGecici);
 
                           if (noKontrol2) {
                             Toast.show(
                                 Dil()
-                                    .sec(dilSecimi, "toast63"),
+                                    .sec(dilSecimi, "toast97"),
                                 context,
                                 duration: 3);
-                          } else if (provider.getcikisNoTekerrur) {
+                          } else if (provider.cikisNoTekerrur) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast26"),
@@ -401,16 +382,17 @@ class AirInletVeSirkFan extends StatelessWidget {
                           } else {
 
                             for (int i = 1; i <= 3; i++) {
-                              if (provider.getcikisNo[i] != 0) {
-                                provider.listIslem(provider.gettumCikislar, null, 3, provider.getcikisNo[i], 1, null);
+                              if (provider.cikisNo[i] != 0) {
+                                
+                                provider.tumCikislar[provider.cikisNo[i]]=1;
                               }
                             }
 
                             for (int i = 1; i <= 110; i++) {
                               tumCikislarVeri = tumCikislarVeri +
-                                  provider.gettumCikislar[i].toString() +"#";
+                                  provider.tumCikislar[i].toString() +"#";
                             }
-                            provider.setveriGonderildi = true;
+                            
                             String komut="30*31*$cikisNolar*0*0*0";
                               Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
                                 if(value=="ok"){
@@ -423,15 +405,17 @@ class AirInletVeSirkFan extends StatelessWidget {
                                 }
                               });
 
-                
-                              
-                              provider.listIslem(null, null, 6, null, null, 4);
+                            
+                              for (int i = 0; i < 4; i++) {
+                                provider.cikisNoGecici[i]=provider.cikisNo[i];
+                              }
+                              provider.setveriGonderildi = true;
                           }
                         },
                         highlightColor: Colors.green,
                         splashColor: Colors.red,
                         color:
-                            provider.getveriGonderildi ? Colors.green[500] : Colors.blue,
+                            provider.veriGonderildi ? Colors.green[500] : Colors.blue,
                         child: Row(
                           children: <Widget>[
                             Icon(
@@ -459,7 +443,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                         iconSize: 50 * oran,
                         onPressed: () {
 
-                          if(provider.getbacafanAdet!='0'){
+                          if(provider.bacafanAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -492,7 +476,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                         iconSize: 50 * oran,
                         onPressed: () {
 
-                          if (!provider.getveriGonderildi) {
+                          if (!provider.veriGonderildi) {
                             Toast.show(
                                 Dil()
                                     .sec(dilSecimi, "toast27"),
@@ -500,7 +484,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                 duration: 3);
                           } else {
 
-                             if(provider.getisiticiAdet!='0'){
+                             if(provider.isiticiAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -508,7 +492,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                                     builder: (context) =>
                                         IsiticiHaritasi(true)),
                               );
-                            }else if(provider.getsiloAdet!='0'){
+                            }else if(provider.siloAdet!='0'){
 
                               Navigator.pushReplacement(
                                 context,
@@ -549,52 +533,6 @@ class AirInletVeSirkFan extends StatelessWidget {
   }
   
  
-  Future _resetAlert(String x, BuildContext context, AirInletVeSirkFanProvider provider, DBProkis dbProkis) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return ResetAlert.deger(x);
-      },
-    ).then((val) {
-      if (val) {
-        provider.setveriGonderildi = false;
-        String tumCikislarVeri = "";
-
-        provider.listIslem(provider.tumCikislar, provider.getcikisNo, 4, 0, 0, 4);
-
-        for (int i = 1; i <= 110; i++) {
-          tumCikislarVeri = tumCikislarVeri + provider.gettumCikislar[i].toString() + "#";
-        }
-
-        provider.listIslem(provider.getcikisNo, null, 2, 0, 0, 4);
-
-        String cikisNolar;
-
-        for (var i = 1; i <= 3; i++) {
-          cikisNolar = cikisNolar + provider.getcikisNo[i].toString() + "#";
-        }
-
-        Metotlar()
-            .veriGonder("30*31*$cikisNolar*0*0*0", context, 2233, "toast8", dilSecimi)
-            .then((value) {
-          Metotlar()
-              .veriGonder("25*27*$tumCikislarVeri*0*0*0", context, 2233,
-                  "toast8", dilSecimi)
-              .then((value) {
-            dbProkis.dbSatirEkleGuncelle(26, "0", "0", "0", "0");
-            dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
-          });
-        });
-
-      }
-    });
-  }
-
   Widget _unsurCikis(int index, double oran, AirInletVeSirkFanProvider provider, BuildContext context) {
     return Expanded(
       flex: 4,
@@ -628,18 +566,27 @@ class AirInletVeSirkFan extends StatelessWidget {
                   child: RawMaterialButton(
                     onPressed: () {
 
-                      String outNoMetin = provider.getcikisNo[index] == 0
-                    ? "Q0.0"
-                    : Metotlar()
-                        .outConvSAYItoQ(provider.getcikisNo[index]);
-                int qByteOnlar = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(1, 2)
-                    : "0");
-                int qByteBirler = int.parse(outNoMetin.length > 4
-                    ? outNoMetin.substring(2, 3)
-                    : outNoMetin.substring(1, 2));
-                int qBit =
-                    int.parse(outNoMetin.substring(outNoMetin.length - 1));
+
+                String outNoMetin = Metotlar().outConvSAYItoQ(provider.cikisNo[index]);
+                    int qByteOnlar;
+                    int qByteBirler;
+                    int qBit;
+
+                    if(outNoMetin=="Q#.#"){
+                      qByteOnlar =0;
+                      qByteBirler =0;
+                      qBit =0;
+                    }else{
+
+                      qByteOnlar = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(1, 2)
+                          : "0");
+                      qByteBirler = int.parse(outNoMetin.length > 4
+                          ? outNoMetin.substring(2, 3)
+                          : outNoMetin.substring(1, 2));
+                      qBit =
+                          int.parse(outNoMetin.substring(outNoMetin.length - 1));
+                    }
 
                 MyshowModalBottomSheetQ(dilSecimi, context, oran,
                         qByteOnlar, qByteBirler, qBit,"tv46","tv35")
@@ -659,22 +606,12 @@ class AirInletVeSirkFan extends StatelessWidget {
                               Toast.show(Dil().sec(dilSecimi, "toast92"), context, duration: 3);
                             } else {
 
-                              provider.listIslem(provider.getcikisNo, null, 3, index, cikisNo, null);
-                              print(provider.getcikisNo);
-                              print(provider.getcikisNoGecici);
+                              provider.cikisNo[index]=cikisNo;
+                              provider.tekerrurTespit();
 
                             }
-
-
-
                           }
-
-
                 });
-
-
-
-
 
                     },
                     fillColor: Colors.green[300],
@@ -687,7 +624,7 @@ class AirInletVeSirkFan extends StatelessWidget {
                               child: Container(
                                 alignment: Alignment.bottomCenter,
                                 child: AutoSizeText(
-                                  Metotlar().outConvSAYItoQ(provider.getcikisNo[index]),
+                                  Metotlar().outConvSAYItoQ(provider.cikisNo[index]),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       color: Colors.white,
@@ -717,32 +654,6 @@ class AirInletVeSirkFan extends StatelessWidget {
   }
 
 
- Future _sayfaGeriAlert(String dilSecimi, String uyariMetni, BuildContext context) async {
-    // flutter defined function
-
-    await showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        // return object of type Dialog
-
-        return SayfaGeriAlert.deger(dilSecimi,uyariMetni);
-      },
-    ).then((val) {
-      if (val) {
-
-        if(val){
-
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => KurulumAyarlari()),
-          );
-
-        }
-      }
-    });
-  }
-
 }
 
 class AirInletVeSirkFanProvider with ChangeNotifier {
@@ -761,35 +672,12 @@ class AirInletVeSirkFanProvider with ChangeNotifier {
 
   List<int> tumCikislar = new List.filled(111,0);
 
-  listIslem(List list, List<int> aktarilacaklist, int islemTuru, int index, var value, int listLenght) {
+  dinlemeyiTetikle(){
+    notifyListeners();
+  }
 
-    switch(islemTuru){
-      case 1:
-      list=List.from(aktarilacaklist);
-      List xx=list;
-      List yy=aktarilacaklist;
-      for (var i = 0; i < listLenght; i++) {
-        xx[i] =yy[i];
-      }
-      break;
-      case 2:
-      for (int i = 0; i < listLenght; i++) {
-        list[i]=value;
-      }
-      break;
-      case 3:
-      list[index]=value;
-      break;
-      case 4:
-      for (int i = 1; i < listLenght; i++) {
-          if (aktarilacaklist[i] != 0) {
-            list[aktarilacaklist[i]] = 0;
-          }
-        }
-      break;
-      case 5:
-      cikisNoTekerrur = false;
-
+  tekerrurTespit(){
+    cikisNoTekerrur = false;
       for (int i = 1; i <= 3; i++) {
         for (int k = 1; k <= 3; k++) {
           if (i != k &&
@@ -804,78 +692,38 @@ class AirInletVeSirkFanProvider with ChangeNotifier {
           }
         }
       }
-      break;
-      case 6:
-      for (int i = 0; i < listLenght; i++) {
-        cikisNoGecici[i]=cikisNo[i];
-      }
-      break;
-
-    }
-    
-    notifyListeners();
+      notifyListeners();
   }
 
-  dinlemeyiTetikle(){
-    notifyListeners();
-  }
-
-  int get getsayac => sayac;
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
-
-  List<int> get getcikisNo => cikisNo;
-  List<int> get getcikisNoGecici => cikisNoGecici;
-  List<int> get gettumCikislar => tumCikislar;
-
-
-  String get getbacafanAdet => bacafanAdet;
-
   set setbacafanAdet(String value) {
     bacafanAdet = value;
     notifyListeners();
   }
-
-  int get getairinletAdet => airinletAdet;
-
   set setairinletAdet(int value) {
     airinletAdet = value;
     notifyListeners();
   }
-
-  String get getisiticiAdet => isiticiAdet;
-
   set setisiticiAdet(String value) {
     isiticiAdet = value;
     notifyListeners();
   }
-
-  String get getsiloAdet => siloAdet;
-
   set setsiloAdet(String value) {
     siloAdet = value;
     notifyListeners();
   }
-
-  bool get getsirkfanVarMi => sirkfanVarMi;
-
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
-
-  bool get getveriGonderildi => veriGonderildi;
-
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
-
-  bool get getcikisNoTekerrur => cikisNoTekerrur;
-
   set setcikisNoTekerrur(bool value) {
     cikisNoTekerrur = value;
     notifyListeners();
