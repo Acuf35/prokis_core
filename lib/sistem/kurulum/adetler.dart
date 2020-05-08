@@ -446,29 +446,27 @@ class _AdetlerState extends State<Adetler> {
                   String komut = "2*4*$x1*$x2*$x3*$x4$x5";
 
                   Metotlar()
-                      .veriGonder(
-                          komut, context, 2233, "toast8", dilSecimi)
+                      .veriGonder( komut, 2233)
                       .then((value) {
-                        if(value=="ok"){
-                          dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
-                        }
-                    
+                        if(value.split("*")[0]=="error"){
+                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                        }else{
+                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                          dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);    
+                  }
 
                   });
 
                   if (wifiOlcum != wifiOlcumGecici) {
-                    Metotlar()
-                        .veriGonder("23*0*0*0*0*0", context, 2233,
-                            "toast8", dilSecimi)
-                        .then((value) {
-                          if(value=="ok"){
-                            dbProkis.dbSatirEkleGuncelle(
-                                20, "0", "0", "0", "0");
-                            dbProkis.dbSatirEkleGuncelle(
-                                21, "0", "0", "0", "0");
+                    Metotlar().veriGonder("23*0*0*0*0*0", 2233).then((value) {
+                          if(value.split("*")[0]=="error"){
+                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                          }else{
+                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                            dbProkis.dbSatirEkleGuncelle(20, "0", "0", "0", "0");
+                            dbProkis.dbSatirEkleGuncelle(21, "0", "0", "0", "0");
                             wifiOlcumGecici = wifiOlcum;
                           }
-                      
                     });
                   }
                 } else {
@@ -479,12 +477,14 @@ class _AdetlerState extends State<Adetler> {
                   String x5 = siloAdet;
                   String komut = "3*6*$x1#$x2*$x3*$x4*$x5";
 
-                  Metotlar()
-                      .veriGonder(
-                          komut, context, 2233, "toast8", dilSecimi)
-                      .then((value) {
-                    dbProkis.dbSatirEkleGuncelle(
-                        5, x1 + "#" + x2, x3, x4, x5);
+                  Metotlar().veriGonder(komut, 2233).then((value) {
+
+                        if(value.split("*")[0]=="error"){
+                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                        }else{
+                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                          dbProkis.dbSatirEkleGuncelle(5, x1 + "#" + x2, x3, x4, x5);
+                        }
                   });
                 }
               },
@@ -583,10 +583,11 @@ class _AdetlerState extends State<Adetler> {
                         String komut = "3*6*$x1#$x2*$x3*$x4*$x5";
 
                         Metotlar()
-                            .veriGonder(
-                                komut, context, 2233, "toast8", dilSecimi)
-                            .then((value) {
-                              if(value=="ok"){
+                            .veriGonder(komut, 2233).then((value) {
+                              if(value.split("*")[0]=="error"){
+                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                              }else{
+                                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                 dbProkis.dbSatirEkleGuncelle(5, x1 + "#" + x2, x3, x4, x5);
                               }
                           
@@ -692,13 +693,13 @@ class _AdetlerState extends State<Adetler> {
                               String x5 = siloAdet;
                               String komut = "3*6*$x1#$x2*$x3*$x4*$x5";
 
-                              Metotlar()
-                                  .veriGonder(
-                                      komut, context, 2233, "toast8", dilSecimi)
-                                  .then((value) {
-                                    if(value=="ok"){
-                                        dbProkis.dbSatirEkleGuncelle(5, x1 + "#" + x2, x3, x4, x5);
-                                    }
+                              Metotlar().veriGonder(komut, 2233).then((value) {
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                  dbProkis.dbSatirEkleGuncelle(5, x1 + "#" + x2, x3, x4, x5);
+                                }
                                 
                               });
                             },
@@ -769,13 +770,13 @@ class _AdetlerState extends State<Adetler> {
                               String x5 = siloAdet;
                               String komut = "3*6*$x1#$x2*$x3*$x4*$x5";
 
-                              Metotlar()
-                                  .veriGonder(
-                                      komut, context, 2233, "toast8", dilSecimi)
-                                  .then((value) {
-                                    if(value=="ok"){
-                                      dbProkis.dbSatirEkleGuncelle(5, x1 + "#" + x2, x3, x4, x5);
-                                    }
+                              Metotlar().veriGonder(komut, 2233).then((value) {
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                  dbProkis.dbSatirEkleGuncelle(5, x1 + "#" + x2, x3, x4, x5);
+                                }
                                 
                               });
                             },
@@ -860,29 +861,28 @@ class _AdetlerState extends State<Adetler> {
                         String x5 =wifiOlcum == true ? "#1" : "#2";
                         String komut = "2*4*$x1*$x2*$x3*$x4$x5";
 
-                        Metotlar()
-                            .veriGonder(
-                                komut, context, 2233, "toast60", dilSecimi)
-                            .then((value) {
-                              if(value=="ok"){
-                                dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
-                              }
+                        Metotlar().veriGonder(komut, 2233).then((value) {
+                          if(value.split("*")[0]=="error"){
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                            }else{
+                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                              dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
+                            }
                           
                         });
 
                         if (wifiOlcum && wifiOlcumGecici) {
-                          Metotlar()
-                              .veriGonder("23*0*0*0*0*0", context, 2233,
-                                  "toast60", dilSecimi)
-                              .then((value) {
-                                if(value=="ok"){
-                                  dbProkis.dbSatirEkleGuncelle(
-                                      20, "0", "0", "0", "0");
-                                  dbProkis.dbSatirEkleGuncelle(
-                                      21, "0", "0", "0", "0");
-                                  _blocSinif.bloCVeriEventSink.add("wifiOlcumGecici*1");
-
-                                }
+                          Metotlar().veriGonder("23*0*0*0*0*0", 2233).then((value) {
+                            if(value.split("*")[0]=="error"){
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                            }else{
+                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                              dbProkis.dbSatirEkleGuncelle(
+                                  20, "0", "0", "0", "0");
+                              dbProkis.dbSatirEkleGuncelle(
+                                  21, "0", "0", "0", "0");
+                              _blocSinif.bloCVeriEventSink.add("wifiOlcumGecici*1");
+                            }
                             
                           });
                         }
@@ -920,28 +920,29 @@ class _AdetlerState extends State<Adetler> {
                         String x5 =wifiOlcum == true ? "#1" : "#2";
                         String komut = "2*4*$x1*$x2*$x3*$x4$x5";
 
-                        Metotlar()
-                            .veriGonder(
-                                komut, context, 2233, "toast60", dilSecimi)
-                            .then((value) {
-                              if(value=="ok"){
-                                dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
-                              }
+                        Metotlar().veriGonder(komut, 2233).then((value) {
+                          if(value.split("*")[0]=="error"){
+                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                          }else{
+                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                            dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
+                          }
                           
                         });
 
                         if (wifiOlcum && wifiOlcumGecici) {
-                          Metotlar()
-                              .veriGonder("23*0*0*0*0*0", context, 2233,
-                                  "toast60", dilSecimi)
-                              .then((value) {
-                                if(value=="ok"){
-                                  dbProkis.dbSatirEkleGuncelle(
-                                      20, "0", "0", "0", "0");
-                                  dbProkis.dbSatirEkleGuncelle(
-                                      21, "0", "0", "0", "0");
-                                  _blocSinif.bloCVeriEventSink.add("wifiOlcumGecici*1");
-                                }
+                          Metotlar().veriGonder("23*0*0*0*0*0", 2233).then((value) {
+                            if(value.split("*")[0]=="error"){
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                            }else{
+                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                              dbProkis.dbSatirEkleGuncelle(
+                                  20, "0", "0", "0", "0");
+                              dbProkis.dbSatirEkleGuncelle(
+                                  21, "0", "0", "0", "0");
+                              _blocSinif.bloCVeriEventSink.add("wifiOlcumGecici*1");
+                                
+                            }
                             
                           });
                         }
@@ -1013,11 +1014,13 @@ class _AdetlerState extends State<Adetler> {
                       String x5 = wifiOlcum == true ? "#1" : "#2";
                       String komut = "2*4*$x1*$x2*$x3*$x4$x5";
 
-                      Metotlar()
-                          .veriGonder(
-                              komut, context, 2233, "toast60", dilSecimi)
-                          .then((value) {
-                        dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
+                      Metotlar().veriGonder(komut, 2233).then((value) {
+                        if(value.split("*")[0]=="error"){
+                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                        }else{
+                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                          dbProkis.dbSatirEkleGuncelle(4, x1, x2, x3, x4 + x5);
+                        }
                       });
                     },
                     items: liste.map<DropdownMenuItem<String>>((String value) {

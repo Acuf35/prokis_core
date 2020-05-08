@@ -136,8 +136,13 @@ class FanYontemi extends StatelessWidget {
                                           provider.setpyDurum = false;
                                         }
 
-                                        Metotlar().veriGonder("4*7*1*0*0*0", context, 2233, "toast8", dilSecimi).then((value) {
-                                          dbProkis.dbSatirEkleGuncelle(6, "1", "0", "0", "0");
+                                        Metotlar().veriGonder("4*7*1*0*0*0", 2233).then((value) {
+                                          if(value.split("*")[0]=="error"){
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          }else{
+                                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                            dbProkis.dbSatirEkleGuncelle(6, "1", "0", "0", "0");
+                                          }
                                         });
 
                                       } else {
@@ -208,9 +213,14 @@ class FanYontemi extends StatelessWidget {
                                         provider.setpyDurum = false;
                                       }
 
-                                      Metotlar().veriGonder("4*7*2*0*0*0", context, 2233, "toast8", dilSecimi).then((value) {
+                                      Metotlar().veriGonder("4*7*2*0*0*0", 2233).then((value) {
+                                        if(value.split("*")[0]=="error"){
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                        }else{
+                                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           dbProkis.dbSatirEkleGuncelle(6, "2", "0", "0", "0");
-                                        });
+                                        }
+                                      });
 
                                     },
                                     icon: Icon(provider.getlyDurum == true
@@ -285,8 +295,13 @@ class FanYontemi extends StatelessWidget {
                                           provider.setlyDurum = false;
                                         }
 
-                                        Metotlar().veriGonder("4*7*3*0*0*0", context, 2233, "toast8", dilSecimi).then((value) {
-                                          dbProkis.dbSatirEkleGuncelle(6, "3", "0", "0", "0");
+                                        Metotlar().veriGonder("4*7*3*0*0*0", 2233).then((value) {
+                                          if(value.split("*")[0]=="error"){
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          }else{
+                                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                            dbProkis.dbSatirEkleGuncelle(6, "3", "0", "0", "0");
+                                          }
                                         });
 
                                       }

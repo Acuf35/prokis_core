@@ -8,6 +8,7 @@ import 'package:prokis/languages/select.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:toast/toast.dart';
 
 class IzlemeBfanAirIstc extends StatefulWidget {
   List<Map> gelenDBveri;
@@ -1926,126 +1927,131 @@ class IzlemeBfanAirIstcBloC {
     if (timerSayac == 0) {
 
 
-      Metotlar().takipEt("3*0", context, 2237, dilSecimi).then((veri){
+      Metotlar().takipEt("3*0", 2237).then((veri){
 
-      var kk=veri.split("#");
-      var xx=kk[0].split("*");
-      var yy=kk[1].split("*");
+        var degerler=veri.split("*");
+        if(degerler[0]=="error"){
+          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        }else{
 
-      String aktuelFasVeyaHiz=xx[0];
-      if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){
-        bloCVeriStateStreamControllerBFANAKTUEL.sink.add(aktuelFasVeyaHiz);
-      }
-      aktuelFasVeyaHizGecici=aktuelFasVeyaHiz;
+          var kk=veri.split("#");
+          var xx=kk[0].split("*");
+          var yy=kk[1].split("*");
 
-      String calismaSuresi=xx[1];
-      if(calismaSuresi!=calismaSuresiGecici){
-        bloCVeriStateStreamControllerBFANCALSUR.sink.add(calismaSuresi);
-      }
-      calismaSuresiGecici=calismaSuresi;
-
-      String durmaSuresi=xx[2];
-      if(durmaSuresi!=durmaSuresiGecici){
-        bloCVeriStateStreamControllerBFANDURSUR.sink.add(durmaSuresi);
-      }
-      durmaSuresiGecici=durmaSuresi;
-
-      String bacafanDurum=xx[3];
-      if(bacafanDurum!=bacafanDurumGecici){
-        bloCVeriStateStreamControllerBFANDURUM.sink.add(bacafanDurum);
-      }
-      bacafanDurumGecici=bacafanDurum;
-
-
-      List<String> isiticiDurumlar=new List.filled(4, "0");
-      isiticiDurumlar[1]=xx[4];
-      isiticiDurumlar[2]=xx[5];
-      isiticiDurumlar[3]=xx[6];
-        
-
-      for (var i = 1; i < 19; i++) {
-        if(isiticiNo[i]!="0"){
-
-          if(isiticiDurumlar[isiticiNo[i]]!=isiticiDurumlarGecici[isiticiNo[i]]){
-            bloCVeriStateStreamControllerISITICIDURUM[i].sink.add(isiticiDurumlar[isiticiNo[i]]);
+          String aktuelFasVeyaHiz=xx[0];
+          if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){
+            bloCVeriStateStreamControllerBFANAKTUEL.sink.add(aktuelFasVeyaHiz);
           }
+          aktuelFasVeyaHizGecici=aktuelFasVeyaHiz;
+
+          String calismaSuresi=xx[1];
+          if(calismaSuresi!=calismaSuresiGecici){
+            bloCVeriStateStreamControllerBFANCALSUR.sink.add(calismaSuresi);
+          }
+          calismaSuresiGecici=calismaSuresi;
+
+          String durmaSuresi=xx[2];
+          if(durmaSuresi!=durmaSuresiGecici){
+            bloCVeriStateStreamControllerBFANDURSUR.sink.add(durmaSuresi);
+          }
+          durmaSuresiGecici=durmaSuresi;
+
+          String bacafanDurum=xx[3];
+          if(bacafanDurum!=bacafanDurumGecici){
+            bloCVeriStateStreamControllerBFANDURUM.sink.add(bacafanDurum);
+          }
+          bacafanDurumGecici=bacafanDurum;
+
+
+          List<String> isiticiDurumlar=new List.filled(4, "0");
+          isiticiDurumlar[1]=xx[4];
+          isiticiDurumlar[2]=xx[5];
+          isiticiDurumlar[3]=xx[6];
+            
+
+          for (var i = 1; i < 19; i++) {
+            if(isiticiNo[i]!="0"){
+
+              if(isiticiDurumlar[isiticiNo[i]]!=isiticiDurumlarGecici[isiticiNo[i]]){
+                bloCVeriStateStreamControllerISITICIDURUM[i].sink.add(isiticiDurumlar[isiticiNo[i]]);
+              }
+            }
+          }
+          isiticiDurumlarGecici=List.from(isiticiDurumlar);
+
+
+          String sistemMODyukNEM=xx[7]+"*"+xx[8];
+          if(sistemMODyukNEM!=sistemMODyukNEMGecici){
+            bloCVeriStateStreamControllerMODveYNEM.sink.add(sistemMODyukNEM);
+          }
+          sistemMODyukNEMGecici=sistemMODyukNEM;
+
+
+          String airinletDurum=xx[9];
+          if(airinletDurum!=airinletDurumGecici){
+            bloCVeriStateStreamControllerAIRDURUM.sink.add(airinletDurum);
+          }
+          airinletDurumGecici=airinletDurum;
+
+          String sirkfanDurum=xx[10];
+          if(sirkfanDurum!=sirkfanDurumGecici){
+            bloCVeriStateStreamControllerSIRKDURUM.sink.add(sirkfanDurum);
+          }
+          sirkfanDurumGecici=sirkfanDurum;
+          
+          String setDeger=xx[11];
+          if(setDeger!=setDegerGecici){
+            bloCVeriStateStreamControllerSET.sink.add(setDeger);
+          }
+          setDegerGecici=setDeger;
+
+          String ortDeger=xx[12];
+          if(ortDeger!=ortDegerGecici){
+            bloCVeriStateStreamControllerORT.sink.add(ortDeger);
+          }
+          ortDegerGecici=ortDeger;
+
+          String dbbDeger=xx[13];
+          if(dbbDeger!=dbbDegerGecici){
+            bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
+          }
+          dbbDegerGecici=dbbDeger;
+
+          String cbbDeger=xx[14];
+          if(cbbDeger!=cbbDegerGecici){
+            bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
+          }
+          cbbDegerGecici=cbbDeger;
+
+
+
+          String otoBFAN=yy[0];
+          if(otoBFAN!=otoBFANGecici){
+            bloCVeriStateStreamControllerBfanOTO.sink.add(otoBFAN);
+          }
+          otoBFANGecici=otoBFAN;
+
+          String otoISTC=yy[1];
+          if(otoISTC!=otoISTCGecici){
+            bloCVeriStateStreamControllerIstOTO.sink.add(otoISTC);
+          }
+          otoISTCGecici=otoISTC;
+
+          String otoAIRI=yy[2];
+          if(otoAIRI!=otoAIRIGecici){
+            bloCVeriStateStreamControllerAirOTO.sink.add(otoAIRI);
+          }
+          otoAIRIGecici=otoAIRI;
+
+          String otoSIRK=yy[3];
+          if(otoSIRK!=otoSIRKGecici){
+            bloCVeriStateStreamControllerSirkOTO.sink.add(otoSIRK);
+          }
+          otoSIRKGecici=otoSIRK;
+
+
+          print(veri);
         }
-      }
-      isiticiDurumlarGecici=List.from(isiticiDurumlar);
-
-
-      String sistemMODyukNEM=xx[7]+"*"+xx[8];
-      if(sistemMODyukNEM!=sistemMODyukNEMGecici){
-        bloCVeriStateStreamControllerMODveYNEM.sink.add(sistemMODyukNEM);
-      }
-      sistemMODyukNEMGecici=sistemMODyukNEM;
-
-
-      String airinletDurum=xx[9];
-      if(airinletDurum!=airinletDurumGecici){
-        bloCVeriStateStreamControllerAIRDURUM.sink.add(airinletDurum);
-      }
-      airinletDurumGecici=airinletDurum;
-
-      String sirkfanDurum=xx[10];
-      if(sirkfanDurum!=sirkfanDurumGecici){
-        bloCVeriStateStreamControllerSIRKDURUM.sink.add(sirkfanDurum);
-      }
-      sirkfanDurumGecici=sirkfanDurum;
-      
-      String setDeger=xx[11];
-      if(setDeger!=setDegerGecici){
-        bloCVeriStateStreamControllerSET.sink.add(setDeger);
-      }
-      setDegerGecici=setDeger;
-
-      String ortDeger=xx[12];
-      if(ortDeger!=ortDegerGecici){
-        bloCVeriStateStreamControllerORT.sink.add(ortDeger);
-      }
-      ortDegerGecici=ortDeger;
-
-      String dbbDeger=xx[13];
-      if(dbbDeger!=dbbDegerGecici){
-        bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
-      }
-      dbbDegerGecici=dbbDeger;
-
-      String cbbDeger=xx[14];
-      if(cbbDeger!=cbbDegerGecici){
-        bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
-      }
-      cbbDegerGecici=cbbDeger;
-
-
-
-      String otoBFAN=yy[0];
-      if(otoBFAN!=otoBFANGecici){
-        bloCVeriStateStreamControllerBfanOTO.sink.add(otoBFAN);
-      }
-      otoBFANGecici=otoBFAN;
-
-      String otoISTC=yy[1];
-      if(otoISTC!=otoISTCGecici){
-        bloCVeriStateStreamControllerIstOTO.sink.add(otoISTC);
-      }
-      otoISTCGecici=otoISTC;
-
-      String otoAIRI=yy[2];
-      if(otoAIRI!=otoAIRIGecici){
-        bloCVeriStateStreamControllerAirOTO.sink.add(otoAIRI);
-      }
-      otoAIRIGecici=otoAIRI;
-
-      String otoSIRK=yy[3];
-      if(otoSIRK!=otoSIRKGecici){
-        bloCVeriStateStreamControllerSirkOTO.sink.add(otoSIRK);
-      }
-      otoSIRKGecici=otoSIRK;
-
-
-        print(veri);
-        
       });
 
 
@@ -2061,125 +2067,134 @@ class IzlemeBfanAirIstcBloC {
           baglanti = true;
           
           
-         Metotlar().takipEt("3*0", context, 2237, dilSecimi).then((veri){
-      var kk=veri.split("#");
-      var xx=kk[0].split("*");
-      var yy=kk[1].split("*");
+         Metotlar().takipEt("3*0", 2237).then((veri){
 
-      String aktuelFasVeyaHiz=xx[0];
-      if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){
-        bloCVeriStateStreamControllerBFANAKTUEL.sink.add(aktuelFasVeyaHiz);
-      }
-      aktuelFasVeyaHizGecici=aktuelFasVeyaHiz;
-
-      String calismaSuresi=xx[1];
-      if(calismaSuresi!=calismaSuresiGecici){
-        bloCVeriStateStreamControllerBFANCALSUR.sink.add(calismaSuresi);
-      }
-      calismaSuresiGecici=calismaSuresi;
-
-      String durmaSuresi=xx[2];
-      if(durmaSuresi!=durmaSuresiGecici){
-        bloCVeriStateStreamControllerBFANDURSUR.sink.add(durmaSuresi);
-      }
-      durmaSuresiGecici=durmaSuresi;
-
-      String bacafanDurum=xx[3];
-      if(bacafanDurum!=bacafanDurumGecici){
-        bloCVeriStateStreamControllerBFANDURUM.sink.add(bacafanDurum);
-      }
-      bacafanDurumGecici=bacafanDurum;
-
-
-      List<String> isiticiDurumlar=new List.filled(4, "0");
-      isiticiDurumlar[1]=xx[4];
-      isiticiDurumlar[2]=xx[5];
-      isiticiDurumlar[3]=xx[6];
+        var degerler=veri.split("*");
         
+        if(degerler[0]=="error"){
+          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        }else{
 
-      for (var i = 1; i < 19; i++) {
-        if(isiticiNo[i]!="0"){
+            var kk=veri.split("#");
+            var xx=kk[0].split("*");
+            var yy=kk[1].split("*");
 
-          if(isiticiDurumlar[isiticiNo[i]]!=isiticiDurumlarGecici[isiticiNo[i]]){
-            bloCVeriStateStreamControllerISITICIDURUM[i].sink.add(isiticiDurumlar[isiticiNo[i]]);
-          }
-        }
-      }
-      isiticiDurumlarGecici=List.from(isiticiDurumlar);
+            String aktuelFasVeyaHiz=xx[0];
+            if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){
+              bloCVeriStateStreamControllerBFANAKTUEL.sink.add(aktuelFasVeyaHiz);
+            }
+            aktuelFasVeyaHizGecici=aktuelFasVeyaHiz;
 
+            String calismaSuresi=xx[1];
+            if(calismaSuresi!=calismaSuresiGecici){
+              bloCVeriStateStreamControllerBFANCALSUR.sink.add(calismaSuresi);
+            }
+            calismaSuresiGecici=calismaSuresi;
 
-      String sistemMODyukNEM=xx[7]+"*"+xx[8];
-      if(sistemMODyukNEM!=sistemMODyukNEMGecici){
-        bloCVeriStateStreamControllerMODveYNEM.sink.add(sistemMODyukNEM);
-      }
-      sistemMODyukNEMGecici=sistemMODyukNEM;
+            String durmaSuresi=xx[2];
+            if(durmaSuresi!=durmaSuresiGecici){
+              bloCVeriStateStreamControllerBFANDURSUR.sink.add(durmaSuresi);
+            }
+            durmaSuresiGecici=durmaSuresi;
 
-
-      String airinletDurum=xx[9];
-      if(airinletDurum!=airinletDurumGecici){
-        bloCVeriStateStreamControllerAIRDURUM.sink.add(airinletDurum);
-      }
-      airinletDurumGecici=airinletDurum;
-
-      String sirkfanDurum=xx[10];
-      if(sirkfanDurum!=sirkfanDurumGecici){
-        bloCVeriStateStreamControllerSIRKDURUM.sink.add(sirkfanDurum);
-      }
-      sirkfanDurumGecici=sirkfanDurum;
-      
-      String setDeger=xx[11];
-      if(setDeger!=setDegerGecici){
-        bloCVeriStateStreamControllerSET.sink.add(setDeger);
-      }
-      setDegerGecici=setDeger;
-
-      String ortDeger=xx[12];
-      if(ortDeger!=ortDegerGecici){
-        bloCVeriStateStreamControllerORT.sink.add(ortDeger);
-      }
-      ortDegerGecici=ortDeger;
-
-      String dbbDeger=xx[13];
-      if(dbbDeger!=dbbDegerGecici){
-        bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
-      }
-      dbbDegerGecici=dbbDeger;
-
-      String cbbDeger=xx[14];
-      if(cbbDeger!=cbbDegerGecici){
-        bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
-      }
-      cbbDegerGecici=cbbDeger;
+            String bacafanDurum=xx[3];
+            if(bacafanDurum!=bacafanDurumGecici){
+              bloCVeriStateStreamControllerBFANDURUM.sink.add(bacafanDurum);
+            }
+            bacafanDurumGecici=bacafanDurum;
 
 
+            List<String> isiticiDurumlar=new List.filled(4, "0");
+            isiticiDurumlar[1]=xx[4];
+            isiticiDurumlar[2]=xx[5];
+            isiticiDurumlar[3]=xx[6];
+              
 
-      String otoBFAN=yy[0];
-      if(otoBFAN!=otoBFANGecici){
-        bloCVeriStateStreamControllerBfanOTO.sink.add(otoBFAN);
-      }
-      otoBFANGecici=otoBFAN;
+            for (var i = 1; i < 19; i++) {
+              if(isiticiNo[i]!="0"){
 
-      String otoISTC=yy[1];
-      if(otoISTC!=otoISTCGecici){
-        bloCVeriStateStreamControllerIstOTO.sink.add(otoISTC);
-      }
-      otoISTCGecici=otoISTC;
-
-      String otoAIRI=yy[2];
-      if(otoAIRI!=otoAIRIGecici){
-        bloCVeriStateStreamControllerAirOTO.sink.add(otoAIRI);
-      }
-      otoAIRIGecici=otoAIRI;
-
-      String otoSIRK=yy[3];
-      if(otoSIRK!=otoSIRKGecici){
-        bloCVeriStateStreamControllerSirkOTO.sink.add(otoSIRK);
-      }
-      otoSIRKGecici=otoSIRK;
+                if(isiticiDurumlar[isiticiNo[i]]!=isiticiDurumlarGecici[isiticiNo[i]]){
+                  bloCVeriStateStreamControllerISITICIDURUM[i].sink.add(isiticiDurumlar[isiticiNo[i]]);
+                }
+              }
+            }
+            isiticiDurumlarGecici=List.from(isiticiDurumlar);
 
 
-        print(veri);
-        baglanti=false;
+            String sistemMODyukNEM=xx[7]+"*"+xx[8];
+            if(sistemMODyukNEM!=sistemMODyukNEMGecici){
+              bloCVeriStateStreamControllerMODveYNEM.sink.add(sistemMODyukNEM);
+            }
+            sistemMODyukNEMGecici=sistemMODyukNEM;
+
+
+            String airinletDurum=xx[9];
+            if(airinletDurum!=airinletDurumGecici){
+              bloCVeriStateStreamControllerAIRDURUM.sink.add(airinletDurum);
+            }
+            airinletDurumGecici=airinletDurum;
+
+            String sirkfanDurum=xx[10];
+            if(sirkfanDurum!=sirkfanDurumGecici){
+              bloCVeriStateStreamControllerSIRKDURUM.sink.add(sirkfanDurum);
+            }
+            sirkfanDurumGecici=sirkfanDurum;
+            
+            String setDeger=xx[11];
+            if(setDeger!=setDegerGecici){
+              bloCVeriStateStreamControllerSET.sink.add(setDeger);
+            }
+            setDegerGecici=setDeger;
+
+            String ortDeger=xx[12];
+            if(ortDeger!=ortDegerGecici){
+              bloCVeriStateStreamControllerORT.sink.add(ortDeger);
+            }
+            ortDegerGecici=ortDeger;
+
+            String dbbDeger=xx[13];
+            if(dbbDeger!=dbbDegerGecici){
+              bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
+            }
+            dbbDegerGecici=dbbDeger;
+
+            String cbbDeger=xx[14];
+            if(cbbDeger!=cbbDegerGecici){
+              bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
+            }
+            cbbDegerGecici=cbbDeger;
+
+
+
+            String otoBFAN=yy[0];
+            if(otoBFAN!=otoBFANGecici){
+              bloCVeriStateStreamControllerBfanOTO.sink.add(otoBFAN);
+            }
+            otoBFANGecici=otoBFAN;
+
+            String otoISTC=yy[1];
+            if(otoISTC!=otoISTCGecici){
+              bloCVeriStateStreamControllerIstOTO.sink.add(otoISTC);
+            }
+            otoISTCGecici=otoISTC;
+
+            String otoAIRI=yy[2];
+            if(otoAIRI!=otoAIRIGecici){
+              bloCVeriStateStreamControllerAirOTO.sink.add(otoAIRI);
+            }
+            otoAIRIGecici=otoAIRI;
+
+            String otoSIRK=yy[3];
+            if(otoSIRK!=otoSIRKGecici){
+              bloCVeriStateStreamControllerSirkOTO.sink.add(otoSIRK);
+            }
+            otoSIRKGecici=otoSIRK;
+
+
+              print(veri);
+              baglanti=false;
+
+         }
 
             });
         }

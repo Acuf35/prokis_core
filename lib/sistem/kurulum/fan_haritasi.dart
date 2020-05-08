@@ -417,20 +417,13 @@ class FanHaritasi extends StatelessWidget {
                                                   veri = veri + aa[i] .toString() + "#";
                                                 }
 
-                                                Metotlar()
-                                                    .veriGonder(
-                                                        "12*19*$veri*0*0*0",
-                                                        context,
-                                                        2233,
-                                                        "toast8",
-                                                        dilSecimi)
-                                                    .then((value) { 
-                                                  dbProkis.dbSatirEkleGuncelle(
-                                                          14,
-                                                          "ok",
-                                                          veri,
-                                                          "0",
-                                                          "0");
+                                                Metotlar().veriGonder("12*19*$veri*0*0*0",2233).then((value) {
+                                                  if(value.split("*")[0]=="error"){
+                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                  }else{
+                                                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                    dbProkis.dbSatirEkleGuncelle(14,"ok",veri,"0","0");
+                                                  }
                                                 });
                                                 provider.setharitaOnay = true;
                                                 print(provider.cikisNo);
@@ -599,39 +592,22 @@ class FanHaritasi extends StatelessWidget {
                                                             "#";
                                                   }
 
-                                                  Metotlar()
-                                                      .veriGonder(
-                                                          "13*20*$noVeri*$cikisVeri*0*0",
-                                                          context,
-                                                          2233,
-                                                          "toast8",
-                                                          dilSecimi)
-                                                      .then((value) {
-                                                    Metotlar()
-                                                        .veriGonder(
-                                                            "25*27*$tumCikislarVeri*0*0*0",
-                                                            context,
-                                                            2233,
-                                                            "toast8",
-                                                            dilSecimi)
-                                                        .then((value) {
-                                                      dbProkis
-                                                          .dbSatirEkleGuncelle(
-                                                              15,
-                                                              "ok",
-                                                              noVeri,
-                                                              cikisVeri,
-                                                              gridVeri);
-                                                      dbProkis
-                                                          .dbSatirEkleGuncelle(
-                                                              22,
-                                                              "ok",
-                                                              tumCikislarVeri,
-                                                              "0",
-                                                              "0");
-                                                    }).then((value){
-                                                      dbProkis.dbVeriCekme();
-                                                    });
+                                                  Metotlar().veriGonder("13*20*$noVeri*$cikisVeri*0*0",2233,).then((value) {
+                                                    if(value.split("*")[0]=="error"){
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    }else{
+                                                      Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0",2233).then((value) {
+                                                        if(value.split("*")[0]=="error"){
+                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                        }else{
+                                                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                          dbProkis.dbSatirEkleGuncelle(15,"ok",noVeri,cikisVeri,gridVeri);
+                                                          dbProkis.dbSatirEkleGuncelle(22,"ok",tumCikislarVeri,"0","0");
+                                                        }
+                                                      }).then((value){
+                                                        dbProkis.dbVeriCekme();
+                                                      });
+                                                    }
                                                   });
                                                   
 
@@ -1136,17 +1112,21 @@ class FanHaritasi extends StatelessWidget {
         provider.setharitaFlex = 200;
         provider.setsayac=120;
 
-        Metotlar()
-            .veriGonder("14*0*0*0*0*0", context, 2233, "toast8", dilSecimi)
-            .then((value) {
-          Metotlar()
-              .veriGonder("25*27*$tumCikislarVeri*0*0*0", context, 2233,
-                  "toast8", dilSecimi)
-              .then((value) {
-            dbProkis.dbSatirEkleGuncelle(14, "0", "0", "0", "0");
-            dbProkis.dbSatirEkleGuncelle(15, "0", "0", "0", "0");
-            dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
-          });
+        Metotlar().veriGonder("14*0*0*0*0*0", 2233).then((value) {
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value) {
+              if(value.split("*")[0]=="error"){
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+              }else{
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                dbProkis.dbSatirEkleGuncelle(14, "0", "0", "0", "0");
+                dbProkis.dbSatirEkleGuncelle(15, "0", "0", "0", "0");
+                dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
+              }
+            });
+          }
         });
         
       }

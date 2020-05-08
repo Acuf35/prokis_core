@@ -43,12 +43,22 @@ class IsiSensorHaritasi extends StatelessWidget {
 
               if (provider.sayac == 0) {
                 if(provider.isisensorBaglanti==1){
-                  Metotlar().takipEt("24a*", context, 2233, dilSecimi).then((veri){
-                    takipEtWifiIsleme(veri, provider);
+                  Metotlar().takipEt("24a*", 2233).then((veri){
+                    var degerler=veri.split("*");
+                    if(degerler[0]=="error"){
+                      Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                    }else{
+                      takipEtWifiIsleme(veri, provider);
+                    }
                   });
                 }else{
-                  Metotlar().takipEt("24b*", context, 2233, dilSecimi).then((veri){
-                    takipEtAnalogIsleme(veri, provider);
+                  Metotlar().takipEt("24b*", 2233).then((veri){
+                    var degerler=veri.split("*");
+                    if(degerler[0]=="error"){
+                      Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                    }else{
+                      takipEtAnalogIsleme(veri, provider);
+                    }
                   });
                 }
 
@@ -59,12 +69,22 @@ class IsiSensorHaritasi extends StatelessWidget {
                     provider.setbaglanti = true;
 
                     if(provider.isisensorBaglanti==1){
-                      Metotlar().takipEt("24a*", context, 2233, dilSecimi).then((veri){
-                        takipEtWifiIsleme(veri, provider);
+                      Metotlar().takipEt("24a*", 2233).then((veri){
+                        var degerler=veri.split("*");
+                        if(degerler[0]=="error"){
+                          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                        }else{
+                          takipEtWifiIsleme(veri, provider);
+                        }
                       });
                     }else{
-                      Metotlar().takipEt("24b*", context, 2233, dilSecimi).then((veri){
-                        takipEtAnalogIsleme(veri, provider);
+                      Metotlar().takipEt("24b*", 2233).then((veri){
+                        var degerler=veri.split("*");
+                        if(degerler[0]=="error"){
+                          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                        }else{
+                          takipEtAnalogIsleme(veri, provider);
+                        }
                       });
                     }
                   }
@@ -570,8 +590,11 @@ class IsiSensorHaritasi extends StatelessWidget {
                                 veri = veri + provider.isisensorHarita[i].toString() + "#";
                               }
 
-                              Metotlar().veriGonder("21*25*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-                                if(value=="ok"){
+                              Metotlar().veriGonder("21*25*$veri*0*0*0", 2233).then((value){
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(20, "ok", veri, "0", "0");
                                 }
                               });
@@ -705,8 +728,11 @@ class IsiSensorHaritasi extends StatelessWidget {
                             } else {
                               
                               String komut="22*26*"+noVeri+"*"+noVeriAktif+"*"+idVeriAktif+"*"+provider.isisensorNo[22].toString();
-                              Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
-                                if(value=="ok"){
+                              Metotlar().veriGonder(komut, 2233).then((value){
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(21, "ok", noVeri, noVeriAktif, idVeriAktif);
                                 }
                               });
@@ -1088,8 +1114,11 @@ class IsiSensorHaritasi extends StatelessWidget {
         provider.setveriGonderildi = false;
         provider.setharitaOnay = false;
 
-        Metotlar().veriGonder("23*0*0*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-          if(value=="ok"){
+        Metotlar().veriGonder("23*0*0*0*0*0", 2233).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             dbProkis.dbSatirEkleGuncelle(20, "0", "0", "0", "0");
             dbProkis.dbSatirEkleGuncelle(21, "0", "0", "0", "0");
           }

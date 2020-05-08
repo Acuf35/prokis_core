@@ -55,18 +55,20 @@ class TemelAyarlar extends StatelessWidget {
                 Toast.show(Dil().sec(dilSecimi, "toast1"), context,
                     duration: 2);
               } else {
-                Metotlar().veriGonder(
-                    '1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}',
-                    context,
-                    2233,
-                    "toast8",
-                    dilSecimi).then((value) {
+                String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
+                Metotlar().veriGonder(komut,2233).then((value) {
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                       dbProkis.dbSatirEkleGuncelle(
                     3,
                     provider.getKumesTuruIndex.toString(),
                     provider.getKumesNo,
                     provider.getKumesIsmi,
                     provider.getSifreAna);
+                  }
+
                     });
                 
               }
@@ -167,13 +169,13 @@ class TemelAyarlar extends StatelessWidget {
                                                     provider.setkumesTuruIndex =
                                                         3;
                                                   }
+                                                  String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
 
-                                                  Metotlar().veriGonder(
-                                                      '1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}',
-                                                      context,
-                                                      2233,
-                                                      "toast8",
-                                                      dilSecimi).then((value) {
+                                                  Metotlar().veriGonder(komut,2233).then((value) {
+                                                    if(value.split("*")[0]=="error"){
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    }else{
+                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                         dbProkis.dbSatirEkleGuncelle(
                                                       3,
                                                       provider.getKumesTuruIndex
@@ -181,6 +183,7 @@ class TemelAyarlar extends StatelessWidget {
                                                       provider.getKumesNo,
                                                       provider.getKumesIsmi,
                                                       provider.getSifreAna);
+                                                    }
                                                       });
                                                   
                                                 },
@@ -247,13 +250,12 @@ class TemelAyarlar extends StatelessWidget {
                                                 onChanged: (String newValue) {
                                                   provider.setkumesNo =
                                                       newValue;
-
-                                                  Metotlar().veriGonder(
-                                                      '1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}',
-                                                      context,
-                                                      2233,
-                                                      "toast8",
-                                                      dilSecimi).then((value) {
+                                                  String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
+                                                  Metotlar().veriGonder(komut,2233).then((value) {
+                                                    if(value.split("*")[0]=="error"){
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    }else{
+                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                         dbProkis.dbSatirEkleGuncelle(
                                                         3,
                                                         provider.getKumesTuruIndex
@@ -261,6 +263,7 @@ class TemelAyarlar extends StatelessWidget {
                                                         provider.getKumesNo,
                                                         provider.getKumesIsmi,
                                                         provider.getSifreAna);
+                                                    }
                                                       });
                                                   
                                                 },
@@ -616,25 +619,23 @@ class TemelAyarlar extends StatelessWidget {
                                                         context,
                                                         duration: 2);
                                                   } else {
-                                                    Metotlar().veriGonder('1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}',
-                                                    context,
-                                                    2233,
-                                                    "toast21",
-                                                    dilSecimi).then((value) {
-
-                                                      if(value=="ok"){
+                                                    String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
+                                                    Metotlar().veriGonder(komut,2233).then((value) {
+                                                      if(value.split("*")[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                      }else{
+                                                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                         provider.setsifreOnaylandi=true;
+
+                                                        dbProkis.dbSatirEkleGuncelle(
+                                                        3,
+                                                        provider
+                                                            .getKumesTuruIndex
+                                                            .toString(),
+                                                        provider.getKumesNo,
+                                                        provider.getKumesIsmi,
+                                                        provider.getSifreAna);
                                                       }
-
-                                                      dbProkis.dbSatirEkleGuncelle(
-                                                      3,
-                                                      provider
-                                                          .getKumesTuruIndex
-                                                          .toString(),
-                                                      provider.getKumesNo,
-                                                      provider.getKumesIsmi,
-                                                      provider.getSifreAna);
-
                                                       });
 
                                                   }

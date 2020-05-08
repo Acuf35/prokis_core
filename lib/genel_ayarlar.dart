@@ -9,6 +9,8 @@ import 'package:prokis/genel_ayarlar/kontrol.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
 import 'package:prokis/genel_ayarlar/sistem.dart';
 import 'package:prokis/genel_ayarlar/suru.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
@@ -29,10 +31,12 @@ class GenelAyarlar extends StatefulWidget {
 
 class GenelAyarlarState extends State<GenelAyarlar> {
   //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+  /*
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
   int dbSayac = 0;
+*/
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   List<Map> dbVeriler;
@@ -40,6 +44,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   GenelAyarlarState(List<Map> dbVeri) {
+
     dbVeriler = dbVeri;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
@@ -47,13 +52,15 @@ class GenelAyarlarState extends State<GenelAyarlar> {
       }
     }
 
-    _dbVeriCekme();
+    //_dbVeriCekme();
+
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
   Widget build(BuildContext context) {
-
+    final dbProkis=Provider.of<DBProkis>(context);
+    dilSecimi=dbProkis.dbVeriGetir(1, 1, "EN");
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
@@ -668,7 +675,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
       )
       );
   }
-
+/*
   _satirlar(List<Map> satirlar) {
     dbVeriler = satirlar;
   }
@@ -681,4 +688,5 @@ class GenelAyarlarState extends State<GenelAyarlar> {
       dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
   }
+  */
 }

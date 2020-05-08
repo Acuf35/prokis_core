@@ -31,13 +31,16 @@ class Giris extends StatefulWidget {
 
 class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
+/*
   final dbHelper = DatabaseHelper.instance;
   var dbSatirlar;
   int dbSatirSayisi = 0;
   int dbSayac = 0;
+*/
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   List<Map> dbVeriler;
+  int sayac=0;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++OTOMATİK SAYFA GEÇİŞ İŞLEMİ+++++++++++++++++++++++++++++++
@@ -45,16 +48,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    new Future.delayed(const Duration(seconds: 3), () {
-      Navigator.push(
-        context,
-        //MaterialPageRoute(builder: (context) => DilSecimi(dbVeriler)),
-        MaterialPageRoute(
-            builder: (context) => kurulumDurum == "0"
-                ? DilSecimi(true)
-                : GenelAyarlar(dbVeriler)),
-      );
-    });
+    
     
   }
 
@@ -66,8 +60,26 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-    Provider.of<DBProkis>(context);
-    _dbSatirlariCekme();
+    final dbProkis=Provider.of<DBProkis>(context);
+    //_dbSatirlariCekme();
+
+    if(sayac==0){
+
+      new Future.delayed(const Duration(seconds: 3), () {
+        kurulumDurum=dbProkis.dbVeriGetir(2, 1, "0");
+        dbVeriler=dbProkis.getDbVeri;
+        Navigator.push(
+          context,
+          //MaterialPageRoute(builder: (context) => DilSecimi(dbVeriler)),
+          MaterialPageRoute(
+              builder: (context) => kurulumDurum == "0"
+                  ? DilSecimi(true)
+                  : GenelAyarlar(dbVeriler)),
+        );
+      });
+
+      sayac++;
+    }
 
 
 //++++++++++++++++++++++++++STATUS BAR SAKLAMA ve EKRANI YATAYA SABİTLEME+++++++++++++++++++++++++++++++
@@ -98,6 +110,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
+/*
 
   _satirlar(List<Map> satirlar) {
     dbVeriler = satirlar;
@@ -117,7 +130,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
       dbHelper.veriYOKSAekleVARSAguncelle(2, "0", "0", "0", "0");
     }
 
-    setState(() {});
+    //setState(() {});
   }
 
   _dbSatirlariCekme() {
@@ -128,6 +141,9 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
       dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
   }
+
+*/
+
 
   void _landscapeModeOnly() {
     SystemChrome.setPreferredOrientations([

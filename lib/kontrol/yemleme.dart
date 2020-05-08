@@ -780,7 +780,9 @@ class YemlemeState extends State<Yemleme> {
               ),
             ),
           ),
-        ));
+        )
+        );
+  
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++

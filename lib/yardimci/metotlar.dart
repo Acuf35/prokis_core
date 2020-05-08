@@ -766,11 +766,11 @@ class Metotlar {
     */
   }
 
-  Future<String> veriGonder(String komut, BuildContext context, int portNo, String toastMesaj, String dilSecimi) async {
+  Future<String> veriGonder(String komut, int portNo) async {
 
     String _donusDegeri;
     
-    if (komut != null) {
+    
         print("Request has data");
 
           // =============================================================
@@ -779,85 +779,73 @@ class Metotlar {
           timeout: Duration(seconds: 5)
           
           ).then((Socket sock) {
+
             _socket = sock;
+
           }).then((_) {
+
             // SENT TO SERVER ************************
             _socket.write(komut);
             return _socket.first;
-          }).then((data) {
-            // GET FROM SERVER *********************
-            _donusDegeri =  new String.fromCharCodes(data).trim();
-            if(_donusDegeri=="ok"){
-              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
-            }
-          }).catchError((error) {
-            print(error);
-            var xx=error.toString().split(",");
-            _donusDegeri=xx[0].trim();
-            if(_donusDegeri=="SocketException: Connection timed out"){
-              Toast.show(Dil().sec(dilSecimi, "toast91"), context, duration: 3);
-            }else if(_donusDegeri=="SocketException: OS Error: Connection refused"){
-              Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-            }else{
-              Toast.show(Dil().sec(dilSecimi, "toast20")+"\n"+error.toString(), context, duration: 3);
-            }
 
+          }).then((data) {
+            // GET FROM SERVER ********************
+            
+            _donusDegeri =  new String.fromCharCodes(data).trim()+"*";
+            _socket.close();
+
+          }).catchError((error) {
+
+            _donusDegeri="error*"+error.toString().trim();
             _socket.close();
             
           });
       // ==============================================================
-      
-    } else {
-      Toast.show(Dil().sec(dilSecimi, "toast43"), context, duration: 3);
-    }
 
   return _donusDegeri;
 } 
 
-  Future<String> takipEt(String komut, BuildContext context, int portNo, String dilSecimi) async {
+  Future<String> takipEt(String komut, int portNo) async {
 
     String _donusDegeri;
-    
-    if (komut != null) {
+
         print("Request has data");
 
           // =============================================================
           Socket _socket;
           await Socket.connect("192.168.1.110", portNo,
           timeout: Duration(seconds: 5)
-          
+
           ).then((Socket sock) {
+
             _socket = sock;
+
           }).then((_) {
+
             // SENT TO SERVER ************************
             _socket.write(komut);
             return _socket.first;
+
           }).then((data) {
+
             // GET FROM SERVER *********************
             _donusDegeri =  new String.fromCharCodes(data).trim();
+            _socket.close();
             
           }).catchError((error) {
-            print("Giriyor1");
-            var xx=error.toString().split(",");
-            _donusDegeri=xx[0].trim();
-            if(_donusDegeri=="SocketException: Connection timed out"){
-              Toast.show(Dil().sec(dilSecimi, "toast91"), context, duration: 3);
-            }else if(_donusDegeri=="SocketException: OS Error: Connection refused"){
-              Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-            }else{
-              Toast.show(Dil().sec(dilSecimi, "toast20")+"\n"+error.toString(), context, duration: 3);
-            }
-            
+
+            _donusDegeri="error*"+error.toString().trim();
+
           });
       // ==============================================================
-      
-    } else {
-      Toast.show(Dil().sec(dilSecimi, "toast43"), context, duration: 3);
-    }
 
   return _donusDegeri;
 } 
 
+  String errorToastMesaj(String mesaj){
+    
+    return mesaj;
+  }
 
   String outConvSAYItoQ(int deger) {
     String sonuc = "Q#.#";

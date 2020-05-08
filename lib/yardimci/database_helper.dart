@@ -27,6 +27,7 @@ class DatabaseHelper {
     if (_database != null) return _database;
     // lazily instantiate the db the first time it is accessed
     _database = await _initDatabase();
+    print("DATABASE BAĞLANTI OLUŞTURULUYORR");
     return _database;
   }
 
@@ -34,6 +35,7 @@ class DatabaseHelper {
   _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, _databaseName);
+    print("DATABASE BAĞLANTI OLUŞTURULUYORR222222");
     return await openDatabase(path,
         version: _databaseVersion,
         onCreate: _onCreate);
@@ -91,7 +93,11 @@ class DatabaseHelper {
         DatabaseHelper.columnV3: xV3,
         DatabaseHelper.columnV4: xV4
       };
-      return await db.insert(table, row);
+      var veri=await db.insert(table, row).whenComplete((){
+        //db.close();
+      });
+      
+      return veri;
     }
     else {
       Map<String, dynamic> row = {
@@ -103,8 +109,14 @@ class DatabaseHelper {
       };
       print("GÜNCELLENDİ");
 
-      return await db.update(table, row, where: '$columnId = ?', whereArgs: [xid]);
+      var veri=await db.update(table, row, where: '$columnId = ?', whereArgs: [xid]).whenComplete((){
+        //db.close();
+      });
+      
+      return veri;
     }
+
+    
 
   }
 
@@ -127,7 +139,9 @@ class DatabaseHelper {
 
     Database db = await instance.database;
 
-    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]);
+    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]).whenComplete((){
+      //db.close();
+    });
 
     String sonuc;
     print(satir.toString() + "Satir degeridir");
@@ -136,6 +150,8 @@ class DatabaseHelper {
       sonuc="";
     else
       sonuc= satir[0][xindexNo].toString();
+
+    
 
     return sonuc;
 
@@ -149,8 +165,10 @@ class DatabaseHelper {
 
     Database db = await instance.database;
 
-    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]);
-
+    List<Map> satir=await db.rawQuery('SELECT * FROM tablo1_1x4 WHERE id = ?',[xid]).whenComplete((){
+      //db.close();
+    });
+    
     print(satir.toString() + "Satir degeridir");
 
     return satir;
@@ -177,7 +195,12 @@ class DatabaseHelper {
     };
 
     Database db = await instance.database;
-    return await db.update(table, row, where: '$columnId = ?', whereArgs: [xid]);
+    print("GİRİYOR1");
+    var veri=await db.update(table, row, where: '$columnId = ?', whereArgs: [xid]).whenComplete((){
+      //db.close();
+    });
+    
+    return veri;
   }
 
 
@@ -186,7 +209,12 @@ class DatabaseHelper {
   // returned. This should be 1 as long as the row exists.
   Future<int> veriSil(int id) async {
     Database db = await instance.database;
-    return await db.delete(table, where: '$columnId = ?', whereArgs: [id]);
+    print("GİRİYOR2");
+    var veri=await db.delete(table, where: '$columnId = ?', whereArgs: [id]).whenComplete((){
+      //db.close();
+    });
+    
+    return veri;
   }
 
 
@@ -198,7 +226,12 @@ class DatabaseHelper {
   // a key-value list of columns.
   Future<List<Map<String, dynamic>>> satirlariCek() async {
     Database db = await instance.database;
-    return await db.query(table);
+    print("SATIRLARI ÇEKİYOR!!!!!!!!!");
+    var veri=await db.query(table).whenComplete((){
+      //db.close();
+    });
+    
+    return veri;
   }
 
 
@@ -207,7 +240,12 @@ class DatabaseHelper {
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int> satirSayisi() async {
     Database db = await instance.database;
-    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table'));
+    print("SATIR SAYISI!!!!!!!!!");
+    var veri=Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $table').whenComplete((){
+      //db.close();
+    }));
+    
+    return veri;
   }
 
 

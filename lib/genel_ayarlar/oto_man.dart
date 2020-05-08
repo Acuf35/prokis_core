@@ -13,6 +13,7 @@ import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/deger_giris_3x0.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:toast/toast.dart';
 
 
 class OtoMan1 extends StatelessWidget {
@@ -53,7 +54,6 @@ class OtoMan1 extends StatelessWidget {
   int yazmaSonrasiGecikmeSayaciSIRK = 8;
   bool takipEtiGeciciDurdur=false;
 
-
   @override
   Widget build(BuildContext context) {
     final dbProkis = Provider.of<DBProkis>(context);
@@ -67,17 +67,27 @@ class OtoMan1 extends StatelessWidget {
               final provider = Provider.of<OtoMan1Provider>(context);
 
               if (timerSayac == 0) {
-              Metotlar().takipEt('16*', context, 2236, dilSecimi).then((value){
-                var degerler = value.split('*');
-                provider.otoTFAN=degerler[0]=="True" ? true : false;
-                provider.otoPEDM=degerler[1]=="True" ? true : false;
-                provider.otoAYDL=degerler[2]=="True" ? true : false;
-                provider.otoBFAN=degerler[3]=="True" ? true : false;
-                provider.otoISTC=degerler[4]=="True" ? true : false;
-                provider.otoYEMA=degerler[5]=="True" ? true : false;
-                provider.otoSIRK=degerler[6]=="True" ? true : false;
-                provider.dinlemeyiTetikle();
+              Metotlar().takipEt('16*', 2236).then((value){
 
+                var degerler = value.split('*');
+
+                if(degerler[0]=="error"){
+                  Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                }else{
+                  provider.otoTFAN=degerler[0]=="True" ? true : false;
+                  provider.otoPEDM=degerler[1]=="True" ? true : false;
+                  provider.otoAYDL=degerler[2]=="True" ? true : false;
+                  provider.otoBFAN=degerler[3]=="True" ? true : false;
+                  provider.otoISTC=degerler[4]=="True" ? true : false;
+                  provider.otoYEMA=degerler[5]=="True" ? true : false;
+                  provider.otoSIRK=degerler[6]=="True" ? true : false;
+
+                  if(!timerCancel){
+                    provider.dinlemeyiTetikle();
+                  }
+                }
+                
+                
               });
 
               Timer.periodic(Duration(seconds: 2), (timer) {
@@ -90,19 +100,27 @@ class OtoMan1 extends StatelessWidget {
 
                 if (!baglanti && yazmaSonrasiGecikmeSayaci > 3 && !takipEtiGeciciDurdur) {
                   baglanti = true;
-                  Metotlar().takipEt('16*', context, 2236, dilSecimi).then((value){
+                  Metotlar().takipEt('16*', 2236).then((value){
                     
                 var degerler = value.split('*');
-                print(degerler);
-                provider.otoTFAN=degerler[0]=="True" ? true : false;
-                provider.otoPEDM=degerler[1]=="True" ? true : false;
-                provider.otoAYDL=degerler[2]=="True" ? true : false;
-                provider.otoBFAN=degerler[3]=="True" ? true : false;
-                provider.otoISTC=degerler[4]=="True" ? true : false;
-                provider.otoYEMA=degerler[5]=="True" ? true : false;
-                provider.otoSIRK=degerler[6]=="True" ? true : false;
-                baglanti=false;
-                provider.dinlemeyiTetikle();
+
+                if(degerler[0]=="error"){
+                  Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                }else{
+                  provider.otoTFAN=degerler[0]=="True" ? true : false;
+                  provider.otoPEDM=degerler[1]=="True" ? true : false;
+                  provider.otoAYDL=degerler[2]=="True" ? true : false;
+                  provider.otoBFAN=degerler[3]=="True" ? true : false;
+                  provider.otoISTC=degerler[4]=="True" ? true : false;
+                  provider.otoYEMA=degerler[5]=="True" ? true : false;
+                  provider.otoSIRK=degerler[6]=="True" ? true : false;
+                  baglanti=false;
+
+                  if(!timerCancel){
+                    provider.dinlemeyiTetikle();
+                  }
+                }
+                
 
               });
                 }
@@ -111,13 +129,10 @@ class OtoMan1 extends StatelessWidget {
 
             timerSayac++;
 
-
               return Scaffold(
       appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv454'),
       body: Column(
         children: <Widget>[
-
-
           //Saat ve Tarih
             Row(
               children: <Widget>[
@@ -158,13 +173,12 @@ class OtoMan1 extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          
-          Expanded(
+            ),       
+            Expanded(
                         child: Container(color: Colors.white,
                           child: Row(
               children: <Widget>[
-                Expanded(flex: 30,
+                Expanded(flex: 20,
                                 child: Column(
                   children: <Widget>[
                     Expanded(
@@ -174,8 +188,8 @@ class OtoMan1 extends StatelessWidget {
                             Expanded(
                               child: Column(
                                 children: <Widget>[
-                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,provider.otoKLPE,2,context,dbProkis),
-                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv460"),'assets/images/kurulum_airinlet_icon.png',oran,provider.otoAIRI,5,context,dbProkis),
+                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,provider.otoKLPE,2,context,dbProkis,provider),
+                                  _unsurOtoManWidgetKlepeAir(Dil().sec(dilSecimi, "tv460"),'assets/images/kurulum_airinlet_icon.png',oran,provider.otoAIRI,5,context,dbProkis,provider),
                                 ],
                               ),
                             ),
@@ -208,7 +222,7 @@ class OtoMan1 extends StatelessWidget {
                         ),
           ),
         ],
-      ),  
+      ),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
           child: FittedBox(
                       child: FloatingActionButton(
@@ -227,8 +241,7 @@ class OtoMan1 extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      
+        ),      
       drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
       endDrawer: SizedBox(width: 320*oran,
                   child: Drawer(
@@ -293,9 +306,26 @@ class OtoMan1 extends StatelessWidget {
     );
   }
 
-  
   Widget _unsurOtoManWidget(String baslik, String imagePath, double oran, 
   bool otomanDurum,int index, BuildContext context, OtoMan1Provider provider){
+    bool visible=true;
+    String metin="";
+    if(index==6){
+      visible = provider.bacafanAdet == "1" ? true : false;
+      metin = Dil().sec(dilSecimi, "tv657");
+    }
+    if(index==7){
+      visible = provider.isiticiAdet != "0" ? true : false;
+      metin = Dil().sec(dilSecimi, "tv658");
+    }
+    if(index==8){
+      visible = provider.yemUnsurAdet != 0 ? true : false;
+      metin = Dil().sec(dilSecimi, "tv659");
+    }
+    if(index==9){
+      visible = provider.sirkFanVarMi == "1" ? true : false;
+      metin = Dil().sec(dilSecimi, "tv660");
+    }
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -303,6 +333,7 @@ class OtoMan1 extends StatelessWidget {
           Expanded(flex: 10,
                       child: Column(
               children: <Widget>[
+
                 Expanded(
                               child: SizedBox(
                                 child: Container(
@@ -322,409 +353,499 @@ class OtoMan1 extends StatelessWidget {
                               ),
                             ),
                 
-                Expanded(
+                Expanded(flex: 5,
+                  child: Stack(
+                    children: <Widget>[
+                      Visibility(visible: visible,
+
                         child: Column(
-                        children: <Widget>[
-                          //Oto Man Seçimi
-                          Expanded(flex: 6,
-                            child: Row(
-                              children: <Widget>[
-                                //Oto
-                                Expanded(flex: 10,
-                                  child:  RawMaterialButton(
-                                    elevation: 8,
-                                    onPressed: (){
+                          children: <Widget>[
+                            Expanded(
+                              child: Row(
+                                children: <Widget>[
+                                  //Oto
+                                  Expanded(flex: 10,
+                                    child:  RawMaterialButton(
+                                      elevation: 8,
+                                      onPressed: (){
 
-                                     
-                                      yazmaSonrasiGecikmeSayaci=0;
-                                      Metotlar().veriGonder("20*$index*1", context, 2235, "toast8", dilSecimi).then((value){
-                                        Metotlar().takipEt("16*", context, 2236, dilSecimi).then((value){
-                                          var degerler = value.split('*');
-                                          provider.otoTFAN=degerler[0]=="True" ? true : false;
-                                          provider.otoPEDM=degerler[1]=="True" ? true : false;
-                                          provider.otoAYDL=degerler[2]=="True" ? true : false;
-                                          provider.otoBFAN=degerler[3]=="True" ? true : false;
-                                          provider.otoISTC=degerler[4]=="True" ? true : false;
-                                          provider.otoYEMA=degerler[5]=="True" ? true : false;
-                                          provider.otoSIRK=degerler[6]=="True" ? true : false;
-                                          provider.dinlemeyiTetikle();
-                                        });
-                                      });
+                                       
+                                        yazmaSonrasiGecikmeSayaci=0;
+                                        Metotlar().veriGonder("20*$index*1", 2235).then((value){
+                                          if(value.split("*")[0]=="error"){
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          }else{
+                                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                            Metotlar().takipEt("16*", 2236).then((value){
+                                              var degerler = value.split('*');
 
-                                      if(index==1){
-                                        provider.otoTFAN=true;
-                                        for(int i=1;i<=int.parse(provider.fanAdet);i++){
-                                          provider.fanMan[i]=false;
-                                        }
-                                      }else if(index==3){
-                                        provider.otoPEDM=true;
-                                        for(int i=1;i<=int.parse(provider.pedAdet);i++){
-                                          provider.pedMan[i]=false;
-                                        }
-                                      }else if(index==4){
-                                        provider.otoAYDL=true;
-                                        provider.aydMan[1]=false;
-                                      }else if(index==6){
-                                        provider.otoBFAN=true;
-                                        for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
-                                         provider.bfaMan[i]=false;
-                                        }
-                                      }else if(index==7){
-                                        provider.otoISTC=true;
-                                        for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
-                                          provider.istMan[i]=false;
-                                        }
-                                      }else if(index==8){
-                                        provider.otoYEMA=true;
-                                        for(int i=1;i<=6;i++){
-                                          provider.yemMan[i]=false;
-                                        }
-                                      }else if(index==9){
-                                        provider.otoSIRK=true;
-                                        for(int i=1;i<=1;i++){
-                                          provider.sirMan[i]=false;
-                                        }
-                                      }
-
-                                      provider.dinlemeyiTetikle();
-
-                                    },
-                                    materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
-                                    constraints: BoxConstraints(),
-                                    fillColor: otomanDurum ? Colors.green[400] : Colors.grey[400],
-                                    child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      Dil().sec(dilSecimi, "tv455"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.black,
-                                          fontSize: 50,
-                                          fontWeight: FontWeight.bold),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                              ),
-                            
-                                    )),
-                                Spacer(),
-                                //MAN
-                                Expanded(flex: 10,
-                                  child: RawMaterialButton(
-                                    elevation: 8,
-                                    onPressed: (){
-                                      yazmaSonrasiGecikmeSayaci=0;
-                                      Metotlar().veriGonder("20*$index*0", context, 2235, "toast8", dilSecimi).then((value){
-                                        Metotlar().takipEt("16*", context, 2236, dilSecimi).then((value){
-                                          var degerler = value.split('*');
-                                          provider.otoTFAN=degerler[0]=="True" ? true : false;
-                                          provider.otoPEDM=degerler[1]=="True" ? true : false;
-                                          provider.otoAYDL=degerler[2]=="True" ? true : false;
-                                          provider.otoBFAN=degerler[3]=="True" ? true : false;
-                                          provider.otoISTC=degerler[4]=="True" ? true : false;
-                                          provider.otoYEMA=degerler[5]=="True" ? true : false;
-                                          provider.otoSIRK=degerler[6]=="True" ? true : false;
-                                          provider.dinlemeyiTetikle();
-                                        });
-                                      });
-
-                                      if(index==1){
-                                        provider.otoTFAN=false;
-                                      }else if(index==3){
-                                        provider.otoPEDM=false;
-                                      }else if(index==4){
-                                        provider.otoAYDL=false;
-                                      }else if(index==6){
-                                        provider.otoBFAN=false;
-                                      }else if(index==7){
-                                        provider.otoISTC=false;
-                                      }else if(index==8){
-                                        provider.otoYEMA=false;
-                                      }else if(index==9){
-                                        provider.otoSIRK=false;
-                                      }
-
-                                      provider.dinlemeyiTetikle();
-                                    },
-                                    materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
-                                    constraints: BoxConstraints(),
-                                    fillColor: !otomanDurum ? Colors.green[400] : Colors.grey[400],
-                                    child: SizedBox(
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: AutoSizeText(
-                                      Dil().sec(dilSecimi, "tv456"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.black,
-                                          fontSize: 50,
-                                          fontWeight: FontWeight.bold),
-                                      maxLines: 1,
-                                      minFontSize: 8,
-                                    ),
-                                  ),
-                              ),
-                            
-                                    )),
-                                Spacer(),
-                          
-                          ],)),
-                          
-                      ],)),
-            
-                Expanded(flex: 4,
-                            child: Column(
-                            children: <Widget>[
-                              
-                              Spacer(),
-                              Expanded(flex: 24,
-                              child: Visibility(visible: !otomanDurum,
-                                  child: RawMaterialButton(
-                                    onPressed: (){
-
-
-                                      takipEtiGeciciDurdur=true;
-
-                                      if(index==1){
-                                        timerCancelFan=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciTFAN++;
-                                            if (timerCancelFan) {
-                                              timer.cancel();
-                                            }
-                                            if(!baglantiFan && yazmaSonrasiGecikmeSayaciTFAN>7){
-                                              baglantiFan=true;
-                                              Metotlar().takipEt("17*${provider.fanAdet}", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.fanAdet);i++){
-                                                  provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
+                                              if(degerler[0]=="error"){
+                                                Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                              }else{
+                                                provider.otoTFAN=degerler[0]=="True" ? true : false;
+                                                provider.otoPEDM=degerler[1]=="True" ? true : false;
+                                                provider.otoAYDL=degerler[2]=="True" ? true : false;
+                                                provider.otoBFAN=degerler[3]=="True" ? true : false;
+                                                provider.otoISTC=degerler[4]=="True" ? true : false;
+                                                provider.otoYEMA=degerler[5]=="True" ? true : false;
+                                                provider.otoSIRK=degerler[6]=="True" ? true : false;
                                                 provider.dinlemeyiTetikle();
-                                              });
-                                            }
-                                            
-                                          });
-
-                                          _manKontrolTFAN(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelFan=true;
-                                        });
-                                      }else if(index==3){
-                                        timerCancelPed=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciPED++;
-                                            if (timerCancelPed) {
-                                              timer.cancel();
-                                            }
-                                            if(!baglantiPed && yazmaSonrasiGecikmeSayaciPED>7){
-                                              baglantiPed=true;
-                                              Metotlar().takipEt("18*${provider.pedAdet}", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.pedAdet);i++){
-                                                  provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
-                                                provider.dinlemeyiTetikle();
-                                              });
-                                            }
-                                            
-                                          });
-
-                                          _manKontrolPED(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelPed=true;
-                                        });
-                                      }else if(index==4){
-                                        timerCancelAyd=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciAYD++;
-                                            if (timerCancelAyd) {
-                                              timer.cancel();
-                                            }
-                                            if(!baglantiAyd && yazmaSonrasiGecikmeSayaciAYD>7){
-                                              baglantiAyd=true;
-                                              Metotlar().takipEt("19*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                provider.manuelAydinlikYuzdesi=degerler[0];
-                                                provider.aydMan[1]=degerler[1]=="True" ? true : false;
-                                                provider.dinlemeyiTetikle();
-                                              });
-                                            }
-                                            
-                                          });
-
-                                          _manKontrolAYD(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelAyd=true;
-                                        });
-                                      }
-                                      
-                                      else if(index==6){
-                                        timerCancelBfa=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciBFAN++;
-                                            if (timerCancelBfa) {
-                                              timer.cancel();
-                                            }
-                                            if(!baglantiBfa && yazmaSonrasiGecikmeSayaciBFAN>7){
-                                              baglantiAyd=true;
-                                              Metotlar().takipEt("20*${provider.bacafanAdet}", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
-                                                  provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
-                                                }
-                                                provider.dinlemeyiTetikle();
-                                              });
-                                            }
-                                            
-                                          });
-
-                                          _manKontrolBFAN(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelBfa=true;
-                                        });
+                                              }
+                                            }); 
                                           }
 
-                                        
-                                      else if(index==7){
-                                        timerCancelIst=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciISTC++;
-                                            if (timerCancelIst) {
-                                              timer.cancel();
+                                          
+
+                                        });
+
+                                        if(index==1){
+                                          provider.otoTFAN=true;
+                                          for(int i=1;i<=int.parse(provider.fanAdet);i++){
+                                            provider.fanMan[i]=false;
+                                          }
+                                        }else if(index==3){
+                                          provider.otoPEDM=true;
+                                          for(int i=1;i<=int.parse(provider.pedAdet);i++){
+                                            provider.pedMan[i]=false;
+                                          }
+                                        }else if(index==4){
+                                          provider.otoAYDL=true;
+                                          provider.aydMan[1]=false;
+                                        }else if(index==6){
+                                          provider.otoBFAN=true;
+                                          for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
+                                           provider.bfaMan[i]=false;
+                                          }
+                                        }else if(index==7){
+                                          provider.otoISTC=true;
+                                          for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
+                                            provider.istMan[i]=false;
+                                          }
+                                        }else if(index==8){
+                                          provider.otoYEMA=true;
+                                          for(int i=1;i<=6;i++){
+                                            provider.yemMan[i]=false;
+                                          }
+                                        }else if(index==9){
+                                          provider.otoSIRK=true;
+                                          for(int i=1;i<=1;i++){
+                                            provider.sirMan[i]=false;
+                                          }
+                                        }
+
+                                        provider.dinlemeyiTetikle();
+
+                                      },
+                                      materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
+                                      constraints: BoxConstraints(),
+                                      fillColor: otomanDurum ? Colors.green[400] : Colors.grey[400],
+                                      child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv455"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            color: Colors.black,
+                                            fontSize: 50,
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                ),
+                              
+                                      )),
+                                  Spacer(),
+                                  //MAN
+                                  Expanded(flex: 10,
+                                    child: RawMaterialButton(
+                                      elevation: 8,
+                                      onPressed: (){
+                                        yazmaSonrasiGecikmeSayaci=0;
+                                        Metotlar().veriGonder("20*$index*0", 2235).then((value){
+
+                                          if(value.split("*")[0]=="error"){
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          }else{
+                                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                            Metotlar().takipEt("16*", 2236).then((value){
+                                              var degerler = value.split('*');
+
+                                              if(degerler[0]=="error"){
+                                                Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                              }else{
+                                                provider.otoTFAN=degerler[0]=="True" ? true : false;
+                                                provider.otoPEDM=degerler[1]=="True" ? true : false;
+                                                provider.otoAYDL=degerler[2]=="True" ? true : false;
+                                                provider.otoBFAN=degerler[3]=="True" ? true : false;
+                                                provider.otoISTC=degerler[4]=="True" ? true : false;
+                                                provider.otoYEMA=degerler[5]=="True" ? true : false;
+                                                provider.otoSIRK=degerler[6]=="True" ? true : false;
+                                                provider.dinlemeyiTetikle();
+                                              }
+                                            });
+                                          }
+
+
+                                        });
+
+                                        if(index==1){
+                                          provider.otoTFAN=false;
+                                        }else if(index==3){
+                                          provider.otoPEDM=false;
+                                        }else if(index==4){
+                                          provider.otoAYDL=false;
+                                        }else if(index==6){
+                                          provider.otoBFAN=false;
+                                        }else if(index==7){
+                                          provider.otoISTC=false;
+                                        }else if(index==8){
+                                          provider.otoYEMA=false;
+                                        }else if(index==9){
+                                          provider.otoSIRK=false;
+                                        }
+
+                                        provider.dinlemeyiTetikle();
+                                      },
+                                      materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
+                                      constraints: BoxConstraints(),
+                                      fillColor: !otomanDurum ? Colors.green[400] : Colors.grey[400],
+                                      child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv456"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            color: Colors.black,
+                                            fontSize: 50,
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                ),
+                              
+                                      )),
+                                  Spacer(),
+                              
+                              ],)),
+            
+                            Expanded(flex: 4,
+                                  child: Column(
+                                  children: <Widget>[
+                                    
+                                    Spacer(),
+                                    Expanded(flex: 24,
+                                    child: Visibility(visible: !otomanDurum,
+                                        child: RawMaterialButton(
+                                          onPressed: (){
+
+
+                                            takipEtiGeciciDurdur=true;
+
+                                            if(index==1){
+                                              timerCancelFan=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciTFAN++;
+                                                  if (timerCancelFan) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiFan && yazmaSonrasiGecikmeSayaciTFAN>7){
+                                                    baglantiFan=true;
+                                                    Metotlar().takipEt("17*${provider.fanAdet}", 2236).then((value){
+                                                      var degerler = value.split('*');
+
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        for(int i=1;i<=int.parse(provider.fanAdet);i++){
+                                                          provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
+                                                        }
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolTFAN(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelFan=true;
+                                              });
+                                            }else if(index==3){
+                                              timerCancelPed=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciPED++;
+                                                  if (timerCancelPed) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiPed && yazmaSonrasiGecikmeSayaciPED>7){
+                                                    baglantiPed=true;
+                                                    Metotlar().takipEt("18*${provider.pedAdet}", 2236).then((value){
+                                                      var degerler = value.split('*');
+
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        for(int i=1;i<=int.parse(provider.pedAdet);i++){
+                                                          provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
+                                                        }
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolPED(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelPed=true;
+                                              });
+                                            }else if(index==4){
+                                              timerCancelAyd=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciAYD++;
+                                                  if (timerCancelAyd) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiAyd && yazmaSonrasiGecikmeSayaciAYD>7){
+                                                    baglantiAyd=true;
+                                                    Metotlar().takipEt("19*", 2236).then((value){
+                                                      var degerler = value.split('*');
+
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        provider.manuelAydinlikYuzdesi=degerler[0];
+                                                        provider.aydMan[1]=degerler[1]=="True" ? true : false;
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolAYD(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelAyd=true;
+                                              });
                                             }
-                                            if(!baglantiIst && yazmaSonrasiGecikmeSayaciISTC>7){
-                                              baglantiIst=true;
-                                              Metotlar().takipEt("21*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
-                                                  provider.istMan[i]=degerler[i-1]=="True" ? true : false;
+                                            
+                                            else if(index==6){
+                                              timerCancelBfa=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciBFAN++;
+                                                  if (timerCancelBfa) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiBfa && yazmaSonrasiGecikmeSayaciBFAN>7){
+                                                    baglantiAyd=true;
+                                                    Metotlar().takipEt("20*${provider.bacafanAdet}", 2236).then((value){
+                                                      var degerler = value.split('*');
+
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
+                                                          provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
+                                                        }
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolBFAN(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelBfa=true;
+                                              });
                                                 }
-                                                provider.dinlemeyiTetikle();
+
+                                              
+                                            else if(index==7){
+                                              timerCancelIst=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciISTC++;
+                                                  if (timerCancelIst) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiIst && yazmaSonrasiGecikmeSayaciISTC>7){
+                                                    baglantiIst=true;
+                                                    Metotlar().takipEt("21*", 2236).then((value){
+                                                      var degerler = value.split('*');
+
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
+                                                          provider.istMan[i]=degerler[i-1]=="True" ? true : false;
+                                                        }
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolISTC(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelIst=true;
                                               });
                                             }
                                             
-                                          });
+                                            
+                                            else if(index==8){
+                                              timerCancelYml=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciYEML++;
+                                                  if (timerCancelYml) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiYml && yazmaSonrasiGecikmeSayaciYEML>7){
+                                                    baglantiYml=true;
+                                                    Metotlar().takipEt("22*", 2236).then((value){
+                                                      var degerler = value.split('*');
 
-                                          _manKontrolISTC(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelIst=true;
-                                        });
-                                      }
-                                      
-                                      
-                                      else if(index==8){
-                                        timerCancelYml=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciYEML++;
-                                            if (timerCancelYml) {
-                                              timer.cancel();
-                                            }
-                                            if(!baglantiYml && yazmaSonrasiGecikmeSayaciYEML>7){
-                                              baglantiYml=true;
-                                              Metotlar().takipEt("22*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                provider.yemMan[1]=degerler[0]=="True" ? true : false;
-                                                provider.yemMan[2]=degerler[1]=="True" ? true : false;
-                                                provider.yemMan[3]=degerler[2]=="True" ? true : false;
-                                                provider.yemMan[4]=degerler[3]=="True" ? true : false;
-                                                provider.yemMan[5]=degerler[4]=="True" ? true : false;
-                                                provider.yemMan[6]=degerler[5]=="True" ? true : false;
-                                                provider.dinlemeyiTetikle();
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        provider.yemMan[1]=degerler[0]=="True" ? true : false;
+                                                        provider.yemMan[2]=degerler[1]=="True" ? true : false;
+                                                        provider.yemMan[3]=degerler[2]=="True" ? true : false;
+                                                        provider.yemMan[4]=degerler[3]=="True" ? true : false;
+                                                        provider.yemMan[5]=degerler[4]=="True" ? true : false;
+                                                        provider.yemMan[6]=degerler[5]=="True" ? true : false;
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolYEML(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelYml=true;
                                               });
                                             }
-                                            
-                                          });
-
-                                          _manKontrolYEML(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelYml=true;
-                                        });
-                                      }
 
 
-                                      else if(index==9){
-                                        timerCancelSrk=false;
-                                        Timer.periodic(Duration(seconds: 1), (timer) {
-                                            yazmaSonrasiGecikmeSayaciSIRK++;
-                                            if (timerCancelSrk) {
-                                              timer.cancel();
-                                            }
-                                            if(!baglantiSrk && yazmaSonrasiGecikmeSayaciSIRK>7){
-                                              baglantiSrk=true;
-                                              Metotlar().takipEt("22a*", context, 2236, dilSecimi).then((value){
-                                                var degerler = value.split('*');
-                                                provider.sirMan[1]=degerler[0]=="True" ? true : false;
-                                                provider.dinlemeyiTetikle();
+                                            else if(index==9){
+                                              timerCancelSrk=false;
+                                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                                  yazmaSonrasiGecikmeSayaciSIRK++;
+                                                  if (timerCancelSrk) {
+                                                    timer.cancel();
+                                                  }
+                                                  if(!baglantiSrk && yazmaSonrasiGecikmeSayaciSIRK>7){
+                                                    baglantiSrk=true;
+                                                    Metotlar().takipEt("22a*", 2236).then((value){
+                                                      var degerler = value.split('*');
+
+                                                      if(degerler[0]=="error"){
+                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                      }else{
+                                                        provider.sirMan[1]=degerler[0]=="True" ? true : false;
+                                                        provider.dinlemeyiTetikle();
+                                                      }
+                                                    });
+                                                  }
+                                                  
+                                                });
+
+                                                _manKontrolSIRK(oran,index,context,provider).then((value){
+                                                takipEtiGeciciDurdur=false;
+                                                timerCancelSrk=true;
                                               });
                                             }
-                                            
-                                          });
-
-                                          _manKontrolSIRK(oran,index,context,provider).then((value){
-                                          takipEtiGeciciDurdur=false;
-                                          timerCancelSrk=true;
-                                        });
-                                      }
 
 
 
-                                    },
-                                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                    constraints: BoxConstraints(),
-                                    elevation: 8,
-                                    child: Column(
-                                      children: <Widget>[
-                                      Expanded(
-                                                            child: Container(
-                                alignment: Alignment.center,
-                                child: AutoSizeText(
-                                  Dil().sec(dilSecimi, "tv457"),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: 'Kelly Slab',
-                                      color: Colors.green,
-                                      fontSize: 50,
-                                      fontWeight: FontWeight.normal),
-                                  maxLines: 1,
-                                  minFontSize: 8,
-                                ),
-                              ),
+                                          },
+                                          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                          constraints: BoxConstraints(),
+                                          elevation: 8,
+                                          child: Column(
+                                            children: <Widget>[
+                                            Expanded(
+                                                                  child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv457"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            color: Colors.green,
+                                            fontSize: 50,
+                                            fontWeight: FontWeight.normal),
+                                        maxLines: 1,
+                                        minFontSize: 8,
                                       ),
-                                      
-                                      Expanded(
-                                        flex: 4,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Spacer(),
-                                          Expanded(flex: 4,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  alignment: Alignment.center,
-                                                  image: AssetImage(imagePath),
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
                                     ),
+                                            ),
+                                            
+                                            Expanded(
+                                              flex: 4,
+                                            child: Row(
+                                              children: <Widget>[
+                                                Spacer(),
+                                                Expanded(flex: 4,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      image: DecorationImage(
+                                                        alignment: Alignment.center,
+                                                        image: AssetImage(imagePath),
+                                                        fit: BoxFit.contain,
+                                                      ),
+                                                    ),
                                           ),
-                                          Spacer()
-                                        ],
-                                      ),
-                                      ),
-                                      
+                                                ),
+                                                Spacer()
+                                              ],
+                                            ),
+                                            ),
+                                            
   
-                                    ],
+                                          ],
+                                            ),
+                                          ),
                                       ),
                                     ),
-                                ),
-                              ),
-                              Spacer(),
-                            ],),
+                                    Spacer(),
+                                  ],),
                 ),
+              
+                          ],
+                        ),
+                      ),
+                      Visibility(visible: !visible,
+                        child: SizedBox(
+                          child: Container(
+                            padding: EdgeInsets.all(20*oran),
+                            child: AutoSizeText(
+                              metin,
+                              style: TextStyle(
+                                fontFamily: 'Kelly Slab',
+                                fontSize: 50,
+                                color: Colors.red[300]
+                              ),
+                              textAlign: TextAlign.center,
+                              maxLines: 3,
+                              minFontSize: 2,
+                              
+                            ),
+                          ),
+                        ),
+                      )
+                    
+                    ],
+                  ),
+                ),
+      
               ],
             ),
           ),
@@ -732,11 +853,16 @@ class OtoMan1 extends StatelessWidget {
         ],
       ),
     );
-  
   }
 
   Widget _unsurOtoManWidgetKlepeAir(String baslik, String imagePath, double oran, bool otomanDurum,int index
-  , BuildContext context, DBProkis dbProkis) {
+  , BuildContext context, DBProkis dbProkis, OtoMan1Provider provider) {
+    bool visible=true;
+    String metin="";
+    if(index==5){
+      visible = provider.airinletAdet =="1" ? true : false;
+      metin = Dil().sec(dilSecimi, "tv656");
+    }
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -767,53 +893,75 @@ class OtoMan1 extends StatelessWidget {
                         child: Column(
                         children: <Widget>[
                           //Oto Man Seçimi
-                          Expanded(flex: 3,
-                            child:  RawMaterialButton(
-                              elevation: 8,
-                              onPressed: (){
-                                if(index==2){
-                                  timerCancel=true;
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              OtoManKlepe(dbProkis.getDbVeri)),
-                                    );
-                                }
+                          Visibility(visible: visible,
+                            child: Expanded(flex: 3,
+                              child:  RawMaterialButton(
+                                elevation: 8,
+                                onPressed: (){
+                                  if(index==2){
+                                    timerCancel=true;
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OtoManKlepe(dbProkis.getDbVeri)),
+                                      );
+                                  }
 
-                                if(index==5){
-                                  timerCancel=true;
-                                  Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              OtoManAir(dbProkis.getDbVeri)),
-                                    );
-                                }
+                                  if(index==5){
+                                    timerCancel=true;
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                OtoManAir(dbProkis.getDbVeri)),
+                                      );
+                                  }
 
-                              },
-                              materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
-                              constraints: BoxConstraints(),
-                              fillColor: Colors.blue[700],
-                              child: SizedBox(
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: AutoSizeText(
-                                Dil().sec(dilSecimi, "tv101"),
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
+                                },
+                                materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
+                                constraints: BoxConstraints(),
+                                fillColor: Colors.blue[700],
+                                child: SizedBox(
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: AutoSizeText(
+                                  Dil().sec(dilSecimi, "tv101"),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Kelly Slab',
+                                      color: Colors.white,
+                                      fontSize: 50,
+                                      fontWeight: FontWeight.bold),
+                                  maxLines: 1,
+                                  minFontSize: 8,
+                                ),
+                              ),
+                              ),
+                            
+                                )),
+                          ),
+                          Visibility(visible: visible,
+                            child: Spacer()),
+                          Visibility(visible: !visible,
+                            child: SizedBox(
+                              child: Container(
+                                child: AutoSizeText(
+                                  metin,
+                                  style: TextStyle(
                                     fontFamily: 'Kelly Slab',
-                                    color: Colors.white,
                                     fontSize: 50,
-                                    fontWeight: FontWeight.bold),
-                                maxLines: 1,
-                                minFontSize: 8,
+                                    color: Colors.red[300]
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                  minFontSize: 2,
+                                  
+                                ),
                               ),
                             ),
-                            ),
-                          
-                              )),
-                          Spacer()
+                          )
+                    
                       ],)),
             
                 ],
@@ -1674,7 +1822,6 @@ class OtoMan1 extends StatelessWidget {
                                         
   }
 
-
   Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran, int unsurNo, String adet, BuildContext context, OtoMan1Provider provider) {
 
     return Expanded(flex: 10,
@@ -1699,14 +1846,25 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciTFAN=0;
-                Metotlar().veriGonder("21*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("17*${provider.fanAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.fanAdet);i++){
-                      provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
+                Metotlar().veriGonder("21*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("17*${provider.fanAdet}", 2236).then((value){
+                      var degerler = value.split('*');
+
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        for(int i=1;i<=int.parse(provider.fanAdet);i++){
+                          provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
+                        }
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+                  }
                 });
               }
 
@@ -1720,15 +1878,26 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciPED=0;
-                Metotlar().veriGonder("22*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("18*${provider.pedAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.pedAdet);i++){
-                      provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
+                Metotlar().veriGonder("22*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("18*${provider.pedAdet}", 2236).then((value){
+                      var degerler = value.split('*');
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        for(int i=1;i<=int.parse(provider.pedAdet);i++){
+                          provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
+                        }
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+
                     }
-                    provider.dinlemeyiTetikle();
                   });
-                });
               }
 
               if(index==4){
@@ -1741,13 +1910,25 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciAYD=0;
-                Metotlar().veriGonder("23*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("19*}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    provider.manuelAydinlikYuzdesi=degerler[0];
-                    provider.aydMan[1]=degerler[1]=="True" ? true : false;
-                    provider.dinlemeyiTetikle();
-                  });
+                Metotlar().veriGonder("23*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("19*}", 2236).then((value){
+                      var degerler = value.split('*');
+
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        provider.manuelAydinlikYuzdesi=degerler[0];
+                        provider.aydMan[1]=degerler[1]=="True" ? true : false;
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+
+                    }
                 });
               }
 
@@ -1761,14 +1942,25 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciBFAN=0;
-                Metotlar().veriGonder("24*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("20*${provider.bacafanAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
-                      provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
+                Metotlar().veriGonder("24*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("20*${provider.bacafanAdet}", 2236).then((value){
+                      var degerler = value.split('*');
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
+                          provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
+                        }
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+
+                  }
                 });
               }
 
@@ -1783,14 +1975,25 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciISTC=0;
-                Metotlar().veriGonder("25*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("21*${provider.isiticiAdet}", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
-                      provider.istMan[i]=degerler[i-1]=="True" ? true : false;
-                    }
-                    provider.dinlemeyiTetikle();
-                  });
+                Metotlar().veriGonder("25*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("21*${provider.isiticiAdet}", 2236).then((value){
+                      var degerler = value.split('*');
+
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
+                          provider.istMan[i]=degerler[i-1]=="True" ? true : false;
+                        }
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+                  }
                 });
               }
 
@@ -1804,17 +2007,28 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciYEML=0;
-                Metotlar().veriGonder("26*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("22*", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    provider.yemMan[1]=degerler[0]=="True" ? true : false;
-                    provider.yemMan[2]=degerler[1]=="True" ? true : false;
-                    provider.yemMan[3]=degerler[2]=="True" ? true : false;
-                    provider.yemMan[4]=degerler[3]=="True" ? true : false;
-                    provider.yemMan[5]=degerler[4]=="True" ? true : false;
-                    provider.yemMan[6]=degerler[5]=="True" ? true : false;
-                    provider.dinlemeyiTetikle();
-                  });
+                Metotlar().veriGonder("26*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("22*", 2236).then((value){
+                      var degerler = value.split('*');
+
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        provider.yemMan[1]=degerler[0]=="True" ? true : false;
+                        provider.yemMan[2]=degerler[1]=="True" ? true : false;
+                        provider.yemMan[3]=degerler[2]=="True" ? true : false;
+                        provider.yemMan[4]=degerler[3]=="True" ? true : false;
+                        provider.yemMan[5]=degerler[4]=="True" ? true : false;
+                        provider.yemMan[6]=degerler[5]=="True" ? true : false;
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+                  }
                 });
               }
 
@@ -1829,12 +2043,22 @@ class OtoMan1 extends StatelessWidget {
                   }
 
                 yazmaSonrasiGecikmeSayaciSIRK=0;
-                Metotlar().veriGonder("26a*$unsurNo*$veri", context, 2235, "toast8", dilSecimi).then((value){
-                  Metotlar().takipEt("22a*", context, 2236, dilSecimi).then((value){
-                    var degerler = value.split('*');
-                    provider.sirMan[1]=degerler[0]=="True" ? true : false;
-                    provider.dinlemeyiTetikle();
-                  });
+                Metotlar().veriGonder("26a*$unsurNo*$veri", 2235).then((value){
+
+                  if(value.split("*")[0]=="error"){
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                  }else{
+                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                    Metotlar().takipEt("22a*", 2236).then((value){
+                      var degerler = value.split('*');
+                      if(degerler[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      }else{
+                        provider.sirMan[1]=degerler[0]=="True" ? true : false;
+                        provider.dinlemeyiTetikle();
+                      }
+                    });
+                  }
                 });
               }
                       
@@ -1896,7 +2120,13 @@ class OtoMan1 extends StatelessWidget {
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaciYEML= 0;
-        Metotlar().veriGonder("15*$_index*$veri", context, 2235, "toast8", dilSecimi);
+        Metotlar().veriGonder("15*$_index*$veri", 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+          }
+        });
       }
 
       provider.dinlemeyiTetikle();
@@ -1904,15 +2134,12 @@ class OtoMan1 extends StatelessWidget {
     });
   }
 
-
-
   Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
     updateState(() {});
   }
 
-
-
 }
+
 
 class OtoMan1Provider with ChangeNotifier {
   int sayac=0;
@@ -1920,6 +2147,7 @@ class OtoMan1Provider with ChangeNotifier {
   String fanAdet = "0";
   String pedAdet = "0";
   String bacafanAdet = "0";
+  String airinletAdet = "0";
   String sirkFanVarMi = "0";
   
   String isiticiAdet = "0";
@@ -1967,6 +2195,7 @@ class OtoMan1Provider with ChangeNotifier {
     var yy=dbProkis.dbVeriGetir(5, 1, "0#0").split('#'); 
     bacafanAdet = yy[0];
     sirkFanVarMi = yy[1];
+    airinletAdet=dbProkis.dbVeriGetir(5, 2, "0");
     isiticiAdet=dbProkis.dbVeriGetir(5, 3, "0");
 
     if (dbProkis.dbVeriGetir(31, 1, "") == "ok") {

@@ -506,8 +506,11 @@ class SiloHaritasi extends StatelessWidget {
                                 veri = veri + provider.siloHarita[i].toString() + "#";
                               }
 
-                              Metotlar().veriGonder("35*34*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-                                if(value=="ok"){
+                              Metotlar().veriGonder("35*34*$veri*0*0*0", 2233).then((value){
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(29, "ok", veri, "0", "0");
                                 }
                               });
@@ -609,8 +612,11 @@ class SiloHaritasi extends StatelessWidget {
                             } else {
                               provider.setveriGonderildi = true;
 
-                              Metotlar().veriGonder("36*35*$noVeri*0*0*0", context, 2233, "toast", dilSecimi).then((value){
-                                if(value=="ok"){
+                              Metotlar().veriGonder("36*35*$noVeri*0*0*0", 2233).then((value){
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(30, "ok", noVeri, "0", "0");
                                 }
                               });
@@ -899,8 +905,11 @@ class SiloHaritasi extends StatelessWidget {
 
         provider.setharitaOnay = false;
 
-        Metotlar().veriGonder("37*0*0*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-          if(value=="ok"){
+        Metotlar().veriGonder("37*0*0*0*0*0", 2233).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             dbProkis.dbSatirEkleGuncelle(29, "0", "0", "0", "0");
             dbProkis.dbSatirEkleGuncelle(30, "0", "0", "0", "0");
           }

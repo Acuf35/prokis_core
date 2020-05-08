@@ -14,6 +14,7 @@ class DBProkis with ChangeNotifier{
   //Obje ilk okunduğunda database deki verileri List halinde "dbVeri" içine yazar
   DBProkis(){
     dbVeriCekme();
+    print("DBPROKİS CONSTRUCTER");
   }
 
   List get getDbVeri => dbVeri;

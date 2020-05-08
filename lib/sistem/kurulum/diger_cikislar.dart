@@ -588,16 +588,20 @@ class DigerCikislar extends StatelessWidget {
                             bool xx=provider.dimmer;
                             String yy= xx ? "1" : "0";
                             String komut="38*36*"+cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4+"*"+cikisVeri5+"*"+yy+"*"+provider.sayacAdet+"#"+ provider.palsBasinaLitre+"#"+ (provider.suAlarm==true ? "1" : "0");
-                            Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
-                              if(value=="ok"){
-                                 Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-                                   if(value=="ok"){
-                                     String veri=cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4;
-                                     dbProkis.dbSatirEkleGuncelle(31, "ok", veri, cikisVeri5 , yy );
-                                     dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0" , "0" );
-                                     dbProkis.dbSatirEkleGuncelle(33, provider.sayacAdet, provider.palsBasinaLitre, (provider.suAlarm ? "1" : "0") , "0" );
-
-                                   }
+                            Metotlar().veriGonder(komut, 2233).then((value){
+                              if(value.split("*")[0]=="error"){
+                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                              }else{
+                                 Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value){
+                                    if(value.split("*")[0]=="error"){
+                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                    }else{
+                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                      String veri=cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4;
+                                      dbProkis.dbSatirEkleGuncelle(31, "ok", veri, cikisVeri5 , yy );
+                                      dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0" , "0" );
+                                      dbProkis.dbSatirEkleGuncelle(33, provider.sayacAdet, provider.palsBasinaLitre, (provider.suAlarm ? "1" : "0") , "0" );
+                                    }
 
                                  });
                               }

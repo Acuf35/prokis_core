@@ -12,6 +12,7 @@ import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:toast/toast.dart';
 
 class IzlemeFanKlpPed extends StatefulWidget {
   List<Map> gelenDBveri;
@@ -187,11 +188,6 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    print(fanHaritaGrid);
-    print(fanNo);
-    print(unsurAdet);
-    print(klepeNo);
-    print(isisensorNo);
 
     oran = MediaQuery.of(context).size.width / 731.4;
     final _blocSinif  = IzlemeFanKlpPedBloC(context, dilSecimi, fanNo, unsurAdet, klepeNo, isisensorNo, pedNo);
@@ -2446,7 +2442,7 @@ class IzlemeFanKlpPedBloC {
 
 
 
-
+  int sayac=0;
 
   
 
@@ -2490,150 +2486,157 @@ class IzlemeFanKlpPedBloC {
     if (timerSayac == 0) {
 
 
-      Metotlar().takipEt("1*60", context, 2237, dilSecimi).then((veri){
+      Metotlar().takipEt("1*60", 2237).then((veri){
 
-      var xx=veri.split("#");
+        var degerler=veri.split("*");
+        if(degerler[0]=="error"){
+          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        }else{
+
+          var xx=veri.split("#");
 
 
-//******************************FAN ÇIKIŞ DURUMLARI*******************************/
-        var fanDurumlar=xx[0].split("*");
+    //******************************FAN ÇIKIŞ DURUMLARI*******************************/
+            var fanDurumlar=xx[0].split("*");
 
-        for (var i = 0; i < unsurAdet; i++) {
-          if(fanNo[i+1]!="0"){
-            
-            if(fanDurumlar[int.parse(fanNo[i+1])-1]!=fanDurumlarGecici[int.parse(fanNo[i+1])-1]){
-              bloCVeriStateStreamControllerFAN[i].sink.add(fanDurumlar[int.parse(fanNo[i+1])-1]);
-              
+            for (var i = 0; i < unsurAdet; i++) {
+              if(fanNo[i+1]!="0"){
+                
+                if(fanDurumlar[int.parse(fanNo[i+1])-1]!=fanDurumlarGecici[int.parse(fanNo[i+1])-1]){
+                  bloCVeriStateStreamControllerFAN[i].sink.add(fanDurumlar[int.parse(fanNo[i+1])-1]);
+                  
+                }
+              }
             }
-          }
-        }
-        fanDurumlarGecici=List.from(fanDurumlar);
-//******************************FAN ÇIKIŞ DURUMLARI*******************************/
+            fanDurumlarGecici=List.from(fanDurumlar);
+    //******************************FAN ÇIKIŞ DURUMLARI*******************************/
 
-        //Fan oto-man durum
-        String fanOtoMan = xx[1].split("*")[0];
-        if(fanOtoMan!=fanOtoManGecici){
-          bloCVeriStateStreamControllerFANotoman.sink.add(fanOtoMan);
-        }
-        fanOtoManGecici=fanOtoMan;
-        
-
-        //Nem Değerler
-        String nemDegerler = xx[4];
-        if(nemDegerler!=nemDegerlerGecici){
-          bloCVeriStateStreamControllerNEM.sink.add(nemDegerler);
-        }
-        nemDegerlerGecici=nemDegerler;
-
-
-//******************************KLEPE DURUMLARI*******************************/
-        List<String> klepeDurumlar=new List.filled(11, "0*0.0");
-        for (var i = 1; i <= 10; i++) {
-          klepeDurumlar[i]=xx[1].split("*")[i]+"*"+xx[2].split("*")[i-1];
-        }
-        
-
-        for (var i = 1; i < 16; i++) {
-          if(klepeNo[i]!="0"){
-            
-            if(klepeDurumlar[int.parse(klepeNo[i])]!=klepeDurumlarGecici[int.parse(klepeNo[i])]){
-              bloCVeriStateStreamControllerKLEPE[i].sink.add(klepeDurumlar[int.parse(klepeNo[i])]);
+            //Fan oto-man durum
+            String fanOtoMan = xx[1].split("*")[0];
+            if(fanOtoMan!=fanOtoManGecici){
+              bloCVeriStateStreamControllerFANotoman.sink.add(fanOtoMan);
             }
-          }
-        }
-        klepeDurumlarGecici=List.from(klepeDurumlar);
-//******************************KLEPE DURUMLARI*******************************/
-
-
-
-//******************************SENSOR DEĞERLERİ*******************************/
-        List<String> sensorDegerler=new List.filled(16, "0.0");
-        for (var i = 1; i <= 15; i++) {
-          sensorDegerler[i]=xx[3].split("*")[i-1];
-        }
-
-        for (var i = 1; i < 23; i++) {
-          if(isisensorNo[i]!="0" && sensorDegerler[int.parse(isisensorNo[i])]!=null){
+            fanOtoManGecici=fanOtoMan;
             
-            if(sensorDegerler[int.parse(isisensorNo[i])]!=sensorDegerlerGecici[int.parse(isisensorNo[i])]){
-              bloCVeriStateStreamControllerISISENSOR[i].sink.add(sensorDegerler[int.parse(isisensorNo[i])]);
+
+            //Nem Değerler
+            String nemDegerler = xx[4];
+            if(nemDegerler!=nemDegerlerGecici){
+              bloCVeriStateStreamControllerNEM.sink.add(nemDegerler);
             }
-          }
-        }
-        sensorDegerlerGecici=List.from(sensorDegerler);
-//******************************SENSOR DEĞERLERİ*******************************/
+            nemDegerlerGecici=nemDegerler;
 
 
-//******************************PED DURUMLARI*******************************/
-        List<String> pedDurumlar=new List.filled(11, "0.0");
-        for (var i = 1; i <= 10; i++) {
-          pedDurumlar[i]=xx[5].split("*")[i-1];
-        }
-        String otoPed=xx[1].split("*")[11];
-        String fasilaPed=xx[5].split("*")[10];
-
-        if(otoPed!=ped2DurumGecici){
-          bloCVeriStateStreamControllerPED2.sink.add(otoPed);
-        }
-        ped2DurumGecici=otoPed;
-
-        if(fasilaPed!=ped3DurumGecici){
-          bloCVeriStateStreamControllerPED3.sink.add(fasilaPed);
-        }
-        ped3DurumGecici=fasilaPed;
-
-        
-
-        for (var i = 1; i < 25; i++) {
-          if(pedNo[i]!="0" && pedDurumlar[int.parse(pedNo[i])]!=null){
+    //******************************KLEPE DURUMLARI*******************************/
+            List<String> klepeDurumlar=new List.filled(11, "0*0.0");
+            for (var i = 1; i <= 10; i++) {
+              klepeDurumlar[i]=xx[1].split("*")[i]+"*"+xx[2].split("*")[i-1];
+            }
             
-            if(pedDurumlar[int.parse(pedNo[i])]!=pedDurumlarGecici[int.parse(pedNo[i])]){
-              bloCVeriStateStreamControllerPED[i].sink.add(pedDurumlar[int.parse(pedNo[i])]);
+
+            for (var i = 1; i < 16; i++) {
+              if(klepeNo[i]!="0"){
+                
+                if(klepeDurumlar[int.parse(klepeNo[i])]!=klepeDurumlarGecici[int.parse(klepeNo[i])]){
+                  bloCVeriStateStreamControllerKLEPE[i].sink.add(klepeDurumlar[int.parse(klepeNo[i])]);
+                }
+              }
             }
-          }
-        }
-        pedDurumlarGecici=List.from(pedDurumlar);
-//******************************PED DURUMLARI*******************************/
+            klepeDurumlarGecici=List.from(klepeDurumlar);
+    //******************************KLEPE DURUMLARI*******************************/
+
+
+
+    //******************************SENSOR DEĞERLERİ*******************************/
+            List<String> sensorDegerler=new List.filled(16, "0.0");
+            for (var i = 1; i <= 15; i++) {
+              sensorDegerler[i]=xx[3].split("*")[i-1];
+            }
+
+            for (var i = 1; i < 23; i++) {
+              if(isisensorNo[i]!="0" && sensorDegerler[int.parse(isisensorNo[i])]!=null){
+                
+                if(sensorDegerler[int.parse(isisensorNo[i])]!=sensorDegerlerGecici[int.parse(isisensorNo[i])]){
+                  bloCVeriStateStreamControllerISISENSOR[i].sink.add(sensorDegerler[int.parse(isisensorNo[i])]);
+                }
+              }
+            }
+            sensorDegerlerGecici=List.from(sensorDegerler);
+    //******************************SENSOR DEĞERLERİ*******************************/
+
+
+    //******************************PED DURUMLARI*******************************/
+            List<String> pedDurumlar=new List.filled(11, "0.0");
+            for (var i = 1; i <= 10; i++) {
+              pedDurumlar[i]=xx[5].split("*")[i-1];
+            }
+            String otoPed=xx[1].split("*")[11];
+            String fasilaPed=xx[5].split("*")[10];
+
+            if(otoPed!=ped2DurumGecici){
+              bloCVeriStateStreamControllerPED2.sink.add(otoPed);
+            }
+            ped2DurumGecici=otoPed;
+
+            if(fasilaPed!=ped3DurumGecici){
+              bloCVeriStateStreamControllerPED3.sink.add(fasilaPed);
+            }
+            ped3DurumGecici=fasilaPed;
+
+            
+
+            for (var i = 1; i < 25; i++) {
+              if(pedNo[i]!="0" && pedDurumlar[int.parse(pedNo[i])]!=null){
+                
+                if(pedDurumlar[int.parse(pedNo[i])]!=pedDurumlarGecici[int.parse(pedNo[i])]){
+                  bloCVeriStateStreamControllerPED[i].sink.add(pedDurumlar[int.parse(pedNo[i])]);
+                }
+              }
+            }
+            pedDurumlarGecici=List.from(pedDurumlar);
+    //******************************PED DURUMLARI*******************************/
 
 
 
 
-//******************************SICAKLIKLAR*******************************/
+    //******************************SICAKLIKLAR*******************************/
 
-        String setDeger=xx[6].split("*")[0];
-        String ortDeger=xx[6].split("*")[1];
-        String dbbDeger=xx[6].split("*")[2];
-        String cbbDeger=xx[6].split("*")[3];
-        String mod=xx[6].split("*")[4];
+            String setDeger=xx[6].split("*")[0];
+            String ortDeger=xx[6].split("*")[1];
+            String dbbDeger=xx[6].split("*")[2];
+            String cbbDeger=xx[6].split("*")[3];
+            String mod=xx[6].split("*")[4];
 
-        if(setDeger!=setDegerGecici){
-          bloCVeriStateStreamControllerSET.sink.add(setDeger);
-        }
-        setDegerGecici=setDeger;
+            if(setDeger!=setDegerGecici){
+              bloCVeriStateStreamControllerSET.sink.add(setDeger);
+            }
+            setDegerGecici=setDeger;
 
-        if(ortDeger!=ortDegerGecici){
-          bloCVeriStateStreamControllerORT.sink.add(ortDeger);
-        }
-        ortDegerGecici=ortDeger;
+            if(ortDeger!=ortDegerGecici){
+              bloCVeriStateStreamControllerORT.sink.add(ortDeger);
+            }
+            ortDegerGecici=ortDeger;
 
-        if(dbbDeger!=dbbDegerGecici){
-          bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
-        }
-        dbbDegerGecici=dbbDeger;
+            if(dbbDeger!=dbbDegerGecici){
+              bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
+            }
+            dbbDegerGecici=dbbDeger;
 
-        if(cbbDeger!=cbbDegerGecici){
-          bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
-        }
-        cbbDegerGecici=cbbDeger;
+            if(cbbDeger!=cbbDegerGecici){
+              bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
+            }
+            cbbDegerGecici=cbbDeger;
 
-        if(mod!=modGecici){
-          bloCVeriStateStreamControllerMOD.sink.add(mod);
-        }
-        modGecici=mod;
+            if(mod!=modGecici){
+              bloCVeriStateStreamControllerMOD.sink.add(mod);
+            }
+            modGecici=mod;
 
-//******************************SICAKLIKLAR*******************************/
+    //******************************SICAKLIKLAR*******************************/
 
-        print(veri);
+            print(veri);
+
+      }
         
       });
 
@@ -2648,160 +2651,171 @@ class IzlemeFanKlpPedBloC {
         
         if (!baglanti) {
           baglanti = true;
-          Metotlar().takipEt("1*60", context, 2237, dilSecimi).then((veri){
+          
+          Metotlar().takipEt("1*60", 2237).then((veri){
 
-            var xx=veri.split("#");
+            var degerler=veri.split("*");
+        if(degerler[0]=="error"){
+          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        }else{
 
-//******************************FAN ÇIKIŞ DURUMLARI*******************************/
-        var fanDurumlar=xx[0].split("*");
+              var xx=veri.split("#");
 
-        for (var i = 0; i < unsurAdet; i++) {
-          if(fanNo[i+1]!="0"){
-            
-            if(fanDurumlar[int.parse(fanNo[i+1])-1]!=fanDurumlarGecici[int.parse(fanNo[i+1])-1]){
-              bloCVeriStateStreamControllerFAN[i].sink.add(fanDurumlar[int.parse(fanNo[i+1])-1]);
-              print("GİRİYORFAN");
-            }
+      //******************************FAN ÇIKIŞ DURUMLARI*******************************/
+              var fanDurumlar=xx[0].split("*");
+
+              for (var i = 0; i < unsurAdet; i++) {
+                if(fanNo[i+1]!="0"){
+                  
+                  if(fanDurumlar[int.parse(fanNo[i+1])-1]!=fanDurumlarGecici[int.parse(fanNo[i+1])-1]){
+                    bloCVeriStateStreamControllerFAN[i].sink.add(fanDurumlar[int.parse(fanNo[i+1])-1]);
+                    print("GİRİYORFAN");
+                  }
+                }
+              }
+              fanDurumlarGecici=List.from(fanDurumlar);
+      //******************************FAN ÇIKIŞ DURUMLARI*******************************/
+
+              //Fan oto-man durum
+              String fanOtoMan = xx[1].split("*")[0];
+              if(fanOtoMan!=fanOtoManGecici){
+                bloCVeriStateStreamControllerFANotoman.sink.add(fanOtoMan);
+                print("GİRİYORFANOTO");
+              }
+              fanOtoManGecici=fanOtoMan;
+              
+
+              //Nem Değerler
+              String nemDegerler = xx[4];
+              if(nemDegerler!=nemDegerlerGecici){
+                bloCVeriStateStreamControllerNEM.sink.add(nemDegerler);
+                print("GİRİYORNEM");
+              }
+              nemDegerlerGecici=nemDegerler;
+
+      //******************************KLEPE DURUMLARI*******************************/
+
+              List<String> klepeDurumlar=new List.filled(11, "0*0.0");
+              for (var i = 1; i <= 10; i++) {
+                klepeDurumlar[i]=xx[1].split("*")[i]+"*"+xx[2].split("*")[i-1];
+              }
+              
+
+              for (var i = 1; i < 16; i++) {
+                if(klepeNo[i]!="0"){
+                  
+                  if(klepeDurumlar[int.parse(klepeNo[i])]!=klepeDurumlarGecici[int.parse(klepeNo[i])]){
+                    bloCVeriStateStreamControllerKLEPE[i].sink.add(klepeDurumlar[int.parse(klepeNo[i])]);
+                    print("GİRİYORKLEPE");
+                  }
+                }
+              }
+              klepeDurumlarGecici=List.from(klepeDurumlar);
+      //******************************KLEPE DURUMLARI*******************************/
+
+
+      //******************************SENSOR DEĞERLERİ*******************************/
+              List<String> sensorDegerler=new List.filled(16, "0.0");
+              for (var i = 1; i <= 15; i++) {
+                sensorDegerler[i]=xx[3].split("*")[i-1];
+              }
+              
+              
+
+              for (var i = 1; i < 23; i++) {
+                if(isisensorNo[i]!="0" && sensorDegerler[int.parse(isisensorNo[i])]!=null){
+                  
+                  if(sensorDegerler[int.parse(isisensorNo[i])]!=sensorDegerlerGecici[int.parse(isisensorNo[i])]){
+                    bloCVeriStateStreamControllerISISENSOR[i].sink.add(sensorDegerler[int.parse(isisensorNo[i])]);
+                    print("GİRİYORISISENSOR");
+                  }
+                }
+              }
+              sensorDegerlerGecici=List.from(sensorDegerler);
+      //******************************SENSOR DEĞERLERİ*******************************/
+
+
+      //******************************PED DURUMLARI*******************************/
+              List<String> pedDurumlar=new List.filled(11, "0.0");
+              for (var i = 1; i <= 10; i++) {
+                pedDurumlar[i]=xx[5].split("*")[i-1];
+              }
+              String otoPed=xx[1].split("*")[11];
+              String fasilaPed=xx[5].split("*")[10];
+
+              if(otoPed!=ped2DurumGecici){
+                bloCVeriStateStreamControllerPED2.sink.add(otoPed);
+              }
+              ped2DurumGecici=otoPed;
+
+              if(fasilaPed!=ped3DurumGecici){
+                bloCVeriStateStreamControllerPED3.sink.add(fasilaPed);
+                print("GİRİYORPED2");
+              }
+              ped3DurumGecici=fasilaPed;
+
+              for (var i = 1; i < 25; i++) {
+                if(pedNo[i]!="0" && pedDurumlar[int.parse(pedNo[i])]!=null){
+                  
+                  if(pedDurumlar[int.parse(pedNo[i])]!=pedDurumlarGecici[int.parse(pedNo[i])]){
+                    bloCVeriStateStreamControllerPED[i].sink.add(pedDurumlar[int.parse(pedNo[i])]);
+                    print("GİRİYORPED1");
+                  }
+                }
+              }
+              pedDurumlarGecici=List.from(pedDurumlar);
+      //******************************PED DURUMLARI*******************************/
+
+
+
+      //******************************SICAKLIKLAR*******************************/
+
+              String setDeger=xx[6].split("*")[0];
+              String ortDeger=xx[6].split("*")[1];
+              String dbbDeger=xx[6].split("*")[2];
+              String cbbDeger=xx[6].split("*")[3];
+              String mod=xx[6].split("*")[4];
+
+              if(setDeger!=setDegerGecici){
+                bloCVeriStateStreamControllerSET.sink.add(setDeger);
+              }
+              setDegerGecici=setDeger;
+
+              if(ortDeger!=ortDegerGecici){
+                bloCVeriStateStreamControllerORT.sink.add(ortDeger);
+              }
+              ortDegerGecici=ortDeger;
+
+              if(dbbDeger!=dbbDegerGecici){
+                bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
+              }
+              dbbDegerGecici=dbbDeger;
+
+              if(cbbDeger!=cbbDegerGecici){
+                bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
+              }
+              cbbDegerGecici=cbbDeger;
+
+              if(mod!=modGecici){
+                bloCVeriStateStreamControllerMOD.sink.add(mod);
+              }
+              modGecici=mod;
+
+      //******************************SICAKLIKLAR*******************************/
+
+
+              print(veri);
+              baglanti=false;
+
           }
-        }
-        fanDurumlarGecici=List.from(fanDurumlar);
-//******************************FAN ÇIKIŞ DURUMLARI*******************************/
-
-        //Fan oto-man durum
-        String fanOtoMan = xx[1].split("*")[0];
-        if(fanOtoMan!=fanOtoManGecici){
-          bloCVeriStateStreamControllerFANotoman.sink.add(fanOtoMan);
-          print("GİRİYORFANOTO");
-        }
-        fanOtoManGecici=fanOtoMan;
-        
-
-        //Nem Değerler
-        String nemDegerler = xx[4];
-        if(nemDegerler!=nemDegerlerGecici){
-          bloCVeriStateStreamControllerNEM.sink.add(nemDegerler);
-          print("GİRİYORNEM");
-        }
-        nemDegerlerGecici=nemDegerler;
-
-//******************************KLEPE DURUMLARI*******************************/
-
-        List<String> klepeDurumlar=new List.filled(11, "0*0.0");
-        for (var i = 1; i <= 10; i++) {
-          klepeDurumlar[i]=xx[1].split("*")[i]+"*"+xx[2].split("*")[i-1];
-        }
-        
-
-        for (var i = 1; i < 16; i++) {
-          if(klepeNo[i]!="0"){
-            
-            if(klepeDurumlar[int.parse(klepeNo[i])]!=klepeDurumlarGecici[int.parse(klepeNo[i])]){
-              bloCVeriStateStreamControllerKLEPE[i].sink.add(klepeDurumlar[int.parse(klepeNo[i])]);
-              print("GİRİYORKLEPE");
-            }
-          }
-        }
-        klepeDurumlarGecici=List.from(klepeDurumlar);
-//******************************KLEPE DURUMLARI*******************************/
-
-
-//******************************SENSOR DEĞERLERİ*******************************/
-        List<String> sensorDegerler=new List.filled(16, "0.0");
-        for (var i = 1; i <= 15; i++) {
-          sensorDegerler[i]=xx[3].split("*")[i-1];
-        }
-        
-        
-
-        for (var i = 1; i < 23; i++) {
-          if(isisensorNo[i]!="0" && sensorDegerler[int.parse(isisensorNo[i])]!=null){
-            
-            if(sensorDegerler[int.parse(isisensorNo[i])]!=sensorDegerlerGecici[int.parse(isisensorNo[i])]){
-              bloCVeriStateStreamControllerISISENSOR[i].sink.add(sensorDegerler[int.parse(isisensorNo[i])]);
-              print("GİRİYORISISENSOR");
-            }
-          }
-        }
-        sensorDegerlerGecici=List.from(sensorDegerler);
-//******************************SENSOR DEĞERLERİ*******************************/
-
-
-//******************************PED DURUMLARI*******************************/
-        List<String> pedDurumlar=new List.filled(11, "0.0");
-        for (var i = 1; i <= 10; i++) {
-          pedDurumlar[i]=xx[5].split("*")[i-1];
-        }
-        String otoPed=xx[1].split("*")[11];
-        String fasilaPed=xx[5].split("*")[10];
-
-        if(otoPed!=ped2DurumGecici){
-          bloCVeriStateStreamControllerPED2.sink.add(otoPed);
-        }
-        ped2DurumGecici=otoPed;
-
-        if(fasilaPed!=ped3DurumGecici){
-          bloCVeriStateStreamControllerPED3.sink.add(fasilaPed);
-          print("GİRİYORPED2");
-        }
-        ped3DurumGecici=fasilaPed;
-
-        for (var i = 1; i < 25; i++) {
-          if(pedNo[i]!="0" && pedDurumlar[int.parse(pedNo[i])]!=null){
-            
-            if(pedDurumlar[int.parse(pedNo[i])]!=pedDurumlarGecici[int.parse(pedNo[i])]){
-              bloCVeriStateStreamControllerPED[i].sink.add(pedDurumlar[int.parse(pedNo[i])]);
-              print("GİRİYORPED1");
-            }
-          }
-        }
-        pedDurumlarGecici=List.from(pedDurumlar);
-//******************************PED DURUMLARI*******************************/
-
-
-
-//******************************SICAKLIKLAR*******************************/
-
-        String setDeger=xx[6].split("*")[0];
-        String ortDeger=xx[6].split("*")[1];
-        String dbbDeger=xx[6].split("*")[2];
-        String cbbDeger=xx[6].split("*")[3];
-        String mod=xx[6].split("*")[4];
-
-        if(setDeger!=setDegerGecici){
-          bloCVeriStateStreamControllerSET.sink.add(setDeger);
-        }
-        setDegerGecici=setDeger;
-
-        if(ortDeger!=ortDegerGecici){
-          bloCVeriStateStreamControllerORT.sink.add(ortDeger);
-        }
-        ortDegerGecici=ortDeger;
-
-        if(dbbDeger!=dbbDegerGecici){
-          bloCVeriStateStreamControllerDBB.sink.add(dbbDeger);
-        }
-        dbbDegerGecici=dbbDeger;
-
-        if(cbbDeger!=cbbDegerGecici){
-          bloCVeriStateStreamControllerCBB.sink.add(cbbDeger);
-        }
-        cbbDegerGecici=cbbDeger;
-
-        if(mod!=modGecici){
-          bloCVeriStateStreamControllerMOD.sink.add(mod);
-        }
-        modGecici=mod;
-
-//******************************SICAKLIKLAR*******************************/
-
-
-        print(veri);
-        baglanti=false;
 
             });
+
+        sayac++;
+        print(sayac);
+
         }
       });
-
 
     }
 

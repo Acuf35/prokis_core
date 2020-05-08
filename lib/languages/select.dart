@@ -641,7 +641,7 @@ class Dil{
     kod=="tv617" ? metin='Min.Sic Saati' : null;
     kod=="tv618" ? metin='İç Nem' : null;
     kod=="tv619" ? metin='Dış Nem' : null;
-    kod=="tv620" ? metin='Ort.Hissedilir Sıc.' : null;
+    kod=="tv620" ? metin='Ort.Hissed.Sıc.' : null;
     kod=="tv621" ? metin='Sistemde\nyemleme\nçıkışları\naktif değil!' : null;
     kod=="tv622" ? metin='Sistemde\nsu sayac\ngirişleri\naktif değil!' : null;
     kod=="tv623" ? metin='Sistemde\nyem silo ağırlık\nokumaları\naktif değil!' : null;
@@ -676,6 +676,13 @@ class Dil{
     kod=="tv652" ? metin='Kalan Süre(Sn): ' : null;
     kod=="tv653" ? metin='SİRK.FAN' : null;
     kod=="tv654" ? metin='SİRK: FANLARININ MANUEL KONTROLÜ' : null;
+    kod=="tv656" ? metin='Sistemde Air Inlet\naktif değil!' : null;
+    kod=="tv657" ? metin='Sistemde\nBacafan\naktif değil!' : null;
+    kod=="tv658" ? metin='Sistemde\nIsıtıcı\naktif değil!' : null;
+    kod=="tv659" ? metin='Sistemde\nYemleme\naktif değil!' : null;
+    kod=="tv660" ? metin='Sistemde\nSirk. Fan\naktif değil!' : null;
+    kod=="tv661" ? metin='Ortalama Sıcaklık' : null;
+    kod=="tv662" ? metin='Hava Hızı (m/sn)' : null;
 
    
 
@@ -1853,7 +1860,7 @@ class Dil{
     kod=="tv617" ? metin='Min.Temp Time' : null;
     kod=="tv618" ? metin='In Hum.' : null;
     kod=="tv619" ? metin='Out Hum.' : null;
-    kod=="tv620" ? metin='Avr.Sensible Temp.' : null;
+    kod=="tv620" ? metin='Avr.Sens.Temp.' : null;
     kod=="tv621" ? metin='Feeding\noutput\nisn\'t active\nin system!' : null;
     kod=="tv622" ? metin='Watermeter\ninputs\nisn\'t active\nin system!' : null;
     kod=="tv623" ? metin='Feed silo Weight\nreadings\nisn\'t active\nin system' : null;

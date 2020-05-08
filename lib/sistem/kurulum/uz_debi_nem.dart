@@ -73,8 +73,13 @@ class UzDebiNem extends StatelessWidget {
                   String v3=provider.getcM=="" ? "0" : provider.getcM;
                   String komut="10*16*"+v1+"*"+v2+"*"+v3;
                   if(provider.getaM!=""){
-                    Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                      dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
+                    Metotlar().veriGonder(komut, 2233).then((value) {
+                      if(value.split("*")[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                      }else{
+                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                        dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
+                      }
                     });
                     sayac++;
                   }
@@ -95,8 +100,13 @@ class UzDebiNem extends StatelessWidget {
                   String v3=provider.getcM=="" ? "0" : provider.getcM;
                   String komut="10*16*"+v1+"*"+v2+"*"+v3;
                   if(provider.getbM!=""){
-                    Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                      dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
+                    Metotlar().veriGonder(komut, 2233).then((value) {
+                      if(value.split("*")[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                      }else{
+                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                        dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
+                      }
                     });
                     sayac++;
                   }
@@ -114,8 +124,13 @@ class UzDebiNem extends StatelessWidget {
                   String v3=provider.getcM=="" ? "0" : provider.getcM;
                   String komut="10*16*"+v1+"*"+v2+"*"+v3;
                   if(provider.getcM!=""){
-                    Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                      dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
+                    Metotlar().veriGonder(komut, 2233).then((value) {
+                      if(value.split("*")[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                      }else{
+                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                        dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
+                      }
                     });
                     sayac++;
                   }
@@ -133,8 +148,13 @@ class UzDebiNem extends StatelessWidget {
                   String v4=provider.disNem == true ? "1" : "0";
                   String komut="11*18*"+v1+"*"+v2+"*"+v3+"*"+v4;
                   if(provider.gettunelFanDebi!=""){
-                    Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                      dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                    Metotlar().veriGonder(komut, 2233).then((value) {
+                      if(value.split("*")[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                      }else{
+                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                        dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                      }
                     });
                     sayac++;
                   }
@@ -153,8 +173,13 @@ class UzDebiNem extends StatelessWidget {
                   String v4=provider.disNem == true ? "1" : "0";
                   String komut="11*18*"+v1+"*"+v2+"*"+v3+"*"+v4;
                   if(provider.getbacaFanDebi!=""){
-                    Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                      dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                    Metotlar().veriGonder(komut, 2233).then((value) {
+                      if(value.split("*")[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                      }else{
+                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                        dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                      }
                     });
                     sayac++;
                   }
@@ -173,8 +198,13 @@ class UzDebiNem extends StatelessWidget {
                   String v4=provider.disNem == true ? "1" : "0";
                   String komut="11*18*"+v1+"*"+v2+"*"+v3+"*"+v4;
                   if(provider.gethacimOrani!=""){
-                    Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                      dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                    Metotlar().veriGonder(komut, 2233).then((value) {
+                      if(value.split("*")[0]=="error"){
+                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                      }else{
+                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                        dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                      }
                     });
                     sayac++;
                   }
@@ -515,8 +545,13 @@ class UzDebiNem extends StatelessWidget {
                                                 String v4=provider.disNem == true ? "1" : "0";
                                                 String komut="11*18*"+v1+"*"+v2+"*"+v3+"*"+v4;
 
-                                                Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                                                  dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                                                Metotlar().veriGonder(komut, 2233).then((value) {
+                                                  if(value.split("*")[0]=="error"){
+                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                  }else{
+                                                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                    dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
+                                                  }
                                                 });
                                               },
                                               child: Icon(
@@ -797,8 +832,13 @@ class UzDebiNem extends StatelessWidget {
                                                   String v4y=provider.getk4y;
                                                   String komut="7*11"+"*"+v1x+"#"+v1y+"*"+v2x+"#"+v2y+"*"+v3x+"#"+v3y+"*"+v4x+"#"+v4y;
 
-                                                  Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                                                    dbProkis.dbSatirEkleGuncelle(9, v1x+"*"+v1y, v2x+"*"+v2y, v3x+"*"+v3y, v4x+"*"+v4y);
+                                                  Metotlar().veriGonder(komut, 2233).then((value) {
+                                                    if(value.split("*")[0]=="error"){
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    }else{
+                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                      dbProkis.dbSatirEkleGuncelle(9, v1x+"*"+v1y, v2x+"*"+v2y, v3x+"*"+v3y, v4x+"*"+v4y);
+                                                    }
                                                   });
                                                   
                                                 } else if (klpNo < 9) {
@@ -813,8 +853,13 @@ class UzDebiNem extends StatelessWidget {
                                                   String v4y=provider.getk8y;
                                                   String komut="8*13"+"*"+v1x+"#"+v1y+"*"+v2x+"#"+v2y+"*"+v3x+"#"+v3y+"*"+v4x+"#"+v4y;
 
-                                                  Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                                                    dbProkis.dbSatirEkleGuncelle(10, v1x+"*"+v1y, v2x+"*"+v2y, v3x+"*"+v3y, v4x+"*"+v4y);
+                                                  Metotlar().veriGonder(komut, 2233).then((value) {
+                                                    if(value.split("*")[0]=="error"){
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    }else{
+                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                      dbProkis.dbSatirEkleGuncelle(10, v1x+"*"+v1y, v2x+"*"+v2y, v3x+"*"+v3y, v4x+"*"+v4y);
+                                                    }
                                                   });
 
                                                   
@@ -826,8 +871,13 @@ class UzDebiNem extends StatelessWidget {
                                                   String v2y=provider.getk10y;
                                                   String komut="9*15"+"*"+v1x+"#"+v1y+"*"+v2x+"#"+v2y;
 
-                                                  Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value) {
-                                                    dbProkis.dbSatirEkleGuncelle(11, v1x+"*"+v1y, v2x+"*"+v2y, "0", "0");
+                                                  Metotlar().veriGonder(komut, 2233).then((value) {
+                                                    if(value.split("*")[0]=="error"){
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    }else{
+                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                      dbProkis.dbSatirEkleGuncelle(11, v1x+"*"+v1y, v2x+"*"+v2y, "0", "0");
+                                                    }
                                                   });
                                                 }
                                               

@@ -442,12 +442,15 @@ class PedHaritasi extends StatelessWidget {
                                 veri = veri + provider.pedHarita[i].toString() + "#";
                               }
 
-                              Metotlar().veriGonder("18*23*$veri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-                                          if(value=="ok"){
-                                            dbProkis.dbSatirEkleGuncelle(18, "ok", veri, "0", "0");
-                                          }
+                              Metotlar().veriGonder("18*23*$veri*0*0*0", 2233).then((value){
+                                if(value.split("*")[0]=="error"){
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                }else{
+                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                  dbProkis.dbSatirEkleGuncelle(18, "ok", veri, "0", "0");
+                                }
 
-                                        });
+                              });
 
                             provider.setharitaOnay = true;
 
@@ -586,10 +589,15 @@ class PedHaritasi extends StatelessWidget {
                               }
                               
                                         String komut="19*24*$noVeri*$cikisVeri*0*0";
-                                        Metotlar().veriGonder(komut, context, 2233, "toast8", dilSecimi).then((value){
-                                          if(value=="ok"){
-                                            Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", context, 2233, "toast8", dilSecimi).then((value){
-                                              if(value=="ok"){
+                                        Metotlar().veriGonder(komut, 2233).then((value){
+                                          if(value.split("*")[0]=="error"){
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          }else{
+                                            Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value){
+                                              if(value.split("*")[0]=="error"){
+                                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                              }else{
+                                                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                 dbProkis.dbSatirEkleGuncelle(19, "ok", noVeri, cikisVeri, "0");
                                                 dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
                                               }
@@ -912,17 +920,21 @@ class PedHaritasi extends StatelessWidget {
 
         provider.setharitaOnay = false;
 
-        Metotlar()
-            .veriGonder("20*0*0*0*0*0", context, 2233, "toast8", dilSecimi)
-            .then((value) {
-          Metotlar()
-              .veriGonder("25*27*$tumCikislarVeri*0*0*0", context, 2233,
-                  "toast8", dilSecimi)
-              .then((value) {
-            dbProkis.dbSatirEkleGuncelle(18, "0", "0", "0", "0");
-            dbProkis.dbSatirEkleGuncelle(19, "0", "0", "0", "0");
-            dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
-          });
+        Metotlar().veriGonder("20*0*0*0*0*0", 2233).then((value) {
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value) {
+              if(value.split("*")[0]=="error"){
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+              }else{
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                dbProkis.dbSatirEkleGuncelle(18, "0", "0", "0", "0");
+                dbProkis.dbSatirEkleGuncelle(19, "0", "0", "0", "0");
+                dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
+              }
+            });
+          }
         });
       }
     });
