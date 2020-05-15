@@ -70,8 +70,8 @@ class OtoManKlepeState extends State<OtoManKlepe> {
         dilSecimi = dbVeri[i]["veri1"];
       }
 
-      if (dbVeri[i]["id"] == 4) {
-        klepeAdet = dbVeri[i]["veri2"];
+      if (dbVeri[i]["id"] == 37) {
+        klepeAdet = dbVeri[i]["veri1"];
       }
 
     }
@@ -228,10 +228,13 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                       child: FloatingActionButton(
               onPressed: () {
                 timerCancel = true;
+                Navigator.pop(context);
+                /*
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => OtoMan1()),
                 );
+                */
               },
               backgroundColor: Colors.blue,
               child: Icon(
@@ -586,7 +589,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                             if (timerCancelKlp[index]) {
                                               timer.cancel();
                                             }
-                                            if(!baglantiKlp[index] && yazmaSonrasiGecikmeSayaciKLP[index]>7){
+                                            if(!baglantiKlp[index] && yazmaSonrasiGecikmeSayaciKLP[index]>1){
                                               baglantiKlp[index]=true;
                                               _takipEt("24*$klepeAdet");
                                             }

@@ -10,6 +10,7 @@ import 'package:prokis/languages/select.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
 import 'package:prokis/mywidgets/showModalBottomSheetI.dart';
 import 'package:prokis/sistem/kurulum/kurulumu_tamamla.dart';
+import 'package:prokis/sistem/kurulum/uz_debi_nem.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
@@ -79,23 +80,48 @@ class Girisler extends StatelessWidget {
         children: <Widget>[
           //Başlık bölümü
           Expanded(
-    child: SizedBox(
-      child: Container(
-        color: Colors.grey.shade600,
-        alignment: Alignment.center,
-        child: AutoSizeText(
-          Dil().sec(dilSecimi, "tv350"),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontFamily: 'Kelly Slab',
-              color: Colors.white,
-              fontSize: 60,
-              fontWeight: FontWeight.bold),
-          maxLines: 1,
-          minFontSize: 8,
-        ),
-      ),
-    )),
+            child: Container(
+              color: Colors.grey.shade600,
+              child: Row(
+                children: <Widget>[
+                  Spacer(flex: 3,),
+                  Expanded(flex: 10,
+                    child: SizedBox(
+                      child: Container(
+                        
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          Dil().sec(dilSecimi, "tv349"),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          minFontSize: 8,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 2,),
+                  Expanded(
+                    child: LayoutBuilder(
+                        builder: (context, constraint) {
+                        return IconButton(
+                        padding: EdgeInsets.all(0),
+                        icon:Icon(Icons.info_outline,),
+                        iconSize: constraint.biggest.height,
+                        color: Colors.white,
+                        onPressed: ()=>Scaffold.of(context).openEndDrawer(),
+                        );
+                      }
+                    ),
+                  ),
+                     
+                ],
+              ),
+            )),
           //Girişler Bölümü
           Expanded(
             flex: 9,
@@ -299,7 +325,7 @@ class Girisler extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              KurulumuTamamla(dbProkis.getDbVeri)),
+                              UzDebiNem(true)),
                     );
 
                   }
@@ -321,7 +347,76 @@ class Girisler extends StatelessWidget {
             ),
           ),
         ],
-      ));
+      ),
+
+      endDrawer: SizedBox(
+              width: 320 * oran,
+              child: Drawer(
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            Dil().sec(dilSecimi, "tv350"), 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                          color: Colors.yellow[700],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 17,
+                        child: Container(
+                          color: Colors.yellow[100],
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              ListTile(
+                                dense: false,
+                                title: Text(
+                                  Dil().sec(dilSecimi, "tv186"),
+                                  textScaleFactor: oran,
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                        text: Dil().sec(dilSecimi, "info36"),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 13*oran
+                                        )
+                                      ),
+
+                                      
+                                    ]
+                                  ),
+                                ),
+                              
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    
+      
+      
+      );
     
 
     }

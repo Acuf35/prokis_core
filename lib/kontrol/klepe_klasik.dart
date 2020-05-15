@@ -70,8 +70,8 @@ class KlepeKlasikState extends State<KlepeKlasik> {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
-      if (dbVeri[i]["id"] == 4) {
-        klepeAdet = dbVeri[i]["veri2"];
+      if (dbVeri[i]["id"] == 37) {
+        klepeAdet = dbVeri[i]["veri1"];
       }
     }
 

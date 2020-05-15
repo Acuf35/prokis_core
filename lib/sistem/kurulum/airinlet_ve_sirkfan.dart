@@ -62,21 +62,46 @@ class AirInletVeSirkFan extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: SizedBox(
-              child: Container(
-                color: Colors.grey.shade600,
-                alignment: Alignment.center,
-                child: AutoSizeText(
-                  Dil().sec(dilSecimi, "tv71"),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Kelly Slab',
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  minFontSize: 8,
-                ),
+            child: Container(
+              color: Colors.grey.shade600,
+              child: Row(
+                children: <Widget>[
+                  Spacer(flex: 3,),
+                  Expanded(flex: 10,
+                                    child: SizedBox(
+                      child: Container(
+                        
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          Dil().sec(dilSecimi, "tv71"),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          minFontSize: 8,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 2,),
+                  Expanded(
+                    child: LayoutBuilder(
+                            builder: (context, constraint) {
+                          return IconButton(
+                            padding: EdgeInsets.all(0),
+                            icon:Icon(Icons.info_outline,),
+                            iconSize: constraint.biggest.height,
+                            color: Colors.white,
+                            onPressed: ()=>Scaffold.of(context).openEndDrawer(),
+                          );
+                        }
+                      ),
+                  ),
+                            
+                ],
               ),
             )),
         //airinlet Harita Oluşturma Bölümü
@@ -528,7 +553,74 @@ class AirInletVeSirkFan extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    ),
+    endDrawer: SizedBox(
+              width: 320 * oran,
+              child: Drawer(
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            Dil().sec(dilSecimi, "tv17"), 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                          color: Colors.yellow[700],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 17,
+                        child: Container(
+                          color: Colors.yellow[100],
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              ListTile(
+                                dense: false,
+                                title: Text(
+                                  Dil().sec(dilSecimi, "tv186"),
+                                  textScaleFactor: oran,
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                        text: Dil().sec(dilSecimi, "info30"),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 13*oran
+                                        )
+                                      ),
+
+                                      
+                                    ]
+                                  ),
+                                ),
+                              
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    
+    
+    );
 
 
 

@@ -68,8 +68,8 @@ class KlepeTunelState extends State<KlepeTunel> {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
-      if (dbVeri[i]["id"] == 4) {
-        klepeAdet = dbVeri[i]["veri2"];
+      if (dbVeri[i]["id"] == 37) {
+        klepeAdet = dbVeri[i]["veri1"];
       }
     }
 
@@ -640,13 +640,43 @@ class KlepeTunelState extends State<KlepeTunel> {
                                         .sec(dilSecimi, "tv186"),
                                     textScaleFactor: oran,
                                   ),
-                                  subtitle: Text(
-                                    Dil()
-                                        .sec(dilSecimi, "info8"),
-                                    style: TextStyle(
-                                      fontSize: 13 * oran,
-                                    ),
-                                  ),
+                                  subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info8"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm38")+'\n\n'+
+                                  Dil().sec(dilSecimi, "ksltm39")+'\n\n'+
+                                  Dil().sec(dilSecimi, "ksltm40")+'\n\n'+
+                                  Dil().sec(dilSecimi, "ksltm41")+'\n\n\n\n',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11*oran,
+                                  )
+                                ),
+                                
+                              ]
+                            ),
+                          ),
+                        
                                   onTap: () {
                                     // Update the state of the app.
                                     // ...

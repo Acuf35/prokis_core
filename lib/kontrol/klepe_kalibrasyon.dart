@@ -58,9 +58,8 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
-      if (dbVeri[i]["id"] == 4) {
-        klepeAdet = dbVeri[i]["veri2"];
-        klepeAdet = "10";
+      if (dbVeri[i]["id"] == 37) {
+        klepeAdet = dbVeri[i]["veri1"];
       }
 
       if (dbVeri[i]["id"] == 8) {
@@ -618,44 +617,36 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                           
                         
                         },
-                        child: Stack(
-                          alignment: Alignment.center,
+                        child: Row(
                           children: <Widget>[
-                            LayoutBuilder(builder: (context, constraint) {
-                              return Icon(
-                                Icons.brightness_1,
-                                size: constraint.biggest.height,
-                                color:kalibrasyonAktuel[klepeNo]=='1' ? Colors.green[700] : Colors.black,
-                              );
-                            }),
-                            Row(
-                              children: <Widget>[
-                                Spacer(),
-                                Expanded(flex: 3,
-                                child: SizedBox(
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      alignment: Alignment.center,
-                                      child: AutoSizeText(
-                                        Dil()
-                                      .sec(dilSecimi, "tv192") +' '+klepeNo.toString()+
-                                  "\n" +
-                                 Dil()
-                                      .sec(dilSecimi, "tv232"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.white,
-                                          fontSize: 60,
-                                        ),
-                                        maxLines:3,
-                                        minFontSize: 8,
-                                      ),
+                            Spacer(),
+                            Expanded(flex: 5,
+                            child: SizedBox(
+                                child: Container(
+                                  padding: EdgeInsets.all(5*oran),
+                                  decoration: BoxDecoration(
+                                    color: kalibrasyonAktuel[klepeNo]=="0" ? Colors.black : Colors.green[700],
+                                    borderRadius: BorderRadius.circular(10*oran)
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: AutoSizeText(
+                                    Dil()
+                                  .sec(dilSecimi, "tv192") +' '+klepeNo.toString()+
+                              "\n" +
+                             Dil()
+                                  .sec(dilSecimi, "tv232"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontFamily: 'Kelly Slab',
+                                      color: Colors.white,
+                                      fontSize: 60,
                                     ),
-                                  ),),
-                                Spacer()
-                              ],
-                            ),
+                                    maxLines:3,
+                                    minFontSize: 8,
+                                  ),
+                                ),
+                              ),),
+                            Spacer()
                           ],
                         ),
                       ),

@@ -6,13 +6,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/deger_giris_2x1.dart';
-import 'package:prokis/yardimci/deger_giris_3x0.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
 
@@ -43,12 +41,12 @@ class OtoManAirState extends State<OtoManAir> {
   int _ondalik = 0;
   int _index = 0;
 
-  List<bool> otoAIR = new List(3);
-  List<bool> airManAc = new List(3);
-  List<bool> airManKp = new List(3);
-  List<bool> timerCancelAir = new List(3);
-  List<bool> baglantiAir = new List(3);
-  List<int> yazmaSonrasiGecikmeSayaciAIR = new List(3);
+  bool otoAIR = false;
+  bool airManAc = false;
+  bool airManKp = false;
+  bool timerCancelAir = false;
+  bool baglantiAir = false;
+  int yazmaSonrasiGecikmeSayaciAIR = 8;
 
   String airHareketSuresi = "2.0";
 
@@ -72,15 +70,6 @@ class OtoManAirState extends State<OtoManAir> {
       if (dbVeri[i]["id"] == 5) {
         airInletAdet = dbVeri[i]["veri2"];
       }
-    }
-
-    for (int i = 1; i <= 2; i++) {
-      otoAIR[i] = false;
-      airManAc[i] = false;
-      airManKp[i] = false;
-      timerCancelAir[i] = false;
-      baglantiAir[i] = false;
-      yazmaSonrasiGecikmeSayaciAIR[i] = 8;
     }
 
     _dbVeriCekme();
@@ -178,13 +167,7 @@ class OtoManAirState extends State<OtoManAir> {
                                   _unsurOtoManWidget(
                                       Dil().sec(dilSecimi, "tv460"),
                                       'assets/images/kurulum_airinlet_icon.png',
-                                      oran,
-                                      1),
-                                  _unsurOtoManWidget(
-                                      Dil().sec(dilSecimi, "tv460"),
-                                      'assets/images/kurulum_airinlet_icon.png',
-                                      oran,
-                                      2),
+                                      oran),
                                 ],
                               )),
                           Spacer()
@@ -205,10 +188,13 @@ class OtoManAirState extends State<OtoManAir> {
             child: FloatingActionButton(
               onPressed: () {
                 timerCancel = true;
+                Navigator.pop(context);
+                /*
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => OtoMan1()),
                 );
+                */
               },
               backgroundColor: Colors.blue,
               child: Icon(
@@ -311,26 +297,16 @@ class OtoManAirState extends State<OtoManAir> {
               var degerler = gelenMesaj.split('*');
               print(degerler);
               print(yazmaSonrasiGecikmeSayaci);
-              //print(yazmaSonrasiGecikmeSayaciTFAN);
-              //print(yazmaSonrasiGecikmeSayaciPED);
               print(yazmaSonrasiGecikmeSayaciAIR);
 
               if (komut.split("*")[0] == "25") {
-                for (int i = 1; i <= int.parse(airInletAdet); i++) {
-                  otoAIR[i] = degerler[i - 1] == "True" ? true : false;
-                }
+                otoAIR = gelenMesaj == "True" ? true : false;
               }
 
               if (komut.split("*")[0] == "26") {
-                for (int i = 1; i <= int.parse(airInletAdet); i++) {
-                  airManAc[i] = degerler[i - 1] == "True" ? true : false;
-                  airManKp[i] =
-                      degerler[i - 1 + int.parse(airInletAdet)] == "True"
-                          ? true
-                          : false;
-                }
-                int x = degerler.length;
-                airHareketSuresi = degerler[x - 1];
+                airManAc=degerler[0] == "True" ? true : false;
+                airManKp=degerler[1] == "True" ? true : false;
+                airHareketSuresi=degerler[2];
               }
 
               socket.add(utf8.encode('ok'));
@@ -339,7 +315,7 @@ class OtoManAirState extends State<OtoManAir> {
           onDone: () {
             baglanti = false;
             for (var i = 1; i <= 2; i++) {
-              baglantiAir[i] = false;
+              baglantiAir = false;
             }
 
             socket.close();
@@ -353,7 +329,7 @@ class OtoManAirState extends State<OtoManAir> {
         Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
         baglanti = false;
         for (var i = 1; i <= 2; i++) {
-          baglantiAir[i] = false;
+          baglantiAir = false;
         }
       });
     } catch (e) {
@@ -361,7 +337,7 @@ class OtoManAirState extends State<OtoManAir> {
       Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
       baglanti = false;
       for (var i = 1; i <= 2; i++) {
-        baglantiAir[i] = false;
+        baglantiAir = false;
       }
     }
   }
@@ -409,221 +385,215 @@ class OtoManAirState extends State<OtoManAir> {
   }
 
   Widget _unsurOtoManWidget(
-      String baslik, String imagePath, double oran, int index) {
-    return Visibility(
-      visible: index <= int.parse(airInletAdet) || index > 5,
-      child: Expanded(
-        child: Visibility(
-          visible: index <= int.parse(airInletAdet),
-          child: Row(
-            children: <Widget>[
-              Spacer(),
-              Expanded(
-                flex: 10,
-                child: Column(
+      String baslik, String imagePath, double oran) {
+    return Expanded(
+      child: Row(
+        children: <Widget>[
+          Spacer(),
+          Expanded(
+            flex: 10,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: SizedBox(
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: AutoSizeText(
+                        baslik,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Kelly Slab',
+                            color: Colors.grey[500],
+                            fontSize: 50,
+                            fontWeight: FontWeight.bold),
+                        maxLines: 1,
+                        minFontSize: 8,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                    child: Column(
                   children: <Widget>[
+                    //Oto Man Seçimi
                     Expanded(
-                      child: SizedBox(
-                        child: Container(
-                          alignment: Alignment.bottomCenter,
-                          child: AutoSizeText(
-                            baslik + " $index",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: 'Kelly Slab',
-                                color: Colors.grey[500],
-                                fontSize: 50,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                            minFontSize: 8,
+                        flex: 6,
+                        child: Row(
+                          children: <Widget>[
+                            //Oto
+                            Expanded(
+                                flex: 10,
+                                child: RawMaterialButton(
+                                  elevation: 8,
+                                  onPressed: () {
+                                    yazmaSonrasiGecikmeSayaci = 0;
+                                    _veriGonder("30*1");
+
+                                    otoAIR = true;
+                                    airManAc = false;
+                                    airManKp = false;
+
+                                    setState(() {});
+                                  },
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  constraints: BoxConstraints(),
+                                  fillColor: otoAIR
+                                      ? Colors.green[400]
+                                      : Colors.grey[400],
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv455"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            color: Colors.black,
+                                            fontSize: 50,
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                            Spacer(),
+                            //MAN
+                            Expanded(
+                                flex: 10,
+                                child: RawMaterialButton(
+                                  elevation: 8,
+                                  onPressed: () {
+                                    yazmaSonrasiGecikmeSayaci = 0;
+                                    _veriGonder("30*0");
+
+                                    otoAIR = false;
+
+                                    setState(() {});
+                                  },
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  constraints: BoxConstraints(),
+                                  fillColor: !otoAIR
+                                      ? Colors.green[400]
+                                      : Colors.grey[400],
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv456"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            color: Colors.black,
+                                            fontSize: 50,
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                )),
+                            Spacer(),
+                          ],
+                        )),
+                  ],
+                )),
+                Expanded(
+                  flex: 4,
+                  child: Column(
+                    children: <Widget>[
+                      Spacer(),
+                      Expanded(
+                        flex: 24,
+                        child: Visibility(
+                          visible: !otoAIR,
+                          child: RawMaterialButton(
+                            onPressed: () {
+                              takipEtiGeciciDurdur = true;
+
+                              timerCancelAir = false;
+                              Timer.periodic(Duration(seconds: 1), (timer) {
+                                yazmaSonrasiGecikmeSayaciAIR++;
+                                if (timerCancelAir) {
+                                  timer.cancel();
+                                }
+                                if (!baglantiAir &&
+                                    yazmaSonrasiGecikmeSayaciAIR >
+                                        1) {
+                                  baglantiAir = true;
+                                  _takipEt("26*");
+                                }
+                              });
+
+                              _manKontrolAIR(oran).then((value) {
+                                takipEtiGeciciDurdur = false;
+                                timerCancelAir = true;
+                              });
+                            },
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            constraints: BoxConstraints(),
+                            elevation: 8,
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, "tv457"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.green,
+                                          fontSize: 50,
+                                          fontWeight: FontWeight.normal),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Spacer(),
+                                      Expanded(
+                                        flex: 4,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              image: AssetImage(imagePath),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Spacer()
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    Expanded(
-                        child: Column(
-                      children: <Widget>[
-                        //Oto Man Seçimi
-                        Expanded(
-                            flex: 6,
-                            child: Row(
-                              children: <Widget>[
-                                //Oto
-                                Expanded(
-                                    flex: 10,
-                                    child: RawMaterialButton(
-                                      elevation: 8,
-                                      onPressed: () {
-                                        yazmaSonrasiGecikmeSayaci = 0;
-                                        _veriGonder("30*$index*1");
-
-                                        otoAIR[index] = true;
-                                        airManAc[index] = false;
-                                        airManKp[index] = false;
-
-                                        setState(() {});
-                                      },
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      constraints: BoxConstraints(),
-                                      fillColor: otoAIR[index]
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      child: SizedBox(
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          child: AutoSizeText(
-                                            Dil().sec(dilSecimi, "tv455"),
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                color: Colors.black,
-                                                fontSize: 50,
-                                                fontWeight: FontWeight.bold),
-                                            maxLines: 1,
-                                            minFontSize: 8,
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                                Spacer(),
-                                //MAN
-                                Expanded(
-                                    flex: 10,
-                                    child: RawMaterialButton(
-                                      elevation: 8,
-                                      onPressed: () {
-                                        yazmaSonrasiGecikmeSayaci = 0;
-                                        _veriGonder("30*$index*0");
-
-                                        otoAIR[index] = false;
-
-                                        setState(() {});
-                                      },
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      constraints: BoxConstraints(),
-                                      fillColor: !otoAIR[index]
-                                          ? Colors.green[400]
-                                          : Colors.grey[400],
-                                      child: SizedBox(
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          child: AutoSizeText(
-                                            Dil().sec(dilSecimi, "tv456"),
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                color: Colors.black,
-                                                fontSize: 50,
-                                                fontWeight: FontWeight.bold),
-                                            maxLines: 1,
-                                            minFontSize: 8,
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                                Spacer(),
-                              ],
-                            )),
-                      ],
-                    )),
-                    Expanded(
-                      flex: 4,
-                      child: Column(
-                        children: <Widget>[
-                          Spacer(),
-                          Expanded(
-                            flex: 24,
-                            child: Visibility(
-                              visible: !otoAIR[index],
-                              child: RawMaterialButton(
-                                onPressed: () {
-                                  takipEtiGeciciDurdur = true;
-
-                                  timerCancelAir[index] = false;
-                                  Timer.periodic(Duration(seconds: 1), (timer) {
-                                    yazmaSonrasiGecikmeSayaciAIR[index]++;
-                                    if (timerCancelAir[index]) {
-                                      timer.cancel();
-                                    }
-                                    if (!baglantiAir[index] &&
-                                        yazmaSonrasiGecikmeSayaciAIR[index] >
-                                            7) {
-                                      baglantiAir[index] = true;
-                                      _takipEt("26*$airInletAdet");
-                                    }
-                                  });
-
-                                  _manKontrolAIR(oran, index).then((value) {
-                                    takipEtiGeciciDurdur = false;
-                                    timerCancelAir[index] = true;
-                                  });
-                                },
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                constraints: BoxConstraints(),
-                                elevation: 8,
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(dilSecimi, "tv457"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontFamily: 'Kelly Slab',
-                                              color: Colors.green,
-                                              fontSize: 50,
-                                              fontWeight: FontWeight.normal),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Spacer(),
-                                          Expanded(
-                                            flex: 4,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  alignment: Alignment.center,
-                                                  image: AssetImage(imagePath),
-                                                  fit: BoxFit.contain,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          Spacer()
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                        ],
-                      ),
-                    ),
-                  ],
+                      Spacer(),
+                    ],
+                  ),
                 ),
-              ),
-              Spacer()
-            ],
+              ],
+            ),
           ),
-        ),
+          Spacer()
+        ],
       ),
     );
   }
 
-  Future _manKontrolAIR(double oran, int index) {
+  Future _manKontrolAIR(double oran) {
     bool bottomDrawerAktif = true;
     int sayac1 = 0;
 
@@ -655,9 +625,7 @@ class OtoManAirState extends State<OtoManAir> {
                           child: Text(
                         Dil().sec(dilSecimi, "tv471") +
                             " - " +
-                            Dil().sec(dilSecimi, "tv460") +
-                            " " +
-                            index.toString(),
+                            Dil().sec(dilSecimi, "tv460"),
                         style: TextStyle(
                             fontFamily: 'Kelly Slab',
                             fontWeight: FontWeight.bold),
@@ -687,7 +655,7 @@ class OtoManAirState extends State<OtoManAir> {
                                       ),
                                       RaisedButton(
                                         onPressed: () {
-                                          _index = index;
+                                          _index = 1;
                                           _onlar = int.parse(airHareketSuresi
                                                       .split(".")[0]) <
                                                   10
@@ -738,11 +706,11 @@ class OtoManAirState extends State<OtoManAir> {
                                       Spacer(
                                         flex: 3,
                                       ),
-                                      bottomDrawerManUnsur(index, "tv473",
-                                          airManAc[index], oran),
+                                      bottomDrawerManUnsur(1,"tv473",
+                                          airManAc, oran),
                                       Spacer(),
-                                      bottomDrawerManUnsur(index + 10, "tv474",
-                                          airManKp[index], oran),
+                                      bottomDrawerManUnsur(0, "tv474",
+                                          airManKp, oran),
                                       Spacer(
                                         flex: 3,
                                       ),
@@ -767,12 +735,11 @@ class OtoManAirState extends State<OtoManAir> {
     });
   }
 
-  Widget bottomDrawerManUnsur(
-      int index, String isim, bool otoManDurum, double oran) {
+  Widget bottomDrawerManUnsur(int index,String isim, bool acVeyaKpDurum, double oran) {
     return Expanded(
       flex: 10,
       child: RawMaterialButton(
-        fillColor: otoManDurum ? Colors.green[700] : Colors.grey[500],
+        fillColor: acVeyaKpDurum ? Colors.green[700] : Colors.grey[500],
         elevation: 8,
         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
         constraints: BoxConstraints(),
@@ -781,11 +748,11 @@ class OtoManAirState extends State<OtoManAir> {
           bool acYapiyorKapaYapilamaz = false;
           bool kapaYapiyorAcYapilamaz = false;
 
-          if (index > 10 && airManAc[index - 10]) {
+          if (index == 0 && airManAc) {
             acYapiyorKapaYapilamaz = true;
           }
 
-          if (index < 11 && airManKp[index]) {
+          if (index == 1 && airManKp) {
             kapaYapiyorAcYapilamaz = true;
           }
 
@@ -794,23 +761,23 @@ class OtoManAirState extends State<OtoManAir> {
           } else if (kapaYapiyorAcYapilamaz) {
             Toast.show(Dil().sec(dilSecimi, "toast80"), context, duration: 3);
           } else {
-            if (otoManDurum) {
-              if (index > 10) {
-                airManKp[index - 10] = false;
+            if (acVeyaKpDurum) {
+              if (index == 0) {
+                airManKp = false;
               } else {
-                airManAc[index] = false;
+                airManAc = false;
               }
               veri = "0";
             } else {
-              if (index > 10) {
-                airManKp[index - 10] = true;
+              if (index == 0) {
+                airManKp = true;
               } else {
-                airManAc[index] = true;
+                airManAc = true;
               }
               veri = "1";
             }
 
-            yazmaSonrasiGecikmeSayaciAIR[index > 10 ? index - 10 : index] = 0;
+            yazmaSonrasiGecikmeSayaciAIR = 0;
             _veriGonder("31*$index*$veri");
           }
         },
@@ -823,7 +790,7 @@ class OtoManAirState extends State<OtoManAir> {
                 Dil().sec(dilSecimi, isim),
                 style: TextStyle(
                     fontFamily: "Kelly Slab",
-                    color: otoManDurum ? Colors.white : Colors.black,
+                    color: acVeyaKpDurum ? Colors.white : Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
                 textScaleFactor: oran,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
-import 'package:prokis/oto_man_air.dart';
+import 'package:prokis/otoman/oto_man_air.dart';
 import 'package:prokis/otoman/oto_man_klepe.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
@@ -243,62 +243,87 @@ class OtoMan1 extends StatelessWidget {
           ),
         ),      
       drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-      endDrawer: SizedBox(width: 320*oran,
-                  child: Drawer(
-            child: MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        Dil().sec(
-                            dilSecimi, "tv81"), //Sıcaklık diyagramı
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Kelly Slab',
-                        ),
-                        textScaleFactor: oran,
+      endDrawer: SizedBox(
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv81"), 
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
                       ),
-                      color: Colors.yellow[700],
+                      textScaleFactor: oran,
                     ),
+                    color: Colors.yellow[700],
                   ),
-                  Expanded(
-                    flex: 17,
-                    child: Container(
-                      color: Colors.yellow[100],
-                      child: ListView(
-                        // Important: Remove any padding from the ListView.
-                        padding: EdgeInsets.zero,
-                        children: <Widget>[
-                          ListTile(
-                            dense: false,
-                            title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
-                            subtitle: Text(
-                              Dil().sec(dilSecimi, "info16_1"),
-                              style: TextStyle(
-                                fontSize: 13 * oran,
-                              ),
-                            ),
-                            onTap: () {
-                              // Update the state of the app.
-                              // ...
-                            },
+                ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
                           ),
-                        ],
-                      ),
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info16_1"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm20")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm3")+'\n',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11*oran,
+                                  )
+                                ),
+                                
+                              ]
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        )
-        
+        ),
+      ),
+     
     );
  
             }
@@ -900,7 +925,7 @@ class OtoMan1 extends StatelessWidget {
                                 onPressed: (){
                                   if(index==2){
                                     timerCancel=true;
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
@@ -910,7 +935,7 @@ class OtoMan1 extends StatelessWidget {
 
                                   if(index==5){
                                     timerCancel=true;
-                                    Navigator.pushReplacement(
+                                    Navigator.push(
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>

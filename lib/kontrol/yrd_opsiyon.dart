@@ -62,6 +62,23 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
   String tFanYumGecisDongu="3";
   String tFanYumGecisAdet="3";
 
+  String suSayacResetSaatiSaat="07";
+  String suSayacResetSaatiDakika="00";
+  bool suSayacResetSaatiAM=false;
+  bool suSayacResetSaatiPM=true;
+
+  String olculenMinMaksResetSaatiSaat="07";
+  String olculenMinMaksResetSaatiDakika="00";
+  bool olculenMinMaksResetSaatiAM=false;
+  bool olculenMinMaksResetSaatiPM=true;
+
+  String yemTuketimResetSaatiSaat="07";
+  String yemTuketimResetSaatiDakika="00";
+  bool yemTuketimResetSaatiAM=false;
+  bool yemTuketimResetSaatiPM=true;
+
+  bool format24saatlik=true;
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -74,9 +91,10 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
       if (dbVeri[i]["id"] == 13) {
         disNemAktif = dbVeri[i]["veri4"];
       }
-      
+      if (dbVeri[i]["id"] == 34) {
+        format24saatlik = dbVeri[i]["veri1"] =="1" ? true: false;
+      }
     }
-
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -158,6 +176,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                             child: Row(
                               children: <Widget>[
                                 Spacer(),
+                                //opsiyon 1
                                 Expanded(
                                   flex: 20,
                                   child: Column(
@@ -387,6 +406,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                   ),
                                 ),
                                 Spacer(),
+                                //opsiyon 2
                                 Expanded(
                                   flex: 20,
                                   child: Column(
@@ -472,11 +492,12 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                   ),
                                 ),
                                 Spacer(),
+                                //opsiyon 3
                                 Expanded(
                                   flex: 20,
                                   child: Column(
                                     children: <Widget>[
-                                      Text(Dil().sec(dilSecimi, "tv496"),style: TextStyle(
+                                      Text(Dil().sec(dilSecimi, "tv676"),style: TextStyle(
                                         fontFamily: 'Kelly Slab'
                                       ),
                                       textScaleFactor: oran,
@@ -515,7 +536,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                                                   _onlar=sayi<10 ? 0 :sayi~/10;
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 1, oran, dilSecimi, "tv200");
+                                                                  _degergiris2X0(_onlar, _birler, _index, 4, oran, dilSecimi, "tv200");
                                                                   
                                                          },
                                                          child: Stack(
@@ -563,6 +584,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                             child: Row(
                               children: <Widget>[
                                 Spacer(),
+                                //opsiyon 4
                                 Expanded(
                                   flex: 20,
                                   child: Column(
@@ -673,7 +695,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                                                _onlar,
                                                                _birler,
                                                                _index,
-                                                               1,
+                                                               6,
                                                                oran,
                                                                dilSecimi,
                                                                "tv567"
@@ -744,7 +766,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                                                _onlar,
                                                                _birler,
                                                                _index,
-                                                               1,
+                                                               7,
                                                                oran,
                                                                dilSecimi,
                                                                "tv568"
@@ -786,13 +808,687 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                                     ],
                                   ),
                                 ),
-                                Spacer(flex: 43,),
+                                Spacer(),
+                                //opsiyon 5
+                                Expanded(
+                                  flex: 20,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(Dil().sec(dilSecimi, "tv663"),style: TextStyle(
+                                        fontFamily: 'Kelly Slab'
+                                      ),
+                                      textScaleFactor: oran,
+                                      ),
+                                      Expanded(
+                                         child: Container(color: Colors.blue[50],
+                                           child: Column(
+                                             children: <Widget>[
+                                               Expanded(flex: 3,
+                                                 child: SizedBox(
+                                                   child: Container(
+                                                     alignment: Alignment.center,
+                                                     child: AutoSizeText(
+                                                       Dil().sec(
+                                                           dilSecimi, "tv664"),
+                                                       textAlign: TextAlign.center,
+                                                       style: TextStyle(
+                                                           fontSize: 50.0,
+                                                           fontFamily:
+                                                               'Kelly Slab',
+                                                           fontWeight:
+                                                               FontWeight.bold),
+                                                       maxLines: 2,
+                                                       minFontSize: 8,
+                                                     ),
+                                                   ),
+                                                 ),
+                                               ),
+                                               Expanded(flex: 5,
+                                                 child: Row(
+                                                   mainAxisAlignment:
+                                                       MainAxisAlignment.center,
+                                                   children: <Widget>[
+                                                     Visibility(visible: !format24saatlik,
+                                                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                         children: <Widget>[
+
+                                                           Row(
+                                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: <Widget>[
+                                                             
+                                                             RawMaterialButton(
+                                                               materialTapTargetSize:
+                                                                   MaterialTapTargetSize.shrinkWrap,
+                                                               constraints: BoxConstraints(),
+                                                               onPressed: () {
+
+                                                                 if (!suSayacResetSaatiAM) {
+                                                                   suSayacResetSaatiAM = true;
+                                                                   suSayacResetSaatiPM = false;
+                                                                 } 
+                                                                
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                 _veriGonder("32*10*$suSayacResetSaatiSaat");
+
+                                                                 setState(() {});
+                                                               },
+                                                               child: Icon(
+                                                                   suSayacResetSaatiAM == true
+                                                                       ? Icons.check_box
+                                                                       : Icons.check_box_outline_blank,
+                                                                   color: suSayacResetSaatiAM == true
+                                                                       ? Colors.green.shade500
+                                                                       : Colors.black,
+                                                                   size: 20 * oran),
+                                                             ),
+                                                             Text(
+                                                               'AM',textAlign: TextAlign.center,
+                                                               style: TextStyle(
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight: FontWeight.bold),
+                                                               textScaleFactor: oran,
+                                                               
+                                                             ),
+                                                             Container(width: 5*oran,)
+                                                           ],
+                                                           ),
+                                                           Row(
+                                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: <Widget>[
+                                                             
+                                                             RawMaterialButton(
+                                                               materialTapTargetSize:
+                                                                   MaterialTapTargetSize.shrinkWrap,
+                                                               constraints: BoxConstraints(),
+                                                               onPressed: () {
+
+                                                                 if (!suSayacResetSaatiPM) {
+                                                                   suSayacResetSaatiPM = true;
+                                                                   suSayacResetSaatiAM = false;
+                                                                 } 
+
+                                                                 String veri= suSayacResetSaatiSaat=="12" ? '0' : (int.parse(suSayacResetSaatiSaat)+12).toString();
+
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                 _veriGonder("32*10*$veri");
+
+                                                                 setState(() {});
+                                                               },
+                                                               child: Icon(
+                                                                   suSayacResetSaatiPM == true
+                                                                       ? Icons.check_box
+                                                                       : Icons.check_box_outline_blank,
+                                                                   color: suSayacResetSaatiPM == true
+                                                                       ? Colors.green.shade500
+                                                                       : Colors.black,
+                                                                   size: 20 * oran),
+                                                             ),
+                                                             Text(
+                                                               'PM',textAlign: TextAlign.center,
+                                                               style: TextStyle(
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight: FontWeight.bold),
+                                                               textScaleFactor: oran,
+                                                               
+                                                             ),
+                                                             Container(width: 5*oran,)
+                                                           ],
+                                                   ),
+                                                         
+                                                         
+                                                         ],
+                                                       ),
+                                                     ),
+                                                   
+                                                     RawMaterialButton(
+                                                       onPressed: () {
+                                                         _index = 8;
+                                                         int sayi=int.parse(suSayacResetSaatiSaat);
+                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                         _birler=sayi%10;
+
+                                                         _degergiris2X0(
+                                                             _onlar,
+                                                             _birler,
+                                                             _index,
+                                                             8,
+                                                             oran,
+                                                             dilSecimi,
+                                                             "tv338",);
+                                                       },
+                                                       child: Text(
+                                                         suSayacResetSaatiSaat,
+                                                         style: TextStyle(
+                                                             fontSize:
+                                                                 25 * oran,
+                                                             fontFamily:
+                                                                 'Kelly Slab',
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .bold,
+                                                             color:
+                                                                 Colors.white),
+                                                       ),
+                                                       fillColor: Colors.green[800],
+                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                       constraints: BoxConstraints(),
+                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                                     ),
+                                                     Text(
+                                                       ":",
+                                                       textScaleFactor: oran,
+                                                       style:
+                                                           TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                                           
+                                                     ),
+                                                     RawMaterialButton(
+                                                       onPressed: () {
+                                                         _index = 9;
+                                                         int sayi=int.parse(suSayacResetSaatiDakika);
+                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                         _birler=sayi%10;
+
+                                                         _degergiris2X0(
+                                                             _onlar,
+                                                             _birler,
+                                                             _index,
+                                                             9,
+                                                             oran,
+                                                             dilSecimi,
+                                                             "tv339",);
+                                                       },
+                                                       child: Text(
+                                                         suSayacResetSaatiDakika,
+                                                         style: TextStyle(
+                                                             fontSize:
+                                                                 25 * oran,
+                                                             fontFamily:
+                                                                 'Kelly Slab',
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .bold,
+                                                             color:
+                                                                 Colors.white),
+                                                       ),
+                                                       fillColor: Colors.red[700],
+                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                       constraints: BoxConstraints(),
+                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                                     ),
+                                                     
+                                             
+                                                   ],
+                                                 ),
+                                               ),
+                                               Spacer(flex: 1,)
+                                             ],
+                                           ),
+                                         ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Spacer(),
+                                //opsiyon 6
+                                Expanded(
+                                  flex: 20,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(Dil().sec(dilSecimi, "tv669"),style: TextStyle(
+                                        fontFamily: 'Kelly Slab'
+                                      ),
+                                      textScaleFactor: oran,
+                                      ),
+                                      Expanded(
+                                         child: Container(color: Colors.blue[50],
+                                           child: Column(
+                                             children: <Widget>[
+                                               Expanded(flex: 3,
+                                                 child: SizedBox(
+                                                   child: Container(
+                                                     alignment: Alignment.center,
+                                                     child: AutoSizeText(
+                                                       Dil().sec(
+                                                           dilSecimi, "tv670"),
+                                                       textAlign: TextAlign.center,
+                                                       style: TextStyle(
+                                                           fontSize: 50.0,
+                                                           fontFamily:
+                                                               'Kelly Slab',
+                                                           fontWeight:
+                                                               FontWeight.bold),
+                                                       maxLines: 2,
+                                                       minFontSize: 8,
+                                                     ),
+                                                   ),
+                                                 ),
+                                               ),
+                                               Expanded(flex: 5,
+                                                 child: Row(
+                                                   mainAxisAlignment:
+                                                       MainAxisAlignment.center,
+                                                   children: <Widget>[
+                                                     Visibility(visible: !format24saatlik,
+                                                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                         children: <Widget>[
+
+                                                           Row(
+                                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: <Widget>[
+                                                             
+                                                             RawMaterialButton(
+                                                               materialTapTargetSize:
+                                                                   MaterialTapTargetSize.shrinkWrap,
+                                                               constraints: BoxConstraints(),
+                                                               onPressed: () {
+
+                                                                 if (!olculenMinMaksResetSaatiAM) {
+                                                                   olculenMinMaksResetSaatiAM = true;
+                                                                   olculenMinMaksResetSaatiPM = false;
+                                                                 } 
+                                                                
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                 _veriGonder("32*13*$olculenMinMaksResetSaatiSaat");
+
+                                                                 setState(() {});
+                                                               },
+                                                               child: Icon(
+                                                                   olculenMinMaksResetSaatiAM == true
+                                                                       ? Icons.check_box
+                                                                       : Icons.check_box_outline_blank,
+                                                                   color: olculenMinMaksResetSaatiAM == true
+                                                                       ? Colors.green.shade500
+                                                                       : Colors.black,
+                                                                   size: 20 * oran),
+                                                             ),
+                                                             Text(
+                                                               'AM',textAlign: TextAlign.center,
+                                                               style: TextStyle(
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight: FontWeight.bold),
+                                                               textScaleFactor: oran,
+                                                               
+                                                             ),
+                                                             Container(width: 5*oran,)
+                                                           ],
+                                                           ),
+                                                           Row(
+                                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: <Widget>[
+                                                             
+                                                             RawMaterialButton(
+                                                               materialTapTargetSize:
+                                                                   MaterialTapTargetSize.shrinkWrap,
+                                                               constraints: BoxConstraints(),
+                                                               onPressed: () {
+
+                                                                 if (!olculenMinMaksResetSaatiPM) {
+                                                                   olculenMinMaksResetSaatiPM = true;
+                                                                   olculenMinMaksResetSaatiAM = false;
+                                                                 } 
+
+                                                                 String veri= olculenMinMaksResetSaatiSaat=="12" ? '0' : (int.parse(olculenMinMaksResetSaatiSaat)+12).toString();
+
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                 _veriGonder("32*13*$veri");
+
+                                                                 setState(() {});
+                                                               },
+                                                               child: Icon(
+                                                                   olculenMinMaksResetSaatiPM == true
+                                                                       ? Icons.check_box
+                                                                       : Icons.check_box_outline_blank,
+                                                                   color: olculenMinMaksResetSaatiPM == true
+                                                                       ? Colors.green.shade500
+                                                                       : Colors.black,
+                                                                   size: 20 * oran),
+                                                             ),
+                                                             Text(
+                                                               'PM',textAlign: TextAlign.center,
+                                                               style: TextStyle(
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight: FontWeight.bold),
+                                                               textScaleFactor: oran,
+                                                               
+                                                             ),
+                                                             Container(width: 5*oran,)
+                                                           ],
+                                                   ),
+                                                         
+                                                         
+                                                         ],
+                                                       ),
+                                                     ),
+                                                   
+                                                     RawMaterialButton(
+                                                       onPressed: () {
+                                                         _index = 11;
+                                                         int sayi=int.parse(olculenMinMaksResetSaatiSaat);
+                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                         _birler=sayi%10;
+
+                                                         _degergiris2X0(
+                                                             _onlar,
+                                                             _birler,
+                                                             _index,
+                                                             11,
+                                                             oran,
+                                                             dilSecimi,
+                                                             "tv338",);
+                                                       },
+                                                       child: Text(
+                                                         olculenMinMaksResetSaatiSaat,
+                                                         style: TextStyle(
+                                                             fontSize:
+                                                                 25 * oran,
+                                                             fontFamily:
+                                                                 'Kelly Slab',
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .bold,
+                                                             color:
+                                                                 Colors.white),
+                                                       ),
+                                                       fillColor: Colors.green[800],
+                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                       constraints: BoxConstraints(),
+                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                                     ),
+                                                     Text(
+                                                       ":",
+                                                       textScaleFactor: oran,
+                                                       style:
+                                                           TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                                           
+                                                     ),
+                                                     RawMaterialButton(
+                                                       onPressed: () {
+                                                         _index = 12;
+                                                         int sayi=int.parse(olculenMinMaksResetSaatiDakika);
+                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                         _birler=sayi%10;
+
+                                                         _degergiris2X0(
+                                                             _onlar,
+                                                             _birler,
+                                                             _index,
+                                                             12,
+                                                             oran,
+                                                             dilSecimi,
+                                                             "tv339",);
+                                                       },
+                                                       child: Text(
+                                                         olculenMinMaksResetSaatiDakika,
+                                                         style: TextStyle(
+                                                             fontSize:
+                                                                 25 * oran,
+                                                             fontFamily:
+                                                                 'Kelly Slab',
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .bold,
+                                                             color:
+                                                                 Colors.white),
+                                                       ),
+                                                       fillColor: Colors.red[700],
+                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                       constraints: BoxConstraints(),
+                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                                     ),
+                                                     
+                                             
+                                                   ],
+                                                 ),
+                                               ),
+                                               Spacer(flex: 1,)
+                                             ],
+                                           ),
+                                         ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                
                                 
                               ],
                             ),
                           ),
                           
-                          Spacer(flex: 2,)
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: <Widget>[
+                                Spacer(),
+                                //opsiyon 7
+                                Expanded(
+                                  flex: 20,
+                                  child: Column(
+                                    children: <Widget>[
+                                      Text(Dil().sec(dilSecimi, "tv671"),style: TextStyle(
+                                        fontFamily: 'Kelly Slab'
+                                      ),
+                                      textScaleFactor: oran,
+                                      ),
+                                      Expanded(
+                                         child: Container(color: Colors.blue[50],
+                                           child: Column(
+                                             children: <Widget>[
+                                               Expanded(flex: 3,
+                                                 child: SizedBox(
+                                                   child: Container(
+                                                     alignment: Alignment.center,
+                                                     child: AutoSizeText(
+                                                       Dil().sec(
+                                                           dilSecimi, "tv672"),
+                                                       textAlign: TextAlign.center,
+                                                       style: TextStyle(
+                                                           fontSize: 50.0,
+                                                           fontFamily:
+                                                               'Kelly Slab',
+                                                           fontWeight:
+                                                               FontWeight.bold),
+                                                       maxLines: 2,
+                                                       minFontSize: 8,
+                                                     ),
+                                                   ),
+                                                 ),
+                                               ),
+                                               Expanded(flex: 5,
+                                                 child: Row(
+                                                   mainAxisAlignment:
+                                                       MainAxisAlignment.center,
+                                                   children: <Widget>[
+                                                     Visibility(visible: !format24saatlik,
+                                                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                         children: <Widget>[
+
+                                                           Row(
+                                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: <Widget>[
+                                                             
+                                                             RawMaterialButton(
+                                                               materialTapTargetSize:
+                                                                   MaterialTapTargetSize.shrinkWrap,
+                                                               constraints: BoxConstraints(),
+                                                               onPressed: () {
+
+                                                                 if (!yemTuketimResetSaatiAM) {
+                                                                   yemTuketimResetSaatiAM = true;
+                                                                   yemTuketimResetSaatiPM = false;
+                                                                 } 
+                                                                
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                 _veriGonder("32*16*$yemTuketimResetSaatiSaat");
+
+                                                                 setState(() {});
+                                                               },
+                                                               child: Icon(
+                                                                   yemTuketimResetSaatiAM == true
+                                                                       ? Icons.check_box
+                                                                       : Icons.check_box_outline_blank,
+                                                                   color: yemTuketimResetSaatiAM == true
+                                                                       ? Colors.green.shade500
+                                                                       : Colors.black,
+                                                                   size: 20 * oran),
+                                                             ),
+                                                             Text(
+                                                               'AM',textAlign: TextAlign.center,
+                                                               style: TextStyle(
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight: FontWeight.bold),
+                                                               textScaleFactor: oran,
+                                                               
+                                                             ),
+                                                             Container(width: 5*oran,)
+                                                           ],
+                                                           ),
+                                                           Row(
+                                                           mainAxisAlignment: MainAxisAlignment.center,
+                                                           children: <Widget>[
+                                                             
+                                                             RawMaterialButton(
+                                                               materialTapTargetSize:
+                                                                   MaterialTapTargetSize.shrinkWrap,
+                                                               constraints: BoxConstraints(),
+                                                               onPressed: () {
+
+                                                                 if (!yemTuketimResetSaatiPM) {
+                                                                   yemTuketimResetSaatiPM = true;
+                                                                   yemTuketimResetSaatiAM = false;
+                                                                 } 
+
+                                                                 String veri= yemTuketimResetSaatiSaat=="12" ? '0' : (int.parse(yemTuketimResetSaatiSaat)+12).toString();
+
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                 _veriGonder("32*16*$veri");
+
+                                                                 setState(() {});
+                                                               },
+                                                               child: Icon(
+                                                                   yemTuketimResetSaatiPM == true
+                                                                       ? Icons.check_box
+                                                                       : Icons.check_box_outline_blank,
+                                                                   color: yemTuketimResetSaatiPM == true
+                                                                       ? Colors.green.shade500
+                                                                       : Colors.black,
+                                                                   size: 20 * oran),
+                                                             ),
+                                                             Text(
+                                                               'PM',textAlign: TextAlign.center,
+                                                               style: TextStyle(
+                                                                   fontFamily: 'Kelly Slab',
+                                                                   fontWeight: FontWeight.bold),
+                                                               textScaleFactor: oran,
+                                                               
+                                                             ),
+                                                             Container(width: 5*oran,)
+                                                           ],
+                                                   ),
+                                                         
+                                                         
+                                                         ],
+                                                       ),
+                                                     ),
+                                                   
+                                                     RawMaterialButton(
+                                                       onPressed: () {
+                                                         _index = 14;
+                                                         int sayi=int.parse(yemTuketimResetSaatiSaat);
+                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                         _birler=sayi%10;
+
+                                                         _degergiris2X0(
+                                                             _onlar,
+                                                             _birler,
+                                                             _index,
+                                                             14,
+                                                             oran,
+                                                             dilSecimi,
+                                                             "tv338",);
+                                                       },
+                                                       child: Text(
+                                                         yemTuketimResetSaatiSaat,
+                                                         style: TextStyle(
+                                                             fontSize:
+                                                                 25 * oran,
+                                                             fontFamily:
+                                                                 'Kelly Slab',
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .bold,
+                                                             color:
+                                                                 Colors.white),
+                                                       ),
+                                                       fillColor: Colors.green[800],
+                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                       constraints: BoxConstraints(),
+                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                                     ),
+                                                     Text(
+                                                       ":",
+                                                       textScaleFactor: oran,
+                                                       style:
+                                                           TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                                           
+                                                     ),
+                                                     RawMaterialButton(
+                                                       onPressed: () {
+                                                         _index = 15;
+                                                         int sayi=int.parse(yemTuketimResetSaatiDakika);
+                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                         _birler=sayi%10;
+
+                                                         _degergiris2X0(
+                                                             _onlar,
+                                                             _birler,
+                                                             _index,
+                                                             15,
+                                                             oran,
+                                                             dilSecimi,
+                                                             "tv339",);
+                                                       },
+                                                       child: Text(
+                                                         yemTuketimResetSaatiDakika,
+                                                         style: TextStyle(
+                                                             fontSize:
+                                                                 25 * oran,
+                                                             fontFamily:
+                                                                 'Kelly Slab',
+                                                             fontWeight:
+                                                                 FontWeight
+                                                                     .bold,
+                                                             color:
+                                                                 Colors.white),
+                                                       ),
+                                                       fillColor: Colors.red[700],
+                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                       constraints: BoxConstraints(),
+                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                                     ),
+                                                     
+                                             
+                                                   ],
+                                                 ),
+                                               ),
+                                               Spacer(flex: 1,)
+                                             ],
+                                           ),
+                                         ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Spacer(flex: 42,)
+                                
+                              ],
+                            ),
+                          ),
                         
                         ],
                       ),
@@ -860,12 +1556,161 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
                               Dil().sec(dilSecimi, "tv186"),
                               textScaleFactor: oran,
                             ),
-                            subtitle: Text(
-                              Dil().sec(dilSecimi, info),
-                              style: TextStyle(
-                                fontSize: 13 * oran,
-                              ),
+                            subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv496")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28a"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv497")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28b"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv676")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28c"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv565")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28d"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv663")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28e"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv669")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28f"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv671")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28g"),
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+                                
+                              ]
                             ),
+                          ),
+                        
                             onTap: () {
                               // Update the state of the app.
                               // ...
@@ -941,7 +1786,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
     });
   }
 
-Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int paramIndex,
+Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int index, int paramIndex,
       double oran, String dil, String baslik) async {
     // flutter defined function
 
@@ -952,7 +1797,7 @@ Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int param
         // return object of type Dialog
 
         return DegerGiris2X0.Deger(
-            onlarUnsur, birlerUnsur, klepeIndex, oran, dil, baslik);
+            onlarUnsur, birlerUnsur, index, oran, dil, baslik);
       },
     ).then((val) {
       bool veriGonderilsinMi = false;
@@ -967,14 +1812,120 @@ Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int param
       _birler = val[1];
       _index = val[2];
 
+      String veri="";
+      if(index==4){
+        fanMinimumCalismaSuresi=(_yuzler*100+_onlar*10+_birler).toString();
+        veri=fanMinimumCalismaSuresi;
+      }
+
+      if(index==6){
+        tFanYumGecisDongu=(_yuzler*100+_onlar*10+_birler).toString();
+        veri=tFanYumGecisDongu;
+      }
+
+      if(index==7){
+        tFanYumGecisAdet=(_yuzler*100+_onlar*10+_birler).toString();
+        veri=tFanYumGecisAdet;
+      }
+
+      if (index == 8) {
+
+        if(!format24saatlik){
+          
+          if(_onlar*10+_birler<13){
+            suSayacResetSaatiSaat=(_onlar*10+_birler).toString();
+              
+            if(suSayacResetSaatiPM){
+              veri=(int.parse(suSayacResetSaatiSaat)==12 ? '0' : int.parse(suSayacResetSaatiSaat)+12).toString();
+            }else{
+              veri=suSayacResetSaatiSaat;
+            }
+
+          }else{
+            veriGonderilsinMi=false;
+            Toast.show(Dil().sec(dilSecimi, "toast89"),context,duration: 3);
+          }
+
+        }else{
+          suSayacResetSaatiSaat=(_onlar*10+_birler).toString();
+          veri = suSayacResetSaatiSaat;
+        }
+        
+      }
+
+      if (index == 9) {
+        suSayacResetSaatiDakika=(_onlar*10+_birler).toString();
+        veri = suSayacResetSaatiDakika;
+      }
+
+
+      if (index == 11) {
+
+        if(!format24saatlik){
+          
+          if(_onlar*10+_birler<13){
+            olculenMinMaksResetSaatiSaat=(_onlar*10+_birler).toString();
+              
+            if(olculenMinMaksResetSaatiPM){
+              veri=(int.parse(olculenMinMaksResetSaatiSaat)==12 ? '0' : int.parse(olculenMinMaksResetSaatiSaat)+12).toString();
+            }else{
+              veri=olculenMinMaksResetSaatiSaat;
+            }
+
+          }else{
+            veriGonderilsinMi=false;
+            Toast.show(Dil().sec(dilSecimi, "toast89"),context,duration: 3);
+          }
+
+        }else{
+          olculenMinMaksResetSaatiSaat=(_onlar*10+_birler).toString();
+          veri = olculenMinMaksResetSaatiSaat;
+        }
+        
+      }
+
+      if (index == 12) {
+        olculenMinMaksResetSaatiDakika=(_onlar*10+_birler).toString();
+        veri = olculenMinMaksResetSaatiDakika;
+      }
+
+
+      if (index == 14) {
+
+        if(!format24saatlik){
+          
+          if(_onlar*10+_birler<13){
+            yemTuketimResetSaatiSaat=(_onlar*10+_birler).toString();
+              
+            if(yemTuketimResetSaatiPM){
+              veri=(int.parse(yemTuketimResetSaatiSaat)==12 ? '0' : int.parse(yemTuketimResetSaatiSaat)+12).toString();
+            }else{
+              veri=yemTuketimResetSaatiSaat;
+            }
+
+          }else{
+            veriGonderilsinMi=false;
+            Toast.show(Dil().sec(dilSecimi, "toast89"),context,duration: 3);
+          }
+
+        }else{
+          yemTuketimResetSaatiSaat=(_onlar*10+_birler).toString();
+          veri = yemTuketimResetSaatiSaat;
+        }
+        
+      }
+
+      if (index == 15) {
+        yemTuketimResetSaatiDakika=(_onlar*10+_birler).toString();
+        veri = yemTuketimResetSaatiDakika;
+      }
       
-      fanMinimumCalismaSuresi=(_yuzler*100+_onlar*10+_birler).toString();
       
 
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("32*$_index*$fanMinimumCalismaSuresi");
+        _veriGonder("32*$_index*$veri");
       }
 
 
@@ -1044,6 +1995,12 @@ Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int param
               elekKesildigindeSistemiDurdur = degerler[4]=="True" ? true : false;
               tFanYumGecisDongu = degerler[5];
               tFanYumGecisAdet = degerler[6];
+              suSayacResetSaatiSaat = degerler[7];
+              suSayacResetSaatiDakika = degerler[8];
+              olculenMinMaksResetSaatiSaat = degerler[9];
+              olculenMinMaksResetSaatiDakika = degerler[10];
+              yemTuketimResetSaatiSaat = degerler[11];
+              yemTuketimResetSaatiDakika = degerler[12];
 
 
               

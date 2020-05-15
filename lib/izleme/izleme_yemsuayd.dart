@@ -162,7 +162,7 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv599'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv647'),
         body: Column(
           children: <Widget>[
             Row(
@@ -1935,62 +1935,102 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
           ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: SizedBox(width: 320*oran,
-                  child: Drawer(
-            child: MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        Dil().sec(dilSecimi, "tv293"), //Sıcaklık diyagramı
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Kelly Slab',
-                        ),
-                        textScaleFactor: oran,
+        endDrawer: SizedBox(
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv647"), 
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
                       ),
-                      color: Colors.yellow[700],
+                      textScaleFactor: oran,
                     ),
+                    color: Colors.yellow[700],
                   ),
-                  Expanded(
-                    flex: 17,
-                    child: Container(
-                      color: Colors.yellow[100],
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: <Widget>[
-                          ListTile(
-                            dense: false,
-                            title: Text(
-                              Dil().sec(dilSecimi, "tv186"),
-                              textScaleFactor: oran,
-                            ),
-                            subtitle: Text(
-                              Dil().sec(dilSecimi, info),
-                              style: TextStyle(
-                                fontSize: 13 * oran,
-                              ),
-                            ),
-                            onTap: () {
-                              // Update the state of the app.
-                              // ...
-                            },
+                ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
                           ),
-                        ],
-                      ),
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info28"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+                                TextSpan(
+                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm25")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm26")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm27")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm28")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm29")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm30")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm31")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm32")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm33")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm34")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm35")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm36")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm37")+'\n',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11*oran,
+                                  )
+                                ),
+                                
+                              ]
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      )
+      
+      );
+    
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++

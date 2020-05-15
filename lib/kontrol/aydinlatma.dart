@@ -132,1351 +132,481 @@ class AydinlatmaState extends State<Aydinlatma> {
     return Scaffold(
       appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv112'),
       body: Column(
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemTime(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-              
-              Expanded(
-                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemDate(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-            ],
-          ),
-          
-          Expanded(
-            child: Container(color: Colors.white,
-              child: Column(
+          children: <Widget>[
+            Row(
+      children: <Widget>[
+        Expanded(
+                        child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
+                          child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                    return Text(
+                      Metotlar().getSystemTime(dbVeriler),
+                      style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12*oran,
+                            fontWeight: FontWeight.bold),
+                    );
+                  }),
+                        ),
+        ),
+        
+        Expanded(
+                        child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
+                          child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
+                    return Text(
+                      Metotlar().getSystemDate(dbVeriler),
+                      style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12*oran,
+                            fontWeight: FontWeight.bold),
+                    );
+                  }),
+                        ),
+        ),
+      ],
+            ),
+            
+            Expanded(
+      child: Container(color: Colors.white,
+        child: Column(
+          children: <Widget>[
+            Expanded(flex: 30,
+              child: Row(
                 children: <Widget>[
-                  Expanded(
-                    flex: 22,
-                    child: Row(
+                  //Set ve süre girişleri
+                  Expanded(flex: 8,
+                    child: Column(
                       children: <Widget>[
-                        //Set ve süre girişleri
-                        Expanded(flex: 8,
-                          child: Column(
-                            children: <Widget>[
-                              Spacer(),
-                              //Gece ve Gündüz Aydınlık Yüzdesi
-                              Visibility(visible: dimmerVarMi=='1' ? true : false,
-                                child: Expanded(
-                                  flex: 6,
-                                  child: Container(color: Colors.blue[100],
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Spacer(),
-                                        //Gece-Gündüz Aydınlık yüzdesi 1
-                                        Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            child: Column(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    child: Container(
-                                                      alignment: Alignment.center,
-                                                      child: AutoSizeText(
-                                                        Dil().sec(
-                                                            dilSecimi, "tv335"),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 50.0,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight.bold),
-                                                        maxLines: 1,
-                                                        minFontSize: 8,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 4,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      RawMaterialButton(
-                                                        onPressed: () {
-                                                          _index = 1;
-                                                          int sayi=int.parse(gunduzAydinlikYuzdesi1);
-                                                          _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                          _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                          _birler=sayi%10;
-
-                                                          _degergiris3X0(
-                                                              _yuzler,
-                                                              _onlar,
-                                                              _birler,
-                                                              _index,
-                                                              oran,
-                                                              dilSecimi,
-                                                              "tv343",
-                                                              "");
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: <Widget>[
-                                                            LayoutBuilder(builder:
-                                                                (context,
-                                                                    constraint) {
-                                                              return Icon(
-                                                                Icons
-                                                                    .brightness_1,
-                                                                size: constraint
-                                                                    .biggest
-                                                                    .height,
-                                                                color: Colors
-                                                                    .blue[700],
-                                                              );
-                                                            }),
-                                                            Text(
-                                                              gunduzAydinlikYuzdesi1,
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      25 * oran,
-                                                                  fontFamily:
-                                                                      'Kelly Slab',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "%",
-                                                        textScaleFactor: oran,
-                                                        style: TextStyle(
-                                                            fontSize: 14),
-                                                      ),
-                                                      RawMaterialButton(
-                                                        onPressed: () {
-                                                          _index = 2;
-                                                          int sayi=int.parse(geceAydinlikYuzdesi1);
-                                                          _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                          _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                          _birler=sayi%10;
-
-                                                          _degergiris3X0(
-                                                              _yuzler,
-                                                              _onlar,
-                                                              _birler,
-                                                              _index,
-                                                              oran,
-                                                              dilSecimi,
-                                                              "tv345",
-                                                              "");
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: <Widget>[
-                                                            LayoutBuilder(builder:
-                                                                (context,
-                                                                    constraint) {
-                                                              return Icon(
-                                                                Icons
-                                                                    .brightness_1,
-                                                                size: constraint
-                                                                    .biggest
-                                                                    .height,
-                                                                color: Colors
-                                                                    .black,
-                                                              );
-                                                            }),
-                                                            Text(
-                                                              geceAydinlikYuzdesi1,
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      25 * oran,
-                                                                  fontFamily:
-                                                                      'Kelly Slab',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "%",
-                                                        textScaleFactor: oran,
-                                                        style: TextStyle(
-                                                            fontSize: 14),
-                                                      )
-                                                    
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        Spacer(flex: 2,),
-                                       
-                                        //Gece-Gündüz Aydınlık yüzdesi 2
-                                        Expanded(
-                                          flex: 3,
-                                          child: Container(
-                                            child: Column(
-                                              children: <Widget>[
-                                                Expanded(
-                                                  child: SizedBox(
-                                                    child: Container(
-                                                      alignment: Alignment.center,
-                                                      child: AutoSizeText(
-                                                        Dil().sec(
-                                                            dilSecimi, "tv336"),
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 50.0,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight.bold),
-                                                        maxLines: 1,
-                                                        minFontSize: 8,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  flex: 4,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.center,
-                                                    children: <Widget>[
-                                                      RawMaterialButton(
-                                                        onPressed: () {
-                                                          if(acKapaSaati2Aktiflik){
-                                                          _index = 1;
-                                                          int sayi=int.parse(gunduzAydinlikYuzdesi2);
-                                                          _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                          _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                          _birler=sayi%10;
-
-                                                          _degergiris3X0(
-                                                              _yuzler,
-                                                              _onlar,
-                                                              _birler,
-                                                              _index,
-                                                              oran,
-                                                              dilSecimi,
-                                                              "tv344",
-                                                              "");
-                                                          }else{
-                                                            Toast.show(Dil().sec(dilSecimi, "toast74"), context);
-                                                          }
-                                                        },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: <Widget>[
-                                                            LayoutBuilder(builder:
-                                                                (context,
-                                                                    constraint) {
-                                                              return Icon(
-                                                                Icons
-                                                                    .brightness_1,
-                                                                size: constraint
-                                                                    .biggest
-                                                                    .height,
-                                                                color: acKapaSaati2Aktiflik ? Colors.blue[700] : Colors.grey[700],
-                                                              );
-                                                            }),
-                                                            Text(
-                                                              gunduzAydinlikYuzdesi2,
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      25 * oran,
-                                                                  fontFamily:
-                                                                      'Kelly Slab',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "%",
-                                                        textScaleFactor: oran,
-                                                        style: TextStyle(
-                                                            fontSize: 14),
-                                                      ),
-                                                      RawMaterialButton(
-                                                        onPressed: () {
-                                                          if(acKapaSaati2Aktiflik){
-                                                          _index = 2;
-                                                          int sayi=int.parse(geceAydinlikYuzdesi2);
-                                                          _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                          _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                          _birler=sayi%10;
-
-                                                          _degergiris3X0(
-                                                              _yuzler,
-                                                              _onlar,
-                                                              _birler,
-                                                              _index,
-                                                              oran,
-                                                              dilSecimi,
-                                                              "tv346",
-                                                              "");
-                                                          }else{
-                                                            Toast.show(Dil().sec(dilSecimi, "toast74"), context);
-                                                          }
-                                                                                                                    },
-                                                        child: Stack(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          children: <Widget>[
-                                                            LayoutBuilder(builder:
-                                                                (context,
-                                                                    constraint) {
-                                                              return Icon(
-                                                                Icons
-                                                                    .brightness_1,
-                                                                size: constraint
-                                                                    .biggest
-                                                                    .height,
-                                                                color: acKapaSaati2Aktiflik ? Colors.black : Colors.grey[700],
-                                                              );
-                                                            }),
-                                                            Text(
-                                                              geceAydinlikYuzdesi2,
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      25 * oran,
-                                                                  fontFamily:
-                                                                      'Kelly Slab',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .white),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "%",
-                                                        textScaleFactor: oran,
-                                                        style: TextStyle(
-                                                            fontSize: 14),
-                                                      )
-                                                    
-                                                    ],
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                         Spacer(),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(child: Container(color: dimmerVarMi=="1" ? Colors.white : Colors.white,),
-                                flex: 1,
-                              ),
-                              //Aç Saatleri
-                              Expanded(
-                                flex: 6,
-                                child: Container(color:dimmerVarMi=="1" ? Colors.blue[100] : Colors.white,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Spacer(),
-                                      //Aç Saati 1
-                                      Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: SizedBox(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: AutoSizeText(
-                                                      Dil().sec(
-                                                          dilSecimi, "tv329"),
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 50.0,
-                                                          fontFamily:
-                                                              'Kelly Slab',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                      maxLines: 1,
-                                                      minFontSize: 8,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Visibility(visible: !format24saatlik,
-                                                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: <Widget>[
-
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if (!acSaati1AM) {
-                                                                  acSaati1AM = true;
-                                                                  acSaati1PM = false;
-                                                                } 
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*4*$acSaati1Saat");
-
-                                                                setState(() {});
-                                                              },
-                                                              child: Icon(
-                                                                  acSaati1AM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: acSaati1AM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'AM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
-                                                          ),
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if (!acSaati1PM) {
-                                                                  acSaati1PM = true;
-                                                                  acSaati1AM = false;
-                                                                } 
-
-                                                                String veri= acSaati1Saat=="12" ? '0' : (int.parse(acSaati1Saat)+12).toString();
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*4*$veri");
-
-                                                                setState(() {});
-                                                              },
-                                                              child: Icon(
-                                                                  acSaati1PM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: acSaati1PM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'PM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
-                                                  ),
-                                                        
-                                                        
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        _index = 4;
-                                                        int sayi=int.parse(acSaati1Saat);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv338",);
-                                                      },
-                                                      child: Text(
-                                                        acSaati1Saat,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: Colors.green[800],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    Text(
-                                                      ":",
-                                                      textScaleFactor: oran,
-                                                      style:
-                                                          TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
-                                                          
-                                                    ),
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        _index = 5;
-                                                        int sayi=int.parse(acSaati1Dakika);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv339",);
-                                                      },
-                                                      child: Text(
-                                                        acSaati1Dakika,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: Colors.red[700],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    
-                                            
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(flex: 2,child:
-                                       Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
+                        Spacer(),
+                        //Gece ve Gündüz Aydınlık Yüzdesi
+                        Visibility(visible: dimmerVarMi=='1' ? true : false,
+                          child: Expanded(
+                            flex: 6,
+                            child: Container(color: Colors.blue[100],
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Spacer(),
+                                  //Gece-Gündüz Aydınlık yüzdesi 1
+                                  Expanded(
+                                    flex: 3,
+                                    child: Container(
+                                      child: Column(
                                         children: <Widget>[
-                                          Text(
-                                            Dil().sec(dilSecimi, "tv333"),textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight: FontWeight.bold),
-                                            textScaleFactor: oran,
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: AutoSizeText(
+                                                  Dil().sec(
+                                                      dilSecimi, "tv335"),
+                                                  textAlign:
+                                                      TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
                                           ),
-                                          RawMaterialButton(
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize.shrinkWrap,
-                                            constraints: BoxConstraints(),
-                                            onPressed: () {
-                                              _index = 12;
-                                              if (!acKapaSaati2Aktiflik) {
-                                                acKapaSaati2Aktiflik = true;
-                                              } else {
-                                                acKapaSaati2Aktiflik = false;
-                                              }
-                                              String veri =
-                                                  acKapaSaati2Aktiflik == true ? "1" : "0";
-                                                  yazmaSonrasiGecikmeSayaci=4;
-                                              _veriGonder("15*$_index*$veri");
-                                              setState(() {});
-                                            },
-                                            child: Icon(
-                                                acKapaSaati2Aktiflik == true
-                                                    ? Icons.check_box
-                                                    : Icons.check_box_outline_blank,
-                                                color: acKapaSaati2Aktiflik == true
-                                                    ? Colors.green.shade500
-                                                    : Colors.black,
-                                                size: 30 * oran),
+                                          Expanded(
+                                            flex: 4,
+                                            child: Row(
+                                              mainAxisAlignment:MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(flex: 4,
+                                                  child: RawMaterialButton(
+                                                    onPressed: () {
+                                                      _index = 1;
+                                                      int sayi=int.parse(gunduzAydinlikYuzdesi1);
+                                                      _yuzler=sayi<100 ? 0 : sayi~/100;
+                                                      _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                      _birler=sayi%10;
+
+                                                      _degergiris3X0(
+                                                          _yuzler,
+                                                          _onlar,
+                                                          _birler,
+                                                          _index,
+                                                          oran,
+                                                          dilSecimi,
+                                                          "tv343",
+                                                          "");
+                                                    },
+                                                    child: Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      children: <Widget>[
+                                                        LayoutBuilder(builder:
+                                                            (context,
+                                                                constraint) {
+                                                          return Icon(
+                                                            Icons
+                                                                .brightness_1,
+                                                            size: constraint
+                                                                .biggest
+                                                                .height,
+                                                            color: Colors
+                                                                .blue[700],
+                                                          );
+                                                        }),
+                                                        Text(
+                                                          gunduzAydinlikYuzdesi1,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  25 * oran,
+                                                              fontFamily:
+                                                                  'Kelly Slab',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(flex: 1,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Spacer(),
+                                                      Expanded(flex: 3,
+                                                        child: SizedBox(
+                                                          child: Container(
+                                                            alignment: Alignment.center,
+                                                            child: AutoSizeText(
+                                                              "%",
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: 50.0,
+                                                                ),
+                                                              maxLines: 1,
+                                                              minFontSize: 2,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Spacer()
+                                                    ],
+                                                  ),
+                                                ),
+                                                Spacer(flex: 3,),
+                                                Expanded(flex: 4,
+                                                  child: RawMaterialButton(
+                                                    onPressed: () {
+                                                      _index = 2;
+                                                      int sayi=int.parse(geceAydinlikYuzdesi1);
+                                                      _yuzler=sayi<100 ? 0 : sayi~/100;
+                                                      _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                      _birler=sayi%10;
+
+                                                      _degergiris3X0(
+                                                          _yuzler,
+                                                          _onlar,
+                                                          _birler,
+                                                          _index,
+                                                          oran,
+                                                          dilSecimi,
+                                                          "tv345",
+                                                          "");
+                                                    },
+                                                    child: Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      children: <Widget>[
+                                                        LayoutBuilder(builder:
+                                                            (context,
+                                                                constraint) {
+                                                          return Icon(
+                                                            Icons
+                                                                .brightness_1,
+                                                            size: constraint
+                                                                .biggest
+                                                                .height,
+                                                            color: Colors
+                                                                .black,
+                                                          );
+                                                        }),
+                                                        Text(
+                                                          geceAydinlikYuzdesi1,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  25 * oran,
+                                                              fontFamily:
+                                                                  'Kelly Slab',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(flex: 1,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Spacer(),
+                                                      Expanded(flex: 3,
+                                                        child: SizedBox(
+                                                          child: Container(
+                                                            alignment: Alignment.center,
+                                                            child: AutoSizeText(
+                                                              "%",
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: 50.0,
+                                                                ),
+                                                              maxLines: 1,
+                                                              minFontSize: 2,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Spacer()
+                                                    ],
+                                                  ),
+                                                )
+                                              
+                                              ],
+                                            ),
                                           ),
                                         ],
                                       ),
-                                      
-                                      ),
-                                      //Aç Saati 2
-                                      Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: SizedBox(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: AutoSizeText(
-                                                      Dil().sec(
-                                                          dilSecimi, "tv330"),
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 50.0,
-                                                          fontFamily:
-                                                              'Kelly Slab',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                      maxLines: 1,
-                                                      minFontSize: 8,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Visibility(visible: !format24saatlik,
-                                                      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: <Widget>[
-
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if(acKapaSaati2Aktiflik){
-
-                                                                   if (!acSaati2AM) {
-                                                                  acSaati2AM = true;
-                                                                  acSaati2PM = false;
-                                                                } 
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*6*$acSaati2Saat");
-
-                                                                setState(() {});
-
-                                                                }else{
-                                                                  Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                                }
-
-                                                               
-                                                              },
-                                                              child: Icon(
-                                                                  acSaati2AM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: acSaati2AM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'AM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
-                                                          ),
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if(acKapaSaati2Aktiflik){
-                                                                  
-
-                                                                if (!acSaati2PM) {
-                                                                  acSaati2PM = true;
-                                                                  acSaati2AM = false;
-                                                                } 
-
-                                                                String veri= acSaati2Saat=="12" ? '0' : (int.parse(acSaati2Saat)+12).toString();
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*6*$veri");
-
-                                                                setState(() {});
-
-                                                                }else{
-                                                                  Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                                }
-
-
-
-                                                              },
-                                                              child: Icon(
-                                                                  acSaati2PM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: acSaati2PM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'PM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
-                                                  ),
-                                                        
-                                                        
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        if(acKapaSaati2Aktiflik){
-                                                        _index = 6;
-                                                        int sayi=int.parse(acSaati2Saat);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv338",);
-                                                        }else{
-                                                          Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        acSaati2Saat,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: acKapaSaati2Aktiflik ? Colors.green[700] : Colors.grey[700],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    Text(
-                                                      ":",
-                                                      textScaleFactor: oran,
-                                                      style:
-                                                          TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
-                                                    ),
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        if(acKapaSaati2Aktiflik){
-                                                        _index = 7;
-                                                        int sayi=int.parse(acSaati2Dakika);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv339",);
-                                                        }else{
-                                                          Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        acSaati2Dakika,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: acKapaSaati2Aktiflik ? Colors.red[700] : Colors.grey[700],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    
-                                            
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(),
-                                    ],
+                                    ),
                                   ),
-                                ),
-                              ),
-                              Expanded(child: Container(color: dimmerVarMi=="1" ? Colors.blue[100] : Colors.white,),
-                                flex: 1,
-                              ),
-                              //Kapa Saatleri
-                              Expanded(
-                                flex: 6,
-                                child: Container(color: dimmerVarMi=="1" ? Colors.blue[100] : Colors.white,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Spacer(),
-                                      //Kapa Saati 1
-                                      Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: SizedBox(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: AutoSizeText(
-                                                      Dil().sec(
-                                                          dilSecimi, "tv331"),
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 50.0,
-                                                          fontFamily:
-                                                              'Kelly Slab',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                      maxLines: 1,
-                                                      minFontSize: 8,
-                                                    ),
-                                                  ),
+                                  Spacer(flex: 2,),
+                                 
+                                  //Gece-Gündüz Aydınlık yüzdesi 2
+                                  Expanded(
+                                    flex: 3,
+                                    child: Container(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                child: AutoSizeText(
+                                                  Dil().sec(
+                                                      dilSecimi, "tv336"),
+                                                  textAlign:
+                                                      TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
                                                 ),
                                               ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Visibility(visible: !format24saatlik,
-                                                      child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: <Widget>[
-
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if (!kapaSaati1AM) {
-                                                                  kapaSaati1AM = true;
-                                                                  kapaSaati1PM = false;
-                                                                } 
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*8*$kapaSaati1Saat");
-
-                                                                setState(() {});
-                                                              },
-                                                              child: Icon(
-                                                                  kapaSaati1AM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: kapaSaati1AM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'AM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
-                                                          ),
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if (!kapaSaati1PM) {
-                                                                  kapaSaati1PM = true;
-                                                                  kapaSaati1AM = false;
-                                                                } 
-
-                                                                String veri= kapaSaati1Saat=="12" ? '0' : (int.parse(kapaSaati1Saat)+12).toString();
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*8*$veri");
-
-                                                                setState(() {});
-                                                              },
-                                                              child: Icon(
-                                                                  kapaSaati1PM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: kapaSaati1PM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'PM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
-                                                  ),
-                                                        
-                                                        
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        _index = 8;
-                                                        int sayi=int.parse(kapaSaati1Saat);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv338",);
-                                                      },
-                                                      child: Text(
-                                                        kapaSaati1Saat,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: Colors.green[800],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    Text(
-                                                      ":",
-                                                      textScaleFactor: oran,
-                                                      style:
-                                                          TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
-                                                    ),
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        _index = 9;
-                                                        int sayi=int.parse(kapaSaati1Dakika);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv339",);
-                                                      },
-                                                      child: Text(
-                                                        kapaSaati1Dakika,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: Colors.red[700],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    
-                                            
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                      ),
-                                      Spacer(flex: 2,),
-                                      //Kapa Saati 2
-                                      Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(
-                                                child: SizedBox(
-                                                  child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: AutoSizeText(
-                                                      Dil().sec(
-                                                          dilSecimi, "tv332"),
-                                                      textAlign: TextAlign.center,
-                                                      style: TextStyle(
-                                                          fontSize: 50.0,
-                                                          fontFamily:
-                                                              'Kelly Slab',
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                      maxLines: 1,
-                                                      minFontSize: 8,
+                                          Expanded(
+                                            flex: 4,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: <Widget>[
+                                                Expanded(flex: 4,
+                                                  child: RawMaterialButton(
+                                                    onPressed: () {
+                                                      if(acKapaSaati2Aktiflik){
+                                                      _index = 1;
+                                                      int sayi=int.parse(gunduzAydinlikYuzdesi2);
+                                                      _yuzler=sayi<100 ? 0 : sayi~/100;
+                                                      _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                      _birler=sayi%10;
+
+                                                      _degergiris3X0(
+                                                          _yuzler,
+                                                          _onlar,
+                                                          _birler,
+                                                          _index,
+                                                          oran,
+                                                          dilSecimi,
+                                                          "tv344",
+                                                          "");
+                                                      }else{
+                                                        Toast.show(Dil().sec(dilSecimi, "toast74"), context);
+                                                      }
+                                                    },
+                                                    child: Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      children: <Widget>[
+                                                        LayoutBuilder(builder:
+                                                            (context,
+                                                                constraint) {
+                                                          return Icon(
+                                                            Icons
+                                                                .brightness_1,
+                                                            size: constraint
+                                                                .biggest
+                                                                .height,
+                                                            color: acKapaSaati2Aktiflik ? Colors.blue[700] : Colors.grey[700],
+                                                          );
+                                                        }),
+                                                        Text(
+                                                          gunduzAydinlikYuzdesi2,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  25 * oran,
+                                                              fontFamily:
+                                                                  'Kelly Slab',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white),
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                flex: 4,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: <Widget>[
-                                                    Visibility(visible: !format24saatlik,
-                                                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                                                        children: <Widget>[
-
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if(acKapaSaati2Aktiflik){
-
-                                                                  if (!kapaSaati2AM) {
-                                                                  kapaSaati2AM = true;
-                                                                  kapaSaati2PM = false;
-                                                                } 
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*10*$kapaSaati2Saat");
-
-                                                                setState(() {});
-                                                                }else{
-                                                                  Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                                }
-
-                                                                
-                                                              },
-                                                              child: Icon(
-                                                                  kapaSaati2AM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: kapaSaati2AM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'AM',textAlign: TextAlign.center,
+                                                Expanded(flex: 1,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Spacer(),
+                                                      Expanded(flex: 3,
+                                                        child: SizedBox(
+                                                          child: Container(
+                                                            alignment: Alignment.center,
+                                                            child: AutoSizeText(
+                                                              "%",
+                                                              textAlign: TextAlign.center,
                                                               style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
+                                                                  fontSize: 50.0,
+                                                                ),
+                                                              maxLines: 1,
+                                                              minFontSize: 2,
                                                             ),
-                                                            Container(width: 5*oran,)
-                                                          ],
                                                           ),
-                                                          Row(
-                                                          mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: <Widget>[
-                                                            
-                                                            RawMaterialButton(
-                                                              materialTapTargetSize:
-                                                                  MaterialTapTargetSize.shrinkWrap,
-                                                              constraints: BoxConstraints(),
-                                                              onPressed: () {
-
-                                                                if(acKapaSaati2Aktiflik){
-
-                                                                  if (!kapaSaati2PM) {
-                                                                  kapaSaati2PM = true;
-                                                                  kapaSaati2AM = false;
-                                                                } 
-
-                                                                String veri= kapaSaati2Saat=="12" ? '0' : (int.parse(kapaSaati2Saat)+12).toString();
-
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                _veriGonder("15*10*$veri");
-
-                                                                setState(() {});
-                                                                }else{
-                                                                  Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                                }
-
-                                                                
-                                                              },
-                                                              child: Icon(
-                                                                  kapaSaati2PM == true
-                                                                      ? Icons.check_box
-                                                                      : Icons.check_box_outline_blank,
-                                                                  color: kapaSaati2PM == true
-                                                                      ? Colors.green.shade500
-                                                                      : Colors.black,
-                                                                  size: 20 * oran),
-                                                            ),
-                                                            Text(
-                                                              'PM',textAlign: TextAlign.center,
-                                                              style: TextStyle(
-                                                                  fontFamily: 'Kelly Slab',
-                                                                  fontWeight: FontWeight.bold),
-                                                              textScaleFactor: oran,
-                                                              
-                                                            ),
-                                                            Container(width: 5*oran,)
-                                                          ],
+                                                        ),
+                                                      ),
+                                                      Spacer()
+                                                    ],
                                                   ),
-                                                        
-                                                        
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        if(acKapaSaati2Aktiflik){
-                                                        _index = 10;
-                                                        int sayi=int.parse(kapaSaati2Saat);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv338",);
-                                                        }else{
-                                                          Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        kapaSaati2Saat,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: acKapaSaati2Aktiflik ? Colors.green[700] : Colors.grey[700],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    Text(
-                                                      ":",
-                                                      textScaleFactor: oran,
-                                                      style:
-                                                          TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
-                                                    ),
-                                                    RawMaterialButton(
-                                                      onPressed: () {
-                                                        if(acKapaSaati2Aktiflik){
-                                                        _index = 11;
-                                                        int sayi=int.parse(kapaSaati2Dakika);
-                                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                        _birler=sayi%10;
-
-                                                        _degergiris2X0(
-                                                            _onlar,
-                                                            _birler,
-                                                            _index,
-                                                            oran,
-                                                            dilSecimi,
-                                                            "tv339",);
-                                                        }else{
-                                                          Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
-                                                        }
-                                                      },
-                                                      child: Text(
-                                                        kapaSaati2Dakika,
-                                                        style: TextStyle(
-                                                            fontSize:
-                                                                25 * oran,
-                                                            fontFamily:
-                                                                'Kelly Slab',
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold,
-                                                            color:
-                                                                Colors.white),
-                                                      ),
-                                                      fillColor: acKapaSaati2Aktiflik ? Colors.red[700] : Colors.grey[700],
-                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                      constraints: BoxConstraints(),
-                                                      padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                    ),
-                                                    
-                                            
-                                                  ],
                                                 ),
-                                              ),
-                                            ],
+                                                Spacer(flex: 3,),
+                                                Expanded(flex: 4,
+                                                  child: RawMaterialButton(
+                                                    onPressed: () {
+                                                      if(acKapaSaati2Aktiflik){
+                                                      _index = 2;
+                                                      int sayi=int.parse(geceAydinlikYuzdesi2);
+                                                      _yuzler=sayi<100 ? 0 : sayi~/100;
+                                                      _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                      _birler=sayi%10;
+
+                                                      _degergiris3X0(
+                                                          _yuzler,
+                                                          _onlar,
+                                                          _birler,
+                                                          _index,
+                                                          oran,
+                                                          dilSecimi,
+                                                          "tv346",
+                                                          "");
+                                                      }else{
+                                                        Toast.show(Dil().sec(dilSecimi, "toast74"), context);
+                                                      }
+                                                                                                                },
+                                                    child: Stack(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      children: <Widget>[
+                                                        LayoutBuilder(builder:
+                                                            (context,
+                                                                constraint) {
+                                                          return Icon(
+                                                            Icons
+                                                                .brightness_1,
+                                                            size: constraint
+                                                                .biggest
+                                                                .height,
+                                                            color: acKapaSaati2Aktiflik ? Colors.black : Colors.grey[700],
+                                                          );
+                                                        }),
+                                                        Text(
+                                                          geceAydinlikYuzdesi2,
+                                                          style: TextStyle(
+                                                              fontSize:
+                                                                  25 * oran,
+                                                              fontFamily:
+                                                                  'Kelly Slab',
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .white),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                Expanded(flex: 1,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      Spacer(),
+                                                      Expanded(flex: 3,
+                                                        child: SizedBox(
+                                                          child: Container(
+                                                            alignment: Alignment.center,
+                                                            child: AutoSizeText(
+                                                              "%",
+                                                              textAlign: TextAlign.center,
+                                                              style: TextStyle(
+                                                                  fontSize: 50.0,
+                                                                ),
+                                                              maxLines: 1,
+                                                              minFontSize: 2,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Spacer()
+                                                    ],
+                                                  ),
+                                                ),
+                                                
+                                              ],
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                      Spacer(),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                   Spacer(),
+                                ],
                               ),
-                              Spacer(
-                                flex: dimmerVarMi=="1" ? 1 : 6,
-                              ),
-                            ],
+                            ),
                           ),
                         ),
-                        Visibility(visible: dimmerVarMi=="1" ? true : false,
-                          child: Expanded(
-                            child: Column(
-                            children: <Widget>[
-                              Spacer(flex: 5,),
-                              Expanded(
-                                  flex: 5,
+                        Expanded(child: Container(color: dimmerVarMi=="1" ? Colors.white: Colors.white,),
+                          flex: 1,
+                        ),
+                        //Aç Saatleri
+                        Expanded(
+                          flex: 6,
+                          child: Container(color:dimmerVarMi=="1" ? Colors.blue[100] : Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Spacer(),
+                                //Aç Saati 1
+                                Expanded(
+                                  flex: 3,
                                   child: Container(
                                     child: Column(
                                       children: <Widget>[
@@ -1486,78 +616,195 @@ class AydinlatmaState extends State<Aydinlatma> {
                                               alignment: Alignment.center,
                                               child: AutoSizeText(
                                                 Dil().sec(
-                                                    dilSecimi, "tv337"),
-                                                textAlign:
-                                                    TextAlign.center,
+                                                    dilSecimi, "tv329"),
+                                                textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                     fontSize: 50.0,
                                                     fontFamily:
                                                         'Kelly Slab',
                                                     fontWeight:
                                                         FontWeight.bold),
-                                                maxLines: 2,
+                                                maxLines: 1,
                                                 minFontSize: 8,
                                               ),
                                             ),
                                           ),
                                         ),
                                         Expanded(
-                                          flex: 2,
+                                          flex: 4,
                                           child: Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: <Widget>[
+                                              Visibility(visible: !format24saatlik,
+                                                 child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if (!acSaati1AM) {
+                                                            acSaati1AM = true;
+                                                            acSaati1PM = false;
+                                                          } 
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*4*$acSaati1Saat");
+
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                            acSaati1AM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: acSaati1AM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'AM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                                    ),
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if (!acSaati1PM) {
+                                                            acSaati1PM = true;
+                                                            acSaati1AM = false;
+                                                          } 
+
+                                                          String veri= acSaati1Saat=="12" ? '0' : (int.parse(acSaati1Saat)+12).toString();
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*4*$veri");
+
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                            acSaati1PM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: acSaati1PM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'PM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                            ),
+                                                  
+                                                  
+                                                  ],
+                                                ),
+                                              ),
+                                            
                                               RawMaterialButton(
                                                 onPressed: () {
-                                                  _index = 3;
-                                                  int sayi=int.parse(dogusBatisSuresi);
-                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
+                                                  _index = 4;
+                                                  int sayi=int.parse(acSaati1Saat);
                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                   _birler=sayi%10;
 
-                                                  _degergiris3X0(
-                                                      _yuzler,
+                                                  _degergiris2X0(
                                                       _onlar,
                                                       _birler,
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv337",
-                                                      "");
+                                                      "tv338",);
                                                 },
-                                                child: Stack(
-                                                  alignment:
-                                                      Alignment.center,
-                                                  children: <Widget>[
-                                                    LayoutBuilder(builder:
-                                                        (context,
-                              constraint) {
-                                                      return Icon(
-                                                        Icons
-                              .brightness_1,
-                                                        size: constraint
-                              .biggest
-                              .height,
-                                                        color: Colors
-                              .orange[700],
-                                                      );
-                                                    }),
-                                                    Text(
-                                                      dogusBatisSuresi,
-                                                      style: TextStyle(
-                                                          fontSize:
-                                25 * oran,
-                                                          fontFamily:
-                                'Kelly Slab',
-                                                          fontWeight:
-                                FontWeight
-                                    .bold,
-                                                          color: Colors
-                                .white),
-                                                    ),
-                                                  ],
+                                                child: Text(
+                                                  acSaati1Saat,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
                                                 ),
+                                                fillColor: Colors.green[800],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
                                               ),
+                                              Text(
+                                                ":",
+                                                textScaleFactor: oran,
+                                                style:
+                                                    TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                                    
+                                              ),
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  _index = 5;
+                                                  int sayi=int.parse(acSaati1Dakika);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv339",);
+                                                },
+                                                child: Text(
+                                                  acSaati1Dakika,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: Colors.red[700],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              
+                                      
                                             ],
                                           ),
                                         ),
@@ -1565,123 +812,913 @@ class AydinlatmaState extends State<Aydinlatma> {
                                     ),
                                   ),
                                 ),
-                              Spacer(flex: 6,)
-                            ],
-                          )),
-                        )
-                      ],
-                    ),
-                  ),
-                  //Sıcaklık çizelgesi bölümü
-                  Expanded(
-                    flex: 6,
-                    child: Visibility(visible: dimmerVarMi=="1" ? true : false,
-                                          child: Row(
-                        children: <Widget>[
-                          Spacer(
-                            flex: 1,
-                          ),
-                          Expanded(
-                            flex: 28,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Expanded(
-                                  child: SizedBox(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv342"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 50.0,
+                                Expanded(flex: 2,child:
+                                 Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      Dil().sec(dilSecimi, "tv333"),textAlign: TextAlign.center,
+                                      style: TextStyle(
                                           fontFamily: 'Kelly Slab',
+                                          fontWeight: FontWeight.bold),
+                                      textScaleFactor: oran,
+                                    ),
+                                    RawMaterialButton(
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      constraints: BoxConstraints(),
+                                      onPressed: () {
+                                        _index = 12;
+                                        if (!acKapaSaati2Aktiflik) {
+                                          acKapaSaati2Aktiflik = true;
+                                        } else {
+                                          acKapaSaati2Aktiflik = false;
+                                        }
+                                        String veri =
+                                            acKapaSaati2Aktiflik == true ? "1" : "0";
+                                            yazmaSonrasiGecikmeSayaci=4;
+                                        _veriGonder("15*$_index*$veri");
+                                        setState(() {});
+                                      },
+                                      child: Icon(
+                                          acKapaSaati2Aktiflik == true
+                                              ? Icons.check_box
+                                              : Icons.check_box_outline_blank,
+                                          color: acKapaSaati2Aktiflik == true
+                                              ? Colors.green.shade500
+                                              : Colors.black,
+                                          size: 30 * oran),
+                                    ),
+                                  ],
+                                ),
+                                
+                                ),
+                                //Aç Saati 2
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: SizedBox(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: AutoSizeText(
+                                                Dil().sec(
+                                                    dilSecimi, "tv330"),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 50.0,
+                                                    fontFamily:
+                                                        'Kelly Slab',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                maxLines: 1,
+                                                minFontSize: 8,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                        maxLines: 1,
-                                        minFontSize: 8,
-                                      ),
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Visibility(visible: !format24saatlik,
+                                                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if(acKapaSaati2Aktiflik){
+
+                                                             if (!acSaati2AM) {
+                                                            acSaati2AM = true;
+                                                            acSaati2PM = false;
+                                                          } 
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*6*$acSaati2Saat");
+
+                                                          setState(() {});
+
+                                                          }else{
+                                                            Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                          }
+
+                                                         
+                                                        },
+                                                        child: Icon(
+                                                            acSaati2AM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: acSaati2AM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'AM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                                    ),
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if(acKapaSaati2Aktiflik){
+                                                            
+
+                                                          if (!acSaati2PM) {
+                                                            acSaati2PM = true;
+                                                            acSaati2AM = false;
+                                                          } 
+
+                                                          String veri= acSaati2Saat=="12" ? '0' : (int.parse(acSaati2Saat)+12).toString();
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*6*$veri");
+
+                                                          setState(() {});
+
+                                                          }else{
+                                                            Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                          }
+
+
+
+                                                        },
+                                                        child: Icon(
+                                                            acSaati2PM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: acSaati2PM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'PM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                            ),
+                                                  
+                                                  
+                                                  ],
+                                                ),
+                                              ),
+                                            
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  if(acKapaSaati2Aktiflik){
+                                                  _index = 6;
+                                                  int sayi=int.parse(acSaati2Saat);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv338",);
+                                                  }else{
+                                                    Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                  }
+                                                },
+                                                child: Text(
+                                                  acSaati2Saat,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: acKapaSaati2Aktiflik ? Colors.green[700] : Colors.grey[700],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              Text(
+                                                ":",
+                                                textScaleFactor: oran,
+                                                style:
+                                                    TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                              ),
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  if(acKapaSaati2Aktiflik){
+                                                  _index = 7;
+                                                  int sayi=int.parse(acSaati2Dakika);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv339",);
+                                                  }else{
+                                                    Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                  }
+                                                },
+                                                child: Text(
+                                                  acSaati2Dakika,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: acKapaSaati2Aktiflik ? Colors.red[700] : Colors.grey[700],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              
+                                      
+                                            ],
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                    flex: 3,
-                                    child: charts.BarChart(
-                                      _grafikData(
-                                          double.parse(anlikAydinlikYuzdesi),
-                                          dilSecimi),
-                                      domainAxis: new charts.OrdinalAxisSpec(
-                                          renderSpec: new charts
-                                                  .SmallTickRendererSpec(
-
-                                              // Tick and Label styling here.
-                                              labelStyle: new charts
-                                                      .TextStyleSpec(
-                                                  fontSize: (12 * oran)
-                                                      .floor(), // size in Pts.
-                                                  color: charts
-                                                      .MaterialPalette.black))),
-                                      primaryMeasureAxis:
-                                          new charts.NumericAxisSpec(
-                                        showAxisLine: true,
-                                        tickProviderSpec: new charts
-                                            .StaticNumericTickProviderSpec(
-                                          <charts.TickSpec<num>>[
-                                            charts.TickSpec<num>(0),
-                                            charts.TickSpec<num>(10),
-                                            charts.TickSpec<num>(20),
-                                            charts.TickSpec<num>(
-                                                double.parse(anlikAydinlikYuzdesi)),
-                                            charts.TickSpec<num>(95),
-                                            charts.TickSpec<num>(100),
-                                            
-                                          ],
-                                        ),
-                                        renderSpec: new charts
-                                                .GridlineRendererSpec(
-                                            labelRotation: 50,
-                                            labelOffsetFromAxisPx:
-                                                (1 * oran).round(),
-
-                                            // Tick and Label styling here.
-                                            labelStyle: new charts
-                                                    .TextStyleSpec(
-                                                fontSize: (8 * oran)
-                                                    .round(), // size in Pts.
-                                                color: charts
-                                                    .MaterialPalette.black),
-
-                                            // Change the line colors to match text color.
-                                            lineStyle: new charts.LineStyleSpec(
-                                                color: charts
-                                                    .MaterialPalette.black)),
-                                      ),
-                                      behaviors: [
-                                        new charts.SeriesLegend(),
-                                        new charts.SlidingViewport(),
-                                        new charts.PanAndZoomBehavior(),
-                                      ],
-                                      animate: animate,
-                                      barGroupingType:
-                                          charts.BarGroupingType.stacked,
-                                      vertical: false,
-                                    )),
-                                Spacer()
+                                Spacer(),
                               ],
                             ),
                           ),
-                          Spacer(
-                            flex: 4,
-                          )
-                        ],
-                      ),
+                        ),
+                        Expanded(child: Container(color: dimmerVarMi=="1" ? Colors.blue[100] : Colors.white,),
+                          flex: 1,
+                        ),
+                        //Kapa Saatleri
+                        Expanded(
+                          flex: 6,
+                          child: Container(color: dimmerVarMi=="1" ? Colors.blue[100] : Colors.white,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Spacer(),
+                                //Kapa Saati 1
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: SizedBox(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: AutoSizeText(
+                                                Dil().sec(
+                                                    dilSecimi, "tv331"),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 50.0,
+                                                    fontFamily:
+                                                        'Kelly Slab',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                maxLines: 1,
+                                                minFontSize: 8,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Visibility(visible: !format24saatlik,
+                                                child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if (!kapaSaati1AM) {
+                                                            kapaSaati1AM = true;
+                                                            kapaSaati1PM = false;
+                                                          } 
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*8*$kapaSaati1Saat");
+
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                            kapaSaati1AM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: kapaSaati1AM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'AM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                                    ),
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if (!kapaSaati1PM) {
+                                                            kapaSaati1PM = true;
+                                                            kapaSaati1AM = false;
+                                                          } 
+
+                                                          String veri= kapaSaati1Saat=="12" ? '0' : (int.parse(kapaSaati1Saat)+12).toString();
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*8*$veri");
+
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                            kapaSaati1PM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: kapaSaati1PM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'PM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                            ),
+                                                  
+                                                  
+                                                  ],
+                                                ),
+                                              ),
+                                            
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  _index = 8;
+                                                  int sayi=int.parse(kapaSaati1Saat);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv338",);
+                                                },
+                                                child: Text(
+                                                  kapaSaati1Saat,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: Colors.green[800],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              Text(
+                                                ":",
+                                                textScaleFactor: oran,
+                                                style:
+                                                    TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                              ),
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  _index = 9;
+                                                  int sayi=int.parse(kapaSaati1Dakika);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv339",);
+                                                },
+                                                child: Text(
+                                                  kapaSaati1Dakika,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: Colors.red[700],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              
+                                      
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Spacer(flex: 2,),
+                                //Kapa Saati 2
+                                Expanded(
+                                  flex: 3,
+                                  child: Container(
+                                    child: Column(
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: SizedBox(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: AutoSizeText(
+                                                Dil().sec(
+                                                    dilSecimi, "tv332"),
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                    fontSize: 50.0,
+                                                    fontFamily:
+                                                        'Kelly Slab',
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                maxLines: 1,
+                                                minFontSize: 8,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 4,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              Visibility(visible: !format24saatlik,
+                                                 child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: <Widget>[
+
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if(acKapaSaati2Aktiflik){
+
+                                                            if (!kapaSaati2AM) {
+                                                            kapaSaati2AM = true;
+                                                            kapaSaati2PM = false;
+                                                          } 
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*10*$kapaSaati2Saat");
+
+                                                          setState(() {});
+                                                          }else{
+                                                            Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                          }
+
+                                                          
+                                                        },
+                                                        child: Icon(
+                                                            kapaSaati2AM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: kapaSaati2AM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'AM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                                    ),
+                                                    Row(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: <Widget>[
+                                                      
+                                                      RawMaterialButton(
+                                                        materialTapTargetSize:
+                                                            MaterialTapTargetSize.shrinkWrap,
+                                                        constraints: BoxConstraints(),
+                                                        onPressed: () {
+
+                                                          if(acKapaSaati2Aktiflik){
+
+                                                            if (!kapaSaati2PM) {
+                                                            kapaSaati2PM = true;
+                                                            kapaSaati2AM = false;
+                                                          } 
+
+                                                          String veri= kapaSaati2Saat=="12" ? '0' : (int.parse(kapaSaati2Saat)+12).toString();
+
+                                                          yazmaSonrasiGecikmeSayaci = 0;
+                                                          _veriGonder("15*10*$veri");
+
+                                                          setState(() {});
+                                                          }else{
+                                                            Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                          }
+
+                                                          
+                                                        },
+                                                        child: Icon(
+                                                            kapaSaati2PM == true
+                                                                ? Icons.check_box
+                                                                : Icons.check_box_outline_blank,
+                                                            color: kapaSaati2PM == true
+                                                                ? Colors.green.shade500
+                                                                : Colors.black,
+                                                            size: 20 * oran),
+                                                      ),
+                                                      Text(
+                                                        'PM',textAlign: TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kelly Slab',
+                                                            fontWeight: FontWeight.bold),
+                                                        textScaleFactor: oran,
+                                                        
+                                                      ),
+                                                      Container(width: 5*oran,)
+                                                    ],
+                                            ),
+                                                  
+                                                  
+                                                  ],
+                                                ),
+                                              ),
+                                            
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  if(acKapaSaati2Aktiflik){
+                                                  _index = 10;
+                                                  int sayi=int.parse(kapaSaati2Saat);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv338",);
+                                                  }else{
+                                                    Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                  }
+                                                },
+                                                child: Text(
+                                                  kapaSaati2Saat,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: acKapaSaati2Aktiflik ? Colors.green[700] : Colors.grey[700],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              Text(
+                                                ":",
+                                                textScaleFactor: oran,
+                                                style:
+                                                    TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
+                                              ),
+                                              RawMaterialButton(
+                                                onPressed: () {
+                                                  if(acKapaSaati2Aktiflik){
+                                                  _index = 11;
+                                                  int sayi=int.parse(kapaSaati2Dakika);
+                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                                  _birler=sayi%10;
+
+                                                  _degergiris2X0(
+                                                      _onlar,
+                                                      _birler,
+                                                      _index,
+                                                      oran,
+                                                      dilSecimi,
+                                                      "tv339",);
+                                                  }else{
+                                                    Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
+                                                  }
+                                                },
+                                                child: Text(
+                                                  kapaSaati2Dakika,
+                                                  style: TextStyle(
+                                                      fontSize:
+                                                          25 * oran,
+                                                      fontFamily:
+                                                          'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                      color:
+                                                          Colors.white),
+                                                ),
+                                                fillColor: acKapaSaati2Aktiflik ? Colors.red[700] : Colors.grey[700],
+                                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                                constraints: BoxConstraints(),
+                                                padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
+                                              ),
+                                              
+                                      
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Spacer(),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Visibility(visible: dimmerVarMi=="1" ? false : true,
+                          child: Spacer(flex: 6,),
+                        ),
+                      ],
                     ),
                   ),
+                  Visibility(visible: dimmerVarMi=="1" ? true : false,
+                    child: Expanded(
+                      child: Column(
+                      children: <Widget>[
+                        Spacer(flex: 5,),
+                        Expanded(
+                            flex: 5,
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Expanded(
+                                    child: SizedBox(
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: AutoSizeText(
+                                          Dil().sec(
+                                              dilSecimi, "tv337"),
+                                          textAlign:
+                                              TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily:
+                                                  'Kelly Slab',
+                                              fontWeight:
+                                                  FontWeight.bold),
+                                          maxLines: 2,
+                                          minFontSize: 8,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    flex: 2,
+                                    child: RawMaterialButton(
+                                      onPressed: () {
+                                        _index = 3;
+                                        int sayi=int.parse(dogusBatisSuresi);
+                                        _yuzler=sayi<100 ? 0 : sayi~/100;
+                                        _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
+                                        _birler=sayi%10;
+
+                                        _degergiris3X0(
+                                            _yuzler,
+                                            _onlar,
+                                            _birler,
+                                            _index,
+                                            oran,
+                                            dilSecimi,
+                                            "tv337",
+                                            "");
+                                      },
+                                      child: Stack(fit: StackFit.expand,
+                                        alignment:Alignment.center,
+                                        children: <Widget>[
+                                          LayoutBuilder(builder:
+                                              (context, constraint) {
+                                            return Icon(
+                                              Icons.brightness_1,
+                                              size: constraint.biggest.height,
+                                              color: Colors.orange[700],
+                                            );
+                                          }),
+                                          SizedBox(
+                                            child: Container(
+                                              alignment: Alignment.center,
+                                              child: AutoSizeText(
+                                                dogusBatisSuresi,
+                                                style: TextStyle(
+                                                    fontSize:25 * oran,
+                                                    fontFamily:'Kelly Slab',
+                                                    fontWeight:FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        Spacer(flex: 6,)
+                      ],
+                    )),
+                  )
                 ],
               ),
             ),
-          )
-        ],
+            //Sıcaklık çizelgesi bölümü
+            Expanded(flex: 13,
+              child: Visibility(visible: dimmerVarMi=="1" ? true : false,
+                child: Row(
+                children: <Widget>[
+                  Spacer(flex: 1,),
+                  Expanded(
+                    flex: 28,
+                    child: Container(
+                      margin: EdgeInsets.only(bottom: 10*oran),
+                      child: charts.BarChart(
+                        _grafikData(
+                              double.parse(anlikAydinlikYuzdesi),
+                              dilSecimi),
+                        domainAxis: new charts.OrdinalAxisSpec(
+                              renderSpec: new charts
+                                      .SmallTickRendererSpec(
+
+                                  // Tick and Label styling here.
+                                  labelStyle: new charts.TextStyleSpec(
+                                      fontSize: (12 * oran).floor(), // size in Pts.
+                                      color: charts.MaterialPalette.black)
+                                      )
+                                    ),
+                        primaryMeasureAxis:new charts.NumericAxisSpec(
+                          showAxisLine: true,
+                          tickProviderSpec: new charts
+                                .StaticNumericTickProviderSpec(
+                              <charts.TickSpec<num>>[
+                                charts.TickSpec<num>(0),
+                                charts.TickSpec<num>(10),
+                                charts.TickSpec<num>(20),
+                                charts.TickSpec<num>(double.parse(anlikAydinlikYuzdesi)),
+                                charts.TickSpec<num>(95),
+                                charts.TickSpec<num>(100),
+                                
+                              ],
+                          ),
+                          renderSpec: new charts
+                                    .GridlineRendererSpec(
+                                labelRotation: 50,
+                                labelOffsetFromAxisPx:
+                                    (1 * oran).round(),
+
+                                // Tick and Label styling here.
+                                labelStyle: new charts
+                                        .TextStyleSpec(
+                                    fontSize: (10 * oran)
+                                        .round(), // size in Pts.
+                                    color: charts
+                                        .MaterialPalette.black),
+
+                                // Change the line colors to match text color.
+                                lineStyle: new charts.LineStyleSpec(
+                                    color: charts
+                                        .MaterialPalette.black)),
+                        ),
+                        behaviors: [
+                          new charts.SeriesLegend(),
+                          new charts.SlidingViewport(),
+                          new charts.PanAndZoomBehavior(),
+                        ],
+                        animate: animate,
+                        barGroupingType:charts.BarGroupingType.stacked,
+                        vertical: false,
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 4,)
+                ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
+            )
+          ],
+        ),
       floatingActionButton: Container(
         width: 56 * oran,
         height: 56 * oran,
@@ -1761,6 +1798,7 @@ class AydinlatmaState extends State<Aydinlatma> {
           ),
         ),
       ),
+    
     );
   }
 

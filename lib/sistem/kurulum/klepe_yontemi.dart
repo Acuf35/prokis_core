@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/sistem/kurulum/fan_haritasi.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/sistem/kurulum/uz_debi_nem.dart';
 import 'package:prokis/languages/select.dart';
@@ -280,7 +281,7 @@ class KlpYontemi extends StatelessWidget {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => UzDebiNem(true)),
+                                            builder: (context) => FanHaritasi(true)),
                                       );
                                     }
                                   },

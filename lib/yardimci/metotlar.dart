@@ -563,6 +563,7 @@ class Metotlar {
                 onPressed: () => Scaffold.of(context).openEndDrawer(),
               ),
             )),
+          
           ],
         ),
         actions: [
@@ -611,9 +612,21 @@ class Metotlar {
                   ),
                 ),
               ),
-              Spacer(
-                flex: 2,
-              ),
+              Spacer(),
+              Expanded(
+                  child: Builder(
+                builder: (context) => RawMaterialButton(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  constraints: BoxConstraints(),
+                  child: Icon(
+                    Icons.info_outline,
+                    size: 40 * oran,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
+                ),
+              )),
+          
             ],
           ),
         ),

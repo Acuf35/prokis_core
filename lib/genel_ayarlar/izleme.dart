@@ -48,8 +48,12 @@ class IzlemeState extends State<Izleme> {
   String capBolgeBitis="26.0";
   String olculenMakSic="29.0";
   String olculenMinSic="19.0";
-  String olculenMakZmn="14:40";
-  String olculenMinZmn="03:20";
+  String olculenMakSicZmn="14:40";
+  String olculenMinSicZmn="03:20";
+  String olculenMakNem="86.0";
+  String olculenMinNem="32.0";
+  String olculenMakNemZmn="13:32";
+  String olculenMinNemZmn="07:51";
   String icNem="50.0";
   String disNem="65.0";
   String ortHissedilirSicaklik="24.9";
@@ -882,6 +886,190 @@ int sayac=0;
                                   ),
                                 ),
                               ),
+                                  //İç nem Dış Nem
+                                  Expanded(flex: 6,
+                                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Expanded(flex: 7,
+                                               child: SizedBox(
+                                                 child: Container(
+                                                   alignment: Alignment.center,
+                                                   padding: EdgeInsets.only(left: 1*oran),
+                                                   child: AutoSizeText(
+                                                     Dil().sec(dilSecimi, "tv618"),
+                                                     textAlign:
+                                                         TextAlign.center,
+                                                     style: TextStyle(
+                                                         fontSize: 50.0,
+                                                         fontFamily:'Kelly Slab',
+                                                         color: Colors.red[800]
+                                                         ),
+                                                     maxLines: 1,
+                                                     minFontSize: 5,
+                                                   ),
+                                                 ),
+                                               ),
+                                           ),
+                                              Expanded(flex: 11,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Spacer(flex: 1,),
+                                                    Expanded(flex: 4,
+                                                     child: SizedBox(
+                                                       child: Container(
+                                                         alignment: Alignment.centerRight,
+                                                         child: AutoSizeText(
+                                                           icNem,
+                                                           textAlign:TextAlign.center,
+                                                           style: TextStyle(
+                                                               fontSize: 50.0,
+                                                               fontFamily:'Kelly Slab',
+                                                               color: Colors.black,
+                                                               fontWeight: FontWeight.bold
+                                                               ),
+                                                           maxLines: 1,
+                                                           minFontSize: 5,
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   ),
+                                                    Expanded(flex: 2,
+                                                     child: SizedBox(
+                                                       child: Container(
+                                                         alignment: Alignment.centerLeft,
+                                                         padding: EdgeInsets.only(right: 2*oran),
+                                                         child: AutoSizeText(
+                                                           "%",
+                                                           textAlign:
+                                                               TextAlign.center,
+                                                           style: TextStyle(
+                                                               fontSize: 50.0,
+                                                               fontFamily:'Kelly Slab',
+                                                               color: Colors.red[800]
+                                                               ),
+                                                           maxLines: 1,
+                                                           minFontSize: 5,
+                                                         ),
+                                                       ),
+                                                     ),
+                                                   ),
+                                                    Spacer(flex: 1,)
+                                                  ],
+                                                ),
+                                              ),
+                                              Spacer(flex: 2,)
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Column(
+                                            children: <Widget>[
+                                              Spacer(flex: 2,),
+                                              Expanded(flex: 7,
+                                               child: SizedBox(
+                                                 child: Container(
+                                                   alignment: Alignment.center,
+                                                   padding: EdgeInsets.only(left: 1*oran),
+                                                   child: AutoSizeText(
+                                                     Dil().sec(dilSecimi, "tv619"),
+                                                     textAlign:
+                                                         TextAlign.center,
+                                                     style: TextStyle(
+                                                         fontSize: 50.0,
+                                                         fontFamily:'Kelly Slab',
+                                                         color: Colors.red[800]
+                                                         ),
+                                                     maxLines: 1,
+                                                     minFontSize: 5,
+                                                   ),
+                                                 ),
+                                               ),
+                                           ),
+                                              Expanded(flex: 11,
+                                                child: Stack(fit: StackFit.expand,
+                                                  children: <Widget>[
+                                                    Visibility(visible: disNemVarMi=="0" ? false: true,
+                                                                                                                child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                           child: SizedBox(
+                                                             child: Container(
+                                                               alignment: Alignment.centerRight,
+                                                               child: AutoSizeText(
+                                                                 disNem,
+                                                                 textAlign:TextAlign.center,
+                                                                 style: TextStyle(
+                                                                     fontSize: 50.0,
+                                                                     fontFamily:'Kelly Slab',
+                                                                     color: Colors.black,
+                                                                     fontWeight: FontWeight.bold
+                                                                     ),
+                                                                 maxLines: 1,
+                                                                 minFontSize: 5,
+                                                               ),
+                                                             ),
+                                                           ),
+                                                         ),
+                                                          Expanded(flex: 2,
+                                                           child: SizedBox(
+                                                             child: Container(
+                                                               alignment: Alignment.centerLeft,
+                                                               padding: EdgeInsets.only(right: 2*oran),
+                                                               child: AutoSizeText(
+                                                                 "%",
+                                                                 textAlign:
+                                                                     TextAlign.center,
+                                                                 style: TextStyle(
+                                                                     fontSize: 50.0,
+                                                                     fontFamily:'Kelly Slab',
+                                                                     color: Colors.red[800]
+                                                                     ),
+                                                                 maxLines: 1,
+                                                                 minFontSize: 5,
+                                                               ),
+                                                             ),
+                                                           ),
+                                                         ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Visibility(visible: disNemVarMi=="0"? true : false,
+                                                      child: SizedBox(
+                                                        child: Container(
+                                                          margin: EdgeInsets.only(left: 2*oran,right: 2*oran),
+                                                          alignment: Alignment.center,
+                                                          child: AutoSizeText(
+                                                            Dil().sec(dilSecimi, "tv237"),
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: TextStyle(
+                                                                fontSize: 50.0,
+                                                                fontFamily:'Kelly Slab',
+                                                                fontWeight:FontWeight.bold,
+                                                                color: Colors.grey[500],
+                                                                ),
+                                                            maxLines: 4,
+                                                            minFontSize: 8,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+
+                                                  ],
+                                                ),
+                                              ),
+                                              
+                                            ],
+                                          ),
+                                        ),
+
+                                    ],
+                                  )),
                                   //Doğal Bölge Çapraz Bölge
                                   Expanded(flex: 6,
                                     child: Column(
@@ -1146,7 +1334,7 @@ int sayac=0;
                                     ),
                                   ),
                                   //Ortalama Sıcaklık Bölümü
-                                  Expanded(flex: 8,
+                                  Expanded(flex: 10,
                                     child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.grey[600],
@@ -1226,462 +1414,569 @@ int sayac=0;
                                       ],
                                     )
                                   )),
-                                  //Maks ve Min sıcaklıklar
-                                  Expanded(flex: 6,
-                                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  //Min - Max sıcaklıklar ve saatlari
+                                  Expanded(flex: 12,
+                                    child:Column(
                                       children: <Widget>[
-                                        Expanded(
-                                          child: Column(
+                                        //Maks ve Min sıcaklıklar
+                                        Expanded(flex: 6,
+                                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                                             children: <Widget>[
-                                              Expanded(flex: 7,
-                                               child: SizedBox(
-                                                 child: Container(
-                                                   alignment: Alignment.center,
-                                                   padding: EdgeInsets.only(left: 1*oran),
-                                                   child: AutoSizeText(
-                                                     Dil().sec(dilSecimi, "tv614"),
-                                                     textAlign:
-                                                         TextAlign.center,
-                                                     style: TextStyle(
-                                                         fontSize: 50.0,
-                                                         fontFamily:'Kelly Slab',
-                                                         color: Colors.red[800]
-                                                         ),
-                                                     maxLines: 1,
-                                                     minFontSize: 5,
-                                                   ),
-                                                 ),
-                                               ),
-                                           ),
-                                              Expanded(flex: 11,
-                                                child: Row(
+                                              Expanded(
+                                                child: Column(
                                                   children: <Widget>[
-                                                    Spacer(flex: 1,),
-                                                    Expanded(flex: 4,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.centerRight,
-                                                         child: AutoSizeText(
-                                                           olculenMakSic,
-                                                           textAlign:TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.black,
-                                                               fontWeight: FontWeight.bold
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Expanded(flex: 2,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.centerLeft,
-                                                         padding: EdgeInsets.only(right: 2*oran),
-                                                         child: AutoSizeText(
-                                                           "°C",
-                                                           textAlign:
-                                                               TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.red[800]
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Spacer(flex: 1,)
-                                                  ],
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv614"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
                                                 ),
-                                              ),
-                                              Spacer(flex: 2,)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Spacer(flex: 2,),
-                                              Expanded(flex: 7,
-                                               child: SizedBox(
-                                                 child: Container(
-                                                   alignment: Alignment.center,
-                                                   padding: EdgeInsets.only(left: 1*oran),
-                                                   child: AutoSizeText(
-                                                     Dil().sec(dilSecimi, "tv615"),
-                                                     textAlign:
-                                                         TextAlign.center,
-                                                     style: TextStyle(
-                                                         fontSize: 50.0,
-                                                         fontFamily:'Kelly Slab',
-                                                         color: Colors.red[800]
-                                                         ),
-                                                     maxLines: 1,
-                                                     minFontSize: 5,
-                                                   ),
-                                                 ),
-                                               ),
-                                           ),
-                                              Expanded(flex: 11,
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Spacer(flex: 1,),
-                                                    Expanded(flex: 4,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.centerRight,
-                                                         child: AutoSizeText(
-                                                           olculenMinSic,
-                                                           textAlign:TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.black,
-                                                               fontWeight: FontWeight.bold
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Expanded(flex: 2,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.centerLeft,
-                                                         padding: EdgeInsets.only(right: 2*oran),
-                                                         child: AutoSizeText(
-                                                           "°C",
-                                                           textAlign:
-                                                               TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.red[800]
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Spacer(flex: 1,)
-                                                  ],
-                                                ),
-                                              ),
-                                             
-                                            ],
-                                          ),
-                                        ),
-                                        
-                                    ],
-                                  )),
-                                  //Maks ve Min sicaklık saatleri
-                                  Expanded(flex: 6,
-                                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(flex: 7,
-                                               child: SizedBox(
-                                                 child: Container(
-                                                   alignment: Alignment.center,
-                                                   padding: EdgeInsets.only(left: 1*oran),
-                                                   child: AutoSizeText(
-                                                     Dil().sec(dilSecimi, "tv616"),
-                                                     textAlign:
-                                                         TextAlign.center,
-                                                     style: TextStyle(
-                                                         fontSize: 50.0,
-                                                         fontFamily:'Kelly Slab',
-                                                         color: Colors.red[800]
-                                                         ),
-                                                     maxLines: 1,
-                                                     minFontSize: 5,
-                                                   ),
-                                                 ),
-                                               ),
-                                           ),
-                                              Expanded(flex: 11,
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Spacer(flex: 1,),
-                                                    Expanded(flex: 4,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.center,
-                                                         child: AutoSizeText(
-                                                           olculenMakZmn,
-                                                           textAlign:TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.black,
-                                                               fontWeight: FontWeight.bold
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Spacer(flex: 1,)
-                                                  ],
-                                                ),
-                                              ),
-                                              Spacer(flex: 2,)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Spacer(flex: 2,),
-                                              Expanded(flex: 7,
-                                               child: SizedBox(
-                                                 child: Container(
-                                                   alignment: Alignment.center,
-                                                   padding: EdgeInsets.only(left: 1*oran),
-                                                   child: AutoSizeText(
-                                                     Dil().sec(dilSecimi, "tv617"),
-                                                     textAlign:
-                                                         TextAlign.center,
-                                                     style: TextStyle(
-                                                         fontSize: 50.0,
-                                                         fontFamily:'Kelly Slab',
-                                                         color: Colors.red[800]
-                                                         ),
-                                                     maxLines: 1,
-                                                     minFontSize: 5,
-                                                   ),
-                                                 ),
-                                               ),
-                                           ),
-                                              Expanded(flex: 11,
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Spacer(flex: 1,),
-                                                    Expanded(flex: 4,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.center,
-                                                         child: AutoSizeText(
-                                                           olculenMinZmn,
-                                                           textAlign:TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.black,
-                                                               fontWeight: FontWeight.bold
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Spacer(flex: 1,)
-                                                  ],
-                                                ),
-                                              ),
-                                              
-                                            ],
-                                          ),
-                                        ),
-                                        
-                                    ],
-                                  )),
-                                  //İç nem Dış Nem
-                                  Expanded(flex: 6,
-                                    child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Expanded(flex: 7,
-                                               child: SizedBox(
-                                                 child: Container(
-                                                   alignment: Alignment.center,
-                                                   padding: EdgeInsets.only(left: 1*oran),
-                                                   child: AutoSizeText(
-                                                     Dil().sec(dilSecimi, "tv618"),
-                                                     textAlign:
-                                                         TextAlign.center,
-                                                     style: TextStyle(
-                                                         fontSize: 50.0,
-                                                         fontFamily:'Kelly Slab',
-                                                         color: Colors.red[800]
-                                                         ),
-                                                     maxLines: 1,
-                                                     minFontSize: 5,
-                                                   ),
-                                                 ),
-                                               ),
-                                           ),
-                                              Expanded(flex: 11,
-                                                child: Row(
-                                                  children: <Widget>[
-                                                    Spacer(flex: 1,),
-                                                    Expanded(flex: 4,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.centerRight,
-                                                         child: AutoSizeText(
-                                                           icNem,
-                                                           textAlign:TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.black,
-                                                               fontWeight: FontWeight.bold
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Expanded(flex: 2,
-                                                     child: SizedBox(
-                                                       child: Container(
-                                                         alignment: Alignment.centerLeft,
-                                                         padding: EdgeInsets.only(right: 2*oran),
-                                                         child: AutoSizeText(
-                                                           "%",
-                                                           textAlign:
-                                                               TextAlign.center,
-                                                           style: TextStyle(
-                                                               fontSize: 50.0,
-                                                               fontFamily:'Kelly Slab',
-                                                               color: Colors.red[800]
-                                                               ),
-                                                           maxLines: 1,
-                                                           minFontSize: 5,
-                                                         ),
-                                                       ),
-                                                     ),
-                                                   ),
-                                                    Spacer(flex: 1,)
-                                                  ],
-                                                ),
-                                              ),
-                                              Spacer(flex: 2,)
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            children: <Widget>[
-                                              Spacer(flex: 2,),
-                                              Expanded(flex: 7,
-                                               child: SizedBox(
-                                                 child: Container(
-                                                   alignment: Alignment.center,
-                                                   padding: EdgeInsets.only(left: 1*oran),
-                                                   child: AutoSizeText(
-                                                     Dil().sec(dilSecimi, "tv619"),
-                                                     textAlign:
-                                                         TextAlign.center,
-                                                     style: TextStyle(
-                                                         fontSize: 50.0,
-                                                         fontFamily:'Kelly Slab',
-                                                         color: Colors.red[800]
-                                                         ),
-                                                     maxLines: 1,
-                                                     minFontSize: 5,
-                                                   ),
-                                                 ),
-                                               ),
-                                           ),
-                                              Expanded(flex: 11,
-                                                child: Stack(fit: StackFit.expand,
-                                                  children: <Widget>[
-                                                    Visibility(visible: disNemVarMi=="0" ? false: true,
-                                                                                                                child: Row(
+                                                    Expanded(flex: 11,
+                                                      child: Row(
                                                         children: <Widget>[
                                                           Spacer(flex: 1,),
                                                           Expanded(flex: 4,
-                                                           child: SizedBox(
-                                                             child: Container(
-                                                               alignment: Alignment.centerRight,
-                                                               child: AutoSizeText(
-                                                                 disNem,
-                                                                 textAlign:TextAlign.center,
-                                                                 style: TextStyle(
-                                                                     fontSize: 50.0,
-                                                                     fontFamily:'Kelly Slab',
-                                                                     color: Colors.black,
-                                                                     fontWeight: FontWeight.bold
-                                                                     ),
-                                                                 maxLines: 1,
-                                                                 minFontSize: 5,
-                                                               ),
-                                                             ),
-                                                           ),
-                                                         ),
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerRight,
+                                                              child: AutoSizeText(
+                                                                olculenMakSic,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                           Expanded(flex: 2,
-                                                           child: SizedBox(
-                                                             child: Container(
-                                                               alignment: Alignment.centerLeft,
-                                                               padding: EdgeInsets.only(right: 2*oran),
-                                                               child: AutoSizeText(
-                                                                 "%",
-                                                                 textAlign:
-                                                                     TextAlign.center,
-                                                                 style: TextStyle(
-                                                                     fontSize: 50.0,
-                                                                     fontFamily:'Kelly Slab',
-                                                                     color: Colors.red[800]
-                                                                     ),
-                                                                 maxLines: 1,
-                                                                 minFontSize: 5,
-                                                               ),
-                                                             ),
-                                                           ),
-                                                         ),
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerLeft,
+                                                              padding: EdgeInsets.only(right: 2*oran),
+                                                              child: AutoSizeText(
+                                                                "°C",
+                                                                textAlign:
+                                                                    TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.red[800]
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                           Spacer(flex: 1,)
                                                         ],
                                                       ),
                                                     ),
-                                                    Visibility(visible: disNemVarMi=="0"? true : false,
-                                                      child: SizedBox(
-                                                        child: Container(
-                                                          margin: EdgeInsets.only(left: 2*oran,right: 2*oran),
-                                                          alignment: Alignment.center,
-                                                          child: AutoSizeText(
-                                                            Dil().sec(dilSecimi, "tv237"),
-                                                            textAlign:
-                                                                TextAlign.center,
-                                                            style: TextStyle(
-                                                                fontSize: 50.0,
-                                                                fontFamily:'Kelly Slab',
-                                                                fontWeight:FontWeight.bold,
-                                                                color: Colors.grey[500],
-                                                                ),
-                                                            maxLines: 4,
-                                                            minFontSize: 8,
-                                                          ),
+                                                    Spacer(flex: 2,)
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv615"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
                                                         ),
                                                       ),
                                                     ),
-
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerRight,
+                                                              child: AutoSizeText(
+                                                                olculenMinSic,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Expanded(flex: 2,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerLeft,
+                                                              padding: EdgeInsets.only(right: 2*oran),
+                                                              child: AutoSizeText(
+                                                                "°C",
+                                                                textAlign:
+                                                                    TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.red[800]
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,),
                                                   ],
                                                 ),
                                               ),
                                               
-                                            ],
-                                          ),
-                                        ),
+                                          ],
+                                        )),
+                                        //Maks ve Min sicaklık saatleri
+                                        Expanded(flex: 6,
+                                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv616"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.center,
+                                                              child: AutoSizeText(
+                                                                olculenMakSicZmn,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,)
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv617"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.center,
+                                                              child: AutoSizeText(
+                                                                olculenMinSicZmn,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,),
+                                                  ],
+                                                ),
+                                              ),
+                                              
+                                          ],
+                                        )),
+                                        
 
-                                    ],
-                                  )),
+                                      ],
+                                    )
+                                  ),
+                                  //Min - Max nem ve saatlari
+                                  Expanded(flex: 12,
+                                    child:Column(
+                                      children: <Widget>[
+                                        //Maks ve Min nem
+                                        Expanded(flex: 6,
+                                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv665"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerRight,
+                                                              child: AutoSizeText(
+                                                                olculenMakNem,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Expanded(flex: 2,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerLeft,
+                                                              padding: EdgeInsets.only(right: 2*oran),
+                                                              child: AutoSizeText(
+                                                                "%",
+                                                                textAlign:
+                                                                    TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.red[800]
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,)
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv666"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerRight,
+                                                              child: AutoSizeText(
+                                                                olculenMinNem,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Expanded(flex: 2,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.centerLeft,
+                                                              padding: EdgeInsets.only(right: 2*oran),
+                                                              child: AutoSizeText(
+                                                                "%",
+                                                                textAlign:
+                                                                    TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.red[800]
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,),
+                                                  ],
+                                                ),
+                                              ),
+                                              
+                                          ],
+                                        )),
+                                        //Maks ve Min nem saatleri
+                                        Expanded(flex: 6,
+                                          child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv667"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.center,
+                                                              child: AutoSizeText(
+                                                                olculenMakNemZmn,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,)
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  children: <Widget>[
+                                                    
+                                                    Expanded(flex: 7,
+                                                    child: SizedBox(
+                                                      child: Container(
+                                                        alignment: Alignment.center,
+                                                        padding: EdgeInsets.only(left: 1*oran),
+                                                        child: AutoSizeText(
+                                                          Dil().sec(dilSecimi, "tv668"),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: TextStyle(
+                                                              fontSize: 50.0,
+                                                              fontFamily:'Kelly Slab',
+                                                              color: Colors.red[800]
+                                                              ),
+                                                          maxLines: 1,
+                                                          minFontSize: 5,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ),
+                                                    Expanded(flex: 11,
+                                                      child: Row(
+                                                        children: <Widget>[
+                                                          Spacer(flex: 1,),
+                                                          Expanded(flex: 4,
+                                                          child: SizedBox(
+                                                            child: Container(
+                                                              alignment: Alignment.center,
+                                                              child: AutoSizeText(
+                                                                olculenMinNemZmn,
+                                                                textAlign:TextAlign.center,
+                                                                style: TextStyle(
+                                                                    fontSize: 50.0,
+                                                                    fontFamily:'Kelly Slab',
+                                                                    color: Colors.black,
+                                                                    fontWeight: FontWeight.bold
+                                                                    ),
+                                                                maxLines: 1,
+                                                                minFontSize: 5,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                          Spacer(flex: 1,)
+                                                        ],
+                                                      ),
+                                                    ),
+                                                    Spacer(flex: 2,),
+                                                  ],
+                                                ),
+                                              ),
+                                              
+                                          ],
+                                        )),
+                                        
+
+                                      ],
+                                    )
+                                  ),
+                                  
                                 ],
                               )
                             ),
@@ -1820,7 +2115,180 @@ int sayac=0;
             ),
           )
         ],
-      )
+      ),
+      endDrawer: SizedBox(
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv569"), 
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
+                      ),
+                      textScaleFactor: oran,
+                    ),
+                    color: Colors.yellow[700],
+                  ),
+                ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
+                          ),
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv614")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23a"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv615")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23b"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv665")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23c"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv666")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23d"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+
+
+                                TextSpan(
+                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm1")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm2")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm3")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm4")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm5")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm6")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm7")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm8")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm9")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm10")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm11")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm12")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm13")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm14")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm15")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm16")+'\n',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11*oran,
+                                  )
+                                ),
+                                
+                              ]
+                            ),
+                          ),
+                        
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    
+      
       );
   }
 
@@ -1834,8 +2302,8 @@ int sayac=0;
     capBolgeBitis=degerler[3];
     olculenMakSic=degerler[4];
     olculenMinSic=degerler[5];
-    olculenMakZmn=degerler[6];
-    olculenMinZmn=degerler[7];
+    olculenMakSicZmn=degerler[6];
+    olculenMinSicZmn=degerler[7];
     icNem=degerler[8];
     disNem=degerler[9];
     ortHissedilirSicaklik=degerler[10];
@@ -1847,6 +2315,10 @@ int sayac=0;
     havaHizi=degerler[16];
     sistemModu=int.parse(degerler[17]);
     nemDurum=int.parse(degerler[18]);
+    olculenMakNem=degerler[19];
+    olculenMinNem=degerler[20];
+    olculenMakNemZmn=degerler[21];
+    olculenMinNemZmn=degerler[22];
     baglanti=false;
     if(!timerCancel){
       setState(() {

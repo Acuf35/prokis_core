@@ -186,7 +186,7 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
     oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv647'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv599'),
         floatingActionButton: Opacity(
           opacity: 1,
           child: Container(
@@ -1516,7 +1516,95 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
               ),
             )
           ],
-        )
+        ),
+        endDrawer: SizedBox(
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv599"), 
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
+                      ),
+                      textScaleFactor: oran,
+                    ),
+                    color: Colors.yellow[700],
+                  ),
+                ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
+                          ),
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info27"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+                                TextSpan(
+                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm21")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm22")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm7")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm8")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm25")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm26")+'\n',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11*oran,
+                                  )
+                                ),
+                                
+                              ]
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    
+        
         );
   }
 

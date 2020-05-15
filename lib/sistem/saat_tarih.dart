@@ -8,6 +8,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:prokis/genel_ayarlar/sistem.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -326,6 +328,7 @@ class SaatTarihState extends State<SaatTarih> {
   Widget build(BuildContext context) {
 
     var oran = MediaQuery.of(context).size.width / 731.4;
+    final dbProkis = Provider.of<DBProkis>(context);
     
 
     return Scaffold(
@@ -357,7 +360,7 @@ class SaatTarihState extends State<SaatTarih> {
                               child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemTime(dbVeriler),
+                            Metotlar().getSystemTime(dbProkis.getDbVeri),
                             style: TextStyle(
                                   color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
@@ -372,7 +375,7 @@ class SaatTarihState extends State<SaatTarih> {
                               child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
                                 child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
                           return Text(
-                            Metotlar().getSystemDate(dbVeriler),
+                            Metotlar().getSystemDate(dbProkis.getDbVeri),
                             style: TextStyle(
                                   color: Colors.blue[800],
                                   fontFamily: 'Kelly Slab',
@@ -569,18 +572,18 @@ class SaatTarihState extends State<SaatTarih> {
                                                 format24saatlik = true;
 
                                                 String xx=Metotlar().getSystemTime(dbVeriler);
-                                                if(xx.substring(9,11)=="AM" && int.parse(sat)==12){
+                                                if(xx.substring(0,2)=="AM" && int.parse(sat)==12){
                                                   sat='12';
-                                                }else if(xx.substring(9,11)=="PM" && int.parse(sat)==12){
+                                                }else if(xx.substring(0,2)=="PM" && int.parse(sat)==12){
                                                   sat='0   ';
-                                                }else if(xx.substring(9,11)=="PM"){
+                                                }else if(xx.substring(0,2)=="PM"){
                                                   sat=(int.parse(sat)+12).toString();
                                                 }
 
                                               } else {
 
                                                 format24saatlik = false;
-
+                                                
                                                 int xx=int.parse(Metotlar().getSystemTime(dbVeriler).split(":")[0]);
 
                                                 if(xx==0 && xx==12){
@@ -595,11 +598,8 @@ class SaatTarihState extends State<SaatTarih> {
                                               String v1=format24saatlik ? "1" : "0";
                                               String v2=tarihFormati1 ? "1" : "0";
                                               String v3=tarihFormati2 ? "1" : "0";
-                                               dbHelper.veriYOKSAekleVARSAguncelle(34, v1, v2, v3, "0").then((value) {
-                                                 _dbVeriCekme();
-                                                 setState(() { 
-                                                 });
-                                               });
+                                              dbProkis.dbSatirEkleGuncelle(34, v1, v2, v3, "0");
+                                              
                                             },
                                             child: Icon(
                                                 format24saatlik == true

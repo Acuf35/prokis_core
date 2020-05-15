@@ -497,6 +497,7 @@ class KlepeHaritasi extends StatelessWidget {
                                       String cikisVeriKapa = "";
                                       String noVeri = "";
                                       String tumCikislarVeri = "";
+                                      int enYuksekKlepeNo=0;
                                       for (int i = 1; i <= 18; i++) {
                                         if (provider.klepeHarita[i] == 1) {
                                           if (provider.klepeNo[i] == 0) {
@@ -505,6 +506,10 @@ class KlepeHaritasi extends StatelessWidget {
 
                                           if (provider.klepeNo[i] > provider.klepeAdet) {
                                             klepeNOyuksek = true;
+                                          }
+
+                                          if(provider.klepeNo[i]>enYuksekKlepeNo){
+                                            enYuksekKlepeNo=provider.klepeNo[i];
                                           }
                                         }
 
@@ -581,6 +586,8 @@ class KlepeHaritasi extends StatelessWidget {
                                               provider.tumCikislar[i].toString() +
                                               "#";
                                         }
+
+
                                         
                                         String komut="16*22*$noVeri*$cikisVeriAc*$cikisVeriKapa*0";
                                         Metotlar().veriGonder(komut, 2233).then((value){
@@ -594,6 +601,7 @@ class KlepeHaritasi extends StatelessWidget {
                                                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                 dbProkis.dbSatirEkleGuncelle(17, "ok", noVeri, cikisVeriAc, cikisVeriKapa);
                                                 dbProkis.dbSatirEkleGuncelle(22, "ok", tumCikislarVeri, "0", "0");
+                                                dbProkis.dbSatirEkleGuncelle(37, enYuksekKlepeNo.toString(), "0", "0", "0");
                                               }
                                             });
                                           }

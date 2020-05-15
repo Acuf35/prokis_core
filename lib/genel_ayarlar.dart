@@ -10,6 +10,7 @@ import 'package:prokis/genel_ayarlar/oto_man.dart';
 import 'package:prokis/genel_ayarlar/sistem.dart';
 import 'package:prokis/genel_ayarlar/suru.dart';
 import 'package:prokis/provider/dbprokis.dart';
+import 'package:prokis/sistem/kurulum/dil_secimi.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -355,6 +356,12 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DilSecimi(true)),
+                                    );
 /*
                                     for (var i = 0; i < 100; i++) {
 

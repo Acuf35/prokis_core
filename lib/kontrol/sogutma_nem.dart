@@ -1391,7 +1391,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                             child: Container(
                                                 alignment: Alignment.centerRight,
                                                 child: Text(
-                                                  "A+B",
+                                                  "A+X+B",
                                                   style: TextStyle(
                                                       fontSize: 11 * oran),
                                                 ))),
@@ -1399,7 +1399,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                             child: Container(
                                                 alignment: Alignment.centerRight,
                                                 child: Text(
-                                                  "A+C",
+                                                  "A+X+C",
                                                   style: TextStyle(
                                                       fontSize: 11 * oran),
                                                 ))),

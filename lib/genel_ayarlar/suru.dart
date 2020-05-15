@@ -1038,62 +1038,126 @@ class SuruBilgisiState extends State<SuruBilgisi> {
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
         endDrawer: SizedBox(
-          width: 320 * oran,
-          child: Drawer(
-            child: MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        Dil().sec(dilSecimi, "tv430"), 
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 18,
-                          fontFamily: 'Kelly Slab',
-                        ),
-                        textScaleFactor: oran,
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv414"), 
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
                       ),
-                      color: Colors.yellow[700],
+                      textScaleFactor: oran,
                     ),
+                    color: Colors.yellow[700],
                   ),
-                  Expanded(
-                    flex: 17,
-                    child: Container(
-                      color: Colors.yellow[100],
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: <Widget>[
-                          ListTile(
-                            dense: false,
-                            title: Text(
-                              Dil().sec(dilSecimi, "tv186"),
-                              textScaleFactor: oran,
-                            ),
-                            subtitle: Text(
-                              Dil().sec(dilSecimi, "info20"),
-                              style: TextStyle(
-                                fontSize: 13 * oran,
-                              ),
-                            ),
-                            onTap: () {
-                              // Update the state of the app.
-                              // ...
-                            },
+                ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
                           ),
-                        ],
-                      ),
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info20"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv674")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info20a"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv675")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info20b"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv279")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info20c"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                              ]
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ));
+        ),
+      ),
+    
+        
+        );
+  
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
@@ -1511,7 +1575,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
               Padding(
                 padding: EdgeInsets.only(top: 3 * oran),
                 child: Text(
-                  Dil().sec(dilSecimi, "tv289"),
+                  Dil().sec(dilSecimi, "tv279"),
                   textScaleFactor: oran,
                   style:
                       TextStyle(fontFamily: 'Kelly Slab', color: Colors.black),

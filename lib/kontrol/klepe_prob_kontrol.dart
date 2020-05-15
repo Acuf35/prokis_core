@@ -72,9 +72,11 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
       }
 
       if (dbVeri[i]["id"] == 4) {
-        klepeAdet = dbVeri[i]["veri2"];
         isisensorAdet = dbVeri[i]["veri4"].split('#')[0];
-        klepeAdet = "10";
+      }
+
+      if (dbVeri[i]["id"] == 37) {
+        klepeAdet = dbVeri[i]["veri1"];
       }
 
     }

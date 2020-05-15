@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/sistem/kurulum/girisler.dart';
 import 'package:prokis/sistem/kurulum/klepe_yontemi.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
@@ -10,6 +11,8 @@ import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/sistem/kurulum/fan_haritasi.dart';
+
+import 'kurulumu_tamamla.dart';
 
 
 
@@ -1173,7 +1176,7 @@ class UzDebiNem extends StatelessWidget {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              KlpYontemi(true)),
+                                              Girisler(true)),
                                     );
 
                                     //Navigator.pop(context);
@@ -1350,7 +1353,7 @@ class UzDebiNem extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      FanHaritasi(true),
+                                                      KurulumuTamamla(dbProkis.getDbVeri),
                                                       fullscreenDialog: true
                                                       
                                                       ));
@@ -1653,7 +1656,7 @@ class UzDebiNemProvider with ChangeNotifier {
 
   UzDebiNemProvider(this.context, this.dbProkis) {
 
-    klepeAdet=int.parse(dbProkis.dbVeriGetir(4, 2, "1"));
+    klepeAdet=int.parse(dbProkis.dbVeriGetir(37, 1, "1"));
     var xx=dbProkis.dbVeriGetir(5, 1, "0#0").split("#"); 
     bacaFanAdet = int.parse(xx[0]);
 

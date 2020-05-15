@@ -194,9 +194,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Temel Ayarlar
                       Expanded(
                           flex: 4,
@@ -257,9 +255,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Adetler
                       Expanded(
                           flex: 4,
@@ -324,9 +320,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Fan Yöntemi
                       Expanded(
                           flex: 4,
@@ -391,9 +385,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //MH Yöntemi
                       Expanded(
                           flex: 4,
@@ -540,76 +532,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
-                      //Uzunluk,Nem,Debi
-                      Expanded(
-                          flex: 4,
-                          child: Column(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv306'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                flex: 5,
-                                child: 
-                                RawMaterialButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              UzDebiNem(false)),
-                                    );
-
-                                      },
-                                      child: LayoutBuilder(
-                                          builder: (context, constraint) {
-                                        return Icon(
-                                          Icons.settings,
-                                          size: constraint.biggest.height,
-                                          color: Colors.grey[700],
-                                        );
-                                      }),
-                                    ),
-                                
-                              ),
-                            ],
-                          )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Fan Haritası
                       Expanded(
                           flex: 4,
@@ -674,9 +597,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //KLP Haritası
                       Expanded(
                           flex: 4,
@@ -741,9 +662,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //PED Haritası
                       Expanded(
                           flex: 4,
@@ -809,23 +728,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
-                      
-                      Spacer(
-                        flex: 3,
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                Spacer(),
-                //3. Satır
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(
-                        flex: 3,
-                      ),
+                      Spacer(),
                       //Isı Sensor Haritası
                       Expanded(
                           flex: 4,
@@ -890,8 +793,22 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
+                      
                       Spacer(
-                        flex: 1,
+                        flex: 3,
+                      ),
+                      
+                    ],
+                  ),
+                ),
+                Spacer(),
+                //3. Satır
+                Expanded(
+                  flex: 10,
+                  child: Row(
+                    children: <Widget>[
+                      Spacer(
+                        flex: 3,
                       ),
                       //BacaFan Haritası
                       Expanded(
@@ -964,9 +881,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ],
                             ),
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Air Inlet Haritası
                       Expanded(
                           flex: 4,
@@ -1033,9 +948,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ],
                             ),
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Isıtıcı Haritası
                       Expanded(
                           flex: 4,
@@ -1103,9 +1016,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ],
                             ),
                           )),
-                      Spacer(
-                        flex: 1,
-                      ),
+                      Spacer(),
                       //Silo Haritası
                       Expanded(
                           flex: 4,
@@ -1172,23 +1083,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ],
                             ),
                           )),
-                      
-                      Spacer(
-                        flex: 3,
-                      ),
-                      
-                    ],
-                  ),
-                ),
-                Spacer(),
-                //4. Satır
-                Expanded(
-                  flex: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Spacer(
-                        flex: 3,
-                      ),
+                      Spacer(),
                       //Alarm-Uyarı-Aydınlatma
                       Expanded(
                           flex: 4,
@@ -1254,7 +1149,20 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                             ],
                           )),
                       Spacer(
-                        flex: 1,
+                        flex: 3,
+                      ),
+                      
+                    ],
+                  ),
+                ),
+                Spacer(),
+                //4. Satır
+                Expanded(
+                  flex: 10,
+                  child: Row(
+                    children: <Widget>[
+                      Spacer(
+                        flex: 3,
                       ),
                       //Girişlerin tanımlanması
                       Expanded(
@@ -1320,6 +1228,71 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                               ),
                             ],
                           )),
+                      Spacer(),
+                      //Uzunluk,Nem,Debi
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv306'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: 
+                                RawMaterialButton(
+                                      onPressed: () {
+                                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              UzDebiNem(false)),
+                                    );
+
+                                      },
+                                      child: LayoutBuilder(
+                                          builder: (context, constraint) {
+                                        return Icon(
+                                          Icons.settings,
+                                          size: constraint.biggest.height,
+                                          color: Colors.grey[700],
+                                        );
+                                      }),
+                                    ),
+                                
+                              ),
+                            ],
+                          )),                    
                       Spacer(
                         flex: 18,
                       ),
@@ -1351,7 +1324,68 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
           ),
         ),
       ),
-    
+      endDrawer: SizedBox(
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv401"), 
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
+                      ),
+                      textScaleFactor: oran,
+                    ),
+                    color: Colors.yellow[700],
+                  ),
+                ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
+                          ),
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info29"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+                              ]
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+     
       );
   }
 

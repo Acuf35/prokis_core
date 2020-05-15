@@ -235,7 +235,7 @@ class Dil{
     kod=="tv211" ? metin='Klepe Açıklık oranı' : null;
     kod=="tv212" ? metin='AÇIKLIK PARAMETRELERİ - ' : null;
     kod=="tv213" ? metin='Klp Baş. Düş. Fan Mik. :' : null;
-    kod=="tv214" ? metin='Klp Baş. Düş. Fan Modu :' : null;
+    kod=="tv214" ? metin='Klp Baş. Düş. Fan M.Modu :' : null;
     kod=="tv215" ? metin='Çalışma Sırası :' : null;
     kod=="tv216" ? metin='Min-Maks. Açıklık (%) :' : null;
     kod=="tv217" ? metin='Klp Baş. Düşen\nFan Mik. Man' : null;
@@ -310,7 +310,7 @@ class Dil{
     kod=="tv286" ? metin='43-49 Gün' : null;
     kod=="tv287" ? metin='50 ve Sonrası' : null;
     kod=="tv288" ? metin='Default Değerlere Dön' : null;
-    kod=="tv289" ? metin='Hayvan Başına Min. Hav. İhtiyacı(m3/h)' : null;
+    kod=="tv289" ? metin='BOŞTA' : null;
     kod=="tv290" ? metin='7-20 Hafta' : null;
     kod=="tv291" ? metin='21-52 Hafta' : null;
     kod=="tv292" ? metin='53 ve Sonrası' : null;
@@ -356,14 +356,14 @@ class Dil{
     kod=="tv332" ? metin='Kapa Saati 2' : null;
     kod=="tv333" ? metin='Aç-Kapa Saati 2\nAktif' : null;
     kod=="tv334" ? metin='Dimmer' : null;
-    kod=="tv335" ? metin='Gündüz-Gece Ayd. Yüzdesi 1' : null;
-    kod=="tv336" ? metin='Gündüz-Gece Ayd. Yüzdesi 2' : null;
+    kod=="tv335" ? metin='Gündüz-Gece Aydınlık Yüzdesi 1' : null;
+    kod=="tv336" ? metin='Gündüz-Gece Aydınlık Yüzdesi 2' : null;
     kod=="tv337" ? metin='Doğuş-Batış\nSüresi (Sn)' : null;
     kod=="tv338" ? metin='Saat' : null;
     kod=="tv339" ? metin='Dakika' : null;
     kod=="tv340" ? metin='Ayd. Yüzdesi(%)' : null;
     kod=="tv341" ? metin='Anlık Ayd. Yüzdesi(%)' : null;
-    kod=="tv342" ? metin='Aydınlık Yüzdesi Çizelgesi' : null;
+    kod=="tv342" ? metin='BOŞTA' : null;
     kod=="tv343" ? metin='Gündüz Yüzdesi 1' : null;
     kod=="tv344" ? metin='Gündüz Yüzdesi 2' : null;
     kod=="tv345" ? metin='Gece Yüzdesi 1' : null;
@@ -447,11 +447,11 @@ class Dil{
     kod=="tv423" ? metin='Havalandırma Kaynaklı' : null;
     kod=="tv424" ? metin='Yem Kaynaklı' : null;
     kod=="tv425" ? metin='Su Kaynaklı' : null;
-    kod=="tv426" ? metin='Ölüm\noranı (%)' : null;
+    kod=="tv426" ? metin='Ölüm\nOranı (%)' : null;
     kod=="tv427" ? metin='Güncel Hayvan\nSayısı' : null;
     kod=="tv428" ? metin='Sürü Yaşı\n(Günlük)' : null;
     kod=="tv429" ? metin='Sürü Yaşı\n(Haftalık)' : null;
-    kod=="tv430" ? metin='Sürü Parametre Detayları' : null;
+    kod=="tv430" ? metin='BOŞTA' : null;
     kod=="tv431" ? metin='SENSÖR KALİBRASYONU' : null;
     kod=="tv432" ? metin='Nem. Sen. Ölçüm Yöntemi' : null;
     kod=="tv433" ? metin='Wifi' : null;
@@ -474,7 +474,7 @@ class Dil{
     kod=="tv450" ? metin='Analog8' : null;
     kod=="tv451" ? metin='Analog9' : null;
     kod=="tv452" ? metin='Analog10' : null;
-    kod=="tv453" ? metin='Kalibrasyon Detayları' : null;
+    kod=="tv453" ? metin='Sensör Kalibrasyon Detayları' : null;
     kod=="tv454" ? metin='OTOMATİK-MANUEL SEÇİMİ' : null;
     kod=="tv455" ? metin='OTO' : null;
     kod=="tv456" ? metin='MAN' : null;
@@ -627,18 +627,18 @@ class Dil{
     kod=="tv603" ? metin='S4:' : null;//Silo 1
     kod=="tv604" ? metin='Kg' : null;
     kod=="tv605" ? metin='Günlük\nToplam\nTük.(Kg)' : null;
-    kod=="tv606" ? metin='Günlük\nHay.Baş\nTük.(Kg)' : null;
+    kod=="tv606" ? metin='Günlük\nHay.Baş\nTük.(Gr)' : null;
     kod=="tv607" ? metin='Bir sonraki\nYemleme Zamanı' : null;
     kod=="tv608" ? metin='Etkin Aç-Kapa\nSaatleri' : null;
     kod=="tv609" ? metin='SU SAYACLARI' : null;
     kod=="tv610" ? metin='Su Tüketimleri(Lt)' : null;
     kod=="tv611" ? metin='Gün. Topl.Tük:' : null;
-    kod=="tv612" ? metin='Gün. Hayv.Baş:' : null;
+    kod=="tv612" ? metin='Gün. Hay.Baş:' : null;
     kod=="tv613" ? metin='Ayd. Yüz.(%):' : null;
-    kod=="tv614" ? metin='Ölç.Maks. Sic' : null;
-    kod=="tv615" ? metin='Ölç.Min. Sıc' : null;
-    kod=="tv616" ? metin='Maks.Sic Saati' : null;
-    kod=="tv617" ? metin='Min.Sic Saati' : null;
+    kod=="tv614" ? metin='Ölç.Maks.OSıc' : null;
+    kod=="tv615" ? metin='Ölç.Min.OSıc' : null;
+    kod=="tv616" ? metin='Maks.OSic.Saati' : null;
+    kod=="tv617" ? metin='Min.OSic.Saati' : null;
     kod=="tv618" ? metin='İç Nem' : null;
     kod=="tv619" ? metin='Dış Nem' : null;
     kod=="tv620" ? metin='Ort.Hissed.Sıc.' : null;
@@ -664,17 +664,17 @@ class Dil{
     kod=="tv640" ? metin='YOK' : null;
     kod=="tv641" ? metin='FAN - KLEPE' : null;
     kod=="tv642" ? metin='SIC. SEN. - PED' : null;
-    kod=="tv643" ? metin='B.FAN - AIR. IN.' : null;
-    kod=="tv644" ? metin='SİRK. FAN - ISITICI' : null;
-    kod=="tv645" ? metin='YEMLEME - AYD' : null;
-    kod=="tv646" ? metin='S.SAYAÇ - SILO' : null;
+    kod=="tv643" ? metin='B.FANI - AIR. IN.' : null;
+    kod=="tv644" ? metin='SİRK. FANI - ISITICI' : null;
+    kod=="tv645" ? metin='YEMLEME - AYD.' : null;
+    kod=="tv646" ? metin='S.SAYACI - SILO' : null;
     kod=="tv647" ? metin='İZLEME-3' : null;
     kod=="tv648" ? metin='Oto Atama Hangi Çıkıştan Başlasın?' : null;
     kod=="tv649" ? metin='BACA FANLARI' : null;
     kod=="tv650" ? metin='ISITICILAR' : null;
     kod=="tv651" ? metin='Motor Hızı(Hz): ' : null;
     kod=="tv652" ? metin='Kalan Süre(Sn): ' : null;
-    kod=="tv653" ? metin='SİRK.FAN' : null;
+    kod=="tv653" ? metin='SİRK.FANI' : null;
     kod=="tv654" ? metin='SİRK: FANLARININ MANUEL KONTROLÜ' : null;
     kod=="tv656" ? metin='Sistemde Air Inlet\naktif değil!' : null;
     kod=="tv657" ? metin='Sistemde\nBacafan\naktif değil!' : null;
@@ -683,6 +683,20 @@ class Dil{
     kod=="tv660" ? metin='Sistemde\nSirk. Fan\naktif değil!' : null;
     kod=="tv661" ? metin='Ortalama Sıcaklık' : null;
     kod=="tv662" ? metin='Hava Hızı (m/sn)' : null;
+    kod=="tv663" ? metin='OPSİYON 5' : null;
+    kod=="tv664" ? metin='Günlük Su Sayac Verileri\nReset Zamanı' : null;
+    kod=="tv665" ? metin='Ölç.Maks. Nem' : null;
+    kod=="tv666" ? metin='Ölç.Min. Nem' : null;
+    kod=="tv667" ? metin='Maks.Nem Saati' : null;
+    kod=="tv668" ? metin='Min.Nem Saati' : null;
+    kod=="tv669" ? metin='OPSİYON 6' : null;
+    kod=="tv670" ? metin='Günlük Ölçülen Min-Maks Sıc. ve Nem\nDeğerleri Reset Zamanı' : null;
+    kod=="tv671" ? metin='OPSİYON 7' : null;
+    kod=="tv672" ? metin='Günlük Yem Tüketim Verileri\nReset Zamanı' : null;
+    kod=="tv673" ? metin='KISALTMALAR:' : null;
+    kod=="tv674" ? metin='Ölüm Oranı (%)' : null;
+    kod=="tv675" ? metin='Güncel Hayvan Sayısı' : null;
+    kod=="tv676" ? metin='OPSİYON 3' : null;
 
    
 
@@ -982,15 +996,15 @@ class Dil{
 
 
     //Soğutma ayarları
-    kod=="info10" ? metin=' Ortalama sıcaklık değeri ilgili ped pompasının \"Çalışma Sıcaklığı(A+B)\" değerine yükseldiğinde ped pompası çalışmaya başlar. Ortalama sıcaklık değeri'
-    ' ilgili ped pompasının \"Durma Sıcaklığı(A+C)\" değerine düşünceye kadar ped pompası çalışmaya devam eder.\n\n'
-    ' Kümes içi nem değeri girilen \"Maksimum Nem(D)\" değerine ulaştığı zaman sistem \"Yüksek Nem Aktif\" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez.'
-    ' İç nem değeri \"Maksimum Nem\" değerinin \"Nem Fark(E)\" kadar altına düştüğünde \"Yüksek Nem Pasif\" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n'
-    ' Kümes içi nem değeri girilen \"Minimum Nem\" değerinin altına düştüğünde eğer \"Düşük Nemde Ped Çalışsın\" opsiyonu aktifse seçiminize göre ped 1 veya'
-    ' ped 2-3 veya her 3 pompayı birden devreye sokar. Kümes içi nem değeri \"Minimum Nem\" değerinin \"Nem Fark\" kadar üstüne çıktığında seçili ped pompalarını durdurur.'
-    ' Eğer \"Sıcaklık Öncelikli\" opsiyonunu aktif ederseniz ve ortalama sıcaklık set sıcaklığının altında olursa ped pompaları düşük nem şartları sağlansa bile devreye girmez.'
+    kod=="info10" ? metin=' Ortalama sıcaklık değeri ilgili ped pompasının "Çalışma Sıcaklığı(A+X+B)" değerine yükseldiğinde ped pompası çalışmaya başlar. Ortalama sıcaklık değeri'
+    ' ilgili ped pompasının "Durma Sıcaklığı(A+X+C)" değerine düşünceye kadar ped pompası çalışmaya devam eder.\n\n'
+    ' Kümes içi nem değeri girilen "Maksimum Nem(D)" değerine ulaştığı zaman sistem "Yüksek Nem Aktif" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez.'
+    ' İç nem değeri "Maksimum Nem" değerinin "Nem Fark(E)" kadar altına düştüğünde "Yüksek Nem Pasif" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n'
+    ' Kümes içi nem değeri girilen "Minimum Nem" değerinin altına düştüğünde eğer "Düşük Nemde Ped Çalışsın" opsiyonu aktifse seçiminize göre ped 1 veya'
+    ' ped 2-3 veya her 3 pompayı birden devreye sokar. Kümes içi nem değeri "Minimum Nem" değerinin "Nem Fark" kadar üstüne çıktığında seçili ped pompalarını durdurur.'
+    ' Eğer "Sıcaklık Öncelikli" opsiyonunu aktif ederseniz ve ortalama sıcaklık set sıcaklığının altında olursa ped pompaları düşük nem şartları sağlansa bile devreye girmez.'
     ' Çalışma prensibini gösterir diyagram Yüksek Nem durumunu anlatan diyagram ile aynıdır.\n\n' 
-    ' Ped pompaları ortalama sıcaklığa göre çalışma durumuna geçtiğinde çalışmayı fasılalı olarak yapar. \"Çalışma Sür.(Sn)\" kadar çalışır, \"Durma Sür.(Sn)\" kadar bekler.' : null;
+    ' Ped pompaları ortalama sıcaklığa göre çalışma durumuna geçtiğinde çalışmayı fasılalı olarak yapar. "Çalışma Sür.(Sn)" kadar çalışır, "Durma Sür.(Sn)" kadar bekler.' : null;
 
 
     //Isıtma ayarları
@@ -1108,10 +1122,9 @@ class Dil{
     ' "Çalışma Süresi" parametre değerleri %5 azaltılmalıdır.\n\n'  : null;
 
     //Klepe Prob Kontrol - YRD Opsiyonlar - Opsiyon 2
-    kod=="info15" ? metin='     Klepe açıklıklarının "KLEPE" ayarları sayfasında belirtilen parametrelere göre açılıp kapanmasına ek olarak'
-    ' bu sayfadaki parametreleri aktif hale getirirsek klepe açıklıklarına etki ederler. Eğer ilgili klepeye yakın seçeceğimiz bir ya da iki adet ısı sensörünün'
-    ' değerlerinin klepe açıklıklarına etki etmesini istiyorsak ilgili klepeyi aktif hale getirmemiz gerekmektedir. Bu opsiyonun aktif hale getirdiğimiz klepenin'
-    ' açıklık oranına etkisi şu şikdedir:\n\n'
+    kod=="info15" ? metin='     Klepe açıklıklarının KONTROL→KLEPE sayfasında belirtilen parametrelere göre açılıp kapanmasına ek olarak bu sayfadaki'
+    ' SENSOR KLEPE KONTROL seçeneği ilgili klepe için aktif hale getirilirse klepe açıklıklarına etki ederler. Bu opsiyonun aktif hale getirdiğimiz klepenin'
+    ' açıklık oranına etkisi şu şekildedir:\n\n'
     ' Klepenin hangi ısı sensörüne veya sensörlerine göre çalışmasını istiyorsak, Sens. No1 ve Sens. No2 parametrelerine ilgili ısı sensörünün numarası girilir.'
     ' Eğer bir ısı sensörüne göre çalışacaksa Sens. No2\'ye 0 girilmelidir. İki sensör tanımlandıysa, bu sensörlerin ortalaması, bir sensör tanımladıksa tanımlanan'
     ' bu sensörün değeri set sıcaklığının(A) altına düştüğünde klepe açıklığı oransal olarak küçültülür. Seçilen sensör veya sensörlerin ortalaması set değerinden'
@@ -1122,24 +1135,27 @@ class Dil{
 
 
     //Unsur OTO-MAN seçimi ve Manuel kontrol
-    kod=="info16_1" ? metin='     Sistemde içerisinde soğutma-havalandırma veya yemleme için kullanılan tüm unsurların OTOMATİK veya MANUEL moda alındığı'
-    ' sayfadır. İlgili unsur OTOMATİK\'e alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem unsuru çalıştırmaya başlar.'
-    ' İlgili unsur MANUEL\'e alındığında unsuru manuel kontrol etmemizi sağlayan diyalog penceresini açan buton hemen OTO-MAN butonlarının altında'
+    kod=="info16_1" ? metin='     Sistem içerisinde soğutma-havalandırma veya yemleme için kullanılan tüm unsurların OTOMATİK veya MANUEL moda alındığı'
+    ' sayfadır. İlgili unsur OTOMATİK moda alındığında kontrol sayfasında tanımlanan parametrelere göre sistem kontrol unsuru çalıştırmaya başlar.'
+    ' İlgili unsur MANUEL moda alındığında unsuru manuel kontrol etmemizi sağlayan diyalog penceresini açan resimli buton hemen OTO-MAN butonlarının altında'
     ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden unsuru manuel olarak kontrol edebilirsiniz.\n\n'
     ' KLEPE ve AIR INLET için de OTO-MAN butonuna tıklayarak ilgili sayfaya gidebilirsiniz. \n\n'  : null;
 
     //Klepe OTO-MAN seçimi ve Manuel kontrol
-    kod=="info16_2" ? metin='     Sistemde içerisinde kullanılan Klepelerin OTOMATİK veya MANUEL moda alındığı'
-    ' sayfadır. İlgili klepe OTOMATİK\'e alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem klepeyi çalıştırmaya başlar.'
-    ' İlgili klepe MANUEL\'e alındığında klepeyi manuel kontrol etmemizi sağlayan diyalog penceresini açan buton hemen OTO-MAN butonlarının altında'
-    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden klepeyi manuel olarak kontrol edebilirsiniz.\n\n'  : null;
+    kod=="info16_2" ? metin='     Sistem içerisinde kullanılan Klepelerin OTOMATİK veya MANUEL moda alındığı'
+    ' sayfadır. İlgili klepe OTOMATİK moda alındığında KONTROL→KLEPE sayfasında tanımlanan parametrelere göre otomatik olarak sistem klepeyi çalıştırmaya başlar.'
+    ' İlgili klepe MANUEL moda alındığında klepeyi manuel kontrol etmemizi sağlayan diyalog penceresini açan resimli buton hemen OTO-MAN butonlarının altında'
+    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden klepeye manuel olarak aç-kapa yaptırabilirsiniz. Açılan diyalog penceresinde'
+    ' "Klepe Hareket Süresi (Sn)" parametresi sıfır olursa komut verdiğinizde siz durdurana kadar aç veya kapa yapmaya devam eder, bu parametreye bir süre girildiğinde'
+    ' aç veya kapa komutu verirseniz klepeye girilen bu süre kadar aç veya kapa yaptırır ve sonra kendiliğinden durur.\n\n'  : null;
 
     //Air Inlet OTO-MAN seçimi ve Manuel kontrol
     kod=="info16_3" ? metin='     Sistemde içerisinde kullanılan Air Inlet\'lerin OTOMATİK veya MANUEL moda alındığı'
-    ' sayfadır. İlgili Air Inlet OTOMATİK\'e alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem Air Inlet\'i çalıştırmaya başlar.'
-    ' İlgili Air Inlet MANUEL\'e alındığında Air Inlet\'i manuel kontrol etmemizi sağlayan diyalog penceresini açan buton hemen OTO-MAN butonlarının altında'
-    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden Air Inlet\'i manuel olarak kontrol edebilirsiniz.\n\n'  : null;
-
+    ' sayfadır. İlgili Air Inlet OTOMATİK moda alındığında kontrol sayfasında tanımlanan parametrelere göre otomatik olarak sistem Air Inlet\'i çalıştırmaya başlar.'
+    ' İlgili Air Inlet MANUEL moda alındığında Air Inlet\'i manuel kontrol etmemizi sağlayan diyalog penceresini açan resimli buton hemen OTO-MAN butonlarının altında'
+    ' görünür olacaktır.Buraya tıklayarak ekranın altında beliren diyalog penceresinden Air Inlet\'i manuel olarak aç-kapa yaptırabilirsiniz. Açılan diyalog penceresinde'
+    ' "Air Inlet Hareket Süresi (Sn)" parametresi sıfır olursa komut verdiğinizde siz durdurana kadar aç veya kapa yapmaya devam eder, bu parametreye bir süre girildiğinde'
+    ' aç veya kapa komutu verirseniz sistem Air Inlet\'lere girilen bu süre kadar aç veya kapa yaptırır ve sonra kendiliğinden durur.\n\n'  : null;
 
 
 
@@ -1184,32 +1200,30 @@ class Dil{
     ' "Sürü Giriş Tarihi" alanına da hayvanların kafese konulduğu tarih girilmelidir. "Hayvan Sayısı (girişte)" alanına hayvanların kafese konulduğu ilk günkü adet'
     ' girilmelidir ki genelde bu toplam kafes kapasitesidir. "Ölü Hayvan Sayısı" alanında gösterilen değer toplam değerdir. Bu alana tıklandığınızda ölü sayısını'
     ' kategorilere uygun şekilde gireceğiniz bir pencere açılır. Meydana gelen ölümleri bu kategorilere göre girerek kafesle ilgili daha doğru analiz yapacak veriler'
-    ' oluşturabilirsiniz.\n\n'
-    ' "Ölüm Oranı(%)"\n'
-    ' İlk gün kafese konulan toplam hayvan sayısının bu güne kadar yüzde kaçının öldüğünü gösterir.\n\n'
-    ' "Güncel Hayvan Sayısı"\n'
-    ' Ölü hayvan sayısı çıkarılarak an itibariyle kafeste kaç hayvan olduğunu gösterir\n\n'
-    ' "Sürü Yaşı (Günlük) ve (Haftalık)"\n'
-    ' Girilen doğum günü bilgisine göre sürünün gün ve hafta bazında yaşını gösterir\n\n'
-    ' "Hayvan Başına Min. Hav. İhtiyacı(m3/h)"\n'
-    ' Sürünün bu alanda belirtilen her dönem için ağırlığına göre ihtiyaç duyduğu m3/h bazında hava ihtiyacı bilgisi katalogtan elde edilerek'
+    ' oluşturabilirsiniz.\n\n'  : null;
+
+    kod=="info20a" ? metin='İlk gün kafese konulan toplam hayvan sayısının bu güne kadar yüzde kaçının öldüğünü gösterir.\n\n'  : null;
+
+    kod=="info20b" ? metin='Ölü hayvan sayısı çıkarılarak an itibariyle kafeste kaç hayvan olduğunu gösterir.\n\n'  : null;
+
+    kod=="info20c" ? metin='Sürünün bu alanda belirtilen her dönem için ağırlığına göre ihtiyaç duyduğu m3/h bazında hava ihtiyacı bilgisi katalogtan elde edilerek'
     ' bu alana girilir. Böylece sistem sürü yaşına göre ihtiyaç duyduğu min. hav. miktarını hesaplar ve ilgili kontrol yöntemi seçilmişse'
-    ' Min. Hav. sistemini bu bilgiye göre kontrol eder.'  : null;
+    ' Min. Hav. sistemini bu bilgiye göre kontrol eder.\n\n'  : null;
 
      //Sensör Kalibrasyon
-    kod=="info21" ? metin=' Eğer Kurulum Ayarları--> Adetler kısmından ısı sensörleri ölçüm yöntemi "Wifi Yöntemi" seçilmişse wifi üzerinden en az bir kere bağlanmış'
-    ' olan sensörler görünür olacaktır. Görünür haldeki bu sensörlerden yeşil renkte olanı hala bağlı olduğunu kırmızı renkli olanlar ise bağlantılarının koptuğu'
+    kod=="info21" ? metin=' SEÇENEK 1:  Kurulum Ayarları → Adetler kısmından ısı sensörleri ölçüm yöntemi "Wifi Yöntemi" seçilirse wifi üzerinden en az bir kere bağlanmış'
+    ' olan sensörler görünür olacaktır. Görünür haldeki bu sensörlerden yeşil renkte olanın sorunsuz bağlı olduğu kırmızı renkli olanın ise bağlantısında hata olduğu'
     ' anlamına gelir.Bu durumda sensör, wifi sağlayıcısı veya server PC kontrol edilmelidir. İlgili sensör üzerine tıklandığında ekranın alt tarafından sensör değerine'
     ' + ve - olarak kalibrasyon değerini ilave edebileceğiniz bir pencere açılır.\n\n'
-    ' Eğer Kurulum Ayarları--> Adetler kısmından ısı sensörleri ölçüm yöntemi "Analog Yöntemi" seçilmişse ısı sensörü adedi kadar sensör görünür olacaktır.'
-    ' Görünür haldeki bu sensörlerden yeşil renkte olanı verilerin kablolar üzerinden okunabildiğini, kırmızı renkli olanlar ise okunamadığını gösterir.'
+    ' SEÇENEK 2:  Kurulum Ayarları → Adetler kısmından ısı sensörleri ölçüm yöntemi "Analog Yöntemi" seçilirse ısı sensörü adedi kadar sensör görünür olacaktır.'
+    ' Görünür haldeki bu sensörlerden yeşil renkte olanı değerin kablolar üzerinden okunabildiğini, kırmızı renkli olanlar ise okunamadığını gösterir.'
     ' Bu durumda analog modul, sensör veya kablolar kontrol edilmelidir. İlgili sensör üzerine tıklandığında ekranın alt tarafından sensör değerine + ve - olarak'
     ' kalibrasyon değerini ilave edebileceğiniz bir pencere açılır.\n\n'
-    ' Sadece yeşil rekteki sensörlere kalibrasyon değeri girilebilmektedir.'  : null;
+    ' Sadece yeşil rekteki sensörlere kalibrasyon değeri girilebilmektedir.\n\n\n'  : null;
 
 
 
-     //Sensör Kalibrasyon
+     //Yemleme
     kod=="info22" ? metin='     YEMLEME sayfası, yem arabalarını istenilen saatte kümesin arkasına göndermeye, istenilen saatte de kümesin önüne getirmeye'
     ' yarayan parametrelerin girildiği sayfadır.\n\nÖncelikle YEM ÇIKIŞ 1, YEM ÇIKIŞ 2 ve YEM ÇIKIŞ 3 çıkışlarına istenilen zamanda görev atamak için yanındaki kutucukların'
     ' işaretlenmesi gerekmektedir. Bu kutucukların işaretlenebilmesi için KURULUM AYARLARI\'ndan ilgili çıkış işaretlenmiş ve PLC çıkış numarası atanmış olması gerekmektedir.'
@@ -1220,6 +1234,235 @@ class Dil{
     ' siyah olacaktır.\n\n'
     ' Sistem zamanı görev atanan saate geldiğinde ilgili çıkış "Sinyal Süresi (sn)" parametresine girilen süre kadar çıkış verecektir.'  : null;
 
+
+    //Izleme ANA SAYFA
+    kod=="info23" ? metin='     İzleme ana sayfasıdır. Sistemi kontrol eden tüm unsurların verilerine bu sayfadan erişilebilir.'
+    ' Bu sayfada sistemin hangi modda olduğu ve bazı ölçülen, hesaplanan ve kaydedilen veriler görüntülenir. IZLEME 1 , IZLEME 2 ve IZLEME 3 butonlarıyla'
+    ' istenen kontrol unsurlarının anlık verileri görüntülenebilir.\n\n'  : null;
+
+    
+    kod=="info23a" ? metin='Son 24 saat içerisinde ölçülen en yüksek ortalama sıcaklık değerini gösterir'
+    ' Bu sıcaklığı hangi saatte kaydettiğini "Maks.OSic.Saati" parametresinde gösterir\n\n'  : null;
+
+    kod=="info23b" ? metin='Son 24 saat içerisinde ölçülen en düşük ortalama sıcaklık değerini gösterir'
+    ' Bu sıcaklığı hangi saatte kaydettiğini "Min.OSic.Saati" parametresinde gösterir\n\n'  : null;
+
+    kod=="info23c" ? metin='Son 24 saat içerisinde ölçülen en yüksek nem değerini gösterir'
+    ' Bu nem değerini hangi saatte kaydettiğini "Maks.Nem.Saati" parametresinde gösterir\n\n'  : null;
+
+    kod=="info23d" ? metin='Son 24 saat içerisinde ölçülen en düşük nem değerini gösterir'
+    ' Bu nem değerini hangi saatte kaydettiğini "Min.Nem.Saati" parametresinde gösterir\n\n'  : null;
+
+
+    //KONTROL
+    kod=="info24" ? metin='   Sistemin kontrolünde görevli tüm unsurların otomatik modda çalışma parametrelerinin'
+    ' belirlendiği sayfalara erişimin sağlandığı sayfadır.'  : null;
+
+
+    //SİSTEM
+    kod=="info25" ? metin='   Kurulum, versiyon, saat&tarih, admin, kullanıcı ayarları gibi sistemsel'
+    ' ayarlamaların yapıldığı sayfalara erişimin yapıldığı sayfadır. '  : null;
+
+
+
+    //İZLEME 1
+    kod=="info26" ? metin='     Fan, klepe, Isı Sensörler ve ped pompa motorlarının çalışma durumlarının'
+    ' izlenebildiği ve anlık verilerin gösterildiği sayfadır. \n\n'  : null;
+
+    //İZLEME 2
+    kod=="info27" ? metin='     Bacafan, ısıtıcı, Air inlet ve sirkülasyon fanlarının çalışma durumlarının'
+    ' izlenebildiği ve anlık verilerin gösterildiği sayfadır. \n\n'  : null;
+
+    //İZLEME 3
+    kod=="info28" ? metin='     Yemleme(yem arabaları) saatleri, su sayaç değerleri ve tüketimleri, aydınlatma'
+    ' saatleri, silo ağırlıkları ve yem tüketim durumlarının izlenebildiği ve anlık verilerin'
+    ' gösterildiği sayfadır. \n\n'  : null;
+
+
+    //YARDIMCI OPSİYON
+    kod=="info28" ? metin='     YARDIMCI OPSİYONLAR sayfasında sistemin kontrolünde görevli tüm kontrol unsurlarının'
+    ' yönetimine yardımcı ek parametreler bulunmaktadır.\n\n'  : null;
+
+    kod=="info28a" ? metin='    Eğer "Yüksek Nemde Tüm Fanlar Çalışsın" parametresi işaretlenirse'
+    ' Kümes içi nem değeri KONTROL→SOĞ.&NEM  sayfasındaki Maks. Nem değerinin üzerine çıktığında'
+    ' tüm fanlar devreye girer. Kümes içi nem değeri Maks. Nem değerinin KONTROL→SOĞ.&NEM sayfasındaki'
+    ' Nem Fark kadar altına düştüğünde tüm fanların çalışması durumu sona erer ve fanlar normal işleyişte'
+    ' çalışmalarına devam eder. Eğer "Dış Nem Üst Limit Aktif" seçeneği işaretlenirse "Dış Nem üst Limit"'
+    ' parametresi görünür olacaktır ve dış ortam nem değeri bu değerin üzerinde ise Yüksek Nemde'
+    ' tüm fanların devreye girme opsiyonu devre dışı olacaktır.'
+    ' nem değerinin üstüne\n\n'  : null;
+
+    kod=="info28b" ? metin='    Yakın sıcaklık sensörlerine göre klepe açıklıklarında'
+    ' ek kontrol sağlayan ayarların bulunduğu sayfaya geçişi sağlar.\n\n'  : null;
+
+
+    kod=="info28c" ? metin='    Ortalama sıcaklık değeri artışına göre ilgili fan'
+    ' devreye girdiğinde sıcaklık değeri hemen düşmüş olsa dahi en az bu parametreye'
+    ' girilen saniye kadar çalışır. \n\n'  : null;
+
+
+    kod=="info28d" ? metin='    "Elek. Kesildiğinde Sistemi Durdur" seçeneği işaretlendiğinde'
+    ' elektrik kesintisi durumunda tüm kontrol unsurlarının modunu otomatikten manuele alır'
+    ' ve sistemi durdurur. Elektrik kesilip tekrar geldiğinde veya tünel fanları manuelden'
+    ' otomatiğe alındığında çalışacak tüm fanlar bir anda devreye girip elektrik mekanizmasını'
+    ' zorlamaması için "T.Fan Yumuşak Geçiş Döngüsü(Dn)" ve "T.Fan Yumuşak Geçiş Adedi"'
+    ' parametreleri kullanılır. Sistem "T.Fan Yumuşak Geçiş Döngüsü(Dn)" parametresine girilen'
+    ' sürede "T.Fan Yumuşak Geçiş Adedi" parametresine girilen adet kadar fanı devreye sokar.'
+    ' Bu işlem çalışması gerekli tüm fanlar devreye girinceye kadar tekrar eder. \n\n'  : null;
+
+
+    kod=="info28e" ? metin='    Günlük tutulan ve İZLEME-3 sayfasından erişilen su sayaç verileri'
+    'her gün bu parametrede belirtilen saatte resetlenir.\n\n'  : null;
+
+
+    kod=="info28f" ? metin='    Günlük tutulan ve İZLEME sayfasından erişilen Min-Maks Sıc. ve '
+    'Min-Maks Nem verileri her gün bu parametrede belirtilen saatte resetlenir.\n\n'  : null;
+
+
+    kod=="info28g" ? metin='    Günlük tutulan ve İZLEME-3 sayfasından erişilen yem tüketim'
+    'verileri her gün bu parametrede belirtilen saatte resetlenir.\n\n'  : null;
+
+    //Kurulum Ayarları
+    kod=="info29" ? metin='    Sistem ilk kurulduğunda kontrol unsurlarıyla alakalı tüm kurulum'
+    ' detaylarının tanımlandığı ayarların sayfalarına erişimi sağlayan sayfadır. Bu ayarlarda değişikliklerin'
+    ' tüm sistemin işleyişine etkisi olduğundan yetkili kişiden başkasının bu ayarlarda değişiklik'
+    ' yapmaması gerekir.\n\n'  : null;
+
+    //Adetler
+    kod=="info30" ? metin='    Bu sayfada sistemin kontrolünde kullanılacak bazı kontrol unsurlarının adetleri,'
+    ' bazı kontrol unsurlarının da var-yok bilgisi tanımlanabilmektedir. Isı sensör sayısı bölümünde hem ısı'
+    ' sensör sayısı tanımlanmaktadır hem de bu alanda bulunan analog veya wifi ikonlarına tıklayarak'
+    ' sensörlerin bağlantı tipini de tanımlanabilmektedir. Default olarak analog seçilidir.\n\n'  : null;
+
+    //Air Inlet & Sirk.Fanı
+    kod=="info31" ? metin='    Bu sayfada Air Inlet aç-kapa çıkışlarının ve Sirkülasyon fanlarını çalıştıran'
+    ' çıkışın atanması yapılmaktadır. Atama yapılırken sayfanın sağ tarafında bulunan "ÇIKIŞLAR" listesine göre'
+    ' çıkış seçilmelidir. Mavi renkteki çıkışlar "kullanımda", gri renkteki çıkışlar "boşta" anlamındadır.'
+    ' Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir.\n\n'  : null;
+
+    //Baca Fan Haritası
+    kod=="info32" ? metin='    Çatı üzerindeki soru işareti ikonlarına tıklayarak'
+    ' bacafanlarının yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' butonuna tıklayarak haritayı onaylayabilirsiniz. Sistem, yerleştirdiğiniz baca fanlarına belirli'
+    ' bir sırayla otomatik olarak numara verecektir, istenirse bacafan ikonları üzerine'
+    ' tıklanarak bu numaraları değiştirebilirsiniz. Bacafan yerleşimini sıfırdan yapmak için'
+    ' "HARİTAYI SIFIRLA" butonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\nBacafanları'
+    ' dijital çıkış ile kontrol edilecekse "Dijital Çıkış", analog çıkışla kontrol edilecekse'
+    ' "Analog Çıkış" işaretlenmelidir. Dijital Çıkış işaretlendiğinde çıkışın atanacağı'
+    ' atama butonu, Analog Çıkış işaretlendiğinde analog çıkış seçenekleri olan "0-10V"'
+    ' "4-20mA" seçenekleri görünür olacaktır. Bu seçeneklerden uygun olanı seçilmelidir.'
+    ' \n\nEğer bacafanları kapaklı ise "Bacafan Kapak Var mı?" seçeneği işaretlenmeli ve'
+    ' görünür olan Kapak Aç Çıkış No ve Kapak Kapa Çıkış No atamaları yapılmalıdır.'
+    ' Çıkış ataması yapılırken sayfanın sağ tarafında bulunan "ÇIKIŞLAR" listesine göre'
+    ' çıkış seçilmelidir. Mavi renkteki çıkışlar "kullanımda", gri renkteki çıkışlar'
+    ' "boşta" anlamındadır. Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir.\n\n'  : null;
+
+
+    //Diğer çıkışlar
+    kod=="info33" ? metin='    Bu sayfada Alarm, Uyarı, Aydınlatma ve Yem Araba'
+    ' ileri-geri çıkışlarının atamaları yapılır. Çıkış ataması yapılırken sayfanın sağ'
+    ' tarafında bulunan "ÇIKIŞLAR" listesine göre çıkış seçilmelidir. Mavi renkteki çıkışlar'
+    ' "kullanımda", gri renkteki çıkışlar "boşta" anlamındadır.\n\n3 farklı yem araba grupları'
+    ' "Yem 1 Aktif" , "Yem 2 Aktif", "Yem 3 Aktif" seçenekleri aktif edilerek kontrol edilebilir'
+    ' Aydınlatma çıkışı dimmerli olacaksa "Dimmer" seçeneği işaretlenmeli, dijital çıkış'
+    ' olacaksa "Dimmer" seçeneği işaretlenmemelidir. Kümes içerisinde kaç adet su sayacı varsa'
+    ' \n\n"Su Sayaç Sayısı" parametresine girilmelidir. Su sayaç sayısı genelde sıra sayısı ile'
+    ' aynıdır. Takılan su sayaçları kaç litrede bir pals sinyali veriyorsa "Pals Başına Litre"'
+    ' parametresine girilmelidir. Kümeste katlara su gitmediğini tespit eden sensör kullanılacaksa'
+    ' bu sensörden gelecek bilginin sistemde alarm vermesi isteniyorsa "Su Alarm" seçeneği'
+    ' işaretlenmelidir. Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir.\n\n'  : null;
+
+
+    //Fan Haritası
+    kod=="info34" ? metin='    Bina üzerindeki soru işareti ikonlarına tıklayarak'
+    ' tünel fanlarının yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' ikonuna tıklayarak haritayı onaylayabilirsiniz. Onaylı haritada fanlar üzerine tıklayarak'
+    ' fanlara numara ve çıkış ataması yapabilirsiniz. İstenirse sağ üstte bulunan "OTO" butonunu'
+    ' kullanarak belirli bir sırayla çıkış atamalarını otomatik olarak yapabilirsiniz.'
+    ' Tünel fanlarının yerleşimini sıfırdan yapmak için'
+    ' "HARİTAYI SIFIRLA" ikonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\n'
+    ' Çıkış ataması yapılırken sayfanın sağ tarafında bulunan "ÇIKIŞLAR" listesine göre'
+    ' çıkış seçilmelidir. Mavi renkteki çıkışlar "kullanımda", gri renkteki çıkışlar'
+    ' "boşta" anlamındadır.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" ikonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
+
+
+    //Fan Kontrol Yöntemi
+    kod=="info35" ? metin='    Bu sayfada Tünel fanlarının kontrol yönteminin seçimi yapılmaktadır.'
+    ' Sistemde baca fanı olduğunda "Klasik Kontrol" yöntemi devre dışıdır, seçilemez. Kafes türü'
+    ' CİVCİV veya BROYLER ise sadece "Lineer Kontrol" yöntemi seçilebilir.\n\n'  : null;
+
+    kod=="info35a" ? metin='    Klasik kontrol yönteminde her bir fan için çalışma sıcaklığı'
+    ' belirlenir. Ortalama sıcaklık bu çalışma sıcaklığına yükseldiğinde'
+    ' fan çalışır, bu çalışma sıcaklığının altına düştüğünde fan durur.\n\n'  : null;
+
+    kod=="info35b" ? metin='    Lineer kontrol yönteminde seçilen iki sıcaklık arasında fan sayısını'
+    ' sıfırdan maksimuma çıkarır. Örn. 22 ile 28 derece arasında 22 derecede 1 fan 28 derecede'
+    ' maksimum fan olacak şekilde doğrusal olarak fan sayısını artırır. 28 derecenin üzerinde maksimum'
+    ' fan çalışmaya devam eder.\n\n'  : null;
+
+    kod=="info35c" ? metin='    PID kontrol yönteminde PLC ortam sıcaklığının ısınma ve soğuma hızlarını'
+    ' algılar ve bu hızları durdurabilecek yeterlikte fan sayısını hesaplar ve devreye sokar. Kümes'
+    ' için ortalama sıcaklığı istenen sıcaklığa yakın tutmak için en ideal kontrol yöntemidir.\n\n'  : null;
+
+
+    kod=="info36" ? metin='    Bu sayfada sistemde aktif halde kullanılacak tüm girişler için giriş'
+    ' atamaları yapılabilmektedir. Herbir atama için tek tek giriş ataması yapılabileceği gibi'
+    ' "Otomatik Ata" butonuna tıklayarak belirli bir sırayla giriş atamasını otomatik olarak'
+    ' yapabilirsiniz.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" ikonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
+
+
+
+
+
+
+
+    //KISALTMALAR
+    kod=='ksltm1' ? metin='SIC.SEN. → SICAKLIK SENSÖRLERİ' : null;
+    kod=='ksltm2' ? metin='B.FANI → BACAFANI' : null;
+    kod=='ksltm3' ? metin='SİRK.FANI → SİRKÜLASYON FANI' : null;
+    kod=='ksltm4' ? metin='AYD. → AYDINLATMA' : null;
+    kod=='ksltm5' ? metin='S.SAYACI → SU SAYACI' : null;
+    kod=='ksltm6' ? metin='Ort.Hissed.Sıc. → Ortalama Hissedilir Sıcaklık' : null;
+    kod=='ksltm7' ? metin='Doğ.B.Bitiş → Doğal Bölge Bitiş' : null;
+    kod=='ksltm8' ? metin='Çap.B.Bitiş → Çapraz Bölge Bitiş' : null;
+    kod=='ksltm9' ? metin='Ölç.Maks.OSıc → Ölçülen Maksimum Ortalama Sıcaklık' : null;
+    kod=='ksltm10' ? metin='Ölç.Min.OSıc → Ölçülen Minimum Ortalama Sıcaklık' : null;
+    kod=='ksltm11' ? metin='Ölç.Maks.Nem → Ölçülen Maksimum Nem' : null;
+    kod=='ksltm12' ? metin='Ölç.Min.Nem → Ölçülen Minimum Nem' : null;
+    kod=='ksltm13' ? metin='Maks.OSic.Saati → Maksimum Ortalama Sıcaklık Saati' : null;
+    kod=='ksltm14' ? metin='Min.OSic.Saati → Minimum Ortalama Sıcaklık Saati' : null;
+    kod=='ksltm15' ? metin='Maks.Nem Saati → Maksimum Nem Saati' : null;
+    kod=='ksltm16' ? metin='Min.Nem Saati → Minimum Nem Saati' : null;
+    kod=='ksltm17' ? metin='SIC. & FAN → SICAKLIKLAR & FAN' : null;
+    kod=='ksltm18' ? metin='MİN. HAV. → MİNİMUM HAVALANDIRMA' : null;
+    kod=='ksltm19' ? metin='YARD. OPS. → YARDIMCI OPSİYONLAR' : null;
+    kod=='ksltm20' ? metin='T.FAN → TÜNEL FAN' : null;
+    kod=='ksltm21' ? metin='Set Sıc → Set Sıcaklığı' : null;
+    kod=='ksltm22' ? metin='Ort Sıc → Ortalama Sıcaklık' : null;
+    kod=='ksltm23' ? metin='K1-K2....K10 → KLEPE1-KLEPE2.....KLEPE10' : null;
+    kod=='ksltm24' ? metin='S1-S2....S10 → SENSÖR1-SENSÖR2.....SENSÖR10' : null;
+    kod=='ksltm25' ? metin='OTO → OTOMATİK' : null;
+    kod=='ksltm26' ? metin='MAN → MANUEL' : null;
+    kod=='ksltm27' ? metin='Çkş1 → Çıkış1' : null;
+    kod=='ksltm28' ? metin='Çkş2 → Çıkış2' : null;
+    kod=='ksltm29' ? metin='Çkş3 → Çıkış3' : null;
+    kod=='ksltm30' ? metin='Günlük Toplam Tük(Kg) → Günlük Toplam Tüketim(Kg)' : null;
+    kod=='ksltm31' ? metin='Günlük Hay.Baş.Tük(Gr) → Günlük Hayvan Başına Tüketim(Gr)' : null;
+    kod=='ksltm32' ? metin='Günlük Topl.Tük → Günlük Toplam Tüketim' : null;
+    kod=='ksltm33' ? metin='Günlük Hay.Baş → Günlük Hayvan Başına Tüketim' : null;
+    kod=='ksltm34' ? metin='S1 → SİLO1' : null;
+    kod=='ksltm35' ? metin='S2 → SİLO2' : null;
+    kod=='ksltm36' ? metin='S3 → SİLO3' : null;
+    kod=='ksltm37' ? metin='S4 → SİLO4' : null;
+    kod=='ksltm38' ? metin='Klp Baş. Düş. Fan Mik.\n→ Klepe Başına Düşen Fan Miktarı' : null;
+    kod=='ksltm39' ? metin='Klp Baş. Düş. Fan M.Modu\n→ Klepe Başına Düşen Fan Miktarı Modu' : null;
+    kod=='ksltm40' ? metin='Min.-Maks. Açıklık\n→ Minimum-Maksimum Açıklık' : null;
+    kod=='ksltm41' ? metin='Min.-Hav. Açıklık\n→ Minimum Havalandırma Açıklık' : null;
 
 
 
@@ -1480,7 +1723,7 @@ class Dil{
     kod=="tv237" ? metin='Passive' : null;
     kod=="tv238" ? metin='Sec' : null;
     kod=="tv239" ? metin='FLAP CALIBRATION' : null;
-    kod=="tv240" ? metin='Calibration Details' : null;
+    kod=="tv240" ? metin='Sensor Calibration Details' : null;
     kod=="tv241" ? metin='Flap\nCalibration' : null;
     kod=="tv242" ? metin='Start Temperature :' : null;
     kod=="tv243" ? metin='Stop Temperature :' : null;
@@ -1529,7 +1772,7 @@ class Dil{
     kod=="tv286" ? metin='Day 43-49' : null;
     kod=="tv287" ? metin='Day 50 and beyond' : null;
     kod=="tv288" ? metin='Back to Default Values' : null;
-    kod=="tv289" ? metin='Air Need Per Animal as periodic(m3/h)' : null;
+    kod=="tv289" ? metin='BOŞTA' : null;
     kod=="tv290" ? metin='Week 7-20' : null;
     kod=="tv291" ? metin='Week 21-52' : null;
     kod=="tv292" ? metin='Week 53 and beyond' : null;
@@ -1575,14 +1818,14 @@ class Dil{
     kod=="tv332" ? metin='Off Time 2' : null;
     kod=="tv333" ? metin='On-Off Time 2\nActivity' : null;
     kod=="tv334" ? metin='Dimmer' : null;
-    kod=="tv335" ? metin='Daytime Lig. Percent' : null;
-    kod=="tv336" ? metin='Nighttime Lig. Percent' : null;
+    kod=="tv335" ? metin='Daytime bright Percent' : null;
+    kod=="tv336" ? metin='Nighttime bright Percent' : null;
     kod=="tv337" ? metin='Sunrise-Sunset\nTime (Sec)' : null;
     kod=="tv338" ? metin='Hour' : null;
     kod=="tv339" ? metin='Minute' : null;
     kod=="tv340" ? metin='Light Percent(%)' : null;
     kod=="tv341" ? metin='Instant Light Percent(%)' : null;
-    kod=="tv342" ? metin='Lighting Percent Diagram' : null;
+    kod=="tv342" ? metin='BOŞTA' : null;
     kod=="tv343" ? metin='Daytime Percent 1' : null;
     kod=="tv344" ? metin='Daytime Percent 2' : null;
     kod=="tv345" ? metin='Nighttime Percent 1' : null;
@@ -1670,7 +1913,7 @@ class Dil{
     kod=="tv427" ? metin='Actual Number\nof Animals' : null;
     kod=="tv428" ? metin='Herd Age\n(Daily)' : null;
     kod=="tv429" ? metin='Herd Age\n(Weekly)' : null;
-    kod=="tv430" ? metin='Herd Parameter Details' : null;
+    kod=="tv430" ? metin='BOŞTA' : null;
     kod=="tv431" ? metin='SENSOR CALIBRATION' : null;
     kod=="tv432" ? metin='Hum. Sen. Measure Method' : null;
     kod=="tv433" ? metin='Wifi' : null;
@@ -1693,7 +1936,7 @@ class Dil{
     kod=="tv450" ? metin='Analog8' : null;
     kod=="tv451" ? metin='Analog9' : null;
     kod=="tv452" ? metin='Analog10' : null;
-    kod=="tv453" ? metin='Calibration Details' : null;
+    kod=="tv453" ? metin='Sensor Calibration Details' : null;
     kod=="tv454" ? metin='AUTO-MAN SELECTION' : null;
     kod=="tv455" ? metin='AUTO' : null;
     kod=="tv456" ? metin='MAN' : null;
@@ -1846,7 +2089,7 @@ class Dil{
     kod=="tv603" ? metin='S4:' : null;//Silo 1
     kod=="tv604" ? metin='Kg' : null;
     kod=="tv605" ? metin='Daily Tot.\nCons.(Kg)' : null;
-    kod=="tv606" ? metin='Daily\nPer Bird\nCons.(Kg)' : null;
+    kod=="tv606" ? metin='Daily\nPer Bird\nCons.(Gr)' : null;
     kod=="tv607" ? metin='Next Feed\nTime' : null;
     kod=="tv608" ? metin='Light On-Off\nTime' : null;
     kod=="tv609" ? metin='WATERMETERS' : null;
@@ -1854,10 +2097,10 @@ class Dil{
     kod=="tv611" ? metin='Daily Tot.Cons:' : null;
     kod=="tv612" ? metin='Daily Per Bird:' : null;
     kod=="tv613" ? metin='Light Per.(%):' : null;
-    kod=="tv614" ? metin='Mea.Max. Temp' : null;
-    kod=="tv615" ? metin='Mea.Min. Temp' : null;
-    kod=="tv616" ? metin='Max.Temp Time' : null;
-    kod=="tv617" ? metin='Min.Temp Time' : null;
+    kod=="tv614" ? metin='Mea.Max.ATemp' : null;
+    kod=="tv615" ? metin='Mea.Min.ATemp' : null;
+    kod=="tv616" ? metin='Max.ATemp.Time' : null;
+    kod=="tv617" ? metin='Min.ATemp.Time' : null;
     kod=="tv618" ? metin='In Hum.' : null;
     kod=="tv619" ? metin='Out Hum.' : null;
     kod=="tv620" ? metin='Avr.Sens.Temp.' : null;
