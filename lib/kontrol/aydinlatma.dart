@@ -84,6 +84,9 @@ class AydinlatmaState extends State<Aydinlatma> {
 
   bool acKapaSaati2Aktiflik=false;
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -110,7 +113,19 @@ class AydinlatmaState extends State<Aydinlatma> {
 
     
     if (timerSayac == 0) {
-      _takipEt();
+
+      Metotlar().takipEt("14*", 2236).then((veri){
+
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -119,7 +134,21 @@ class AydinlatmaState extends State<Aydinlatma> {
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          _takipEt();
+
+          Metotlar().takipEt("14*", 2236).then((veri){
+
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+
+        });
+
+
         }
       });
     }
@@ -130,7 +159,7 @@ class AydinlatmaState extends State<Aydinlatma> {
     
 
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv112'),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv112',baglantiDurum),
       body: Column(
           children: <Widget>[
             Row(
@@ -655,8 +684,28 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                             acSaati1PM = false;
                                                           } 
 
+
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*4*$acSaati1Saat");
+                                                          String komut="15*4*$acSaati1Saat";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
                                                         },
@@ -697,8 +746,28 @@ class AydinlatmaState extends State<Aydinlatma> {
 
                                                           String veri= acSaati1Saat=="12" ? '0' : (int.parse(acSaati1Saat)+12).toString();
 
+
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*4*$veri");
+                                                          String komut="15*4*$veri";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
                                                         },
@@ -836,8 +905,29 @@ class AydinlatmaState extends State<Aydinlatma> {
                                         }
                                         String veri =
                                             acKapaSaati2Aktiflik == true ? "1" : "0";
-                                            yazmaSonrasiGecikmeSayaci=4;
-                                        _veriGonder("15*$_index*$veri");
+
+                                        yazmaSonrasiGecikmeSayaci = 4;
+                                        String komut="15*$_index*$veri";
+                                        Metotlar().veriGonder(komut, 2235).then((value){
+                                          if(value.split("*")[0]=="error"){
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          }else{
+                                            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                            
+                                            baglanti = false;
+                                            Metotlar().takipEt('14*', 2236).then((veri){
+                                                if(veri.split("*")[0]=="error"){
+                                                  baglanti=false;
+                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                  setState(() {});
+                                                }else{
+                                                  takipEtVeriIsleme(veri);
+                                                  baglantiDurum="";
+                                                }
+                                            });
+                                          }
+                                        });
+
                                         setState(() {});
                                       },
                                       child: Icon(
@@ -907,7 +997,26 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           } 
 
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*6*$acSaati2Saat");
+                                                          String komut="15*6*$acSaati2Saat";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
 
@@ -957,8 +1066,28 @@ class AydinlatmaState extends State<Aydinlatma> {
 
                                                           String veri= acSaati2Saat=="12" ? '0' : (int.parse(acSaati2Saat)+12).toString();
 
+
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*6*$veri");
+                                                          String komut="15*6*$veri";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
 
@@ -1153,8 +1282,28 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                             kapaSaati1PM = false;
                                                           } 
 
+                                                          
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*8*$kapaSaati1Saat");
+                                                          String komut="15*8*$kapaSaati1Saat";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
                                                         },
@@ -1195,8 +1344,28 @@ class AydinlatmaState extends State<Aydinlatma> {
 
                                                           String veri= kapaSaati1Saat=="12" ? '0' : (int.parse(kapaSaati1Saat)+12).toString();
 
+
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*8*$veri");
+                                                          String komut="15*8*$veri";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
                                                         },
@@ -1364,7 +1533,26 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           } 
 
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*10*$kapaSaati2Saat");
+                                                          String komut="15*10*$kapaSaati2Saat";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
                                                           }else{
@@ -1412,8 +1600,29 @@ class AydinlatmaState extends State<Aydinlatma> {
 
                                                           String veri= kapaSaati2Saat=="12" ? '0' : (int.parse(kapaSaati2Saat)+12).toString();
 
+                                                         
+
                                                           yazmaSonrasiGecikmeSayaci = 0;
-                                                          _veriGonder("15*10*$veri");
+                                                          String komut="15*10*$veri";
+                                                          Metotlar().veriGonder(komut, 2235).then((value){
+                                                            if(value.split("*")[0]=="error"){
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            }else{
+                                                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                              
+                                                              baglanti = false;
+                                                              Metotlar().takipEt('14*', 2236).then((veri){
+                                                                  if(veri.split("*")[0]=="error"){
+                                                                    baglanti=false;
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    setState(() {});
+                                                                  }else{
+                                                                    takipEtVeriIsleme(veri);
+                                                                    baglantiDurum="";
+                                                                  }
+                                                              });
+                                                            }
+                                                          });
 
                                                           setState(() {});
                                                           }else{
@@ -1974,8 +2183,30 @@ class AydinlatmaState extends State<Aydinlatma> {
       }
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("15*$_index*$veri");
+        String komut="15*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('14*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
+
       }
 
       
@@ -2042,8 +2273,30 @@ class AydinlatmaState extends State<Aydinlatma> {
      
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("15*$_index*$veri");
+        String komut="15*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('14*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
+
       }
 
       setState(() {});
@@ -2077,160 +2330,96 @@ class AydinlatmaState extends State<Aydinlatma> {
     ];
   }
 
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('*');
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
-        socket.add(utf8.encode(emir));
+    gunduzAydinlikYuzdesi1 = degerler[0];              
+    geceAydinlikYuzdesi1 = degerler[1];
+    gunduzAydinlikYuzdesi2 = degerler[2];              
+    geceAydinlikYuzdesi2 = degerler[3];
+    dogusBatisSuresi = degerler[4];
 
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
+    if(format24saatlik){
+      acSaati1Saat = (degerler[5].length==1 ? '0' : '' )+ degerler[5];
+      acSaati1Dakika = (degerler[6].length==1 ? '0' : '' )+ degerler[6];
+      acSaati2Saat = (degerler[7].length==1 ? '0' : '' )+ degerler[7];
+      acSaati2Dakika = (degerler[8].length==1 ? '0' : '' )+ degerler[8];
+      kapaSaati1Saat= (degerler[9].length==1 ? '0' : '' )+ degerler[9];
+      kapaSaati1Dakika = (degerler[10].length==1 ? '0' : '' )+ degerler[10];
+      kapaSaati2Saat = (degerler[11].length==1 ? '0' : '' )+ degerler[11];
+      kapaSaati2Dakika = (degerler[12].length==1 ? '0' : '' )+ degerler[12];
+    }else{
 
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
+      if(int.parse(degerler[5])>12){
+        acSaati1Saat=((int.parse(degerler[5])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[5])-12).toString();
+
+      }else{
+        acSaati1Saat = (degerler[5].length==1 ? '0' : '' )+ degerler[5];
+      }
+      acSaati1Dakika = (degerler[6].length==1 ? '0' : '' )+ degerler[6];
+
+
+      if(int.parse(degerler[7])>12){
+        acSaati2Saat=((int.parse(degerler[7])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[7])-12).toString();
+      }else{
+        acSaati2Saat = (degerler[7].length==1 ? '0' : '' )+ degerler[7];
+      }
+      acSaati2Dakika = (degerler[8].length==1 ? '0' : '' )+ degerler[8];
+
+
+      if(int.parse(degerler[9])>12){
+        kapaSaati1Saat=((int.parse(degerler[9])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[9])-12).toString();
+      }else{
+        kapaSaati1Saat= (degerler[9].length==1 ? '0' : '' )+ degerler[9];
+      }
+      kapaSaati1Dakika = (degerler[10].length==1 ? '0' : '' )+ degerler[10];
+
+
+       if(int.parse(degerler[11])>12){
+         kapaSaati2Saat=((int.parse(degerler[11])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[11])-12).toString();
+       }else{
+         kapaSaati2Saat = (degerler[11].length==1 ? '0' : '' )+ degerler[11];
+       }
+       kapaSaati2Dakika = (degerler[12].length==1 ? '0' : '' )+ degerler[12];
+
     }
-  }
-
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('14*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-
-              gunduzAydinlikYuzdesi1 = degerler[0];              
-              geceAydinlikYuzdesi1 = degerler[1];
-              gunduzAydinlikYuzdesi2 = degerler[2];              
-              geceAydinlikYuzdesi2 = degerler[3];
-              dogusBatisSuresi = degerler[4];
-
-              if(format24saatlik){
-                acSaati1Saat = (degerler[5].length==1 ? '0' : '' )+ degerler[5];
-                acSaati1Dakika = (degerler[6].length==1 ? '0' : '' )+ degerler[6];
-                acSaati2Saat = (degerler[7].length==1 ? '0' : '' )+ degerler[7];
-                acSaati2Dakika = (degerler[8].length==1 ? '0' : '' )+ degerler[8];
-                kapaSaati1Saat= (degerler[9].length==1 ? '0' : '' )+ degerler[9];
-                kapaSaati1Dakika = (degerler[10].length==1 ? '0' : '' )+ degerler[10];
-                kapaSaati2Saat = (degerler[11].length==1 ? '0' : '' )+ degerler[11];
-                kapaSaati2Dakika = (degerler[12].length==1 ? '0' : '' )+ degerler[12];
-              }else{
-
-                if(int.parse(degerler[5])>12){
-                  acSaati1Saat=((int.parse(degerler[5])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[5])-12).toString();
-                  
-                }else{
-                  acSaati1Saat = (degerler[5].length==1 ? '0' : '' )+ degerler[5];
-                }
-                acSaati1Dakika = (degerler[6].length==1 ? '0' : '' )+ degerler[6];
-
-
-                if(int.parse(degerler[7])>12){
-                  acSaati2Saat=((int.parse(degerler[7])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[7])-12).toString();
-                }else{
-                  acSaati2Saat = (degerler[7].length==1 ? '0' : '' )+ degerler[7];
-                }
-                acSaati2Dakika = (degerler[8].length==1 ? '0' : '' )+ degerler[8];
-
-
-                if(int.parse(degerler[9])>12){
-                  kapaSaati1Saat=((int.parse(degerler[9])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[9])-12).toString();
-                }else{
-                  kapaSaati1Saat= (degerler[9].length==1 ? '0' : '' )+ degerler[9];
-                }
-                kapaSaati1Dakika = (degerler[10].length==1 ? '0' : '' )+ degerler[10];
-
-
-                if(int.parse(degerler[11])>12){
-                  kapaSaati2Saat=((int.parse(degerler[11])-12).toString().length==1 ? '0' : '' )+ (int.parse(degerler[11])-12).toString();
-                }else{
-                  kapaSaati2Saat = (degerler[11].length==1 ? '0' : '' )+ degerler[11];
-                }
-                kapaSaati2Dakika = (degerler[12].length==1 ? '0' : '' )+ degerler[12];
-
-              }
               
 
 
-              acKapaSaati2Aktiflik = degerler[13]=="True" ? true : false;
-              anlikAydinlikYuzdesi = degerler[14];
+    acKapaSaati2Aktiflik = degerler[13]=="True" ? true : false;
+    anlikAydinlikYuzdesi = degerler[14];
 
-              if(yazmaSonrasiGecikmeSayaci>=4 && yazmaSonrasiGecikmeSayaci<=6){
-                if(int.parse(degerler[5])<13){acSaati1AM=true;acSaati1PM=false;}
-                else{acSaati1AM=false;acSaati1PM=true;}
-                if(int.parse(degerler[7])<13){acSaati2AM=true;acSaati2PM=false;}
-                else{acSaati2AM=false;acSaati2PM=true;}
-                if(int.parse(degerler[9])<13){kapaSaati1AM=true;kapaSaati1PM=false;}
-                else{kapaSaati1AM=false;kapaSaati1PM=true;}
-                if(int.parse(degerler[11])<13){kapaSaati2AM=true;kapaSaati2PM=false;}
-                else{kapaSaati2AM=false;kapaSaati2PM=true;}
-              }
+    if(yazmaSonrasiGecikmeSayaci>=4 && yazmaSonrasiGecikmeSayaci<=6){
+      if(int.parse(degerler[5])<13){acSaati1AM=true;acSaati1PM=false;}
+      else{acSaati1AM=false;acSaati1PM=true;}
+      if(int.parse(degerler[7])<13){acSaati2AM=true;acSaati2PM=false;}
+      else{acSaati2AM=false;acSaati2PM=true;}
+      if(int.parse(degerler[9])<13){kapaSaati1AM=true;kapaSaati1PM=false;}
+      else{kapaSaati1AM=false;kapaSaati1PM=true;}
+      if(int.parse(degerler[11])<13){kapaSaati2AM=true;kapaSaati2PM=false;}
+      else{kapaSaati2AM=false;kapaSaati2PM=true;}
+    }
 
-              if(!acKapaSaati2Aktiflik){
-                acSaati2AM=false;
-                acSaati2PM=false;
-                kapaSaati2AM=false;
-                kapaSaati2PM=false;
-              }
+    if(!acKapaSaati2Aktiflik){
+      acSaati2AM=false;
+      acSaati2PM=false;
+      kapaSaati2AM=false;
+      kapaSaati2PM=false;
+    }
               
 
-              socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
     }
+    
   }
-
+  
   //--------------------------METOTLAR--------------------------------
 
 }

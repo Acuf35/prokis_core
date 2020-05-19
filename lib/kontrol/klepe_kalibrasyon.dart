@@ -49,6 +49,9 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
   List<String> kalibrasyonSuresi = new List(11);
   List<String> otoManDurum = new List(11);
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -81,7 +84,17 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
   @override
   Widget build(BuildContext context) {
     if (timerSayac == 0) {
-      _takipEt();
+
+      Metotlar().takipEt('8*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -90,7 +103,18 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          _takipEt();
+          
+          Metotlar().takipEt('8*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
+
         }
       });
     }
@@ -100,7 +124,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv239'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv239',baglantiDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -459,64 +483,9 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
     });
   }
 
-
-  _veriGonder(String emir, String toast) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
-
-        socket.add(utf8.encode(emir));
-
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
-
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(
-                  Dil().sec(dilSecimi,toast), context,
-                  duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(
-            Dil().sec(dilSecimi, "toast20"), context,
-            duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
-
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('8*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('#');
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('#');
               print(degerler);
               print(yazmaSonrasiGecikmeSayaci);
 
@@ -557,32 +526,15 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
 
 
 
-              
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(
-            Dil().sec(dilSecimi, "toast20"), context,
-            duration: 3);
-        baglanti = false;
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
     }
+    
   }
-
+ 
   Widget _klepeKlasikUnsur(double oran, int klepeNo) {
     return Expanded(
       flex: 5,
@@ -599,7 +551,29 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                       child: RawMaterialButton(
 
                         onLongPress: (){
-                          _veriGonder('9*$klepeNo', 'toast71');
+
+                          yazmaSonrasiGecikmeSayaci = 0;
+                          String komut='9*$klepeNo';
+                          Metotlar().veriGonder(komut, 2235).then((value){
+                            if(value.split("*")[0]=="error"){
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                            }else{
+                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                              
+                              baglanti = false;
+                              Metotlar().takipEt('8*', 2236).then((veri){
+                                  if(veri.split("*")[0]=="error"){
+                                    baglanti=false;
+                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                    setState(() {});
+                                  }else{
+                                    takipEtVeriIsleme(veri);
+                                    baglantiDurum="";
+                                  }
+                              });
+                            }
+                          });
+
                         },
                         onPressed: () {
 
@@ -610,7 +584,28 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                           }else{
 
                             
-                            _veriGonder('8*$klepeNo','toast70');
+
+                            yazmaSonrasiGecikmeSayaci = 0;
+                            String komut='8*$klepeNo';
+                            Metotlar().veriGonder(komut, 2235).then((value){
+                              if(value.split("*")[0]=="error"){
+                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                              }else{
+                                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                
+                                baglanti = false;
+                                Metotlar().takipEt('8*', 2236).then((veri){
+                                    if(veri.split("*")[0]=="error"){
+                                      baglanti=false;
+                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                      setState(() {});
+                                    }else{
+                                      takipEtVeriIsleme(veri);
+                                      baglantiDurum="";
+                                    }
+                                });
+                              }
+                            });
 
                           }
 

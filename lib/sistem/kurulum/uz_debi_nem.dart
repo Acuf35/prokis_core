@@ -239,21 +239,47 @@ class UzDebiNem extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   // Başlık Bölümü
-                  Expanded(
-                      child: Container(
-                    color: Colors.grey[600],
-                    child: Text(
-                      Dil().sec(dilSecimi, "tv29"),
-                      style: TextStyle(
-                          fontFamily: 'Kelly Slab',
-                          color: Colors.white,
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold),
-                      textScaleFactor: oran,
-                    ),
-                    alignment: Alignment.center,
-                  )),
-                  // Ayarlar Bölümü
+                        Expanded(
+                          child: Container(
+                            color: Colors.grey.shade600,
+                            child: Stack(
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    Dil().sec(dilSecimi, "tv29"),
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.white,
+                                        fontSize: 35,
+                                        fontWeight: FontWeight.bold),
+                                    textScaleFactor: oran,
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.centerRight,
+                                  child: SizedBox(
+                                    height: 40*oran,
+                                    width: 40*oran,
+                                    child: LayoutBuilder(
+                                      builder: (context, constraint) {
+                                        return IconButton(
+                                        padding: EdgeInsets.all(0),
+                                        icon:Icon(Icons.info_outline,),
+                                        iconSize: 35*oran,
+                                        color: Colors.white,
+                                        onPressed: ()=>Scaffold.of(context).openEndDrawer(),
+                                        );
+                                      }
+                                    ),
+                                  ),
+                                ),
+                              
+                              ],
+                            ),
+                          ),
+                        ),
+                        // Ayarlar Bölümü
                   Expanded(
                     flex: 3, //4~/oran,
                     child: Container(
@@ -1374,7 +1400,77 @@ class UzDebiNem extends StatelessWidget {
               ),
             ),
           ),
-        ));
+        ),
+
+        endDrawer: SizedBox(
+              width: 320 * oran,
+              child: Drawer(
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            Dil().sec(dilSecimi, "tv29"), 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                          color: Colors.yellow[700],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 17,
+                        child: Container(
+                          color: Colors.yellow[100],
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              ListTile(
+                                dense: false,
+                                title: Text(
+                                  Dil().sec(dilSecimi, "tv186"),
+                                  textScaleFactor: oran,
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                        text: Dil().sec(dilSecimi, "info45"),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 13*oran
+                                        )
+                                      ),
+
+                                      
+                                    ]
+                                  ),
+                                ),
+                              
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    
+        
+        
+        
+        );
       
       
             },

@@ -54,6 +54,9 @@ class OtoMan1 extends StatelessWidget {
   int yazmaSonrasiGecikmeSayaciSIRK = 8;
   bool takipEtiGeciciDurdur=false;
 
+  String baglantiDurum="";
+
+
   @override
   Widget build(BuildContext context) {
     final dbProkis = Provider.of<DBProkis>(context);
@@ -72,7 +75,9 @@ class OtoMan1 extends StatelessWidget {
                 var degerler = value.split('*');
 
                 if(degerler[0]=="error"){
-                  Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                  provider.dinlemeyiTetikle();
                 }else{
                   provider.otoTFAN=degerler[0]=="True" ? true : false;
                   provider.otoPEDM=degerler[1]=="True" ? true : false;
@@ -81,7 +86,7 @@ class OtoMan1 extends StatelessWidget {
                   provider.otoISTC=degerler[4]=="True" ? true : false;
                   provider.otoYEMA=degerler[5]=="True" ? true : false;
                   provider.otoSIRK=degerler[6]=="True" ? true : false;
-
+                  baglantiDurum="";
                   if(!timerCancel){
                     provider.dinlemeyiTetikle();
                   }
@@ -105,7 +110,9 @@ class OtoMan1 extends StatelessWidget {
                 var degerler = value.split('*');
 
                 if(degerler[0]=="error"){
-                  Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                  provider.dinlemeyiTetikle();
                 }else{
                   provider.otoTFAN=degerler[0]=="True" ? true : false;
                   provider.otoPEDM=degerler[1]=="True" ? true : false;
@@ -115,7 +122,7 @@ class OtoMan1 extends StatelessWidget {
                   provider.otoYEMA=degerler[5]=="True" ? true : false;
                   provider.otoSIRK=degerler[6]=="True" ? true : false;
                   baglanti=false;
-
+                  baglantiDurum="";
                   if(!timerCancel){
                     provider.dinlemeyiTetikle();
                   }
@@ -130,7 +137,7 @@ class OtoMan1 extends StatelessWidget {
             timerSayac++;
 
               return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv454'),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv454',baglantiDurum),
       body: Column(
         children: <Widget>[
           //Saat ve Tarih
@@ -405,7 +412,9 @@ class OtoMan1 extends StatelessWidget {
                                               var degerler = value.split('*');
 
                                               if(degerler[0]=="error"){
-                                                Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                baglanti=false;
+                                                baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                provider.dinlemeyiTetikle();
                                               }else{
                                                 provider.otoTFAN=degerler[0]=="True" ? true : false;
                                                 provider.otoPEDM=degerler[1]=="True" ? true : false;
@@ -414,6 +423,7 @@ class OtoMan1 extends StatelessWidget {
                                                 provider.otoISTC=degerler[4]=="True" ? true : false;
                                                 provider.otoYEMA=degerler[5]=="True" ? true : false;
                                                 provider.otoSIRK=degerler[6]=="True" ? true : false;
+                                                baglantiDurum="";
                                                 provider.dinlemeyiTetikle();
                                               }
                                             }); 
@@ -499,7 +509,9 @@ class OtoMan1 extends StatelessWidget {
                                               var degerler = value.split('*');
 
                                               if(degerler[0]=="error"){
-                                                Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                baglanti=false;
+                                                baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                provider.dinlemeyiTetikle();
                                               }else{
                                                 provider.otoTFAN=degerler[0]=="True" ? true : false;
                                                 provider.otoPEDM=degerler[1]=="True" ? true : false;
@@ -508,6 +520,7 @@ class OtoMan1 extends StatelessWidget {
                                                 provider.otoISTC=degerler[4]=="True" ? true : false;
                                                 provider.otoYEMA=degerler[5]=="True" ? true : false;
                                                 provider.otoSIRK=degerler[6]=="True" ? true : false;
+                                                baglantiDurum="";
                                                 provider.dinlemeyiTetikle();
                                               }
                                             });
@@ -585,11 +598,14 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.fanAdet);i++){
                                                           provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -614,11 +630,14 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.pedAdet);i++){
                                                           provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -643,10 +662,13 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.manuelAydinlikYuzdesi=degerler[0];
                                                         provider.aydMan[1]=degerler[1]=="True" ? true : false;
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -673,11 +695,14 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
                                                           provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -705,11 +730,14 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
                                                           provider.istMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -737,7 +765,9 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.yemMan[1]=degerler[0]=="True" ? true : false;
                                                         provider.yemMan[2]=degerler[1]=="True" ? true : false;
@@ -745,6 +775,7 @@ class OtoMan1 extends StatelessWidget {
                                                         provider.yemMan[4]=degerler[3]=="True" ? true : false;
                                                         provider.yemMan[5]=degerler[4]=="True" ? true : false;
                                                         provider.yemMan[6]=degerler[5]=="True" ? true : false;
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -772,9 +803,12 @@ class OtoMan1 extends StatelessWidget {
                                                       var degerler = value.split('*');
 
                                                       if(degerler[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                                                        baglanti=false;
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.sirMan[1]=degerler[0]=="True" ? true : false;
+                                                        baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -1880,12 +1914,15 @@ class OtoMan1 extends StatelessWidget {
                     Metotlar().takipEt("17*${provider.fanAdet}", 2236).then((value){
                       var degerler = value.split('*');
 
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.fanAdet);i++){
                           provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });
@@ -1911,12 +1948,15 @@ class OtoMan1 extends StatelessWidget {
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("18*${provider.pedAdet}", 2236).then((value){
                       var degerler = value.split('*');
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.pedAdet);i++){
                           provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });
@@ -1944,11 +1984,14 @@ class OtoMan1 extends StatelessWidget {
                     Metotlar().takipEt("19*}", 2236).then((value){
                       var degerler = value.split('*');
 
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         provider.manuelAydinlikYuzdesi=degerler[0];
                         provider.aydMan[1]=degerler[1]=="True" ? true : false;
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });
@@ -1975,12 +2018,15 @@ class OtoMan1 extends StatelessWidget {
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("20*${provider.bacafanAdet}", 2236).then((value){
                       var degerler = value.split('*');
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
                           provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });
@@ -2009,12 +2055,15 @@ class OtoMan1 extends StatelessWidget {
                     Metotlar().takipEt("21*${provider.isiticiAdet}", 2236).then((value){
                       var degerler = value.split('*');
 
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
                           provider.istMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });
@@ -2041,8 +2090,10 @@ class OtoMan1 extends StatelessWidget {
                     Metotlar().takipEt("22*", 2236).then((value){
                       var degerler = value.split('*');
 
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         provider.yemMan[1]=degerler[0]=="True" ? true : false;
                         provider.yemMan[2]=degerler[1]=="True" ? true : false;
@@ -2050,6 +2101,7 @@ class OtoMan1 extends StatelessWidget {
                         provider.yemMan[4]=degerler[3]=="True" ? true : false;
                         provider.yemMan[5]=degerler[4]=="True" ? true : false;
                         provider.yemMan[6]=degerler[5]=="True" ? true : false;
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });
@@ -2076,10 +2128,13 @@ class OtoMan1 extends StatelessWidget {
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("22a*", 2236).then((value){
                       var degerler = value.split('*');
-                      if(degerler[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+                      if(veri.split("*")[0]=="error"){
+                        baglanti=false;
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        provider.dinlemeyiTetikle();
                       }else{
                         provider.sirMan[1]=degerler[0]=="True" ? true : false;
+                        baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
                     });

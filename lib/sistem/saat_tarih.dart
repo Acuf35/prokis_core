@@ -265,6 +265,8 @@ class SaatTarihState extends State<SaatTarih> {
     '60'
   ];
 
+  String baglantiDurum="";
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -332,7 +334,7 @@ class SaatTarihState extends State<SaatTarih> {
     
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv403',Colors.grey[600]),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv403',Colors.grey[600],baglantiDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(

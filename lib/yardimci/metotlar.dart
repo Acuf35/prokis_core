@@ -10,6 +10,7 @@ import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:toast/toast.dart';
 
+
 class Metotlar {
 
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
@@ -517,9 +518,9 @@ class Metotlar {
     );
   }
 
-  Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik) {
+  Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum) {
     return PreferredSize(
-      preferredSize: Size.fromHeight(30 * oran),
+      preferredSize: Size.fromHeight(30*oran),
       child: AppBar(
         flexibleSpace: Row(
           children: <Widget>[
@@ -549,8 +550,22 @@ class Metotlar {
                 ),
               ),
             ),
-            Spacer(),
             Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                  Icons.router,
+                  size: 40 * oran,
+                  color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
+                ),
+                onPressed: () {
+
+                },
+              ),
+            )),
+          Expanded(
                 child: Builder(
               builder: (context) => RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
@@ -586,9 +601,94 @@ class Metotlar {
         automaticallyImplyLeading: false,
       ),
     );
+  
   }
 
-  Widget appBarSade(String dilSecimi, BuildContext context, double oran, String baslik, Color color) {
+  Widget appBarBLOC(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum) {
+    return AppBar(
+      flexibleSpace: Row(
+        children: <Widget>[
+          Expanded(
+              child: Builder(
+            builder: (context) => RawMaterialButton(
+              child: Icon(
+                Icons.menu,
+                size: 40 * oran,
+                color: Colors.white,
+              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            ),
+          )),
+          Spacer(),
+          Expanded(
+            flex: 10,
+            child: Center(
+              child: Text(
+                Dil().sec(dilSecimi, baslik),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 28 * oran,
+                    fontFamily: 'Kelly Slab',
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Expanded(
+              child: Builder(
+            builder: (context) => RawMaterialButton(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              constraints: BoxConstraints(),
+              child: Icon(
+                Icons.router,
+                size: 40 * oran,
+                color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
+              ),
+              onPressed: () {
+
+              },
+            ),
+          )),
+        Expanded(
+              child: Builder(
+            builder: (context) => RawMaterialButton(
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              constraints: BoxConstraints(),
+              child: Icon(
+                Icons.info_outline,
+                size: 40 * oran,
+                color: Colors.yellow[700],
+              ),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+            ),
+          )),
+        
+        ],
+      ),
+      actions: [
+        Row(
+          children: <Widget>[
+            Builder(
+              builder: (context) => IconButton(
+                color: Colors.yellow[700],
+                iconSize: 40 * oran,
+                icon: Icon(null),
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                tooltip:
+                    MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
+            ),
+          ],
+        ),
+      ],
+      primary: false,
+      automaticallyImplyLeading: false,
+    );
+  
+  }
+
+
+  Widget appBarSade(String dilSecimi, BuildContext context, double oran, String baslik, Color color, String baglantiDurum) {
     return PreferredSize(
       preferredSize: Size.fromHeight(30 * oran),
       child: AppBar(
@@ -612,7 +712,21 @@ class Metotlar {
                   ),
                 ),
               ),
-              Spacer(),
+              Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                  Icons.router,
+                  size: 40 * oran,
+                  color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
+                ),
+                onPressed: () {
+
+                },
+              ),
+            )),
               Expanded(
                   child: Builder(
                 builder: (context) => RawMaterialButton(
@@ -854,6 +968,8 @@ class Metotlar {
 
   return _donusDegeri;
 } 
+
+
 
   String errorToastMesaj(String mesaj){
     

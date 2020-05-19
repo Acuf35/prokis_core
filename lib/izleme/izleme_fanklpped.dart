@@ -8,7 +8,6 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';
 import 'package:prokis/languages/select.dart';
-import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -86,6 +85,8 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
   String initialVeri="1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*1*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*"
 "0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*0*#4*0*0.0*0*158*142*23.0*27.5*24.0*26.0*0*0*0*0*0*0*0#100.0*63.5*63.5*0."
 "0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*1*0*0*0*0*0*0*0*0*0*#1*1*1*1*0*0*0*0*0*0*0*1*1*1*0*1*0*0*#0.0*0.0";
+
+  String baglantiDurum="";
 
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -200,7 +201,17 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
     _controller2.stop();
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv598'),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(30*oran),
+          child: StreamBuilder<Object>(
+            initialData: "",
+            stream: _blocSinif.bloCVeriStateStreamControllerBAGLANTIERROR.stream,
+            builder: (context, snapshot) {
+              baglantiDurum=snapshot.data;
+              return Metotlar().appBarBLOC(dilSecimi, context, oran, 'tv598',baglantiDurum);
+            }
+          ),
+        ),
         floatingActionButton: Opacity(
           opacity: 0.4,
           child: Container(
@@ -271,6 +282,7 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
                 ),
               ],
             ),
+            
             //GÖVDE
             Expanded(
               child: Row(
@@ -2494,6 +2506,8 @@ class IzlemeFanKlpPedBloC {
   final bloCVeriStateStreamControllerCBB = StreamController<String>();
   //Sistem Modu için SteateStream
   final bloCVeriStateStreamControllerMOD = StreamController<String>();
+  //Bağlantı hatası
+  final bloCVeriStateStreamControllerBAGLANTIERROR = StreamController<String>();
   
 
   //Fan çıkışları için EventStream
@@ -2522,6 +2536,8 @@ class IzlemeFanKlpPedBloC {
   final bloCVeriEventStreamControllerCBB = StreamController<String>();
   //Sistem Modu için SteateStream
   final bloCVeriEventStreamControllerMOD = StreamController<String>();
+  //Bağlantı hatası
+  final bloCVeriEventStreamControllerBAGLANTIERROR = StreamController<String>();
 
 
 
@@ -2547,6 +2563,7 @@ class IzlemeFanKlpPedBloC {
   String dbbDegerGecici="";
   String cbbDegerGecici="";
   String modGecici="";
+  String baglantiHatasiGecici="";
 
   IzlemeFanKlpPedBloC(BuildContext context, String dilSecimi, List fanNo, int unsurAdet, List klepeNo, List isisensorNo, List pedNo) {
 
@@ -2574,14 +2591,24 @@ class IzlemeFanKlpPedBloC {
     if (timerSayac == 0) {
 
 
-      Metotlar().takipEt("1*60", 2237).then((veri){
+      Metotlar().takipEt("i1*", 2236).then((veri){
 
         var degerler=veri.split("*");
-        if(degerler[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        if(veri.split("*")[0]=="error"){
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          if(baglantiHatasi!=baglantiHatasiGecici){
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+          }
+          baglantiHatasiGecici=baglantiHatasi;
         }else{
 
           var xx=veri.split("#");
+
+          String baglantiHatasi="";
+            if(baglantiHatasi!=baglantiHatasiGecici){
+              bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            }
+            baglantiHatasiGecici=baglantiHatasi;
 
 
     //******************************FAN ÇIKIŞ DURUMLARI*******************************/
@@ -2740,14 +2767,24 @@ class IzlemeFanKlpPedBloC {
         if (!baglanti) {
           baglanti = true;
           
-          Metotlar().takipEt("1*60", 2237).then((veri){
+          Metotlar().takipEt("i1*", 2236).then((veri){
 
             var degerler=veri.split("*");
-        if(degerler[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        if(veri.split("*")[0]=="error"){
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          if(baglantiHatasi!=baglantiHatasiGecici){
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+          }
+          baglantiHatasiGecici=baglantiHatasi;
         }else{
 
               var xx=veri.split("#");
+
+              String baglantiHatasi="";
+              if(baglantiHatasi!=baglantiHatasiGecici){
+                bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+              }
+              baglantiHatasiGecici=baglantiHatasi;
 
       //******************************FAN ÇIKIŞ DURUMLARI*******************************/
               var fanDurumlar=xx[0].split("*");

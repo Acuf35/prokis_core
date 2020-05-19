@@ -41,6 +41,8 @@ class GenelAyarlarState extends State<GenelAyarlar> {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   List<Map> dbVeriler;
+
+  String baglantiDurum="";
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -65,7 +67,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue,baglantiDurum),
       body: Column(
         children: <Widget>[
           Row(
@@ -679,21 +681,72 @@ class GenelAyarlarState extends State<GenelAyarlar> {
             ),
           )
         ],
-      )
+      ),
+      endDrawer: SizedBox(
+              width: 320 * oran,
+              child: Drawer(
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            Dil().sec(dilSecimi, "tv99"), 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                          color: Colors.yellow[700],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 17,
+                        child: Container(
+                          color: Colors.yellow[100],
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              ListTile(
+                                dense: false,
+                                title: Text(
+                                  Dil().sec(dilSecimi, "tv186"),
+                                  textScaleFactor: oran,
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                        text: Dil().sec(dilSecimi, "info46"),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 13*oran
+                                        )
+                                      ),
+
+                                      
+                                    ]
+                                  ),
+                                ),
+                              
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    
       );
   }
-/*
-  _satirlar(List<Map> satirlar) {
-    dbVeriler = satirlar;
-  }
-
-  _dbVeriCekme() {
-    dbSatirlar = dbHelper.satirlariCek();
-    final satirSayisi = dbHelper.satirSayisi();
-    satirSayisi.then((int satirSayisi) => dbSatirSayisi = satirSayisi);
-    satirSayisi.whenComplete(() {
-      dbSatirlar.then((List<Map> satir) => _satirlar(satir));
-    });
-  }
-  */
 }

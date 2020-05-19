@@ -74,7 +74,8 @@ class IzlemeState extends State<Izleme> {
   int sistemModu=3;
   int nemDurum=0;
 
-  Socket _socket;
+  String baglantiDurum="";
+  
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -104,14 +105,16 @@ int sayac=0;
   Widget build(BuildContext context) {
 
     if (timerSayac == 0) {
-      Metotlar().takipEt("4*", 2237).then((veri){
-        var degerler=veri.split("*");
-            if(degerler[0]=="error"){
-              Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+      Metotlar().takipEt("i4*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
             }else{
               takipEtVeriIsleme(veri);
+              baglantiDurum="";
             }
-      });
+          });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -120,13 +123,14 @@ int sayac=0;
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          Metotlar().takipEt("4*", 2237).then((veri){
-            var degerler=veri.split("*");
-            if(degerler[0]=="error"){
-              Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+          Metotlar().takipEt("i4*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
             }else{
               takipEtVeriIsleme(veri);
-              print(timerSayac);
+              baglantiDurum="";
             }
           });
         }
@@ -139,7 +143,7 @@ int sayac=0;
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv569'),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv569',baglantiDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(

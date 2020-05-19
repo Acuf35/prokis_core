@@ -7,12 +7,15 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/saat_tarih.dart';
+import 'package:prokis/sistem/sistem_start_stop.dart';
+import 'package:prokis/sistem/yazilim.dart';
+import 'package:prokis/yardimci/sifre_giris_admin.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
-import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:toast/toast.dart';
 
 class Sistem extends StatefulWidget {
 
@@ -24,6 +27,8 @@ class Sistem extends StatefulWidget {
 
 class SistemState extends State<Sistem> {
   String dilSecimi = "EN";
+  String sifre = "0";
+  String baglantiDurum="";
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +36,12 @@ class SistemState extends State<Sistem> {
     var oran = MediaQuery.of(context).size.width / 731.4;
     final dbProkis = Provider.of<DBProkis>(context);
     dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
+    sifre=dbProkis.dbVeriGetir(3, 4, "0");
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv401',Colors.grey[600]),
+      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomPadding: false,
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv401',Colors.grey[600],baglantiDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(
@@ -99,7 +107,7 @@ class SistemState extends State<Sistem> {
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 3,
+                        flex: 2,
                       ),
                       //KURULUM
                       Expanded(
@@ -231,7 +239,73 @@ class SistemState extends State<Sistem> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
+                        flex: 1,
+                      ),
+                      //YAZILIM
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv677'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Yazilim (dbProkis.getDbVeri)),
+                                    );
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/software_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 2,
                       ),
                       
                     ],
@@ -243,10 +317,70 @@ class SistemState extends State<Sistem> {
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 3,
+                        flex: 2,
                       ),
+                      //SİSTEM START-STOP
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv684'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+
+                                    _sifreGiris(oran,dbProkis);
+
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/sistem_start_stop_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
                       Spacer(
-                        flex: 3,
+                        flex: 2,
                       ),
                     ],
                   ),
@@ -339,5 +473,43 @@ class SistemState extends State<Sistem> {
       ),
      
       );
+
+      
+
+
   }
+
+  Future _sifreGiris(double oran, DBProkis dbProkis) async {
+    // flutter defined function
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SifreGirisAdmin.Deger(dilSecimi,oran);
+      },
+    ).then((val) {
+
+      print('$sifre  ,  $val');
+
+      if(sifre==val[1] && val[0]=='1'){
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  SistemStartStop(dbProkis.getDbVeri)),
+        );
+
+
+      }else if(sifre!=val[1] && val[0]=='1'){
+        Toast.show("Yanlış şifre girdiniz!", context,duration: 3);
+      }
+      
+    });
+  }
+
+
 }

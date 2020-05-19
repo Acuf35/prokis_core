@@ -51,6 +51,9 @@ class KontrolState extends State<Kontrol> {
   String klepeYontemi = "0";
   String mhYontemi = "0";
   List<Map> dbVeriler;
+
+  String baglantiDurum="";
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -92,7 +95,7 @@ class KontrolState extends State<Kontrol> {
 
     return Scaffold(
       
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv106'),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv106',baglantiDurum),
       body: Column(
         children: <Widget>[
           Row(

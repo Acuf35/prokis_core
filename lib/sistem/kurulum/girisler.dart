@@ -361,7 +361,7 @@ class Girisler extends StatelessWidget {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            Dil().sec(dilSecimi, "tv350"), 
+                            Dil().sec(dilSecimi, "tv349"), 
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.black,

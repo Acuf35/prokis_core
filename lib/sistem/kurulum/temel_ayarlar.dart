@@ -25,6 +25,7 @@ class TemelAyarlar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
 
     final dbProkis = Provider.of<DBProkis>(context);
     dilSecimi = dbProkis.dbVeriGetir(1, 1,"TR");
@@ -90,17 +91,40 @@ class TemelAyarlar extends StatelessWidget {
                       children: <Widget>[
                         // Başlık Bölümü
                         Expanded(
-                          child: Container(
-                            child: Text(
-                              Dil().sec(dilSecimi, "tv2"),
-                              style: TextStyle(
-                                  fontFamily: 'Kelly Slab',
-                                  color: Colors.grey.shade600,
-                                  fontSize: 35,
-                                  fontWeight: FontWeight.bold),
-                              textScaleFactor: oran,
-                            ),
-                            alignment: Alignment.center,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  Dil().sec(dilSecimi, "tv2"),
+                                  style: TextStyle(
+                                      fontFamily: 'Kelly Slab',
+                                      color: Colors.grey.shade600,
+                                      fontSize: 35,
+                                      fontWeight: FontWeight.bold),
+                                  textScaleFactor: oran,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: SizedBox(
+                                  height: 40*oran,
+                                  width: 40*oran,
+                                  child: LayoutBuilder(
+                                    builder: (context, constraint) {
+                                      return IconButton(
+                                      padding: EdgeInsets.all(0),
+                                      icon:Icon(Icons.info_outline,),
+                                      iconSize: 35*oran,
+                                      color: Colors.grey[700],
+                                      onPressed: ()=>Scaffold.of(context).openEndDrawer(),
+                                      );
+                                    }
+                                  ),
+                                ),
+                              ),
+                            
+                            ],
                           ),
                         ),
                         // Ayarlar Bölümü
@@ -821,6 +845,74 @@ class TemelAyarlar extends StatelessWidget {
                   Icons.arrow_back,
                   1,
                   "tv563"),
+          
+              endDrawer: SizedBox(
+              width: 320 * oran,
+              child: Drawer(
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            Dil().sec(dilSecimi, "tv2"), 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                          color: Colors.yellow[700],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 17,
+                        child: Container(
+                          color: Colors.yellow[100],
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              ListTile(
+                                dense: false,
+                                title: Text(
+                                  Dil().sec(dilSecimi, "tv186"),
+                                  textScaleFactor: oran,
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                        text: Dil().sec(dilSecimi, "info44"),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 13*oran
+                                        )
+                                      ),
+
+                                      
+                                    ]
+                                  ),
+                                ),
+                              
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    
+          
+          
           );
         },
       ),

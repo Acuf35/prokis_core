@@ -61,6 +61,9 @@ class KlepeKlasikState extends State<KlepeKlasik> {
   List<String> klepeAciklik4 = new List(11);
   List<String> minHavAciklikOrani = new List(11);
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -96,7 +99,17 @@ class KlepeKlasikState extends State<KlepeKlasik> {
   @override
   Widget build(BuildContext context) {
     if (timerSayac == 0) {
-      _takipEt();
+
+      Metotlar().takipEt('6*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -105,7 +118,18 @@ class KlepeKlasikState extends State<KlepeKlasik> {
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          _takipEt();
+          
+          Metotlar().takipEt('6*', 2236).then((veri){
+              if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+          });
+
         }
       });
     }
@@ -115,7 +139,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -943,8 +967,30 @@ class KlepeKlasikState extends State<KlepeKlasik> {
 
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("6*$klepeIndex*$veri");
+        String komut='6*$klepeIndex*$veri';
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('6*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
+
       }
 
 
@@ -1006,8 +1052,29 @@ class KlepeKlasikState extends State<KlepeKlasik> {
 
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("6*$klepeIndex*$veri");
+        String komut='6*$klepeIndex*$veri';
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('6*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
       }
 
       setState(() {});
@@ -1018,212 +1085,145 @@ class KlepeKlasikState extends State<KlepeKlasik> {
     updateState(() {});
   }
 
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
-
-        socket.add(utf8.encode(emir));
-
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
-
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(
-                  Dil().sec(dilSecimi, "toast8"), context,
-                  duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
-
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('6*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('*');
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
 
-                var gelenKlepe1=degerler[0].split('#');
-                calisanFanSayisi1[1]=gelenKlepe1[0];
-                calisanFanSayisi2[1]=gelenKlepe1[1];
-                klepeAciklik1[1]=gelenKlepe1[2];
-                klepeAciklik2[1]=gelenKlepe1[3];
-                calisanFanSayisi3[1]=gelenKlepe1[4];
-                calisanFanSayisi4[1]=gelenKlepe1[5];
-                klepeAciklik3[1]=gelenKlepe1[6];
-                klepeAciklik4[1]=gelenKlepe1[7];
-                aktuelAciklik[1]=gelenKlepe1[8];
-                minHavAciklikOrani[1]=gelenKlepe1[9];
+    var gelenKlepe1=degerler[0].split('#');
+    calisanFanSayisi1[1]=gelenKlepe1[0];
+    calisanFanSayisi2[1]=gelenKlepe1[1];
+    klepeAciklik1[1]=gelenKlepe1[2];
+    klepeAciklik2[1]=gelenKlepe1[3];
+    calisanFanSayisi3[1]=gelenKlepe1[4];
+    calisanFanSayisi4[1]=gelenKlepe1[5];
+    klepeAciklik3[1]=gelenKlepe1[6];
+    klepeAciklik4[1]=gelenKlepe1[7];
+    aktuelAciklik[1]=gelenKlepe1[8];
+    minHavAciklikOrani[1]=gelenKlepe1[9];
 
-                var gelenKlepe2=degerler[1].split('#');
-                calisanFanSayisi1[2]=gelenKlepe2[0];
-                calisanFanSayisi2[2]=gelenKlepe2[1];
-                klepeAciklik1[2]=gelenKlepe2[2];
-                klepeAciklik2[2]=gelenKlepe2[3];
-                calisanFanSayisi3[2]=gelenKlepe2[4];
-                calisanFanSayisi4[2]=gelenKlepe2[5];
-                klepeAciklik3[2]=gelenKlepe2[6];
-                klepeAciklik4[2]=gelenKlepe2[7];
-                aktuelAciklik[2]=gelenKlepe2[8];
-                minHavAciklikOrani[2]=gelenKlepe2[9];
+    var gelenKlepe2=degerler[1].split('#');
+    calisanFanSayisi1[2]=gelenKlepe2[0];
+    calisanFanSayisi2[2]=gelenKlepe2[1];
+    klepeAciklik1[2]=gelenKlepe2[2];
+    klepeAciklik2[2]=gelenKlepe2[3];
+    calisanFanSayisi3[2]=gelenKlepe2[4];
+    calisanFanSayisi4[2]=gelenKlepe2[5];
+    klepeAciklik3[2]=gelenKlepe2[6];
+    klepeAciklik4[2]=gelenKlepe2[7];
+    aktuelAciklik[2]=gelenKlepe2[8];
+    minHavAciklikOrani[2]=gelenKlepe2[9];
 
-                var gelenKlepe3=degerler[2].split('#');
-                calisanFanSayisi1[3]=gelenKlepe3[0];
-                calisanFanSayisi2[3]=gelenKlepe3[1];
-                klepeAciklik1[3]=gelenKlepe3[2];
-                klepeAciklik2[3]=gelenKlepe3[3];
-                calisanFanSayisi3[3]=gelenKlepe3[4];
-                calisanFanSayisi4[3]=gelenKlepe3[5];
-                klepeAciklik3[3]=gelenKlepe3[6];
-                klepeAciklik4[3]=gelenKlepe3[7];
-                aktuelAciklik[3]=gelenKlepe3[8];
-                minHavAciklikOrani[3]=gelenKlepe3[9];
+    var gelenKlepe3=degerler[2].split('#');
+    calisanFanSayisi1[3]=gelenKlepe3[0];
+    calisanFanSayisi2[3]=gelenKlepe3[1];
+    klepeAciklik1[3]=gelenKlepe3[2];
+    klepeAciklik2[3]=gelenKlepe3[3];
+    calisanFanSayisi3[3]=gelenKlepe3[4];
+    calisanFanSayisi4[3]=gelenKlepe3[5];
+    klepeAciklik3[3]=gelenKlepe3[6];
+    klepeAciklik4[3]=gelenKlepe3[7];
+    aktuelAciklik[3]=gelenKlepe3[8];
+    minHavAciklikOrani[3]=gelenKlepe3[9];
 
 
-                var gelenKlepe4=degerler[3].split('#');
-                calisanFanSayisi1[4]=gelenKlepe4[0];
-                calisanFanSayisi2[4]=gelenKlepe4[1];
-                klepeAciklik1[4]=gelenKlepe4[2];
-                klepeAciklik2[4]=gelenKlepe4[3];
-                calisanFanSayisi3[4]=gelenKlepe4[4];
-                calisanFanSayisi4[4]=gelenKlepe4[5];
-                klepeAciklik3[4]=gelenKlepe4[6];
-                klepeAciklik4[4]=gelenKlepe4[7];
-                aktuelAciklik[4]=gelenKlepe4[8];
-                minHavAciklikOrani[4]=gelenKlepe4[9];
+    var gelenKlepe4=degerler[3].split('#');
+    calisanFanSayisi1[4]=gelenKlepe4[0];
+    calisanFanSayisi2[4]=gelenKlepe4[1];
+    klepeAciklik1[4]=gelenKlepe4[2];
+    klepeAciklik2[4]=gelenKlepe4[3];
+    calisanFanSayisi3[4]=gelenKlepe4[4];
+    calisanFanSayisi4[4]=gelenKlepe4[5];
+    klepeAciklik3[4]=gelenKlepe4[6];
+    klepeAciklik4[4]=gelenKlepe4[7];
+    aktuelAciklik[4]=gelenKlepe4[8];
+    minHavAciklikOrani[4]=gelenKlepe4[9];
 
-                var gelenKlepe5=degerler[4].split('#');
-                calisanFanSayisi1[5]=gelenKlepe5[0];
-                calisanFanSayisi2[5]=gelenKlepe5[1];
-                klepeAciklik1[5]=gelenKlepe5[2];
-                klepeAciklik2[5]=gelenKlepe5[3];
-                calisanFanSayisi3[5]=gelenKlepe5[4];
-                calisanFanSayisi4[5]=gelenKlepe5[5];
-                klepeAciklik3[5]=gelenKlepe5[6];
-                klepeAciklik4[5]=gelenKlepe5[7];
-                aktuelAciklik[5]=gelenKlepe5[8];
-                minHavAciklikOrani[5]=gelenKlepe5[9];
+    var gelenKlepe5=degerler[4].split('#');
+    calisanFanSayisi1[5]=gelenKlepe5[0];
+    calisanFanSayisi2[5]=gelenKlepe5[1];
+    klepeAciklik1[5]=gelenKlepe5[2];
+    klepeAciklik2[5]=gelenKlepe5[3];
+    calisanFanSayisi3[5]=gelenKlepe5[4];
+    calisanFanSayisi4[5]=gelenKlepe5[5];
+    klepeAciklik3[5]=gelenKlepe5[6];
+    klepeAciklik4[5]=gelenKlepe5[7];
+    aktuelAciklik[5]=gelenKlepe5[8];
+    minHavAciklikOrani[5]=gelenKlepe5[9];
 
-                var gelenKlepe6=degerler[5].split('#');
-                calisanFanSayisi1[6]=gelenKlepe6[0];
-                calisanFanSayisi2[6]=gelenKlepe6[1];
-                klepeAciklik1[6]=gelenKlepe6[2];
-                klepeAciklik2[6]=gelenKlepe6[3];
-                calisanFanSayisi3[6]=gelenKlepe6[4];
-                calisanFanSayisi4[6]=gelenKlepe6[5];
-                klepeAciklik3[6]=gelenKlepe6[6];
-                klepeAciklik4[6]=gelenKlepe6[7];
-                aktuelAciklik[6]=gelenKlepe6[8];
-                minHavAciklikOrani[6]=gelenKlepe6[9];
+    var gelenKlepe6=degerler[5].split('#');
+    calisanFanSayisi1[6]=gelenKlepe6[0];
+    calisanFanSayisi2[6]=gelenKlepe6[1];
+    klepeAciklik1[6]=gelenKlepe6[2];
+    klepeAciklik2[6]=gelenKlepe6[3];
+    calisanFanSayisi3[6]=gelenKlepe6[4];
+    calisanFanSayisi4[6]=gelenKlepe6[5];
+    klepeAciklik3[6]=gelenKlepe6[6];
+    klepeAciklik4[6]=gelenKlepe6[7];
+    aktuelAciklik[6]=gelenKlepe6[8];
+    minHavAciklikOrani[6]=gelenKlepe6[9];
 
-                var gelenKlepe7=degerler[6].split('#');
-                calisanFanSayisi1[7]=gelenKlepe7[0];
-                calisanFanSayisi2[7]=gelenKlepe7[1];
-                klepeAciklik1[7]=gelenKlepe7[2];
-                klepeAciklik2[7]=gelenKlepe7[3];
-                calisanFanSayisi3[7]=gelenKlepe7[4];
-                calisanFanSayisi4[7]=gelenKlepe7[5];
-                klepeAciklik3[7]=gelenKlepe7[6];
-                klepeAciklik4[7]=gelenKlepe7[7];
-                aktuelAciklik[7]=gelenKlepe7[8];
-                minHavAciklikOrani[7]=gelenKlepe7[9];
+    var gelenKlepe7=degerler[6].split('#');
+    calisanFanSayisi1[7]=gelenKlepe7[0];
+    calisanFanSayisi2[7]=gelenKlepe7[1];
+    klepeAciklik1[7]=gelenKlepe7[2];
+    klepeAciklik2[7]=gelenKlepe7[3];
+    calisanFanSayisi3[7]=gelenKlepe7[4];
+    calisanFanSayisi4[7]=gelenKlepe7[5];
+    klepeAciklik3[7]=gelenKlepe7[6];
+    klepeAciklik4[7]=gelenKlepe7[7];
+    aktuelAciklik[7]=gelenKlepe7[8];
+    minHavAciklikOrani[7]=gelenKlepe7[9];
 
-                var gelenKlepe8=degerler[7].split('#');
-                calisanFanSayisi1[8]=gelenKlepe8[0];
-                calisanFanSayisi2[8]=gelenKlepe8[1];
-                klepeAciklik1[8]=gelenKlepe8[2];
-                klepeAciklik2[8]=gelenKlepe8[3];
-                calisanFanSayisi3[8]=gelenKlepe8[4];
-                calisanFanSayisi4[8]=gelenKlepe8[5];
-                klepeAciklik3[8]=gelenKlepe8[6];
-                klepeAciklik4[8]=gelenKlepe8[7];
-                aktuelAciklik[8]=gelenKlepe8[8];
-                minHavAciklikOrani[8]=gelenKlepe8[9];
+    var gelenKlepe8=degerler[7].split('#');
+    calisanFanSayisi1[8]=gelenKlepe8[0];
+    calisanFanSayisi2[8]=gelenKlepe8[1];
+    klepeAciklik1[8]=gelenKlepe8[2];
+    klepeAciklik2[8]=gelenKlepe8[3];
+    calisanFanSayisi3[8]=gelenKlepe8[4];
+    calisanFanSayisi4[8]=gelenKlepe8[5];
+    klepeAciklik3[8]=gelenKlepe8[6];
+    klepeAciklik4[8]=gelenKlepe8[7];
+    aktuelAciklik[8]=gelenKlepe8[8];
+    minHavAciklikOrani[8]=gelenKlepe8[9];
 
-                var gelenKlepe9=degerler[8].split('#');
-                calisanFanSayisi1[9]=gelenKlepe9[0];
-                calisanFanSayisi2[9]=gelenKlepe9[1];
-                klepeAciklik1[9]=gelenKlepe9[2];
-                klepeAciklik2[9]=gelenKlepe9[3];
-                calisanFanSayisi3[9]=gelenKlepe9[4];
-                calisanFanSayisi4[9]=gelenKlepe9[5];
-                klepeAciklik3[9]=gelenKlepe9[6];
-                klepeAciklik4[9]=gelenKlepe9[7];
-                aktuelAciklik[9]=gelenKlepe9[8];
-                minHavAciklikOrani[9]=gelenKlepe9[9];
+    var gelenKlepe9=degerler[8].split('#');
+    calisanFanSayisi1[9]=gelenKlepe9[0];
+    calisanFanSayisi2[9]=gelenKlepe9[1];
+    klepeAciklik1[9]=gelenKlepe9[2];
+    klepeAciklik2[9]=gelenKlepe9[3];
+    calisanFanSayisi3[9]=gelenKlepe9[4];
+    calisanFanSayisi4[9]=gelenKlepe9[5];
+    klepeAciklik3[9]=gelenKlepe9[6];
+    klepeAciklik4[9]=gelenKlepe9[7];
+    aktuelAciklik[9]=gelenKlepe9[8];
+    minHavAciklikOrani[9]=gelenKlepe9[9];
 
-                var gelenKlepe10=degerler[9].split('#');
-                calisanFanSayisi1[10]=gelenKlepe10[0];
-                calisanFanSayisi2[10]=gelenKlepe10[1];
-                klepeAciklik1[10]=gelenKlepe10[2];
-                klepeAciklik2[10]=gelenKlepe10[3];
-                calisanFanSayisi3[10]=gelenKlepe10[4];
-                calisanFanSayisi4[10]=gelenKlepe10[5];
-                klepeAciklik3[10]=gelenKlepe10[6];
-                klepeAciklik4[10]=gelenKlepe10[7];
-                aktuelAciklik[10]=gelenKlepe10[8];
-                minHavAciklikOrani[10]=gelenKlepe10[9];
+    var gelenKlepe10=degerler[9].split('#');
+    calisanFanSayisi1[10]=gelenKlepe10[0];
+    calisanFanSayisi2[10]=gelenKlepe10[1];
+    klepeAciklik1[10]=gelenKlepe10[2];
+    klepeAciklik2[10]=gelenKlepe10[3];
+    calisanFanSayisi3[10]=gelenKlepe10[4];
+    calisanFanSayisi4[10]=gelenKlepe10[5];
+    klepeAciklik3[10]=gelenKlepe10[6];
+    klepeAciklik4[10]=gelenKlepe10[7];
+    aktuelAciklik[10]=gelenKlepe10[8];
+    minHavAciklikOrani[10]=gelenKlepe10[9];
               
 
 
-              //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
     }
+    
   }
-
+ 
 
   Widget _klepeKlasikUnsur(double oran, int klepeNo) {
     return Expanded(

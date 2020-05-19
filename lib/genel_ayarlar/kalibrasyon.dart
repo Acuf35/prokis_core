@@ -76,6 +76,9 @@ class KalibrasyonState extends State<Kalibrasyon> {
   String disNemArtiKalibDegeri="0.0";
   String disNemEksiKalibDegeri="0.0";
 
+  String baglantiDurum="";
+
+
   
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -153,9 +156,38 @@ class KalibrasyonState extends State<Kalibrasyon> {
 
     if (timerSayac == 0) {
       if(isisensorBaglanti==1){
-        _takipEtWifi();
+
+        Metotlar().takipEt("24aa*", 2233).then((veri){
+
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIslemeWifi(veri);
+              baglantiDurum="";
+            }
+
+        });
+
+
       }else{
-        _takipEtAnalog();
+        
+        
+        Metotlar().takipEt("24bb*", 2233).then((veri){
+
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIslemeAnalog(veri);
+              baglantiDurum="";
+            }
+
+        });
+
+
       }
 
       Timer.periodic(Duration(seconds: 4), (timer) {
@@ -168,9 +200,39 @@ class KalibrasyonState extends State<Kalibrasyon> {
           baglanti = true;
 
           if(isisensorBaglanti==1){
-            _takipEtWifi();
+            
+            
+            Metotlar().takipEt("24aa*", 2233).then((veri){
+
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIslemeWifi(veri);
+              baglantiDurum="";
+            }
+
+        });
+
+
           }else{
-            _takipEtAnalog();
+            
+            
+            Metotlar().takipEt("24bb*", 2233).then((veri){
+
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIslemeAnalog(veri);
+              baglantiDurum="";
+            }
+
+        });
+
+
           }
         }
       });
@@ -181,7 +243,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv431'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv431',baglantiDurum),
         body: Column(
           children: <Widget>[
             //Saat ve Tarih
@@ -466,282 +528,148 @@ class KalibrasyonState extends State<Kalibrasyon> {
     });
   }
 
+  takipEtVeriIslemeWifi(String gelenMesaj){
+    
+    var veri=gelenMesaj.split('#');
+    var sensorler =veri[0].split('*');
+    var artiEksiDegerler=veri[1].split('*');
+    var nemDegerler=veri[2].split('*');
+
+    aktifSenSay = (sensorler.length - 1).toInt();
+
+    for (int i = 1; i <= 15; i++) {
+      if (i <= aktifSenSay) {
+        aktifSensorVisibility[i] = true;
+      }
+    }
+    for(int i=0;i<=sensorler.length-2;i++){
+      var deger=sensorler[i].split('+');
+      aktifSensorID[i+1]=deger[0];
+      aktifSensorValue[i+1]=deger[1];
+      aktifSensorDurum[i+1]=deger[2] == 'ok' ? true : false;
+    }
+
+
+    for(int i=0;i<=artiEksiDegerler.length-2;i++){
+      var deger=artiEksiDegerler[i].split('+');
+      aktifSensorArtiKalibDegeri[i+1]=deger[0];
+      aktifSensorEksiKalibDegeri[i+1]=deger[1];
+    }
+
+    for(int i=1;i<=15;i++){
+      aktifSensorValue[i]=(double.parse(aktifSensorValue[i])+double.parse(aktifSensorArtiKalibDegeri[i])-double.parse(aktifSensorEksiKalibDegeri[i])).toStringAsFixed(1);
+    }
+
+    icNemDeger=nemDegerler[0];
+    icNemArtiKalibDegeri=nemDegerler[1];
+    icNemEksiKalibDegeri=nemDegerler[2];
+    disNemDeger=nemDegerler[3];
+    disNemArtiKalibDegeri=nemDegerler[4];
+    disNemEksiKalibDegeri=nemDegerler[5];
+
+
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
+      });
+    }
+    
+  }
  
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
 
-        socket.add(utf8.encode(emir));
+  takipEtVeriIslemeAnalog(String gelenMesaj){
+    
+    var veri=gelenMesaj.split("*");
+    var sensorler = veri[0].split('#');
+    var artiDegerler = veri[1].split('#');
+    var eksiDegerler = veri[2].split('#');
+    var nemDegerler = veri[3].split('#');
+    print(veri);
 
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
+    aktifSensorVisibility[1] =  isisensorAdet>=1 ? true :false;
+    aktifSensorVisibility[4] =  isisensorAdet>=2 ? true :false;
+    aktifSensorVisibility[7] =  isisensorAdet>=3 ? true :false;
+    aktifSensorVisibility[10] = isisensorAdet>=4 ? true :false;
+    aktifSensorVisibility[13] = isisensorAdet>=5 ? true :false;
+    aktifSensorVisibility[2] =  isisensorAdet>=6 ? true :false;
+    aktifSensorVisibility[5] =  isisensorAdet>=7 ? true :false;
+    aktifSensorVisibility[8] =  isisensorAdet>=8 ? true :false;
+    aktifSensorVisibility[11] = isisensorAdet>=9 ? true :false;
+    aktifSensorVisibility[14] = isisensorAdet>=10 ? true :false;
 
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
-    }
-  }
+    aktifSensorID[1] = Dil().sec(dilSecimi, "tv443");
+    aktifSensorID[4] = Dil().sec(dilSecimi, "tv444");
+    aktifSensorID[7] = Dil().sec(dilSecimi, "tv445");
+    aktifSensorID[10] = Dil().sec(dilSecimi, "tv446");
+    aktifSensorID[13] = Dil().sec(dilSecimi, "tv447");
+    aktifSensorID[2] = Dil().sec(dilSecimi, "tv448");
+    aktifSensorID[5] = Dil().sec(dilSecimi, "tv449");
+    aktifSensorID[8] = Dil().sec(dilSecimi, "tv450");
+    aktifSensorID[11] = Dil().sec(dilSecimi, "tv451");
+    aktifSensorID[14] = Dil().sec(dilSecimi, "tv452");
+    aktifSensorValue[1]   = sensorler[0] ;
+    aktifSensorValue[4]   = sensorler[1] ;
+    aktifSensorValue[7]   = sensorler[2] ;
+    aktifSensorValue[10]  = sensorler[3] ;
+    aktifSensorValue[13]  = sensorler[4] ;
+    aktifSensorValue[2]   = sensorler[5] ;
+    aktifSensorValue[5]   = sensorler[6];
+    aktifSensorValue[8]   = sensorler[7];
+    aktifSensorValue[11]  = sensorler[8];
+    aktifSensorValue[14]  = sensorler[9];
+    aktifSensorDurum[1]   = sensorler[0]=="0.0" ? false : true ;
+    aktifSensorDurum[4]   = sensorler[1]=="0.0" ? false : true ;
+    aktifSensorDurum[7]   = sensorler[2]=="0.0" ? false : true ;
+    aktifSensorDurum[10]  = sensorler[3]=="0.0" ? false : true ;
+    aktifSensorDurum[13]  = sensorler[4]=="0.0" ? false : true ;
+    aktifSensorDurum[2]   = sensorler[5]=="0.0" ? false : true ;
+    aktifSensorDurum[5]   = sensorler[6]=="0.0" ? false : true;
+    aktifSensorDurum[8]   = sensorler[7]=="0.0" ? false : true;
+    aktifSensorDurum[11]  = sensorler[8]=="0.0" ? false : true;
+    aktifSensorDurum[14]  = sensorler[9]=="0.0" ? false : true;
 
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('15*$kumesTuru'));
+    aktifSensorArtiKalibDegeri[1]   = artiDegerler[0] ;
+    aktifSensorArtiKalibDegeri[4]   = artiDegerler[1] ;
+    aktifSensorArtiKalibDegeri[7]   = artiDegerler[2] ;
+    aktifSensorArtiKalibDegeri[10]  = artiDegerler[3] ;
+    aktifSensorArtiKalibDegeri[13]  = artiDegerler[4] ;
+    aktifSensorArtiKalibDegeri[2]   = artiDegerler[5] ;
+    aktifSensorArtiKalibDegeri[5]   = artiDegerler[6];
+    aktifSensorArtiKalibDegeri[8]   = artiDegerler[7];
+    aktifSensorArtiKalibDegeri[11]  = artiDegerler[8];
+    aktifSensorArtiKalibDegeri[14]  = artiDegerler[9];
 
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-
-
-              //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
-    }
-  }
-
-  _takipEtWifi() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2233).then((socket) {
-
-        socket.add(utf8.encode('24aa*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            print(gelenMesaj);
-
-            if (gelenMesaj != "") {
-              var veri=gelenMesaj.split('#');
-              var sensorler =veri[0].split('*');
-              var artiEksiDegerler=veri[1].split('*');
-              var nemDegerler=veri[2].split('*');
-
-              aktifSenSay = (sensorler.length - 1).toInt();
-
-              for (int i = 1; i <= 15; i++) {
-                if (i <= aktifSenSay) {
-                  aktifSensorVisibility[i] = true;
-                }
-              }
-              for(int i=0;i<=sensorler.length-2;i++){
-                var deger=sensorler[i].split('+');
-                aktifSensorID[i+1]=deger[0];
-                aktifSensorValue[i+1]=deger[1];
-                aktifSensorDurum[i+1]=deger[2] == 'ok' ? true : false;
-              }
-              //print(aktifSensorDurum[1]);
-              //print(aktifSensorDurum[2]);
+    aktifSensorEksiKalibDegeri[1]   = eksiDegerler[0] ;
+    aktifSensorEksiKalibDegeri[4]   = eksiDegerler[1] ;
+    aktifSensorEksiKalibDegeri[7]   = eksiDegerler[2] ;
+    aktifSensorEksiKalibDegeri[10]  = eksiDegerler[3] ;
+    aktifSensorEksiKalibDegeri[13]  = eksiDegerler[4] ;
+    aktifSensorEksiKalibDegeri[2]   = eksiDegerler[5] ;
+    aktifSensorEksiKalibDegeri[5]   = eksiDegerler[6];
+    aktifSensorEksiKalibDegeri[8]   = eksiDegerler[7];
+    aktifSensorEksiKalibDegeri[11]  = eksiDegerler[8];
+    aktifSensorEksiKalibDegeri[14]  = eksiDegerler[9];
 
 
-              for(int i=0;i<=artiEksiDegerler.length-2;i++){
-                var deger=artiEksiDegerler[i].split('+');
-                aktifSensorArtiKalibDegeri[i+1]=deger[0];
-                aktifSensorEksiKalibDegeri[i+1]=deger[1];
-              }
-
-              for(int i=1;i<=15;i++){
-                aktifSensorValue[i]=(double.parse(aktifSensorValue[i])+double.parse(aktifSensorArtiKalibDegeri[i])-double.parse(aktifSensorEksiKalibDegeri[i])).toStringAsFixed(1);
-              }
-
-              icNemDeger=nemDegerler[0];
-              icNemArtiKalibDegeri=nemDegerler[1];
-              icNemEksiKalibDegeri=nemDegerler[2];
-              disNemDeger=nemDegerler[3];
-              disNemArtiKalibDegeri=nemDegerler[4];
-              disNemEksiKalibDegeri=nemDegerler[5];
-
-
-
-              socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
-
-  _takipEtAnalog() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2233).then((socket) {
-
-        socket.add(utf8.encode('24bb'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-
-            if (gelenMesaj != "") {
-              var veri=gelenMesaj.split("*");
-              var sensorler = veri[0].split('#');
-              var artiDegerler = veri[1].split('#');
-              var eksiDegerler = veri[2].split('#');
-              var nemDegerler = veri[3].split('#');
-              print(veri);
-
-              aktifSensorVisibility[1] =  isisensorAdet>=1 ? true :false;
-              aktifSensorVisibility[4] =  isisensorAdet>=2 ? true :false;
-              aktifSensorVisibility[7] =  isisensorAdet>=3 ? true :false;
-              aktifSensorVisibility[10] = isisensorAdet>=4 ? true :false;
-              aktifSensorVisibility[13] = isisensorAdet>=5 ? true :false;
-              aktifSensorVisibility[2] =  isisensorAdet>=6 ? true :false;
-              aktifSensorVisibility[5] =  isisensorAdet>=7 ? true :false;
-              aktifSensorVisibility[8] =  isisensorAdet>=8 ? true :false;
-              aktifSensorVisibility[11] = isisensorAdet>=9 ? true :false;
-              aktifSensorVisibility[14] = isisensorAdet>=10 ? true :false;
-
-              aktifSensorID[1] = Dil().sec(dilSecimi, "tv443");
-              aktifSensorID[4] = Dil().sec(dilSecimi, "tv444");
-              aktifSensorID[7] = Dil().sec(dilSecimi, "tv445");
-              aktifSensorID[10] = Dil().sec(dilSecimi, "tv446");
-              aktifSensorID[13] = Dil().sec(dilSecimi, "tv447");
-              aktifSensorID[2] = Dil().sec(dilSecimi, "tv448");
-              aktifSensorID[5] = Dil().sec(dilSecimi, "tv449");
-              aktifSensorID[8] = Dil().sec(dilSecimi, "tv450");
-              aktifSensorID[11] = Dil().sec(dilSecimi, "tv451");
-              aktifSensorID[14] = Dil().sec(dilSecimi, "tv452");
-              aktifSensorValue[1]   = sensorler[0] ;
-              aktifSensorValue[4]   = sensorler[1] ;
-              aktifSensorValue[7]   = sensorler[2] ;
-              aktifSensorValue[10]  = sensorler[3] ;
-              aktifSensorValue[13]  = sensorler[4] ;
-              aktifSensorValue[2]   = sensorler[5] ;
-              aktifSensorValue[5]   = sensorler[6];
-              aktifSensorValue[8]   = sensorler[7];
-              aktifSensorValue[11]  = sensorler[8];
-              aktifSensorValue[14]  = sensorler[9];
-              aktifSensorDurum[1]   = sensorler[0]=="0.0" ? false : true ;
-              aktifSensorDurum[4]   = sensorler[1]=="0.0" ? false : true ;
-              aktifSensorDurum[7]   = sensorler[2]=="0.0" ? false : true ;
-              aktifSensorDurum[10]  = sensorler[3]=="0.0" ? false : true ;
-              aktifSensorDurum[13]  = sensorler[4]=="0.0" ? false : true ;
-              aktifSensorDurum[2]   = sensorler[5]=="0.0" ? false : true ;
-              aktifSensorDurum[5]   = sensorler[6]=="0.0" ? false : true;
-              aktifSensorDurum[8]   = sensorler[7]=="0.0" ? false : true;
-              aktifSensorDurum[11]  = sensorler[8]=="0.0" ? false : true;
-              aktifSensorDurum[14]  = sensorler[9]=="0.0" ? false : true;
-
-              aktifSensorArtiKalibDegeri[1]   = artiDegerler[0] ;
-              aktifSensorArtiKalibDegeri[4]   = artiDegerler[1] ;
-              aktifSensorArtiKalibDegeri[7]   = artiDegerler[2] ;
-              aktifSensorArtiKalibDegeri[10]  = artiDegerler[3] ;
-              aktifSensorArtiKalibDegeri[13]  = artiDegerler[4] ;
-              aktifSensorArtiKalibDegeri[2]   = artiDegerler[5] ;
-              aktifSensorArtiKalibDegeri[5]   = artiDegerler[6];
-              aktifSensorArtiKalibDegeri[8]   = artiDegerler[7];
-              aktifSensorArtiKalibDegeri[11]  = artiDegerler[8];
-              aktifSensorArtiKalibDegeri[14]  = artiDegerler[9];
-
-              aktifSensorEksiKalibDegeri[1]   = eksiDegerler[0] ;
-              aktifSensorEksiKalibDegeri[4]   = eksiDegerler[1] ;
-              aktifSensorEksiKalibDegeri[7]   = eksiDegerler[2] ;
-              aktifSensorEksiKalibDegeri[10]  = eksiDegerler[3] ;
-              aktifSensorEksiKalibDegeri[13]  = eksiDegerler[4] ;
-              aktifSensorEksiKalibDegeri[2]   = eksiDegerler[5] ;
-              aktifSensorEksiKalibDegeri[5]   = eksiDegerler[6];
-              aktifSensorEksiKalibDegeri[8]   = eksiDegerler[7];
-              aktifSensorEksiKalibDegeri[11]  = eksiDegerler[8];
-              aktifSensorEksiKalibDegeri[14]  = eksiDegerler[9];
-
-
-              icNemDeger=nemDegerler[0];
-              icNemArtiKalibDegeri=nemDegerler[1];
-              icNemEksiKalibDegeri=nemDegerler[2];
-              disNemDeger=nemDegerler[3];
-              disNemArtiKalibDegeri=nemDegerler[4];
-              disNemEksiKalibDegeri=nemDegerler[5];
+    icNemDeger=nemDegerler[0];
+    icNemArtiKalibDegeri=nemDegerler[1];
+    icNemEksiKalibDegeri=nemDegerler[2];
+    disNemDeger=nemDegerler[3];
+    disNemArtiKalibDegeri=nemDegerler[4];
+    disNemEksiKalibDegeri=nemDegerler[5];
 
               //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error.toString()+"Deneme");
-        if(!timerCancel)
-          Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e.toString()+"DEneme2");
-      if(!timerCancel)
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
 
+
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
+      });
+    }
+    
+  }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
       String dil, baslik, onBaslik) async {
@@ -782,19 +710,66 @@ class KalibrasyonState extends State<Kalibrasyon> {
         }
       }
       String id="";
-      if(isisensorBaglanti==1){
+      if(isisensorBaglanti==1 && _index<200){
         if(_index<100){
           id=aktifSensorID[_index];
         }else{
           id=aktifSensorID[_index-100];
         }
-    }
+      }
+
+      if(_index==201){
+        icNemArtiKalibDegeri=(_onlar*10+_birler).toString()+'.'+_ondalik.toString();
+        veri=icNemArtiKalibDegeri;
+      }else if(_index==202){
+        disNemArtiKalibDegeri=(_onlar*10+_birler).toString()+'.'+_ondalik.toString();
+        veri=disNemArtiKalibDegeri;
+      }else if(_index==301){
+        icNemEksiKalibDegeri=(_onlar*10+_birler).toString()+'.'+_ondalik.toString();
+        veri=icNemEksiKalibDegeri;
+      }else if(_index==302){
+        disNemEksiKalibDegeri=(_onlar*10+_birler).toString()+'.'+_ondalik.toString();
+        veri=disNemEksiKalibDegeri;
+      }
 
 
-      if (veriGonderilsinMi && isisensorBaglanti==1) {
-        _veriGonder("18*$isisensorBaglanti*$id*$_index*$veri");
-      }else if(veriGonderilsinMi && isisensorBaglanti==2){
-        _veriGonder("19*$_index*$veri");
+
+
+      if (veriGonderilsinMi && isisensorBaglanti==1 && _index<200) {
+        String komut="18*$isisensorBaglanti*$id*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+          }
+        });
+
+
+      }else if(veriGonderilsinMi && isisensorBaglanti==2 && _index<200){
+        int indexVeri=0;
+        if(_index<100) indexVeri=aktifSensorNo[_index];
+        else indexVeri=aktifSensorNo[_index-100]+100;
+
+        String komut="19*$indexVeri*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+          }
+        });
+      }else if(veriGonderilsinMi && isisensorBaglanti==2 && _index>=200){
+
+        String komut="19*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+          }
+        });
+
       }
 
       setState(() {});
@@ -1275,7 +1250,7 @@ Widget _aktifSensorNem(int index, double oran) {
                                                           
                                                           RaisedButton(elevation: 16,
                                                     onPressed: (){
-                                                      _index = index+200;
+                                                      _index = index+300;
                                                       String veri=index==1 ? icNemEksiKalibDegeri : disNemEksiKalibDegeri;
                                                       _onlar = int.parse(
                                                                   veri.split(".")[0]) <

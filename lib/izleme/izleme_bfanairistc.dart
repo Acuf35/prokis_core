@@ -74,6 +74,7 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
   bool isiticiGr2Durum=false;
   bool isiticiGr3Durum=false;
 
+  String baglantiDurum="";
 
 
 
@@ -186,7 +187,17 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
     oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv599'),
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(30*oran),
+          child: StreamBuilder<Object>(
+            initialData: "",
+            stream: _blocSinif.bloCVeriStateStreamControllerBAGLANTIERROR.stream,
+            builder: (context, snapshot) {
+              baglantiDurum=snapshot.data;
+              return Metotlar().appBar(dilSecimi, context, oran, 'tv599', baglantiDurum);
+            }
+          ),
+        ),
         floatingActionButton: Opacity(
           opacity: 1,
           child: Container(
@@ -1950,6 +1961,8 @@ class IzlemeBfanAirIstcBloC {
   final bloCVeriStateStreamControllerAirOTO = StreamController<String>();
   //Sirkülasyon fan Oto-man için SteateStream
   final bloCVeriStateStreamControllerSirkOTO = StreamController<String>();
+  //Bağlantı hatası
+  final bloCVeriStateStreamControllerBAGLANTIERROR = StreamController<String>();
 
 
 
@@ -1986,6 +1999,8 @@ class IzlemeBfanAirIstcBloC {
   final bloCVeriEventStreamControllerAirOTO = StreamController<String>();
   //Sirkülasyon fan Oto-man için SteateStream
   final bloCVeriEventStreamControllerSirkOTO = StreamController<String>();
+  //Bağlantı hatası
+  final bloCVeriEventStreamControllerBAGLANTIERROR = StreamController<String>();
 
 
   String aktuelFasVeyaHizGecici="";
@@ -2004,6 +2019,7 @@ class IzlemeBfanAirIstcBloC {
   String otoISTCGecici="";
   String otoAIRIGecici="";
   String otoSIRKGecici="";
+  String baglantiHatasiGecici="";
 
   IzlemeBfanAirIstcBloC(BuildContext context, String dilSecimi, List isiticiNo) {
 
@@ -2015,16 +2031,26 @@ class IzlemeBfanAirIstcBloC {
     if (timerSayac == 0) {
 
 
-      Metotlar().takipEt("3*0", 2237).then((veri){
+      Metotlar().takipEt("i3*", 2236).then((veri){
 
         var degerler=veri.split("*");
-        if(degerler[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        if(veri.split("*")[0]=="error"){
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          if(baglantiHatasi!=baglantiHatasiGecici){
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+          }
+          baglantiHatasiGecici=baglantiHatasi;
         }else{
 
           var kk=veri.split("#");
           var xx=kk[0].split("*");
           var yy=kk[1].split("*");
+
+          String baglantiHatasi="";
+          if(baglantiHatasi!=baglantiHatasiGecici){
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+          }
+          baglantiHatasiGecici=baglantiHatasi;
 
           String aktuelFasVeyaHiz=xx[0];
           if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){
@@ -2155,17 +2181,27 @@ class IzlemeBfanAirIstcBloC {
           baglanti = true;
           
           
-         Metotlar().takipEt("3*0", 2237).then((veri){
+         Metotlar().takipEt("i3*", 2236).then((veri){
 
         var degerler=veri.split("*");
         
-        if(degerler[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(degerler[1]), context, duration: 4);
+        if(veri.split("*")[0]=="error"){
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          if(baglantiHatasi!=baglantiHatasiGecici){
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+          }
+          baglantiHatasiGecici=baglantiHatasi;
         }else{
 
             var kk=veri.split("#");
             var xx=kk[0].split("*");
             var yy=kk[1].split("*");
+
+            String baglantiHatasi="";
+            if(baglantiHatasi!=baglantiHatasiGecici){
+              bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            }
+            baglantiHatasiGecici=baglantiHatasi;
 
             String aktuelFasVeyaHiz=xx[0];
             if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){

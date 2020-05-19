@@ -54,6 +54,9 @@ class IsitmaState extends State<Isitma> {
   List<String> durmaSicakligi = new List(4);
   List<String> durmaSicakligiFark = new List(4);
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -82,7 +85,17 @@ class IsitmaState extends State<Isitma> {
   @override
   Widget build(BuildContext context) {
     if (timerSayac == 0) {
-      _takipEt();
+
+      Metotlar().takipEt('10*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -91,7 +104,16 @@ class IsitmaState extends State<Isitma> {
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          _takipEt();
+          Metotlar().takipEt('10*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
         }
       });
     }
@@ -101,7 +123,7 @@ class IsitmaState extends State<Isitma> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv263'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv263',baglantiDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -572,8 +594,30 @@ class IsitmaState extends State<Isitma> {
 
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("11*$_index*$veri");
+        String komut="11*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('10*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
+
       }
 
 
@@ -586,108 +630,35 @@ class IsitmaState extends State<Isitma> {
     updateState(() {});
   }
 
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('*');
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
-        socket.add(utf8.encode(emir));
+    calismaSicakligifark[1]=degerler[0];
+    calismaSicakligifark[2]=degerler[1];
+    calismaSicakligifark[3]=degerler[2];
+    durmaSicakligiFark[1]=degerler[3];
+    durmaSicakligiFark[2]=degerler[4];
+    durmaSicakligiFark[3]=degerler[5];
 
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
+    calismaSicakligi[1]=degerler[6];
+    calismaSicakligi[2]=degerler[7];
+    calismaSicakligi[3]=degerler[8];
+    durmaSicakligi[1]=degerler[9];
+    durmaSicakligi[2]=degerler[10];
+    durmaSicakligi[3]=degerler[11];
 
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(
-                  Dil().sec(dilSecimi, "toast8"), context,
-                  duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
+
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
     }
+    
   }
-
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('10*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-
-              calismaSicakligifark[1]=degerler[0];
-              calismaSicakligifark[2]=degerler[1];
-              calismaSicakligifark[3]=degerler[2];
-              durmaSicakligiFark[1]=degerler[3];
-              durmaSicakligiFark[2]=degerler[4];
-              durmaSicakligiFark[3]=degerler[5];
-
-              calismaSicakligi[1]=degerler[6];
-              calismaSicakligi[2]=degerler[7];
-              calismaSicakligi[3]=degerler[8];
-              durmaSicakligi[1]=degerler[9];
-              durmaSicakligi[2]=degerler[10];
-              durmaSicakligi[3]=degerler[11];
-
-
-
-
-              
-
-
-              //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
-
 
   Widget _klepeKlasikUnsur(double oran, int isiticiNo) {
     return Expanded(

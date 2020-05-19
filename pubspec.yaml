@@ -170,6 +170,8 @@ flutter:
   - assets/images/ped_izleme_icon_off.png
   - assets/images/ped_izleme_icon_on.png
   - assets/images/silo_izleme_icon.png
+  - assets/images/software_icon.png
+  - assets/images/sistem_start_stop_icon.png
   - assets/images/fire_animation.gif
 
   # To add assets to your application, add an assets section, like this:

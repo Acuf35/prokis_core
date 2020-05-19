@@ -71,6 +71,9 @@ class YemlemeState extends State<Yemleme> {
 
   bool veriGonderildi = false;
 
+  String baglantiDurum="";
+
+
   
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -121,20 +124,18 @@ class YemlemeState extends State<Yemleme> {
 
 
     if (timerSayac == 0) {
-      _takipEt();
-/*
-      Timer.periodic(Duration(seconds: 2), (timer) {
-        yazmaSonrasiGecikmeSayaci++;
-        if (timerCancel) {
-          timer.cancel();
-        }
-        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
-          baglanti = true;
-          //_takipEt();
-        }
-      });
+      
+      Metotlar().takipEt('29*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
 
-    */  
     }
 
     timerSayac++;
@@ -147,7 +148,7 @@ class YemlemeState extends State<Yemleme> {
 
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv113'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv113',baglantiDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -355,9 +356,28 @@ class YemlemeState extends State<Yemleme> {
                                                     }
 
                                                     String veri=yemCikis1Aktif==true ? '1' : '0';
-                                                              yazmaSonrasiGecikmeSayaci=0;
-                                                              _veriGonder(
-                                                                  "35*1*$veri");
+                                                              
+                                                              yazmaSonrasiGecikmeSayaci = 0;
+                                                              String komut="35*1*$veri";
+                                                              Metotlar().veriGonder(komut, 2235).then((value){
+                                                                if(value.split("*")[0]=="error"){
+                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                }else{
+                                                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                                  
+                                                                  baglanti = false;
+                                                                  Metotlar().takipEt('29*', 2236).then((veri){
+                                                                      if(veri.split("*")[0]=="error"){
+                                                                        baglanti=false;
+                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                        setState(() {});
+                                                                      }else{
+                                                                        takipEtVeriIsleme(veri);
+                                                                        baglantiDurum="";
+                                                                      }
+                                                                  });
+                                                                }
+                                                              });
 
                                                     setState(() {});
 
@@ -509,9 +529,28 @@ class YemlemeState extends State<Yemleme> {
                                                       }
 
                                                       String veri=yemCikis2Aktif==true ? '1' : '0';
-                                                              yazmaSonrasiGecikmeSayaci=0;
-                                                              _veriGonder(
-                                                                  "35*2*$veri");
+                                                              
+                                                              yazmaSonrasiGecikmeSayaci = 0;
+                                                              String komut="35*2*$veri";
+                                                              Metotlar().veriGonder(komut, 2235).then((value){
+                                                                if(value.split("*")[0]=="error"){
+                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                }else{
+                                                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                                  
+                                                                  baglanti = false;
+                                                                  Metotlar().takipEt('29*', 2236).then((veri){
+                                                                      if(veri.split("*")[0]=="error"){
+                                                                        baglanti=false;
+                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                        setState(() {});
+                                                                      }else{
+                                                                        takipEtVeriIsleme(veri);
+                                                                        baglantiDurum="";
+                                                                      }
+                                                                  });
+                                                                }
+                                                              });
 
                                                       setState(() {});
                                                       }else{
@@ -656,9 +695,30 @@ class YemlemeState extends State<Yemleme> {
                                                       yemCikis3Aktif = true;
                                                     }
                                                               String veri=yemCikis3Aktif==true ? '1' : '0';
-                                                              yazmaSonrasiGecikmeSayaci=0;
-                                                              _veriGonder(
-                                                                  "35*3*$veri");
+                                                              
+
+                                                              yazmaSonrasiGecikmeSayaci = 0;
+                                                              String komut="35*3*$veri";
+                                                              Metotlar().veriGonder(komut, 2235).then((value){
+                                                                if(value.split("*")[0]=="error"){
+                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                }else{
+                                                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                                  
+                                                                  baglanti = false;
+                                                                  Metotlar().takipEt('29*', 2236).then((veri){
+                                                                      if(veri.split("*")[0]=="error"){
+                                                                        baglanti=false;
+                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                        setState(() {});
+                                                                      }else{
+                                                                        takipEtVeriIsleme(veri);
+                                                                        baglantiDurum="";
+                                                                      }
+                                                                  });
+                                                                }
+                                                              });
+
                                                     setState(() {});
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast87"), context,duration: 3);
@@ -833,7 +893,30 @@ class YemlemeState extends State<Yemleme> {
       
       if(veriGonderildi){
 
-          _veriGonder("35*4*$sinyalSuresi");
+          
+
+          yazmaSonrasiGecikmeSayaci = 0;
+          String komut="35*4*$sinyalSuresi";
+          Metotlar().veriGonder(komut, 2235).then((value){
+            if(value.split("*")[0]=="error"){
+              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            }else{
+              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+              
+              baglanti = false;
+              Metotlar().takipEt('29*', 2236).then((veri){
+                  if(veri.split("*")[0]=="error"){
+                    baglanti=false;
+                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                    setState(() {});
+                  }else{
+                    takipEtVeriIsleme(veri);
+                    baglantiDurum="";
+                  }
+              });
+            }
+          });
+
 
           setState(() {});
       }
@@ -843,58 +926,10 @@ class YemlemeState extends State<Yemleme> {
 
     });
   }
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
-
-        socket.add(utf8.encode(emir));
-
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
-
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
-    }
-  }
-
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('29*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('#');
+  
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('#');
               print(degerler);
               var ileriYem1;
               var geriYem1;
@@ -971,29 +1006,15 @@ class YemlemeState extends State<Yemleme> {
               sinyalSuresi=degerler[7];
 
 
-
-              //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
     }
+    
   }
+ 
 
   Widget yemSaatGostergeUnsurTEK(List<bool> yemArabaIleri,List<bool> yemArabaGeri, double oran, int saatNo) {
     
@@ -1394,7 +1415,28 @@ class YemlemeState extends State<Yemleme> {
 
                                 
                       String veri=checkBoxGeciciDurum==true ? '1' : '0';
-                      _veriGonder("34*$index*$yemArabaTur*$veri");
+
+                      yazmaSonrasiGecikmeSayaci = 0;
+                      String komut="34*$index*$yemArabaTur*$veri";
+                      Metotlar().veriGonder(komut, 2235).then((value){
+                        if(value.split("*")[0]=="error"){
+                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                        }else{
+                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                          
+                          baglanti = false;
+                          Metotlar().takipEt('29*', 2236).then((veri){
+                              if(veri.split("*")[0]=="error"){
+                                baglanti=false;
+                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                setState(() {});
+                              }else{
+                                takipEtVeriIsleme(veri);
+                                baglantiDurum="";
+                              }
+                          });
+                        }
+                      });
                                 
                       setState(() {});
                     },

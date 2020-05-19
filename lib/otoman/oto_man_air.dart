@@ -57,6 +57,9 @@ class OtoManAirState extends State<OtoManAir> {
   int yazmaSonrasiGecikmeSayaci = 4;
   bool takipEtiGeciciDurdur = false;
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -79,7 +82,19 @@ class OtoManAirState extends State<OtoManAir> {
   @override
   Widget build(BuildContext context) {
     if (timerSayac == 0) {
-      _takipEt('25*$airInletAdet');
+      
+
+      Metotlar().takipEt('25*$airInletAdet', 2236).then((veri){
+            
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri,'25*$airInletAdet');
+              baglantiDurum="";
+            }
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         if (!takipEtiGeciciDurdur) yazmaSonrasiGecikmeSayaci++;
@@ -92,7 +107,19 @@ class OtoManAirState extends State<OtoManAir> {
             yazmaSonrasiGecikmeSayaci > 3 &&
             !takipEtiGeciciDurdur) {
           baglanti = true;
-          _takipEt("25*$airInletAdet");
+          
+          Metotlar().takipEt('25*$airInletAdet', 2236).then((veri){
+              
+              if(veri.split("*")[0]=="error"){
+                baglanti=false;
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                setState(() {});
+              }else{
+                takipEtVeriIsleme(veri,'25*$airInletAdet');
+                baglantiDurum="";
+              }
+          });
+
         }
       });
     }
@@ -105,7 +132,7 @@ class OtoManAirState extends State<OtoManAir> {
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv476'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv476',baglantiDurum),
         body: Column(
           children: <Widget>[
             //Saat ve Tarih
@@ -283,18 +310,10 @@ class OtoManAirState extends State<OtoManAir> {
     });
   }
 
-  _takipEt(String komut) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode(komut));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
+  
+  takipEtVeriIsleme(String gelenMesaj, String komut){
+    
+    var degerler = gelenMesaj.split('*');
               print(degerler);
               print(yazmaSonrasiGecikmeSayaci);
               print(yazmaSonrasiGecikmeSayaciAIR);
@@ -309,80 +328,16 @@ class OtoManAirState extends State<OtoManAir> {
                 airHareketSuresi=degerler[2];
               }
 
-              socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            for (var i = 1; i <= 2; i++) {
-              baglantiAir = false;
-            }
 
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-        for (var i = 1; i <= 2; i++) {
-          baglantiAir = false;
-        }
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
-      for (var i = 1; i <= 2; i++) {
-        baglantiAir = false;
-      }
     }
+    
   }
-
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
-
-        socket.add(utf8.encode(emir));
-
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
-
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (emir.split("*")[0] == '30') _takipEt("25*$airInletAdet");
-            if (emir.split("*")[0] == '31') _takipEt("26*$airInletAdet");
-
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context, duration: 3);
-      baglanti = false;
-    }
-  }
+ 
 
   Widget _unsurOtoManWidget(
       String baslik, String imagePath, double oran) {
@@ -426,8 +381,30 @@ class OtoManAirState extends State<OtoManAir> {
                                 child: RawMaterialButton(
                                   elevation: 8,
                                   onPressed: () {
+
                                     yazmaSonrasiGecikmeSayaci = 0;
-                                    _veriGonder("30*1");
+                                    String komut="30*1";
+                                    Metotlar().veriGonder(komut, 2235).then((value){
+                                      if(value.split("*")[0]=="error"){
+                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                      }else{
+                                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                        
+                                        baglanti = false;
+                                        Metotlar().takipEt("25*$airInletAdet", 2236).then((veri){
+                                            
+                                            if(veri.split("*")[0]=="error"){
+                                              baglanti=false;
+                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                              setState(() {});
+                                            }else{
+                                              takipEtVeriIsleme(veri,"26*$airInletAdet");
+                                              baglantiDurum="";
+                                            }
+                                            
+                                        });
+                                      }
+                                    });
 
                                     otoAIR = true;
                                     airManAc = false;
@@ -465,8 +442,31 @@ class OtoManAirState extends State<OtoManAir> {
                                 child: RawMaterialButton(
                                   elevation: 8,
                                   onPressed: () {
+
                                     yazmaSonrasiGecikmeSayaci = 0;
-                                    _veriGonder("30*0");
+                                    String komut="30*0";
+                                    Metotlar().veriGonder(komut, 2235).then((value){
+                                      if(value.split("*")[0]=="error"){
+                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                      }else{
+                                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                        
+                                        baglanti = false;
+                                        Metotlar().takipEt("25*$airInletAdet", 2236).then((veri){
+                                            
+
+                                            if(veri.split("*")[0]=="error"){
+                                              baglanti=false;
+                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                              setState(() {});
+                                            }else{
+                                              takipEtVeriIsleme(veri,"26*$airInletAdet");
+                                              baglantiDurum="";
+                                            }
+                                            
+                                        });
+                                      }
+                                    });
 
                                     otoAIR = false;
 
@@ -523,7 +523,19 @@ class OtoManAirState extends State<OtoManAir> {
                                     yazmaSonrasiGecikmeSayaciAIR >
                                         1) {
                                   baglantiAir = true;
-                                  _takipEt("26*");
+
+                                  Metotlar().takipEt('26*', 2236).then((veri){
+                                    
+
+                                    if(veri.split("*")[0]=="error"){
+                                      baglanti=false;
+                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                      setState(() {});
+                                    }else{
+                                      takipEtVeriIsleme(veri,'25*$airInletAdet');
+                                      baglantiDurum="";
+                                    }
+                                });
                                 }
                               });
 
@@ -777,8 +789,31 @@ class OtoManAirState extends State<OtoManAir> {
               veri = "1";
             }
 
-            yazmaSonrasiGecikmeSayaciAIR = 0;
-            _veriGonder("31*$index*$veri");
+            
+
+            yazmaSonrasiGecikmeSayaci = 0;
+            String komut="31*$index*$veri";
+            Metotlar().veriGonder(komut, 2235).then((value){
+              if(value.split("*")[0]=="error"){
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+              }else{
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                
+                baglanti = false;
+                Metotlar().takipEt("26*$airInletAdet", 2236).then((veri){
+                    
+                    if(veri.split("*")[0]=="error"){
+                      baglanti=false;
+                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                      setState(() {});
+                    }else{
+                      takipEtVeriIsleme(veri,"26*$airInletAdet");
+                      baglantiDurum="";
+                    }
+                });
+              }
+            });
+
           }
         },
         child: Container(
@@ -835,7 +870,30 @@ class OtoManAirState extends State<OtoManAir> {
       veri = airHareketSuresi;
 
       if (veriGonderilsinMi) {
-        _veriGonder("29*1*$veri");
+
+        yazmaSonrasiGecikmeSayaci = 0;
+        String komut="29*1*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt("26*$airInletAdet", 2236).then((veri){
+                
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri,"26*$airInletAdet");
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
       }
 
       setState(() {});

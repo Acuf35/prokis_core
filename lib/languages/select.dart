@@ -324,9 +324,9 @@ class Dil{
     kod=="tv300" ? metin='Admin Şifre' : null;
     kod=="tv301" ? metin='Şifre giriniz...' : null;
     kod=="tv302" ? metin='Adetler' : null;
-    kod=="tv303" ? metin='Fan Kon. Yöntemi' : null;
-    kod=="tv304" ? metin='MH Kon. Yöntemi' : null;
-    kod=="tv305" ? metin='Klp Kon. Yöntemi' : null;
+    kod=="tv303" ? metin='Fan Kontrol Yöntemi' : null;
+    kod=="tv304" ? metin='MH Kontrol Yöntemi' : null;
+    kod=="tv305" ? metin='Boşta' : null;
     kod=="tv306" ? metin='Bina,Nem,Debi' : null;
     kod=="tv307" ? metin='Ped P. Haritası' : null;
     kod=="tv308" ? metin='Isı Sen. Haritası' : null;
@@ -371,7 +371,7 @@ class Dil{
     kod=="tv347" ? metin='SÜRÜ' : null;
     kod=="tv348" ? metin='KALİBRASYON' : null;
     kod=="tv349" ? metin='Girişler' : null;
-    kod=="tv350" ? metin='GİRİŞLER' : null;
+    kod=="tv350" ? metin='BOŞTA' : null;
     kod=="tv351" ? metin='Girişlerin Atanması' : null;
     kod=="tv352" ? metin='Acil\nStop' : null;
     kod=="tv353" ? metin='Faz\nKoruma' : null;
@@ -697,7 +697,18 @@ class Dil{
     kod=="tv674" ? metin='Ölüm Oranı (%)' : null;
     kod=="tv675" ? metin='Güncel Hayvan Sayısı' : null;
     kod=="tv676" ? metin='OPSİYON 3' : null;
-
+    kod=="tv677" ? metin='YAZILIM' : null;
+    kod=="tv678" ? metin='Yazılım Tanımı' : null;
+    kod=="tv679" ? metin='Programlanabilir Kümes İklimlendirme Sistemi\nLokal Pano Ekran Yazılımı' : null;
+    kod=="tv680" ? metin='Yazılım İsmi' : null;
+    kod=="tv681" ? metin='PROKIS CORE' : null;
+    kod=="tv682" ? metin='Versiyon Numarası' : null;
+    kod=="tv683" ? metin='PCV 1.0.0' : null;
+    kod=="tv684" ? metin='SİSTEM START-STOP' : null;
+    kod=="tv685" ? metin='Sistemi Çalıştır veya Durdur' : null;
+    kod=="tv686" ? metin='Sistem Durumu' : null;
+    kod=="tv687" ? metin='SİSTEM ÇALIŞIYOR' : null;
+    kod=="tv688" ? metin='SİSTEM DURUYOR' : null;
    
 
     
@@ -717,13 +728,15 @@ class Dil{
     kod=="btn9" ? metin='Bitir' : null;
     kod=="btn10" ? metin='GİR' : null;
     kod=="btn11" ? metin='Otomatik Ata' : null;
+    kod=="btn12" ? metin='START' : null;
+    kod=="btn13" ? metin='STOP' : null;
     
     //endregion
 
     //region TEXTFIELD
 
     kod=="tflb1" ? metin='Tun. Fan Debi' : null;
-    kod=="tflb2" ? metin='Bac. Fan Debi' : null;
+    kod=="tflb2" ? metin='Baca Fan Debi' : null;
     kod=="tflb3" ? metin='Hacim Oranı(%)' : null;
 
 
@@ -1260,8 +1273,8 @@ class Dil{
 
 
     //SİSTEM
-    kod=="info25" ? metin='   Kurulum, versiyon, saat&tarih, admin, kullanıcı ayarları gibi sistemsel'
-    ' ayarlamaların yapıldığı sayfalara erişimin yapıldığı sayfadır. '  : null;
+    kod=="info25" ? metin='   Bu sayfa Kurulum, versiyon, saat&tarih, admin, kullanıcı, sistem start-stop'
+    ' ayarları gibi sistemsel ayarlamaların yapıldığı sayfalara erişimin yapıldığı sayfadır. '  : null;
 
 
 
@@ -1392,8 +1405,9 @@ class Dil{
 
     //Fan Kontrol Yöntemi
     kod=="info35" ? metin='    Bu sayfada Tünel fanlarının kontrol yönteminin seçimi yapılmaktadır.'
-    ' Sistemde baca fanı olduğunda "Klasik Kontrol" yöntemi devre dışıdır, seçilemez. Kafes türü'
-    ' CİVCİV veya BROYLER ise sadece "Lineer Kontrol" yöntemi seçilebilir.\n\n'  : null;
+    ' Sistemde baca fanı olduğunda "Klasik Kontrol" yöntemi devre dışıdır, seçilemez. Baca fanı olmayan'
+    ' CİVCİV veya BROYLER kafeslerinde "PID Kontrol" yöntemi devre dışıdır, seçilemez. "Lineer'
+    ' Kontrol" yöntemi tüm kafesler ve durumlar için seçilebilir yöntemidir\n\n'  : null;
 
     kod=="info35a" ? metin='    Klasik kontrol yönteminde her bir fan için çalışma sıcaklığı'
     ' belirlenir. Ortalama sıcaklık bu çalışma sıcaklığına yükseldiğinde'
@@ -1408,15 +1422,162 @@ class Dil{
     ' algılar ve bu hızları durdurabilecek yeterlikte fan sayısını hesaplar ve devreye sokar. Kümes'
     ' için ortalama sıcaklığı istenen sıcaklığa yakın tutmak için en ideal kontrol yöntemidir.\n\n'  : null;
 
-
+    //GİRİŞLER
     kod=="info36" ? metin='    Bu sayfada sistemde aktif halde kullanılacak tüm girişler için giriş'
     ' atamaları yapılabilmektedir. Herbir atama için tek tek giriş ataması yapılabileceği gibi'
     ' "Otomatik Ata" butonuna tıklayarak belirli bir sırayla giriş atamasını otomatik olarak'
-    ' yapabilirsiniz.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" ikonuna tıklanarak'
+    ' yapabilirsiniz.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
+
+    //Isı Sensör Haritası
+    kod=="info37" ? metin='    Bina üzerindeki soru işareti ikonlarına tıklayarak'
+    ' isi sensörlerinin yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' butonuna tıklayarak haritayı onaylayabilirsiniz. Sistem, yerleştirdiğiniz ısı sensörlerine belirli'
+    ' bir sırayla otomatik olarak numara verecektir, istenirse ısı sensör ikonları üzerine'
+    ' tıklanarak bu numaraları değiştirebilirsiniz. Isı sensör yerleşimini sıfırdan yapmak için'
+    ' "HARİTAYI SIFIRLA" butonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\n'
+    ' SEÇENEK 1:  Kurulum Ayarları → Adetler kısmından ısı sensörleri ölçüm yöntemi'
+    ' "Wifi Yöntemi" seçilirse wifi üzerinden en az bir kere bağlanmış olan sensörler "Kayıtlı Sensörler"'
+    ' bölümünde görünür olacaktır. Görünür haldeki bu sensörlerden yeşil renkte olanın sorunsuz bağlı olduğu'
+    ' kırmızı renkli olanın ise bağlantısında hata olduğu anlamına gelir.Bu durumda sensör, wifi sağlayıcısı'
+    ' veya server PC kontrol edilmelidir. Görünür haldeki sensörlerin üzerine tıklanarak, bu sensör alttaki'
+    ' haritada hangi noktadaysa o noktada bulunan ısı sensör numarası atanmalıdır.\n\n'
+    ' SEÇENEK 2:  Kurulum Ayarları → Adetler kısmından ısı sensörleri ölçüm yöntemi "Analog Yöntemi" seçilirse'
+    ' ısı sensörü adedi kadar sensör görünür olacaktır. Görünür haldeki bu sensörlerden yeşil renkte olanı'
+    ' değerin kablolar üzerinden okunabildiğini, kırmızı renkli olanlar ise okunamadığını gösterir.'
+    ' Bu durumda analog modul, sensör veya kablolar kontrol edilmelidir.Görünür haldeki sensörlerin'
+    ' üzerine tıklanarak, bu sensör alttaki haritada hangi noktadaysa o noktada bulunan ısı sensör'
+    ' numarası atanmalıdır.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir.\n\n\n'  : null;
+
+
+    //Isıtıcı Haritası
+    kod=="info38" ? metin='    Bina üzerindeki soru işareti ikonlarına tıklayarak'
+    ' ısıtıcıların yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' butonuna tıklayarak haritayı onaylayabilirsiniz. Onaylı haritada ısıtıcılar üzerine tıklayarak'
+    ' ısıtıcılara "Adetler" kısmında tanımlanan ısıtıcı grup sayısı miktarınca grup numarası'
+    ' ataması yapabilirsiniz."Adetler" kısmında 1 adet ısıtıcı tanımlanmışsa harita üzerinde tanımlı'
+    ' tüm ısıcılara grup 1 ataması yaparak tüm ısıtıcıların tek çıkıştan kontrol edilmesini'
+    ' sağlayabilirsiniz. "Adetler" kısmında tanımlı ısıtıcı sayısı miktarınca çıkış atama butonu'
+    ' görünür olacaktır. Isıtıcıların yerleşimini sıfırdan yapmak için'
+    ' "HARİTAYI SIFIRLA" butonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\n'
+    ' Çıkış ataması yapılırken sayfanın sağ tarafında bulunan "ÇIKIŞLAR" listesine göre'
+    ' çıkış seçilmelidir. Mavi renkteki çıkışlar "kullanımda", gri renkteki çıkışlar'
+    ' "boşta" anlamındadır.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
     ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
 
 
+    //Klepe Haritası
+    kod=="info39" ? metin='    Duvarlar üzerindeki soru işareti ikonlarına tıklayarak'
+    ' klepelerin yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' butonuna tıklayarak haritayı onaylayabilirsiniz. Onaylı haritada klepeler üzerine tıklayarak'
+    ' klepelere hem numara hem de aç-kapa çıkış ataması yapabilirsiniz. iki klepeyi'
+    ' aynı aç-kapa çıkışlarıyla kontrol etmek istiyorsak her iki klepeye de aynı no ve aç-kapa çıkışları'
+    ' atanmalıdır. Tüm klepeler ayrı ayrı çıkışlarla kontrol edilecekse, tüm klepelere farklı no ve'
+    ' farklı aç-kapa çıkışı atanmalıdır. Klepelerin yerleşimini sıfırdan yapmak için'
+    ' "HARİTAYI SIFIRLA" butonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\n'
+    ' Çıkış ataması yapılırken sayfanın sağ tarafında bulunan "ÇIKIŞLAR" listesine göre'
+    ' çıkış seçilmelidir. Mavi renkteki çıkışlar "kullanımda", gri renkteki çıkışlar'
+    ' "boşta" anlamındadır.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
 
+
+    //Klepe Kontrol Yöntemi
+    kod=="info40" ? metin='    Bu sayfada klepelerin kontrol yönteminin seçimi yapılmaktadır.\n\n'  : null;
+
+    kod=="info40a" ? metin='    Klasik kontrol yönteminde her bir klepe için çalışan fan sayısına'
+    ' göre açılma oranı tayin edilir. Örn: fan sayısı 1\'den 10\'a yükselirken klepe açıklığı'
+    ' 0\'dan 40\'a yükselsin, fan sayısı 10\'dan 20\'ye yükselirken klepe açıklığı 40\'dan 100\'e'
+    ' yükselsin şeklinde tanımlamalar yapılabilir.\n\n'  : null;
+
+    kod=="info40b" ? metin='    Tünel kontrol yönteminde tünel fanlarının toplam debisi uzunlukları'
+    ' oranında klepelere pay edilir ve önden arkaya doğru sırayla klepeler çalışan fan sayısına göre'
+    ' açılmaya başlar. Klepelerin hangi sırayla çalışacakları atanacak sıra numarasıyla tanımlanır.'
+    ' Örn: Klepe No1:12m(ön), Klepe No2:30m(sağ) ve Klepe No3:30m(sol) uzunluklarına 3 klepenin'
+    ' bulunduğu 24 fanlı kümeste fanlar klepelere uzunlukları oranında 4,10,10 şeklinde pay edilir.'
+    ' Klepelerin hangi sırayla çalışacağını tayin eden sıra ataması da şu şekilde olsun: Klepe No1\'e '
+    ' 1. sıra,  Klepe No2 ve No3\'e 2. Sıra ataması yapılsın. Klepe No2 ve No3\'e aynı sıra numarasının'
+    ' atanması iki klepenin aynı anda aç-kapa yapacağı anlamına gelir. Bu durumda 4 fana kadar sadece ön'
+    ' klepe devrede olur, 4 fan ile 24 fan arasında sağ-sol klepeler de doğru orantılı olarak açılır.\n\n'  : null;
+
+
+
+    //MH Kontrol Yöntemi
+    kod=="info41" ? metin='    Bu sayfada Min Hav. sisteminin kontrol yöntemi seçimi yapılmaktadır.\n\n'  : null;
+
+    kod=="info41a" ? metin='    Klasik kontrol yönteminde arka duvar tünel fanları kullanılır.'
+    ' 4 adet fana kadar tünel fanı minimum havalandırma için atanabilir ve atanan fanların tamamı'
+    ' set değerinin üstündeki doğal bölgede sürekli, set değerinin altında fasılalı çalışır. Set'
+    ' değerinin altında sıcaklık düştükçe devreye giren 4 ayrı fasıla degeri tanımlanabilir.Klasik'
+    ' Kontrol yöntemi CİVCİV, BROILER ve bacafanı-airinlet olan TAVUK kafesleri için devre dışıdır.\n\n'  : null;
+
+    kod=="info41b" ? metin='    Ağırlık kontrol yönteminde sistem girilen SÜRÜ→Hayvan Başına Min.Hav.'
+    ' İhtiyacı(m2/h) kısmındaki parametreleri kullanarak hayvan yaşına göre ortalama ağırlığını ve'
+    ' ilgili ağırlık için gerekli minimum havalandırmayı hesaplar ve bunu sağlayacak yeterli sayıdaki'
+    ' fanı gerek sürekli gerekse fasılalı olarak çalıştırır. CİVCİV ve BROILER kümeslerinde sadece'
+    ' bu yöntem geçerlidir, TAVUK kümeslerinde de kullanılabilir.\n\n'  : null;
+
+    kod=="info41c" ? metin='    Hacim kontrol yönteminde sistem bazı parametreleri kullanarak iç'
+    ' ortam hacmini yaklaşık olarak hesaplar ve yapılacak seçime göre her 5 dakikada veya her'
+    ' 10 dakikada iç ortam hacmi kadar havayı dışarı atma prensibine göre yeterli sayıda fanı'
+    ' gerek sürekli gerekse fasılalı olarak çalıştırır. CİVCİV ve BROILER kümesleri için devre dışıdır.'
+    ' Sadece TAVUK kümesi için geçerlidir.\n\n'  : null;
+
+
+    //Ped Haritası
+    kod=="info42" ? metin='    Duvarlar üzerindeki soru işareti ikonlarına tıklayarak'
+    ' ped pompalarının yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' butonuna tıklayarak haritayı onaylayabilirsiniz. Onaylı haritada ped pompaları üzerine tıklayarak'
+    ' ped pompalarına hem numara hem de çıkış ataması yapabilirsiniz. Ped pompalarının yerleşimini'
+    ' sıfırdan yapmak için "HARİTAYI SIFIRLA" butonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\n'
+    ' Çıkış ataması yapılırken sayfanın sağ tarafında bulunan "ÇIKIŞLAR" listesine göre'
+    ' çıkış seçilmelidir. Mavi renkteki çıkışlar "kullanımda", gri renkteki çıkışlar'
+    ' "boşta" anlamındadır.Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
+
+
+    //Silo Haritası
+    kod=="info43" ? metin='   Bina çevresindeki soru işareti ikonlarına tıklayarak'
+    ' siloların yerleşimini yapabilirsiniz. Yerleşimi tamamladıktan sonra "HARITAYI ONAYLA"'
+    ' butonuna tıklayarak haritayı onaylayabilirsiniz. Onaylı haritada silolar üzerine tıklayarak'
+    ' silolara numara ataması yapabilirsiniz. Ped pompalarının yerleşimini'
+    ' sıfırdan yapmak için "HARİTAYI SIFIRLA" butonuna tıklayarak haritayı sıfırlayabilirsiniz.\n\n'
+    ' Tüm işlemler tamamlandığında "VERİLERİ GÖNDER" butonuna tıklanarak'
+    ' veriler sisteme kaydedilmek üzere göderilmelidir. \n\n'  : null;
+
+
+    //Temel ayarlar
+    kod=="info44" ? metin='   Bu sayfada kafesle ilgili temel ayarlar tanımlanır. Kafes türü seçimi'
+    ' yapılmalıdır. Her bir kümes için ayrı no atanmalı ve ayrı isim tanımlanmalıdır. Yönetici yetkinliği'
+    ' gerektiren işlemlerde sadece yöneticilerin değişiklik yapabilmesini sağlamak için bir admin'
+    ' şifresi belirlenmelidir. Şifre 4 haneli bir sayıdan oluşmalıdır. Şifreyi belirledikten ve şifre tekrar'
+    ' bölümüne de girdikten sonra "ONAYLA" butonuna basıldığında yeni şifre aktifleşecektir. \n\n'  : null;
+
+
+    //Bina, Dış Nem ve Debi
+    kod=="info45" ? metin='   Bu sayfada hacim hesabının yapılabilmesi için bina en, boy ve yükseklik'
+    ' metre olarak girilmelidir. "Hacim Oranı(%)" parametresine bina içerisindeki boşluk hacminin yüzdesi'
+    ' girilmeidir. Minimum Havalandırma hesaplarının yapılabilmesi için "Tün. Fan Debi" parametresine'
+    ' bir tünel fanının saatteki debisi girilmeli, "Baca Fan Debi" parametresine tüm bacafanlarının'
+    ' saatteki toplam debisi girilmelidir. \n\nKlepelerin numaraları, en(X) ve boy(Y) uzunlukları'
+    ' ilgili alanlara girilmeli ve aşağı ok ikonuna tıklanarak girilen uzunluklar kaydedilmelidir.'
+    ' "Klepe Haritası" sayfasında 2 klepeye aynı numara verilmişse bu 2 klepenin boy(Y) uzunluklarının'
+    ' toplamı Y(m) alanına girilmelidir. \n\n'  : null;
+
+
+    //Genel Ayarlar
+    kod=="info46" ? metin='    Sistemin kurulum, kontrol, kayıt ve izleme kapsamında tüm'
+    ' parametrelerin bulunduğu sayfalara erişimi saylayan genel erişim sayfasıdır.\n\n'  : null;
+
+
+    //YAZILIM
+    kod=="info47" ? metin='    Yazılım tanımı, ismi ve versiyon numarası gibi detayların'
+    ' bulunduğu sayfadır.\n\n'  : null;
+
+
+    //START
+    kod=="info48" ? metin='    Tüm kurulum ve kontrol parametreleri girildikten sonra, kontrol unsurlarını'
+    ' otomatik moda almadan önce sistem bu sayfadan başlatılmalıdır. Aksi taktirde sistemde hiçbir şey çalışmaz.\n\n'  : null;
 
 
 
@@ -1786,9 +1947,9 @@ class Dil{
     kod=="tv300" ? metin='Admin Password' : null;
     kod=="tv301" ? metin='Enter Password...' : null;
     kod=="tv302" ? metin='Quantities' : null;
-    kod=="tv303" ? metin='Fan Con. Method' : null;
-    kod=="tv304" ? metin='MV Con. Method' : null;
-    kod=="tv305" ? metin='Flp Con. Method' : null;
+    kod=="tv303" ? metin='Fan Control Method' : null;
+    kod=="tv304" ? metin='MV Control Method' : null;
+    kod=="tv305" ? metin='Boşta' : null;
     kod=="tv306" ? metin='Built,Hum,Flow' : null;
     kod=="tv307" ? metin='Ped Pum. Map' : null;
     kod=="tv308" ? metin='Temp. Sen. Map' : null;
@@ -1833,7 +1994,7 @@ class Dil{
     kod=="tv347" ? metin='HERD' : null;
     kod=="tv348" ? metin='CALIBRATION' : null;
     kod=="tv349" ? metin='Inputs' : null;
-    kod=="tv350" ? metin='INPUTS' : null;
+    kod=="tv350" ? metin='BOŞTA' : null;
     kod=="tv351" ? metin='Input Assignments' : null;
     kod=="tv352" ? metin='Emer. Stop' : null;
     kod=="tv353" ? metin='Phase Cont.' : null;
@@ -2165,6 +2326,8 @@ class Dil{
     kod=="btn9" ? metin='Finish' : null;
     kod=="btn10" ? metin='ENTER' : null;
     kod=="btn11" ? metin='Automatic Sign' : null;
+    kod=="btn12" ? metin='START' : null;
+    kod=="btn13" ? metin='STOP' : null;
     
 
     //endregion
@@ -2172,7 +2335,7 @@ class Dil{
     //region TEXTFIELD LABEL
 
     kod=="tflb1" ? metin='Tun. Fan Flow' : null;
-    kod=="tflb2" ? metin='Chm. F. Flow' : null;
+    kod=="tflb2" ? metin='Chim. F. Flow' : null;
     kod=="tflb3" ? metin='Volume Ratio(%)' : null;
 
 

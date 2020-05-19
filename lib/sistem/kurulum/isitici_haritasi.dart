@@ -10,7 +10,6 @@ import 'package:prokis/mywidgets/showModalBottomSheetQ%20.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/alert_reset.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum/silo_haritasi.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,6 @@ import 'package:prokis/sistem/kurulum/airinlet_ve_sirkfan.dart';
 import 'package:prokis/sistem/kurulum/bacafan_haritasi.dart';
 import 'package:prokis/sistem/kurulum/diger_cikislar.dart';
 import 'package:prokis/sistem/kurulum/isisensor_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 
 class IsiticiHaritasi extends StatelessWidget {
   bool ilkKurulumMu = true;
@@ -69,23 +67,48 @@ class IsiticiHaritasi extends StatelessWidget {
       children: <Widget>[
         //Başlık bölümü
         Expanded(
-            child: SizedBox(
-              child: Container(
-                color: Colors.grey.shade600,
-                alignment: Alignment.center,
-                child: AutoSizeText(
-                  Dil().sec(dilSecimi, "tv76"),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Kelly Slab',
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold),
-                  maxLines: 1,
-                  minFontSize: 8,
-                ),
+            child: Container(
+              color: Colors.grey.shade600,
+              child: Row(
+                children: <Widget>[
+                  Spacer(flex: 3,),
+                  Expanded(flex: 10,
+                    child: SizedBox(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: AutoSizeText(
+                          Dil().sec(dilSecimi, "tv76"),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                              color: Colors.white,
+                              fontSize: 60,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
+                          minFontSize: 8,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Spacer(flex: 2,),
+                  Expanded(
+                    child: LayoutBuilder(
+                        builder: (context, constraint) {
+                        return IconButton(
+                        padding: EdgeInsets.all(0),
+                        icon:Icon(Icons.info_outline,),
+                        iconSize: constraint.biggest.height,
+                        color: Colors.white,
+                        onPressed: ()=>Scaffold.of(context).openEndDrawer(),
+                        );
+                      }
+                    ),
+                  ),
+        
+                ],
               ),
-            )),
+            ),
+            ),
         //isitici Harita Oluşturma Bölümü
         Expanded(
           flex: 9,
@@ -693,7 +716,75 @@ class IsiticiHaritasi extends StatelessWidget {
           ),
         ),
       ],
-    ));
+    ),
+    endDrawer: SizedBox(
+              width: 320 * oran,
+              child: Drawer(
+                child: MediaQuery.removePadding(
+                  removeTop: true,
+                  context: context,
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            Dil().sec(dilSecimi, "tv76"), 
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 18,
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                          color: Colors.yellow[700],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 17,
+                        child: Container(
+                          color: Colors.yellow[100],
+                          child: ListView(
+                            padding: EdgeInsets.zero,
+                            children: <Widget>[
+                              ListTile(
+                                dense: false,
+                                title: Text(
+                                  Dil().sec(dilSecimi, "tv186"),
+                                  textScaleFactor: oran,
+                                ),
+                                subtitle: RichText(
+                                  text: TextSpan(
+                                    children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                        text: Dil().sec(dilSecimi, "info38"),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 13*oran
+                                        )
+                                      ),
+
+                                      
+                                    ]
+                                  ),
+                                ),
+                              
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+    
+    
+    
+    );
             }
           )
     );

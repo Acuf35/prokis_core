@@ -61,6 +61,9 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
   int yazmaSonrasiGecikmeSayaci = 4;
   bool takipEtiGeciciDurdur=false;
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -98,7 +101,17 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
   Widget build(BuildContext context) {
 
     if (timerSayac == 0) {
-      _takipEt("28*$klepeAdet");
+
+      Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         if(!takipEtiGeciciDurdur)
@@ -110,7 +123,18 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
 
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3 && !takipEtiGeciciDurdur) {
           baglanti = true;
-          _takipEt("28*$klepeAdet");
+
+          Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
+              if(veri.split("*")[0]=="error"){
+                baglanti=false;
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                setState(() {});
+              }else{
+                takipEtVeriIsleme(veri);
+                baglantiDurum="";
+              }
+          });
+
         }
       });
     }
@@ -126,7 +150,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv500'),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv500',baglantiDurum),
       body: Column(
         children: <Widget>[
 
@@ -465,8 +489,30 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
           }
 
           if (veriGonderilsinMi) {
+
             yazmaSonrasiGecikmeSayaci = 0;
-            _veriGonder("33*$index*$veri");
+            String komut="33*$index*0";
+            Metotlar().veriGonder(komut, 2235).then((value){
+              if(value.split("*")[0]=="error"){
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+              }else{
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                
+                baglanti = false;
+                Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
+                    if(veri.split("*")[0]=="error"){
+                      baglanti=false;
+                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                      setState(() {});
+                    }else{
+                      takipEtVeriIsleme(veri);
+                      baglantiDurum="";
+                    }
+                });
+              }
+            });
+
+
           }
 
           setState(() {});
@@ -523,8 +569,30 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
 
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("33*$index*$veri");
+        String komut="33*$index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
+
       }
 
       setState(() {});
@@ -533,106 +601,34 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
     });
   }
 
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('#');
+    var xx=degerler[0].split('*');
+    var yy=degerler[1].split('*');
+    var zz=degerler[2].split('*');
+    var tt=degerler[3].split('*');
+    disIsiSensorNo=degerler[4];
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
-  _takipEt(String komut) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode(komut));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('#');
-              var xx=degerler[0].split('*');
-              var yy=degerler[1].split('*');
-              var zz=degerler[2].split('*');
-              var tt=degerler[3].split('*');
-              disIsiSensorNo=degerler[4];
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-
-              for (var i = 0; i <= int.parse(klepeAdet)-1; i++) {
-                probKontAktif[i+1]=xx[i]=="True" ? true : false;
-                sicaklikFarki[i+1]=yy[i];
-                sensorA[i+1]=zz[i];
-                sensorB[i+1]=tt[i];
-              }
-
-              
-
-              
-
-
-              socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
+    for (var i = 0; i <= int.parse(klepeAdet)-1; i++) {
+      probKontAktif[i+1]=xx[i]=="True" ? true : false;
+      sicaklikFarki[i+1]=yy[i];
+      sensorA[i+1]=zz[i];
+      sensorB[i+1]=tt[i];
     }
-  }
 
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
 
-        socket.add(utf8.encode(emir));
-
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
-
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(
-                  Dil().sec(dilSecimi, "toast8"), context,
-                  duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt("28*$klepeAdet");
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(Dil().sec(dilSecimi, "toast20"), context, duration: 3);
-        baglanti = false;
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
       });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
     }
+    
   }
+ 
 
   Widget _unsurProbKontrolAktifWidget(String baslik, String imagePath, double oran,int index) {
     return Visibility(visible: index<=int.parse(klepeAdet) || index>5,
@@ -678,8 +674,28 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                     onPressed: (){
 
                                      
-                                      yazmaSonrasiGecikmeSayaci=0;
-                                      _veriGonder("33*$index*1");
+
+                                      yazmaSonrasiGecikmeSayaci = 0;
+                                      String komut="33*$index*1";
+                                      Metotlar().veriGonder(komut, 2235).then((value){
+                                        if(value.split("*")[0]=="error"){
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                        }else{
+                                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                          
+                                          baglanti = false;
+                                          Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
+                                              if(veri.split("*")[0]=="error"){
+                                                baglanti=false;
+                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                setState(() {});
+                                              }else{
+                                                takipEtVeriIsleme(veri);
+                                                baglantiDurum="";
+                                              }
+                                          });
+                                        }
+                                      });
 
 
                                       probKontAktif[index]=true;
@@ -718,8 +734,28 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                     padding: EdgeInsets.all(3*oran),
                                     elevation: 8,
                                     onPressed: (){
-                                      yazmaSonrasiGecikmeSayaci=0;
-                                      _veriGonder("33*$index*0");
+
+                                      yazmaSonrasiGecikmeSayaci = 0;
+                                      String komut="33*$index*0";
+                                      Metotlar().veriGonder(komut, 2235).then((value){
+                                        if(value.split("*")[0]=="error"){
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                        }else{
+                                          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                          
+                                          baglanti = false;
+                                          Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
+                                              if(veri.split("*")[0]=="error"){
+                                                baglanti=false;
+                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                setState(() {});
+                                              }else{
+                                                takipEtVeriIsleme(veri);
+                                                baglantiDurum="";
+                                              }
+                                          });
+                                        }
+                                      });
 
                                       probKontAktif[index]=false;
 

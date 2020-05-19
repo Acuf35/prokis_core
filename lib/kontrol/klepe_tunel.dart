@@ -59,6 +59,9 @@ class KlepeTunelState extends State<KlepeTunel> {
   List<String> maksAciklik = new List(11);
   List<String> minHavAciklikOrani = new List(11);
 
+  String baglantiDurum="";
+
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -92,7 +95,17 @@ class KlepeTunelState extends State<KlepeTunel> {
   @override
   Widget build(BuildContext context) {
     if (timerSayac == 0) {
-      _takipEt();
+
+      Metotlar().takipEt('7*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -101,7 +114,18 @@ class KlepeTunelState extends State<KlepeTunel> {
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          _takipEt();
+          
+          Metotlar().takipEt('7*', 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              takipEtVeriIsleme(veri);
+              baglantiDurum="";
+            }
+        });
+
         }
       });
     }
@@ -111,7 +135,7 @@ class KlepeTunelState extends State<KlepeTunel> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192'),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -983,8 +1007,30 @@ class KlepeTunelState extends State<KlepeTunel> {
           minHavAciklikOrani[klepeIndex];
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("7*$klepeIndex*$veri");
+        String komut="7*$klepeIndex*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('7*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
+
       }
     });
   }
@@ -1040,8 +1086,29 @@ class KlepeTunelState extends State<KlepeTunel> {
           minHavAciklikOrani[klepeIndex];
 
       if (veriGonderilsinMi) {
+
         yazmaSonrasiGecikmeSayaci = 0;
-        _veriGonder("7*$klepeIndex*$veri");
+        String komut="7*$klepeIndex*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value){
+          if(value.split("*")[0]=="error"){
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          }else{
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+            
+            baglanti = false;
+            Metotlar().takipEt('7*', 2236).then((veri){
+                if(veri.split("*")[0]=="error"){
+                  baglanti=false;
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  setState(() {});
+                }else{
+                  takipEtVeriIsleme(veri);
+                  baglantiDurum="";
+                }
+            });
+          }
+        });
+
       }
 
       setState(() {});
@@ -1228,6 +1295,113 @@ class KlepeTunelState extends State<KlepeTunel> {
     }
   }
 
+  takipEtVeriIsleme(String gelenMesaj){
+    
+    var degerler = gelenMesaj.split('*');
+              print(degerler);
+              print(yazmaSonrasiGecikmeSayaci);
+
+              var gelenKlepe1 = degerler[0].split('#');
+              aktuelAciklik[1] = gelenKlepe1[0];
+              klepeBasDusFanMik[1] = gelenKlepe1[1];
+              klepeBasDusFanModu[1] = gelenKlepe1[2] == "True" ? '1' : "0";
+              calismaSirasi[1] = gelenKlepe1[3];
+              maksAciklik[1] = gelenKlepe1[4];
+              minAciklik[1] = gelenKlepe1[5];
+              minHavAciklikOrani[1] = gelenKlepe1[6];
+
+              var gelenKlepe2 = degerler[1].split('#');
+              aktuelAciklik[2] = gelenKlepe2[0];
+              klepeBasDusFanMik[2] = gelenKlepe2[1];
+              klepeBasDusFanModu[2] = gelenKlepe2[2] == "True" ? '1' : "0";
+              calismaSirasi[2] = gelenKlepe2[3];
+              maksAciklik[2] = gelenKlepe2[4];
+              minAciklik[2] = gelenKlepe2[5];
+              minHavAciklikOrani[2] = gelenKlepe2[6];
+
+              var gelenKlepe3 = degerler[2].split('#');
+              aktuelAciklik[3] = gelenKlepe3[0];
+              klepeBasDusFanMik[3] = gelenKlepe3[1];
+              klepeBasDusFanModu[3] = gelenKlepe3[2] == "True" ? '1' : "0";
+              calismaSirasi[3] = gelenKlepe3[3];
+              maksAciklik[3] = gelenKlepe3[4];
+              minAciklik[3] = gelenKlepe3[5];
+              minHavAciklikOrani[3] = gelenKlepe3[6];
+
+              var gelenKlepe4 = degerler[3].split('#');
+              aktuelAciklik[4] = gelenKlepe4[0];
+              klepeBasDusFanMik[4] = gelenKlepe4[1];
+              klepeBasDusFanModu[4] = gelenKlepe4[2] == "True" ? '1' : "0";
+              calismaSirasi[4] = gelenKlepe4[3];
+              maksAciklik[4] = gelenKlepe4[4];
+              minAciklik[4] = gelenKlepe4[5];
+              minHavAciklikOrani[4] = gelenKlepe4[6];
+
+              var gelenKlepe5 = degerler[4].split('#');
+              aktuelAciklik[5] = gelenKlepe5[0];
+              klepeBasDusFanMik[5] = gelenKlepe5[1];
+              klepeBasDusFanModu[5] = gelenKlepe5[2] == "True" ? '1' : "0";
+              calismaSirasi[5] = gelenKlepe5[3];
+              maksAciklik[5] = gelenKlepe5[4];
+              minAciklik[5] = gelenKlepe5[5];
+              minHavAciklikOrani[5] = gelenKlepe5[6];
+
+              var gelenKlepe6 = degerler[5].split('#');
+              aktuelAciklik[6] = gelenKlepe6[0];
+              klepeBasDusFanMik[6] = gelenKlepe6[1];
+              klepeBasDusFanModu[6] = gelenKlepe6[2] == "True" ? '1' : "0";
+              calismaSirasi[6] = gelenKlepe6[3];
+              maksAciklik[6] = gelenKlepe6[4];
+              minAciklik[6] = gelenKlepe6[5];
+              minHavAciklikOrani[6] = gelenKlepe6[6];
+
+              var gelenKlepe7 = degerler[6].split('#');
+              aktuelAciklik[7] = gelenKlepe7[0];
+              klepeBasDusFanMik[7] = gelenKlepe7[1];
+              klepeBasDusFanModu[7] = gelenKlepe7[2] == "True" ? '1' : "0";
+              calismaSirasi[7] = gelenKlepe7[3];
+              maksAciklik[7] = gelenKlepe7[4];
+              minAciklik[7] = gelenKlepe7[5];
+              minHavAciklikOrani[7] = gelenKlepe7[6];
+
+              var gelenKlepe8 = degerler[7].split('#');
+              aktuelAciklik[8] = gelenKlepe8[0];
+              klepeBasDusFanMik[8] = gelenKlepe8[1];
+              klepeBasDusFanModu[8] = gelenKlepe8[2] == "True" ? '1' : "0";
+              calismaSirasi[8] = gelenKlepe8[3];
+              maksAciklik[8] = gelenKlepe8[4];
+              minAciklik[8] = gelenKlepe8[5];
+              minHavAciklikOrani[8] = gelenKlepe8[6];
+
+              var gelenKlepe9 = degerler[8].split('#');
+              aktuelAciklik[9] = gelenKlepe9[0];
+              klepeBasDusFanMik[9] = gelenKlepe9[1];
+              klepeBasDusFanModu[9] = gelenKlepe9[2] == "True" ? '1' : "0";
+              calismaSirasi[9] = gelenKlepe9[3];
+              maksAciklik[9] = gelenKlepe9[4];
+              minAciklik[9] = gelenKlepe9[5];
+              minHavAciklikOrani[9] = gelenKlepe9[6];
+
+              var gelenKlepe10 = degerler[9].split('#');
+              aktuelAciklik[10] = gelenKlepe10[0];
+              klepeBasDusFanMik[10] = gelenKlepe10[1];
+              klepeBasDusFanModu[10] = gelenKlepe10[2] == "True" ? '1' : "0";
+              calismaSirasi[10] = gelenKlepe10[3];
+              maksAciklik[10] = gelenKlepe10[4];
+              minAciklik[10] = gelenKlepe10[5];
+              minHavAciklikOrani[10] = gelenKlepe10[6];
+
+
+    baglanti=false;
+    if(!timerCancel){
+      setState(() {
+        
+      });
+    }
+    
+  }
+ 
+
   Widget _klepeKlasikUnsur(double oran, int klepeNo) {
     return Expanded(
       flex: 5,
@@ -1337,10 +1511,28 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                       minHavAciklikOrani[
                                                                           klepeNo];
 
-                                                                  yazmaSonrasiGecikmeSayaci =
-                                                                      0;
-                                                                  _veriGonder(
-                                                                      "7*$klepeNo*$veri");
+
+                                                                  yazmaSonrasiGecikmeSayaci = 0;
+                                                                  String komut="7*$klepeNo*$veri";
+                                                                  Metotlar().veriGonder(komut, 2235).then((value){
+                                                                    if(value.split("*")[0]=="error"){
+                                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                    }else{
+                                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+                                                                      
+                                                                      baglanti = false;
+                                                                      Metotlar().takipEt('7*', 2236).then((veri){
+                                                                          if(veri.split("*")[0]=="error"){
+                                                                            baglanti=false;
+                                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                            setState(() {});
+                                                                          }else{
+                                                                            takipEtVeriIsleme(veri);
+                                                                            baglantiDurum="";
+                                                                          }
+                                                                      });
+                                                                    }
+                                                                  });
 
                                                                   setState(
                                                                       () {});

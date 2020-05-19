@@ -57,6 +57,8 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
   
   List<Map> dbVeriler;
 
+  String baglantiDurum="";
+
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   @override
@@ -79,7 +81,8 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv299',Colors.grey[600]),
+      resizeToAvoidBottomPadding: false,
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv299',Colors.grey[600],baglantiDurum),
       body: Column(
         children: <Widget>[
           Row(
@@ -486,7 +489,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv305'),
+                                                  Dil().sec(dilSecimi, 'tv27'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
