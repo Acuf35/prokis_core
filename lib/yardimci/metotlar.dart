@@ -11,7 +11,7 @@ import 'package:prokis/languages/select.dart';
 import 'package:toast/toast.dart';
 
 
-class Metotlar {
+class Metotlar{
 
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
     return SizedBox(
@@ -518,7 +518,8 @@ class Metotlar {
     );
   }
 
-  Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum) {
+  Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
+    
     return PreferredSize(
       preferredSize: Size.fromHeight(30*oran),
       child: AppBar(
@@ -536,7 +537,21 @@ class Metotlar {
                 //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               ),
             )),
-            Spacer(),
+            Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                Icons.add_alert,
+                size: 40 * oran,
+                color: alarmDurum=="0" ? Colors.green[200] : Colors.red,
+                  ),
+                onPressed: () {
+
+                },
+              ),
+            )),
             Expanded(
               flex: 10,
               child: Center(
@@ -604,7 +619,7 @@ class Metotlar {
   
   }
 
-  Widget appBarBLOC(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum) {
+  Widget appBarBLOC(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
     return AppBar(
       flexibleSpace: Row(
         children: <Widget>[
@@ -620,7 +635,21 @@ class Metotlar {
               //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
             ),
           )),
-          Spacer(),
+          Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                Icons.add_alert,
+                size: 40 * oran,
+                color: alarmDurum=="0" ? Colors.green[200] : Colors.red,
+                  ),
+                onPressed: () {
+
+                },
+              ),
+            )),
           Expanded(
             flex: 10,
             child: Center(
@@ -688,7 +717,7 @@ class Metotlar {
   }
 
 
-  Widget appBarSade(String dilSecimi, BuildContext context, double oran, String baslik, Color color, String baglantiDurum) {
+  Widget appBarSade(String dilSecimi, BuildContext context, double oran, String baslik, Color color, String baglantiDurum, String alarmDurum) {
     return PreferredSize(
       preferredSize: Size.fromHeight(30 * oran),
       child: AppBar(

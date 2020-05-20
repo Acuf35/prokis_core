@@ -53,6 +53,7 @@ class KontrolState extends State<Kontrol> {
   List<Map> dbVeriler;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -95,7 +96,7 @@ class KontrolState extends State<Kontrol> {
 
     return Scaffold(
       
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv106',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv106',baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           Row(

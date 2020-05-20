@@ -55,6 +55,7 @@ class OtoMan1 extends StatelessWidget {
   bool takipEtiGeciciDurdur=false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
   @override
@@ -86,6 +87,7 @@ class OtoMan1 extends StatelessWidget {
                   provider.otoISTC=degerler[4]=="True" ? true : false;
                   provider.otoYEMA=degerler[5]=="True" ? true : false;
                   provider.otoSIRK=degerler[6]=="True" ? true : false;
+                  alarmDurum=degerler[7];
                   baglantiDurum="";
                   if(!timerCancel){
                     provider.dinlemeyiTetikle();
@@ -121,6 +123,7 @@ class OtoMan1 extends StatelessWidget {
                   provider.otoISTC=degerler[4]=="True" ? true : false;
                   provider.otoYEMA=degerler[5]=="True" ? true : false;
                   provider.otoSIRK=degerler[6]=="True" ? true : false;
+                  alarmDurum=degerler[7];
                   baglanti=false;
                   baglantiDurum="";
                   if(!timerCancel){
@@ -137,7 +140,7 @@ class OtoMan1 extends StatelessWidget {
             timerSayac++;
 
               return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv454',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv454',baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           //Saat ve Tarih
@@ -423,6 +426,7 @@ class OtoMan1 extends StatelessWidget {
                                                 provider.otoISTC=degerler[4]=="True" ? true : false;
                                                 provider.otoYEMA=degerler[5]=="True" ? true : false;
                                                 provider.otoSIRK=degerler[6]=="True" ? true : false;
+                                                alarmDurum=degerler[7];
                                                 baglantiDurum="";
                                                 provider.dinlemeyiTetikle();
                                               }
@@ -520,6 +524,7 @@ class OtoMan1 extends StatelessWidget {
                                                 provider.otoISTC=degerler[4]=="True" ? true : false;
                                                 provider.otoYEMA=degerler[5]=="True" ? true : false;
                                                 provider.otoSIRK=degerler[6]=="True" ? true : false;
+                                                alarmDurum=degerler[7];
                                                 baglantiDurum="";
                                                 provider.dinlemeyiTetikle();
                                               }
@@ -606,6 +611,7 @@ class OtoMan1 extends StatelessWidget {
                                                           provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
                                                         baglantiDurum="";
+                                                        alarmDurum=degerler[int.parse(provider.fanAdet)];
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -638,6 +644,7 @@ class OtoMan1 extends StatelessWidget {
                                                           provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
                                                         baglantiDurum="";
+                                                        alarmDurum=degerler[int.parse(provider.pedAdet)];
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -669,6 +676,7 @@ class OtoMan1 extends StatelessWidget {
                                                         provider.manuelAydinlikYuzdesi=degerler[0];
                                                         provider.aydMan[1]=degerler[1]=="True" ? true : false;
                                                         baglantiDurum="";
+                                                        alarmDurum=degerler[2];
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -703,6 +711,7 @@ class OtoMan1 extends StatelessWidget {
                                                           provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
                                                         baglantiDurum="";
+                                                        alarmDurum=degerler[int.parse(provider.bacafanAdet)];
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -738,6 +747,7 @@ class OtoMan1 extends StatelessWidget {
                                                           provider.istMan[i]=degerler[i-1]=="True" ? true : false;
                                                         }
                                                         baglantiDurum="";
+                                                        alarmDurum=degerler[int.parse(provider.isiticiAdet)];
                                                         provider.dinlemeyiTetikle();
                                                       }
                                                     });
@@ -775,6 +785,7 @@ class OtoMan1 extends StatelessWidget {
                                                         provider.yemMan[4]=degerler[3]=="True" ? true : false;
                                                         provider.yemMan[5]=degerler[4]=="True" ? true : false;
                                                         provider.yemMan[6]=degerler[5]=="True" ? true : false;
+                                                        alarmDurum=degerler[6];
                                                         baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
@@ -808,6 +819,7 @@ class OtoMan1 extends StatelessWidget {
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.sirMan[1]=degerler[0]=="True" ? true : false;
+                                                        alarmDurum=degerler[1];
                                                         baglantiDurum="";
                                                         provider.dinlemeyiTetikle();
                                                       }
@@ -1922,6 +1934,7 @@ class OtoMan1 extends StatelessWidget {
                         for(int i=1;i<=int.parse(provider.fanAdet);i++){
                           provider.fanMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        alarmDurum=degerler[int.parse(provider.fanAdet)];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
@@ -1956,6 +1969,7 @@ class OtoMan1 extends StatelessWidget {
                         for(int i=1;i<=int.parse(provider.pedAdet);i++){
                           provider.pedMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        alarmDurum=degerler[int.parse(provider.pedAdet)];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
@@ -1991,6 +2005,7 @@ class OtoMan1 extends StatelessWidget {
                       }else{
                         provider.manuelAydinlikYuzdesi=degerler[0];
                         provider.aydMan[1]=degerler[1]=="True" ? true : false;
+                        alarmDurum=degerler[2];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
@@ -2026,6 +2041,7 @@ class OtoMan1 extends StatelessWidget {
                         for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
                           provider.bfaMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        alarmDurum=degerler[int.parse(provider.bacafanAdet)];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
@@ -2063,6 +2079,7 @@ class OtoMan1 extends StatelessWidget {
                         for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
                           provider.istMan[i]=degerler[i-1]=="True" ? true : false;
                         }
+                        alarmDurum=degerler[int.parse(provider.isiticiAdet)];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
@@ -2101,6 +2118,7 @@ class OtoMan1 extends StatelessWidget {
                         provider.yemMan[4]=degerler[3]=="True" ? true : false;
                         provider.yemMan[5]=degerler[4]=="True" ? true : false;
                         provider.yemMan[6]=degerler[5]=="True" ? true : false;
+                        alarmDurum=degerler[7];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }
@@ -2134,6 +2152,7 @@ class OtoMan1 extends StatelessWidget {
                         provider.dinlemeyiTetikle();
                       }else{
                         provider.sirMan[1]=degerler[0]=="True" ? true : false;
+                        alarmDurum=degerler[1];
                         baglantiDurum="";
                         provider.dinlemeyiTetikle();
                       }

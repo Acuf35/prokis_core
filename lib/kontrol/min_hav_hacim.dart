@@ -68,6 +68,7 @@ class MinHavHacimState extends State<MinHavHacim> {
   String hayvanBasinaIhtiyac = "700";
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -139,7 +140,7 @@ class MinHavHacimState extends State<MinHavHacim> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1001,6 +1002,8 @@ class MinHavHacimState extends State<MinHavHacim> {
     donguSecimi=degerler[9];
     fasilaDoubleX2=degerler[8]=='300000' ? '0' : (donguSecimi=='5' ? '1' : '0');
     bacafanMotorHizi=degerler[10];
+
+    alarmDurum=degerler[11];
 
 
     baglanti=false;

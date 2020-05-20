@@ -77,6 +77,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
   String disNemEksiKalibDegeri="0.0";
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
   
@@ -243,7 +244,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv431',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv431',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             //Saat ve Tarih
@@ -534,6 +535,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
     var sensorler =veri[0].split('*');
     var artiEksiDegerler=veri[1].split('*');
     var nemDegerler=veri[2].split('*');
+    alarmDurum=veri[3];
 
     aktifSenSay = (sensorler.length - 1).toInt();
 

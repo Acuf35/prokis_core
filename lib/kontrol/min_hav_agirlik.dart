@@ -68,6 +68,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
   String hayvanBasinaIhtiyac = "700";
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -142,7 +143,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276', baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1138,6 +1139,7 @@ class MinHavAgirlikState extends State<MinHavAgirlik> {
     sadeceMHyap=degerler[9]=='True' ? true : false;
     sadeceMHyapGunSayisi=degerler[10];
     bacafanMotorHizi=degerler[11];
+    alarmDurum=degerler[12];
 
 
     baglanti=false;

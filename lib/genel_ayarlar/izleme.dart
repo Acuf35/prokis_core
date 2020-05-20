@@ -75,6 +75,7 @@ class IzlemeState extends State<Izleme> {
   int nemDurum=0;
 
   String baglantiDurum="";
+  String alarmDurum="0";
   
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -143,7 +144,7 @@ int sayac=0;
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv569',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv569',baglantiDurum, alarmDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(
@@ -2323,6 +2324,8 @@ int sayac=0;
     olculenMinNem=degerler[20];
     olculenMakNemZmn=degerler[21];
     olculenMinNemZmn=degerler[22];
+    alarmDurum=degerler[23];
+
     baglanti=false;
     if(!timerCancel){
       setState(() {

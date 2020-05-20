@@ -58,6 +58,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
   bool takipEtiGeciciDurdur=false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -146,7 +147,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv475',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv475',baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
 
@@ -365,6 +366,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
       for(int i=1;i<=int.parse(klepeAdet);i++){
         otoKLPE[i]=degerler[i-1]=="True" ? true : false;
       }
+      alarmDurum=degerler[degerler.length-1];
     }
 
     if(komut.split("*")[0]=="24"){
@@ -376,6 +378,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
       }
       int x=degerler.length;
       klpHareketSuresi=degerler[x-1];
+      alarmDurum=degerler[degerler.length-1];
     }
 
 

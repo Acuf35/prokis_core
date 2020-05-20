@@ -85,6 +85,7 @@ class AydinlatmaState extends State<Aydinlatma> {
   bool acKapaSaati2Aktiflik=false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -159,7 +160,7 @@ class AydinlatmaState extends State<Aydinlatma> {
     
 
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv112',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv112',baglantiDurum, alarmDurum),
       body: Column(
           children: <Widget>[
             Row(
@@ -2391,6 +2392,7 @@ class AydinlatmaState extends State<Aydinlatma> {
 
     acKapaSaati2Aktiflik = degerler[13]=="True" ? true : false;
     anlikAydinlikYuzdesi = degerler[14];
+    alarmDurum=degerler[15];
 
     if(yazmaSonrasiGecikmeSayaci>=4 && yazmaSonrasiGecikmeSayaci<=6){
       if(int.parse(degerler[5])<13){acSaati1AM=true;acSaati1PM=false;}

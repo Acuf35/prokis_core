@@ -46,6 +46,7 @@ class SistemStartStopState extends State<SistemStartStop> {
   bool takipEtiGeciciDurdur = false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -77,6 +78,7 @@ class SistemStartStopState extends State<SistemStartStop> {
           sistemDurumu = degerler[0] == "True" ? true : false;
           baglanti = false;
           baglantiDurum="";
+          alarmDurum=degerler[1];
 
           if (!timerCancel) {
             setState(() {});
@@ -104,6 +106,7 @@ class SistemStartStopState extends State<SistemStartStop> {
               sistemDurumu = degerler[0] == "True" ? true : false;
               baglanti = false;
               baglantiDurum="";
+              alarmDurum=degerler[0];
 
               if (!timerCancel) {
                 setState(() {});
@@ -118,7 +121,7 @@ class SistemStartStopState extends State<SistemStartStop> {
 
     return Scaffold(
       appBar: Metotlar()
-          .appBarSade(dilSecimi, context, oran, 'tv684', Colors.grey[600],baglantiDurum),
+          .appBarSade(dilSecimi, context, oran, 'tv684', Colors.grey[600],baglantiDurum, alarmDurum),
       floatingActionButton: Container(
         width: 56 * oran,
         height: 56 * oran,

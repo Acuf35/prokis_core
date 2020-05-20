@@ -63,6 +63,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
   int yazmaSonrasiGecikmeSayaci = 4;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -140,7 +141,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1596,6 +1597,8 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
     for (int i = 1; i <= 60; i++) {
       fanSet[i] = double.parse(degerler[i + 2]);
     }
+
+    alarmDurum=degerler[63];
     
     baglanti=false;
     if(!timerCancel){

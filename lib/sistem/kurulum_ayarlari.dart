@@ -58,6 +58,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
   List<Map> dbVeriler;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -82,7 +83,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv299',Colors.grey[600],baglantiDurum),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv299',Colors.grey[600],baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           Row(

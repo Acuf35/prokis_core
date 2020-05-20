@@ -60,6 +60,7 @@ class KlepeTunelState extends State<KlepeTunel> {
   List<String> minHavAciklikOrani = new List(11);
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -135,7 +136,7 @@ class KlepeTunelState extends State<KlepeTunel> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1390,6 +1391,9 @@ class KlepeTunelState extends State<KlepeTunel> {
               maksAciklik[10] = gelenKlepe10[4];
               minAciklik[10] = gelenKlepe10[5];
               minHavAciklikOrani[10] = gelenKlepe10[6];
+
+
+              alarmDurum=degerler[10];
 
 
     baglanti=false;

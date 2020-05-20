@@ -75,6 +75,7 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
   bool isiticiGr3Durum=false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 
@@ -193,8 +194,10 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
             initialData: "",
             stream: _blocSinif.bloCVeriStateStreamControllerBAGLANTIERROR.stream,
             builder: (context, snapshot) {
-              baglantiDurum=snapshot.data;
-              return Metotlar().appBar(dilSecimi, context, oran, 'tv599', baglantiDurum);
+              String xx=snapshot.data;
+              alarmDurum=xx[1];
+              baglantiDurum=xx[2];
+              return Metotlar().appBar(dilSecimi, context, oran, 'tv599',baglantiDurum, alarmDurum);
             }
           ),
         ),
@@ -2020,6 +2023,7 @@ class IzlemeBfanAirIstcBloC {
   String otoAIRIGecici="";
   String otoSIRKGecici="";
   String baglantiHatasiGecici="";
+  String alarmDurum="0";
 
   IzlemeBfanAirIstcBloC(BuildContext context, String dilSecimi, List isiticiNo) {
 
@@ -2037,7 +2041,7 @@ class IzlemeBfanAirIstcBloC {
         if(veri.split("*")[0]=="error"){
           String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
           if(baglantiHatasi!=baglantiHatasiGecici){
-            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
           baglantiHatasiGecici=baglantiHatasi;
         }else{
@@ -2045,10 +2049,11 @@ class IzlemeBfanAirIstcBloC {
           var kk=veri.split("#");
           var xx=kk[0].split("*");
           var yy=kk[1].split("*");
+          alarmDurum=kk[2];
 
           String baglantiHatasi="";
           if(baglantiHatasi!=baglantiHatasiGecici){
-            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
           baglantiHatasiGecici=baglantiHatasi;
 
@@ -2188,7 +2193,7 @@ class IzlemeBfanAirIstcBloC {
         if(veri.split("*")[0]=="error"){
           String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
           if(baglantiHatasi!=baglantiHatasiGecici){
-            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
           baglantiHatasiGecici=baglantiHatasi;
         }else{
@@ -2196,10 +2201,11 @@ class IzlemeBfanAirIstcBloC {
             var kk=veri.split("#");
             var xx=kk[0].split("*");
             var yy=kk[1].split("*");
+            alarmDurum=kk[2];
 
             String baglantiHatasi="";
             if(baglantiHatasi!=baglantiHatasiGecici){
-              bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+              bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
             }
             baglantiHatasiGecici=baglantiHatasi;
 

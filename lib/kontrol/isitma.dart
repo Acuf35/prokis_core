@@ -55,6 +55,7 @@ class IsitmaState extends State<Isitma> {
   List<String> durmaSicakligiFark = new List(4);
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -123,7 +124,7 @@ class IsitmaState extends State<Isitma> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv263',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv263',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -649,6 +650,7 @@ class IsitmaState extends State<Isitma> {
     durmaSicakligi[1]=degerler[9];
     durmaSicakligi[2]=degerler[10];
     durmaSicakligi[3]=degerler[11];
+    alarmDurum=degerler[12];
 
 
     baglanti=false;

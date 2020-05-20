@@ -43,6 +43,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
   List<Map> dbVeriler;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -67,7 +68,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue,baglantiDurum),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue,baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           Row(

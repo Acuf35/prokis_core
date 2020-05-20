@@ -64,6 +64,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
   int yazmaSonrasiGecikmeSayaci = 4;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 
@@ -131,7 +132,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv276',baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           Row(
@@ -2388,6 +2389,8 @@ class MinHavKlasikState extends State<MinHavKlasik> {
     fan[2]=degerler[13]=='True' ? true: false;
     fan[3]=degerler[14]=='True' ? true: false;
     fan[4]=degerler[15]=='True' ? true: false;
+
+    alarmDurum=degerler[16];
 
 
     baglanti=false;

@@ -38,6 +38,7 @@ class YazilimState extends State<Yazilim> {
   List<Map> dbVeriler;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -61,7 +62,7 @@ class YazilimState extends State<Yazilim> {
     
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv677',Colors.grey[600],baglantiDurum),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv677',Colors.grey[600],baglantiDurum, alarmDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(

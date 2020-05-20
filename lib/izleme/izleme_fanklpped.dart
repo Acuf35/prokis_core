@@ -87,6 +87,7 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
 "0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*1*0*0*0*0*0*0*0*0*0*#1*1*1*1*0*0*0*0*0*0*0*1*1*1*0*1*0*0*#0.0*0.0";
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -204,11 +205,13 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(30*oran),
           child: StreamBuilder<Object>(
-            initialData: "",
+            initialData: "*0",
             stream: _blocSinif.bloCVeriStateStreamControllerBAGLANTIERROR.stream,
             builder: (context, snapshot) {
-              baglantiDurum=snapshot.data;
-              return Metotlar().appBarBLOC(dilSecimi, context, oran, 'tv598',baglantiDurum);
+              String xx=snapshot.data;
+              baglantiDurum=xx.split("*")[0];
+              alarmDurum=xx.split("*")[1];
+              return Metotlar().appBarBLOC(dilSecimi, context, oran, 'tv598',baglantiDurum, alarmDurum);
             }
           ),
         ),
@@ -2564,6 +2567,7 @@ class IzlemeFanKlpPedBloC {
   String cbbDegerGecici="";
   String modGecici="";
   String baglantiHatasiGecici="";
+  String alarmDurum="0";
 
   IzlemeFanKlpPedBloC(BuildContext context, String dilSecimi, List fanNo, int unsurAdet, List klepeNo, List isisensorNo, List pedNo) {
 
@@ -2594,21 +2598,24 @@ class IzlemeFanKlpPedBloC {
       Metotlar().takipEt("i1*", 2236).then((veri){
 
         var degerler=veri.split("*");
+        var xx=veri.split("#");
+        alarmDurum=xx[xx.length-1];
+
         if(veri.split("*")[0]=="error"){
           String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
           if(baglantiHatasi!=baglantiHatasiGecici){
-            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
-          baglantiHatasiGecici=baglantiHatasi;
+          baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
         }else{
 
-          var xx=veri.split("#");
+          
 
           String baglantiHatasi="";
             if(baglantiHatasi!=baglantiHatasiGecici){
-              bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+              bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
             }
-            baglantiHatasiGecici=baglantiHatasi;
+            baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
 
 
     //******************************FAN ÇIKIŞ DURUMLARI*******************************/
@@ -2770,21 +2777,24 @@ class IzlemeFanKlpPedBloC {
           Metotlar().takipEt("i1*", 2236).then((veri){
 
             var degerler=veri.split("*");
+            var xx=veri.split("#");
+            alarmDurum=xx[xx.length-1];
+
         if(veri.split("*")[0]=="error"){
           String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
           if(baglantiHatasi!=baglantiHatasiGecici){
-            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+            bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
-          baglantiHatasiGecici=baglantiHatasi;
+          baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
         }else{
 
-              var xx=veri.split("#");
+              
 
               String baglantiHatasi="";
               if(baglantiHatasi!=baglantiHatasiGecici){
-                bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi);
+                bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
               }
-              baglantiHatasiGecici=baglantiHatasi;
+              baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
 
       //******************************FAN ÇIKIŞ DURUMLARI*******************************/
               var fanDurumlar=xx[0].split("*");

@@ -72,6 +72,7 @@ class YemlemeState extends State<Yemleme> {
   bool veriGonderildi = false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
   
@@ -148,7 +149,7 @@ class YemlemeState extends State<Yemleme> {
 
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv113',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv113',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1004,6 +1005,8 @@ class YemlemeState extends State<Yemleme> {
               yemCikis3Aktif=aktifler[2]=="True" ? true :false;
 
               sinyalSuresi=degerler[7];
+
+              alarmDurum=degerler[8];
 
 
     baglanti=false;

@@ -62,6 +62,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
   List<String> minHavAciklikOrani = new List(11);
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -139,7 +140,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1212,6 +1213,8 @@ class KlepeKlasikState extends State<KlepeKlasik> {
     klepeAciklik4[10]=gelenKlepe10[7];
     aktuelAciklik[10]=gelenKlepe10[8];
     minHavAciklikOrani[10]=gelenKlepe10[9];
+
+    alarmDurum=degerler[10];
               
 
 

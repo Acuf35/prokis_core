@@ -66,6 +66,7 @@ class SogutmaNemState extends State<SogutmaNem> {
   String durmaSure = "360";
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -136,7 +137,7 @@ class SogutmaNemState extends State<SogutmaNem> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv249',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv249',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -2016,6 +2017,8 @@ class SogutmaNemState extends State<SogutmaNem> {
               sicaklikOncelikli =  degerler[8]=="True" ? true : false;
               ped1 =  degerler[9]=="True" ? true : false;
               ped23 =  degerler[10]=="True" ? true : false;
+
+              alarmDurum=degerler[11];
 
 
     baglanti=false;

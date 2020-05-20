@@ -30,6 +30,7 @@ class AlarmState extends State<Alarm> {
   List<Map> dbVeriler;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -55,7 +56,7 @@ class AlarmState extends State<Alarm> {
     final double itemWidth = size.width / 2;
 
     return Scaffold(
-        appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue,baglantiDurum),
+        appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue,baglantiDurum, alarmDurum),
         body: Row(
           children: <Widget>[
             Spacer(),

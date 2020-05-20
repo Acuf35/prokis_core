@@ -58,6 +58,7 @@ class OtoManAirState extends State<OtoManAir> {
   bool takipEtiGeciciDurdur = false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -132,7 +133,7 @@ class OtoManAirState extends State<OtoManAir> {
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv476',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv476',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             //Saat ve Tarih
@@ -319,13 +320,15 @@ class OtoManAirState extends State<OtoManAir> {
               print(yazmaSonrasiGecikmeSayaciAIR);
 
               if (komut.split("*")[0] == "25") {
-                otoAIR = gelenMesaj == "True" ? true : false;
+                otoAIR = degerler[0] == "True" ? true : false;
+                alarmDurum=degerler[1];
               }
 
               if (komut.split("*")[0] == "26") {
                 airManAc=degerler[0] == "True" ? true : false;
                 airManKp=degerler[1] == "True" ? true : false;
                 airHareketSuresi=degerler[2];
+                alarmDurum=degerler[3];
               }
 
 

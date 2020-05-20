@@ -29,6 +29,7 @@ class SistemState extends State<Sistem> {
   String dilSecimi = "EN";
   String sifre = "0";
   String baglantiDurum="";
+  String alarmDurum="0";
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class SistemState extends State<Sistem> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv401',Colors.grey[600],baglantiDurum),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv401',Colors.grey[600],baglantiDurum, alarmDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(

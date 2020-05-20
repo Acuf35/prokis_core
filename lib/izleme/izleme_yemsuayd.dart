@@ -83,6 +83,7 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
   bool dimmerVarMi=false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
   
 
@@ -185,7 +186,7 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv647', baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv647',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -2114,6 +2115,7 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
 
               acKapaSaat2Aktiflik=degerler[36]=="1" ? true : false;
               dimmerVarMi=degerler[37]!="0" ? true : false;
+              alarmDurum=degerler[38];
 
 
     baglanti=false;

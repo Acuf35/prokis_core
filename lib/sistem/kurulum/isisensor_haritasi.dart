@@ -27,6 +27,7 @@ class IsiSensorHaritasi extends StatelessWidget {
   String dilSecimi = "EN";
   double oran;
   String baglantiDurum="";
+  String alarmDurum="0";
 
   @override
   Widget build(BuildContext context) {

@@ -50,6 +50,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
   List<String> otoManDurum = new List(11);
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -124,7 +125,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv239',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv239',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -523,6 +524,8 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
               otoManDurum[8]=degerler[2].split('*')[7]=='True' ? "1" : "0";
               otoManDurum[9]=degerler[2].split('*')[8]=='True' ? "1" : "0";
               otoManDurum[10]=degerler[2].split('*')[9]=='True' ? "1" : "0";
+
+              alarmDurum=degerler[3];
 
 
 

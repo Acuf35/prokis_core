@@ -62,6 +62,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
   bool takipEtiGeciciDurdur=false;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -150,7 +151,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv500',baglantiDurum),
+      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv500',baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
 
@@ -609,6 +610,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
     var zz=degerler[2].split('*');
     var tt=degerler[3].split('*');
     disIsiSensorNo=degerler[4];
+    alarmDurum=degerler[5];
     print(degerler);
     print(yazmaSonrasiGecikmeSayaci);
 

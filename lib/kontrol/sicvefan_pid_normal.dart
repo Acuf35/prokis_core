@@ -56,6 +56,7 @@ class SicVeFanPIDNormalState extends State<SicVeFanPIDNormal> {
   int yazmaSonrasiGecikmeSayaci = 4;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -118,7 +119,7 @@ class SicVeFanPIDNormalState extends State<SicVeFanPIDNormal> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -740,6 +741,7 @@ class SicVeFanPIDNormalState extends State<SicVeFanPIDNormal> {
 
               setSicA = degerler[0];
               pidSetKaydirma = degerler[1];
+              alarmDurum=degerler[2];
 
 
     baglanti=false;

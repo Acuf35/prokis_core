@@ -80,6 +80,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
   bool format24saatlik=true;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -145,7 +146,7 @@ class YrdOpsiyonState extends State<YrdOpsiyon> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv481',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv481',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -2204,6 +2205,8 @@ Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int index, int paramIndex
               olculenMinMaksResetSaatiDakika = degerler[10];
               yemTuketimResetSaatiSaat = degerler[11];
               yemTuketimResetSaatiDakika = degerler[12];
+
+              alarmDurum=degerler[13];
 
 
     baglanti=false;

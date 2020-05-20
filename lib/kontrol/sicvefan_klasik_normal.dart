@@ -61,6 +61,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
   int yazmaSonrasiGecikmeSayaci=4;
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -139,7 +140,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
@@ -1072,6 +1073,8 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
               for(int i=2;i<=61;i++){
                 fanSet[i-1]=double.parse(degerler[i]);
               }
+
+              alarmDurum=degerler[62];
 
 
     baglanti=false;

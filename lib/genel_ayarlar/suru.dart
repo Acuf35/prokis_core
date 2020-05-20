@@ -87,6 +87,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   String haftalik_53veSonrasi = "0.59";
 
   String baglantiDurum="";
+  String alarmDurum="0";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -155,7 +156,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv414',baglantiDurum),
+        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv414',baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             //Saat ve Tarih
@@ -1589,6 +1590,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
     suruYasiGunluk=degerler[14];
     suruYasiHaftalik=degerler[15];
     olumOrani=degerler[16];
+    alarmDurum=degerler[17];
 
 
               
