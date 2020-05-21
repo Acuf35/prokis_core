@@ -1590,7 +1590,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
     suruYasiGunluk=degerler[14];
     suruYasiHaftalik=degerler[15];
     olumOrani=degerler[16];
-    alarmDurum=degerler[17];
+    
 
 
               
@@ -1599,6 +1599,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       haftalik_7_20 = degerler[17];
       haftalik_21_52 = degerler[18];
       haftalik_53veSonrasi = degerler[19];
+      alarmDurum=degerler[20];
     } else {
       gunluk_1_7 = degerler[17];
       gunluk_8_14 = degerler[18];
@@ -1608,6 +1609,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       gunluk_36_42 = degerler[22];
       gunluk_43_49 = degerler[23];
       gunluk_50veSonrasi = degerler[24];
+      alarmDurum=degerler[25];
     }
 
 

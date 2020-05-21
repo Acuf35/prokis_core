@@ -5,15 +5,18 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
 
 class Metotlar{
 
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
+    final dbProkis = Provider.of<DBProkis>(context);
     return SizedBox(
       width: 320 * oran,
       child: Drawer(
@@ -45,58 +48,7 @@ class Metotlar{
                 child: ListView(
                   padding: EdgeInsets.zero,
                   children: <Widget>[
-                    ListTile(
-                      onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
-                      },
-                      leading: SizedBox(
-                        width: 40 * oran,
-                        height: 40 * oran,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              alignment: Alignment.centerLeft,
-                              image: AssetImage(
-                                  'assets/images/izleme_icon_red.png'),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        "İZLEME",
-                        textScaleFactor: oran,
-                        style: TextStyle(
-                            fontFamily: 'Audio wide',
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    ListTile(
-                      onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
-                      },
-                      leading: SizedBox(
-                        width: 40 * oran,
-                        height: 40 * oran,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              alignment: Alignment.centerLeft,
-                              image: AssetImage(
-                                  'assets/images/mancontrol_icon_red.png'),
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        "OTO-MAN",
-                        textScaleFactor: oran,
-                        style: TextStyle(
-                            fontFamily: 'Audio wide',
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ),
+                    //Kontrol
                     ExpansionTile(
                       //leading: Icon(Icons.ac_unit),
 
@@ -108,7 +60,7 @@ class Metotlar{
                             image: DecorationImage(
                               alignment: Alignment.centerLeft,
                               image: AssetImage(
-                                  'assets/images/kontrol_icon_small.png'),
+                                  'assets/images/kontrol_small_icon.png'),
                               fit: BoxFit.contain,
                             ),
                           ),
@@ -117,7 +69,7 @@ class Metotlar{
 
                       //backgroundColor: Colors.green,
                       title: Text(
-                        "KONTROL",
+                        Dil().sec(dilSecimi, "tv102"),
                         textScaleFactor: oran,
                         style: TextStyle(
                             fontFamily: 'Audio wide',
@@ -127,6 +79,7 @@ class Metotlar{
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            //SIC. & FAN
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -159,10 +112,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+
+
+                                },
                               ),
                             ),
                             Spacer(),
+                            //ISITMA
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -203,6 +160,44 @@ class Metotlar{
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            //KLEPE
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              image: AssetImage(
+                                                  'assets/images/klepe_icon.png'),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv108"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            Spacer(),
+                            //AYDINLATMA
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -229,42 +224,6 @@ class Metotlar{
                                     Expanded(
                                       flex: 3,
                                       child: Text(
-                                        "  " + Dil().sec(dilSecimi, "tv108"),
-                                        textScaleFactor: oran,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                onPressed: () {},
-                              ),
-                            ),
-                            Spacer(),
-                            Expanded(
-                              flex: 14,
-                              child: RawMaterialButton(
-                                fillColor: Colors.grey[300],
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    Expanded(
-                                      child: SizedBox(
-                                        width: 30 * oran,
-                                        height: 30 * oran,
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              alignment: Alignment.center,
-                                              image: AssetImage(
-                                                  'assets/images/cooling_icon.png'),
-                                              fit: BoxFit.contain,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
                                         "  " + Dil().sec(dilSecimi, "tv112"),
                                         textScaleFactor: oran,
                                       ),
@@ -279,6 +238,7 @@ class Metotlar{
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            //SOĞ. & NEM
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -315,6 +275,7 @@ class Metotlar{
                               ),
                             ),
                             Spacer(),
+                            //YEMLEME
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -331,7 +292,7 @@ class Metotlar{
                                             image: DecorationImage(
                                               alignment: Alignment.center,
                                               image: AssetImage(
-                                                  'assets/images/silo_icon.png'),
+                                                  'assets/images/feeding_icon.png'),
                                               fit: BoxFit.contain,
                                             ),
                                           ),
@@ -355,6 +316,7 @@ class Metotlar{
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            //MİN HAV
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -391,6 +353,7 @@ class Metotlar{
                               ),
                             ),
                             Spacer(),
+                            //YRD OPS.
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -407,7 +370,7 @@ class Metotlar{
                                             image: DecorationImage(
                                               alignment: Alignment.center,
                                               image: AssetImage(
-                                                  'assets/images/wizard_icon.png'),
+                                                  'assets/images/diger_ops_icon.png'),
                                               fit: BoxFit.contain,
                                             ),
                                           ),
@@ -430,6 +393,271 @@ class Metotlar{
                         ),
                       ],
                     ),
+                    //İZLEME
+                    ExpansionTile(
+                      //leading: Icon(Icons.ac_unit),
+
+                      leading: SizedBox(
+                        width: 40 * oran,
+                        height: 40 * oran,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.centerLeft,
+                              image: AssetImage(
+                                  'assets/images/izleme_small_icon.png'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //backgroundColor: Colors.green,
+                      title: Text(
+                        Dil().sec(dilSecimi, "tv100"),
+                        textScaleFactor: oran,
+                        style: TextStyle(
+                            fontFamily: 'Audio wide',
+                            fontWeight: FontWeight.bold),
+                      ),
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            //İZLEME
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              image: AssetImage(
+                                                  'assets/images/izleme_small_icon.png'),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv100"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            Spacer(),
+                            //İZLEME 1
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Stack(
+                                      alignment:
+                                          Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(builder:
+                                            (context,
+                                                constraint) {
+                                          return Icon(
+                                            Icons
+                                                .brightness_1,
+                                            size: constraint
+                                                .biggest
+                                                .height,
+                                            color: Colors
+                                                .blue[700],
+                                          );
+                                        }),
+
+                                        RotatedBox(quarterTurns: 1,
+                                          child: LayoutBuilder(builder:
+                                              (context,
+                                                  constraint) {
+                                            return Icon(
+                                              Icons
+                                                  .search,
+                                              size: constraint
+                                                  .biggest
+                                                  .width,
+                                              color: Colors
+                                                  .black,
+                                            );
+                                          }),
+                                        ),
+                                      ],
+                                    ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv598"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            //İZLEME 2
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Stack(
+                                      alignment:
+                                          Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(builder:
+                                            (context,
+                                                constraint) {
+                                          return Icon(
+                                            Icons
+                                                .brightness_1,
+                                            size: constraint
+                                                .biggest
+                                                .height,
+                                            color: Colors
+                                                .blue[700],
+                                          );
+                                        }),
+
+                                        RotatedBox(quarterTurns: 1,
+                                          child: LayoutBuilder(builder:
+                                              (context,
+                                                  constraint) {
+                                            return Icon(
+                                              Icons
+                                                  .search,
+                                              size: constraint
+                                                  .biggest
+                                                  .width,
+                                              color: Colors
+                                                  .black,
+                                            );
+                                          }),
+                                        ),
+                                      ],
+                                    ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv599"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            Spacer(),
+                            //İZLEME 4
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Stack(
+                                      alignment:
+                                          Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(builder:
+                                            (context,
+                                                constraint) {
+                                          return Icon(
+                                            Icons
+                                                .brightness_1,
+                                            size: constraint
+                                                .biggest
+                                                .height,
+                                            color: Colors
+                                                .blue[700],
+                                          );
+                                        }),
+
+                                        RotatedBox(quarterTurns: 1,
+                                          child: LayoutBuilder(builder:
+                                              (context,
+                                                  constraint) {
+                                            return Icon(
+                                              Icons
+                                                  .search,
+                                              size: constraint
+                                                  .biggest
+                                                  .width,
+                                              color: Colors
+                                                  .black,
+                                            );
+                                          }),
+                                        ),
+                                      ],
+                                    ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv647"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            
+                          ],
+                        ),
+                        
+                      ],
+                    ),
+                    //OTO-MAN
                     ListTile(
                       onTap: () {
                         Toast.show("Buton çalışıyor...", context, duration: 3);
@@ -442,20 +670,21 @@ class Metotlar{
                             image: DecorationImage(
                               alignment: Alignment.centerLeft,
                               image: AssetImage(
-                                  'assets/images/datalog_icon_small.png'),
+                                  'assets/images/mancontrol_icon_red.png'),
                               fit: BoxFit.contain,
                             ),
                           ),
                         ),
                       ),
                       title: Text(
-                        "DATA LOG",
+                        Dil().sec(dilSecimi, "tv101"),
                         textScaleFactor: oran,
                         style: TextStyle(
                             fontFamily: 'Audio wide',
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    //ALARM AYARLARI
                     ListTile(
                       onTap: () {
                         Toast.show("Buton çalışıyor...", context, duration: 3);
@@ -468,20 +697,21 @@ class Metotlar{
                             image: DecorationImage(
                               alignment: Alignment.centerLeft,
                               image: AssetImage(
-                                  'assets/images/alarm_ayarlari_icon_small.png'),
+                                  'assets/images/alarm_ayarlari_small_icon.png'),
                               fit: BoxFit.contain,
                             ),
                           ),
                         ),
                       ),
                       title: Text(
-                        "ALARM AYAR.",
+                        Dil().sec(dilSecimi, "tv104"),
                         textScaleFactor: oran,
                         style: TextStyle(
                             fontFamily: 'Audio wide',
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    //SÜRÜ
                     ListTile(
                       onTap: () {
                         Toast.show("Buton çalışıyor...", context, duration: 3);
@@ -494,20 +724,268 @@ class Metotlar{
                             image: DecorationImage(
                               alignment: Alignment.centerLeft,
                               image: AssetImage(
-                                  'assets/images/settings_icon_small.png'),
+                                  'assets/images/suru_small_icon.png'),
                               fit: BoxFit.contain,
                             ),
                           ),
                         ),
                       ),
                       title: Text(
-                        "KURULUM",
+                        Dil().sec(dilSecimi, "tv347"),
                         textScaleFactor: oran,
                         style: TextStyle(
                             fontFamily: 'Audio wide',
                             fontWeight: FontWeight.bold),
                       ),
                     ),
+                    //KALİBRASYON
+                    ListTile(
+                      onTap: () {
+                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                      },
+                      leading: SizedBox(
+                        width: 40 * oran,
+                        height: 40 * oran,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.centerLeft,
+                              image: AssetImage(
+                                  'assets/images/kalibrasyon_small_icon.png'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        Dil().sec(dilSecimi, "tv348"),
+                        textScaleFactor: oran,
+                        style: TextStyle(
+                            fontFamily: 'Audio wide',
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    //DATALOG
+                    ListTile(
+                      onTap: () {
+                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                      },
+                      leading: SizedBox(
+                        width: 40 * oran,
+                        height: 40 * oran,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.centerLeft,
+                              image: AssetImage(
+                                  'assets/images/datalog_small_icon.png'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        Dil().sec(dilSecimi, "tv103"),
+                        textScaleFactor: oran,
+                        style: TextStyle(
+                            fontFamily: 'Audio wide',
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    //SİSTEM
+                    ExpansionTile(
+                      //leading: Icon(Icons.ac_unit),
+
+                      leading: SizedBox(
+                        width: 40 * oran,
+                        height: 40 * oran,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              alignment: Alignment.centerLeft,
+                              image: AssetImage(
+                                  'assets/images/settings_small_icon.png'),
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      //backgroundColor: Colors.green,
+                      title: Text(
+                        Dil().sec(dilSecimi, "tv105"),
+                        textScaleFactor: oran,
+                        style: TextStyle(
+                            fontFamily: 'Audio wide',
+                            fontWeight: FontWeight.bold),
+                      ),
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            //KURULUM
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              image: AssetImage(
+                                                  'assets/images/kurulum_small_icon.png'),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv400"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            Spacer(),
+                            //SAAT & TARİH
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.centerLeft,
+                                              image: AssetImage(
+                                                  'assets/images/saat_tarih_ayar_small_icon.png'),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv402"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            //YAZILIM
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              image: AssetImage(
+                                                  'assets/images/software_small_icon.png'),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv677"),
+                                        textScaleFactor: oran,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            Spacer(),
+                            //SİSTEM START-STOP
+                            Expanded(
+                              flex: 14,
+                              child: RawMaterialButton(
+                                fillColor: Colors.grey[300],
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        width: 30 * oran,
+                                        height: 30 * oran,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                              alignment: Alignment.center,
+                                              image: AssetImage(
+                                                  'assets/images/sistem_start_stop_small_icon.png'),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Text(
+                                        "  " + Dil().sec(dilSecimi, "tv690"),
+                                        textScaleFactor: oran,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    ListTile(
+                      leading: SizedBox(
+                        height: 100 * oran,
+                        
+                      ),
+                    ),
+                    
                   ],
                 ),
               ),
@@ -725,9 +1203,33 @@ class Metotlar{
           color: color,
           child: Row(
             children: <Widget>[
-              Spacer(
-                flex: 2,
+              Expanded(
+                child: Builder(
+                builder: (context) => RawMaterialButton(
+                  child: Icon(
+                    Icons.menu,
+                    size: 40 * oran,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Scaffold.of(context).openDrawer(),
+                  //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                ),
+              )),
+              Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                Icons.add_alert,
+                size: 40 * oran,
+                color: alarmDurum=="0" ? Colors.green[200] : Colors.red,
+                  ),
+                onPressed: () {
+
+                },
               ),
+            )),
               Expanded(
                 flex: 10,
                 child: Center(
@@ -997,8 +1499,6 @@ class Metotlar{
 
   return _donusDegeri;
 } 
-
-
 
   String errorToastMesaj(String mesaj){
     
@@ -1517,7 +2017,6 @@ class Metotlar{
     return sonuc;
   }
 
-
   Widget cikislariGetir(List<int> tumCikislar, double oranOzel, double oran, int flex, bool haritaOnay, int sayac, String dilSecimi){
 
 
@@ -1621,7 +2120,6 @@ class Metotlar{
     );
      
   }
-
 
   String inputConvSAYItoI(int deger) {
     String sonuc = "I#.#";

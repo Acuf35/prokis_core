@@ -2043,7 +2043,7 @@ class IzlemeBfanAirIstcBloC {
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
-          baglantiHatasiGecici=baglantiHatasi;
+          baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
         }else{
 
           var kk=veri.split("#");
@@ -2055,7 +2055,7 @@ class IzlemeBfanAirIstcBloC {
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
-          baglantiHatasiGecici=baglantiHatasi;
+          baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
 
           String aktuelFasVeyaHiz=xx[0];
           if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){
@@ -2195,7 +2195,7 @@ class IzlemeBfanAirIstcBloC {
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
-          baglantiHatasiGecici=baglantiHatasi;
+          baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
         }else{
 
             var kk=veri.split("#");
@@ -2207,7 +2207,7 @@ class IzlemeBfanAirIstcBloC {
             if(baglantiHatasi!=baglantiHatasiGecici){
               bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
             }
-            baglantiHatasiGecici=baglantiHatasi;
+            baglantiHatasiGecici=baglantiHatasi+"*"+alarmDurum;
 
             String aktuelFasVeyaHiz=xx[0];
             if(aktuelFasVeyaHiz!=aktuelFasVeyaHizGecici){

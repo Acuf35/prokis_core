@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -265,6 +266,10 @@ class SaatTarihState extends State<SaatTarih> {
     '60'
   ];
 
+  int timerSayac = 0;
+  int yazmaSonrasiGecikmeSayaci = 0;
+  bool timerCancel = false;
+
   String baglantiDurum="";
   String alarmDurum="0";
 
@@ -330,6 +335,48 @@ class SaatTarihState extends State<SaatTarih> {
   @override
   Widget build(BuildContext context) {
 
+    if (timerSayac == 0) {
+      Metotlar().takipEt("alarm*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri;
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        yazmaSonrasiGecikmeSayaci++;
+        if (timerCancel) {
+          timer.cancel();
+        }
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
+          baglanti = true;
+          Metotlar().takipEt("alarm*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri;
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+        }
+      });
+      
+    }
+
+    timerSayac++;
+
     var oran = MediaQuery.of(context).size.width / 731.4;
     final dbProkis = Provider.of<DBProkis>(context);
     
@@ -340,6 +387,7 @@ class SaatTarihState extends State<SaatTarih> {
         child: FittedBox(
                     child: FloatingActionButton(
             onPressed: () {
+              timerCancel=true;
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => Sistem()),

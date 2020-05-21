@@ -709,6 +709,8 @@ class Dil{
     kod=="tv686" ? metin='Sistem Durumu' : null;
     kod=="tv687" ? metin='SİSTEM ÇALIŞIYOR' : null;
     kod=="tv688" ? metin='SİSTEM DURUYOR' : null;
+    kod=="tv689" ? metin='Kurulum Revizyon Numarası' : null;
+    kod=="tv690" ? metin='SİSTEM\nSTART-STOP' : null;
    
 
     

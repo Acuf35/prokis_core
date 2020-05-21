@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +44,11 @@ class GenelAyarlarState extends State<GenelAyarlar> {
   String kurulumDurum = "0";
   List<Map> dbVeriler;
 
+  int timerSayac = 0;
+  int yazmaSonrasiGecikmeSayaci = 0;
+  bool timerCancel = false;
+  bool baglanti = false;
+
   String baglantiDurum="";
   String alarmDurum="0";
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -63,6 +70,51 @@ class GenelAyarlarState extends State<GenelAyarlar> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (timerSayac == 0) {
+      Metotlar().takipEt("alarm*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri;
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        yazmaSonrasiGecikmeSayaci++;
+        if (timerCancel) {
+          timer.cancel();
+        }
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
+          baglanti = true;
+          Metotlar().takipEt("alarm*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri;
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+        }
+      });
+      
+    }
+
+    timerSayac++;
+
+
+
     final dbProkis=Provider.of<DBProkis>(context);
     dilSecimi=dbProkis.dbVeriGetir(1, 1, "EN");
     var oran = MediaQuery.of(context).size.width / 731.4;
@@ -159,6 +211,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -225,6 +278,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -293,6 +347,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -359,6 +414,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -454,6 +510,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -520,6 +577,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -648,6 +706,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
 
                                     Navigator.pushReplacement(
                                       context,
@@ -747,7 +806,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
                 ),
               ),
             ),
-    
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
       );
   }
 }

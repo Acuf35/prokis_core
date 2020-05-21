@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -37,8 +38,15 @@ class YazilimState extends State<Yazilim> {
   String kurulumDurum = "0";
   List<Map> dbVeriler;
 
+  int timerSayac = 0;
+  int yazmaSonrasiGecikmeSayaci = 0;
+  bool timerCancel = false;
+  bool baglanti = false;
+
   String baglantiDurum="";
   String alarmDurum="0";
+
+  String kurulumRevizyonNo="0";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -57,6 +65,50 @@ class YazilimState extends State<Yazilim> {
   @override
   Widget build(BuildContext context) {
 
+    if (timerSayac == 0) {
+      Metotlar().takipEt("alarmY*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri.split("*")[0];
+              kurulumRevizyonNo=veri.split("*")[1];
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        yazmaSonrasiGecikmeSayaci++;
+        if (timerCancel) {
+          timer.cancel();
+        }
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
+          baglanti = true;
+          Metotlar().takipEt("alarmY*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri.split("*")[0];
+              kurulumRevizyonNo=veri.split("*")[1];
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+        }
+      });
+      
+    }
+
+    timerSayac++;
+
     var oran = MediaQuery.of(context).size.width / 731.4;
     final dbProkis = Provider.of<DBProkis>(context);
     
@@ -67,6 +119,7 @@ class YazilimState extends State<Yazilim> {
         child: FittedBox(
                     child: FloatingActionButton(
             onPressed: () {
+              timerCancel=true;
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => Sistem()),
@@ -123,7 +176,7 @@ class YazilimState extends State<Yazilim> {
             child: Column(
               children: <Widget>[
                 Spacer(),
-                Expanded(flex: 1,
+                Expanded(flex: 2,
                   child: SizedBox(
                     child: Container(
                       alignment: Alignment.bottomCenter,
@@ -142,7 +195,7 @@ class YazilimState extends State<Yazilim> {
                     ),
                   ),
                 ),
-                Expanded(flex: 3,
+                Expanded(flex: 6,
                   child: Row(
                     children: <Widget>[
                       Spacer(),
@@ -168,7 +221,7 @@ class YazilimState extends State<Yazilim> {
                   ),
                 ),
                 Spacer(),
-                Expanded(flex: 1,
+                Expanded(flex: 2,
                   child: SizedBox(
                     child: Container(
                       alignment: Alignment.bottomCenter,
@@ -187,7 +240,7 @@ class YazilimState extends State<Yazilim> {
                     ),
                   ),
                 ),
-                Expanded(flex: 3,
+                Expanded(flex: 6,
                   child: SizedBox(
                     child: Container(
                       alignment: Alignment.topCenter,
@@ -204,7 +257,7 @@ class YazilimState extends State<Yazilim> {
                   ),
                 ),
                 Spacer(),
-                Expanded(flex: 1,
+                Expanded(flex: 2,
                   child: SizedBox(
                     child: Container(
                       alignment: Alignment.bottomCenter,
@@ -223,12 +276,48 @@ class YazilimState extends State<Yazilim> {
                     ),
                   ),
                 ),
-                Expanded(flex: 3,
+                Expanded(flex: 6,
                   child: SizedBox(
                     child: Container(
                       alignment: Alignment.topCenter,
                       child: AutoSizeText(
                         Dil().sec(dilSecimi, "tv683"),
+                        style: TextStyle(
+                          fontFamily: 'Audio wide',
+                          fontSize: 50,
+                        ),
+                        maxLines: 1,
+
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(),
+                Expanded(flex: 2,
+                  child: SizedBox(
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: AutoSizeText(
+                        Dil().sec(dilSecimi, "tv689"),
+                        
+                        style: TextStyle(
+                          fontSize: 50,
+                          color: Colors.grey,
+                          decoration: TextDecoration.underline
+                        ),
+                        maxLines: 1,
+                        
+
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(flex: 6,
+                  child: SizedBox(
+                    child: Container(
+                      alignment: Alignment.topCenter,
+                      child: AutoSizeText(
+                        kurulumRevizyonNo,
                         style: TextStyle(
                           fontFamily: 'Audio wide',
                           fontSize: 50,

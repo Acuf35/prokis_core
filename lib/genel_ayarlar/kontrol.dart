@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -52,6 +54,11 @@ class KontrolState extends State<Kontrol> {
   String mhYontemi = "0";
   List<Map> dbVeriler;
 
+  int timerSayac = 0;
+  int yazmaSonrasiGecikmeSayaci = 0;
+  bool timerCancel = false;
+  bool baglanti = false;
+
   String baglantiDurum="";
   String alarmDurum="0";
 
@@ -91,6 +98,48 @@ class KontrolState extends State<Kontrol> {
 
   @override
   Widget build(BuildContext context) {
+
+    if (timerSayac == 0) {
+      Metotlar().takipEt("alarm*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri;
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+
+      Timer.periodic(Duration(seconds: 2), (timer) {
+        yazmaSonrasiGecikmeSayaci++;
+        if (timerCancel) {
+          timer.cancel();
+        }
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
+          baglanti = true;
+          Metotlar().takipEt("alarm*", 2236).then((veri){
+            if(veri.split("*")[0]=="error"){
+              baglanti=false;
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              setState(() {});
+            }else{
+              alarmDurum=veri;
+              baglantiDurum="";
+              baglanti=false;
+              if(!timerCancel)
+                setState(() {});
+            }
+          });
+        }
+      });
+      
+    }
+
+    timerSayac++;
 
     var oran = MediaQuery.of(context).size.width / 731.4;
 
@@ -186,6 +235,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
 
                                     if(fanYontemi=="2" && bacaFanAdet!="0"){
                                       print("Deneme");
@@ -297,6 +347,8 @@ class KontrolState extends State<Kontrol> {
                                 child: RawMaterialButton(
                                   onPressed: () {
 
+                                    timerCancel=true;
+
                                     if(klepeYontemi=="1"){
                                         Navigator.pushReplacement(
                                           context,
@@ -374,6 +426,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
 
                                     Navigator.pushReplacement(
                                           context,
@@ -440,6 +493,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
 
                                     if(mhYontemi=="1"){
                                       Navigator.pushReplacement(
@@ -534,6 +588,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -598,6 +653,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -662,6 +718,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
 
                                     Navigator.pushReplacement(
                                           context,
@@ -727,6 +784,7 @@ class KontrolState extends State<Kontrol> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+                                    timerCancel=true;
                                     Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -765,6 +823,7 @@ class KontrolState extends State<Kontrol> {
               child: FittedBox(
                               child: FloatingActionButton(
           onPressed: () {
+            timerCancel=true;
             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -780,34 +839,6 @@ class KontrolState extends State<Kontrol> {
           ),
         ),
               ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Text('Drawer Header'),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-            ),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Update the state of the app.
-                // ...
-              },
-            ),
-          ],
-        ),
       ),
       endDrawer: SizedBox(
         width: 320 * oran,
@@ -890,7 +921,7 @@ class KontrolState extends State<Kontrol> {
           ),
         ),
       ),
-    
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
       
       
       );

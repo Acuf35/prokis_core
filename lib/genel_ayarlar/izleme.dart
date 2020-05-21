@@ -2292,7 +2292,7 @@ int sayac=0;
           ),
         ),
       ),
-    
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
       
       );
   }
