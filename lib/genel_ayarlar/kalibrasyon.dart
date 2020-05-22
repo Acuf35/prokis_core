@@ -149,6 +149,12 @@ class KalibrasyonState extends State<Kalibrasyon> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 

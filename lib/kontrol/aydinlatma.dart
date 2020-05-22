@@ -109,6 +109,12 @@ class AydinlatmaState extends State<Aydinlatma> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 

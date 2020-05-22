@@ -332,6 +332,12 @@ class SaatTarihState extends State<SaatTarih> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -747,7 +753,8 @@ class SaatTarihState extends State<SaatTarih> {
             ),
           )
         ],
-      )
+      ),
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
       );
   }
 

@@ -62,6 +62,12 @@ class SistemStartStopState extends State<SistemStartStop> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var oran = MediaQuery.of(context).size.width / 731.4;
@@ -106,7 +112,7 @@ class SistemStartStopState extends State<SistemStartStop> {
               sistemDurumu = degerler[0] == "True" ? true : false;
               baglanti = false;
               baglantiDurum="";
-              alarmDurum=degerler[0];
+              alarmDurum=degerler[1];
 
               if (!timerCancel) {
                 setState(() {});
@@ -384,6 +390,7 @@ class SistemStartStopState extends State<SistemStartStop> {
           ),
         ),
       ),
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
     );
   }
 

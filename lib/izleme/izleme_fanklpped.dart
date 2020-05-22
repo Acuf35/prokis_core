@@ -185,6 +185,14 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
 
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
+var blocVeri;
+@override
+  void dispose() {
+    blocVeri.bloCVeriEventStreamControllerFAN[1].sink.add("99");
+    _controller1.dispose();
+    _controller2.dispose();
+    super.dispose();
+  }
 
 
 
@@ -193,7 +201,7 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
 
     oran = MediaQuery.of(context).size.width / 731.4;
     final _blocSinif  = IzlemeFanKlpPedBloC(context, dilSecimi, fanNo, unsurAdet, klepeNo, isisensorNo, pedNo);
-
+    blocVeri=_blocSinif;
     
     _controller1 = AnimationController(vsync: this,duration: Duration(milliseconds: 1500),);
     _controller2 = AnimationController(vsync: this,duration: Duration(milliseconds: 1500),);
@@ -1979,7 +1987,7 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
           ),
         ),
       ),
-    
+        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
         );
   
   }

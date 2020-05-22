@@ -173,11 +173,21 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
 
+var blocVeri;
+@override
+  void dispose() {
+    blocVeri.bloCVeriEventStreamControllerISITICIDURUM[1].sink.add("99");
+    _controller1.dispose();
+    _controller2.dispose();
+    super.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
     final _blocSinif  = IzlemeBfanAirIstcBloC(context, dilSecimi, isiticiNo);
+    blocVeri=_blocSinif;
 
     _controller1 = AnimationController(vsync: this,duration: Duration(milliseconds: 1500),);
     _controller2 = AnimationController(vsync: this,duration: Duration(milliseconds: 1500),);
@@ -1617,7 +1627,7 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
           ),
         ),
       ),
-    
+        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
         
         );
   }
@@ -1931,6 +1941,7 @@ class IzlemeBfanAirIstcBloC {
   bool timerCancel = false;
   int timerSayac = 0;
   bool baglanti = false;
+  
 
   //Bacafan aktüel hıız veya fasıla değeri için SteateStream
   final bloCVeriStateStreamControllerBFANAKTUEL = StreamController<String>();
@@ -2344,4 +2355,6 @@ class IzlemeBfanAirIstcBloC {
 
 
 }
+
+
 

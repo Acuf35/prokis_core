@@ -16,47 +16,87 @@ import 'package:prokis/languages/select.dart';
 import 'package:toast/toast.dart';
 
 
-class OtoMan1 extends StatelessWidget {
+class OtoMan1 extends StatefulWidget {
+  @override
+  _OtoMan1State createState() => _OtoMan1State();
+}
+
+class _OtoMan1State extends State<OtoMan1> {
   String dilSecimi = "EN";
+
   double oran;
+
   int sayac=0;
 
   int _yuzler = 0;
+
   int _onlar = 0;
+
   int _birler = 0;
+
   int _index = 0;
 
   bool timerCancel = false;
+
   bool timerCancelFan = false;
+
   bool timerCancelPed = false;
+
   bool timerCancelAyd = false;
+
   bool timerCancelBfa = false;
+
   bool timerCancelIst = false;
+
   bool timerCancelYml = false;
+
   bool timerCancelSrk = false;
+
   int timerSayac = 0;
+
   bool baglanti = false;
+
   bool baglantiFan = false;
+
   bool baglantiPed = false;
+
   bool baglantiAyd = false;
+
   bool baglantiBfa = false;
+
   bool baglantiIst = false;
+
   bool baglantiYml = false;
+
   bool baglantiSrk = false;
 
   int yazmaSonrasiGecikmeSayaci = 4;
+
   int yazmaSonrasiGecikmeSayaciTFAN = 8;
+
   int yazmaSonrasiGecikmeSayaciPED = 8;
+
   int yazmaSonrasiGecikmeSayaciAYD = 8;
+
   int yazmaSonrasiGecikmeSayaciBFAN = 8;
+
   int yazmaSonrasiGecikmeSayaciISTC = 8;
+
   int yazmaSonrasiGecikmeSayaciYEML = 8;
+
   int yazmaSonrasiGecikmeSayaciSIRK = 8;
+
   bool takipEtiGeciciDurdur=false;
 
   String baglantiDurum="";
+
   String alarmDurum="0";
 
+  @override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -1044,7 +1084,7 @@ class OtoMan1 extends StatelessWidget {
     );
   
   }
- 
+
   Future _manKontrolTFAN(double oran, int index, BuildContext context, OtoMan1Provider provider){
     bool bottomDrawerAktif=true;
     int sayac1=0;
@@ -2236,7 +2276,6 @@ class OtoMan1 extends StatelessWidget {
   Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
     updateState(() {});
   }
-
 }
 
 

@@ -40,6 +40,12 @@ class SistemState extends State<Sistem> {
   String alarmDurum="0";
 
   @override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     if (timerSayac == 0) {

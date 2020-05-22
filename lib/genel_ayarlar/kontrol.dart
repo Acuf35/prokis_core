@@ -97,6 +97,13 @@ class KontrolState extends State<Kontrol> {
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
   @override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+  
+
+  @override
   Widget build(BuildContext context) {
 
     if (timerSayac == 0) {
@@ -194,6 +201,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 3,
                       ),
+                      //SIC. & FAN
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -238,7 +246,6 @@ class KontrolState extends State<Kontrol> {
                                     timerCancel=true;
 
                                     if(fanYontemi=="2" && bacaFanAdet!="0"){
-                                      print("Deneme");
                                         Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
@@ -305,6 +312,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 1,
                       ),
+                      //KLEPE
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -385,6 +393,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 1,
                       ),
+                      //SOĞ. & NEM
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -452,6 +461,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 1,
                       ),
+                      //MİN. HAV.
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -547,6 +557,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 3,
                       ),
+                      //ISITMA
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -612,6 +623,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 1,
                       ),
+                      //AYDINLATMA
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -677,6 +689,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 1,
                       ),
+                      //YEMLEME
                       Expanded(
                           flex: 4,
                           child: Column(
@@ -743,6 +756,7 @@ class KontrolState extends State<Kontrol> {
                       Spacer(
                         flex: 1,
                       ),
+                      //YRD. OPS
                       Expanded(
                           flex: 4,
                           child: Column(

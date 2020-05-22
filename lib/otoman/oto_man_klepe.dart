@@ -92,6 +92,12 @@ class OtoManKlepeState extends State<OtoManKlepe> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 

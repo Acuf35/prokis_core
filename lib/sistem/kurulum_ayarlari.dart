@@ -69,6 +69,12 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -1451,7 +1457,7 @@ class KurulumAyarlariState extends State<KurulumAyarlari> {
           ),
         ),
       ),
-     
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
       );
   }
 

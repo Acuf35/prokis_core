@@ -101,6 +101,13 @@ class IzlemeState extends State<Izleme> {
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
+
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+  
 int sayac=0;
   @override
   Widget build(BuildContext context) {

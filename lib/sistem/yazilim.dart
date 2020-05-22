@@ -62,6 +62,13 @@ class YazilimState extends State<Yazilim> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -119,7 +126,7 @@ class YazilimState extends State<Yazilim> {
         child: FittedBox(
                     child: FloatingActionButton(
             onPressed: () {
-              timerCancel=true;
+              //timerCancel=true;
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => Sistem()),
@@ -397,7 +404,7 @@ class YazilimState extends State<Yazilim> {
           ),
         ),
       ),
-     
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran)
       );
   }
 

@@ -5,10 +5,37 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/genel_ayarlar/izleme.dart';
+import 'package:prokis/genel_ayarlar/kalibrasyon.dart';
+import 'package:prokis/genel_ayarlar/oto_man.dart';
+import 'package:prokis/genel_ayarlar/suru.dart';
+import 'package:prokis/izleme/izleme_bfanairistc.dart';
+import 'package:prokis/izleme/izleme_fanklpped.dart';
+import 'package:prokis/izleme/izleme_yemsuayd.dart';
+import 'package:prokis/kontrol/aydinlatma.dart';
+import 'package:prokis/kontrol/isitma.dart';
+import 'package:prokis/kontrol/klepe_klasik.dart';
+import 'package:prokis/kontrol/klepe_tunel.dart';
+import 'package:prokis/kontrol/min_hav_agirlik.dart';
+import 'package:prokis/kontrol/min_hav_hacim.dart';
+import 'package:prokis/kontrol/min_hav_klasik.dart';
+import 'package:prokis/kontrol/sicvefan_klasik_capraz.dart';
+import 'package:prokis/kontrol/sicvefan_klasik_normal.dart';
+import 'package:prokis/kontrol/sicvefan_lineer_capraz.dart';
+import 'package:prokis/kontrol/sicvefan_lineer_normal.dart';
+import 'package:prokis/kontrol/sicvefan_pid_capraz.dart';
+import 'package:prokis/kontrol/sicvefan_pid_normal.dart';
+import 'package:prokis/kontrol/sogutma_nem.dart';
+import 'package:prokis/kontrol/yemleme.dart';
+import 'package:prokis/kontrol/yrd_opsiyon.dart';
 import 'package:prokis/provider/dbprokis.dart';
+import 'package:prokis/sistem/saat_tarih.dart';
+import 'package:prokis/sistem/sistem_start_stop.dart';
+import 'package:prokis/sistem/yazilim.dart';
 import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:prokis/yardimci/sifre_giris_admin.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 
@@ -17,6 +44,11 @@ class Metotlar{
 
   Widget navigatorMenu(String dilSecimi, BuildContext context, double oran) {
     final dbProkis = Provider.of<DBProkis>(context);
+    var xx=dbProkis.dbVeriGetir(5, 1, "0");
+    String bacaFanAdet = xx[0];
+    String fanYontemi = dbProkis.dbVeriGetir(6, 1, "0");
+    String klepeYontemi = dbProkis.dbVeriGetir(8, 1, "0");
+    String mhYontemi = dbProkis.dbVeriGetir(7, 1, "0");
     return SizedBox(
       width: 320 * oran,
       child: Drawer(
@@ -114,6 +146,54 @@ class Metotlar{
                                 ),
                                 onPressed: () {
 
+                                  if(fanYontemi=="2" && bacaFanAdet!="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanLineerCapraz(dbProkis.getDbVeri)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="2" && bacaFanAdet=="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanLineerNormal(dbProkis.getDbVeri)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="1" && bacaFanAdet!="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanKlasikCapraz(dbProkis.getDbVeri)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="1" && bacaFanAdet=="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanKlasikNormal(dbProkis.getDbVeri)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="3" && bacaFanAdet!="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanPIDCapraz(dbProkis.getDbVeri)),
+                                        );
+                                    }
+
+                                    if(fanYontemi=="3" && bacaFanAdet=="0"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SicVeFanPIDNormal(dbProkis.getDbVeri)),
+                                        );
+                                    }
+
 
                                 },
                               ),
@@ -152,7 +232,13 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Isitma(dbProkis.getDbVeri)),
+                                        );
+                                },
                               ),
                             ),
                           ],
@@ -193,7 +279,25 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  if(klepeYontemi=="1"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeKlasik(dbProkis.getDbVeri)),
+                                        );
+
+                                    }
+
+                                    if(klepeYontemi=="2"){
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => KlepeTunel(dbProkis.getDbVeri)),
+                                        );
+
+                                    }
+                                },
                               ),
                             ),
                             Spacer(),
@@ -230,7 +334,13 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Aydinlatma(dbProkis.getDbVeri)),
+                                        );
+                                },
                               ),
                             ),
                           ],
@@ -271,7 +381,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => SogutmaNem(dbProkis.getDbVeri)),
+                                        );
+                                  
+                                },
                               ),
                             ),
                             Spacer(),
@@ -308,7 +425,13 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                   Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => Yemleme(dbProkis.getDbVeri)),
+                                        );
+                                },
                               ),
                             ),
                           ],
@@ -349,7 +472,31 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  if(mhYontemi=="1"){
+                                      Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MinHavKlasik(dbProkis.getDbVeri)),
+                                          );
+                                    }
+                                    
+                                    if(mhYontemi=="2"){
+                                      Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MinHavAgirlik(dbProkis.getDbVeri)),
+                                          );
+                                    }
+
+                                    if(mhYontemi=="3"){
+                                      Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => MinHavHacim(dbProkis.getDbVeri)),
+                                          );
+                                    }
+                                },
                               ),
                             ),
                             Spacer(),
@@ -386,7 +533,13 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => YrdOpsiyon(dbProkis.getDbVeri)),
+                                        );
+                                },
                               ),
                             ),
                           ],
@@ -457,7 +610,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Izleme(dbProkis.getDbVeri)),
+                                    );
+                                },
                               ),
                             ),
                             Spacer(),
@@ -519,7 +679,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                   Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                IzlemeFanKlpPed(dbProkis.getDbVeri)),
+                                      );
+                                },
                               ),
                             ),
 
@@ -586,11 +753,18 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IzlemeBfanAirIstc(dbProkis.getDbVeri)),
+                                    );
+                                },
                               ),
                             ),
                             Spacer(),
-                            //İZLEME 4
+                            //İZLEME 3
                             Expanded(
                               flex: 14,
                               child: RawMaterialButton(
@@ -648,7 +822,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IzlemeYemSuAyd(dbProkis.getDbVeri)),
+                                    );
+                                },
                               ),
                             ),
                             
@@ -660,7 +841,12 @@ class Metotlar{
                     //OTO-MAN
                     ListTile(
                       onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              OtoMan1()),
+                                    );
                       },
                       leading: SizedBox(
                         width: 40 * oran,
@@ -714,7 +900,12 @@ class Metotlar{
                     //SÜRÜ
                     ListTile(
                       onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SuruBilgisi(dbProkis.getDbVeri)),
+                                    );
                       },
                       leading: SizedBox(
                         width: 40 * oran,
@@ -741,7 +932,12 @@ class Metotlar{
                     //KALİBRASYON
                     ListTile(
                       onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Kalibrasyon(dbProkis.getDbVeri)),
+                                    );
                       },
                       leading: SizedBox(
                         width: 40 * oran,
@@ -856,7 +1052,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              KurulumAyarlari()),
+                                    );
+                                },
                               ),
                             ),
                             Spacer(),
@@ -893,7 +1096,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SaatTarih (dbProkis.getDbVeri)),
+                                    );
+                                },
                               ),
                             ),
                           ],
@@ -934,7 +1144,14 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Yazilim (dbProkis.getDbVeri)),
+                                    );
+                                },
                               ),
                             ),
                             Spacer(),
@@ -972,7 +1189,9 @@ class Metotlar{
                                     )
                                   ],
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  _sifreGiris(oran,dbProkis,context);
+                                },
                               ),
                             ),
                           ],
@@ -995,6 +1214,40 @@ class Metotlar{
       ),
     );
   }
+
+  Future _sifreGiris(double oran, DBProkis dbProkis, BuildContext context) async {
+    // flutter defined function
+    String sifre=dbProkis.dbVeriGetir(3, 4, "0");
+    String dilSecimi=dbProkis.dbVeriGetir(1, 1, "0");
+
+    await showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+
+        return SifreGirisAdmin.Deger(dilSecimi,oran);
+      },
+    ).then((val) {
+
+      print('$sifre  ,  $val');
+
+      if(sifre==val[1] && val[0]=='1'){
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  SistemStartStop(dbProkis.getDbVeri)),
+        );
+
+
+      }else if(sifre!=val[1] && val[0]=='1'){
+        Toast.show("Yanlış şifre girdiniz!", context,duration: 3);
+      }
+      
+    });
+  }
+
 
   Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
     

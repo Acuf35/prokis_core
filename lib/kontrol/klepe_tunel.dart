@@ -93,6 +93,12 @@ class KlepeTunelState extends State<KlepeTunel> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
+@override
+  void dispose() {
+    timerCancel=true;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (timerSayac == 0) {
