@@ -8,8 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -104,6 +106,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
     
     if (timerSayac == 0) {
@@ -111,7 +114,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
       Metotlar().takipEt('3*$fanAdet', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -130,7 +133,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
           Metotlar().takipEt('3*$fanAdet', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -249,7 +252,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                             oran,
                                             dilSecimi,
                                             "tv115",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -342,7 +345,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                             oran,
                                             dilSecimi,
                                             "tv126",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -422,7 +425,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                             oran,
                                             dilSecimi,
                                             "tv128",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -539,7 +542,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[1].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              1),
+                                                                              1,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -547,7 +550,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[2].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              2),
+                                                                              2,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -555,7 +558,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[3].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              3),
+                                                                              3,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -563,7 +566,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[4].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              4),
+                                                                              4,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -571,7 +574,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[5].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              5),
+                                                                              5,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -579,7 +582,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[6].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              6),
+                                                                              6,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -587,7 +590,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[7].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              7),
+                                                                              7,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -595,7 +598,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[8].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              8),
+                                                                              8,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -603,7 +606,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[9].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              9),
+                                                                              9,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -611,7 +614,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[10].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              10),
+                                                                              10,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -627,7 +630,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[11].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              11),
+                                                                              11,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -635,7 +638,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[12].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              12),
+                                                                              12,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -643,7 +646,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[13].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              13),
+                                                                              13,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -651,7 +654,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[14].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              14),
+                                                                              14,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -659,7 +662,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[15].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              15),
+                                                                              15,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -667,7 +670,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[16].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              16),
+                                                                              16,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -675,7 +678,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[17].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              17),
+                                                                              17,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -683,7 +686,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[18].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              18),
+                                                                              18,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -691,7 +694,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[19].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              19),
+                                                                              19,dbProkis),
                                                                           Spacer(),
                                                                           _fanSetUnsur(
                                                                               state,
@@ -699,7 +702,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                               fanSet[20].toString(),
                                                                               fanAdet,
                                                                               oran,
-                                                                              20),
+                                                                              20,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -720,7 +723,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[21].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                21),
+                                                                                21,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -728,7 +731,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[22].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                22),
+                                                                                22,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -736,7 +739,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[23].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                23),
+                                                                                23,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -744,7 +747,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[24].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                24),
+                                                                                24,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -752,7 +755,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[25].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                25),
+                                                                                25,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -760,7 +763,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[26].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                26),
+                                                                                26,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -768,7 +771,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[27].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                27),
+                                                                                27,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -776,7 +779,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[28].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                28),
+                                                                                28,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -784,7 +787,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[29].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                29),
+                                                                                29,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -792,7 +795,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[30].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                30),
+                                                                                30,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -814,7 +817,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[31].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                31),
+                                                                                31,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -822,7 +825,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[32].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                32),
+                                                                                32,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -830,7 +833,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[33].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                33),
+                                                                                33,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -838,7 +841,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[34].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                34),
+                                                                                34,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -846,7 +849,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[35].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                35),
+                                                                                35,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -854,7 +857,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[36].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                36),
+                                                                                36,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -862,7 +865,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[37].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                37),
+                                                                                37,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -870,7 +873,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[38].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                38),
+                                                                                38,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -878,7 +881,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[39].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                39),
+                                                                                39,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -886,7 +889,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[40].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                40),
+                                                                                40,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -908,7 +911,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[41].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                41),
+                                                                                41,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -916,7 +919,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[42].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                42),
+                                                                                42,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -924,7 +927,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[43].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                43),
+                                                                                43,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -932,7 +935,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[44].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                44),
+                                                                                44,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -940,7 +943,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[45].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                45),
+                                                                                45,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -948,7 +951,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[46].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                46),
+                                                                                46,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -956,7 +959,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[47].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                47),
+                                                                                47,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -964,7 +967,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[48].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                48),
+                                                                                48,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -972,7 +975,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[49].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                49),
+                                                                                49,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -980,7 +983,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[50].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                50),
+                                                                                50,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1002,7 +1005,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[51].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                51),
+                                                                                51,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1010,7 +1013,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[52].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                52),
+                                                                                52,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1018,7 +1021,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[53].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                53),
+                                                                                53,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1026,7 +1029,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[54].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                54),
+                                                                                54,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1034,7 +1037,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[55].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                55),
+                                                                                55,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1042,7 +1045,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[56].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                56),
+                                                                                56,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1050,7 +1053,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[57].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                57),
+                                                                                57,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1058,7 +1061,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[58].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                58),
+                                                                                58,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1066,7 +1069,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[59].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                59),
+                                                                                59,dbProkis),
                                                                             Spacer(),
                                                                             _fanSetUnsur(
                                                                                 state,
@@ -1074,7 +1077,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
                                                                                 fanSet[60].toString(),
                                                                                 fanAdet,
                                                                                 oran,
-                                                                                60),
+                                                                                60,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1445,7 +1448,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1508,7 +1511,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
         String komut="3*$setSicA*$dogalBolgeB*$capHavFarkC*$gonderilecekFanIndex*$gonderilecekFanSet";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1516,7 +1519,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
             Metotlar().takipEt('3*$fanAdet', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1623,6 +1626,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
     String fanAdet,
     double oran,
     int fanNo,
+    DBProkis dbProkis
   ) {
     return Expanded(
       flex: 10,
@@ -1644,7 +1648,7 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
             _ondalik = int.parse(fanSet[fanNo].toString().split(".")[1]);
 
             _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi,
-                    "tv115", "Fan $fanNo ")
+                    "tv115", "Fan $fanNo ",dbProkis)
                 .then((onValue) {
               bottomDrawerIcindeGuncelle(state);
             });

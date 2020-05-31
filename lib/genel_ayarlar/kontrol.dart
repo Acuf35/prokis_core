@@ -19,6 +19,8 @@ import 'package:prokis/kontrol/sicvefan_pid_normal.dart';
 import 'package:prokis/kontrol/sogutma_nem.dart';
 import 'package:prokis/kontrol/yemleme.dart';
 import 'package:prokis/kontrol/yrd_opsiyon.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/kontrol/aydinlatma.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -106,11 +108,13 @@ class KontrolState extends State<Kontrol> {
   @override
   Widget build(BuildContext context) {
 
+    final dbProkis = Provider.of<DBProkis>(context);
+
     if (timerSayac == 0) {
       Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri;
@@ -131,7 +135,7 @@ class KontrolState extends State<Kontrol> {
           Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri;

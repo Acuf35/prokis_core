@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:prokis/provider/dbprokis.dart';
 
 class DegerGiris2X0 extends StatefulWidget {
   int onlarX = 0;

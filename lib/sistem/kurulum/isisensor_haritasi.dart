@@ -48,7 +48,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                   Metotlar().takipEt("24a*", 2233).then((veri){
                     if(veri.split("*")[0]=="error"){
                       provider.baglanti=false;
-                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                       provider.dinlemeyiTetikle();
                       
                     }else{
@@ -60,7 +60,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                   Metotlar().takipEt("24b*", 2233).then((veri){
                     if(veri.split("*")[0]=="error"){
                       provider.baglanti=false;
-                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                       provider.dinlemeyiTetikle();
                     }else{
                       takipEtAnalogIsleme(veri, provider);
@@ -79,7 +79,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                       Metotlar().takipEt("24a*", 2233).then((veri){
                         if(veri.split("*")[0]=="error"){
                           provider.baglanti=false;
-                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                           provider.dinlemeyiTetikle();
                         }else{
                           takipEtWifiIsleme(veri, provider);
@@ -90,7 +90,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                       Metotlar().takipEt("24b*", 2233).then((veri){
                         if(veri.split("*")[0]=="error"){
                           provider.baglanti=false;
-                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                           provider.dinlemeyiTetikle();
                         }else{
                           takipEtAnalogIsleme(veri, provider);
@@ -643,7 +643,7 @@ class IsiSensorHaritasi extends StatelessWidget {
 
                               Metotlar().veriGonder("21*25*$veri*0*0*0", 2233).then((value){
                                 if(value.split("*")[0]=="error"){
-                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                 }else{
                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(20, "ok", veri, "0", "0");
@@ -781,7 +781,7 @@ class IsiSensorHaritasi extends StatelessWidget {
                               String komut="22*26*"+noVeri+"*"+noVeriAktif+"*"+idVeriAktif+"*"+provider.isisensorNo[22].toString();
                               Metotlar().veriGonder(komut, 2233).then((value){
                                 if(value.split("*")[0]=="error"){
-                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                 }else{
                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(21, "ok", noVeri, noVeriAktif, idVeriAktif);
@@ -1234,7 +1234,7 @@ class IsiSensorHaritasi extends StatelessWidget {
 
         Metotlar().veriGonder("23*0*0*0*0*0", 2233).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             dbProkis.dbSatirEkleGuncelle(20, "0", "0", "0", "0");

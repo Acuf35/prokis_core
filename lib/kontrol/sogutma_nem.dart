@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -102,12 +104,13 @@ class SogutmaNemState extends State<SogutmaNem> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
       Metotlar().takipEt('9*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -126,7 +129,7 @@ class SogutmaNemState extends State<SogutmaNem> {
           Metotlar().takipEt('9*', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -317,19 +320,19 @@ class SogutmaNemState extends State<SogutmaNem> {
                                 ),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 0,
-                                    child: _pedUnsur(oran, 1)),
+                                    child: _pedUnsur(oran, 1,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 1,
-                                    child: _pedUnsur(oran, 2)),
+                                    child: _pedUnsur(oran, 2,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 2,
-                                    child: _pedUnsur(oran, 3)),
+                                    child: _pedUnsur(oran, 3,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 3,
-                                    child: _pedUnsur(oran, 4)),
+                                    child: _pedUnsur(oran, 4,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 4,
-                                    child: _pedUnsur(oran, 5)),
+                                    child: _pedUnsur(oran, 5,dbProkis)),
                               ],
                             ),
                           ),
@@ -469,19 +472,19 @@ class SogutmaNemState extends State<SogutmaNem> {
                                 ),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 5,
-                                    child: _pedUnsur(oran, 6)),
+                                    child: _pedUnsur(oran, 6,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 6,
-                                    child: _pedUnsur(oran, 7)),
+                                    child: _pedUnsur(oran, 7,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 7,
-                                    child: _pedUnsur(oran, 8)),
+                                    child: _pedUnsur(oran, 8,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 8,
-                                    child: _pedUnsur(oran, 9)),
+                                    child: _pedUnsur(oran, 9,dbProkis)),
                                 Visibility(
                                     visible: int.parse(pedAdet) > 9,
-                                    child: _pedUnsur(oran, 10)),
+                                    child: _pedUnsur(oran, 10,dbProkis)),
                               ],
                             ),
                           ),
@@ -528,7 +531,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                 oran,
                                                 dilSecimi,
                                                 "tv484",
-                                                "");
+                                                "",dbProkis);
                                           },
                                           child: Column(
                                             children: <Widget>[
@@ -645,7 +648,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                     String komut="10*$_index*$veri";
                                                     Metotlar().veriGonder(komut, 2235).then((value){
                                                       if(value.split("*")[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                       }else{
                                                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
 
@@ -653,7 +656,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                         Metotlar().takipEt('9*', 2236).then((veri){
                                                             if(veri.split("*")[0]=="error"){
                                                               baglanti=false;
-                                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                               setState(() {});
                                                             }else{
                                                               takipEtVeriIsleme(veri);
@@ -740,7 +743,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                       String komut="10*$_index*$veri";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
-                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                         }else{
                                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
 
@@ -748,7 +751,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                           Metotlar().takipEt('9*', 2236).then((veri){
                                                               if(veri.split("*")[0]=="error"){
                                                                 baglanti=false;
-                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                 setState(() {});
                                                               }else{
                                                                 takipEtVeriIsleme(veri);
@@ -823,7 +826,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                       String komut="10*$_index*$veri";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
-                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                         }else{
                                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
 
@@ -831,7 +834,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                           Metotlar().takipEt('9*', 2236).then((veri){
                                                               if(veri.split("*")[0]=="error"){
                                                                 baglanti=false;
-                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                 setState(() {});
                                                               }else{
                                                                 takipEtVeriIsleme(veri);
@@ -908,7 +911,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                       String komut="10*$_index*$veri";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
-                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                         }else{
                                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
 
@@ -916,7 +919,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                           Metotlar().takipEt('9*', 2236).then((veri){
                                                               if(veri.split("*")[0]=="error"){
                                                                 baglanti=false;
-                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                 setState(() {});
                                                               }else{
                                                                 takipEtVeriIsleme(veri);
@@ -1003,7 +1006,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                 oran,
                                                 dilSecimi,
                                                 "tv252",
-                                                "");
+                                                "",dbProkis);
                                           },
                                           child: Column(
                                             children: <Widget>[
@@ -1106,7 +1109,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                 oran,
                                                 dilSecimi,
                                                 "tv251",
-                                                "");
+                                                "",dbProkis);
                                           },
                                           child: Column(
                                             children: <Widget>[
@@ -1257,7 +1260,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv270",
-                                                                          "");
+                                                                          "",dbProkis);
 
 
 
@@ -1360,7 +1363,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv271",
-                                                                          "");
+                                                                          "",dbProkis);
 
 
                                                           },
@@ -1775,7 +1778,7 @@ class SogutmaNemState extends State<SogutmaNem> {
   }
 
   Future _degergiris3X0(int yuzler, onlar, birler, index, paramIndex,
-      double oran, String dil, baslik, onBaslik) async {
+      double oran, String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1821,7 +1824,7 @@ class SogutmaNemState extends State<SogutmaNem> {
         String komut="10*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
 
@@ -1829,7 +1832,7 @@ class SogutmaNemState extends State<SogutmaNem> {
             Metotlar().takipEt('9*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1854,7 +1857,7 @@ class SogutmaNemState extends State<SogutmaNem> {
       double oran,
       String dil,
       String baslik,
-      String onBaslik) async {
+      String onBaslik,DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1938,7 +1941,7 @@ class SogutmaNemState extends State<SogutmaNem> {
         String komut="10*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
 
@@ -1946,7 +1949,7 @@ class SogutmaNemState extends State<SogutmaNem> {
             Metotlar().takipEt('9*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -2037,7 +2040,7 @@ class SogutmaNemState extends State<SogutmaNem> {
   }
  
 
-  Widget _pedUnsur(double oran, int pedNo) {
+  Widget _pedUnsur(double oran, int pedNo, DBProkis dbProkis) {
     return Expanded(
       flex: 5,
       child: Column(
@@ -2081,7 +2084,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                               oran,
                               dilSecimi,
                               "tv247",
-                              Dil().sec(dilSecimi, "tv244") + " $pedNo ");
+                              Dil().sec(dilSecimi, "tv244") + " $pedNo ",dbProkis);
                         },
                         child: Stack(
                           alignment: Alignment.center,
@@ -2148,7 +2151,7 @@ class SogutmaNemState extends State<SogutmaNem> {
                               oran,
                               dilSecimi,
                               "tv248",
-                              Dil().sec(dilSecimi, "tv244") + " $pedNo ");
+                              Dil().sec(dilSecimi, "tv244") + " $pedNo ",dbProkis);
                         },
                         child: Stack(
                           alignment: Alignment.center,

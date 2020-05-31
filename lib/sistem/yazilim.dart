@@ -71,12 +71,13 @@ class YazilimState extends State<Yazilim> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
       Metotlar().takipEt("alarmY*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri.split("*")[0];
@@ -98,7 +99,7 @@ class YazilimState extends State<Yazilim> {
           Metotlar().takipEt("alarmY*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri.split("*")[0];
@@ -117,7 +118,6 @@ class YazilimState extends State<Yazilim> {
     timerSayac++;
 
     var oran = MediaQuery.of(context).size.width / 731.4;
-    final dbProkis = Provider.of<DBProkis>(context);
     
 
     return Scaffold(

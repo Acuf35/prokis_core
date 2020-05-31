@@ -6,6 +6,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 
 class ResetAlert extends StatefulWidget {
   String dilSecimi = "TR";

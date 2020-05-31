@@ -8,8 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -103,12 +105,13 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
       Metotlar().takipEt('1*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -127,7 +130,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
           Metotlar().takipEt('1*', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -302,7 +305,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun1.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -462,7 +465,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun7.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -633,7 +636,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun14.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -804,7 +807,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun21.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -975,7 +978,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun28.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -1146,7 +1149,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun35.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -1317,7 +1320,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                                             _ondalik =
                                                                                 int.parse(gun42.toString().split(".")[1]);
 
-                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179","").then((onValue) {
+                                                                            _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179","",dbProkis).then((onValue) {
                                                                               bottomDrawerIcindeGuncelle(state);
                                                                             });
                                                                           },
@@ -1445,7 +1448,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                   String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
                                                   Metotlar().veriGonder(komut, 2235).then((value){
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                       
@@ -1453,7 +1456,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                                       Metotlar().takipEt('1*', 2236).then((veri){
                                                           if(veri.split("*")[0]=="error"){
                                                             baglanti=false;
-                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                             setState(() {});
                                                           }else{
                                                             takipEtVeriIsleme(veri);
@@ -1541,7 +1544,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                           int.parse(dogalBolgeB.split(".")[1]);
 
                                       _degergiris2X1(_onlar, _birler, _ondalik,
-                                          _index, oran, dilSecimi, "tv126","");
+                                          _index, oran, dilSecimi, "tv126","",dbProkis);
                                     },
                                     child: Stack(
                                       alignment: Alignment.center,
@@ -1614,7 +1617,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                           maksFanFarkiH.split(".")[1]);
 
                                       _degergiris2X1(_onlar, _birler, _ondalik,
-                                          _index, oran, dilSecimi, "tv130","");
+                                          _index, oran, dilSecimi, "tv130","",dbProkis);
                                     },
                                     child: Stack(
                                       alignment: Alignment.center,
@@ -1676,7 +1679,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
                                       _birler = int.parse(fanKademesi);
 
                                       _degergiris1X0(_birler, _index, oran,
-                                          dilSecimi, "tv182", 4);
+                                          dilSecimi, "tv182", 4,dbProkis);
                                     },
                                     child: Stack(
                                       alignment: Alignment.center,
@@ -2105,7 +2108,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik,DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -2190,7 +2193,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2198,7 +2201,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
             Metotlar().takipEt('1*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -2215,7 +2218,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
   }
 
   Future _degergiris1X0(
-      int birlerX, index, double oran, String dil, baslik, int ustLimit) async {
+      int birlerX, index, double oran, String dil, baslik, int ustLimit, DBProkis dbProkis) async {
     await showDialog(
       barrierDismissible: false,
       context: context,
@@ -2242,7 +2245,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
         String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2250,7 +2253,7 @@ class SicVeFanLineerNormalState extends State<SicVeFanLineerNormal> {
             Metotlar().takipEt('1*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);

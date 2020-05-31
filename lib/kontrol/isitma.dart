@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -91,12 +93,13 @@ class IsitmaState extends State<Isitma> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
 
       Metotlar().takipEt('10*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -114,7 +117,7 @@ class IsitmaState extends State<Isitma> {
           Metotlar().takipEt('10*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -269,9 +272,9 @@ class IsitmaState extends State<Isitma> {
                                 ],
                             ),
                           ),
-                          Visibility(visible: int.parse(isiticiAdet)>0,child: _klepeKlasikUnsur(oran, 1)),
-                          Visibility(visible: int.parse(isiticiAdet)>1,child: _klepeKlasikUnsur(oran, 2)),
-                          Visibility(visible: int.parse(isiticiAdet)>2,child: _klepeKlasikUnsur(oran, 3)),
+                          Visibility(visible: int.parse(isiticiAdet)>0,child: _klepeKlasikUnsur(oran, 1,dbProkis)),
+                          Visibility(visible: int.parse(isiticiAdet)>1,child: _klepeKlasikUnsur(oran, 2,dbProkis)),
+                          Visibility(visible: int.parse(isiticiAdet)>2,child: _klepeKlasikUnsur(oran, 3,dbProkis)),
                           Spacer()
                         ],
                       ),
@@ -513,7 +516,7 @@ class IsitmaState extends State<Isitma> {
   }
 
   Future _degergiris2X1(int onlarUnsur, int birlerUnsur,int ondalikUnsur, int isiticiIndex,
-      double oran, String dil, String baslik,String onBaslik) async {
+      double oran, String dil, String baslik,String onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -606,7 +609,7 @@ class IsitmaState extends State<Isitma> {
         String komut="11*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -614,7 +617,7 @@ class IsitmaState extends State<Isitma> {
             Metotlar().takipEt('10*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -668,7 +671,7 @@ class IsitmaState extends State<Isitma> {
     
   }
 
-  Widget _klepeKlasikUnsur(double oran, int isiticiNo) {
+  Widget _klepeKlasikUnsur(double oran, int isiticiNo, DBProkis dbProkis) {
     return Expanded(
       flex: 5,
       child: Column(
@@ -707,7 +710,7 @@ class IsitmaState extends State<Isitma> {
                                             oran,
                                             dilSecimi,
                                             "tv247",
-                                            Dil().sec(dilSecimi, "tv262")+" $isiticiNo ");
+                                            Dil().sec(dilSecimi, "tv262")+" $isiticiNo ",dbProkis);
 
                           
                         
@@ -777,7 +780,7 @@ class IsitmaState extends State<Isitma> {
                                             oran,
                                             dilSecimi,
                                             "tv248",
-                                            Dil().sec(dilSecimi, "tv262")+" $isiticiNo ");
+                                            Dil().sec(dilSecimi, "tv262")+" $isiticiNo ",dbProkis);
 
 
 

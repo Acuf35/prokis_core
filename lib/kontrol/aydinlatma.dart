@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -117,6 +119,7 @@ class AydinlatmaState extends State<Aydinlatma> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
     
     if (timerSayac == 0) {
@@ -125,7 +128,7 @@ class AydinlatmaState extends State<Aydinlatma> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -146,7 +149,7 @@ class AydinlatmaState extends State<Aydinlatma> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -273,7 +276,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv343",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -351,7 +354,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv345",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -472,7 +475,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv344",
-                                                          "");
+                                                          "",dbProkis);
                                                       }else{
                                                         Toast.show(Dil().sec(dilSecimi, "toast74"), context);
                                                       }
@@ -553,7 +556,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv346",
-                                                          "");
+                                                          "",dbProkis);
                                                       }else{
                                                         Toast.show(Dil().sec(dilSecimi, "toast74"), context);
                                                       }
@@ -696,7 +699,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*4*$acSaati1Saat";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -704,7 +707,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -758,7 +761,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*4*$veri";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -766,7 +769,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -817,7 +820,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv338",);
+                                                      "tv338",dbProkis);
                                                 },
                                                 child: Text(
                                                   acSaati1Saat,
@@ -858,7 +861,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv339",);
+                                                      "tv339",dbProkis);
                                                 },
                                                 child: Text(
                                                   acSaati1Dakika,
@@ -917,7 +920,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                         String komut="15*$_index*$veri";
                                         Metotlar().veriGonder(komut, 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             
@@ -925,7 +928,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                             Metotlar().takipEt('14*', 2236).then((veri){
                                                 if(veri.split("*")[0]=="error"){
                                                   baglanti=false;
-                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                   setState(() {});
                                                 }else{
                                                   takipEtVeriIsleme(veri);
@@ -1007,7 +1010,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*6*$acSaati2Saat";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -1015,7 +1018,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -1078,7 +1081,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*6*$veri";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -1086,7 +1089,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -1145,7 +1148,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv338",);
+                                                      "tv338",dbProkis);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
                                                   }
@@ -1189,7 +1192,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv339",);
+                                                      "tv339",dbProkis);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
                                                   }
@@ -1294,7 +1297,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*8*$kapaSaati1Saat";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -1302,7 +1305,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -1356,7 +1359,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*8*$veri";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -1364,7 +1367,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -1415,7 +1418,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv338",);
+                                                      "tv338",dbProkis);
                                                 },
                                                 child: Text(
                                                   kapaSaati1Saat,
@@ -1455,7 +1458,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv339",);
+                                                      "tv339",dbProkis);
                                                 },
                                                 child: Text(
                                                   kapaSaati1Dakika,
@@ -1543,7 +1546,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*10*$kapaSaati2Saat";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -1551,7 +1554,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -1613,7 +1616,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                           String komut="15*10*$veri";
                                                           Metotlar().veriGonder(komut, 2235).then((value){
                                                             if(value.split("*")[0]=="error"){
-                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                             }else{
                                                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                               
@@ -1621,7 +1624,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                               Metotlar().takipEt('14*', 2236).then((veri){
                                                                   if(veri.split("*")[0]=="error"){
                                                                     baglanti=false;
-                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                     setState(() {});
                                                                   }else{
                                                                     takipEtVeriIsleme(veri);
@@ -1678,7 +1681,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv338",);
+                                                      "tv338",dbProkis);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
                                                   }
@@ -1722,7 +1725,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                                       _index,
                                                       oran,
                                                       dilSecimi,
-                                                      "tv339",);
+                                                      "tv339",dbProkis);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast74"), context,duration: 3);
                                                   }
@@ -1815,7 +1818,7 @@ class AydinlatmaState extends State<Aydinlatma> {
                                             oran,
                                             dilSecimi,
                                             "tv337",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(fit: StackFit.expand,
                                         alignment:Alignment.center,
@@ -2034,7 +2037,7 @@ class AydinlatmaState extends State<Aydinlatma> {
   }
 
   Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int index,
-      double oran, String dil, String baslik) async {
+      double oran, String dil, String baslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -2195,7 +2198,7 @@ class AydinlatmaState extends State<Aydinlatma> {
         String komut="15*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2203,7 +2206,7 @@ class AydinlatmaState extends State<Aydinlatma> {
             Metotlar().takipEt('14*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -2224,7 +2227,7 @@ class AydinlatmaState extends State<Aydinlatma> {
 
 
   Future _degergiris3X0(int yuzler , onlar , birler, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -2285,7 +2288,7 @@ class AydinlatmaState extends State<Aydinlatma> {
         String komut="15*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2293,7 +2296,7 @@ class AydinlatmaState extends State<Aydinlatma> {
             Metotlar().takipEt('14*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);

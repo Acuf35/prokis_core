@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -85,12 +87,13 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
       Metotlar().takipEt('4*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -109,7 +112,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
           Metotlar().takipEt('4*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -228,7 +231,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
                                             oran,
                                             dilSecimi,
                                             "tv115",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -321,7 +324,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
                                             oran,
                                             dilSecimi,
                                             "tv128",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -401,7 +404,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
                                             oran,
                                             dilSecimi,
                                             "tv191",
-                                            "");
+                                            "",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -748,7 +751,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -799,7 +802,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
           String komut="4*$setSicA*$capHavFarkC*$pidSetKaydirma*";
           Metotlar().veriGonder(komut, 2235).then((value){
             if(value.split("*")[0]=="error"){
-              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
             }else{
               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
               
@@ -807,7 +810,7 @@ class SicVeFanPIDCaprazState extends State<SicVeFanPIDCapraz> {
               Metotlar().takipEt('4*', 2236).then((veri){
                   if(veri.split("*")[0]=="error"){
                     baglanti=false;
-                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                     setState(() {});
                   }else{
                     takipEtVeriIsleme(veri);

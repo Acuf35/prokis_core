@@ -59,7 +59,7 @@ class TemelAyarlar extends StatelessWidget {
                 String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
                 Metotlar().veriGonder(komut,2233).then((value) {
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                       dbProkis.dbSatirEkleGuncelle(
@@ -197,7 +197,7 @@ class TemelAyarlar extends StatelessWidget {
 
                                                   Metotlar().veriGonder(komut,2233).then((value) {
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                         dbProkis.dbSatirEkleGuncelle(
@@ -277,7 +277,7 @@ class TemelAyarlar extends StatelessWidget {
                                                   String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
                                                   Metotlar().veriGonder(komut,2233).then((value) {
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                         dbProkis.dbSatirEkleGuncelle(
@@ -646,7 +646,7 @@ class TemelAyarlar extends StatelessWidget {
                                                     String komut='1*2*${provider.getKumesTuruIndex.toString()}*${provider.getKumesNo}*${provider.getKumesIsmi}*${provider.getSifreAna}';
                                                     Metotlar().veriGonder(komut,2233).then((value) {
                                                       if(value.split("*")[0]=="error"){
-                                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                       }else{
                                                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                         provider.setsifreOnaylandi=true;

@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/genel_ayarlar/baglanti_durum.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';
 import 'package:prokis/genel_ayarlar/kalibrasyon.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
@@ -1207,6 +1208,8 @@ class Metotlar{
                     
                   ],
                 ),
+              
+              
               ),
             ],
           ),
@@ -1250,7 +1253,7 @@ class Metotlar{
 
 
   Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
-    
+    final dbProkis = Provider.of<DBProkis>(context);
     return PreferredSize(
       preferredSize: Size.fromHeight(30*oran),
       child: AppBar(
@@ -1307,7 +1310,11 @@ class Metotlar{
                   color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
                 ),
                 onPressed: () {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BaglantiDurum(dbProkis.getDbVeri)),
+                  );
                 },
               ),
             )),
@@ -1449,6 +1456,7 @@ class Metotlar{
 
 
   Widget appBarSade(String dilSecimi, BuildContext context, double oran, String baslik, Color color, String baglantiDurum, String alarmDurum) {
+    final dbProkis = Provider.of<DBProkis>(context);
     return PreferredSize(
       preferredSize: Size.fromHeight(30 * oran),
       child: AppBar(
@@ -1507,7 +1515,11 @@ class Metotlar{
                   color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
                 ),
                 onPressed: () {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BaglantiDurum(dbProkis.getDbVeri)),
+                  );
                 },
               ),
             )),
@@ -1753,9 +1765,216 @@ class Metotlar{
   return _donusDegeri;
 } 
 
-  String errorToastMesaj(String mesaj){
+
+
+  String errorToastMesaj(String mesaj, DBProkis dbProkis){
+
+    bool alarmTimedOutDurum=false;
+    bool alarmTimedOut=false;
+    String alarmTimedOutZaman="";
+    int alarmTimedOutSayac=0;
+    String alarmTimedOutHataKodu="0";
+
+    bool alarmConnectionFailedDurum=false;
+    bool alarmConnectionFailed=false;
+    String alarmConnectionFailedZaman="";
+    int alarmConnectionFailedSayac=0;
+    String alarmConnectionFailedHataKodu="0";
+
+    bool alarmConnectionRefusedDurum=false;
+    bool alarmConnectionRefused=false;
+    String alarmConnectionRefusedZaman="";
+    int alarmConnectionRefusedSayac=0;
+    String alarmConnectionRefusedHataKodu="0";
+
+    bool alarmBilinmeyenDurum=false;
+    bool alarmBilinmeyen=false;
+    String alarmBilinmeyenZaman="";
+    int alarmBilinmeyenSayac=0;
+    String alarmBilinmeyenHataKodu="0";
+
+    bool alarmResetByPeerDurum=false;
+    bool alarmResetByPeer=false;
+    String alarmResetByPeerZaman="";
+    int alarmResetByPeerSayac=0;
+    String alarmResetByPeerHataKodu="0";
+
+    String sonuc="";
     
-    return mesaj;
+
+    alarmTimedOutDurum=dbProkis.dbVeriGetir(40, 2, "0")=="1" ? true : false;
+    alarmTimedOut=dbProkis.dbVeriGetir(39, 2, "0")=="1" ? true : false;
+    alarmTimedOutZaman=dbProkis.dbVeriGetir(41, 2, "0");
+    alarmTimedOutSayac=int.parse(dbProkis.dbVeriGetir(38, 2, "0"));
+    alarmTimedOutHataKodu=dbProkis.dbVeriGetir(42, 2, "0");
+
+    alarmConnectionFailedDurum=dbProkis.dbVeriGetir(40, 1, "0")=="1" ? true : false;
+    alarmConnectionFailed=dbProkis.dbVeriGetir(39, 1, "0")=="1" ? true : false;
+    alarmConnectionFailedZaman=dbProkis.dbVeriGetir(41, 1, "0");
+    alarmConnectionFailedSayac=int.parse(dbProkis.dbVeriGetir(38, 1, "0"));
+    alarmConnectionFailedHataKodu=dbProkis.dbVeriGetir(42, 1, "0");
+
+    alarmConnectionRefusedDurum=dbProkis.dbVeriGetir(40, 3, "0")=="1" ? true : false;
+    alarmConnectionRefused=dbProkis.dbVeriGetir(39, 3, "0")=="1" ? true : false;
+    alarmConnectionRefusedZaman=dbProkis.dbVeriGetir(41, 3, "0");
+    alarmConnectionRefusedSayac=int.parse(dbProkis.dbVeriGetir(38, 3, "0"));
+    alarmConnectionRefusedHataKodu=dbProkis.dbVeriGetir(42, 3, "0");
+
+    alarmBilinmeyenDurum=dbProkis.dbVeriGetir(40, 4, "0")=="1" ? true : false;
+    alarmBilinmeyen=dbProkis.dbVeriGetir(39, 4, "0")=="1" ? true : false;
+    alarmBilinmeyenZaman=dbProkis.dbVeriGetir(41, 4, "0");
+    alarmBilinmeyenSayac=int.parse(dbProkis.dbVeriGetir(38, 4, "0"));
+    alarmBilinmeyenHataKodu=dbProkis.dbVeriGetir(42, 4, "0");
+
+
+    alarmResetByPeerDurum=dbProkis.dbVeriGetir(45, 1, "0")=="1" ? true : false;
+    alarmResetByPeer=dbProkis.dbVeriGetir(44, 1, "0")=="1" ? true : false;
+    alarmResetByPeerZaman=dbProkis.dbVeriGetir(46, 1, "0");
+    alarmResetByPeerSayac=int.parse(dbProkis.dbVeriGetir(43, 1, "0"));
+    alarmResetByPeerHataKodu=dbProkis.dbVeriGetir(47, 1, "0");
+
+    if(mesaj==""){
+      String x1=dbProkis.dbVeriGetir(39, 1, "0");
+      String x2=dbProkis.dbVeriGetir(39, 2, "0");
+      String x3=dbProkis.dbVeriGetir(39, 3, "0");
+      String x4=dbProkis.dbVeriGetir(39, 4, "0");
+      if(x1!="0" || x2!="0" || x3!="0" || x4!="0"){
+        dbProkis.dbSatirEkleGuncelle(39, "0", "0", "0", "0");
+      }
+
+      String y1=dbProkis.dbVeriGetir(38, 1, "0");
+      String y2=dbProkis.dbVeriGetir(38, 2, "0");
+      String y3=dbProkis.dbVeriGetir(38, 3, "0");
+      String y4=dbProkis.dbVeriGetir(38, 4, "0");
+      if(y1!="0" || y2!="0" || y3!="0" || y4!="0"){
+        dbProkis.dbSatirEkleGuncelle(38, "0", "0", "0", "0");
+      }
+
+      String z1=dbProkis.dbVeriGetir(44, 1, "0");
+      String z2=dbProkis.dbVeriGetir(44, 2, "0");
+      String z3=dbProkis.dbVeriGetir(44, 3, "0");
+      String z4=dbProkis.dbVeriGetir(44, 4, "0");
+      if(z1!="0" || z2!="0" || z3!="0" || z4!="0"){
+        dbProkis.dbSatirEkleGuncelle(44, "0", "0", "0", "0");
+      }
+
+      String t1=dbProkis.dbVeriGetir(43, 1, "0");
+      String t2=dbProkis.dbVeriGetir(43, 2, "0");
+      String t3=dbProkis.dbVeriGetir(43, 3, "0");
+      String t4=dbProkis.dbVeriGetir(43, 4, "0");
+      if(t1!="0" || t2!="0" || t3!="0" || t4!="0"){
+        dbProkis.dbSatirEkleGuncelle(43, "0", "0", "0", "0");
+      }
+      
+      
+
+      return "";
+
+    }else{
+
+
+        if(mesaj.contains("Connection timed out") && alarmTimedOut==false){
+          alarmTimedOutDurum=true;
+          alarmTimedOut=true;
+          alarmTimedOutHataKodu=mesaj;
+          dbProkis.dbSatirEkleGuncelle(39, alarmConnectionFailed ? "1" :"0", alarmTimedOut ? "1" :"0", alarmConnectionRefused ? "1" :"0", alarmBilinmeyen ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(40, alarmConnectionFailedDurum ? "1" :"0", alarmTimedOutDurum ? "1" :"0", alarmConnectionRefusedDurum ? "1" :"0", alarmBilinmeyenDurum ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(42, mesaj, alarmTimedOutHataKodu, alarmConnectionRefusedHataKodu, alarmBilinmeyenHataKodu);
+        }else if(mesaj.contains("Connection failed") && alarmConnectionFailed==false){
+          alarmConnectionFailedDurum=true;
+          alarmConnectionFailed=true;
+          alarmConnectionFailedHataKodu=mesaj;
+          dbProkis.dbSatirEkleGuncelle(39, alarmConnectionFailed ? "1" :"0", alarmTimedOut ? "1" :"0", alarmConnectionRefused ? "1" :"0", alarmBilinmeyen ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(40, alarmConnectionFailedDurum ? "1" :"0", alarmTimedOutDurum ? "1" :"0", alarmConnectionRefusedDurum ? "1" :"0", alarmBilinmeyenDurum ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(42, alarmConnectionFailedHataKodu, mesaj , alarmConnectionRefusedHataKodu, alarmBilinmeyenHataKodu);
+        }else if(mesaj.contains("Connection refused") && alarmConnectionRefused==false){
+          alarmConnectionRefusedDurum=true;
+          alarmConnectionRefused=true;
+          alarmConnectionRefusedHataKodu=mesaj;
+          dbProkis.dbSatirEkleGuncelle(39, alarmConnectionFailed ? "1" :"0", alarmTimedOut ? "1" :"0", alarmConnectionRefused ? "1" :"0", alarmBilinmeyen ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(40, alarmConnectionFailedDurum ? "1" :"0", alarmTimedOutDurum ? "1" :"0", alarmConnectionRefusedDurum ? "1" :"0", alarmBilinmeyenDurum ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(42, alarmConnectionFailedHataKodu, alarmTimedOutHataKodu , mesaj, alarmBilinmeyenHataKodu);
+        }else if(mesaj.contains("Connection reset by peer") && alarmResetByPeer==false){
+          alarmResetByPeerDurum=true;
+          alarmResetByPeer=true;
+          alarmResetByPeerHataKodu=mesaj;
+          dbProkis.dbSatirEkleGuncelle(44, alarmResetByPeer ? "1" :"0", "0", "0", "0");
+          dbProkis.dbSatirEkleGuncelle(45, alarmResetByPeerDurum ? "1" :"0", "0", "0", "0");
+          dbProkis.dbSatirEkleGuncelle(47, mesaj, "0" , "0", "0");
+        }else if(alarmBilinmeyen==false && !mesaj.contains("Connection refused") && !mesaj.contains("Connection failed") && !mesaj.contains("Connection timed out") && !mesaj.contains("Connection reset by peer")){
+          alarmBilinmeyenDurum=true;
+          alarmBilinmeyen=true;
+          alarmBilinmeyenHataKodu=mesaj;
+          dbProkis.dbSatirEkleGuncelle(39, alarmConnectionFailed ? "1" :"0", alarmTimedOut ? "1" :"0", alarmConnectionRefused ? "1" :"0", alarmBilinmeyen ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(40, alarmConnectionFailedDurum ? "1" :"0", alarmTimedOutDurum ? "1" :"0", alarmConnectionRefusedDurum ? "1" :"0", alarmBilinmeyenDurum ? "1" :"0");
+          dbProkis.dbSatirEkleGuncelle(42, alarmConnectionFailedHataKodu, alarmTimedOutHataKodu , alarmConnectionRefusedHataKodu, mesaj);
+        }
+
+
+        if(alarmConnectionFailed && alarmConnectionFailedDurum && alarmConnectionFailedSayac==0){
+          alarmConnectionFailedSayac++;
+          dbProkis.dbSatirEkleGuncelle(38, alarmConnectionFailedSayac.toString(), alarmTimedOutSayac.toString(), alarmConnectionRefusedSayac.toString(), "0");
+          alarmConnectionFailedZaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(41, alarmConnectionFailedZaman, alarmTimedOutZaman, alarmConnectionRefusedZaman, alarmBilinmeyenZaman);
+        }
+
+        if(alarmTimedOut && alarmTimedOutDurum && alarmTimedOutSayac==0){
+          alarmTimedOutSayac++;
+          dbProkis.dbSatirEkleGuncelle(38, alarmConnectionFailedSayac.toString(), alarmTimedOutSayac.toString(), alarmConnectionRefusedSayac.toString(), "0");
+          alarmTimedOutZaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(41, alarmConnectionFailedZaman, alarmTimedOutZaman, alarmConnectionRefusedZaman, alarmBilinmeyenZaman);
+        }
+
+        if(alarmConnectionRefused && alarmConnectionRefusedDurum && alarmConnectionRefusedSayac==0){
+          alarmConnectionRefusedSayac++;
+          dbProkis.dbSatirEkleGuncelle(38, alarmConnectionFailedSayac.toString(), alarmTimedOutSayac.toString(), alarmConnectionRefusedSayac.toString(), "0");
+          alarmConnectionRefusedZaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(41, alarmConnectionFailedZaman, alarmTimedOutZaman, alarmConnectionRefusedZaman, alarmBilinmeyenZaman);
+        }
+
+        if(alarmBilinmeyen && alarmBilinmeyenDurum && alarmBilinmeyenSayac==0){
+          alarmBilinmeyenSayac++;
+          dbProkis.dbSatirEkleGuncelle(38, alarmConnectionFailedSayac.toString(), alarmTimedOutSayac.toString(), alarmConnectionRefusedSayac.toString(), alarmBilinmeyenSayac.toString());
+          alarmBilinmeyenZaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(41, alarmConnectionFailedZaman, alarmTimedOutZaman, alarmConnectionRefusedZaman, alarmBilinmeyenZaman);
+        }
+
+        if(alarmResetByPeer && alarmResetByPeerDurum && alarmResetByPeerSayac==0){
+          alarmResetByPeerSayac++;
+          dbProkis.dbSatirEkleGuncelle(43, alarmResetByPeerSayac.toString(), "0", "0", "0");
+          alarmResetByPeerZaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(46, alarmResetByPeerZaman, "0", "0", "0");
+        }
+
+        String v1=alarmConnectionFailedDurum ? "1" : "0";
+        String v2=alarmConnectionFailed ? "1" : "0";
+        String v3=alarmConnectionFailedZaman;
+        String v4=alarmConnectionFailedHataKodu;
+        String v5=alarmTimedOutDurum ? "1" : "0";
+        String v6=alarmTimedOut ? "1" : "0";
+        String v7=alarmTimedOutZaman;
+        String v8=alarmTimedOutHataKodu;
+        String v9=alarmConnectionRefusedDurum ? "1" : "0";
+        String v10=alarmConnectionRefused ? "1" : "0";
+        String v11=alarmConnectionRefusedZaman;
+        String v12=alarmConnectionRefusedHataKodu;
+        String v13=alarmBilinmeyenDurum ? "1" : "0";
+        String v14=alarmBilinmeyen ? "1" : "0";
+        String v15=alarmBilinmeyenZaman;
+        String v16=alarmBilinmeyenHataKodu;
+        String v17=alarmResetByPeerDurum ? "1" : "0";
+        String v18=alarmResetByPeer ? "1" : "0";
+        String v19=alarmResetByPeerZaman;
+        String v20=alarmResetByPeerHataKodu;
+
+        sonuc = v1+"*"+v2+"*"+v3+"*"+v4+"*"+v5+"*"+v6+"*"+v7+"*"+v8+"*"+v9+"*"+v10+"*"+v11+"*"+v12+"*"+v13+"*"+v14+"*"+v15+"*"+v16+"*"+v17+"*"+v18+"*"+v19+"*"+v20;
+    }
+
+
+    
+
+    
+    return sonuc;
   }
 
   String outConvSAYItoQ(int deger) {

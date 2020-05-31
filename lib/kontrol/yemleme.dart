@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -127,6 +129,7 @@ class YemlemeState extends State<Yemleme> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
 
 
@@ -135,7 +138,7 @@ class YemlemeState extends State<Yemleme> {
       Metotlar().takipEt('29*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -232,7 +235,7 @@ class YemlemeState extends State<Yemleme> {
                                 oran,
                                 dilSecimi,
                                 "tv561",
-                                "");
+                                "",dbProkis);
 
                         },
                         child: Text(
@@ -264,7 +267,7 @@ class YemlemeState extends State<Yemleme> {
                                               Expanded(flex: 5,
                                               child: Padding(
                                                 padding:  EdgeInsets.only(left: 5*oran),
-                                                child: ileriGeriButon("tv557", "tv554", oran,1),
+                                                child: ileriGeriButon("tv557", "tv554", oran,1,dbProkis),
                                               
                                               
                                               ),
@@ -273,7 +276,7 @@ class YemlemeState extends State<Yemleme> {
                                               Expanded(flex: 5,
                                               child: Padding(
                                                 padding:  EdgeInsets.only(left: 5*oran),
-                                                child: ileriGeriButon("tv558", "tv554", oran,2),
+                                                child: ileriGeriButon("tv558", "tv554", oran,2,dbProkis),
                                               ),
                                                 ),
                                               Spacer(),
@@ -368,7 +371,7 @@ class YemlemeState extends State<Yemleme> {
                                                               String komut="35*1*$veri";
                                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                                 if(value.split("*")[0]=="error"){
-                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                                 }else{
                                                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                                   
@@ -376,7 +379,7 @@ class YemlemeState extends State<Yemleme> {
                                                                   Metotlar().takipEt('29*', 2236).then((veri){
                                                                       if(veri.split("*")[0]=="error"){
                                                                         baglanti=false;
-                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                         setState(() {});
                                                                       }else{
                                                                         takipEtVeriIsleme(veri);
@@ -440,14 +443,14 @@ class YemlemeState extends State<Yemleme> {
                                                   Expanded(flex: 5,
                                                 child: Padding(
                                                   padding:  EdgeInsets.only(left: 5*oran),
-                                                  child: ileriGeriButon("tv557", "tv555", oran,3),
+                                                  child: ileriGeriButon("tv557", "tv555", oran,3,dbProkis),
                                                 ),
                                                   ),
                                                   Spacer(),
                                                   Expanded(flex: 5,
                                                 child: Padding(
                                                   padding:  EdgeInsets.only(left: 5*oran),
-                                                  child: ileriGeriButon("tv558", "tv555", oran,4),
+                                                  child: ileriGeriButon("tv558", "tv555", oran,4,dbProkis),
                                                 ),
                                                   ),
                                                   Spacer(),
@@ -541,7 +544,7 @@ class YemlemeState extends State<Yemleme> {
                                                               String komut="35*2*$veri";
                                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                                 if(value.split("*")[0]=="error"){
-                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                                 }else{
                                                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                                   
@@ -549,7 +552,7 @@ class YemlemeState extends State<Yemleme> {
                                                                   Metotlar().takipEt('29*', 2236).then((veri){
                                                                       if(veri.split("*")[0]=="error"){
                                                                         baglanti=false;
-                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                         setState(() {});
                                                                       }else{
                                                                         takipEtVeriIsleme(veri);
@@ -609,14 +612,14 @@ class YemlemeState extends State<Yemleme> {
                                               Expanded(flex: 5,
                                               child: Padding(
                                                 padding:  EdgeInsets.only(left: 5*oran),
-                                                child: ileriGeriButon("tv557", "tv556", oran,5),
+                                                child: ileriGeriButon("tv557", "tv556", oran,5,dbProkis),
                                               ),
                                                 ),
                                               Spacer(),
                                               Expanded(flex: 5,
                                               child: Padding(
                                                 padding:  EdgeInsets.only(left: 5*oran),
-                                                child: ileriGeriButon("tv558", "tv556", oran,6),
+                                                child: ileriGeriButon("tv558", "tv556", oran,6,dbProkis),
                                               ),
                                                 ),
                                               Spacer(),
@@ -708,7 +711,7 @@ class YemlemeState extends State<Yemleme> {
                                                               String komut="35*3*$veri";
                                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                                 if(value.split("*")[0]=="error"){
-                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                                 }else{
                                                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                                   
@@ -716,7 +719,7 @@ class YemlemeState extends State<Yemleme> {
                                                                   Metotlar().takipEt('29*', 2236).then((veri){
                                                                       if(veri.split("*")[0]=="error"){
                                                                         baglanti=false;
-                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                        baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                         setState(() {});
                                                                       }else{
                                                                         takipEtVeriIsleme(veri);
@@ -868,7 +871,7 @@ class YemlemeState extends State<Yemleme> {
   }
 
   Future _degergiris4X0(int binlerUnsur,int yuzlerUnsur,int onlarUnsur, int birlerUnsur, int indexNo,
-      double oran, String dil, String baslik, String onBaslik) async {
+      double oran, String dil, String baslik, String onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -906,7 +909,7 @@ class YemlemeState extends State<Yemleme> {
           String komut="35*4*$sinyalSuresi";
           Metotlar().veriGonder(komut, 2235).then((value){
             if(value.split("*")[0]=="error"){
-              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
             }else{
               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
               
@@ -914,7 +917,7 @@ class YemlemeState extends State<Yemleme> {
               Metotlar().takipEt('29*', 2236).then((veri){
                   if(veri.split("*")[0]=="error"){
                     baglanti=false;
-                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                     setState(() {});
                   }else{
                     takipEtVeriIsleme(veri);
@@ -1202,7 +1205,7 @@ class YemlemeState extends State<Yemleme> {
 
   
 
- Widget ileriGeriButon (String butonIsim,String baslik,double oran, int yemArabaTur){
+ Widget ileriGeriButon (String butonIsim,String baslik,double oran, int yemArabaTur, DBProkis dbProkis){
 
    return RawMaterialButton(
                                                 fillColor: Colors.cyan[700],
@@ -1240,7 +1243,7 @@ class YemlemeState extends State<Yemleme> {
                                                           //Fan Set Sıcaklıkları giriş bölümü
                                                           Expanded(flex: 10,
                                                             child: Container(color: Colors.white,alignment: Alignment.center,
-                                                            child:checkBoxUnsorCOKLU(format24saatlik, oran, yemArabaTur, state)
+                                                            child:checkBoxUnsorCOKLU(format24saatlik, oran, yemArabaTur, state,dbProkis)
                                                             ),
 
                                                           ),
@@ -1290,7 +1293,7 @@ class YemlemeState extends State<Yemleme> {
   }
 
 
- Widget checBoxUnsur(double oran,int index,int yemArabaTur,StateSetter updateState){
+ Widget checBoxUnsur(double oran,int index,int yemArabaTur,StateSetter updateState, DBProkis dbProkis){
 
    bool checkBoxGeciciDurum=false;
 
@@ -1429,7 +1432,7 @@ class YemlemeState extends State<Yemleme> {
                       String komut="34*$index*$yemArabaTur*$veri";
                       Metotlar().veriGonder(komut, 2235).then((value){
                         if(value.split("*")[0]=="error"){
-                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                         }else{
                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                           
@@ -1437,7 +1440,7 @@ class YemlemeState extends State<Yemleme> {
                           Metotlar().takipEt('29*', 2236).then((veri){
                               if(veri.split("*")[0]=="error"){
                                 baglanti=false;
-                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                 setState(() {});
                               }else{
                                 takipEtVeriIsleme(veri);
@@ -1475,7 +1478,7 @@ class YemlemeState extends State<Yemleme> {
   
 
 
-Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter state){
+Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter state, DBProkis dbProkis){
   Widget ww;
   if(format){
     return Column(
@@ -1486,30 +1489,30 @@ Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter
                                                                   children: <Widget>[
                                                                     Spacer(),
 
-                                                                    checBoxUnsur(oran, 1, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 2, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 3, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 4, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 5, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 6, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 7, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 8, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 9, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 10, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 11, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 12, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 13, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 14, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 15, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 16, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 17, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 18, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 19, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 20, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 21, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 22, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 23, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 24, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 1, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 2, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 3, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 4, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 5, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 6, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 7, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 8, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 9, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 10, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 11, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 12, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 13, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 14, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 15, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 16, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 17, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 18, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 19, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 20, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 21, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 22, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 23, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 24, yemArabaTur,state,dbProkis),
 
                                                                     Spacer()
 
@@ -1523,30 +1526,30 @@ Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter
                                                                     Spacer(),
 
                                                                     
-                                                                    checBoxUnsur(oran, 25, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 26, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 27, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 28, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 29, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 30, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 31, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 32, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 33, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 34, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 35, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 36, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 37, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 38, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 39, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 40, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 41, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 42, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 43, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 44, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 45, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 46, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 47, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 48, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 25, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 26, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 27, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 28, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 29, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 30, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 31, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 32, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 33, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 34, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 35, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 36, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 37, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 38, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 39, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 40, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 41, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 42, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 43, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 44, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 45, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 46, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 47, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 48, yemArabaTur,state,dbProkis),
                                                                     
                                                                     
 
@@ -1581,30 +1584,30 @@ Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter
                                                                     Spacer(),
 
                                                                     
-                                                                    checBoxUnsur(oran, 3, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 4, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 5, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 6, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 7, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 8, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 9, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 10, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 11, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 12, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 13, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 14, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 15, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 16, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 17, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 18, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 19, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 20, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 21, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 22, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 23, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 24, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 1, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 2, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 3, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 4, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 5, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 6, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 7, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 8, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 9, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 10, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 11, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 12, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 13, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 14, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 15, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 16, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 17, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 18, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 19, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 20, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 21, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 22, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 23, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 24, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 1, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 2, yemArabaTur,state,dbProkis),
                                                                     Spacer()
 
 
@@ -1618,30 +1621,30 @@ Widget checkBoxUnsorCOKLU(bool format, double oran, int yemArabaTur, StateSetter
 
                                                                     
                                                                     
-                                                                    checBoxUnsur(oran, 27, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 28, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 29, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 30, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 31, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 32, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 33, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 34, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 35, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 36, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 37, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 38, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 39, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 40, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 41, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 42, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 43, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 44, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 45, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 46, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 47, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 48, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 25, yemArabaTur,state),
-                                                                    checBoxUnsur(oran, 26, yemArabaTur,state),
+                                                                    checBoxUnsur(oran, 27, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 28, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 29, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 30, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 31, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 32, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 33, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 34, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 35, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 36, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 37, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 38, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 39, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 40, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 41, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 42, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 43, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 44, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 45, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 46, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 47, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 48, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 25, yemArabaTur,state,dbProkis),
+                                                                    checBoxUnsur(oran, 26, yemArabaTur,state,dbProkis),
                                                                     
                                                                     
 

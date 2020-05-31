@@ -12,6 +12,8 @@ import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/izleme/izleme_bfanairistc.dart';
 import 'package:prokis/izleme/izleme_fanklpped.dart';
 import 'package:prokis/izleme/izleme_yemsuayd.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
@@ -111,12 +113,13 @@ class IzlemeState extends State<Izleme> {
 int sayac=0;
   @override
   Widget build(BuildContext context) {
+    final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
       Metotlar().takipEt("i4*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -134,7 +137,7 @@ int sayac=0;
           Metotlar().takipEt("i4*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);

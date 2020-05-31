@@ -155,7 +155,7 @@ class KlpYontemi extends StatelessWidget {
 
                                       Metotlar().veriGonder("6*9*1*0*0*0",2233).then((value) {
                                         if(value.split("*")[0]=="error"){
-                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                         }else{
                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           dbProkis.dbSatirEkleGuncelle(8, "1", "0", "0", "0");
@@ -221,7 +221,7 @@ class KlpYontemi extends StatelessWidget {
 
                                       Metotlar().veriGonder("6*9*2*0*0*0",2233).then((value) {
                                         if(value.split("*")[0]=="error"){
-                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                         }else{
                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           dbProkis.dbSatirEkleGuncelle(8, "2", "0", "0", "0");

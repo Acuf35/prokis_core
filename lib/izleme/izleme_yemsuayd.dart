@@ -7,7 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -151,12 +153,13 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
       Metotlar().takipEt('i2*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -175,7 +178,7 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
           Metotlar().takipEt('i2*', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);

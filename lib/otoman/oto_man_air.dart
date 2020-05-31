@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -88,6 +90,7 @@ class OtoManAirState extends State<OtoManAir> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
 
@@ -95,7 +98,7 @@ class OtoManAirState extends State<OtoManAir> {
             
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri,'25*$airInletAdet');
@@ -119,7 +122,7 @@ class OtoManAirState extends State<OtoManAir> {
               
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri,'25*$airInletAdet');
@@ -201,7 +204,7 @@ class OtoManAirState extends State<OtoManAir> {
                                   _unsurOtoManWidget(
                                       Dil().sec(dilSecimi, "tv460"),
                                       'assets/images/kurulum_airinlet_icon.png',
-                                      oran),
+                                      oran,dbProkis),
                                 ],
                               )),
                           Spacer()
@@ -349,7 +352,7 @@ class OtoManAirState extends State<OtoManAir> {
  
 
   Widget _unsurOtoManWidget(
-      String baslik, String imagePath, double oran) {
+      String baslik, String imagePath, double oran, DBProkis dbProkis) {
     return Expanded(
       child: Row(
         children: <Widget>[
@@ -395,7 +398,7 @@ class OtoManAirState extends State<OtoManAir> {
                                     String komut="30*1";
                                     Metotlar().veriGonder(komut, 2235).then((value){
                                       if(value.split("*")[0]=="error"){
-                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                       }else{
                                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                         
@@ -404,7 +407,7 @@ class OtoManAirState extends State<OtoManAir> {
                                             
                                             if(veri.split("*")[0]=="error"){
                                               baglanti=false;
-                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                               setState(() {});
                                             }else{
                                               takipEtVeriIsleme(veri,"26*$airInletAdet");
@@ -456,7 +459,7 @@ class OtoManAirState extends State<OtoManAir> {
                                     String komut="30*0";
                                     Metotlar().veriGonder(komut, 2235).then((value){
                                       if(value.split("*")[0]=="error"){
-                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                       }else{
                                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                         
@@ -466,7 +469,7 @@ class OtoManAirState extends State<OtoManAir> {
 
                                             if(veri.split("*")[0]=="error"){
                                               baglanti=false;
-                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                               setState(() {});
                                             }else{
                                               takipEtVeriIsleme(veri,"26*$airInletAdet");
@@ -538,7 +541,7 @@ class OtoManAirState extends State<OtoManAir> {
 
                                     if(veri.split("*")[0]=="error"){
                                       baglanti=false;
-                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                       setState(() {});
                                     }else{
                                       takipEtVeriIsleme(veri,'25*$airInletAdet');
@@ -548,7 +551,7 @@ class OtoManAirState extends State<OtoManAir> {
                                 }
                               });
 
-                              _manKontrolAIR(oran).then((value) {
+                              _manKontrolAIR(oran,dbProkis).then((value) {
                                 takipEtiGeciciDurdur = false;
                                 timerCancelAir = true;
                               });
@@ -614,7 +617,7 @@ class OtoManAirState extends State<OtoManAir> {
     );
   }
 
-  Future _manKontrolAIR(double oran) {
+  Future _manKontrolAIR(double oran, DBProkis dbProkis) {
     bool bottomDrawerAktif = true;
     int sayac1 = 0;
 
@@ -698,7 +701,7 @@ class OtoManAirState extends State<OtoManAir> {
                                               oran,
                                               dilSecimi,
                                               "tv477",
-                                              "");
+                                              "",dbProkis);
                                         },
                                         child: Container(
                                           color: Colors.blue[700],
@@ -728,10 +731,10 @@ class OtoManAirState extends State<OtoManAir> {
                                         flex: 3,
                                       ),
                                       bottomDrawerManUnsur(1,"tv473",
-                                          airManAc, oran),
+                                          airManAc, oran,dbProkis),
                                       Spacer(),
                                       bottomDrawerManUnsur(0, "tv474",
-                                          airManKp, oran),
+                                          airManKp, oran,dbProkis),
                                       Spacer(
                                         flex: 3,
                                       ),
@@ -756,7 +759,7 @@ class OtoManAirState extends State<OtoManAir> {
     });
   }
 
-  Widget bottomDrawerManUnsur(int index,String isim, bool acVeyaKpDurum, double oran) {
+  Widget bottomDrawerManUnsur(int index,String isim, bool acVeyaKpDurum, double oran, DBProkis dbProkis) {
     return Expanded(
       flex: 10,
       child: RawMaterialButton(
@@ -804,7 +807,7 @@ class OtoManAirState extends State<OtoManAir> {
             String komut="31*$index*$veri";
             Metotlar().veriGonder(komut, 2235).then((value){
               if(value.split("*")[0]=="error"){
-                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
               }else{
                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                 
@@ -813,7 +816,7 @@ class OtoManAirState extends State<OtoManAir> {
                     
                     if(veri.split("*")[0]=="error"){
                       baglanti=false;
-                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                       setState(() {});
                     }else{
                       takipEtVeriIsleme(veri,"26*$airInletAdet");
@@ -847,7 +850,7 @@ class OtoManAirState extends State<OtoManAir> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -884,7 +887,7 @@ class OtoManAirState extends State<OtoManAir> {
         String komut="29*1*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -893,7 +896,7 @@ class OtoManAirState extends State<OtoManAir> {
                 
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri,"26*$airInletAdet");

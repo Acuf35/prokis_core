@@ -76,12 +76,15 @@ class GenelAyarlarState extends State<GenelAyarlar> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
+
+
 
     if (timerSayac == 0) {
       Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri;
@@ -102,7 +105,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
           Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri;
@@ -121,7 +124,6 @@ class GenelAyarlarState extends State<GenelAyarlar> {
 
 
 
-    final dbProkis=Provider.of<DBProkis>(context);
     dilSecimi=dbProkis.dbVeriGetir(1, 1, "EN");
     var oran = MediaQuery.of(context).size.width / 731.4;
 

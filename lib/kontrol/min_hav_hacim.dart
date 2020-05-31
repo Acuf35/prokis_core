@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -105,12 +107,13 @@ class MinHavHacimState extends State<MinHavHacim> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
       Metotlar().takipEt('12*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -129,7 +132,7 @@ class MinHavHacimState extends State<MinHavHacim> {
           Metotlar().takipEt('12*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -251,7 +254,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                     oran,
                                                     dilSecimi,
                                                     "tv272",
-                                                    "");
+                                                    "",dbProkis);
                                               },
                                               child: Stack(
                                                 alignment: Alignment.center,
@@ -334,7 +337,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                     oran,
                                                     dilSecimi,
                                                     "tv273",
-                                                    "");
+                                                    "",dbProkis);
                                               },
                                               child: Stack(
                                                 alignment: Alignment.center,
@@ -416,7 +419,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                   oran,
                                                   dilSecimi,
                                                   "tv274",
-                                                  "");
+                                                  "",dbProkis);
                                             },
                                             child: Stack(
                                               alignment: Alignment.center,
@@ -500,7 +503,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                               String komut="13*$_index*$veri";
                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                 if(value.split("*")[0]=="error"){
-                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                 }else{
                                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                   
@@ -508,7 +511,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                   Metotlar().takipEt('12*', 2236).then((veri){
                                                       if(veri.split("*")[0]=="error"){
                                                           baglanti=false;
-                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                           setState(() {});
                                                         }else{
                                                           takipEtVeriIsleme(veri);
@@ -591,7 +594,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                       String komut="13*$_index*$veri*5";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
-                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                         }else{
                                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                           
@@ -599,7 +602,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                           Metotlar().takipEt('12*', 2236).then((veri){
                                                               if(veri.split("*")[0]=="error"){
                                                                 baglanti=false;
-                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                 setState(() {});
                                                               }else{
                                                                 takipEtVeriIsleme(veri);
@@ -642,7 +645,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                         String komut="13*$_index*$veri*x2on";
                                                         Metotlar().veriGonder(komut, 2235).then((value){
                                                           if(value.split("*")[0]=="error"){
-                                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                           }else{
                                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                             
@@ -650,7 +653,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                             Metotlar().takipEt('12*', 2236).then((veri){
                                                                 if(veri.split("*")[0]=="error"){
                                                                   baglanti=false;
-                                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                   setState(() {});
                                                                 }else{
                                                                   takipEtVeriIsleme(veri);
@@ -695,7 +698,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                       String komut="13*$_index*$veri*10";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
-                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                         }else{
                                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                           
@@ -703,7 +706,7 @@ class MinHavHacimState extends State<MinHavHacim> {
                                                           Metotlar().takipEt('12*', 2236).then((veri){
                                                               if(veri.split("*")[0]=="error"){
                                                                 baglanti=false;
-                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                 setState(() {});
                                                               }else{
                                                                 takipEtVeriIsleme(veri);
@@ -920,7 +923,7 @@ class MinHavHacimState extends State<MinHavHacim> {
   }
 
   Future _degergiris3X0(int yuzler, onlar, birler, index, paramIndex,
-      double oran, String dil, baslik, onBaslik) async {
+      double oran, String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -967,7 +970,7 @@ class MinHavHacimState extends State<MinHavHacim> {
         String komut="13*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -975,7 +978,7 @@ class MinHavHacimState extends State<MinHavHacim> {
             Metotlar().takipEt('12*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);

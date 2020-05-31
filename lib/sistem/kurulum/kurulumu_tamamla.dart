@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/main.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/kurulum/girisler.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/genel_ayarlar.dart';

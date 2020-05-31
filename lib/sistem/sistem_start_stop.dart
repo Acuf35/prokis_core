@@ -78,7 +78,7 @@ class SistemStartStopState extends State<SistemStartStop> {
         var degerler = veri.split("*");
         if (degerler[0] == "error") {
           baglanti=false;
-          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
           setState(() {});
         } else {
           sistemDurumu = degerler[0] == "True" ? true : false;
@@ -105,7 +105,7 @@ class SistemStartStopState extends State<SistemStartStop> {
             var degerler = veri.split("*");
             if (degerler[0] == "error") {
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             } else {
 
@@ -237,7 +237,7 @@ class SistemStartStopState extends State<SistemStartStop> {
                               if (value.split("*")[0] == "error") {
                                 Toast.show(
                                     Metotlar()
-                                        .errorToastMesaj(value.split("*")[1]),
+                                        .errorToastMesaj(value.split("*")[1],dbProkis),
                                     context,
                                     duration: 3);
                               } else {

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/kontrol/yrd_opsiyon.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -106,13 +108,14 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
 
       Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -134,7 +137,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
           Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -214,11 +217,11 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,1),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,2),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,3),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,4),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,5),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,1,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,2,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,3,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,4,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,5,dbProkis),
                             
                             
                            
@@ -231,11 +234,11 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,6),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,7),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,8),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,9),
-                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,10),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,6,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,7,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,8,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,9,dbProkis),
+                            _unsurProbKontrolAktifWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,10,dbProkis),
                             
                             
                             
@@ -443,7 +446,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
   }
 
   Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int index,
-      double oran, String dil, String baslik) async {
+      double oran, String dil, String baslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -501,7 +504,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
             String komut="33*$index*0";
             Metotlar().veriGonder(komut, 2235).then((value){
               if(value.split("*")[0]=="error"){
-                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
               }else{
                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                 
@@ -509,7 +512,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                 Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
                     if(veri.split("*")[0]=="error"){
                       baglanti=false;
-                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                       setState(() {});
                     }else{
                       takipEtVeriIsleme(veri);
@@ -537,7 +540,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
 
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -581,7 +584,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
         String komut="33*$index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -589,7 +592,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
             Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -638,7 +641,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
   }
  
 
-  Widget _unsurProbKontrolAktifWidget(String baslik, String imagePath, double oran,int index) {
+  Widget _unsurProbKontrolAktifWidget(String baslik, String imagePath, double oran,int index, DBProkis dbProkis) {
     return Visibility(visible: index<=int.parse(klepeAdet) || index>5,
           child: Expanded(
           child: Visibility(visible: index<=int.parse(klepeAdet),
@@ -687,7 +690,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                       String komut="33*$index*1";
                                       Metotlar().veriGonder(komut, 2235).then((value){
                                         if(value.split("*")[0]=="error"){
-                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                         }else{
                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           
@@ -695,7 +698,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                           Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
                                               if(veri.split("*")[0]=="error"){
                                                 baglanti=false;
-                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                 setState(() {});
                                               }else{
                                                 takipEtVeriIsleme(veri);
@@ -747,7 +750,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                       String komut="33*$index*0";
                                       Metotlar().veriGonder(komut, 2235).then((value){
                                         if(value.split("*")[0]=="error"){
-                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                         }else{
                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           
@@ -755,7 +758,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                           Metotlar().takipEt('28*$klepeAdet', 2236).then((veri){
                                               if(veri.split("*")[0]=="error"){
                                                 baglanti=false;
-                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                 setState(() {});
                                               }else{
                                                 takipEtVeriIsleme(veri);
@@ -845,7 +848,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                                       oran,
                                                       dilSecimi,
                                                       "tv501",
-                                                      "");
+                                                      "",dbProkis);
 
                                                   },
                                                   materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,
@@ -902,7 +905,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                                             _index,
                                                             oran,
                                                             dilSecimi,
-                                                            "tv502",);
+                                                            "tv502",dbProkis);
 
                                                     
 
@@ -954,7 +957,7 @@ class KlepeProbKontrolState extends State<KlepeProbKontrol> {
                                                             _index,
                                                             oran,
                                                             dilSecimi,
-                                                            "tv503",);
+                                                            "tv503",dbProkis);
 
                                                     },
                                                     materialTapTargetSize:MaterialTapTargetSize.shrinkWrap,

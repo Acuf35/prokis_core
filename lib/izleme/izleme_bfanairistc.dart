@@ -5,8 +5,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 
@@ -185,8 +187,10 @@ var blocVeri;
 
   @override
   Widget build(BuildContext context) {
+    
+    final dbProkis = Provider.of<DBProkis>(context);
 
-    final _blocSinif  = IzlemeBfanAirIstcBloC(context, dilSecimi, isiticiNo);
+    final _blocSinif  = IzlemeBfanAirIstcBloC(context, dilSecimi, isiticiNo, dbProkis);
     blocVeri=_blocSinif;
 
     _controller1 = AnimationController(vsync: this,duration: Duration(milliseconds: 1500),);
@@ -2036,7 +2040,7 @@ class IzlemeBfanAirIstcBloC {
   String baglantiHatasiGecici="";
   String alarmDurum="0";
 
-  IzlemeBfanAirIstcBloC(BuildContext context, String dilSecimi, List isiticiNo) {
+  IzlemeBfanAirIstcBloC(BuildContext context, String dilSecimi, List isiticiNo, DBProkis dbProkis) {
 
     for (var i = 0; i < 19; i++) {
       bloCVeriStateStreamControllerISITICIDURUM[i]=StreamController<String>();
@@ -2050,7 +2054,7 @@ class IzlemeBfanAirIstcBloC {
 
         var degerler=veri.split("*");
         if(veri.split("*")[0]=="error"){
-          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1],dbProkis);
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
@@ -2202,7 +2206,7 @@ class IzlemeBfanAirIstcBloC {
         var degerler=veri.split("*");
         
         if(veri.split("*")[0]=="error"){
-          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1],dbProkis);
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }

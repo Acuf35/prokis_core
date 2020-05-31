@@ -341,11 +341,13 @@ class SaatTarihState extends State<SaatTarih> {
   @override
   Widget build(BuildContext context) {
 
+    final dbProkis = Provider.of<DBProkis>(context);
+
     if (timerSayac == 0) {
       Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri;
@@ -366,7 +368,7 @@ class SaatTarihState extends State<SaatTarih> {
           Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               alarmDurum=veri;
@@ -384,7 +386,7 @@ class SaatTarihState extends State<SaatTarih> {
     timerSayac++;
 
     var oran = MediaQuery.of(context).size.width / 731.4;
-    final dbProkis = Provider.of<DBProkis>(context);
+    
     
 
     return Scaffold(

@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -100,6 +102,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
 
@@ -107,7 +110,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
             
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri,'23*$klepeAdet');
@@ -130,7 +133,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
               
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri,'23*$klepeAdet');
@@ -210,11 +213,11 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,1),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,2),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,3),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,4),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,5),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,1,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,2,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,3,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,4,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,5,dbProkis),
                             
                             
                            
@@ -227,11 +230,11 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,6),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,7),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,8),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,9),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,10),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,6,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,7,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,8,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,9,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv108"),'assets/images/kurulum_klepe_icon.png',oran,10,dbProkis),
                             
                             
                             
@@ -398,7 +401,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
   }
  
 
-  Widget _unsurOtoManWidget(String baslik, String imagePath, double oran,int index) {
+  Widget _unsurOtoManWidget(String baslik, String imagePath, double oran,int index, DBProkis dbProkis) {
     return Visibility(visible: index<=int.parse(klepeAdet) || index>5,
           child: Expanded(
           child: Visibility(visible: index<=int.parse(klepeAdet),
@@ -446,7 +449,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                       String komut="27*$index*1";
                                       Metotlar().veriGonder(komut, 2235).then((value){
                                         if(value.split("*")[0]=="error"){
-                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                         }else{
                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           
@@ -455,7 +458,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                               
                                               if(veri.split("*")[0]=="error"){
                                                 baglanti=false;
-                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                 setState(() {});
                                               }else{
                                                 takipEtVeriIsleme(veri,'23*$klepeAdet');
@@ -508,7 +511,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                       String komut="27*$index*0";
                                       Metotlar().veriGonder(komut, 2235).then((value){
                                         if(value.split("*")[0]=="error"){
-                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                         }else{
                                           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                           
@@ -517,7 +520,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                               
                                               if(veri.split("*")[0]=="error"){
                                                 baglanti=false;
-                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                 setState(() {});
                                               }else{
                                                 takipEtVeriIsleme(veri,'23*$klepeAdet');
@@ -587,7 +590,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                                   
                                                   if(veri.split("*")[0]=="error"){
                                                     baglanti=false;
-                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                     setState(() {});
                                                   }else{
                                                     takipEtVeriIsleme(veri,'24*$klepeAdet');
@@ -599,7 +602,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                             
                                           });
 
-                                          _manKontrolKLPE(oran,index).then((value){
+                                          _manKontrolKLPE(oran,index,dbProkis).then((value){
                                           takipEtiGeciciDurdur=false;
                                           timerCancelKlp[index]=true;
                                         });
@@ -674,7 +677,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
   }
 
 
-  Future _manKontrolKLPE(double oran,int index){
+  Future _manKontrolKLPE(double oran,int index, DBProkis dbProkis){
 
     bool bottomDrawerAktif=true;
     int sayac1=0;
@@ -766,7 +769,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                                                                   oran,
                                                                                   dilSecimi,
                                                                                   "tv472",
-                                                                                  "");
+                                                                                  "",dbProkis);
                                                                             },
                                                                             child: Container(
                                                                               color: Colors.blue[700],
@@ -792,9 +795,9 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                                                       Row(
                                                                         children: <Widget>[
                                                                           Spacer(flex: 3,),
-                                                                          bottomDrawerManUnsur(index ,"tv473", klpManAc[index] , oran),
+                                                                          bottomDrawerManUnsur(index ,"tv473", klpManAc[index] , oran,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index+10 ,"tv474", klpManKp[index] , oran),
+                                                                          bottomDrawerManUnsur(index+10 ,"tv474", klpManKp[index] , oran,dbProkis),
                                                                           Spacer(flex: 3,),
                                                                           
                                                                           //Spacer(),
@@ -819,7 +822,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
 
   
 
-  Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran){
+  Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran, DBProkis dbProkis){
 
     return Expanded(flex: 10,
       child: RawMaterialButton(
@@ -869,7 +872,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
         String komut="28*$index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -878,7 +881,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                 
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri,'24*$klepeAdet');
@@ -911,7 +914,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -951,7 +954,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
         String komut="29*1*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -960,7 +963,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                 
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri,'24*$klepeAdet');

@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -157,6 +159,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
 
 
@@ -168,7 +171,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIslemeWifi(veri);
@@ -185,7 +188,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIslemeAnalog(veri);
@@ -213,7 +216,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIslemeWifi(veri);
@@ -230,7 +233,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIslemeAnalog(veri);
@@ -322,11 +325,11 @@ class KalibrasyonState extends State<Kalibrasyon> {
                         child: Column(
                           children: <Widget>[
                             //Aktif sensör 1
-                            _aktifSensor(1, oran),
+                            _aktifSensor(1, oran,dbProkis),
                             //Aktif sensör 2
-                            _aktifSensor(2, oran),
+                            _aktifSensor(2, oran,dbProkis),
                             //Aktif sensör 3
-                            _aktifSensor(3, oran),
+                            _aktifSensor(3, oran,dbProkis),
                           ],
                         ),
                       ),
@@ -337,11 +340,11 @@ class KalibrasyonState extends State<Kalibrasyon> {
                         child: Column(
                           children: <Widget>[
                             //Aktif sensör 4
-                            _aktifSensor(4, oran),
+                            _aktifSensor(4, oran,dbProkis),
                             //Aktif sensör 5
-                            _aktifSensor(5, oran),
+                            _aktifSensor(5, oran,dbProkis),
                             //Aktif sensör 6
-                            _aktifSensor(6, oran),
+                            _aktifSensor(6, oran,dbProkis),
                           ],
                         ),
                       ),
@@ -352,11 +355,11 @@ class KalibrasyonState extends State<Kalibrasyon> {
                         child: Column(
                           children: <Widget>[
                             //Aktif sensör 7
-                            _aktifSensor(7, oran),
+                            _aktifSensor(7, oran,dbProkis),
                             //Aktif sensör 8
-                            _aktifSensor(8, oran),
+                            _aktifSensor(8, oran,dbProkis),
                             //Aktif sensör 9
-                            _aktifSensor(9, oran),
+                            _aktifSensor(9, oran,dbProkis),
                           ],
                         ),
                       ),
@@ -367,11 +370,11 @@ class KalibrasyonState extends State<Kalibrasyon> {
                         child: Column(
                           children: <Widget>[
                             //Aktif sensör 10
-                            _aktifSensor(10, oran),
+                            _aktifSensor(10, oran,dbProkis),
                             //Aktif sensör 11
-                            _aktifSensor(11, oran),
+                            _aktifSensor(11, oran,dbProkis),
                             //Aktif sensör 12
-                            _aktifSensor(12, oran),
+                            _aktifSensor(12, oran,dbProkis),
                           ],
                         ),
                       ),
@@ -382,11 +385,11 @@ class KalibrasyonState extends State<Kalibrasyon> {
                         child: Column(
                           children: <Widget>[
                             //Aktif sensör 13
-                            _aktifSensor(13, oran),
+                            _aktifSensor(13, oran,dbProkis),
                             //Aktif sensör 14
-                            _aktifSensor(14, oran),
+                            _aktifSensor(14, oran,dbProkis),
                             //Aktif sensör 15
-                            _aktifSensor(15, oran),
+                            _aktifSensor(15, oran,dbProkis),
                           ],
                         ),
                       ),
@@ -423,9 +426,9 @@ class KalibrasyonState extends State<Kalibrasyon> {
                         child: Column(
                           children: <Widget>[
                             //Aktif sensör 1
-                            _aktifSensorNem(1, oran),
+                            _aktifSensorNem(1, oran,dbProkis),
                             //Aktif sensör 2
-                            _aktifSensorNem(2, oran),
+                            _aktifSensorNem(2, oran,dbProkis),
                             Spacer(flex: 1),
                           ],
                         ),
@@ -680,7 +683,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -747,7 +750,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
         String komut="18*$isisensorBaglanti*$id*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           }
@@ -762,7 +765,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
         String komut="19*$indexVeri*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           }
@@ -772,7 +775,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
         String komut="19*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           }
@@ -785,7 +788,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
   }
 
 
-  Widget _aktifSensor(int index, double oran) {
+  Widget _aktifSensor(int index, double oran, DBProkis dbProkis) {
     return Expanded(
       child: Visibility(
         visible: aktifSensorVisibility[index],
@@ -890,7 +893,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv438",
-                                                          "").then((value) {
+                                                          "",dbProkis).then((value) {
                                                             bottomDrawerIcindeGuncelle(state);
                                                           });
                                                     },
@@ -982,7 +985,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv439",
-                                                          "").then((value) {
+                                                          "",dbProkis).then((value) {
                                                             bottomDrawerIcindeGuncelle((fn) { });
                                                           });
                                                     },
@@ -1087,7 +1090,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
     );
   }
 
-Widget _aktifSensorNem(int index, double oran) {
+Widget _aktifSensorNem(int index, double oran, DBProkis dbProkis) {
     return Expanded(
       child: Visibility(
         visible: index==1 ? true : (disNemAktif=="1" ? true : false),
@@ -1188,7 +1191,7 @@ Widget _aktifSensorNem(int index, double oran) {
                                                           oran,
                                                           dilSecimi,
                                                           "tv441",
-                                                          "").then((value) {
+                                                          "",dbProkis).then((value) {
                                                             bottomDrawerIcindeGuncelle(state);
                                                           });
                                                     },
@@ -1281,7 +1284,7 @@ Widget _aktifSensorNem(int index, double oran) {
                                                           oran,
                                                           dilSecimi,
                                                           "tv439",
-                                                          "").then((value) {
+                                                          "",dbProkis).then((value) {
                                                             bottomDrawerIcindeGuncelle((fn) { });
                                                           });
                                                     },

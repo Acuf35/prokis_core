@@ -4,8 +4,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
+import 'package:provider/provider.dart';
 
 class Alarm extends StatefulWidget {
   List<Map> gelenDBveri;
@@ -54,6 +56,7 @@ class AlarmState extends State<Alarm> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     //++++++++++++++++++++++++++EKRAN BÜYÜKLÜĞÜ ORANI+++++++++++++++++++++++++++++++
     var oran = MediaQuery.of(context).size.width / 731.4;
 //--------------------------EKRAN BÜYÜKLÜĞÜ ORANI--------------------------------

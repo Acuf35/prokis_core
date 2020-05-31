@@ -7,7 +7,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -90,12 +92,13 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
 
       Metotlar().takipEt('8*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -114,7 +117,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
           Metotlar().takipEt('8*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -250,19 +253,19 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                           ),
                           Visibility(
                               visible: int.parse(klepeAdet) > 0,
-                              child: _klepeKlasikUnsur(oran, 1)),
+                              child: _klepeKlasikUnsur(oran, 1,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 1,
-                              child: _klepeKlasikUnsur(oran, 2)),
+                              child: _klepeKlasikUnsur(oran, 2,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 2,
-                              child: _klepeKlasikUnsur(oran, 3)),
+                              child: _klepeKlasikUnsur(oran, 3,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 3,
-                              child: _klepeKlasikUnsur(oran, 4)),
+                              child: _klepeKlasikUnsur(oran, 4,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 4,
-                              child: _klepeKlasikUnsur(oran, 5)),
+                              child: _klepeKlasikUnsur(oran, 5,dbProkis)),
                           Spacer(
                             flex: 4,
                             
@@ -349,19 +352,19 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                           ),
                           Visibility(
                               visible: int.parse(klepeAdet) > 5,
-                              child: _klepeKlasikUnsur(oran, 6)),
+                              child: _klepeKlasikUnsur(oran, 6,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 6,
-                              child: _klepeKlasikUnsur(oran, 7)),
+                              child: _klepeKlasikUnsur(oran, 7,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 7,
-                              child: _klepeKlasikUnsur(oran, 8)),
+                              child: _klepeKlasikUnsur(oran, 8,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 8,
-                              child: _klepeKlasikUnsur(oran, 9)),
+                              child: _klepeKlasikUnsur(oran, 9,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 9,
-                              child: _klepeKlasikUnsur(oran, 10)),
+                              child: _klepeKlasikUnsur(oran, 10,dbProkis)),
                           Spacer(
                             flex: 4,
                           )
@@ -544,7 +547,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
     
   }
  
-  Widget _klepeKlasikUnsur(double oran, int klepeNo) {
+  Widget _klepeKlasikUnsur(double oran, int klepeNo,DBProkis dbProkis) {
     return Expanded(
       flex: 5,
       child: Column(
@@ -565,7 +568,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                           String komut='9*$klepeNo';
                           Metotlar().veriGonder(komut, 2235).then((value){
                             if(value.split("*")[0]=="error"){
-                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                             }else{
                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                               
@@ -573,7 +576,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                               Metotlar().takipEt('8*', 2236).then((veri){
                                   if(veri.split("*")[0]=="error"){
                                     baglanti=false;
-                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                     setState(() {});
                                   }else{
                                     takipEtVeriIsleme(veri);
@@ -598,7 +601,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                             String komut='8*$klepeNo';
                             Metotlar().veriGonder(komut, 2235).then((value){
                               if(value.split("*")[0]=="error"){
-                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                               }else{
                                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                 
@@ -606,7 +609,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
                                 Metotlar().takipEt('8*', 2236).then((veri){
                                     if(veri.split("*")[0]=="error"){
                                       baglanti=false;
-                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                       setState(() {});
                                     }else{
                                       takipEtVeriIsleme(veri);

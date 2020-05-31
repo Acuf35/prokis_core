@@ -8,8 +8,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -101,6 +103,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
 
 
     if (timerSayac == 0) {
@@ -108,7 +111,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
       Metotlar().takipEt('2*$fanAdet', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -128,7 +131,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
           Metotlar().takipEt('2*$fanAdet', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -248,7 +251,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                               _index,
                                               oran,
                                               dilSecimi,
-                                              "tv115","");
+                                              "tv115","",dbProkis);
 
                                       },
                                       child: Stack(
@@ -341,7 +344,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                             _index,
                                             oran,
                                             dilSecimi,
-                                            "tv126","");
+                                            "tv126","",dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -440,50 +443,50 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F1 :", fanSet[1].toString(),fanAdet, oran,1),
+                                                                          _fanSetUnsur(state ,"F1 :", fanSet[1].toString(),fanAdet, oran,1,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F2 :", fanSet[2].toString(),fanAdet, oran,2),
+                                                                          _fanSetUnsur(state ,"F2 :", fanSet[2].toString(),fanAdet, oran,2,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F3 :", fanSet[3].toString(),fanAdet, oran,3),
+                                                                          _fanSetUnsur(state ,"F3 :", fanSet[3].toString(),fanAdet, oran,3,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F4 :", fanSet[4].toString(),fanAdet, oran,4),
+                                                                          _fanSetUnsur(state ,"F4 :", fanSet[4].toString(),fanAdet, oran,4,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F5 :", fanSet[5].toString(),fanAdet, oran,5),
+                                                                          _fanSetUnsur(state ,"F5 :", fanSet[5].toString(),fanAdet, oran,5,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F6 :", fanSet[6].toString(),fanAdet, oran,6),
+                                                                          _fanSetUnsur(state ,"F6 :", fanSet[6].toString(),fanAdet, oran,6,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F7 :", fanSet[7].toString(),fanAdet, oran,7),
+                                                                          _fanSetUnsur(state ,"F7 :", fanSet[7].toString(),fanAdet, oran,7,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F8 :", fanSet[8].toString(),fanAdet, oran,8),
+                                                                          _fanSetUnsur(state ,"F8 :", fanSet[8].toString(),fanAdet, oran,8,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F9 :", fanSet[9].toString(),fanAdet, oran,9),
+                                                                          _fanSetUnsur(state ,"F9 :", fanSet[9].toString(),fanAdet, oran,9,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F10: ", fanSet[10].toString(),fanAdet, oran,10),
+                                                                          _fanSetUnsur(state ,"F10: ", fanSet[10].toString(),fanAdet, oran,10,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F11:", fanSet[11].toString(),fanAdet, oran,11),
+                                                                          _fanSetUnsur(state ,"F11:", fanSet[11].toString(),fanAdet, oran,11,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F12:", fanSet[12].toString(),fanAdet, oran,12),
+                                                                          _fanSetUnsur(state ,"F12:", fanSet[12].toString(),fanAdet, oran,12,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F13:", fanSet[13].toString(),fanAdet, oran,13),
+                                                                          _fanSetUnsur(state ,"F13:", fanSet[13].toString(),fanAdet, oran,13,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F14:", fanSet[14].toString(),fanAdet, oran,14),
+                                                                          _fanSetUnsur(state ,"F14:", fanSet[14].toString(),fanAdet, oran,14,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F15:", fanSet[15].toString(),fanAdet, oran,15),
+                                                                          _fanSetUnsur(state ,"F15:", fanSet[15].toString(),fanAdet, oran,15,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F16:", fanSet[16].toString(),fanAdet, oran,16),
+                                                                          _fanSetUnsur(state ,"F16:", fanSet[16].toString(),fanAdet, oran,16,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F17:", fanSet[17].toString(),fanAdet, oran,17),
+                                                                          _fanSetUnsur(state ,"F17:", fanSet[17].toString(),fanAdet, oran,17,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F18:", fanSet[18].toString(),fanAdet, oran,18),
+                                                                          _fanSetUnsur(state ,"F18:", fanSet[18].toString(),fanAdet, oran,18,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F19:", fanSet[19].toString(),fanAdet, oran,19),
+                                                                          _fanSetUnsur(state ,"F19:", fanSet[19].toString(),fanAdet, oran,19,dbProkis),
                                                                           Spacer(),
-                                                                          _fanSetUnsur(state ,"F20:", fanSet[20].toString(),fanAdet, oran,20),
+                                                                          _fanSetUnsur(state ,"F20:", fanSet[20].toString(),fanAdet, oran,20,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -491,25 +494,25 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F21:", fanSet[21].toString(),fanAdet, oran,21),
+                                                                            _fanSetUnsur(state ,"F21:", fanSet[21].toString(),fanAdet, oran,21,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F22:", fanSet[22].toString(),fanAdet, oran,22),
+                                                                            _fanSetUnsur(state ,"F22:", fanSet[22].toString(),fanAdet, oran,22,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F23:", fanSet[23].toString(),fanAdet, oran,23),
+                                                                            _fanSetUnsur(state ,"F23:", fanSet[23].toString(),fanAdet, oran,23,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F24:", fanSet[24].toString(),fanAdet, oran,24),
+                                                                            _fanSetUnsur(state ,"F24:", fanSet[24].toString(),fanAdet, oran,24,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F25:", fanSet[25].toString(),fanAdet, oran,25),
+                                                                            _fanSetUnsur(state ,"F25:", fanSet[25].toString(),fanAdet, oran,25,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F26:", fanSet[26].toString(),fanAdet, oran,26),
+                                                                            _fanSetUnsur(state ,"F26:", fanSet[26].toString(),fanAdet, oran,26,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F27:", fanSet[27].toString(),fanAdet, oran,27),
+                                                                            _fanSetUnsur(state ,"F27:", fanSet[27].toString(),fanAdet, oran,27,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F28:", fanSet[28].toString(),fanAdet, oran,28),
+                                                                            _fanSetUnsur(state ,"F28:", fanSet[28].toString(),fanAdet, oran,28,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F29:", fanSet[29].toString(),fanAdet, oran,29),
+                                                                            _fanSetUnsur(state ,"F29:", fanSet[29].toString(),fanAdet, oran,29,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F30:", fanSet[30].toString(),fanAdet, oran,30),
+                                                                            _fanSetUnsur(state ,"F30:", fanSet[30].toString(),fanAdet, oran,30,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -518,25 +521,25 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F31:", fanSet[31].toString(),fanAdet, oran,31),
+                                                                            _fanSetUnsur(state ,"F31:", fanSet[31].toString(),fanAdet, oran,31,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F32:", fanSet[32].toString(),fanAdet, oran,32),
+                                                                            _fanSetUnsur(state ,"F32:", fanSet[32].toString(),fanAdet, oran,32,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F33:", fanSet[33].toString(),fanAdet, oran,33),
+                                                                            _fanSetUnsur(state ,"F33:", fanSet[33].toString(),fanAdet, oran,33,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F34:", fanSet[34].toString(),fanAdet, oran,34),
+                                                                            _fanSetUnsur(state ,"F34:", fanSet[34].toString(),fanAdet, oran,34,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F35:", fanSet[35].toString(),fanAdet, oran,35),
+                                                                            _fanSetUnsur(state ,"F35:", fanSet[35].toString(),fanAdet, oran,35,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F36:", fanSet[36].toString(),fanAdet, oran,36),
+                                                                            _fanSetUnsur(state ,"F36:", fanSet[36].toString(),fanAdet, oran,36,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F37:", fanSet[37].toString(),fanAdet, oran,37),
+                                                                            _fanSetUnsur(state ,"F37:", fanSet[37].toString(),fanAdet, oran,37,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F38:", fanSet[38].toString(),fanAdet, oran,38),
+                                                                            _fanSetUnsur(state ,"F38:", fanSet[38].toString(),fanAdet, oran,38,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F39:", fanSet[39].toString(),fanAdet, oran,39),
+                                                                            _fanSetUnsur(state ,"F39:", fanSet[39].toString(),fanAdet, oran,39,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F40:", fanSet[40].toString(),fanAdet, oran,40),
+                                                                            _fanSetUnsur(state ,"F40:", fanSet[40].toString(),fanAdet, oran,40,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -545,25 +548,25 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F41:", fanSet[41].toString(),fanAdet, oran,41),
+                                                                            _fanSetUnsur(state ,"F41:", fanSet[41].toString(),fanAdet, oran,41,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F42:", fanSet[42].toString(),fanAdet, oran,42),
+                                                                            _fanSetUnsur(state ,"F42:", fanSet[42].toString(),fanAdet, oran,42,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F43:", fanSet[43].toString(),fanAdet, oran,43),
+                                                                            _fanSetUnsur(state ,"F43:", fanSet[43].toString(),fanAdet, oran,43,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F44:", fanSet[44].toString(),fanAdet, oran,44),
+                                                                            _fanSetUnsur(state ,"F44:", fanSet[44].toString(),fanAdet, oran,44,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F45:", fanSet[45].toString(),fanAdet, oran,45),
+                                                                            _fanSetUnsur(state ,"F45:", fanSet[45].toString(),fanAdet, oran,45,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F46:", fanSet[46].toString(),fanAdet, oran,46),
+                                                                            _fanSetUnsur(state ,"F46:", fanSet[46].toString(),fanAdet, oran,46,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F47:", fanSet[47].toString(),fanAdet, oran,47),
+                                                                            _fanSetUnsur(state ,"F47:", fanSet[47].toString(),fanAdet, oran,47,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F48:", fanSet[48].toString(),fanAdet, oran,48),
+                                                                            _fanSetUnsur(state ,"F48:", fanSet[48].toString(),fanAdet, oran,48,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F49:", fanSet[49].toString(),fanAdet, oran,49),
+                                                                            _fanSetUnsur(state ,"F49:", fanSet[49].toString(),fanAdet, oran,49,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F50:", fanSet[50].toString(),fanAdet, oran,50),
+                                                                            _fanSetUnsur(state ,"F50:", fanSet[50].toString(),fanAdet, oran,50,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -572,25 +575,25 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F51:", fanSet[51].toString(),fanAdet, oran,51),
+                                                                            _fanSetUnsur(state ,"F51:", fanSet[51].toString(),fanAdet, oran,51,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F52:", fanSet[52].toString(),fanAdet, oran,52),
+                                                                            _fanSetUnsur(state ,"F52:", fanSet[52].toString(),fanAdet, oran,52,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F53:", fanSet[53].toString(),fanAdet, oran,53),
+                                                                            _fanSetUnsur(state ,"F53:", fanSet[53].toString(),fanAdet, oran,53,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F54:", fanSet[54].toString(),fanAdet, oran,54),
+                                                                            _fanSetUnsur(state ,"F54:", fanSet[54].toString(),fanAdet, oran,54,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F55:", fanSet[55].toString(),fanAdet, oran,55),
+                                                                            _fanSetUnsur(state ,"F55:", fanSet[55].toString(),fanAdet, oran,55,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F56:", fanSet[56].toString(),fanAdet, oran,56),
+                                                                            _fanSetUnsur(state ,"F56:", fanSet[56].toString(),fanAdet, oran,56,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F57:", fanSet[57].toString(),fanAdet, oran,57),
+                                                                            _fanSetUnsur(state ,"F57:", fanSet[57].toString(),fanAdet, oran,57,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F58:", fanSet[58].toString(),fanAdet, oran,58),
+                                                                            _fanSetUnsur(state ,"F58:", fanSet[58].toString(),fanAdet, oran,58,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F59:", fanSet[59].toString(),fanAdet, oran,59),
+                                                                            _fanSetUnsur(state ,"F59:", fanSet[59].toString(),fanAdet, oran,59,dbProkis),
                                                                             Spacer(),
-                                                                            _fanSetUnsur(state ,"F60:", fanSet[60].toString(),fanAdet, oran,60),
+                                                                            _fanSetUnsur(state ,"F60:", fanSet[60].toString(),fanAdet, oran,60,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -941,7 +944,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -994,7 +997,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
         String komut="2*$setSicA*$dogalBolgeB*$gonderilecekFanIndex*$gonderilecekFanSet";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1002,7 +1005,7 @@ class SicVeFanKlasikNormalState extends State<SicVeFanKlasikNormal> {
             Metotlar().takipEt('2*$fanAdet', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1093,7 +1096,7 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
   }
  
 
-  Widget _fanSetUnsur(var state,String fanBaslik, String fanSetDeger, String fanAdet,double oran, int fanNo,  ){
+  Widget _fanSetUnsur(var state,String fanBaslik, String fanSetDeger, String fanAdet,double oran, int fanNo, DBProkis dbProkis  ){
 
     return Expanded(flex: 10,
       child: Visibility(visible: int.parse(fanAdet)>=fanNo, maintainAnimation: true,maintainState: true,maintainSize: true,
@@ -1123,7 +1126,7 @@ static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataKlasikNor
                   _index,
                   oran,
                   dilSecimi,
-                  "tv115","Fan $fanNo ").then((onValue){
+                  "tv115","Fan $fanNo ",dbProkis).then((onValue){
                     bottomDrawerIcindeGuncelle(state);
                   });
 

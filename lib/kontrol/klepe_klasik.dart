@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -105,12 +107,13 @@ class KlepeKlasikState extends State<KlepeKlasik> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
 
       Metotlar().takipEt('6*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -129,7 +132,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
           Metotlar().takipEt('6*', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -305,11 +308,11 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                               ],
                             ),
                           ),
-                          Visibility(visible: int.parse(klepeAdet)>0,child: _klepeKlasikUnsur(oran, 1)),
-                          Visibility(visible: int.parse(klepeAdet)>1,child: _klepeKlasikUnsur(oran, 2)),
-                          Visibility(visible: int.parse(klepeAdet)>2,child: _klepeKlasikUnsur(oran, 3)),
-                          Visibility(visible: int.parse(klepeAdet)>3,child: _klepeKlasikUnsur(oran, 4)),
-                          Visibility(visible: int.parse(klepeAdet)>4,child: _klepeKlasikUnsur(oran, 5)),
+                          Visibility(visible: int.parse(klepeAdet)>0,child: _klepeKlasikUnsur(oran, 1,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>1,child: _klepeKlasikUnsur(oran, 2,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>2,child: _klepeKlasikUnsur(oran, 3,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>3,child: _klepeKlasikUnsur(oran, 4,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>4,child: _klepeKlasikUnsur(oran, 5,dbProkis)),
                           Expanded(
                             flex: 4,
                             child: Row(
@@ -505,11 +508,11 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                               ),
                             ),
                           ),
-                          Visibility(visible: int.parse(klepeAdet)>5,child: _klepeKlasikUnsur(oran, 6)),
-                          Visibility(visible: int.parse(klepeAdet)>6,child: _klepeKlasikUnsur(oran, 7)),
-                          Visibility(visible: int.parse(klepeAdet)>7,child: _klepeKlasikUnsur(oran, 8)),
-                          Visibility(visible: int.parse(klepeAdet)>8,child: _klepeKlasikUnsur(oran, 9)),
-                          Visibility(visible: int.parse(klepeAdet)>9,child: _klepeKlasikUnsur(oran, 10)),
+                          Visibility(visible: int.parse(klepeAdet)>5,child: _klepeKlasikUnsur(oran, 6,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>6,child: _klepeKlasikUnsur(oran, 7,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>7,child: _klepeKlasikUnsur(oran, 8,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>8,child: _klepeKlasikUnsur(oran, 9,dbProkis)),
+                          Visibility(visible: int.parse(klepeAdet)>9,child: _klepeKlasikUnsur(oran, 10,dbProkis)),
                           Spacer(
                             flex: 4,
                           )
@@ -923,7 +926,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
   }
 
   Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int paramIndex,
-      double oran, String dil, String baslik) async {
+      double oran, String dil, String baslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -979,7 +982,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
         String komut='6*$klepeIndex*$veri';
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -987,7 +990,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
             Metotlar().takipEt('6*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1006,7 +1009,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
 
 
   Future _degergiris3X0(int yuzler , onlar , birler, klepeIndex,paramIndex, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1064,7 +1067,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
         String komut='6*$klepeIndex*$veri';
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1072,7 +1075,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
             Metotlar().takipEt('6*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1234,7 +1237,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
   }
  
 
-  Widget _klepeKlasikUnsur(double oran, int klepeNo) {
+  Widget _klepeKlasikUnsur(double oran, int klepeNo, DBProkis dbProkis) {
     return Expanded(
       flex: 5,
       child: Column(
@@ -1304,7 +1307,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 1, oran, dilSecimi, "tv200").then((onValue){
+                                                                  _degergiris2X0(_onlar, _birler, _index, 1, oran, dilSecimi, "tv200",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                   
@@ -1346,7 +1349,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 5, oran, dilSecimi, "tv204","").then((onValue){
+                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 5, oran, dilSecimi, "tv204","",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                 },
@@ -1392,7 +1395,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 2, oran, dilSecimi, "tv201").then((onValue){
+                                                                  _degergiris2X0(_onlar, _birler, _index, 2, oran, dilSecimi, "tv201",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                   
@@ -1435,7 +1438,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _birler=sayi%10;
                                                                   print("$_yuzler  , $_onlar  , $_birler");
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 6, oran, dilSecimi, "tv205","").then((onValue){
+                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 6, oran, dilSecimi, "tv205","",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                 },
@@ -1482,7 +1485,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 3, oran, dilSecimi, "tv202").then((onValue){
+                                                                  _degergiris2X0(_onlar, _birler, _index, 3, oran, dilSecimi, "tv202",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                   
@@ -1525,7 +1528,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _birler=sayi%10;
                                                                   print("$_yuzler  , $_onlar  , $_birler");
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 7, oran, dilSecimi, "tv206","").then((onValue){
+                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 7, oran, dilSecimi, "tv206","",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                 },
@@ -1571,7 +1574,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 4, oran, dilSecimi, "tv203").then((onValue){
+                                                                  _degergiris2X0(_onlar, _birler, _index, 4, oran, dilSecimi, "tv203",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                   
@@ -1614,7 +1617,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _birler=sayi%10;
                                                                   print("$_yuzler  , $_onlar  , $_birler");
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 8, oran, dilSecimi, "tv207","").then((onValue){
+                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 8, oran, dilSecimi, "tv207","",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                 },
@@ -1661,7 +1664,7 @@ class KlepeKlasikState extends State<KlepeKlasik> {
                                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                                   _birler=sayi%10;
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 9, oran, dilSecimi, "tv199","").then((onValue){
+                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 9, oran, dilSecimi, "tv199","",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                 },

@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -97,12 +99,13 @@ class MinHavKlasikState extends State<MinHavKlasik> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
       
       Metotlar().takipEt('13*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -121,7 +124,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
           Metotlar().takipEt('13*', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -264,7 +267,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv311",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -380,7 +383,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv310",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -496,7 +499,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv309",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -665,7 +668,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                             oran,
                                                             dilSecimi,
                                                             "tv315",
-                                                            "");
+                                                            "",dbProkis);
                                                       },
                                                       child: Stack(
                                                         alignment:
@@ -761,7 +764,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                             oran,
                                                             dilSecimi,
                                                             "tv314",
-                                                            "");
+                                                            "",dbProkis);
                                                       },
                                                       child: Stack(
                                                         alignment:
@@ -857,7 +860,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                             oran,
                                                             dilSecimi,
                                                             "tv313",
-                                                            "");
+                                                            "",dbProkis);
                                                       },
                                                       child: Stack(
                                                         alignment:
@@ -953,7 +956,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                             oran,
                                                             dilSecimi,
                                                             "tv312",
-                                                            "");
+                                                            "",dbProkis);
                                                       },
                                                       child: Stack(
                                                         alignment:
@@ -1063,7 +1066,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv319",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -1157,7 +1160,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv318",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -1251,7 +1254,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv317",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -1345,7 +1348,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                                           oran,
                                                           dilSecimi,
                                                           "tv316",
-                                                          "");
+                                                          "",dbProkis);
                                                     },
                                                     child: Stack(
                                                       alignment:
@@ -1435,7 +1438,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                         String komut="14*$_index*$veri";
                                         Metotlar().veriGonder(komut, 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             
@@ -1443,7 +1446,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                             Metotlar().takipEt('13*', 2236).then((veri){
                                                 if(veri.split("*")[0]=="error"){
                                                   baglanti=false;
-                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                   setState(() {});
                                                 }else{
                                                   takipEtVeriIsleme(veri);
@@ -1496,7 +1499,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                         String komut="14*$_index*$veri";
                                         Metotlar().veriGonder(komut, 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             
@@ -1504,7 +1507,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                             Metotlar().takipEt('13*', 2236).then((veri){
                                                 if(veri.split("*")[0]=="error"){
                                                   baglanti=false;
-                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                   setState(() {});
                                                 }else{
                                                   takipEtVeriIsleme(veri);
@@ -1557,7 +1560,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                         String komut="14*$_index*$veri";
                                         Metotlar().veriGonder(komut, 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             
@@ -1565,7 +1568,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                             Metotlar().takipEt('13*', 2236).then((veri){
                                                 if(veri.split("*")[0]=="error"){
                                                   baglanti=false;
-                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                   setState(() {});
                                                 }else{
                                                   takipEtVeriIsleme(veri);
@@ -1618,7 +1621,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                         String komut="14*$_index*$veri";
                                         Metotlar().veriGonder(komut, 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             
@@ -1626,7 +1629,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
                                             Metotlar().takipEt('13*', 2236).then((veri){
                                                 if(veri.split("*")[0]=="error"){
                                                   baglanti=false;
-                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                   setState(() {});
                                                 }else{
                                                   takipEtVeriIsleme(veri);
@@ -2127,7 +2130,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
   }
 
   Future _degergiris3X0(int yuzler , onlar , birler, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -2201,7 +2204,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
         String komut="14*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2209,7 +2212,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
             Metotlar().takipEt('13*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -2227,7 +2230,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
 
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik, onBaslik) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -2279,7 +2282,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
         String komut="14*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2287,7 +2290,7 @@ class MinHavKlasikState extends State<MinHavKlasik> {
             Metotlar().takipEt('13*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);

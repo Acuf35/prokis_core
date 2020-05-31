@@ -711,6 +711,14 @@ class Dil{
     kod=="tv688" ? metin='SİSTEM DURUYOR' : null;
     kod=="tv689" ? metin='Kurulum Revizyon Numarası' : null;
     kod=="tv690" ? metin='SİSTEM\nSTART-STOP' : null;
+    kod=="tv691" ? metin='BAĞLANTI DURUMU' : null;
+    kod=="tv692" ? metin='Bağlantı hatası!' : null;
+    kod=="tv693" ? metin='Bağlantı zaman aşımına uğradı!' : null;
+    kod=="tv694" ? metin='Bağlantı reddedildi!' : null;
+    kod=="tv695" ? metin='HATAYI RESETLE' : null;
+    kod=="tv696" ? metin='Bilinmeyen hata oluştu!' : null;
+    kod=="tv697" ? metin='PLC ve Server PC arasındaki bağlantı kaptu!' : null;
+    kod=="tv698" ? metin='Hata Kodu' : null;
    
 
     
@@ -861,6 +869,7 @@ class Dil{
     kod=="toast95" ? metin='Tüm girişler otomatik olarak sırayla atandı' : null;
     kod=="toast96" ? metin='Aynı Bacafan No iki farklı bacafan için tanımlanmış! Lütfen kontrol ediniz' : null;
     kod=="toast97" ? metin='Tanımlanmamış çıkış var! Lütfen aktif tüm çıkışlar için atama yapınız' : null;
+    kod=="toast98" ? metin='Hata hala aktif, o yüzden resetlenemez!' : null;
     
 
 
@@ -1582,6 +1591,14 @@ class Dil{
     ' otomatik moda almadan önce sistem bu sayfadan başlatılmalıdır. Aksi taktirde sistemde hiçbir şey çalışmaz.\n\n'  : null;
 
 
+    //BAĞLANTI DURUMU
+    kod=="info49" ? metin='    Sistemi kontrol eden unsurların birbiri ile haberleşmesini sağlayan ağda bir haberleşme'
+    ' hatası olması durumunda hatalar bu sayfada listelenir. Listelenen hatalar üzerinde hata zamanı, hatanın meydana geldiği'
+    ' ilk zamanı gösterir. Listelenen hatalar üzerine tıklandığında hata kodları ve çözüm önerileri bilgilerini görüntüleyebilirsiniz.'
+    ' hata giderildikten sonra listedeki kırmızı renkli bağlantı ikonu yeşil olacaktır. Bu durumdayken "HATAYI RESETLE" butonuna'
+    ' tıklayarak hatayı listeden kaldırabilirsiniz, ikon yeşil olmadan hatayı listeden kaldıramazsınız.\n\n'  : null;
+
+
 
 
     //KISALTMALAR
@@ -2301,6 +2318,51 @@ class Dil{
     kod=="tv652" ? metin='RemainingT.(Sn): ' : null;
     kod=="tv653" ? metin='SIRC.FAN' : null;
     kod=="tv654" ? metin='MANUAL CONTROL OF SIRC. FAN' : null;
+
+    
+    kod=="tv656" ? metin='Air inlet isn\'t active\nin the system' : null;
+    kod=="tv657" ? metin='Chimney fan\nisn\'t active\nin the system' : null;
+    kod=="tv658" ? metin='Heater\nisn\'t active\nin the system' : null;
+    kod=="tv659" ? metin='Feeding\nisn\'t active\nin the system' : null;
+    kod=="tv660" ? metin='Sirc. fan\nisn\'t active\nin the system' : null;
+    kod=="tv661" ? metin='Average Temprerature' : null;
+    kod=="tv662" ? metin='Air  Velocity (m/sec)' : null;
+    kod=="tv663" ? metin='OPTION 5' : null;
+    kod=="tv664" ? metin='Reset Time for\nDaily Watermeter Data' : null;
+    kod=="tv665" ? metin='Max.Meas. Nem' : null;
+    kod=="tv666" ? metin='Min.Meas. Nem' : null;
+    kod=="tv667" ? metin='Max.Hum Time' : null;
+    kod=="tv668" ? metin='Min.Hum Time' : null;
+    kod=="tv669" ? metin='OPTION 6' : null;
+    kod=="tv670" ? metin='Reset Time for Daily Measured\nMin-Max Temp and Hum Data' : null;
+    kod=="tv671" ? metin='OPTION 7' : null;
+    kod=="tv672" ? metin='Reset Time for Daily\nFeed Consumption data' : null;
+    kod=="tv673" ? metin='ABBREVIATIONS:' : null;
+    kod=="tv674" ? metin='Mortality (%)' : null;
+    kod=="tv675" ? metin='Actuel Animal Count' : null;
+    kod=="tv676" ? metin='OPTION 3' : null;
+    kod=="tv677" ? metin='SOFTWARE' : null;
+    kod=="tv678" ? metin='Software Definition' : null;
+    kod=="tv679" ? metin='Programmable Poultry Air Conditioning System \nLocal Panel HMI Software' : null;
+    kod=="tv680" ? metin='Software Name' : null;
+    kod=="tv681" ? metin='PROKIS CORE' : null;
+    kod=="tv682" ? metin='Version Number' : null;
+    kod=="tv683" ? metin='PCV 1.0.0' : null;
+    kod=="tv684" ? metin='SYSTEM START-STOP' : null;
+    kod=="tv685" ? metin='System Start or Stop' : null;
+    kod=="tv686" ? metin='System State' : null;
+    kod=="tv687" ? metin='SYSTEM WORKING' : null;
+    kod=="tv688" ? metin='SYSTEM STOPS' : null;
+    kod=="tv689" ? metin='Istallation Revision Number' : null;
+    kod=="tv690" ? metin='SYSTEM\nSTART-STOP' : null;
+    kod=="tv691" ? metin='CONNECTION STATE' : null;
+    kod=="tv692" ? metin='Connection error!' : null;
+    kod=="tv693" ? metin='The connection is timed out!' : null;
+    kod=="tv694" ? metin='Connection Refused!' : null;
+    kod=="tv695" ? metin='RESET ERROR' : null;
+    kod=="tv696" ? metin='Unknown error occured!' : null;
+    kod=="tv697" ? metin='Connection fault between PLC and Server PC!' : null;
+    kod=="tv698" ? metin='Error Code' : null;
     
     
 
@@ -2461,7 +2523,7 @@ class Dil{
     kod=="toast95" ? metin='All inputs are signed automatically in order' : null;
     kod=="toast96" ? metin='Same Chimney Fan Number assigned for two different chimney fan! Please check.' : null;
     kod=="toast97" ? metin='There is undefine output! Please define a valid output for all elements' : null;
-
+    kod=="toast98" ? metin='The error is still active, it can\'t reset' : null;
     //endregion
 
     return metin;

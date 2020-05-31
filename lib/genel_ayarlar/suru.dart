@@ -9,8 +9,10 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -117,12 +119,13 @@ class SuruBilgisiState extends State<SuruBilgisi> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
 
       Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -143,7 +146,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
 
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -302,7 +305,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                 String komut='16*$_index*$gun*$ayy*$yil';
                                                 Metotlar().veriGonder(komut, 2235).then((value){
                                                   if(value.split("*")[0]=="error"){
-                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                     
@@ -310,7 +313,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                     Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
                                                         if(veri.split("*")[0]=="error"){
                                                           baglanti=false;
-                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                           setState(() {});
                                                         }else{
                                                           takipEtVeriIsleme(veri);
@@ -441,7 +444,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                 String komut='16*$_index*$gun*$ayy*$yil';
                                                 Metotlar().veriGonder(komut, 2235).then((value){
                                                   if(value.split("*")[0]=="error"){
-                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                     
@@ -449,7 +452,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                     Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
                                                         if(veri.split("*")[0]=="error"){
                                                           baglanti=false;
-                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                           setState(() {});
                                                         }else{
                                                           takipEtVeriIsleme(veri);
@@ -562,7 +565,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                 oran,
                                                 dilSecimi,
                                                 "tv417",
-                                                "");
+                                                "",dbProkis);
                                           },
                                           fillColor: Colors.cyan[900],
                                           elevation: 16,
@@ -700,7 +703,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                                                     _birler = sayi % 10;
                                                                                     _index = 2;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "").then((onValue){
+                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                                   },
@@ -738,7 +741,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                                                     _birler = sayi % 10;
                                                                                     _index = 3;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "").then((onValue){
+                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                                   },
@@ -789,7 +792,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                                                     _birler = sayi % 10;
                                                                                     _index = 4;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "").then((onValue){
+                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                                   },
@@ -827,7 +830,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                                                     _birler = sayi % 10;
                                                                                     _index = 5;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "").then((onValue){
+                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                                   },
@@ -878,7 +881,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                                                     _birler = sayi % 10;
                                                                                     _index = 6;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "").then((onValue){
+                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                                   },
@@ -916,7 +919,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                                                                     _birler = sayi % 10;
                                                                                     _index = 7;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "").then((onValue){
+                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
                                                                     bottomDrawerIcindeGuncelle(state);
                                                                   });
                                                                                   },
@@ -1089,7 +1092,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                     width: 1 * oran,
                     color: Colors.black,
                   ),
-                  _minHavDefaultUnsur(kumesTuru, oran),
+                  _minHavDefaultUnsur(kumesTuru, oran,dbProkis),
                 ],
               ),
             )
@@ -1267,7 +1270,8 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       double oran,
       String dil,
       String baslik,
-      String onBaslik) async {
+      String onBaslik,
+      DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1395,7 +1399,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       String komut='16*$_index*$veri';
       Metotlar().veriGonder(komut, 2235).then((value){
         if(value.split("*")[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
         }else{
           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           
@@ -1403,7 +1407,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
           Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -1427,7 +1431,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       double oran,
       String dil,
       String baslik,
-      String onBaslik) async {
+      String onBaslik,DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1552,7 +1556,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       String komut="16*$_index*$kumesTuru*$veri";
       Metotlar().veriGonder(komut, 2235).then((value){
         if(value.split("*")[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
         }else{
           Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           
@@ -1560,7 +1564,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
           Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
               if(veri.split("*")[0]=="error"){
                 baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                 setState(() {});
               }else{
                 takipEtVeriIsleme(veri);
@@ -1628,7 +1632,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
     
   }
  
-  Widget _minHavDefaultUnsur(String kTuru, double oran) {
+  Widget _minHavDefaultUnsur(String kTuru, double oran,DBProkis dbProkis) {
     Widget widget;
 
     if (kTuru == "1") {
@@ -1702,7 +1706,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv290",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -1777,7 +1781,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv291",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -1852,7 +1856,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv292",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -1899,7 +1903,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                           String komut="16*21*$kumesTuru*0.95*1.10*1.20";
                           Metotlar().veriGonder(komut, 2235).then((value){
                             if(value.split("*")[0]=="error"){
-                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                             }else{
                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                               
@@ -1907,7 +1911,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                               Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
                                   if(veri.split("*")[0]=="error"){
                                     baglanti=false;
-                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                     setState(() {});
                                   }else{
                                     takipEtVeriIsleme(veri);
@@ -2006,7 +2010,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv280",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2079,7 +2083,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv281",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2154,7 +2158,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv282",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2240,7 +2244,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv283",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2315,7 +2319,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv284",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2390,7 +2394,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv285",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2476,7 +2480,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv286",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2551,7 +2555,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                                       oran,
                                       dilSecimi,
                                       "tv287",
-                                      "");
+                                      "",dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2596,7 +2600,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                           String komut="16*21*$kumesTuru*0.16*0.42*0.59*0.84*0.93*1.18*1.35*1.52";
                           Metotlar().veriGonder(komut, 2235).then((value){
                             if(value.split("*")[0]=="error"){
-                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                              Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                             }else{
                               Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                               
@@ -2604,7 +2608,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                               Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
                                   if(veri.split("*")[0]=="error"){
                                     baglanti=false;
-                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                     setState(() {});
                                   }else{
                                     takipEtVeriIsleme(veri);

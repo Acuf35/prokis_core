@@ -117,7 +117,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                 if(degerler[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                   provider.dinlemeyiTetikle();
                 }else{
                   provider.otoTFAN=degerler[0]=="True" ? true : false;
@@ -153,7 +153,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                 if(degerler[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                   provider.dinlemeyiTetikle();
                 }else{
                   provider.otoTFAN=degerler[0]=="True" ? true : false;
@@ -234,7 +234,7 @@ class _OtoMan1State extends State<OtoMan1> {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv458"),'assets/images/kurulum_fan_icon.png',oran,provider.otoTFAN,1,context,provider),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv458"),'assets/images/kurulum_fan_icon.png',oran,provider.otoTFAN,1,context,provider,dbProkis),
                             Expanded(
                               child: Column(
                                 children: <Widget>[
@@ -243,8 +243,8 @@ class _OtoMan1State extends State<OtoMan1> {
                                 ],
                               ),
                             ),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv459"),'assets/images/kurulum_ped_icon.png',oran,provider.otoPEDM,3,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv112"),'assets/images/kurulum_aydinlatma_icon1.png',oran,provider.otoAYDL,4,context,provider),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv459"),'assets/images/kurulum_ped_icon.png',oran,provider.otoPEDM,3,context,provider,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv112"),'assets/images/kurulum_aydinlatma_icon1.png',oran,provider.otoAYDL,4,context,provider,dbProkis),
                           ],
                       ) 
                     ),
@@ -253,10 +253,10 @@ class _OtoMan1State extends State<OtoMan1> {
                     Expanded(
                       child:Row(
                           children: <Widget>[
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv461"),'assets/images/kurulum_bacafan_icon.png',oran,provider.otoBFAN,6,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv462"),'assets/images/kurulum_isitici_icon.png',oran,provider.otoISTC,7,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv463"),'assets/images/kurulum_yemleme_icon.png',oran,provider.otoYEMA,8,context,provider),
-                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv653"),'assets/images/kurulum_sirkfan_icon.png',oran,provider.otoSIRK,9,context,provider),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv461"),'assets/images/kurulum_bacafan_icon.png',oran,provider.otoBFAN,6,context,provider,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv462"),'assets/images/kurulum_isitici_icon.png',oran,provider.otoISTC,7,context,provider,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv463"),'assets/images/kurulum_yemleme_icon.png',oran,provider.otoYEMA,8,context,provider,dbProkis),
+                            _unsurOtoManWidget(Dil().sec(dilSecimi, "tv653"),'assets/images/kurulum_sirkfan_icon.png',oran,provider.otoSIRK,9,context,provider,dbProkis),
                           ],
                       ) 
                     ),
@@ -382,7 +382,7 @@ class _OtoMan1State extends State<OtoMan1> {
   }
 
   Widget _unsurOtoManWidget(String baslik, String imagePath, double oran, 
-  bool otomanDurum,int index, BuildContext context, OtoMan1Provider provider){
+  bool otomanDurum,int index, BuildContext context, OtoMan1Provider provider, DBProkis dbProkis){
     bool visible=true;
     String metin="";
     if(index==6){
@@ -448,7 +448,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         yazmaSonrasiGecikmeSayaci=0;
                                         Metotlar().veriGonder("20*$index*1", 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             Metotlar().takipEt("16*", 2236).then((value){
@@ -456,7 +456,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                               if(degerler[0]=="error"){
                                                 baglanti=false;
-                                                baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                 provider.dinlemeyiTetikle();
                                               }else{
                                                 provider.otoTFAN=degerler[0]=="True" ? true : false;
@@ -546,7 +546,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         Metotlar().veriGonder("20*$index*0", 2235).then((value){
 
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             Metotlar().takipEt("16*", 2236).then((value){
@@ -554,7 +554,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                               if(degerler[0]=="error"){
                                                 baglanti=false;
-                                                baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                 provider.dinlemeyiTetikle();
                                               }else{
                                                 provider.otoTFAN=degerler[0]=="True" ? true : false;
@@ -644,7 +644,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.fanAdet);i++){
@@ -659,7 +659,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolTFAN(oran,index,context,provider).then((value){
+                                                _manKontrolTFAN(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelFan=true;
                                               });
@@ -677,7 +677,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.pedAdet);i++){
@@ -692,7 +692,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolPED(oran,index,context,provider).then((value){
+                                                _manKontrolPED(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelPed=true;
                                               });
@@ -710,7 +710,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.manuelAydinlikYuzdesi=degerler[0];
@@ -724,7 +724,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolAYD(oran,index,context,provider).then((value){
+                                                _manKontrolAYD(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelAyd=true;
                                               });
@@ -744,7 +744,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
@@ -759,7 +759,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolBFAN(oran,index,context,provider).then((value){
+                                                _manKontrolBFAN(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelBfa=true;
                                               });
@@ -780,7 +780,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
@@ -795,7 +795,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolISTC(oran,index,context,provider).then((value){
+                                                _manKontrolISTC(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelIst=true;
                                               });
@@ -816,7 +816,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.yemMan[1]=degerler[0]=="True" ? true : false;
@@ -834,7 +834,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolYEML(oran,index,context,provider).then((value){
+                                                _manKontrolYEML(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelYml=true;
                                               });
@@ -855,7 +855,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                                       if(degerler[0]=="error"){
                                                         baglanti=false;
-                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                                                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                                                         provider.dinlemeyiTetikle();
                                                       }else{
                                                         provider.sirMan[1]=degerler[0]=="True" ? true : false;
@@ -868,7 +868,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                   
                                                 });
 
-                                                _manKontrolSIRK(oran,index,context,provider).then((value){
+                                                _manKontrolSIRK(oran,index,context,provider,dbProkis).then((value){
                                                 takipEtiGeciciDurdur=false;
                                                 timerCancelSrk=true;
                                               });
@@ -1085,7 +1085,7 @@ class _OtoMan1State extends State<OtoMan1> {
   
   }
 
-  Future _manKontrolTFAN(double oran, int index, BuildContext context, OtoMan1Provider provider){
+  Future _manKontrolTFAN(double oran, int index, BuildContext context, OtoMan1Provider provider, DBProkis dbProkis){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1146,50 +1146,50 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[1], oran,1,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[1], oran,1,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[2], oran,2,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[2], oran,2,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[3], oran,3,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[3], oran,3,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[4], oran,4,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[4], oran,4,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[5], oran,5,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv32", provider.fanMan[5], oran,5,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[6], oran,6,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[6], oran,6,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[7], oran,7,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[7], oran,7,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[8], oran,8,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[8], oran,8,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[9], oran,9,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[9], oran,9,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" ,  provider.fanMan[10], oran,10,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" ,  provider.fanMan[10], oran,10,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[11] , oran,11,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[11] , oran,11,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[12] , oran,12,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[12] , oran,12,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[13] , oran,13,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[13] , oran,13,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[14] , oran,14,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[14] , oran,14,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[15] , oran,15,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[15] , oran,15,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[16] , oran,16,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[16] , oran,16,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[17] , oran,17,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[17] , oran,17,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[18] , oran,18,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[18] , oran,18,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[19] , oran,19,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[19] , oran,19,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[20] , oran,20,provider.fanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index , "tv32" , provider.fanMan[20] , oran,20,provider.fanAdet,context,provider,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1197,25 +1197,25 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[21], oran,21,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[21], oran,21,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[22], oran,22,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[22], oran,22,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[23], oran,23,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[23], oran,23,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[24], oran,24,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[24], oran,24,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[25], oran,25,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[25], oran,25,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[26], oran,26,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[26], oran,26,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[27], oran,27,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[27], oran,27,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[28], oran,28,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[28], oran,28,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[29], oran,29,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[29], oran,29,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[30], oran,30,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[30], oran,30,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1224,25 +1224,25 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[31], oran,31,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[31], oran,31,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[32], oran,32,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[32], oran,32,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[33], oran,33,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[33], oran,33,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[34], oran,34,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[34], oran,34,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[35], oran,35,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[35], oran,35,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[36], oran,36,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[36], oran,36,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[37], oran,37,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[37], oran,37,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[38], oran,38,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[38], oran,38,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[39], oran,39,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[39], oran,39,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[40], oran,40,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[40], oran,40,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1251,25 +1251,25 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[41], oran,41,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[41], oran,41,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[42], oran,42,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[42], oran,42,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[43], oran,43,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[43], oran,43,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[44], oran,44,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[44], oran,44,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[45], oran,45,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[45], oran,45,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[46], oran,46,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[46], oran,46,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[47], oran,47,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[47], oran,47,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[48], oran,48,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[48], oran,48,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[49], oran,49,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[49], oran,49,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[50], oran,50,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[50], oran,50,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1278,25 +1278,25 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                           children: <Widget>[
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[51], oran,51,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[51], oran,51,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[52], oran,52,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[52], oran,52,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[53], oran,53,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[53], oran,53,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[54], oran,54,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[54], oran,54,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[55], oran,55,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[55], oran,55,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[56], oran,56,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[56], oran,56,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[57], oran,57,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[57], oran,57,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[58], oran,58,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[58], oran,58,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[59], oran,59,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[59], oran,59,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
-                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[60], oran,60,provider.fanAdet,context,provider),
+                                                                            bottomDrawerManUnsur(index , "tv32" , provider.fanMan[60], oran,60,provider.fanAdet,context,provider,dbProkis),
                                                                             Spacer(),
                                                                           ],
                                                                         ),
@@ -1318,7 +1318,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Future _manKontrolPED(double oran,int index,  BuildContext context, OtoMan1Provider provider){
+  Future _manKontrolPED(double oran,int index,  BuildContext context, OtoMan1Provider provider,DBProkis dbProkis){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1379,15 +1379,15 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[1] , oran,1,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[1] , oran,1,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[2] , oran,2,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[2] , oran,2,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[3] , oran,3,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[3] , oran,3,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[4] , oran,4,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[4] , oran,4,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[5] , oran,5,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[5] , oran,5,provider.pedAdet,context,provider,dbProkis),
                                                                           
                                                                           Spacer(),
                                                                         ],
@@ -1395,15 +1395,15 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[6], oran,6,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[6], oran,6,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[7], oran,7,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[7], oran,7,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[8], oran,8,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[8], oran,8,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[9], oran,9,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[9], oran,9,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[10] , oran,10,provider.pedAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv45", provider.pedMan[10] , oran,10,provider.pedAdet,context,provider,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1424,7 +1424,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Future _manKontrolAYD(double oran,int index, BuildContext context , OtoMan1Provider provider){
+  Future _manKontrolAYD(double oran,int index, BuildContext context , OtoMan1Provider provider,DBProkis dbProkis){
 
     bool bottomDrawerAktif=true;
     int sayac1=0;
@@ -1499,7 +1499,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                         children: <Widget>[
                                                                           Spacer(flex: 3,),
                                                                           Visibility(visible: provider.dimmer!="1",
-                                                                            child: bottomDrawerManUnsur(index ,"tv112", provider.aydMan[1] , oran,1,"1",context,provider)
+                                                                            child: bottomDrawerManUnsur(index ,"tv112", provider.aydMan[1] , oran,1,"1",context,provider,dbProkis)
                                                                             ),
 
                                                                           Visibility(visible: provider.dimmer=="1",
@@ -1520,7 +1520,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                                     oran,
                                                                                     dilSecimi,
                                                                                     "tv340",
-                                                                                    "",context,provider);
+                                                                                    "",context,provider,dbProkis);
                                                                               },
                                                                               child: Container(
                                                                                 color: Colors.blue[700],
@@ -1567,7 +1567,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Future _manKontrolBFAN(double oran,int index,BuildContext context, OtoMan1Provider provider){
+  Future _manKontrolBFAN(double oran,int index,BuildContext context, OtoMan1Provider provider, DBProkis dbProkis){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1628,7 +1628,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(flex: 11,),
-                                                                          bottomDrawerManUnsur(index ,"tv495", provider.bfaMan[1] , oran,1,provider.bacafanAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv495", provider.bfaMan[1] , oran,1,provider.bacafanAdet,context,provider,dbProkis),
                                                                           Spacer(flex: 11,),
                                                                           /*
                                                                           bottomDrawerManUnsur(index ,"tv495", bfaMan[2] , oran,2,bacafanAdet),
@@ -1655,7 +1655,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Future _manKontrolISTC(double oran,int index, BuildContext context , OtoMan1Provider provider){
+  Future _manKontrolISTC(double oran,int index, BuildContext context , OtoMan1Provider provider,DBProkis dbProkis){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1716,11 +1716,11 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[1] , oran,1,provider.isiticiAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[1] , oran,1,provider.isiticiAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[2] , oran,2,provider.isiticiAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[2] , oran,2,provider.isiticiAdet,context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[3] , oran,3,provider.isiticiAdet,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv80", provider.istMan[3] , oran,3,provider.isiticiAdet,context,provider,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1741,7 +1741,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Future _manKontrolYEML(double oran,int index, BuildContext context, OtoMan1Provider provider ){
+  Future _manKontrolYEML(double oran,int index, BuildContext context, OtoMan1Provider provider, DBProkis dbProkis ){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1802,19 +1802,9 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv89", provider.yemMan[1] , oran,1,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv89", provider.yemMan[1] , oran,1,provider.yemUnsurAdet.toString(),context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv92", provider.yemMan[2] , oran,2,provider.yemUnsurAdet.toString(),context,provider),
-                                                                          Spacer(),
-                                                                        ],
-                                                                      ),
-
-                                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                                        children: <Widget>[
-                                                                          Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv90", provider.yemMan[3] , oran,3,provider.yemUnsurAdet.toString(),context,provider),
-                                                                          Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv93", provider.yemMan[4] , oran,4,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv92", provider.yemMan[2] , oran,2,provider.yemUnsurAdet.toString(),context,provider,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1822,9 +1812,19 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv91", provider.yemMan[5] , oran,5,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv90", provider.yemMan[3] , oran,3,provider.yemUnsurAdet.toString(),context,provider,dbProkis),
                                                                           Spacer(),
-                                                                          bottomDrawerManUnsur(index ,"tv94", provider.yemMan[6] , oran,6,provider.yemUnsurAdet.toString(),context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv93", provider.yemMan[4] , oran,4,provider.yemUnsurAdet.toString(),context,provider,dbProkis),
+                                                                          Spacer(),
+                                                                        ],
+                                                                      ),
+
+                                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                                        children: <Widget>[
+                                                                          Spacer(),
+                                                                          bottomDrawerManUnsur(index ,"tv91", provider.yemMan[5] , oran,5,provider.yemUnsurAdet.toString(),context,provider,dbProkis),
+                                                                          Spacer(),
+                                                                          bottomDrawerManUnsur(index ,"tv94", provider.yemMan[6] , oran,6,provider.yemUnsurAdet.toString(),context,provider,dbProkis),
                                                                           Spacer(),
                                                                         ],
                                                                       ),
@@ -1845,7 +1845,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Future _manKontrolSIRK(double oran,int index, BuildContext context, OtoMan1Provider provider ){
+  Future _manKontrolSIRK(double oran,int index, BuildContext context, OtoMan1Provider provider,DBProkis dbProkis){
     bool bottomDrawerAktif=true;
     int sayac1=0;
 
@@ -1906,7 +1906,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                                         children: <Widget>[
                                                                           Spacer(flex: 11,),
-                                                                          bottomDrawerManUnsur(index ,"tv581", provider.sirMan[1] , oran,1,provider.sirkFanVarMi,context,provider),
+                                                                          bottomDrawerManUnsur(index ,"tv581", provider.sirMan[1] , oran,1,provider.sirkFanVarMi,context,provider,dbProkis),
                                                                           Spacer(flex: 11,),
                                                                           /*
                                                                           bottomDrawerManUnsur(index ,"tv495", bfaMan[2] , oran,2,bacafanAdet),
@@ -1933,7 +1933,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         
   }
 
-  Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran, int unsurNo, String adet, BuildContext context, OtoMan1Provider provider) {
+  Widget bottomDrawerManUnsur(int index, String isim, bool otoManDurum,double oran, int unsurNo, String adet, BuildContext context, OtoMan1Provider provider, DBProkis dbProkis) {
 
     return Expanded(flex: 10,
       child: Visibility(visible: int.parse(adet)>=unsurNo, maintainAnimation: true,maintainState: true,maintainSize: true,
@@ -1960,7 +1960,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("21*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("17*${provider.fanAdet}", 2236).then((value){
@@ -1968,7 +1968,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.fanAdet);i++){
@@ -1996,14 +1996,14 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("22*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("18*${provider.pedAdet}", 2236).then((value){
                       var degerler = value.split('*');
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.pedAdet);i++){
@@ -2032,7 +2032,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("23*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("19*}", 2236).then((value){
@@ -2040,7 +2040,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         provider.manuelAydinlikYuzdesi=degerler[0];
@@ -2068,14 +2068,14 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("24*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("20*${provider.bacafanAdet}", 2236).then((value){
                       var degerler = value.split('*');
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.bacafanAdet);i++){
@@ -2105,7 +2105,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("25*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("21*${provider.isiticiAdet}", 2236).then((value){
@@ -2113,7 +2113,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         for(int i=1;i<=int.parse(provider.isiticiAdet);i++){
@@ -2141,7 +2141,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("26*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("22*", 2236).then((value){
@@ -2149,7 +2149,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         provider.yemMan[1]=degerler[0]=="True" ? true : false;
@@ -2181,14 +2181,14 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("26a*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("22a*", 2236).then((value){
                       var degerler = value.split('*');
                       if(veri.split("*")[0]=="error"){
                         baglanti=false;
-                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1]);
+                        baglantiDurum=Metotlar().errorToastMesaj(degerler[1],dbProkis);
                         provider.dinlemeyiTetikle();
                       }else{
                         provider.sirMan[1]=degerler[0]=="True" ? true : false;
@@ -2223,7 +2223,7 @@ class _OtoMan1State extends State<OtoMan1> {
   }
 
   Future _degergiris3X0(int yuzler , onlar , birler, index, double oran,
-      String dil, baslik, onBaslik, BuildContext context, OtoMan1Provider provider) async {
+      String dil, baslik, onBaslik, BuildContext context, OtoMan1Provider provider,DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -2261,7 +2261,7 @@ class _OtoMan1State extends State<OtoMan1> {
         yazmaSonrasiGecikmeSayaciYEML= 0;
         Metotlar().veriGonder("15*$_index*$veri", 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           }

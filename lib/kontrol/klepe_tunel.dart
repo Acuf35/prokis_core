@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
@@ -101,12 +103,13 @@ class KlepeTunelState extends State<KlepeTunel> {
 
   @override
   Widget build(BuildContext context) {
+final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
 
       Metotlar().takipEt('7*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -125,7 +128,7 @@ class KlepeTunelState extends State<KlepeTunel> {
           Metotlar().takipEt('7*', 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
               setState(() {});
             }else{
               takipEtVeriIsleme(veri);
@@ -321,19 +324,19 @@ class KlepeTunelState extends State<KlepeTunel> {
                           ),
                           Visibility(
                               visible: int.parse(klepeAdet) > 0,
-                              child: _klepeKlasikUnsur(oran, 1)),
+                              child: _klepeKlasikUnsur(oran, 1,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 1,
-                              child: _klepeKlasikUnsur(oran, 2)),
+                              child: _klepeKlasikUnsur(oran, 2,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 2,
-                              child: _klepeKlasikUnsur(oran, 3)),
+                              child: _klepeKlasikUnsur(oran, 3,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 3,
-                              child: _klepeKlasikUnsur(oran, 4)),
+                              child: _klepeKlasikUnsur(oran, 4,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 4,
-                              child: _klepeKlasikUnsur(oran, 5)),
+                              child: _klepeKlasikUnsur(oran, 5,dbProkis)),
                           Expanded(
                             flex: 4,
                             child: Row(
@@ -549,19 +552,19 @@ class KlepeTunelState extends State<KlepeTunel> {
                           ),
                           Visibility(
                               visible: int.parse(klepeAdet) > 5,
-                              child: _klepeKlasikUnsur(oran, 6)),
+                              child: _klepeKlasikUnsur(oran, 6,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 6,
-                              child: _klepeKlasikUnsur(oran, 7)),
+                              child: _klepeKlasikUnsur(oran, 7,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 7,
-                              child: _klepeKlasikUnsur(oran, 8)),
+                              child: _klepeKlasikUnsur(oran, 8,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 8,
-                              child: _klepeKlasikUnsur(oran, 9)),
+                              child: _klepeKlasikUnsur(oran, 9,dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 9,
-                              child: _klepeKlasikUnsur(oran, 10)),
+                              child: _klepeKlasikUnsur(oran, 10,dbProkis)),
                           Spacer(
                             flex: 3,
                           )
@@ -970,7 +973,7 @@ class KlepeTunelState extends State<KlepeTunel> {
   }
 
   Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex,
-      int paramIndex, double oran, String dil, String baslik) async {
+      int paramIndex, double oran, String dil, String baslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1019,7 +1022,7 @@ class KlepeTunelState extends State<KlepeTunel> {
         String komut="7*$klepeIndex*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1027,7 +1030,7 @@ class KlepeTunelState extends State<KlepeTunel> {
             Metotlar().takipEt('7*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1043,7 +1046,7 @@ class KlepeTunelState extends State<KlepeTunel> {
   }
 
   Future _degergiris3X0(int yuzler, onlar, birler, klepeIndex, paramIndex,
-      double oran, String dil, baslik, onBaslik) async {
+      double oran, String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1098,7 +1101,7 @@ class KlepeTunelState extends State<KlepeTunel> {
         String komut="7*$klepeIndex*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1106,7 +1109,7 @@ class KlepeTunelState extends State<KlepeTunel> {
             Metotlar().takipEt('7*', 2236).then((veri){
                 if(veri.split("*")[0]=="error"){
                   baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                   setState(() {});
                 }else{
                   takipEtVeriIsleme(veri);
@@ -1412,7 +1415,7 @@ class KlepeTunelState extends State<KlepeTunel> {
   }
  
 
-  Widget _klepeKlasikUnsur(double oran, int klepeNo) {
+  Widget _klepeKlasikUnsur(double oran, int klepeNo, DBProkis dbProkis) {
     return Expanded(
       flex: 5,
       child: Column(
@@ -1526,7 +1529,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                   String komut="7*$klepeNo*$veri";
                                                                   Metotlar().veriGonder(komut, 2235).then((value){
                                                                     if(value.split("*")[0]=="error"){
-                                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                                                     }else{
                                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                                       
@@ -1534,7 +1537,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                       Metotlar().takipEt('7*', 2236).then((veri){
                                                                           if(veri.split("*")[0]=="error"){
                                                                             baglanti=false;
-                                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1]);
+                                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
                                                                             setState(() {});
                                                                           }else{
                                                                             takipEtVeriIsleme(veri);
@@ -1634,7 +1637,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                             1,
                                                                             oran,
                                                                             dilSecimi,
-                                                                            "tv217")
+                                                                            "tv217",dbProkis)
                                                                         .then(
                                                                             (onValue) {
                                                                       bottomDrawerIcindeGuncelle(
@@ -1725,7 +1728,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                           2,
                                                                           oran,
                                                                           dilSecimi,
-                                                                          "tv215")
+                                                                          "tv215",dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -1813,7 +1816,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv218",
-                                                                          "")
+                                                                          "",dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -1894,7 +1897,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv219",
-                                                                          "")
+                                                                          "",dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -1982,7 +1985,7 @@ class KlepeTunelState extends State<KlepeTunel> {
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv199",
-                                                                          "")
+                                                                          "",dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(

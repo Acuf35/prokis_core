@@ -815,7 +815,7 @@ class BacafanHaritasi extends StatelessWidget {
 
                               Metotlar().veriGonder("26*28*$veri*0*0*0", 2233).then((value){
                                 if(value.split("*")[0]=="error"){
-                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                 }else{
                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(23, "ok", veri, "0", "0");
@@ -978,11 +978,11 @@ class BacafanHaritasi extends StatelessWidget {
                               String komut="27*29*$noVeri*$cikisNolar*$cikisTurSecimi*0";
                               Metotlar().veriGonder(komut, 2233).then((value){
                                 if(value.split("*")[0]=="error"){
-                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                 }else{
                                   Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value){
                                     if(value.split("*")[0]=="error"){
-                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
                                     }else{
                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                       dbProkis.dbSatirEkleGuncelle(24, "ok", noVeri, cikisNolar, cikisTurSecimi);
@@ -1360,11 +1360,11 @@ class BacafanHaritasi extends StatelessWidget {
 
         Metotlar().veriGonder("28*0*0*0*0*0", 2233).then((value) {
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
           }else{
             Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value) {
               if(value.split("*")[0]=="error"){
-                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1]), context,duration:3);
+                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
               }else{
                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                 dbProkis.dbSatirEkleGuncelle(23, "0", "0", "0", "0");

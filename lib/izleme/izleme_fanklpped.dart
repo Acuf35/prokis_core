@@ -8,8 +8,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';
 import 'package:prokis/languages/select.dart';
+import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 
@@ -198,9 +200,10 @@ var blocVeri;
 
   @override
   Widget build(BuildContext context) {
+    final dbProkis = Provider.of<DBProkis>(context);
 
     oran = MediaQuery.of(context).size.width / 731.4;
-    final _blocSinif  = IzlemeFanKlpPedBloC(context, dilSecimi, fanNo, unsurAdet, klepeNo, isisensorNo, pedNo);
+    final _blocSinif  = IzlemeFanKlpPedBloC(context, dilSecimi, fanNo, unsurAdet, klepeNo, isisensorNo, pedNo, dbProkis);
     blocVeri=_blocSinif;
     
     _controller1 = AnimationController(vsync: this,duration: Duration(milliseconds: 1500),);
@@ -2577,7 +2580,7 @@ class IzlemeFanKlpPedBloC {
   String baglantiHatasiGecici="";
   String alarmDurum="0";
 
-  IzlemeFanKlpPedBloC(BuildContext context, String dilSecimi, List fanNo, int unsurAdet, List klepeNo, List isisensorNo, List pedNo) {
+  IzlemeFanKlpPedBloC(BuildContext context, String dilSecimi, List fanNo, int unsurAdet, List klepeNo, List isisensorNo, List pedNo, DBProkis dbProkis) {
 
     for (var i = 0; i < 121; i++) {
       bloCVeriStateStreamControllerFAN[i]=StreamController<String>();
@@ -2610,7 +2613,7 @@ class IzlemeFanKlpPedBloC {
         alarmDurum=xx[xx.length-1];
 
         if(veri.split("*")[0]=="error"){
-          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1],dbProkis);
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
@@ -2789,7 +2792,7 @@ class IzlemeFanKlpPedBloC {
             alarmDurum=xx[xx.length-1];
 
         if(veri.split("*")[0]=="error"){
-          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1]);
+          String baglantiHatasi=Metotlar().errorToastMesaj(degerler[1],dbProkis);
           if(baglantiHatasi!=baglantiHatasiGecici){
             bloCVeriStateStreamControllerBAGLANTIERROR.sink.add(baglantiHatasi+"*"+alarmDurum);
           }
