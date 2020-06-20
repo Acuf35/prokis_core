@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:prokis/genel_ayarlar/alarm.dart';
 import 'package:prokis/genel_ayarlar/kalibrasyon.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
@@ -423,21 +424,6 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 child: RawMaterialButton(
                                   onPressed: () {
                                     timerCancel=true;
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DilSecimi(true)),
-                                    );
-/*
-                                    for (var i = 0; i < 100; i++) {
-
-                                      dbHelper.veriSil(i);
-                                      
-                                    }
-                                    
-                                    print("veriler silindi");
-
                                     
                                     Navigator.pushReplacement(
                                       context,
@@ -445,7 +431,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                           builder: (context) =>
                                               Alarm(dbVeriler)),
                                     );
-                                    */
+                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

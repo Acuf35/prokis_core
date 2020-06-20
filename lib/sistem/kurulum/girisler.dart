@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
 import 'package:prokis/mywidgets/showModalBottomSheetI.dart';
-import 'package:prokis/sistem/kurulum/kurulumu_tamamla.dart';
 import 'package:prokis/sistem/kurulum/uz_debi_nem.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/provider/dbprokis.dart';
@@ -58,7 +57,7 @@ class Girisler extends StatelessWidget {
       if(sayac2==0){
         Timer(Duration(milliseconds: 1500), (){
           if(provider.sayac==0)
-            provider.setsayac=47;
+            provider.setsayac=48;
             Navigator.pop(context);
         });
         sayac2++;
@@ -126,10 +125,10 @@ class Girisler extends StatelessWidget {
           Expanded(
             flex: 9,
             child: Container(
-    padding: EdgeInsets.only(left:8*oran, right: 8*oran),
-    color: Colors.white,
-    alignment: Alignment.center,
-    child: GridView.extent(
+            padding: EdgeInsets.only(left:8*oran, right: 8*oran),
+            color: Colors.white,
+            alignment: Alignment.center,
+            child: GridView.extent(
                     padding: EdgeInsets.all(0),
                     
                     maxCrossAxisExtent: oranOzel,
@@ -163,7 +162,7 @@ class Girisler extends StatelessWidget {
                   int syc=0;
                   List xx=provider.tumGirisler;
 
-                  for (var i = 1; i < 48; i++) {
+                  for (var i = 1; i < 49; i++) {
                     if(provider.visibleDurum[i-1]){
                       syc++;
                       xx[i]=syc;
@@ -204,7 +203,7 @@ class Girisler extends StatelessWidget {
 
                   bool atanmamisInputVar=false;
 
-                  for (var i = 1; i < 48; i++) {
+                  for (var i = 1; i < 49; i++) {
 
                     if(provider.tumGirisler[i]==0 && provider.visibleDurum[i-1]){
 
@@ -227,7 +226,7 @@ class Girisler extends StatelessWidget {
 
                     String tumGirislerVeri="";
 
-                    for (var i = 1; i < 48; i++) {
+                    for (var i = 1; i < 49; i++) {
 
                       tumGirislerVeri= tumGirislerVeri + provider.tumGirisler[i].toString()+"#";
                       
@@ -308,7 +307,7 @@ class Girisler extends StatelessWidget {
 
                   bool atanmamisInputVar=false;
 
-                  for (var i = 1; i < 48; i++) {
+                  for (var i = 1; i < 49; i++) {
 
                     if(provider.tumGirisler[i]==0 && provider.visibleDurum[i-1]){
                       atanmamisInputVar=true;
@@ -625,6 +624,7 @@ class Girisler extends StatelessWidget {
    if(index==44) baslik="tv395";
    if(index==45) baslik="tv396";
    if(index==46) baslik="tv397";
+   if(index==47) baslik="tv430";
 
    return baslik;
 
@@ -648,9 +648,9 @@ class GirislerProvider with ChangeNotifier {
   bool veriGonderildi = false;
   bool girisNoTekerrur = false;
 
-  List<bool> visibleDurum=new List.filled(48,true);
+  List<bool> visibleDurum=new List.filled(49,true);
 
-  List<int> tumGirisler = new List.filled(48,0);
+  List<int> tumGirisler = new List.filled(49,0);
 
   
   dinlemeyiTetikle(){
@@ -695,14 +695,14 @@ class GirislerProvider with ChangeNotifier {
 
 
 
-    for (var i = 1; i <= 47; i++) {
+    for (var i = 1; i <= 48; i++) {
       if (tumGirislerKAYIT == "ok") {
         tumGirisler[i] = int.parse(tgirisler[i-1]);
         
       }
     }
 
-    for (var i = 0; i < 47; i++) {
+    for (var i = 0; i < 48; i++) {
       visibleDurum[i]=girisVisibility(i);
     }
     
@@ -764,6 +764,7 @@ class GirislerProvider with ChangeNotifier {
    if(index==44) baslik=sayacAdet>9 ? true: false;
    if(index==45) baslik=sayacAdet>10 ? true: false;
    if(index==46) baslik=sayacAdet>11 ? true: false;
+   if(index==47) baslik=true;
 
    return baslik;
 

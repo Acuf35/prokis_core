@@ -125,7 +125,7 @@ class Dil{
     kod=="tv101" ? metin='OTO-MAN' : null;
     kod=="tv102" ? metin='KONTROL' : null;
     kod=="tv103" ? metin='DATA LOG' : null;
-    kod=="tv104" ? metin='ALARM AYAR.' : null;
+    kod=="tv104" ? metin='ALARM/UYARI' : null;
     kod=="tv105" ? metin='SİSTEM' : null;
     kod=="tv106" ? metin='KONTROL AYARLARI' : null;
     kod=="tv107" ? metin='SIC. & FAN' : null;
@@ -143,7 +143,7 @@ class Dil{
     kod=="tv119" ? metin='Çapraz hav. aktif alan' : null;
     kod=="tv120" ? metin='Doğ.Bölge-Min.Hav. Sürekli' : null;
     kod=="tv121" ? metin='Min.Hav. Fasılalı' : null;
-    kod=="tv122" ? metin='Maks. fan sıcaklığı' : null;
+    kod=="tv122" ? metin='Max. fan sıcaklığı' : null;
     kod=="tv123" ? metin='Sıcaklık Diyagramı' : null;
     kod=="tv124" ? metin='Navigatör Menü' : null;
     kod=="tv125" ? metin='Set Sıcaklığı (A)' : null;
@@ -151,7 +151,7 @@ class Dil{
     kod=="tv127" ? metin='FANLARIN SET SICAKLIKLARI (°C)' : null;
     kod=="tv128" ? metin='Çapraz Hav. Farkı (C)' : null;
     kod=="tv129" ? metin='Bosta' : null;
-    kod=="tv130" ? metin='Maks. Fan Farkı (H)' : null;
+    kod=="tv130" ? metin='Max. Fan Farkı (H)' : null;
     kod=="tv131" ? metin='Gün 1: ' : null;
     kod=="tv132" ? metin='Gün 2: ' : null;
     kod=="tv133" ? metin='Gün 3: ' : null;
@@ -237,9 +237,9 @@ class Dil{
     kod=="tv213" ? metin='Klp Baş. Düş. Fan Mik. :' : null;
     kod=="tv214" ? metin='Klp Baş. Düş. Fan M.Modu :' : null;
     kod=="tv215" ? metin='Çalışma Sırası :' : null;
-    kod=="tv216" ? metin='Min-Maks. Açıklık (%) :' : null;
+    kod=="tv216" ? metin='Min-Max. Açıklık (%) :' : null;
     kod=="tv217" ? metin='Klp Baş. Düşen\nFan Mik. Man' : null;
-    kod=="tv218" ? metin='Maks. Açıklık :' : null;
+    kod=="tv218" ? metin='Max. Açıklık :' : null;
     kod=="tv219" ? metin='Min. Açıklık :' : null;
     kod=="tv220" ? metin='Oto' : null;
     kod=="tv221" ? metin='Man' : null;
@@ -247,9 +247,9 @@ class Dil{
     kod=="tv223" ? metin='Sıra1 Fan Say. Bitiş' : null;
     kod=="tv224" ? metin='Sıra2 Fan Say. Bitiş' : null;
     kod=="tv225" ? metin='Sıra 1 Min. Açıklık' : null;
-    kod=="tv226" ? metin='Sıra 1 Maks. Açıklık' : null;
+    kod=="tv226" ? metin='Sıra 1 Max. Açıklık' : null;
     kod=="tv227" ? metin='Sıra 2 Min. Açıklık' : null;
-    kod=="tv228" ? metin='Sıra 2 Maks. Açıklık' : null;
+    kod=="tv228" ? metin='Sıra 2 Max. Açıklık' : null;
     kod=="tv229" ? metin='Çalışma Sırası 1' : null;
     kod=="tv230" ? metin='Çalışma Sırası 2' : null;
     kod=="tv231" ? metin='Sıra2 Fan Say. Başl' : null;
@@ -271,18 +271,18 @@ class Dil{
     kod=="tv247" ? metin='Çalışma Sıc. Fark' : null;
     kod=="tv248" ? metin='Durma Sıc. Fark' : null;
     kod=="tv249" ? metin='SOĞUTMA VE NEM' : null;
-    kod=="tv250" ? metin='Maks. Nem (%)' : null;
+    kod=="tv250" ? metin='Max. Nem (%)' : null;
     kod=="tv251" ? metin='Nem Fark (%)' : null;
-    kod=="tv252" ? metin='Maksimum Nem' : null;
+    kod=="tv252" ? metin='Maximum Nem' : null;
     kod=="tv253" ? metin='Soğutma Diyagramı' : null;
     kod=="tv254" ? metin='Çalışma Sıcaklığı' : null;
     kod=="tv255" ? metin='Durma Sıcaklığı' : null;
     kod=="tv256" ? metin='Ped P. Pasif Alan' : null;
     kod=="tv257" ? metin='Ped P. kısmi Aktif Alan' : null;
     kod=="tv258" ? metin='Ped P. Aktif Alan' : null;
-    kod=="tv259" ? metin='Maks. Nem Pasif Alan' : null;
-    kod=="tv260" ? metin='Maks. Nem kısmi Aktif Alan' : null;
-    kod=="tv261" ? metin='Maks. Nem Aktif Alan' : null;
+    kod=="tv259" ? metin='Max. Nem Pasif Alan' : null;
+    kod=="tv260" ? metin='Max. Nem kısmi Aktif Alan' : null;
+    kod=="tv261" ? metin='Max. Nem Aktif Alan' : null;
     kod=="tv262" ? metin='ISITICI Gr.' : null;
     kod=="tv263" ? metin='ISITMA' : null;
     kod=="tv264" ? metin='Isıtma Diyagramı' : null;
@@ -293,7 +293,7 @@ class Dil{
     kod=="tv269" ? metin='Durma Sıcaklığı(A-C) :' : null;
     kod=="tv270" ? metin='Çalışma Sür.(Sn)' : null;
     kod=="tv271" ? metin='Durma Sür.(Sn)' : null;
-    kod=="tv272" ? metin='Fasılada Maks.\nÇalışma Yüzdesi(%)' : null;
+    kod=="tv272" ? metin='Fasılada Max.\nÇalışma Yüzdesi(%)' : null;
     kod=="tv273" ? metin='Air Inlet\nÖncelik Süresi(Sn)' : null;
     kod=="tv274" ? metin='Hava Giriş\nYüzdesi(%)' : null;
     kod=="tv275" ? metin='Fasıla Durma\'da Air Inlet Kapansın mı?' : null;
@@ -451,7 +451,7 @@ class Dil{
     kod=="tv427" ? metin='Güncel Hayvan\nSayısı' : null;
     kod=="tv428" ? metin='Sürü Yaşı\n(Günlük)' : null;
     kod=="tv429" ? metin='Sürü Yaşı\n(Haftalık)' : null;
-    kod=="tv430" ? metin='BOŞTA' : null;
+    kod=="tv430" ? metin='Harici Alarm' : null;
     kod=="tv431" ? metin='SENSÖR KALİBRASYONU' : null;
     kod=="tv432" ? metin='Nem. Sen. Ölçüm Yöntemi' : null;
     kod=="tv433" ? metin='Wifi' : null;
@@ -635,9 +635,9 @@ class Dil{
     kod=="tv611" ? metin='Gün. Topl.Tük:' : null;
     kod=="tv612" ? metin='Gün. Hay.Baş:' : null;
     kod=="tv613" ? metin='Ayd. Yüz.(%):' : null;
-    kod=="tv614" ? metin='Ölç.Maks.OSıc' : null;
+    kod=="tv614" ? metin='Ölç.Max.OSıc' : null;
     kod=="tv615" ? metin='Ölç.Min.OSıc' : null;
-    kod=="tv616" ? metin='Maks.OSic.Saati' : null;
+    kod=="tv616" ? metin='Max.OSic.Saati' : null;
     kod=="tv617" ? metin='Min.OSic.Saati' : null;
     kod=="tv618" ? metin='İç Nem' : null;
     kod=="tv619" ? metin='Dış Nem' : null;
@@ -685,12 +685,12 @@ class Dil{
     kod=="tv662" ? metin='Hava Hızı (m/sn)' : null;
     kod=="tv663" ? metin='OPSİYON 5' : null;
     kod=="tv664" ? metin='Günlük Su Sayac Verileri\nReset Zamanı' : null;
-    kod=="tv665" ? metin='Ölç.Maks. Nem' : null;
+    kod=="tv665" ? metin='Ölç.Max. Nem' : null;
     kod=="tv666" ? metin='Ölç.Min. Nem' : null;
-    kod=="tv667" ? metin='Maks.Nem Saati' : null;
+    kod=="tv667" ? metin='Max.Nem Saati' : null;
     kod=="tv668" ? metin='Min.Nem Saati' : null;
     kod=="tv669" ? metin='OPSİYON 6' : null;
-    kod=="tv670" ? metin='Günlük Ölçülen Min-Maks Sıc. ve Nem\nDeğerleri Reset Zamanı' : null;
+    kod=="tv670" ? metin='Günlük Ölçülen Min-Max Sıc. ve Nem\nDeğerleri Reset Zamanı' : null;
     kod=="tv671" ? metin='OPSİYON 7' : null;
     kod=="tv672" ? metin='Günlük Yem Tüketim Verileri\nReset Zamanı' : null;
     kod=="tv673" ? metin='KISALTMALAR:' : null;
@@ -719,6 +719,23 @@ class Dil{
     kod=="tv696" ? metin='Bilinmeyen hata oluştu!' : null;
     kod=="tv697" ? metin='PLC ve Server PC arasındaki bağlantı kaptu!' : null;
     kod=="tv698" ? metin='Hata Kodu' : null;
+    kod=="tv699" ? metin='Min. Sıc.(°C)' : null;
+    kod=="tv700" ? metin='Max. Sıc.(°C)' : null;
+    kod=="tv701" ? metin='7 HAFTALIK ALARM MİN. & MAX SICAKLIK TANIMLAMASI' : null;
+    kod=="tv702" ? metin='ALARM AYARLARI' : null;
+    kod=="tv703" ? metin='Min: ' : null;
+    kod=="tv704" ? metin='Max: ' : null;
+    kod=="tv705" ? metin='MIN' : null;
+    kod=="tv706" ? metin='MAX' : null;
+    kod=="tv707" ? metin='SET' : null;
+    kod=="tv708" ? metin='Set: ' : null;
+    kod=="tv709" ? metin='Ara\nDeğerleri\nGöster' : null;
+    kod=="tv710" ? metin='Alarm Gecikmesi (Sn)\n(Min-Max değerler için)' : null;
+    kod=="tv711" ? metin='Günlük Min. Tük.(Lt)\n(1 sayaç için)' : null;
+    kod=="tv712" ? metin='Ped Bakım Zamanı\nDöngü Süresi(Gün)' : null;
+    kod=="tv713" ? metin='Sistem Bakım Zamanı\nDöngü Süresi(Gün)' : null;
+    kod=="tv714" ? metin='Kornayı Sustur' : null;
+    kod=="tv715" ? metin='Susma Süresi(Sn)' : null;
    
 
     
@@ -1022,8 +1039,8 @@ class Dil{
     //Soğutma ayarları
     kod=="info10" ? metin=' Ortalama sıcaklık değeri ilgili ped pompasının "Çalışma Sıcaklığı(A+X+B)" değerine yükseldiğinde ped pompası çalışmaya başlar. Ortalama sıcaklık değeri'
     ' ilgili ped pompasının "Durma Sıcaklığı(A+X+C)" değerine düşünceye kadar ped pompası çalışmaya devam eder.\n\n'
-    ' Kümes içi nem değeri girilen "Maksimum Nem(D)" değerine ulaştığı zaman sistem "Yüksek Nem Aktif" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez.'
-    ' İç nem değeri "Maksimum Nem" değerinin "Nem Fark(E)" kadar altına düştüğünde "Yüksek Nem Pasif" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n'
+    ' Kümes içi nem değeri girilen "Maximum Nem(D)" değerine ulaştığı zaman sistem "Yüksek Nem Aktif" durumuna geçer ve hiçbir ped pompasının çalışmasına izin vermez.'
+    ' İç nem değeri "Maximum Nem" değerinin "Nem Fark(E)" kadar altına düştüğünde "Yüksek Nem Pasif" durumuna geçer ve ped pompalarının çalışmasına izin verir.\n\n'
     ' Kümes içi nem değeri girilen "Minimum Nem" değerinin altına düştüğünde eğer "Düşük Nemde Ped Çalışsın" opsiyonu aktifse seçiminize göre ped 1 veya'
     ' ped 2-3 veya her 3 pompayı birden devreye sokar. Kümes içi nem değeri "Minimum Nem" değerinin "Nem Fark" kadar üstüne çıktığında seçili ped pompalarını durdurur.'
     ' Eğer "Sıcaklık Öncelikli" opsiyonunu aktif ederseniz ve ortalama sıcaklık set sıcaklığının altında olursa ped pompaları düşük nem şartları sağlansa bile devreye girmez.'
@@ -1055,8 +1072,8 @@ class Dil{
     ' Sistem bacafanlarını ayarladığı hızda sürekli olarak çalıştırır\n\n'  : null;
 
 
-    //MH Ağırlık-Fasılada Maksimum Çalışma Yüzdesi
-    kod=="info12_3" ? metin='     Fasılada Maks. Çalışma Yüzdesi:\n'
+    //MH Ağırlık-Fasılada Maximum Çalışma Yüzdesi
+    kod=="info12_3" ? metin='     Fasılada Max. Çalışma Yüzdesi:\n'
     'Min. Hav. fanları fasıla yaparken toplam döngü süresinin en fazla % kaçı kadarında çalışır pozisyonda kalabileceğinin belirlendiği parametredir. '
     ' Örneğin döngü süresi 5 dk yani 300sn seçilmişse ve bu parametreye de %70 girilmişse fanların fasıla yaparken çalışma süresi en fazla 210 Sn olabilir. '
     ' Eğer 1 fan ile hava ihtiyacını karşılamak için sistem bu parametreye girilen değerden daha yüksek bir süre hesaplarsa fan sayısını bir artırarak çalışma'
@@ -1266,13 +1283,13 @@ class Dil{
 
     
     kod=="info23a" ? metin='Son 24 saat içerisinde ölçülen en yüksek ortalama sıcaklık değerini gösterir'
-    ' Bu sıcaklığı hangi saatte kaydettiğini "Maks.OSic.Saati" parametresinde gösterir\n\n'  : null;
+    ' Bu sıcaklığı hangi saatte kaydettiğini "Max.OSic.Saati" parametresinde gösterir\n\n'  : null;
 
     kod=="info23b" ? metin='Son 24 saat içerisinde ölçülen en düşük ortalama sıcaklık değerini gösterir'
     ' Bu sıcaklığı hangi saatte kaydettiğini "Min.OSic.Saati" parametresinde gösterir\n\n'  : null;
 
     kod=="info23c" ? metin='Son 24 saat içerisinde ölçülen en yüksek nem değerini gösterir'
-    ' Bu nem değerini hangi saatte kaydettiğini "Maks.Nem.Saati" parametresinde gösterir\n\n'  : null;
+    ' Bu nem değerini hangi saatte kaydettiğini "Max.Nem.Saati" parametresinde gösterir\n\n'  : null;
 
     kod=="info23d" ? metin='Son 24 saat içerisinde ölçülen en düşük nem değerini gösterir'
     ' Bu nem değerini hangi saatte kaydettiğini "Min.Nem.Saati" parametresinde gösterir\n\n'  : null;
@@ -1308,8 +1325,8 @@ class Dil{
     ' yönetimine yardımcı ek parametreler bulunmaktadır.\n\n'  : null;
 
     kod=="info28a" ? metin='    Eğer "Yüksek Nemde Tüm Fanlar Çalışsın" parametresi işaretlenirse'
-    ' Kümes içi nem değeri KONTROL→SOĞ.&NEM  sayfasındaki Maks. Nem değerinin üzerine çıktığında'
-    ' tüm fanlar devreye girer. Kümes içi nem değeri Maks. Nem değerinin KONTROL→SOĞ.&NEM sayfasındaki'
+    ' Kümes içi nem değeri KONTROL→SOĞ.&NEM  sayfasındaki Max. Nem değerinin üzerine çıktığında'
+    ' tüm fanlar devreye girer. Kümes içi nem değeri Max. Nem değerinin KONTROL→SOĞ.&NEM sayfasındaki'
     ' Nem Fark kadar altına düştüğünde tüm fanların çalışması durumu sona erer ve fanlar normal işleyişte'
     ' çalışmalarına devam eder. Eğer "Dış Nem Üst Limit Aktif" seçeneği işaretlenirse "Dış Nem üst Limit"'
     ' parametresi görünür olacaktır ve dış ortam nem değeri bu değerin üzerinde ise Yüksek Nemde'
@@ -1339,8 +1356,8 @@ class Dil{
     'her gün bu parametrede belirtilen saatte resetlenir.\n\n'  : null;
 
 
-    kod=="info28f" ? metin='    Günlük tutulan ve İZLEME sayfasından erişilen Min-Maks Sıc. ve '
-    'Min-Maks Nem verileri her gün bu parametrede belirtilen saatte resetlenir.\n\n'  : null;
+    kod=="info28f" ? metin='    Günlük tutulan ve İZLEME sayfasından erişilen Min-Max Sıc. ve '
+    'Min-Max Nem verileri her gün bu parametrede belirtilen saatte resetlenir.\n\n'  : null;
 
 
     kod=="info28g" ? metin='    Günlük tutulan ve İZLEME-3 sayfasından erişilen yem tüketim'
@@ -1610,13 +1627,13 @@ class Dil{
     kod=='ksltm6' ? metin='Ort.Hissed.Sıc. → Ortalama Hissedilir Sıcaklık' : null;
     kod=='ksltm7' ? metin='Doğ.B.Bitiş → Doğal Bölge Bitiş' : null;
     kod=='ksltm8' ? metin='Çap.B.Bitiş → Çapraz Bölge Bitiş' : null;
-    kod=='ksltm9' ? metin='Ölç.Maks.OSıc → Ölçülen Maksimum Ortalama Sıcaklık' : null;
+    kod=='ksltm9' ? metin='Ölç.Max.OSıc → Ölçülen Maximum Ortalama Sıcaklık' : null;
     kod=='ksltm10' ? metin='Ölç.Min.OSıc → Ölçülen Minimum Ortalama Sıcaklık' : null;
-    kod=='ksltm11' ? metin='Ölç.Maks.Nem → Ölçülen Maksimum Nem' : null;
+    kod=='ksltm11' ? metin='Ölç.Max.Nem → Ölçülen Maximum Nem' : null;
     kod=='ksltm12' ? metin='Ölç.Min.Nem → Ölçülen Minimum Nem' : null;
-    kod=='ksltm13' ? metin='Maks.OSic.Saati → Maksimum Ortalama Sıcaklık Saati' : null;
+    kod=='ksltm13' ? metin='Max.OSic.Saati → Maximum Ortalama Sıcaklık Saati' : null;
     kod=='ksltm14' ? metin='Min.OSic.Saati → Minimum Ortalama Sıcaklık Saati' : null;
-    kod=='ksltm15' ? metin='Maks.Nem Saati → Maksimum Nem Saati' : null;
+    kod=='ksltm15' ? metin='Max.Nem Saati → Maximum Nem Saati' : null;
     kod=='ksltm16' ? metin='Min.Nem Saati → Minimum Nem Saati' : null;
     kod=='ksltm17' ? metin='SIC. & FAN → SICAKLIKLAR & FAN' : null;
     kod=='ksltm18' ? metin='MİN. HAV. → MİNİMUM HAVALANDIRMA' : null;
@@ -1641,7 +1658,7 @@ class Dil{
     kod=='ksltm37' ? metin='S4 → SİLO4' : null;
     kod=='ksltm38' ? metin='Klp Baş. Düş. Fan Mik.\n→ Klepe Başına Düşen Fan Miktarı' : null;
     kod=='ksltm39' ? metin='Klp Baş. Düş. Fan M.Modu\n→ Klepe Başına Düşen Fan Miktarı Modu' : null;
-    kod=='ksltm40' ? metin='Min.-Maks. Açıklık\n→ Minimum-Maksimum Açıklık' : null;
+    kod=='ksltm40' ? metin='Min.-Max. Açıklık\n→ Minimum-Maximum Açıklık' : null;
     kod=='ksltm41' ? metin='Min.-Hav. Açıklık\n→ Minimum Havalandırma Açıklık' : null;
 
 
@@ -1767,7 +1784,7 @@ class Dil{
     kod=="tv101" ? metin='AUTO-MAN' : null;
     kod=="tv102" ? metin='CONTROL' : null;
     kod=="tv103" ? metin='DATA LOG' : null;
-    kod=="tv104" ? metin='ALARM SET.' : null;
+    kod=="tv104" ? metin='ALARM/WARN' : null;
     kod=="tv105" ? metin='SYSTEM' : null;
     kod=="tv106" ? metin='CONTROL SETTINGS' : null;
     kod=="tv107" ? metin='TEMP. & HUM.' : null;
@@ -1785,7 +1802,7 @@ class Dil{
     kod=="tv119" ? metin='Cross vent. active area' : null;
     kod=="tv120" ? metin='Nat.Zone-Min.Vent Cont.' : null;
     kod=="tv121" ? metin='Min.Vent. Intermittent' : null;
-    kod=="tv122" ? metin='Maks. fan temperature' : null;
+    kod=="tv122" ? metin='Max. fan temperature' : null;
     kod=="tv123" ? metin='Temperature Diagram' : null;
     kod=="tv124" ? metin='Navigator Menu' : null;
     kod=="tv125" ? metin='Set Temperature (A)' : null;
@@ -1843,7 +1860,7 @@ class Dil{
     kod=="tv177" ? metin='28. Day' : null;
     kod=="tv178" ? metin='35. Day' : null;
     kod=="tv179" ? metin='42. Day' : null;
-    kod=="tv180" ? metin='DEFINITION OF WEEKLY SET TEMPERATURES' : null;
+    kod=="tv180" ? metin='DEFINITION OF SET TEMPERATURES FOR 7 WEEKLY ' : null;
     kod=="tv181" ? metin='TEMPERATURE SET and FAN' : null;
     kod=="tv182" ? metin='Fan Step' : null;
     kod=="tv183" ? metin='Temp. Line(°C)' : null;
@@ -1935,7 +1952,7 @@ class Dil{
     kod=="tv269" ? metin='Stop Temperature(A-C) :' : null;
     kod=="tv270" ? metin='On Time(Sn)' : null;
     kod=="tv271" ? metin='Off Time(Sn)' : null;
-    kod=="tv272" ? metin='Maks. Start Time\nin Intermittent' : null;
+    kod=="tv272" ? metin='Max. Start Time\nin Intermittent' : null;
     kod=="tv273" ? metin='Air Inlet\nPriority Time(Sec)' : null;
     kod=="tv274" ? metin='Air Inlet\nPercent(%)' : null;
     kod=="tv275" ? metin='Close Air Inlet in Intermittent stop state?' : null;
@@ -2093,7 +2110,7 @@ class Dil{
     kod=="tv427" ? metin='Actual Number\nof Animals' : null;
     kod=="tv428" ? metin='Herd Age\n(Daily)' : null;
     kod=="tv429" ? metin='Herd Age\n(Weekly)' : null;
-    kod=="tv430" ? metin='BOŞTA' : null;
+    kod=="tv430" ? metin='External Alarm' : null;
     kod=="tv431" ? metin='SENSOR CALIBRATION' : null;
     kod=="tv432" ? metin='Hum. Sen. Measure Method' : null;
     kod=="tv433" ? metin='Wifi' : null;
@@ -2363,6 +2380,24 @@ class Dil{
     kod=="tv696" ? metin='Unknown error occured!' : null;
     kod=="tv697" ? metin='Connection fault between PLC and Server PC!' : null;
     kod=="tv698" ? metin='Error Code' : null;
+    kod=="tv699" ? metin='Min. Temp.(°C)' : null;
+    kod=="tv700" ? metin='Max. Temp.(°C)' : null;
+    kod=="tv701" ? metin='DEFINITION OF ALARM MIN. & MAX TEMP. FOR 7 WEEKLY' : null;
+    kod=="tv702" ? metin='ALARM SETTINGS' : null;
+    kod=="tv703" ? metin='Min: ' : null;
+    kod=="tv704" ? metin='Max: ' : null;
+    kod=="tv705" ? metin='MIN' : null;
+    kod=="tv706" ? metin='MAX' : null;
+    kod=="tv707" ? metin='SET' : null;
+    kod=="tv708" ? metin='Set: ' : null;
+    kod=="tv709" ? metin='Show\nIntermediate\nValues' : null;
+    kod=="tv710" ? metin='Alarm Delay (Sec)\n(for Min-Max values)' : null;
+    kod=="tv711" ? metin='Daily Min. Consump.(Lt)\n(for 1 watermeter)' : null;
+    kod=="tv712" ? metin='Ped Maintenance\nCycle Time(Day)' : null;
+    kod=="tv713" ? metin='System Maintenance\nCycle Time(Day)' : null;
+    kod=="tv714" ? metin='Stop Horn' : null;
+    kod=="tv715" ? metin='Stop Time(Sec)' : null;
+   
     
     
 

@@ -2690,6 +2690,8 @@ class Metotlar{
       sonuc = "I5.7";
     else if (deger == 47)
       sonuc = "I6.0";
+    else if (deger == 48)
+      sonuc = "I6.1";
     else {
       sonuc = "I#.#";
     }
@@ -2794,6 +2796,8 @@ class Metotlar{
       sonuc = 46;
     else if (deger == "I6.0")
       sonuc = 47;
+    else if (deger == "I6.1")
+      sonuc = 48;
     else {
       sonuc = 0;
     }
