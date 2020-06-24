@@ -40,7 +40,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
   bool baglanti = false;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
   bool alarmTimedOutDurum=false;
@@ -173,6 +173,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
         yazmaSonrasiGecikmeSayaci++;
         if (timerCancel) {
           timer.cancel();
+          print("GİRİİİİİİİİİİİİİİİİİİİİİYOR");
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;

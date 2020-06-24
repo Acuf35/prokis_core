@@ -61,6 +61,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
   final dbProkis = Provider.of<DBProkis>(context);
     //_dbSatirlariCekme();
+    //dbProkis.dbSatirSil(100, 179);
 
     if(sayac==0){
 

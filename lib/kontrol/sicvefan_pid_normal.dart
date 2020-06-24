@@ -58,7 +58,7 @@ class SicVeFanPIDNormalState extends State<SicVeFanPIDNormal> {
   int yazmaSonrasiGecikmeSayaci = 4;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------

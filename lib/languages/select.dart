@@ -676,6 +676,7 @@ class Dil{
     kod=="tv652" ? metin='Kalan Süre(Sn): ' : null;
     kod=="tv653" ? metin='SİRK.FANI' : null;
     kod=="tv654" ? metin='SİRK: FANLARININ MANUEL KONTROLÜ' : null;
+    kod=="tv655" ? metin='Kalan' : null;
     kod=="tv656" ? metin='Sistemde Air Inlet\naktif değil!' : null;
     kod=="tv657" ? metin='Sistemde\nBacafan\naktif değil!' : null;
     kod=="tv658" ? metin='Sistemde\nIsıtıcı\naktif değil!' : null;
@@ -736,6 +737,10 @@ class Dil{
     kod=="tv713" ? metin='Sistem Bakım Zamanı\nDöngü Süresi(Gün)' : null;
     kod=="tv714" ? metin='Kornayı Sustur' : null;
     kod=="tv715" ? metin='Susma Süresi(Sn)' : null;
+    kod=="tv716" ? metin='Alarm Korna İptal' : null;
+    kod=="tv717" ? metin='ALARM & UYARI DURUM' : null;
+    kod=="tv718" ? metin='ALARMI KALDIR' : null;
+    kod=="tv719" ? metin='UYARIYI KALDIR' : null;
    
 
     
@@ -786,6 +791,67 @@ class Dil{
     kod=="hint1" ? metin='Kümes İsmi' : null;
 
     //endregion
+
+
+    //region ALARM VE UYARI LİSTESİ
+
+    kod=="alarm1" ? metin='Acil Stop\'a basıldı!' : null;
+    kod=="alarm2" ? metin='Faz sırası hatası!' : null;
+    kod=="alarm3" ? metin='Elektrik kesildi veya ana sigorta attı!' : null;
+    kod=="alarm4" ? metin='Tünel fanlarından birinin sigortası attı!' : null;
+    kod=="alarm5" ? metin='Klepe motorlarından birinin sigortası attı!' : null;
+    kod=="alarm6" ? metin='Ped motorlarından birinin sigortası attı!' : null;
+    kod=="alarm7" ? metin='Air inlet motorlarından birinin sigortası attı!' : null;
+    kod=="alarm8" ? metin='Baca fanlarından birinin sigortası attı!' : null;
+    kod=="alarm9" ? metin='Isıtıcılardan birinin sigortası attı!' : null;
+    kod=="alarm10" ? metin='Sirk. fanlarından birinin sigortası attı!' : null;
+    kod=="alarm11" ? metin='Tünellerden birine su gitmiyor!' : null;
+    kod=="alarm12" ? metin='Minimum sıcaklık!' : null;
+    kod=="alarm13" ? metin='Maksimum sıcaklık!' : null;
+    kod=="alarm14" ? metin='Minimum nem!' : null;
+    kod=="alarm15" ? metin='Maksimum nem!' : null;
+    kod=="alarm16" ? metin='Sıcaklık sensör 1 arızalı!' : null;
+    kod=="alarm17" ? metin='Sıcaklık sensör 2 arızalı!' : null;
+    kod=="alarm18" ? metin='Sıcaklık sensör 3 arızalı!' : null;
+    kod=="alarm19" ? metin='Sıcaklık sensör 4 arızalı!' : null;
+    kod=="alarm20" ? metin='Sıcaklık sensör 5 arızalı!' : null;
+    kod=="alarm21" ? metin='Sıcaklık sensör 6 arızalı!' : null;
+    kod=="alarm22" ? metin='Sıcaklık sensör 7 arızalı!' : null;
+    kod=="alarm23" ? metin='Sıcaklık sensör 8 arızalı!' : null;
+    kod=="alarm24" ? metin='Sıcaklık sensör 9 arızalı!' : null;
+    kod=="alarm25" ? metin='Sıcaklık sensör 10 arızalı!' : null;
+    kod=="alarm26" ? metin='Sıcaklık sensör 11 arızalı!' : null;
+    kod=="alarm27" ? metin='Sıcaklık sensör 12 arızalı!' : null;
+    kod=="alarm28" ? metin='Sıcaklık sensör 13 arızalı!' : null;
+    kod=="alarm29" ? metin='Sıcaklık sensör 14 arızalı!' : null;
+    kod=="alarm30" ? metin='Sıcaklık sensör 15 arızalı!' : null;
+    kod=="alarm31" ? metin='İç ortam nem sensörü arızalı!' : null;
+    kod=="alarm32" ? metin='Harici alarm aktif!' : null;
+    kod=="alarm33" ? metin='Sayac 1 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm34" ? metin='Sayac 2 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm35" ? metin='Sayac 3 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm36" ? metin='Sayac 4 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm37" ? metin='Sayac 5 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm38" ? metin='Sayac 6 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm39" ? metin='Sayac 7 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm40" ? metin='Sayac 8 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm41" ? metin='Sayac 9 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm42" ? metin='Sayac 10 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm43" ? metin='Sayac 11 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm44" ? metin='Sayac 12 için su tüketimi minimumun altında kaldı!' : null;
+
+
+    kod=="uyari61" ? metin='Dış ortam nem sensörü arızalı!' : null;
+    kod=="uyari62" ? metin='Dış ortam sıcaklık sensörü arızalı!' : null;
+    kod=="uyari63" ? metin='Ped bakım zamanı geldi!' : null;
+    kod=="uyari64" ? metin='Sistem bakım zamanı geldi!' : null;
+    
+    //endregion
+
+
+
+
+
 
     //region TOAST
 
@@ -887,6 +953,7 @@ class Dil{
     kod=="toast96" ? metin='Aynı Bacafan No iki farklı bacafan için tanımlanmış! Lütfen kontrol ediniz' : null;
     kod=="toast97" ? metin='Tanımlanmamış çıkış var! Lütfen aktif tüm çıkışlar için atama yapınız' : null;
     kod=="toast98" ? metin='Hata hala aktif, o yüzden resetlenemez!' : null;
+    kod=="toast99" ? metin='Alarm hala aktif, o yüzden resetlenemez!' : null;
     
 
 
@@ -2335,8 +2402,7 @@ class Dil{
     kod=="tv652" ? metin='RemainingT.(Sn): ' : null;
     kod=="tv653" ? metin='SIRC.FAN' : null;
     kod=="tv654" ? metin='MANUAL CONTROL OF SIRC. FAN' : null;
-
-    
+    kod=="tv655" ? metin='Remain' : null;
     kod=="tv656" ? metin='Air inlet isn\'t active\nin the system' : null;
     kod=="tv657" ? metin='Chimney fan\nisn\'t active\nin the system' : null;
     kod=="tv658" ? metin='Heater\nisn\'t active\nin the system' : null;
@@ -2397,6 +2463,10 @@ class Dil{
     kod=="tv713" ? metin='System Maintenance\nCycle Time(Day)' : null;
     kod=="tv714" ? metin='Stop Horn' : null;
     kod=="tv715" ? metin='Stop Time(Sec)' : null;
+    kod=="tv716" ? metin='Alarm Horn Cancel' : null;
+    kod=="tv717" ? metin='ALARM & WARN STATE' : null;
+    kod=="tv718" ? metin='REMOVE ALARM' : null;
+    kod=="tv719" ? metin='REMOVE WARNING' : null;
    
     
     
@@ -2457,6 +2527,68 @@ class Dil{
     kod=="hint1" ? metin='Cage Name' : null;
 
     //endregion
+
+
+
+
+    //region ALARM VE UYARI LİSTESİ
+
+    kod=="alarm1" ? metin='Emergency stop is pressed!' : null;
+    kod=="alarm2" ? metin='Phase sequence error!' : null;
+    kod=="alarm3" ? metin='Electricity is cut or main fuse triggered!' : null;
+    kod=="alarm4" ? metin='The fuse of one of tunnel fans triggered!' : null;
+    kod=="alarm5" ? metin='Klepe motorlarından birinin sigortası attı!' : null;
+    kod=="alarm6" ? metin='Ped motorlarından birinin sigortası attı!' : null;
+    kod=="alarm7" ? metin='Air inlet motorlarından birinin sigortası attı!' : null;
+    kod=="alarm8" ? metin='Baca fanlarından birinin sigortası attı!' : null;
+    kod=="alarm9" ? metin='Isıtıcılardan birinin sigortası attı!' : null;
+    kod=="alarm10" ? metin='Sirk. fanlarından birinin sigortası attı!' : null;
+    kod=="alarm11" ? metin='Tünellerden birine su gitmiyor!' : null;
+    kod=="alarm12" ? metin='Minimum sıcaklık!' : null;
+    kod=="alarm13" ? metin='Maksimum sıcaklık!' : null;
+    kod=="alarm14" ? metin='Minimum nem!' : null;
+    kod=="alarm15" ? metin='Maksimum nem!' : null;
+    kod=="alarm16" ? metin='Sıcaklık sensör 1 arızalı!' : null;
+    kod=="alarm17" ? metin='Sıcaklık sensör 2 arızalı!' : null;
+    kod=="alarm18" ? metin='Sıcaklık sensör 3 arızalı!' : null;
+    kod=="alarm19" ? metin='Sıcaklık sensör 4 arızalı!' : null;
+    kod=="alarm20" ? metin='Sıcaklık sensör 5 arızalı!' : null;
+    kod=="alarm21" ? metin='Sıcaklık sensör 6 arızalı!' : null;
+    kod=="alarm22" ? metin='Sıcaklık sensör 7 arızalı!' : null;
+    kod=="alarm23" ? metin='Sıcaklık sensör 8 arızalı!' : null;
+    kod=="alarm24" ? metin='Sıcaklık sensör 9 arızalı!' : null;
+    kod=="alarm25" ? metin='Sıcaklık sensör 10 arızalı!' : null;
+    kod=="alarm26" ? metin='Sıcaklık sensör 11 arızalı!' : null;
+    kod=="alarm27" ? metin='Sıcaklık sensör 12 arızalı!' : null;
+    kod=="alarm28" ? metin='Sıcaklık sensör 13 arızalı!' : null;
+    kod=="alarm29" ? metin='Sıcaklık sensör 14 arızalı!' : null;
+    kod=="alarm30" ? metin='Sıcaklık sensör 15 arızalı!' : null;
+    kod=="alarm31" ? metin='İç ortam nem sensörü arızalı!' : null;
+    kod=="alarm32" ? metin='Harici alarm aktif!' : null;
+    kod=="alarm33" ? metin='Sayac 1 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm34" ? metin='Sayac 2 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm35" ? metin='Sayac 3 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm36" ? metin='Sayac 4 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm37" ? metin='Sayac 5 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm38" ? metin='Sayac 6 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm39" ? metin='Sayac 7 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm40" ? metin='Sayac 8 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm41" ? metin='Sayac 9 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm42" ? metin='Sayac 10 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm43" ? metin='Sayac 11 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm44" ? metin='Sayac 12 için su tüketimi minimumun altında kaldı!' : null;
+
+
+    kod=="uyari61" ? metin='Dış ortam nem sensörü arızalı!' : null;
+    kod=="uyari62" ? metin='Dış ortam sıcaklık sensörü arızalı!' : null;
+    kod=="uyari63" ? metin='Ped bakım zamanı geldi!' : null;
+    kod=="uyari64" ? metin='Sistem bakım zamanı geldi!' : null;
+    
+    //endregion
+
+
+
+
 
     //region TOAST
 
@@ -2559,6 +2691,7 @@ class Dil{
     kod=="toast96" ? metin='Same Chimney Fan Number assigned for two different chimney fan! Please check.' : null;
     kod=="toast97" ? metin='There is undefine output! Please define a valid output for all elements' : null;
     kod=="toast98" ? metin='The error is still active, it can\'t reset' : null;
+    kod=="toast99" ? metin='The alarm is still active, it can\'t reset' : null;
     //endregion
 
     return metin;

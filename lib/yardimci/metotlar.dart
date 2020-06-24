@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/genel_ayarlar/alarm_durum.dart';
 import 'package:prokis/genel_ayarlar/baglanti_durum.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';
 import 'package:prokis/genel_ayarlar/kalibrasyon.dart';
@@ -1251,9 +1252,45 @@ class Metotlar{
     });
   }
 
-
-  Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
+  Widget appBarAlarm(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
     final dbProkis = Provider.of<DBProkis>(context);
+    bool alarmVar=false;
+    bool uyariVar=false;
+    print("DEĞER: "+ dbProkis.dbVeriGetir(48, 1, "0") +" - "+ dbProkis.dbVeriGetir(48, 2, "0") +" - "+ dbProkis.dbVeriGetir(48, 3, "0") );
+
+    if (dbProkis.dbVeriGetir(48, 1, "0")=="1"){
+
+      for(int i=0;i<=59;i++){
+
+        if(!alarmVar){
+          alarmVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+        }
+
+      }
+
+
+      for(int i=60;i<=79;i++){
+        
+        if(!uyariVar){
+          uyariVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+          
+        }
+
+      }
+
+    }
+
+    
     return PreferredSize(
       preferredSize: Size.fromHeight(30*oran),
       child: AppBar(
@@ -1276,17 +1313,246 @@ class Metotlar{
               builder: (context) => RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 constraints: BoxConstraints(),
-                child: Icon(
-                Icons.add_alert,
-                size: 40 * oran,
-                color: alarmDurum=="0" ? Colors.green[200] : Colors.red,
-                  ),
+                child: Stack(fit: StackFit.expand,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Expanded(flex: 2,
+                          child: Container(
+                          alignment: Alignment.topLeft,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.add_alert,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: alarmVar==false ? Colors.green[200] : Colors.red[500],
+                                );
+                              }),
+                          ),
+                        ),
+                        Spacer(flex: 1,)
+                      ],
+                    ),
+                      Column(
+                      children: <Widget>[
+                        Spacer(),
+                        Expanded(
+                          child: Container(
+                          alignment: Alignment.bottomRight,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.warning,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: uyariVar==false ? Colors.green[200] : Colors.yellow[700],
+                                );
+                              }),
+                          ),
+                        ),
+                        
+                      ],
+                    ),
+                  ],
+                ),
                 onPressed: () {
-
+                  dbProkis.dbSatirEkleGuncelle(48, "1", "0", "0", "0");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AlarmUyariDurum(dbProkis.getDbVeri)),
+                  );
                 },
               ),
             )),
+              Expanded(
+              flex: 10,
+              child: Center(
+                child: Text(
+                  Dil().sec(dilSecimi, baslik),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28 * oran,
+                      fontFamily: 'Kelly Slab',
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
             Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                  Icons.router,
+                  size: 40 * oran,
+                  color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BaglantiDurum(dbProkis.getDbVeri)),
+                  );
+                },
+              ),
+            )),
+          Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                  Icons.info_outline,
+                  size: 40 * oran,
+                  color: Colors.yellow[700],
+                ),
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+              ),
+            )),
+          
+          ],
+        ),
+        actions: [
+          Row(
+            children: <Widget>[
+              Builder(
+                builder: (context) => IconButton(
+                  color: Colors.yellow[700],
+                  iconSize: 40 * oran,
+                  icon: Icon(null),
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                ),
+              ),
+            ],
+          ),
+        ],
+        primary: false,
+        automaticallyImplyLeading: false,
+      ),
+    );
+  
+  }
+
+
+  Widget appBar(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
+    final dbProkis = Provider.of<DBProkis>(context);
+    bool alarmVar=false;
+    bool uyariVar=false;
+    print("DEĞER: "+ dbProkis.dbVeriGetir(48, 1, "0") +" - "+ dbProkis.dbVeriGetir(48, 2, "0") +" - "+ dbProkis.dbVeriGetir(48, 3, "0") );
+
+    if (dbProkis.dbVeriGetir(48, 2, "0")=="1"){
+
+      for(int i=0;i<=59;i++){
+
+        if(!alarmVar){
+          alarmVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+        }
+
+      }
+
+
+      for(int i=60;i<=79;i++){
+        
+        if(!uyariVar){
+          uyariVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+          
+        }
+
+      }
+
+    }
+
+    
+    return PreferredSize(
+      preferredSize: Size.fromHeight(30*oran),
+      child: AppBar(
+        flexibleSpace: Row(
+          children: <Widget>[
+            Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                child: Icon(
+                  Icons.menu,
+                  size: 40 * oran,
+                  color: Colors.white,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
+            )),
+            Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Stack(fit: StackFit.expand,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Expanded(flex: 2,
+                          child: Container(
+                          alignment: Alignment.topLeft,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.add_alert,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: alarmVar==false ? Colors.green[200] : Colors.red[500],
+                                );
+                              }),
+                          ),
+                        ),
+                        Spacer(flex: 1,)
+                      ],
+                    ),
+                      Column(
+                      children: <Widget>[
+                        Spacer(),
+                        Expanded(
+                          child: Container(
+                          alignment: Alignment.bottomRight,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.warning,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: uyariVar==false ? Colors.green[200] : Colors.yellow[700],
+                                );
+                              }),
+                          ),
+                        ),
+                        
+                      ],
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  dbProkis.dbSatirEkleGuncelle(48, "1", "0", "0", "0");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AlarmUyariDurum(dbProkis.getDbVeri)),
+                  );
+                },
+              ),
+            )),
+              Expanded(
               flex: 10,
               child: Center(
                 child: Text(
@@ -1358,6 +1624,43 @@ class Metotlar{
   }
 
   Widget appBarBLOC(String dilSecimi, BuildContext context, double oran, String baslik, String baglantiDurum, String alarmDurum) {
+
+    final dbProkis = Provider.of<DBProkis>(context);
+    bool alarmVar=false;
+    bool uyariVar=false;
+
+    if (dbProkis.dbVeriGetir(48, 3, "0")=="1"){
+
+      for(int i=0;i<=59;i++){
+
+        if(!alarmVar){
+          alarmVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+        }
+
+      }
+
+
+      for(int i=60;i<=79;i++){
+        
+        if(!uyariVar){
+          uyariVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+          
+        }
+
+      }
+
+    }
+
     return AppBar(
       flexibleSpace: Row(
         children: <Widget>[
@@ -1378,13 +1681,55 @@ class Metotlar{
               builder: (context) => RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 constraints: BoxConstraints(),
-                child: Icon(
-                Icons.add_alert,
-                size: 40 * oran,
-                color: alarmDurum=="0" ? Colors.green[200] : Colors.red,
-                  ),
+                child: Stack(fit: StackFit.expand,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Expanded(flex: 2,
+                          child: Container(
+                          alignment: Alignment.topLeft,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.add_alert,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: alarmVar==false ? Colors.green[200] : Colors.red[500],
+                                );
+                              }),
+                          ),
+                        ),
+                        Spacer(flex: 1,)
+                      ],
+                    ),
+                      Column(
+                      children: <Widget>[
+                        Spacer(),
+                        Expanded(
+                          child: Container(
+                          alignment: Alignment.bottomRight,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.warning,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: uyariVar==false ? Colors.green[200] : Colors.yellow[700],
+                                );
+                              }),
+                          ),
+                        ),
+                        
+                      ],
+                    ),
+                  ],
+                ),
                 onPressed: () {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AlarmUyariDurum(dbProkis.getDbVeri)),
+                  );
                 },
               ),
             )),
@@ -1412,7 +1757,12 @@ class Metotlar{
                 color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
               ),
               onPressed: () {
-
+                dbProkis.dbSatirEkleGuncelle(48, "1", "0", "0", "0");
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => BaglantiDurum(dbProkis.getDbVeri)),
+                  );
               },
             ),
           )),
@@ -1456,7 +1806,45 @@ class Metotlar{
 
 
   Widget appBarSade(String dilSecimi, BuildContext context, double oran, String baslik, Color color, String baglantiDurum, String alarmDurum) {
+
     final dbProkis = Provider.of<DBProkis>(context);
+    bool alarmVar=false;
+    bool uyariVar=false;
+
+    if (dbProkis.dbVeriGetir(48, 4, "0")=="1"){
+
+    
+      for(int i=0;i<=59;i++){
+
+        if(!alarmVar){
+          alarmVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+        }
+
+      }
+
+
+      for(int i=60;i<=79;i++){
+        
+        if(!uyariVar){
+          uyariVar = alarmDurum.substring(i,i+1)=="1" ? true : false;
+        }
+
+        if(alarmDurum.substring(i,i+1)=="1" && dbProkis.dbVeriGetir(100+i, 2, "0")=="0"){
+          String zaman=Metotlar().getSystemDate(dbProkis.getDbVeri)+" - "+Metotlar().getSystemTime(dbProkis.getDbVeri);
+          dbProkis.dbSatirEkleGuncelle(100+i, "1", "1", zaman, "0");
+          
+        }
+
+      }
+
+    }
+
+
     return PreferredSize(
       preferredSize: Size.fromHeight(30 * oran),
       child: AppBar(
@@ -1481,13 +1869,56 @@ class Metotlar{
               builder: (context) => RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 constraints: BoxConstraints(),
-                child: Icon(
-                Icons.add_alert,
-                size: 40 * oran,
-                color: alarmDurum=="0" ? Colors.green[200] : Colors.red,
-                  ),
+                child: Stack(fit: StackFit.expand,
+                  children: <Widget>[
+                    Column(
+                      children: <Widget>[
+                        Expanded(flex: 2,
+                          child: Container(
+                          alignment: Alignment.topLeft,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.add_alert,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: alarmVar==false ? Colors.green[200] : Colors.red[500],
+                                );
+                              }),
+                          ),
+                        ),
+                        Spacer(flex: 1,)
+                      ],
+                    ),
+                      Column(
+                      children: <Widget>[
+                        Spacer(),
+                        Expanded(
+                          child: Container(
+                          alignment: Alignment.bottomRight,
+                            child: LayoutBuilder(builder:
+                                  (context, constraint) {
+                                return Icon(
+                                  Icons.warning,
+                                  size: constraint
+                                      .biggest.height,
+                                  color: uyariVar==false ? Colors.green[200] : Colors.yellow[700],
+                                );
+                              }),
+                          ),
+                        ),
+                        
+                      ],
+                    ),
+                  ],
+                ),
                 onPressed: () {
-
+                  dbProkis.dbSatirEkleGuncelle(48, "1", "0", "0", "0");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => AlarmUyariDurum(dbProkis.getDbVeri)),
+                  );
                 },
               ),
             )),

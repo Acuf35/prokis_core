@@ -89,7 +89,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   String haftalik_53veSonrasi = "0.59";
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -1301,7 +1301,7 @@ final dbProkis = Provider.of<DBProkis>(context);
           _yuzler != val[3] ||
           _onlar != val[4] ||
           _birler != val[5]) {
-        veriGonderilsinMi = false;
+        veriGonderilsinMi = true;
       }
 
       _yuzBinler = val[0];

@@ -33,7 +33,7 @@ class GenelAyarlar extends StatefulWidget {
   }
 }
 
-class GenelAyarlarState extends State<GenelAyarlar> {
+class GenelAyarlarState extends State<GenelAyarlar> with WidgetsBindingObserver{
   //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   /*
   final dbHelper = DatabaseHelper.instance;
@@ -51,7 +51,7 @@ class GenelAyarlarState extends State<GenelAyarlar> {
   bool baglanti = false;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -75,9 +75,12 @@ class GenelAyarlarState extends State<GenelAyarlar> {
     super.dispose();
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
 final dbProkis = Provider.of<DBProkis>(context);
+
 
 
 
@@ -110,6 +113,7 @@ final dbProkis = Provider.of<DBProkis>(context);
               setState(() {});
             }else{
               alarmDurum=veri;
+              print(veri);
               baglantiDurum="";
               baglanti=false;
               if(!timerCancel)

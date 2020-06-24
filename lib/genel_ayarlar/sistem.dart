@@ -37,7 +37,7 @@ class SistemState extends State<Sistem> {
   bool baglanti = false;
   
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
   @override
   void dispose() {

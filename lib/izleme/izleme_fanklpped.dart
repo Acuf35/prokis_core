@@ -89,7 +89,7 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed> with TickerProviderSt
 "0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*0.0*1*0*0*0*0*0*0*0*0*0*#1*1*1*1*0*0*0*0*0*0*0*1*1*1*0*1*0*0*#0.0*0.0";
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -216,7 +216,7 @@ var blocVeri;
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(30*oran),
           child: StreamBuilder<Object>(
-            initialData: "*0",
+            initialData: "*00000000000000000000000000000000000000000000000000000000000000000000000000000000",
             stream: _blocSinif.bloCVeriStateStreamControllerBAGLANTIERROR.stream,
             builder: (context, snapshot) {
               String xx=snapshot.data;
@@ -2483,14 +2483,15 @@ var blocVeri;
 
 
 }
-
+int timerSayac = 0;
+bool timerCancel = false;
 
 class IzlemeFanKlpPedBloC {
 
   String veri="";
 
-  bool timerCancel = false;
-  int timerSayac = 0;
+  
+  
   bool baglanti = false;
 
 
@@ -2578,7 +2579,7 @@ class IzlemeFanKlpPedBloC {
   String cbbDegerGecici="";
   String modGecici="";
   String baglantiHatasiGecici="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
   IzlemeFanKlpPedBloC(BuildContext context, String dilSecimi, List fanNo, int unsurAdet, List klepeNo, List isisensorNo, List pedNo, DBProkis dbProkis) {
 

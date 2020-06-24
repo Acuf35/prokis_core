@@ -46,7 +46,7 @@ class SistemStartStopState extends State<SistemStartStop> {
   bool takipEtiGeciciDurdur = false;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 

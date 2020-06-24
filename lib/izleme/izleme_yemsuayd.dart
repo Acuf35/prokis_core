@@ -85,7 +85,7 @@ class IzlemeYemSuAydState extends State<IzlemeYemSuAyd> {
   bool dimmerVarMi=false;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
   
 

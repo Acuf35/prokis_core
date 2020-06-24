@@ -90,7 +90,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
   String baglantiDurum="";
 
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
   @override
   void dispose() {

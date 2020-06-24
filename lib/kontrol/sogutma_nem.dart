@@ -68,7 +68,7 @@ class SogutmaNemState extends State<SogutmaNem> {
   String durmaSure = "360";
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------

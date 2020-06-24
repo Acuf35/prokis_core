@@ -74,7 +74,7 @@ class YemlemeState extends State<Yemleme> {
   bool veriGonderildi = false;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
   

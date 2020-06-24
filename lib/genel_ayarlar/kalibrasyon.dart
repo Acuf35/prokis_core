@@ -79,7 +79,7 @@ class KalibrasyonState extends State<Kalibrasyon> {
   String disNemEksiKalibDegeri="0.0";
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
   

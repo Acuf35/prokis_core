@@ -52,7 +52,7 @@ class KlepeKalibrasyonState extends State<KlepeKalibrasyon> {
   List<String> otoManDurum = new List(11);
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------

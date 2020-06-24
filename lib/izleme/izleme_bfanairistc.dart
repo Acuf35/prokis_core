@@ -77,7 +77,7 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc> with TickerProvid
   bool isiticiGr3Durum=false;
 
   String baglantiDurum="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 
 
@@ -205,12 +205,13 @@ var blocVeri;
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(30*oran),
           child: StreamBuilder<Object>(
-            initialData: "",
+            initialData: "*00000000000000000000000000000000000000000000000000000000000000000000000000000000",
             stream: _blocSinif.bloCVeriStateStreamControllerBAGLANTIERROR.stream,
             builder: (context, snapshot) {
               String xx=snapshot.data;
-              alarmDurum=xx[1];
-              baglantiDurum=xx[2];
+              var yy=xx.split("*");
+              baglantiDurum=yy[0];
+              alarmDurum=yy[1];
               return Metotlar().appBar(dilSecimi, context, oran, 'tv599',baglantiDurum, alarmDurum);
             }
           ),
@@ -1937,13 +1938,14 @@ var blocVeri;
 
 }
 
+  bool timerCancel = false;
+  int timerSayac = 0;
 
 class IzlemeBfanAirIstcBloC {
 
   String veri="";
 
-  bool timerCancel = false;
-  int timerSayac = 0;
+  
   bool baglanti = false;
   
 
@@ -2038,7 +2040,7 @@ class IzlemeBfanAirIstcBloC {
   String otoAIRIGecici="";
   String otoSIRKGecici="";
   String baglantiHatasiGecici="";
-  String alarmDurum="0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
   IzlemeBfanAirIstcBloC(BuildContext context, String dilSecimi, List isiticiNo, DBProkis dbProkis) {
 

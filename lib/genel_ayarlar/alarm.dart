@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -13,12 +11,10 @@ import 'package:prokis/yardimci/deger_giris_2x0.dart';
 import 'package:prokis/yardimci/deger_giris_3x0.dart';
 import 'package:prokis/yardimci/deger_giris_6x0.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/genel_ayarlar/kontrol.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
-import 'package:prokis/yardimci/deger_giris_1x0.dart';
 import 'package:prokis/yardimci/deger_giris_2x1.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -44,14 +40,6 @@ class AlarmState extends State<Alarm> {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   List<Map> dbVeriler;
-
-  String dogalBolgeB = "1.0";
-  String capHavFarkC = "2.0";
-  String setSicA = "21.0";
-  String maksFanFarkiH = "5.0";
-  String fanKademesi = "1";
-
-  bool mhDANthYAGECISTEdebiyiKORU = false;
 
   double gun1 = 33.0;
   double gun7 = 31.0;
@@ -95,7 +83,9 @@ class AlarmState extends State<Alarm> {
   String yukVeDusNemveSicAlarmGecikmesi="10";
   String birSayacIcinMinTukMiktari="100";
   String pedBakimZamaniGeldiDonguSuresi="250";
+  String pedBakimZamaniGeldiKalanSure="250";
   String sistemBakimZamaniGeldiDonguSuresi="365";
+  String sistemBakimZamaniGeldiKalanSure="365";
   String kornaSusSuresi="200";
   bool kornaSus=false;
 
@@ -108,9 +98,7 @@ class AlarmState extends State<Alarm> {
   int _ondalik = 0;
   int _index = 0;
 
-  List<charts.Series> seriesList;
-  bool animate;
-
+  
   bool timerCancel = false;
   int timerSayac = 0;
   bool baglanti = false;
@@ -118,7 +106,7 @@ class AlarmState extends State<Alarm> {
   int yazmaSonrasiGecikmeSayaci = 4;
 
   String baglantiDurum = "";
-  String alarmDurum = "0";
+  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -130,7 +118,7 @@ class AlarmState extends State<Alarm> {
         dilSecimi = dbVeri[i]["veri1"];
       }
     }
-    _gunlerSet();
+    
 
     _dbVeriCekme();
   }
@@ -147,7 +135,7 @@ class AlarmState extends State<Alarm> {
     final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
-      Metotlar().takipEt('1*', 2236).then((veri) {
+      Metotlar().takipEt('31*', 2236).then((veri) {
         if (veri.split("*")[0] == "error") {
           baglanti = false;
           baglantiDurum =
@@ -167,7 +155,7 @@ class AlarmState extends State<Alarm> {
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
 
-          Metotlar().takipEt('1*', 2236).then((veri) {
+          Metotlar().takipEt('31*', 2236).then((veri) {
             if (veri.split("*")[0] == "error") {
               baglanti = false;
               baglantiDurum =
@@ -4545,7 +4533,7 @@ class AlarmState extends State<Alarm> {
                                                                                       fillColor: Colors.blue[700],
                                                                                       //constraints: BoxConstraints(),
                                                                                       onPressed: () {
-                                                                                        _index = 12;
+                                                                                        _index = 14;
                                                                                         _onlar = int.parse(gun42Min.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun42Min.toString().split(".")[0]) ~/ 10);
                                                                                         _birler = int.parse(gun42Min.toString().split(".")[0]) % 10;
                                                                                         _ondalik = int.parse(gun42Min.toString().split(".")[1]);
@@ -4997,7 +4985,7 @@ class AlarmState extends State<Alarm> {
                                           child: RawMaterialButton(
                                             onPressed: () {
 
-                                              _index = 14;
+                                              _index = 15;
                                               _onlar = int.parse(minNem.split(".")[0]) < 10 ? 0 : (int.parse(minNem.split(".")[0]) ~/ 10);
                                               _birler = int.parse(minNem.split(".")[0]) % 10;
                                               _ondalik = int.parse(minNem.split(".")[1]);
@@ -5035,7 +5023,7 @@ class AlarmState extends State<Alarm> {
                                           child: RawMaterialButton(
                                             onPressed: () {
 
-                                              _index = 15;
+                                              _index = 16;
                                               _onlar = int.parse(maxNem.split(".")[0]) < 10 ? 0 : (int.parse(maxNem.split(".")[0]) ~/ 10);
                                               _birler = int.parse(maxNem.split(".")[0]) % 10;
                                               _ondalik = int.parse(maxNem.split(".")[1]);
@@ -5127,7 +5115,7 @@ class AlarmState extends State<Alarm> {
                                     child: RawMaterialButton(
                                       onPressed: () {
 
-                                        _index = 16;
+                                        _index = 17;
                                         int sayi=int.parse(yukVeDusNemveSicAlarmGecikmesi);
                                         _onlar=sayi<10 ? 0 :sayi~/10;
                                         _birler=sayi%10;
@@ -5206,7 +5194,7 @@ class AlarmState extends State<Alarm> {
                                     child: RawMaterialButton(
                                       onPressed: () {
 
-                                        _index = 17;
+                                        _index = 18;
                                         int sayi =
                                                 int.parse(birSayacIcinMinTukMiktari);
                                             _yuzBinler = sayi < 100000
@@ -5309,7 +5297,7 @@ class AlarmState extends State<Alarm> {
                                     child: RawMaterialButton(
                                       onPressed: () {
 
-                                        _index = 18;
+                                        _index = 19;
                                         int sayi=int.parse(pedBakimZamaniGeldiDonguSuresi);
                                         _yuzler=sayi<100 ? 0 : sayi~/100;
                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
@@ -5325,27 +5313,46 @@ class AlarmState extends State<Alarm> {
                                             "tv712",
                                             "",dbProkis);
                                       },
-                                      child: Stack(
-                                        alignment: Alignment.center,
+                                      child: Column(
                                         children: <Widget>[
-                                          LayoutBuilder(builder:
-                                              (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint
-                                                  .biggest.height,
-                                              color: Colors.orange[700],
-                                            );
-                                          }),
-                                          Text(
-                                            pedBakimZamaniGeldiDonguSuresi,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight:
-                                                    FontWeight.bold,
-                                                color: Colors.white),
+                                          Expanded(flex: 5,
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: <Widget>[
+                                                LayoutBuilder(builder:
+                                                    (context, constraint) {
+                                                  return Icon(
+                                                    Icons.brightness_1,
+                                                    size: constraint
+                                                        .biggest.height,
+                                                    color: Colors.orange[700],
+                                                  );
+                                                }),
+                                                Text(
+                                                  pedBakimZamaniGeldiDonguSuresi,
+                                                  style: TextStyle(
+                                                      fontSize: 25 * oran,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
                                           ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv655")+": "+pedBakimZamaniGeldiKalanSure,
+                                                  style: TextStyle(
+                                                    fontSize: 30
+                                                  ),
+                                                  maxLines: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -5391,7 +5398,7 @@ class AlarmState extends State<Alarm> {
                                     child: RawMaterialButton(
                                       onPressed: () {
 
-                                        _index = 19;
+                                        _index = 20;
                                         int sayi=int.parse(sistemBakimZamaniGeldiDonguSuresi);
                                         _yuzler=sayi<100 ? 0 : sayi~/100;
                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
@@ -5407,27 +5414,46 @@ class AlarmState extends State<Alarm> {
                                             "tv713",
                                             "",dbProkis);
                                       },
-                                      child: Stack(
-                                        alignment: Alignment.center,
+                                      child: Column(
                                         children: <Widget>[
-                                          LayoutBuilder(builder:
-                                              (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint
-                                                  .biggest.height,
-                                              color: Colors.orange[700],
-                                            );
-                                          }),
-                                          Text(
-                                            sistemBakimZamaniGeldiDonguSuresi,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight:
-                                                    FontWeight.bold,
-                                                color: Colors.white),
+                                          Expanded(flex: 5,
+                                            child: Stack(
+                                              alignment: Alignment.center,
+                                              children: <Widget>[
+                                                LayoutBuilder(builder:
+                                                    (context, constraint) {
+                                                  return Icon(
+                                                    Icons.brightness_1,
+                                                    size: constraint
+                                                        .biggest.height,
+                                                    color: Colors.orange[700],
+                                                  );
+                                                }),
+                                                Text(
+                                                  sistemBakimZamaniGeldiDonguSuresi,
+                                                  style: TextStyle(
+                                                      fontSize: 25 * oran,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
+                                                ),
+                                              ],
+                                            ),
                                           ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv655")+": "+sistemBakimZamaniGeldiKalanSure,
+                                                  style: TextStyle(
+                                                    fontSize: 30
+                                                  ),
+                                                  maxLines: 1,
+                                                ),
+                                              ),
+                                            ),
+                                          )
                                         ],
                                       ),
                                     ),
@@ -5515,6 +5541,41 @@ class AlarmState extends State<Alarm> {
                                               child: RawMaterialButton(
                                                 onPressed: () {
 
+                                                  if(!kornaSus){
+                                                    kornaSus=true;
+                                                  }
+
+                                                  
+
+                                                  _index= 22;
+                                                  String veri=kornaSus ? "1" : "0";
+
+                                                  yazmaSonrasiGecikmeSayaci = 0;
+                                                  String komut ="37*$_index*$veri";
+                                                  Metotlar().veriGonder(komut, 2235).then((value) {
+                                                    if (value.split("*")[0] == "error") {
+                                                      Toast.show(
+                                                          Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                                                          context,
+                                                          duration: 3);
+                                                    } else {
+                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
+                                                      baglanti = false;
+                                                      Metotlar().takipEt('31*', 2236).then((veri) {
+                                                        if (veri.split("*")[0] == "error") {
+                                                          baglanti = false;
+                                                          baglantiDurum =
+                                                              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                                                          setState(() {});
+                                                        } else {
+                                                          takipEtVeriIsleme(veri);
+                                                          baglantiDurum = "";
+                                                        }
+                                                      });
+                                                    }
+                                                  });
+
                                                   
                                                 },
                                                 child: Stack(
@@ -5526,7 +5587,7 @@ class AlarmState extends State<Alarm> {
                                                         Icons.brightness_1,
                                                         size: constraint
                                                             .biggest.height,
-                                                        color: Colors.blue[700],
+                                                        color: kornaSus ? Colors.green : Colors.blue[700],
                                                       );
                                                     }),
                                                     Text(
@@ -5548,7 +5609,7 @@ class AlarmState extends State<Alarm> {
                                               child: RawMaterialButton(
                                                 onPressed: () {
 
-                                                  _index = 20;
+                                                  _index = 21;
                                                   int sayi=int.parse(kornaSusSuresi);
                                                   _yuzler=sayi<100 ? 0 : sayi~/100;
                                                   _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
@@ -5598,7 +5659,23 @@ class AlarmState extends State<Alarm> {
                                 ),
                               ),
                                 Spacer(flex: 3,),
-                                Spacer(flex: 7,),
+                                Expanded(flex: 7,
+                                  child: RaisedButton(
+                                    onPressed: (){},
+                                    child: Text(
+                                      Dil().sec(dilSecimi, "tv716"),
+                                      style: TextStyle(
+                                        fontSize: 20*oran,
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.white
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      
+                                    ),
+                                    color: Colors.teal[600],
+                                    elevation: 16,
+                                  ),
+                                ),
                                 Spacer(flex: 4,),
                               ],
                             ),
@@ -5946,63 +6023,114 @@ class AlarmState extends State<Alarm> {
       _ondalik = val[2];
       _index = val[3];
 
-      if (index == 0) {
-        dogalBolgeB = (_onlar == 0 ? "" : _onlar.toString()) +
-            _birler.toString() +
-            "." +
-            _ondalik.toString();
-      }
+      String veri="";
+
       if (index == 1) {
-        setSicA =
-            _onlar.toString() + _birler.toString() + "." + _ondalik.toString();
-      }
-      if (index == 2) {
-        capHavFarkC = (_onlar == 0 ? "" : _onlar.toString()) +
-            _birler.toString() +
-            "." +
-            _ondalik.toString();
-      }
-      if (index == 3) {
-        maksFanFarkiH = (_onlar == 0 ? "" : _onlar.toString()) +
-            _birler.toString() +
-            "." +
-            _ondalik.toString();
-      }
-      if (index == 4) {
-        gun1 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 5) {
-        gun7 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 6) {
-        gun14 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 7) {
-        gun21 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 8) {
-        gun28 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 9) {
-        gun35 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
-      }
-      if (index == 10) {
-        gun42 = _onlar * 10 + _birler + _ondalik / 10;
-        _gunlerSet();
+        gun1Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun1Max.toString();
+        _gunlerMaxSic();
       }
 
-      String veri = mhDANthYAGECISTEdebiyiKORU ? "1" : "0";
+      if (index == 2) {
+        gun1Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun1Min.toString();
+        _gunlerMinSic();
+      }
+
+
+      if (index == 3) {
+        gun7Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun7Max.toString();
+        _gunlerMaxSic();
+        
+      }
+
+      if (index == 4) {
+        gun7Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun7Min.toString();
+        _gunlerMinSic();
+      }
+
+
+      if (index == 5) {
+        gun14Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun14Max.toString();
+        _gunlerMaxSic();
+      }
+
+      if (index == 6) {
+        gun14Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun14Min.toString();
+        _gunlerMinSic();
+      }
+
+
+      if (index == 7) {
+        gun21Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun21Max.toString();
+        _gunlerMaxSic();
+      }
+
+      if (index == 8) {
+        gun21Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun21Min.toString();
+        _gunlerMinSic();
+      }
+
+
+      if (index == 9) {
+        gun28Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun28Max.toString();
+        _gunlerMaxSic();
+      }
+
+      if (index == 10) {
+        gun28Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun28Min.toString();
+        _gunlerMinSic();
+      }
+
+
+      if (index == 11) {
+        gun35Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun35Max.toString();
+        _gunlerMaxSic();
+      }
+
+      if (index == 12) {
+        gun35Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun35Min.toString();
+        _gunlerMinSic();
+      }
+
+      if (index == 13) {
+        gun42Max = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun42Max.toString();
+        _gunlerMaxSic();
+      }
+
+      if (index == 14) {
+        gun42Min = double.parse((_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString());
+        veri = gun42Min.toString();
+        _gunlerMinSic();
+      }
+
+
+      if (index == 15) {
+        minNem = (_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString();
+        veri = minNem;
+      }
+
+      if (index == 16) {
+        maxNem = (_onlar == 0 ? "" : _onlar.toString()) + _birler.toString() + "." + _ondalik.toString();
+        veri = maxNem;
+      }
+      
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
         String komut =
-            "1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
+            "37*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
@@ -6013,7 +6141,7 @@ class AlarmState extends State<Alarm> {
             Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
 
             baglanti = false;
-            Metotlar().takipEt('1*', 2236).then((veri) {
+            Metotlar().takipEt('31*', 2236).then((veri) {
               if (veri.split("*")[0] == "error") {
                 baglanti = false;
                 baglantiDurum =
@@ -6057,6 +6185,43 @@ class AlarmState extends State<Alarm> {
         _onlar = val[0];
         _birler = val[1];
         _index = val[2];
+
+        String veri="";
+
+        if(_index==17){
+          yukVeDusNemveSicAlarmGecikmesi=(_onlar*10+_birler).toString();
+          veri=yukVeDusNemveSicAlarmGecikmesi;
+        }
+
+
+        if (veriGonderilsinMi) {
+        yazmaSonrasiGecikmeSayaci = 0;
+        String komut ="37*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(
+                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                context,
+                duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
+            baglanti = false;
+            Metotlar().takipEt('31*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum = Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
+            });
+          }
+        });
+      }
+
+      setState(() {});
 
 
       });
@@ -6104,7 +6269,7 @@ class AlarmState extends State<Alarm> {
           _yuzler != val[3] ||
           _onlar != val[4] ||
           _birler != val[5]) {
-        veriGonderilsinMi = false;
+        veriGonderilsinMi = true;
       }
 
       _yuzBinler = val[0];
@@ -6117,31 +6282,45 @@ class AlarmState extends State<Alarm> {
 
       String veri="";
 
-      
+        if (_index == 18) {
+        birSayacIcinMinTukMiktari = (_yuzBinler * 100000 +
+                _onBinler * 10000 +
+                _binler * 1000 +
+                _yuzler * 100 +
+                _onlar * 10 +
+                _birler)
+            .toString();
+
+            veri=birSayacIcinMinTukMiktari;
+      }
 
 
+        if (veriGonderilsinMi) {
+        yazmaSonrasiGecikmeSayaci = 0;
+        String komut ="37*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(
+                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                context,
+                duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
 
-      yazmaSonrasiGecikmeSayaci = 0;
-      String komut='16*$_index*$veri';
-      Metotlar().veriGonder(komut, 2235).then((value){
-        if(value.split("*")[0]=="error"){
-          Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
-        }else{
-          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-          
-          baglanti = false;
-          Metotlar().takipEt('15*', 2236).then((veri){
-              if(veri.split("*")[0]=="error"){
-                baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
+            baglanti = false;
+            Metotlar().takipEt('31*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum = Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
                 setState(() {});
-              }else{
+              } else {
                 takipEtVeriIsleme(veri);
-                baglantiDurum="";
+                baglantiDurum = "";
               }
-          });
-        }
-      });
+            });
+          }
+        });
+      }
 
 
       setState(() {});
@@ -6176,36 +6355,51 @@ class AlarmState extends State<Alarm> {
       _index = val[3];
 
 
-      String veri = '';
+      String veri = "";
+
+      if (_index == 19) {
+        pedBakimZamaniGeldiDonguSuresi= (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = pedBakimZamaniGeldiDonguSuresi;
+      }
+
+      if (_index == 20) {
+        sistemBakimZamaniGeldiDonguSuresi= (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = sistemBakimZamaniGeldiDonguSuresi;
+      }
+
+      if (_index == 21) {
+        kornaSusSuresi= (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = kornaSusSuresi;
+      }
 
 
      
 
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="15*$_index*$veri";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut ="37*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(
+                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                context,
+                duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('14*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('31*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum = Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
-
       }
 
       setState(() {});
@@ -6270,6 +6464,107 @@ class AlarmState extends State<Alarm> {
     gun[42] = gun42.toString();
   }
 
+  _gunlerMinSic() {
+    gunMin[1] = gun1Min.toString();
+    gunMin[2] = _gunSetHesap(gun7Min, gun1Min, 6, 1);
+    gunMin[3] = _gunSetHesap(gun7Min, gun1Min, 6, 2);
+    gunMin[4] = _gunSetHesap(gun7Min, gun1Min, 6, 3);
+    gunMin[5] = _gunSetHesap(gun7Min, gun1Min, 6, 4);
+    gunMin[6] = _gunSetHesap(gun7Min, gun1Min, 6, 5);
+
+    gunMin[7] = gun7Min.toString();
+    gunMin[8] = _gunSetHesap(gun14Min, gun7Min, 7, 1);
+    gunMin[9] = _gunSetHesap(gun14Min, gun7Min, 7, 2);
+    gunMin[10] = _gunSetHesap(gun14Min, gun7Min, 7, 3);
+    gunMin[11] = _gunSetHesap(gun14Min, gun7Min, 7, 4);
+    gunMin[12] = _gunSetHesap(gun14Min, gun7Min, 7, 5);
+    gunMin[13] = _gunSetHesap(gun14Min, gun7Min, 7, 6);
+
+    gunMin[14] = gun14Min.toString();
+    gunMin[15] = _gunSetHesap(gun21Min, gun14Min, 7, 1);
+    gunMin[16] = _gunSetHesap(gun21Min, gun14Min, 7, 2);
+    gunMin[17] = _gunSetHesap(gun21Min, gun14Min, 7, 3);
+    gunMin[18] = _gunSetHesap(gun21Min, gun14Min, 7, 4);
+    gunMin[19] = _gunSetHesap(gun21Min, gun14Min, 7, 5);
+    gunMin[20] = _gunSetHesap(gun21Min, gun14Min, 7, 6);
+
+    gunMin[21] = gun21Min.toString();
+    gunMin[22] = _gunSetHesap(gun28Min, gun21Min, 7, 1);
+    gunMin[23] = _gunSetHesap(gun28Min, gun21Min, 7, 2);
+    gunMin[24] = _gunSetHesap(gun28Min, gun21Min, 7, 3);
+    gunMin[25] = _gunSetHesap(gun28Min, gun21Min, 7, 4);
+    gunMin[26] = _gunSetHesap(gun28Min, gun21Min, 7, 5);
+    gunMin[27] = _gunSetHesap(gun28Min, gun21Min, 7, 6);
+
+    gunMin[28] = gun28Min.toString();
+    gunMin[29] = _gunSetHesap(gun35Min, gun28Min, 7, 1);
+    gunMin[30] = _gunSetHesap(gun35Min, gun28Min, 7, 2);
+    gunMin[31] = _gunSetHesap(gun35Min, gun28Min, 7, 3);
+    gunMin[32] = _gunSetHesap(gun35Min, gun28Min, 7, 4);
+    gunMin[33] = _gunSetHesap(gun35Min, gun28Min, 7, 5);
+    gunMin[34] = _gunSetHesap(gun35Min, gun28Min, 7, 6);
+
+    gunMin[35] = gun35Min.toString();
+    gunMin[36] = _gunSetHesap(gun42Min, gun35Min, 7, 1);
+    gunMin[37] = _gunSetHesap(gun42Min, gun35Min, 7, 2);
+    gunMin[38] = _gunSetHesap(gun42Min, gun35Min, 7, 3);
+    gunMin[39] = _gunSetHesap(gun42Min, gun35Min, 7, 4);
+    gunMin[40] = _gunSetHesap(gun42Min, gun35Min, 7, 5);
+    gunMin[41] = _gunSetHesap(gun42Min, gun35Min, 7, 6);
+    gunMin[42] = gun42Min.toString();
+  }
+
+
+  _gunlerMaxSic() {
+    gunMax[1] = gun1Max.toString();
+    gunMax[2] = _gunSetHesap(gun7Max, gun1Max, 6, 1);
+    gunMax[3] = _gunSetHesap(gun7Max, gun1Max, 6, 2);
+    gunMax[4] = _gunSetHesap(gun7Max, gun1Max, 6, 3);
+    gunMax[5] = _gunSetHesap(gun7Max, gun1Max, 6, 4);
+    gunMax[6] = _gunSetHesap(gun7Max, gun1Max, 6, 5);
+
+    gunMax[7] = gun7Max.toString();
+    gunMax[8] = _gunSetHesap(gun14Max, gun7Max, 7, 1);
+    gunMax[9] = _gunSetHesap(gun14Max, gun7Max, 7, 2);
+    gunMax[10] = _gunSetHesap(gun14Max, gun7Max, 7, 3);
+    gunMax[11] = _gunSetHesap(gun14Max, gun7Max, 7, 4);
+    gunMax[12] = _gunSetHesap(gun14Max, gun7Max, 7, 5);
+    gunMax[13] = _gunSetHesap(gun14Max, gun7Max, 7, 6);
+
+    gunMax[14] = gun14Max.toString();
+    gunMax[15] = _gunSetHesap(gun21Max, gun14Max, 7, 1);
+    gunMax[16] = _gunSetHesap(gun21Max, gun14Max, 7, 2);
+    gunMax[17] = _gunSetHesap(gun21Max, gun14Max, 7, 3);
+    gunMax[18] = _gunSetHesap(gun21Max, gun14Max, 7, 4);
+    gunMax[19] = _gunSetHesap(gun21Max, gun14Max, 7, 5);
+    gunMax[20] = _gunSetHesap(gun21Max, gun14Max, 7, 6);
+
+    gunMax[21] = gun21Max.toString();
+    gunMax[22] = _gunSetHesap(gun28Max, gun21Max, 7, 1);
+    gunMax[23] = _gunSetHesap(gun28Max, gun21Max, 7, 2);
+    gunMax[24] = _gunSetHesap(gun28Max, gun21Max, 7, 3);
+    gunMax[25] = _gunSetHesap(gun28Max, gun21Max, 7, 4);
+    gunMax[26] = _gunSetHesap(gun28Max, gun21Max, 7, 5);
+    gunMax[27] = _gunSetHesap(gun28Max, gun21Max, 7, 6);
+
+    gunMax[28] = gun28Max.toString();
+    gunMax[29] = _gunSetHesap(gun35Max, gun28Max, 7, 1);
+    gunMax[30] = _gunSetHesap(gun35Max, gun28Max, 7, 2);
+    gunMax[31] = _gunSetHesap(gun35Max, gun28Max, 7, 3);
+    gunMax[32] = _gunSetHesap(gun35Max, gun28Max, 7, 4);
+    gunMax[33] = _gunSetHesap(gun35Max, gun28Max, 7, 5);
+    gunMax[34] = _gunSetHesap(gun35Max, gun28Max, 7, 6);
+
+    gunMax[35] = gun35Max.toString();
+    gunMax[36] = _gunSetHesap(gun42Max, gun35Max, 7, 1);
+    gunMax[37] = _gunSetHesap(gun42Max, gun35Max, 7, 2);
+    gunMax[38] = _gunSetHesap(gun42Max, gun35Max, 7, 3);
+    gunMax[39] = _gunSetHesap(gun42Max, gun35Max, 7, 4);
+    gunMax[40] = _gunSetHesap(gun42Max, gun35Max, 7, 5);
+    gunMax[41] = _gunSetHesap(gun42Max, gun35Max, 7, 6);
+    gunMax[42] = gun42Max.toString();
+  }
+
   Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
     updateState(() {});
   }
@@ -6286,15 +6581,39 @@ class AlarmState extends State<Alarm> {
     gun28 = double.parse(degerler[4]);
     gun35 = double.parse(degerler[5]);
     gun42 = double.parse(degerler[6]);
-    dogalBolgeB = degerler[7];
-    capHavFarkC = degerler[8];
-    maksFanFarkiH = degerler[9];
-    fanKademesi = degerler[10];
-    setSicA = degerler[11];
-    mhDANthYAGECISTEdebiyiKORU = degerler[12] == "True" ? true : false;
+    gun1Min = double.parse(degerler[7]);
+    gun7Min = double.parse(degerler[8]);
+    gun14Min = double.parse(degerler[9]);
+    gun21Min = double.parse(degerler[10]);
+    gun28Min = double.parse(degerler[11]);
+    gun35Min = double.parse(degerler[12]);
+    gun42Min = double.parse(degerler[13]);
+    gun1Max = double.parse(degerler[14]);
+    gun7Max = double.parse(degerler[15]);
+    gun14Max = double.parse(degerler[16]);
+    gun21Max = double.parse(degerler[17]);
+    gun28Max = double.parse(degerler[18]);
+    gun35Max = double.parse(degerler[19]);
+    gun42Max = double.parse(degerler[20]);
+    setSic = degerler[21];
+    minSic = degerler[22];
+    maxSic = degerler[23];
+    minNem = degerler[24];
+    maxNem = degerler[25];
+    yukVeDusNemveSicAlarmGecikmesi = degerler[26];
+    birSayacIcinMinTukMiktari = degerler[27];
+    pedBakimZamaniGeldiDonguSuresi = degerler[28];
+    pedBakimZamaniGeldiKalanSure = degerler[29];
+    sistemBakimZamaniGeldiDonguSuresi= degerler[30];
+    sistemBakimZamaniGeldiKalanSure= degerler[31];
+    kornaSus= degerler[32] == "True" ? true : false;
+    kornaSusSuresi = degerler[33];
 
-    alarmDurum = degerler[13];
-    print(alarmDurum);
+    alarmDurum = degerler[34];
+
+    _gunlerSet();
+    _gunlerMinSic();
+    _gunlerMaxSic();
 
     baglanti = false;
     if (!timerCancel) {
