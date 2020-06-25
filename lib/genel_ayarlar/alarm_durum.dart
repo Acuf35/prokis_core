@@ -336,7 +336,25 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
                         ],
                       ),
                       children: <Widget>[
-                        Text(Dil().sec(dilSecimi, "tv698")+": Deneme")
+                        Text(
+                          Dil().sec(dilSecimi, "tv720"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                          textScaleFactor: oran,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "\n"+Dil().sec(dilSecimi, "alarminfo${index+1}"),
+                            style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                        )
                       ],
                     ),
                   ),

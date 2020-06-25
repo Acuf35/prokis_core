@@ -358,7 +358,26 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                         ],
                       ),
                       children: <Widget>[
-                        Text(Dil().sec(dilSecimi, "tv698")+": "+alarmConnectionFailedHataKodu)
+                        Text(
+                          Dil().sec(dilSecimi, "tv721"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                          textScaleFactor: oran,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "\n"+Dil().sec(dilSecimi, "tv698")+": "+alarmConnectionFailedHataKodu+"\n\n"+
+                            Dil().sec(dilSecimi, "baglantiinfo1"),
+                            style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -428,7 +447,26 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                         ],
                       ),
                       children: <Widget>[
-                        Text(Dil().sec(dilSecimi, "tv698")+": "+alarmTimedOutHataKodu)
+                        Text(
+                          Dil().sec(dilSecimi, "tv721"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                          textScaleFactor: oran,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "\n"+Dil().sec(dilSecimi, "tv698")+": "+alarmTimedOutHataKodu+"\n\n"+
+                            Dil().sec(dilSecimi, "baglantiinfo2"),
+                            style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -499,7 +537,30 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                         ],
                       ),
                       children: <Widget>[
-                        Text(Dil().sec(dilSecimi, "tv698")+": "+alarmConnectionRefusedHataKodu)
+                        Text(
+                          Dil().sec(dilSecimi, "tv721"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                          textScaleFactor: oran,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "\n"+Dil().sec(dilSecimi, "tv698")+": "+alarmConnectionRefusedHataKodu+"\n\n"+
+                            Dil().sec(dilSecimi, "baglantiinfo3"),
+                            style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                        ),
+
+
+
+
                       ],
                     ),
                   ),
@@ -570,7 +631,26 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                         ],
                       ),
                       children: <Widget>[
-                        Text(Dil().sec(dilSecimi, "tv698")+": "+alarmBilinmeyenHataKodu)
+                        Text(
+                          Dil().sec(dilSecimi, "tv721"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                          textScaleFactor: oran,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "\n"+Dil().sec(dilSecimi, "tv698")+": "+alarmBilinmeyenHataKodu+"\n\n"+
+                            Dil().sec(dilSecimi, "baglantiinfo5"),
+                            style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -641,7 +721,26 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                         ],
                       ),
                       children: <Widget>[
-                        Text(Dil().sec(dilSecimi, "tv698")+": "+alarmResetByPeerHataKodu)
+                        Text(
+                          Dil().sec(dilSecimi, "tv721"),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            decoration: TextDecoration.underline
+                          ),
+                          textScaleFactor: oran,
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "\n"+Dil().sec(dilSecimi, "tv698")+": "+alarmResetByPeerHataKodu+"\n\n"+
+                            Dil().sec(dilSecimi, "baglantiinfo4"),
+                            style: TextStyle(
+                              fontFamily: 'Kelly Slab',
+                            ),
+                            textScaleFactor: oran,
+                          ),
+                        ),
                       ],
                     ),
                   ),

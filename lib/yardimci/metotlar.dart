@@ -2151,7 +2151,7 @@ class Metotlar{
           }).catchError((error) {
 
             _donusDegeri="error*"+error.toString().trim();
-            _socket.close();
+            //_socket.close();
             
           });
       // ==============================================================
@@ -2310,14 +2310,14 @@ class Metotlar{
           alarmTimedOutHataKodu=mesaj;
           dbProkis.dbSatirEkleGuncelle(39, alarmConnectionFailed ? "1" :"0", alarmTimedOut ? "1" :"0", alarmConnectionRefused ? "1" :"0", alarmBilinmeyen ? "1" :"0");
           dbProkis.dbSatirEkleGuncelle(40, alarmConnectionFailedDurum ? "1" :"0", alarmTimedOutDurum ? "1" :"0", alarmConnectionRefusedDurum ? "1" :"0", alarmBilinmeyenDurum ? "1" :"0");
-          dbProkis.dbSatirEkleGuncelle(42, mesaj, alarmTimedOutHataKodu, alarmConnectionRefusedHataKodu, alarmBilinmeyenHataKodu);
+          dbProkis.dbSatirEkleGuncelle(42, alarmConnectionFailedHataKodu, mesaj, alarmConnectionRefusedHataKodu, alarmBilinmeyenHataKodu);
         }else if(mesaj.contains("Connection failed") && alarmConnectionFailed==false){
           alarmConnectionFailedDurum=true;
           alarmConnectionFailed=true;
           alarmConnectionFailedHataKodu=mesaj;
           dbProkis.dbSatirEkleGuncelle(39, alarmConnectionFailed ? "1" :"0", alarmTimedOut ? "1" :"0", alarmConnectionRefused ? "1" :"0", alarmBilinmeyen ? "1" :"0");
           dbProkis.dbSatirEkleGuncelle(40, alarmConnectionFailedDurum ? "1" :"0", alarmTimedOutDurum ? "1" :"0", alarmConnectionRefusedDurum ? "1" :"0", alarmBilinmeyenDurum ? "1" :"0");
-          dbProkis.dbSatirEkleGuncelle(42, alarmConnectionFailedHataKodu, mesaj , alarmConnectionRefusedHataKodu, alarmBilinmeyenHataKodu);
+          dbProkis.dbSatirEkleGuncelle(42, mesaj, alarmTimedOutHataKodu , alarmConnectionRefusedHataKodu, alarmBilinmeyenHataKodu);
         }else if(mesaj.contains("Connection refused") && alarmConnectionRefused==false){
           alarmConnectionRefusedDurum=true;
           alarmConnectionRefused=true;

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
+import 'package:prokis/genel_ayarlar/harici_alarm.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/deger_giris_2x0.dart';
 import 'package:prokis/yardimci/deger_giris_3x0.dart';
@@ -98,6 +99,8 @@ class AlarmState extends State<Alarm> {
   int _ondalik = 0;
   int _index = 0;
 
+  String hariciAlarmText="";
+
   
   bool timerCancel = false;
   int timerSayac = 0;
@@ -133,6 +136,9 @@ class AlarmState extends State<Alarm> {
   @override
   Widget build(BuildContext context) {
     final dbProkis = Provider.of<DBProkis>(context);
+
+
+    //_textFieldCursorPosition(tec1, provider.getklepeNo==null ? "" : provider.getklepeNo);
 
     if (timerSayac == 0) {
       Metotlar().takipEt('31*', 2236).then((veri) {
@@ -225,7 +231,7 @@ class AlarmState extends State<Alarm> {
               child: Column(
                 children: <Widget>[
                   Spacer(),
-
+                  //M,n-max değerler
                   Expanded(flex: 6,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -239,7 +245,7 @@ class AlarmState extends State<Alarm> {
                                 Expanded(
                                   child: Row(
                                     children: <Widget>[
-                                      Expanded(
+                                      Expanded(flex: 4,
                                         child: SizedBox(
                                           child: Container(
                                             padding: EdgeInsets.only(
@@ -259,7 +265,8 @@ class AlarmState extends State<Alarm> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
+                                      Spacer(),
+                                      Expanded(flex: 4,
                                         child: SizedBox(
                                           child: Container(
                                             padding: EdgeInsets.only(
@@ -4928,12 +4935,12 @@ class AlarmState extends State<Alarm> {
                                 Expanded(
                                   child: Row(
                                     children: <Widget>[
-                                      Expanded(
+                                      Expanded(flex: 4,
                                         child: SizedBox(
                                           child: Container(
                                             padding: EdgeInsets.only(
-                                                left: 10 * oran,
-                                                right: 10 * oran),
+                                                left: 8 * oran,
+                                                right: 8 * oran),
                                             alignment: Alignment.center,
                                             child: AutoSizeText(
                                               Dil().sec(dilSecimi, "tv482"),
@@ -4948,7 +4955,8 @@ class AlarmState extends State<Alarm> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
+                                      Spacer(),
+                                      Expanded(flex: 4,
                                         child: SizedBox(
                                           child: Container(
                                             padding: EdgeInsets.only(
@@ -5478,10 +5486,10 @@ class AlarmState extends State<Alarm> {
                       color: Colors.white,
                       child: Column(
                         children: <Widget>[
-                          Expanded(flex: 5,
+                          Expanded(flex: 7,
                             child: Row(
                               children: <Widget>[
-                                Spacer(flex: 4,),
+                                Spacer(flex: 1,),
                                 Expanded(
                                 flex: 7,
                                 child: Container(
@@ -5490,7 +5498,7 @@ class AlarmState extends State<Alarm> {
                                       Expanded(flex: 2,
                                         child: Row(
                                           children: <Widget>[
-                                            Expanded(
+                                            Expanded(flex: 3,
                                               child: SizedBox(
                                                 child: Container(
                                                   padding: EdgeInsets.only(
@@ -5510,7 +5518,8 @@ class AlarmState extends State<Alarm> {
                                                 ),
                                               ),
                                             ),
-                                            Expanded(
+                                            Spacer(),
+                                            Expanded(flex: 3,
                                               child: SizedBox(
                                                 child: Container(
                                                   padding: EdgeInsets.only(
@@ -5658,14 +5667,41 @@ class AlarmState extends State<Alarm> {
                                   ),
                                 ),
                               ),
-                                Spacer(flex: 3,),
+                                Spacer(flex: 1,),
+                                Expanded(flex: 7,
+                                  child: RaisedButton(
+                                    onPressed: (){
+                                      timerCancel=true;
+                                    
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HariciAlarm(dbVeriler)),
+                                    );
+                                    },
+                                    child: Text(
+                                      Dil().sec(dilSecimi, "tv722"),
+                                      style: TextStyle(
+                                        fontSize: 18*oran,
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.white
+                                      ),
+                                      textAlign: TextAlign.center,
+                                      
+                                    ),
+                                    color: Colors.teal[600],
+                                    elevation: 16,
+                                  ),
+                                ),
+                                Spacer(flex: 1,),
                                 Expanded(flex: 7,
                                   child: RaisedButton(
                                     onPressed: (){},
                                     child: Text(
                                       Dil().sec(dilSecimi, "tv716"),
                                       style: TextStyle(
-                                        fontSize: 20*oran,
+                                        fontSize: 18*oran,
                                         fontFamily: 'Kelly Slab',
                                         color: Colors.white
                                       ),
@@ -5714,7 +5750,7 @@ class AlarmState extends State<Alarm> {
         ),
       ),
       drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-      endDrawer: SizedBox(
+      endDrawer:SizedBox(
         width: 320 * oran,
         child: Drawer(
           child: MediaQuery.removePadding(
@@ -5726,7 +5762,7 @@ class AlarmState extends State<Alarm> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
+                      Dil().sec(dilSecimi, "tv702"), 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -5739,215 +5775,7 @@ class AlarmState extends State<Alarm> {
                   ),
                 ),
                 Expanded(
-                  flex: 7,
-                  child: DrawerHeader(
-                    padding: EdgeInsets.only(left: 10),
-                    margin: EdgeInsets.all(0),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                alignment: Alignment.center,
-                                image: AssetImage(
-                                    'assets/images/diagram_lineer_capraz.jpg'),
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Container(
-                            color: Colors.grey[100],
-                            child: Row(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: <Widget>[
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "A",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "A+B",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "A+B+C",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "D",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "E",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "F",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "G",
-                                                style: TextStyle(
-                                                    fontSize: 13 * oran),
-                                              ))),
-                                      Expanded(
-                                          child: Container(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "A+B+C+H",
-                                                style: TextStyle(
-                                                    fontSize: 10 * oran),
-                                              ))),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv115"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv116"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv117"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv118"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv119"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv120"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv121"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Container(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            " : " +
-                                                Dil().sec(dilSecimi, "tv122"),
-                                            style:
-                                                TextStyle(fontSize: 13 * oran),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 10,
+                  flex: 17,
                   child: Container(
                     color: Colors.yellow[100],
                     child: ListView(
@@ -5959,16 +5787,130 @@ class AlarmState extends State<Alarm> {
                             Dil().sec(dilSecimi, "tv186"),
                             textScaleFactor: oran,
                           ),
-                          subtitle: Text(
-                            Dil().sec(dilSecimi, "info1"),
-                            style: TextStyle(
-                              fontSize: 13 * oran,
+                          subtitle: RichText(
+                            text: TextSpan(
+                              children: <TextSpan>[
+                                //Giriş metni
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv614")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23a"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv615")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23b"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv665")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23c"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv666")+":",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info23d"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+
+
+                                TextSpan(
+                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm1")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm2")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm3")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm4")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm5")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm6")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm7")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm8")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm9")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm10")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm11")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm12")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm13")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm14")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm15")+'\n'+
+                                  Dil().sec(dilSecimi, "ksltm16")+'\n',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 11*oran,
+                                  )
+                                ),
+                                
+                              ]
                             ),
                           ),
-                          onTap: () {
-                            // Update the state of the app.
-                            // ...
-                          },
+                        
                         ),
                       ],
                     ),

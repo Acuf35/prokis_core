@@ -85,6 +85,7 @@ final dbProkis = Provider.of<DBProkis>(context);
 
 
     if (timerSayac == 0) {
+      dbProkis.dbSatirEkleGuncelle(48, "1", "1", "1", "1");
       Metotlar().takipEt("alarm*", 2236).then((veri){
             if(veri.split("*")[0]=="error"){
               baglanti=false;

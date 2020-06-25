@@ -717,7 +717,7 @@ class Dil{
     kod=="tv693" ? metin='Bağlantı zaman aşımına uğradı!' : null;
     kod=="tv694" ? metin='Bağlantı reddedildi!' : null;
     kod=="tv695" ? metin='HATAYI RESETLE' : null;
-    kod=="tv696" ? metin='Bilinmeyen hata oluştu!' : null;
+    kod=="tv696" ? metin='Diğer/Tanımsız bir hata oluştu!' : null;
     kod=="tv697" ? metin='PLC ve Server PC arasındaki bağlantı kaptu!' : null;
     kod=="tv698" ? metin='Hata Kodu' : null;
     kod=="tv699" ? metin='Min. Sıc.(°C)' : null;
@@ -741,6 +741,12 @@ class Dil{
     kod=="tv717" ? metin='ALARM & UYARI DURUM' : null;
     kod=="tv718" ? metin='ALARMI KALDIR' : null;
     kod=="tv719" ? metin='UYARIYI KALDIR' : null;
+    kod=="tv720" ? metin='ALARM DETAYLARI' : null;
+    kod=="tv721" ? metin='HATA DETAYLARI' : null;
+    kod=="tv722" ? metin='Harici Alarmlar' : null;
+    kod=="tv723" ? metin='HARİCİ ALARMLAR' : null;
+    kod=="tv724" ? metin='Alarmı listeden silmek istediğinize emin misiniz?' : null;
+    kod=="tv725" ? metin='Yeni harici alarm metni ekle...' : null;
    
 
     
@@ -762,6 +768,7 @@ class Dil{
     kod=="btn11" ? metin='Otomatik Ata' : null;
     kod=="btn12" ? metin='START' : null;
     kod=="btn13" ? metin='STOP' : null;
+    kod=="btn14" ? metin='EKLE' : null;
     
     //endregion
 
@@ -954,6 +961,7 @@ class Dil{
     kod=="toast97" ? metin='Tanımlanmamış çıkış var! Lütfen aktif tüm çıkışlar için atama yapınız' : null;
     kod=="toast98" ? metin='Hata hala aktif, o yüzden resetlenemez!' : null;
     kod=="toast99" ? metin='Alarm hala aktif, o yüzden resetlenemez!' : null;
+    kod=="toast100" ? metin='Alarm metni için en az 10 karakter giriniz!' : null;
     
 
 
@@ -1682,6 +1690,338 @@ class Dil{
     ' hata giderildikten sonra listedeki kırmızı renkli bağlantı ikonu yeşil olacaktır. Bu durumdayken "HATAYI RESETLE" butonuna'
     ' tıklayarak hatayı listeden kaldırabilirsiniz, ikon yeşil olmadan hatayı listeden kaldıramazsınız.\n\n'  : null;
 
+
+
+    kod=="alarminfo1" ? metin='DURUM : Pano üzerindeki veya seri bağlı başka bir noktadaki Acil Stop butonuna basıldığında bu alarm aktif olur.'
+    ' Acil stop butonuna basıldığında ekran ve kontrol sistemi enerjisi kesilmez sadece tüm kontrol unsurlarını çalıştıran'
+    ' kumanda sinyali kesilir ve hiçbirşey çalışmaz.\n\n'
+    ' ÇÖZÜM: Acil durum ortadan kalktığında butonu tekrar serbest bırakınız. Herhangi bir acil stop butonuna basılmadan bu alarm aktif'
+    ' olduysa aradaki kablo ve klemens bağlantılarında temassızlık olup olmadığı kontrol edilmelidir. ' : null;
+    kod=="alarminfo2" ? metin='DURUM: Kurulum sırasında motorların doğru yönde dönmesi için belirlenen faz sırası değiştiğinde'
+    ' ve fazlardan biri veya ikisi kesilip faz kaybı meydana geldiğinde bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Prokis panosuna enerji sağlayan'
+    ' panonuzu, trafonuzu veya jeneratörünüzü kontrol ediniz. Faz sırası değişmeden veya faz kaybı olmadan'
+    ' bu alarm aktif olduysa aradaki kablo ve klemens bağlantılarında veya faz kontrol rölesinde bir sorun oluşmuştur.' : null;
+    kod=="alarminfo3" ? metin='DURUM: Şebeke elektrik kesildiğinde veya Prokis panosunun ana enerji sigortası attığında'
+    ' bu alarm aktif olur.\n\n'
+    'ÇÖZÜM: Şebeke enerjinizi ve ana sigortayı kontrol ediniz. Şebeke enerjisi kesilmeden veya'
+    ' ana sigorta atmadan bu alarm aktif olduysa aradaki kablo ve klemens bağlantıları kontrol edilmedir.' : null;
+    kod=="alarminfo4" ? metin='DURUM: Tünel fan motorlarından birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo ve klemens bağlantıları kontrol edilmelidir.' : null;
+
+    kod=="alarminfo5" ? metin='DURUM: Klepe motorlarından birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo bağlantıları kontrol edilmelidir.' : null;
+
+    kod=="alarminfo6" ? metin='DURUM: Ped pompa motorlarından birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo bağlantıları kontrol edilmelidir.' : null;
+
+    kod=="alarminfo7" ? metin='DURUM: Air inlet motorlarından birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo bağlantıları kontrol edilmelidir.' : null;
+
+    kod=="alarminfo8" ? metin='DURUM: Baca fan  motorlarından birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo bağlantıları kontrol edilmelidir.' : null;
+
+    kod=="alarminfo9" ? metin='DURUM: Isıtıcılardan birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo bağlantıları kontrol edilmelidir.' : null;
+
+    kod=="alarminfo10" ? metin='DURUM: Sirk. fan motorlarından birinin termik ve motor koruma sigortası atarsa bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM: Motor sigortası; mekanik zorlanma, fazlar arasında temas meydana gelmesi, motor ve sigorta arızası gibi sebeplerle'
+    ' meydana gelir. Bu noktalar kontrol edilmelidir. Herhangi bir sigorta atmadan bu alarm aktif olduysa '
+    ' aradaki kablo bağlantıları kontrol edilmelidir.' : null;
+    kod=="alarminfo11" ? metin='DURUM: Her bir tüneldeki su hatlarına su gidip gitmediğini tespit eden ayrı bir sistemden gelen alarm'
+    ' sinyali aktif olduğunda bu alarm aktif olur.\n\n ÇÖZÜM: Bu alarm aktif olduğunda ilgili tünelin su hatları kontrol edilmedir.' : null;
+    kod=="alarminfo12" ? metin='DURUM: İç ortam ortalama sıcaklık değeri ALARM AYARLARI sayfasında belirtilen minimum sıcaklık değerinin'
+    ' "Alarm Gecikmesi" parametresinde belirtilen süre kadar altında kalırsa bu alarm aktif olur.\n\n ÇÖZÜM: Sistemde arızalı bir unsur olup'
+    ' olmadığı veya kontrol parametrelerinin doğru girilip girilmediği kontrol edilmelidir.' : null;
+    kod=="alarminfo13" ? metin='DURUÖ: İç ortam ortalama sıcaklık değeri ALARM AYARLARI sayfasında belirtilen maksimum sıcaklık değerinin'
+    ' "Alarm Gecikmesi" parametresinde belirtilen süre kadar üstüne çıkardsa bu alarm aktif olur.\n\nÇÖZÜM: Sistemde arızalı bir unsur olup'
+    ' olmadığı veya kontrol parametrelerinin doğru girilip girilmediği kontrol edilmelidir.' : null;
+    kod=="alarminfo14" ? metin='DURUM: İç ortam ortalama nem değeri ALARM AYARLARI sayfasında belirtilen minimum nem değerinin'
+    ' "Alarm Gecikmesi" parametresinde belirtilen süre kadar altında kalırsa bu alarm aktif olur.\n\nÇÖZÜM: Sistemde arızalı bir unsur olup'
+    ' olmadığı veya kontrol parametrelerinin doğru girilip girilmediği kontrol edilmelidir.' : null;
+    kod=="alarminfo15" ? metin='DURUM: İç ortam ortalama nem değeri ALARM AYARLARI sayfasında belirtilen maksimum nem değerinin'
+    ' "Alarm Gecikmesi" parametresinde belirtilen süre kadar altında kalırsa bu alarm aktif olur.\n\nÇÖZÜM: Sistemde arızalı bir unsur olup'
+    ' olmadığı veya kontrol parametrelerinin doğru girilip girilmediği kontrol edilmelidir.' : null;
+    kod=="alarminfo16" ? metin='DURUM: Sensör 1\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo17" ? metin='DURUM: Sensör 2\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo18" ? metin='DURUM: Sensör 3\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo19" ? metin='DURUM: Sensör 4\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo20" ? metin='DURUM: Sensör 5\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo21" ? metin='DURUM: Sensör 6\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo22" ? metin='DURUM: Sensör 7\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo23" ? metin='DURUM: Sensör 8\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo24" ? metin='DURUM: Sensör 9\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo25" ? metin='DURUM: Sensör 10\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo26" ? metin='DURUM: Sensör 11\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo27" ? metin='DURUM: Sensör 12\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo28" ? metin='DURUM: Sensör 13\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo29" ? metin='DURUM: Sensör 14\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo30" ? metin='DURUM: Sensör 15\'de okuma veya bağlantı arızası olduğunda bu alarm aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo31" ? metin='DURUM: İç ortam nem sensöründe okuma veya bağlantı arızası olduğunda bu alarm aktif olur.'
+    ' ÇÖZÜM:\n'
+    ' -0-10V veya 4-20mA analog sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC 0-10V veya 4-20mA analog modül arızası olabilir\n' : null;
+    kod=="alarminfo32" ? metin='DURUM: Sistemde ilave edilen ve tanımlamaları "ALARM AYARLARI" sayfasında ekstra alarmlar, sinyalleri PLC\'nin harici alarm girişine'
+    ' pozitif sinyal gönderdiğinde bu alarm aktif olur.\n\n ÇÖZÜM: Alarmı meydana getiren ilgili durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo33" ? metin='DURUM: Sayac 1\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo34" ? metin='DURUM: Sayac 2\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo35" ? metin='DURUM: Sayac 3\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo36" ? metin='DURUM: Sayac 4\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo37" ? metin='DURUM: Sayac 5\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo38" ? metin='DURUM: Sayac 6\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo39" ? metin='DURUM: Sayac 7\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo40" ? metin='DURUM: Sayac 8\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo41" ? metin='DURUM: Sayac 9\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo42" ? metin='DURUM: Sayac 10\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo43" ? metin='DURUM: Sayac 11\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo44" ? metin='DURUM: Sayac 12\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
+    ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
+    ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+
+
+    kod=="alarminfo61" ? metin='DURUM: Dış ortam nem sensöründe okuma veya bağlantı arızası olduğunda bu uyarı aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' -0-10V veya 4-20mA analog sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC 0-10V veya 4-20mA analog modül arızası olabilir\n' : null;
+    kod=="alarminfo62" ? metin='DURUM: Dış ortam sıcaklık sensöründe okuma veya bağlantı arızası olduğunda bu uyarı aktif olur.\n\n'
+    ' ÇÖZÜM:\n'
+    ' Sensör tipi analog sensör ise :\n'
+    ' -PT100 sensörün kendisi arızalanmış olabilir\n'
+    ' -Kablo ve klemens bağlantılarında temassızlık olabilir\n'
+    ' -PLC PT100 analog modül arızası olabilir\n\n'
+    ' Sensör tipi wifi sensör ise :\n'
+    ' -Wifi sensörün, sensör kısmı arızalanmış olabilir\n'
+    ' -Wifi sensörün, wifi bağlantı kısmı arızalanmış olabilir\n'
+    ' -Server PC\'deki wifi sensör kontrol yazılımı kapanmış olabilir\n'
+    ' -Wifi ağını yapan modem ve menzil genişletici cihazlar arızalanmış olabilir\n\n'
+    ' tüm bu durumlar kontrol edilmelidir.' : null;
+    kod=="alarminfo63" ? metin='DURUM: Rutin ped bakım zamanı gediğinde bu uyarı aktif olur.\n\nÇÖZÜM: Gerekli bakımlar yapıldıktan sonra uyarı resetlendiğinde'
+    ' bakım döngüsü bir sonraki bakım zamanı tekrar uyarmak üzere resetlenir.' : null;
+    kod=="alarminfo64" ? metin='DURUM: Rutin sistem bakım zamanı gediğinde bu uyarı aktif olur.\n\nÇÖZÜM: Gerekli bakımlar yapıldıktan sonra uyarı resetlendiğinde'
+    ' bakım döngüsü bir sonraki bakım zamanı tekrar uyarmak üzere resetlenir.' : null;
+
+    kod=="baglantiinfo1" ? metin='DURUM: Ekran ile ağ arasındaki bağlantı koptuğu zaman bu hata aktif olur.\n\n'
+    'ÇÖZÜM: Ekran ile ağ arasındaki bağlantı kabloları veya bağlı bulundupu switch portu kontrol edilmelidir. ' : null;
+    
+    kod=="baglantiinfo2" ? metin='DURUM: Ekran ile server PC arasındaki iletişim taleplerine 5sn\'den fazla yanıt gelmezse bu hata aktif olur.\n\n'
+    'ÇÖZÜM: Server PC\'nin arızalı olup olmadığı, enerjisi olup olmadığı, ağa bağlı olup olmadığı kontrol edilmelidir. ' : null;
+
+    kod=="baglantiinfo3" ? metin='DURUM: Tüm unsurlar ağa sorunsuz bağlı iken server PC içerisindeki bilgi akışını sağlayan ilgili port'
+    ' açık değilse bu hata meydana gelir\n\n'
+    'ÇÖZÜM: Server PC\'nin enerjisinin kesilip tekrar açılarak resetlenmesi gerekmektedir.' : null;
+
+    kod=="baglantiinfo4" ? metin='DURUM: PLC ile ağ arasındaki bağlantının koptuğu, PLC\'nin enerjisinin kesildiği ve ekranın PLC\'ye bu nedenlerle'
+    ' erişemediği durumlarda bu hata aktif olur.\n\n'
+    'ÇÖZÜM: PLC\'nin enerjisinin olup olmadığı, PLC ile ağ arasındaki bağlantı kablolarında sorun olup olmadığı veya bağlı bulundupu switch portu kontrol edilmelidir' : null;
+
+    kod=="baglantiinfo5" ? metin='DURUM: Bağlantı sisteminde tanımsız diğer hatalardan biri meydana geldiğinde bu hata aktif olur.\n\n'
+    'ÇÖZÜM:\n'
+    'No route to host : Modem veya switch işlevsiz hale geldiğinde veya bunlarla ekran bağlantısı kesildiğinde bu alarm meydana gelebilir. Modem, switch ve bağlantılar'
+    ' kontrol edilmelidir.\n\n'
+    'Software caused connection abort: Modem veya switch işlevsiz hale geldiğinde veya bunlarla ekran bağlantısı kesildiğinde ekran yazılımı bağlantıyı kopardığından'
+    ' bu alam meydana gelebilir. Modem, switch ve bağlantılar kontrol edilmelidir.' : null;
+ 
 
 
 
@@ -2443,7 +2783,7 @@ class Dil{
     kod=="tv693" ? metin='The connection is timed out!' : null;
     kod=="tv694" ? metin='Connection Refused!' : null;
     kod=="tv695" ? metin='RESET ERROR' : null;
-    kod=="tv696" ? metin='Unknown error occured!' : null;
+    kod=="tv696" ? metin='An Other/Undefined error occured!' : null;
     kod=="tv697" ? metin='Connection fault between PLC and Server PC!' : null;
     kod=="tv698" ? metin='Error Code' : null;
     kod=="tv699" ? metin='Min. Temp.(°C)' : null;
@@ -2467,6 +2807,12 @@ class Dil{
     kod=="tv717" ? metin='ALARM & WARN STATE' : null;
     kod=="tv718" ? metin='REMOVE ALARM' : null;
     kod=="tv719" ? metin='REMOVE WARNING' : null;
+    kod=="tv720" ? metin='ALARM DETAILS' : null;
+    kod=="tv721" ? metin='ERROR DETAILS' : null;
+    kod=="tv722" ? metin='External Alarms' : null;
+    kod=="tv723" ? metin='EXTERNAL ALARMS' : null;
+    kod=="tv724" ? metin='Do you want to remove the alarm from the list?' : null;
+    kod=="tv725" ? metin='Add new external alarm text...' : null;
    
     
     
@@ -2497,6 +2843,7 @@ class Dil{
     kod=="btn11" ? metin='Automatic Sign' : null;
     kod=="btn12" ? metin='START' : null;
     kod=="btn13" ? metin='STOP' : null;
+    kod=="btn14" ? metin='ADD' : null;
     
 
     //endregion
@@ -2537,52 +2884,52 @@ class Dil{
     kod=="alarm2" ? metin='Phase sequence error!' : null;
     kod=="alarm3" ? metin='Electricity is cut or main fuse triggered!' : null;
     kod=="alarm4" ? metin='The fuse of one of tunnel fans triggered!' : null;
-    kod=="alarm5" ? metin='Klepe motorlarından birinin sigortası attı!' : null;
-    kod=="alarm6" ? metin='Ped motorlarından birinin sigortası attı!' : null;
-    kod=="alarm7" ? metin='Air inlet motorlarından birinin sigortası attı!' : null;
-    kod=="alarm8" ? metin='Baca fanlarından birinin sigortası attı!' : null;
-    kod=="alarm9" ? metin='Isıtıcılardan birinin sigortası attı!' : null;
-    kod=="alarm10" ? metin='Sirk. fanlarından birinin sigortası attı!' : null;
-    kod=="alarm11" ? metin='Tünellerden birine su gitmiyor!' : null;
-    kod=="alarm12" ? metin='Minimum sıcaklık!' : null;
-    kod=="alarm13" ? metin='Maksimum sıcaklık!' : null;
-    kod=="alarm14" ? metin='Minimum nem!' : null;
-    kod=="alarm15" ? metin='Maksimum nem!' : null;
-    kod=="alarm16" ? metin='Sıcaklık sensör 1 arızalı!' : null;
-    kod=="alarm17" ? metin='Sıcaklık sensör 2 arızalı!' : null;
-    kod=="alarm18" ? metin='Sıcaklık sensör 3 arızalı!' : null;
-    kod=="alarm19" ? metin='Sıcaklık sensör 4 arızalı!' : null;
-    kod=="alarm20" ? metin='Sıcaklık sensör 5 arızalı!' : null;
-    kod=="alarm21" ? metin='Sıcaklık sensör 6 arızalı!' : null;
-    kod=="alarm22" ? metin='Sıcaklık sensör 7 arızalı!' : null;
-    kod=="alarm23" ? metin='Sıcaklık sensör 8 arızalı!' : null;
-    kod=="alarm24" ? metin='Sıcaklık sensör 9 arızalı!' : null;
-    kod=="alarm25" ? metin='Sıcaklık sensör 10 arızalı!' : null;
-    kod=="alarm26" ? metin='Sıcaklık sensör 11 arızalı!' : null;
-    kod=="alarm27" ? metin='Sıcaklık sensör 12 arızalı!' : null;
-    kod=="alarm28" ? metin='Sıcaklık sensör 13 arızalı!' : null;
-    kod=="alarm29" ? metin='Sıcaklık sensör 14 arızalı!' : null;
-    kod=="alarm30" ? metin='Sıcaklık sensör 15 arızalı!' : null;
-    kod=="alarm31" ? metin='İç ortam nem sensörü arızalı!' : null;
-    kod=="alarm32" ? metin='Harici alarm aktif!' : null;
-    kod=="alarm33" ? metin='Sayac 1 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm34" ? metin='Sayac 2 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm35" ? metin='Sayac 3 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm36" ? metin='Sayac 4 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm37" ? metin='Sayac 5 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm38" ? metin='Sayac 6 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm39" ? metin='Sayac 7 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm40" ? metin='Sayac 8 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm41" ? metin='Sayac 9 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm42" ? metin='Sayac 10 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm43" ? metin='Sayac 11 için su tüketimi minimumun altında kaldı!' : null;
-    kod=="alarm44" ? metin='Sayac 12 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm5" ? metin='The fuse of one of flap motors triggered!!' : null;
+    kod=="alarm6" ? metin='The fuse of one of ped motors triggered!!' : null;
+    kod=="alarm7" ? metin='The fuse of one of air inlet motors triggered!!' : null;
+    kod=="alarm8" ? metin='The fuse of one of chimney fans triggered!' : null;
+    kod=="alarm9" ? metin='The fuse of one of heaters triggered!!' : null;
+    kod=="alarm10" ? metin='The fuse of one of sirc. fans triggered!!' : null;
+    kod=="alarm11" ? metin='No water goes to one of the tunnels!' : null;
+    kod=="alarm12" ? metin='Minimum temperature!' : null;
+    kod=="alarm13" ? metin='Maximum temperature!' : null;
+    kod=="alarm14" ? metin='Minimum humidity!' : null;
+    kod=="alarm15" ? metin='Maximum humidity!' : null;
+    kod=="alarm16" ? metin='Temperature sensor 1 error!' : null;
+    kod=="alarm17" ? metin='Temperature sensor 2 error!' : null;
+    kod=="alarm18" ? metin='Temperature sensor 3 error!' : null;
+    kod=="alarm19" ? metin='Temperature sensor 4 error!' : null;
+    kod=="alarm20" ? metin='Temperature sensor 5 error!' : null;
+    kod=="alarm21" ? metin='Temperature sensor 6 error!' : null;
+    kod=="alarm22" ? metin='Temperature sensor 7 error!' : null;
+    kod=="alarm23" ? metin='Temperature sensor 8 error!' : null;
+    kod=="alarm24" ? metin='Temperature sensor 9 error!' : null;
+    kod=="alarm25" ? metin='Temperature sensor 10 error!' : null;
+    kod=="alarm26" ? metin='Temperature sensor 11 error!' : null;
+    kod=="alarm27" ? metin='Temperature sensor 12 error!' : null;
+    kod=="alarm28" ? metin='Temperature sensor 13 error!' : null;
+    kod=="alarm29" ? metin='Temperature sensor 14 error!' : null;
+    kod=="alarm30" ? metin='Temperature sensor 15 error!' : null;
+    kod=="alarm31" ? metin='Inside humidity sensor error!' : null;
+    kod=="alarm32" ? metin='External alarm active!' : null;
+    kod=="alarm33" ? metin='Water consumption is under minimum value for sayac 1!' : null;
+    kod=="alarm34" ? metin='Water consumption is under minimum value for sayac 2!' : null;
+    kod=="alarm35" ? metin='Water consumption is under minimum value for sayac 3!' : null;
+    kod=="alarm36" ? metin='Water consumption is under minimum value for sayac 4!' : null;
+    kod=="alarm37" ? metin='Water consumption is under minimum value for sayac 5!' : null;
+    kod=="alarm38" ? metin='Water consumption is under minimum value for sayac 6!' : null;
+    kod=="alarm39" ? metin='Water consumption is under minimum value for sayac 7!' : null;
+    kod=="alarm40" ? metin='Water consumption is under minimum value for sayac 8!' : null;
+    kod=="alarm41" ? metin='Water consumption is under minimum value for sayac 9!' : null;
+    kod=="alarm42" ? metin='Water consumption is under minimum value for sayac 10!' : null;
+    kod=="alarm43" ? metin='Water consumption is under minimum value for sayac 11!' : null;
+    kod=="alarm44" ? metin='Water consumption is under minimum value for sayac 12!' : null;
 
 
-    kod=="uyari61" ? metin='Dış ortam nem sensörü arızalı!' : null;
-    kod=="uyari62" ? metin='Dış ortam sıcaklık sensörü arızalı!' : null;
-    kod=="uyari63" ? metin='Ped bakım zamanı geldi!' : null;
-    kod=="uyari64" ? metin='Sistem bakım zamanı geldi!' : null;
+    kod=="uyari61" ? metin='Outside humidity sensor error!' : null;
+    kod=="uyari62" ? metin='Outside temperature sensor error!' : null;
+    kod=="uyari63" ? metin='it\'s time to maintain for the pad system!' : null;
+    kod=="uyari64" ? metin='it\'s time to maintain for the system!' : null;
     
     //endregion
 
@@ -2692,6 +3039,7 @@ class Dil{
     kod=="toast97" ? metin='There is undefine output! Please define a valid output for all elements' : null;
     kod=="toast98" ? metin='The error is still active, it can\'t reset' : null;
     kod=="toast99" ? metin='The alarm is still active, it can\'t reset' : null;
+    kod=="toast100" ? metin='Please enter 10 character atleast for alarm text!' : null;
     //endregion
 
     return metin;
