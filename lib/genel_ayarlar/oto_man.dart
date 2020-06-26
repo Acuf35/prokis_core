@@ -448,7 +448,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         yazmaSonrasiGecikmeSayaci=0;
                                         Metotlar().veriGonder("20*$index*1", 2235).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             Metotlar().takipEt("16*", 2236).then((value){
@@ -546,7 +546,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                         Metotlar().veriGonder("20*$index*0", 2235).then((value){
 
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                           }else{
                                             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                             Metotlar().takipEt("16*", 2236).then((value){
@@ -1960,7 +1960,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("21*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("17*${provider.fanAdet}", 2236).then((value){
@@ -1996,7 +1996,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("22*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("18*${provider.pedAdet}", 2236).then((value){
@@ -2032,7 +2032,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("23*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("19*}", 2236).then((value){
@@ -2068,7 +2068,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("24*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("20*${provider.bacafanAdet}", 2236).then((value){
@@ -2105,7 +2105,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("25*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("21*${provider.isiticiAdet}", 2236).then((value){
@@ -2141,7 +2141,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("26*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("22*", 2236).then((value){
@@ -2181,7 +2181,7 @@ class _OtoMan1State extends State<OtoMan1> {
                 Metotlar().veriGonder("26a*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
-                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                   }else{
                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                     Metotlar().takipEt("22a*", 2236).then((value){
@@ -2261,7 +2261,7 @@ class _OtoMan1State extends State<OtoMan1> {
         yazmaSonrasiGecikmeSayaciYEML= 0;
         Metotlar().veriGonder("15*$_index*$veri", 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
           }

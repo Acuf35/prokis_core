@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/genel_ayarlar/harici_alarm.dart';
+import 'package:prokis/genel_ayarlar/korna_iptal.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/deger_giris_2x0.dart';
 import 'package:prokis/yardimci/deger_giris_3x0.dart';
@@ -5564,7 +5565,7 @@ class AlarmState extends State<Alarm> {
                                                   Metotlar().veriGonder(komut, 2235).then((value) {
                                                     if (value.split("*")[0] == "error") {
                                                       Toast.show(
-                                                          Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                                                          Dil().sec(dilSecimi, "toast101"),
                                                           context,
                                                           duration: 3);
                                                     } else {
@@ -5697,7 +5698,16 @@ class AlarmState extends State<Alarm> {
                                 Spacer(flex: 1,),
                                 Expanded(flex: 7,
                                   child: RaisedButton(
-                                    onPressed: (){},
+                                    onPressed: (){
+                                      timerCancel=true;
+                                    
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              KornaIptal(dbVeriler)),
+                                    );
+                                    },
                                     child: Text(
                                       Dil().sec(dilSecimi, "tv716"),
                                       style: TextStyle(
@@ -5792,7 +5802,7 @@ class AlarmState extends State<Alarm> {
                               children: <TextSpan>[
                                 //Giriş metni
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info23"),
+                                  text: Dil().sec(dilSecimi, "info50"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran
@@ -5801,7 +5811,7 @@ class AlarmState extends State<Alarm> {
 
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv614")+":",
+                                  text: Dil().sec(dilSecimi, "tv699")+":",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran,
@@ -5810,7 +5820,7 @@ class AlarmState extends State<Alarm> {
                                 ),
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info23a"),
+                                  text: Dil().sec(dilSecimi, "info50a"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran
@@ -5819,7 +5829,7 @@ class AlarmState extends State<Alarm> {
 
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv615")+":",
+                                  text: Dil().sec(dilSecimi, "tv700")+":",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran,
@@ -5828,7 +5838,7 @@ class AlarmState extends State<Alarm> {
                                 ),
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info23b"),
+                                  text: Dil().sec(dilSecimi, "info50b"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran
@@ -5837,7 +5847,7 @@ class AlarmState extends State<Alarm> {
 
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv665")+":",
+                                  text: Dil().sec(dilSecimi, "tv482")+":",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran,
@@ -5846,7 +5856,7 @@ class AlarmState extends State<Alarm> {
                                 ),
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info23c"),
+                                  text: Dil().sec(dilSecimi, "info50c"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran
@@ -5855,7 +5865,7 @@ class AlarmState extends State<Alarm> {
 
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv666")+":",
+                                  text: Dil().sec(dilSecimi, "tv250")+":",
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran,
@@ -5864,7 +5874,98 @@ class AlarmState extends State<Alarm> {
                                 ),
 
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info23d"),
+                                  text: Dil().sec(dilSecimi, "info50d"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv710")+":\n",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info50e"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv711")+":\n",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info50f"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv712")+":\n",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info50g"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv713")+":\n",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info50h"),
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran
+                                  )
+                                ),
+
+
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv714")+":\n",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13*oran,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+
+                                TextSpan(
+                                  text: Dil().sec(dilSecimi, "info50h"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran
@@ -5875,37 +5976,8 @@ class AlarmState extends State<Alarm> {
 
 
 
-                                TextSpan(
-                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran,
-                                    fontWeight: FontWeight.bold
-                                  )
-                                ),
 
-                                TextSpan(
-                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm1")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm2")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm3")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm4")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm5")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm6")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm7")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm8")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm9")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm10")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm11")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm12")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm13")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm14")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm15")+'\n'+
-                                  Dil().sec(dilSecimi, "ksltm16")+'\n',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 11*oran,
-                                  )
-                                ),
+
                                 
                               ]
                             ),
@@ -6076,7 +6148,7 @@ class AlarmState extends State<Alarm> {
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
-                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                Dil().sec(dilSecimi, "toast101"),
                 context,
                 duration: 3);
           } else {
@@ -6142,7 +6214,7 @@ class AlarmState extends State<Alarm> {
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
-                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                Dil().sec(dilSecimi, "toast101"),
                 context,
                 duration: 3);
           } else {
@@ -6243,7 +6315,7 @@ class AlarmState extends State<Alarm> {
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
-                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                Dil().sec(dilSecimi, "toast101"),
                 context,
                 duration: 3);
           } else {
@@ -6323,7 +6395,7 @@ class AlarmState extends State<Alarm> {
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
-                Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                Dil().sec(dilSecimi, "toast101"),
                 context,
                 duration: 3);
           } else {

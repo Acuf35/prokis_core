@@ -615,11 +615,11 @@ class DigerCikislar extends StatelessWidget {
                             String komut="38*36*"+cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4+"*"+cikisVeri5+"*"+yy+"*"+provider.sayacAdet+"#"+ provider.palsBasinaLitre+"#"+ (provider.suAlarm==true ? "1" : "0");
                             Metotlar().veriGonder(komut, 2233).then((value){
                               if(value.split("*")[0]=="error"){
-                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                               }else{
                                  Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value){
                                     if(value.split("*")[0]=="error"){
-                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                     }else{
                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                       String veri=cikisVeri1+cikisVeri2+cikisVeri3+cikisVeri4;

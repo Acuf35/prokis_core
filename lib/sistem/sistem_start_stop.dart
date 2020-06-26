@@ -236,8 +236,7 @@ class SistemStartStopState extends State<SistemStartStop> {
                               yazmaSonrasiGecikmeSayaci = 0;
                               if (value.split("*")[0] == "error") {
                                 Toast.show(
-                                    Metotlar()
-                                        .errorToastMesaj(value.split("*")[1],dbProkis),
+                                    Dil().sec(dilSecimi, "toast101"),
                                     context,
                                     duration: 3);
                               } else {

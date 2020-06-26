@@ -1448,7 +1448,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                   String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
                                                   Metotlar().veriGonder(komut, 2235).then((value){
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                       
@@ -2193,7 +2193,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -2245,7 +2245,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             

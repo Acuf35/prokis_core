@@ -211,7 +211,7 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
               Metotlar().veriGonder("38*", 2235).then((value) {
                 if (value.split("*")[0] == "error") {
                   Toast.show(
-                      Metotlar().errorToastMesaj(value.split("*")[1], dbProkis),
+                      Dil().sec(dilSecimi, "toast101"),
                       context,
                       duration: 3);
                 } else {
@@ -259,7 +259,10 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
 
                 
               },
-              child: Text("ALARMLARI GÜNCELLE"),
+              child: Text(
+                Dil().sec(dilSecimi, "tv727"),
+                textScaleFactor: oran,
+              ),
               color: Colors.orange,
             ),
           ),
@@ -271,6 +274,15 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
                     (
                       itemCount: 79,
                       itemBuilder: (BuildContext ctxt, int index) {
+                        String harici="";
+                        if(index==31){
+                          for (var i = 200; i < 220; i++) {
+                            if(dbProkis.dbVeriGetir(i, 1, "")=="ok"){
+                              harici=harici+dbProkis.dbVeriGetir(i, 2, "")+"\n";
+                            }
+                          }
+                          harici="\n\n"+Dil().sec(dilSecimi, "tv722")+":\n"+harici;
+                        }
                         
                       return Visibility(visible: dbProkis.dbVeriGetir(100+index, 1, "0")=="1" ? true : false,
                                   child: Container(
@@ -348,7 +360,7 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
                           padding: EdgeInsets.only(left: 5*oran, right: 5*oran),
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "\n"+Dil().sec(dilSecimi, "alarminfo${index+1}"),
+                            "\n"+Dil().sec(dilSecimi, "alarminfo${index+1}")+harici,
                             style: TextStyle(
                               fontFamily: 'Kelly Slab',
                             ),
@@ -366,21 +378,8 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
                     )
             
           ),
-          /*
-          Expanded(
-            flex: 20,
-            child: ListView.builder
-                    (
-                      itemCount: 79,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        
-                      return Text(dbProkis.dbVeriGetir(100+index, 1, "aa") + " - " + dbProkis.dbVeriGetir(100+index, 2, "bb") + " - " + dbProkis.dbVeriGetir(100+index, 3, "cc") );
-                      
-                      }
-                    )
-            
-          )
-        */
+          
+        
         
         ],
       ),
@@ -414,7 +413,7 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv691"), 
+                      Dil().sec(dilSecimi, "tv717"), 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -444,7 +443,7 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
                               children: <TextSpan>[
                                 //Giriş metni
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info49"),
+                                  text: Dil().sec(dilSecimi, "info53"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran

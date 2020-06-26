@@ -468,7 +468,7 @@ class PedHaritasi extends StatelessWidget {
 
                               Metotlar().veriGonder("18*23*$veri*0*0*0", 2233).then((value){
                                 if(value.split("*")[0]=="error"){
-                                  Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                  Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                 }else{
                                   Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                   dbProkis.dbSatirEkleGuncelle(18, "ok", veri, "0", "0");
@@ -615,11 +615,11 @@ class PedHaritasi extends StatelessWidget {
                                         String komut="19*24*$noVeri*$cikisVeri*0*0";
                                         Metotlar().veriGonder(komut, 2233).then((value){
                                           if(value.split("*")[0]=="error"){
-                                            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                           }else{
                                             Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value){
                                               if(value.split("*")[0]=="error"){
-                                                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                               }else{
                                                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                 dbProkis.dbSatirEkleGuncelle(19, "ok", noVeri, cikisVeri, "0");
@@ -1013,11 +1013,11 @@ class PedHaritasi extends StatelessWidget {
 
         Metotlar().veriGonder("20*0*0*0*0*0", 2233).then((value) {
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{
             Metotlar().veriGonder("25*27*$tumCikislarVeri*0*0*0", 2233).then((value) {
               if(value.split("*")[0]=="error"){
-                Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
               }else{
                 Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                 dbProkis.dbSatirEkleGuncelle(18, "0", "0", "0", "0");

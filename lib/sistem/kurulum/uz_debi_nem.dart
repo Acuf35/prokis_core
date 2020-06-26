@@ -78,7 +78,7 @@ class UzDebiNem extends StatelessWidget {
                   if(provider.getaM!=""){
                     Metotlar().veriGonder(komut, 2233).then((value) {
                       if(value.split("*")[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                         dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
@@ -105,7 +105,7 @@ class UzDebiNem extends StatelessWidget {
                   if(provider.getbM!=""){
                     Metotlar().veriGonder(komut, 2233).then((value) {
                       if(value.split("*")[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                         dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
@@ -129,7 +129,7 @@ class UzDebiNem extends StatelessWidget {
                   if(provider.getcM!=""){
                     Metotlar().veriGonder(komut, 2233).then((value) {
                       if(value.split("*")[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                         dbProkis.dbSatirEkleGuncelle(12, v1, v2, v3, "0");
@@ -153,7 +153,7 @@ class UzDebiNem extends StatelessWidget {
                   if(provider.gettunelFanDebi!=""){
                     Metotlar().veriGonder(komut, 2233).then((value) {
                       if(value.split("*")[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                         dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
@@ -178,7 +178,7 @@ class UzDebiNem extends StatelessWidget {
                   if(provider.getbacaFanDebi!=""){
                     Metotlar().veriGonder(komut, 2233).then((value) {
                       if(value.split("*")[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                         dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
@@ -203,7 +203,7 @@ class UzDebiNem extends StatelessWidget {
                   if(provider.gethacimOrani!=""){
                     Metotlar().veriGonder(komut, 2233).then((value) {
                       if(value.split("*")[0]=="error"){
-                        Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                       }else{
                         Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                         dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
@@ -576,7 +576,7 @@ class UzDebiNem extends StatelessWidget {
 
                                                 Metotlar().veriGonder(komut, 2233).then((value) {
                                                   if(value.split("*")[0]=="error"){
-                                                    Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                                   }else{
                                                     Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                     dbProkis.dbSatirEkleGuncelle(13, v1, v2, v3, v4);
@@ -863,7 +863,7 @@ class UzDebiNem extends StatelessWidget {
 
                                                   Metotlar().veriGonder(komut, 2233).then((value) {
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                       dbProkis.dbSatirEkleGuncelle(9, v1x+"*"+v1y, v2x+"*"+v2y, v3x+"*"+v3y, v4x+"*"+v4y);
@@ -884,7 +884,7 @@ class UzDebiNem extends StatelessWidget {
 
                                                   Metotlar().veriGonder(komut, 2233).then((value) {
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                       dbProkis.dbSatirEkleGuncelle(10, v1x+"*"+v1y, v2x+"*"+v2y, v3x+"*"+v3y, v4x+"*"+v4y);
@@ -902,7 +902,7 @@ class UzDebiNem extends StatelessWidget {
 
                                                   Metotlar().veriGonder(komut, 2233).then((value) {
                                                     if(value.split("*")[0]=="error"){
-                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                                     }else{
                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                       dbProkis.dbSatirEkleGuncelle(11, v1x+"*"+v1y, v2x+"*"+v2y, "0", "0");

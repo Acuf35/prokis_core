@@ -250,7 +250,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
 
     return Scaffold(
       
-      appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv691',baglantiDurum, alarmDurum),
+      appBar: Metotlar().appBarBaglanti(dilSecimi, context, oran, 'tv691',baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           Row(

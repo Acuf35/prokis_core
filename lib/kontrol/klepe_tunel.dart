@@ -1022,7 +1022,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         String komut="7*$klepeIndex*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1101,7 +1101,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         String komut="7*$klepeIndex*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
-            Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{
             Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
             
@@ -1529,7 +1529,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                   String komut="7*$klepeNo*$veri";
                                                                   Metotlar().veriGonder(komut, 2235).then((value){
                                                                     if(value.split("*")[0]=="error"){
-                                                                      Toast.show(Metotlar().errorToastMesaj(value.split("*")[1],dbProkis), context,duration:3);
+                                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                                                     }else{
                                                                       Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
                                                                       
