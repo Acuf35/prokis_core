@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -9,14 +8,13 @@ import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar/alarm.dart';
 import 'package:prokis/genel_ayarlar/kalibrasyon.dart';
 import 'package:prokis/genel_ayarlar/kontrol.dart';
+import 'package:prokis/genel_ayarlar/log_grafik.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
 import 'package:prokis/genel_ayarlar/sistem.dart';
 import 'package:prokis/genel_ayarlar/suru.dart';
 import 'package:prokis/provider/dbprokis.dart';
-import 'package:prokis/sistem/kurulum/dil_secimi.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
-import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'genel_ayarlar/izleme.dart';
 import 'package:prokis/languages/select.dart';
@@ -33,7 +31,8 @@ class GenelAyarlar extends StatefulWidget {
   }
 }
 
-class GenelAyarlarState extends State<GenelAyarlar> with WidgetsBindingObserver{
+class GenelAyarlarState extends State<GenelAyarlar>
+    with WidgetsBindingObserver {
   //++++++++++++++++++++++++++DATABASE DEĞİŞKENLER+++++++++++++++++++++++++++++++
   /*
   final dbHelper = DatabaseHelper.instance;
@@ -50,13 +49,13 @@ class GenelAyarlarState extends State<GenelAyarlar> with WidgetsBindingObserver{
   bool timerCancel = false;
   bool baglanti = false;
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   GenelAyarlarState(List<Map> dbVeri) {
-
     dbVeriler = dbVeri;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
@@ -65,40 +64,34 @@ class GenelAyarlarState extends State<GenelAyarlar> with WidgetsBindingObserver{
     }
 
     //_dbVeriCekme();
-
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
-
-
-
+    final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
       dbProkis.dbSatirEkleGuncelle(48, "1", "1", "1", "1");
-      Metotlar().takipEt("alarm*", 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              alarmDurum=veri;
-              baglantiDurum="";
-              baglanti=false;
-              if(!timerCancel)
-                setState(() {});
-            }
-          });
+      Metotlar().takipEt("alarm*", 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+        } else {
+          alarmDurum = veri;
+          baglantiDurum = "";
+          baglanti = false;
+          if (!timerCancel) setState(() {});
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -107,70 +100,74 @@ final dbProkis = Provider.of<DBProkis>(context);
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          Metotlar().takipEt("alarm*", 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
+          Metotlar().takipEt("alarm*", 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
               setState(() {});
-            }else{
-              alarmDurum=veri;
+            } else {
+              alarmDurum = veri;
               print(veri);
-              baglantiDurum="";
-              baglanti=false;
-              if(!timerCancel)
-                setState(() {});
+              baglantiDurum = "";
+              baglanti = false;
+              if (!timerCancel) setState(() {});
             }
           });
         }
       });
-      
     }
 
     timerSayac++;
 
-
-
-    dilSecimi=dbProkis.dbVeriGetir(1, 1, "EN");
+    dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',Colors.blue,baglantiDurum, alarmDurum),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv99',
+          Colors.blue, baglantiDurum, alarmDurum),
       body: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               Expanded(
-                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemTime(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.only(left: 10 * oran),
+                  child: TimerBuilder.periodic(Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      Metotlar().getSystemTime(dbVeriler),
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontFamily: 'Kelly Slab',
+                          fontSize: 12 * oran,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
+                ),
               ),
-              
               Expanded(
-                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemDate(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.only(right: 10 * oran),
+                  child: TimerBuilder.periodic(Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      Metotlar().getSystemDate(dbVeriler),
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontFamily: 'Kelly Slab',
+                          fontSize: 12 * oran,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
+                ),
               ),
             ],
           ),
-          
           Expanded(
             flex: 40,
             child: Column(
@@ -181,7 +178,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 3,
+                        flex: 2,
                       ),
                       //KONTROL
                       Expanded(
@@ -225,7 +222,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
+                                    timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -292,15 +289,13 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
+                                    timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               Izleme(dbVeriler)),
                                     );
-
-                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -361,12 +356,11 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
+                                    timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              OtoMan1()),
+                                          builder: (context) => OtoMan1()),
                                     );
                                   },
                                   child: Container(
@@ -428,15 +422,14 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
-                                    
+                                    timerCancel = true;
+
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               Alarm(dbVeriler)),
                                     );
-                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -453,9 +446,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                             ],
                           )),
                       Spacer(
-                        flex: 3,
+                        flex: 2,
                       ),
-                      
                     ],
                   ),
                 ),
@@ -509,7 +501,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
+                                    timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -576,7 +568,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
+                                    timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
@@ -643,14 +635,18 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    print(oran);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => LogGrafik()),
+                                    );
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
                                       image: DecorationImage(
                                         alignment: Alignment.center,
                                         image: AssetImage(
-                                            'assets/images/datalog_icon.png'),
+                                            'assets/images/datalog_chart_icon.png'),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -662,7 +658,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                       Spacer(
                         flex: 1,
                       ),
-                      
+
                       //SİSTEM
                       Expanded(
                           flex: 4,
@@ -705,13 +701,12 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    timerCancel=true;
+                                    timerCancel = true;
 
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                              Sistem()),
+                                          builder: (context) => Sistem()),
                                     );
                                   },
                                   child: Container(
@@ -727,8 +722,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 ),
                               ),
                             ],
-                          )
-                          ),
+                          )),
                       Spacer(
                         flex: 3,
                       ),
@@ -742,70 +736,63 @@ final dbProkis = Provider.of<DBProkis>(context);
         ],
       ),
       endDrawer: SizedBox(
-              width: 320 * oran,
-              child: Drawer(
-                child: MediaQuery.removePadding(
-                  removeTop: true,
-                  context: context,
-                  child: Column(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            Dil().sec(dilSecimi, "tv99"), 
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 18,
-                              fontFamily: 'Kelly Slab',
-                            ),
-                            textScaleFactor: oran,
-                          ),
-                          color: Colors.yellow[700],
-                        ),
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv99"),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
                       ),
-                      Expanded(
-                        flex: 17,
-                        child: Container(
-                          color: Colors.yellow[100],
-                          child: ListView(
-                            padding: EdgeInsets.zero,
-                            children: <Widget>[
-                              ListTile(
-                                dense: false,
-                                title: Text(
-                                  Dil().sec(dilSecimi, "tv186"),
-                                  textScaleFactor: oran,
-                                ),
-                                subtitle: RichText(
-                                  text: TextSpan(
-                                    children: <TextSpan>[
-                                      //Giriş metni
-                                      TextSpan(
-                                        text: Dil().sec(dilSecimi, "info46"),
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 13*oran
-                                        )
-                                      ),
-
-                                      
-                                    ]
-                                  ),
-                                ),
-                              
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                      textScaleFactor: oran,
+                    ),
+                    color: Colors.yellow[700],
                   ),
                 ),
-              ),
+                Expanded(
+                  flex: 17,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
+                          ),
+                          subtitle: RichText(
+                            text: TextSpan(children: <TextSpan>[
+                              //Giriş metni
+                              TextSpan(
+                                  text: Dil().sec(dilSecimi, "info46"),
+                                  style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 13 * oran)),
+                            ]),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
+          ),
+        ),
+      ),
       drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-      );
+    );
   }
 }

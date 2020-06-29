@@ -5,16 +5,25 @@ import 'package:flutter/services.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
-import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/sistem/kurulum/dil_secimi.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider<DBProkis>(create: (context) => DBProkis(),),
-
+      ChangeNotifierProvider<DBProkis>(
+        create: (context) => DBProkis(),
+      ),
     ],
     child: MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', 'US'),
+        const Locale('tr', 'TR'),
+      ],
       debugShowCheckedModeBanner: false,
       title: "PROKIS PANEL",
       home: Giris(),
@@ -40,7 +49,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   String dilSecimi = "EN";
   String kurulumDurum = "0";
   List<Map> dbVeriler;
-  int sayac=0;
+  int sayac = 0;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
 //++++++++++++++++++++++++++OTOMATİK SAYFA GEÇİŞ İŞLEMİ+++++++++++++++++++++++++++++++
@@ -48,26 +57,20 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    
-    
   }
-
-
-
 
 //--------------------------OTOMATİK SAYFA GEÇİŞ İŞLEMİ--------------------------------
 
   @override
   Widget build(BuildContext context) {
-  final dbProkis = Provider.of<DBProkis>(context);
+    final dbProkis = Provider.of<DBProkis>(context);
     //_dbSatirlariCekme();
     //dbProkis.dbSatirSil(100, 179);
 
-    if(sayac==0){
-
+    if (sayac == 0) {
       new Future.delayed(const Duration(seconds: 3), () {
-        kurulumDurum=dbProkis.dbVeriGetir(2, 1, "0");
-        dbVeriler=dbProkis.getDbVeri;
+        kurulumDurum = dbProkis.dbVeriGetir(2, 1, "0");
+        dbVeriler = dbProkis.getDbVeri;
         Navigator.push(
           context,
           //MaterialPageRoute(builder: (context) => DilSecimi(dbVeriler)),
@@ -81,13 +84,10 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
       sayac++;
     }
 
-
 //++++++++++++++++++++++++++STATUS BAR SAKLAMA ve EKRANI YATAYA SABİTLEME+++++++++++++++++++++++++++++++
     SystemChrome.setEnabledSystemUIOverlays([]);
     _landscapeModeOnly();
 //--------------------------STATUS BAR SAKLAMA ve EKRANI YATAYA SABİTLEME--------------------------------
-
-
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
 
@@ -96,13 +96,13 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-              decoration: BoxDecoration(
-                  image: new DecorationImage(
-                      image: new AssetImage(
-                          "assets/images/giris_ekran_arkaplan.png"),
-                      fit: BoxFit.cover)),
-              alignment: Alignment.bottomCenter,
-              ),
+            decoration: BoxDecoration(
+                image: new DecorationImage(
+                    image: new AssetImage(
+                        "assets/images/giris_ekran_arkaplan.png"),
+                    fit: BoxFit.cover)),
+            alignment: Alignment.bottomCenter,
+          ),
         ],
       ),
     );
@@ -144,7 +144,6 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 
 */
 
-
   void _landscapeModeOnly() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
@@ -154,5 +153,3 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
 //--------------------------METOTLAR--------------------------------
 
 }
-
-

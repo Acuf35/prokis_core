@@ -124,8 +124,8 @@ class Dil{
     kod=="tv100" ? metin='İZLEME' : null;
     kod=="tv101" ? metin='OTO-MAN' : null;
     kod=="tv102" ? metin='KONTROL' : null;
-    kod=="tv103" ? metin='DATA LOG' : null;
-    kod=="tv104" ? metin='ALARM/UYARI' : null;
+    kod=="tv103" ? metin='LOG&GRAFİK' : null;
+    kod=="tv104" ? metin='ALARM&UYARI' : null;
     kod=="tv105" ? metin='SİSTEM' : null;
     kod=="tv106" ? metin='KONTROL AYARLARI' : null;
     kod=="tv107" ? metin='SIC. & FAN' : null;
@@ -749,6 +749,13 @@ class Dil{
     kod=="tv725" ? metin='Yeni harici alarm metni ekle...' : null;
     kod=="tv726" ? metin='ALARM KORNA İPTAL' : null;
     kod=="tv727" ? metin='LİSTEYİ GÜNCELLE' : null;
+    kod=="tv728" ? metin='LOG VE GRAFİK' : null;
+    kod=="tv729" ? metin='DATA LOGLAR' : null;
+    kod=="tv730" ? metin='GRAFİKLER' : null;
+    kod=="tv731" ? metin='SIC. & NEM\nLOGLARI' : null;
+    kod=="tv732" ? metin='ALARM / UYARI\nLOGLARI' : null;
+    kod=="tv733" ? metin='TÜKETİM\nLOGLARI' : null;
+    kod=="tv734" ? metin='PARAMETRE\nLOGLARI' : null;
    
 
     
@@ -2293,7 +2300,7 @@ class Dil{
     kod=="tv100" ? metin='WATCH' : null;
     kod=="tv101" ? metin='AUTO-MAN' : null;
     kod=="tv102" ? metin='CONTROL' : null;
-    kod=="tv103" ? metin='DATA LOG' : null;
+    kod=="tv103" ? metin='LOG&CHART' : null;
     kod=="tv104" ? metin='ALARM/WARN' : null;
     kod=="tv105" ? metin='SYSTEM' : null;
     kod=="tv106" ? metin='CONTROL SETTINGS' : null;
@@ -2918,6 +2925,13 @@ class Dil{
     kod=="tv725" ? metin='Add new external alarm text...' : null;
     kod=="tv726" ? metin='CANCEL ALARM HORN' : null;
     kod=="tv727" ? metin='REFRESH LİST' : null;
+    kod=="tv728" ? metin='LOG AND CHART' : null;
+    kod=="tv729" ? metin='DATA LOGS' : null;
+    kod=="tv730" ? metin='CHARTS' : null;
+    kod=="tv731" ? metin='TEMP. & HUM.\nLOGS' : null;
+    kod=="tv732" ? metin='ALARM / WARN\nLOGS' : null;
+    kod=="tv733" ? metin='CONSUMPTION\nLOGS' : null;
+    kod=="tv734" ? metin='PARAMETER\nLOGS' : null;
    
     
     

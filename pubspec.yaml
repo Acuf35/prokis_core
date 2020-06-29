@@ -19,14 +19,14 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   intl: ^0.16.1
 
   timer_builder: ^1.3.0
 
   lazy_load_scrollview: ^1.0.1
-  
-  flutter_datetime_picker: ^1.3.4
 
   webview_flutter: ^0.3.4
 
@@ -131,8 +131,8 @@ flutter:
   - assets/images/wizard_icon.png
   - assets/images/izleme_icon.png
   - assets/images/izleme_small_icon.png
-  - assets/images/datalog_icon.png
-  - assets/images/datalog_small_icon.png
+  - assets/images/datalog_chart_icon.png
+  - assets/images/datalog_chart_small_icon.png
   - assets/images/kontrol_icon.png
   - assets/images/kontrol_small_icon.png
   - assets/images/alarm_ayarlari_icon.png
@@ -182,6 +182,10 @@ flutter:
   - assets/images/ped_izleme_icon_on.png
   - assets/images/silo_izleme_icon.png
   - assets/images/software_icon.png
+  - assets/images/chart_icon.png
+  - assets/images/datalog_icon.png
+  - assets/images/datalog_small_icon.png
+  - assets/images/chart_icon_small.png
   - assets/images/software_small_icon.png
   - assets/images/sistem_start_stop_icon.png
   - assets/images/sistem_start_stop_small_icon.png

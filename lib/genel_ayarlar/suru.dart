@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/metotlar.dart';
@@ -19,6 +18,8 @@ import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/deger_giris_1x2.dart';
 import 'package:prokis/yardimci/deger_giris_6x0.dart';
 import 'package:prokis/languages/select.dart';
+
+import '../provider/dbprokis.dart';
 
 class SuruBilgisi extends StatefulWidget {
   List<Map> gelenDBveri;
@@ -73,8 +74,6 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   bool timerCancel = false;
   bool baglanti = false;
 
-  
-
   String gunluk_1_7 = "0.16";
   String gunluk_8_14 = "0.42";
   String gunluk_15_21 = "0.59";
@@ -88,9 +87,11 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   String haftalik_21_52 = "0.42";
   String haftalik_53veSonrasi = "0.59";
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
+  DateTime selectedDate = DateTime.now();
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -111,27 +112,27 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
+    final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
-
-      Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
+      Metotlar().takipEt('15*$kumesTuru', 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+        } else {
+          takipEtVeriIsleme(veri);
+          baglantiDurum = "";
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -141,21 +142,17 @@ final dbProkis = Provider.of<DBProkis>(context);
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
 
-
-          Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
+          Metotlar().takipEt('15*$kumesTuru', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
               setState(() {});
-            }else{
+            } else {
               takipEtVeriIsleme(veri);
-              baglantiDurum="";
+              baglantiDurum = "";
             }
-
-        });
-
-
+          });
         }
       });
     }
@@ -165,963 +162,839 @@ final dbProkis = Provider.of<DBProkis>(context);
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv414',baglantiDurum, alarmDurum),
-        body: Column(
-          children: <Widget>[
-            //Saat ve Tarih
-            Row(
+      appBar: Metotlar()
+          .appBar(dilSecimi, context, oran, 'tv414', baglantiDurum, alarmDurum),
+      body: Column(
+        children: <Widget>[
+          //Saat ve Tarih
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.only(left: 10 * oran),
+                  child: TimerBuilder.periodic(Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      Metotlar().getSystemTime(dbVeriler),
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontFamily: 'Kelly Slab',
+                          fontSize: 12 * oran,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.only(right: 10 * oran),
+                  child: TimerBuilder.periodic(Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      Metotlar().getSystemDate(dbVeriler),
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontFamily: 'Kelly Slab',
+                          fontSize: 12 * oran,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Row(
               children: <Widget>[
                 Expanded(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    color: Colors.grey[300],
-                    padding: EdgeInsets.only(left: 10 * oran),
-                    child: TimerBuilder.periodic(Duration(seconds: 1),
-                        builder: (context) {
-                      return Text(
-                        Metotlar().getSystemTime(dbVeriler),
-                        style: TextStyle(
-                            color: Colors.blue[800],
-                            fontFamily: 'Kelly Slab',
-                            fontSize: 12 * oran,
-                            fontWeight: FontWeight.bold),
-                      );
-                    }),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    color: Colors.grey[300],
-                    padding: EdgeInsets.only(right: 10 * oran),
-                    child: TimerBuilder.periodic(Duration(seconds: 1),
-                        builder: (context) {
-                      return Text(
-                        Metotlar().getSystemDate(dbVeriler),
-                        style: TextStyle(
-                            color: Colors.blue[800],
-                            fontFamily: 'Kelly Slab',
-                            fontSize: 12 * oran,
-                            fontWeight: FontWeight.bold),
-                      );
-                    }),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    flex: 3,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          height: 10 * oran,
-                        ),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: <Widget>[
-                              //Sürü Doğum Tarihi
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: SizedBox(
-                                          child: Container(
-                                            alignment: Alignment.bottomCenter,
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv415"),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 50.0,
-                                                fontFamily: 'Kelly Slab',
-                                              ),
-                                              maxLines: 2,
-                                              minFontSize: 8,
+                  flex: 3,
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 10 * oran,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: <Widget>[
+                            //Sürü Doğum Tarihi
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        child: Container(
+                                          alignment: Alignment.bottomCenter,
+                                          child: AutoSizeText(
+                                            Dil().sec(dilSecimi, "tv415"),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily: 'Kelly Slab',
                                             ),
+                                            maxLines: 2,
+                                            minFontSize: 8,
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        color: Colors.cyan[700],
-                                        padding: EdgeInsets.all(5 * oran),
-                                        child: RawMaterialButton(
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                          constraints: BoxConstraints(),
-                                          onPressed: () {
-                                            DatePicker.showDatePicker(context,
-                                                showTitleActions: true,
-                                                minTime: DateTime(
-                                                    DateTime.now().year - 1,
-                                                    1,
-                                                    1),
-                                                maxTime: DateTime(
-                                                    DateTime.now().year + 1,
-                                                    12,
-                                                    31),
-                                                theme: DatePickerTheme(
-                                                    headerColor:
-                                                        Colors.orange[700],
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            'Kelly Slab',
-                                                        fontSize: 18 * oran),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14 * oran,
-                                                        fontFamily:
-                                                            'Kelly Slab',
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    cancelStyle: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14 * oran,
-                                                        fontFamily:
-                                                            'Kelly Slab',
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                                onChanged: (date) {
+                                    ),
+                                    Container(
+                                      color: Colors.cyan[700],
+                                      padding: EdgeInsets.all(5 * oran),
+                                      child: RawMaterialButton(
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        constraints: BoxConstraints(),
+                                        onPressed: () {
+                                          _index = 8;
+                                          selectedDate = suruDogumTarihi;
+                                          _selectDate(
+                                              context, _index, dbProkis);
+                                        },
+                                        fillColor: Colors.cyan[900],
+                                        elevation: 16,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 120 * oran,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                DateFormat('dd-MM-yyyy')
+                                                    .format(suruDogumTarihi),
+                                                style: TextStyle(
+                                                    fontSize: 20 * oran,
+                                                    fontFamily: 'Kelly Slab',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            //Sürü Giriş Tarihi
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        child: Container(
+                                          alignment: Alignment.bottomCenter,
+                                          child: AutoSizeText(
+                                            Dil().sec(dilSecimi, "tv416"),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily: 'Kelly Slab',
+                                            ),
+                                            maxLines: 2,
+                                            minFontSize: 8,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.cyan[700],
+                                      padding: EdgeInsets.all(5 * oran),
+                                      child: RawMaterialButton(
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        constraints: BoxConstraints(),
+                                        onPressed: () {
+                                          _index = 9;
+                                          selectedDate = suruGirisTarihi;
+                                          _selectDate(
+                                              context, _index, dbProkis);
+                                        },
+                                        fillColor: Colors.cyan[900],
+                                        elevation: 16,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: <Widget>[
+                                            Container(
+                                              width: 120 * oran,
+                                              alignment: Alignment.center,
+                                              child: Text(
+                                                DateFormat('dd-MM-yyyy')
+                                                    .format(suruGirisTarihi),
+                                                style: TextStyle(
+                                                    fontSize: 20 * oran,
+                                                    fontFamily: 'Kelly Slab',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            //Hayvan Sayısı (Girişte)
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        child: Container(
+                                          alignment: Alignment.bottomCenter,
+                                          child: AutoSizeText(
+                                            Dil().sec(dilSecimi, "tv417"),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily: 'Kelly Slab',
+                                            ),
+                                            maxLines: 2,
+                                            minFontSize: 8,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      color: Colors.cyan[700],
+                                      padding: EdgeInsets.all(5 * oran),
+                                      child: RawMaterialButton(
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        constraints: BoxConstraints(),
+                                        onPressed: () {
+                                          int sayi = int.parse(suruGirisSayisi);
+                                          _yuzBinler = sayi < 100000
+                                              ? 0
+                                              : (sayi ~/ 100000).toInt();
+                                          _onBinler = sayi < 10000
+                                              ? 0
+                                              : ((sayi % 100000) ~/ 10000)
+                                                  .toInt();
+                                          _binler = sayi < 1000
+                                              ? 0
+                                              : ((sayi % 10000) ~/ 1000)
+                                                  .toInt();
+                                          _yuzler = sayi < 100
+                                              ? 0
+                                              : ((sayi % 1000) ~/ 100).toInt();
+                                          _onlar = sayi < 10
+                                              ? 0
+                                              : ((sayi % 100) ~/ 10).toInt();
+                                          _birler = sayi % 10;
+                                          _index = 1;
 
-                                            }, onConfirm: (date) {
-                                              
-                                              _index=8;
-                                              if (date.compareTo(DateTime.now())<=0){
-                                                suruDogumTarihi = date;
-                                                String gun=date.day.toString();
-                                                String ayy=date.month.toString();
-                                                String yil=date.year.toString();
-                                                
-                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                String komut='16*$_index*$gun*$ayy*$yil';
-                                                Metotlar().veriGonder(komut, 2235).then((value){
-                                                  if(value.split("*")[0]=="error"){
-                                                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                                  }else{
-                                                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                                    
-                                                    baglanti = false;
-                                                    Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-                                                        if(veri.split("*")[0]=="error"){
-                                                          baglanti=false;
-                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                                          setState(() {});
-                                                        }else{
-                                                          takipEtVeriIsleme(veri);
-                                                          baglantiDurum="";
-                                                        }
-                                                    });
-                                                  }
-                                                });
-
-
-
-                                              }else{
-                                                Toast.show(Dil().sec(dilSecimi, "toas77"), context,duration: 3);
-                                              }
-
-
-                                              setState(() {});
-                                            },
-                                                //currentTime: DateTime.now(),
-                                                currentTime: suruDogumTarihi,
-                                                locale: LocaleType.tr);
-                                          },
-                                          fillColor: Colors.cyan[900],
-                                          elevation: 16,
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: <Widget>[
-                                              Container(width: 120*oran,alignment: Alignment.center,
+                                          _degergiris6X0(
+                                              _yuzBinler,
+                                              _onBinler,
+                                              _binler,
+                                              _yuzler,
+                                              _onlar,
+                                              _birler,
+                                              _index,
+                                              oran,
+                                              dilSecimi,
+                                              "tv417",
+                                              "",
+                                              dbProkis);
+                                        },
+                                        fillColor: Colors.cyan[900],
+                                        elevation: 16,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  right: 10 * oran,
+                                                  left: 10 * oran),
+                                              child: Container(
+                                                width: 100 * oran,
+                                                alignment: Alignment.center,
                                                 child: Text(
-                                                  DateFormat('dd-MM-yyyy')
-                                                      .format(suruDogumTarihi),
+                                                  suruGirisSayisi,
                                                   style: TextStyle(
                                                       fontSize: 20 * oran,
                                                       fontFamily: 'Kelly Slab',
-                                                      fontWeight: FontWeight.bold,
+                                                      fontWeight:
+                                                          FontWeight.bold,
                                                       color: Colors.white),
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(
-                                        flex: 1,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              //Sürü Giriş Tarihi
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: SizedBox(
-                                          child: Container(
-                                            alignment: Alignment.bottomCenter,
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv416"),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 50.0,
-                                                fontFamily: 'Kelly Slab',
-                                              ),
-                                              maxLines: 2,
-                                              minFontSize: 8,
                                             ),
-                                          ),
+                                          ],
                                         ),
                                       ),
-                                      Container(
-                                        color: Colors.cyan[700],
-                                        padding: EdgeInsets.all(5 * oran),
-                                        child: RawMaterialButton(
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                          constraints: BoxConstraints(),
-                                          onPressed: () {
-                                            DatePicker.showDatePicker(context,
-                                                showTitleActions: true,
-                                                minTime: DateTime(
-                                                    DateTime.now().year - 1,
-                                                    1,
-                                                    1),
-                                                maxTime: DateTime(
-                                                    DateTime.now().year + 1,
-                                                    12,
-                                                    31),
-                                                theme: DatePickerTheme(
-                                                    headerColor:
-                                                        Colors.orange[700],
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    itemStyle: TextStyle(
-                                                        color: Colors.black,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            'Kelly Slab',
-                                                        fontSize: 18 * oran),
-                                                    doneStyle: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14 * oran,
-                                                        fontFamily:
-                                                            'Kelly Slab',
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                    cancelStyle: TextStyle(
-                                                        color: Colors.white,
-                                                        fontSize: 14 * oran,
-                                                        fontFamily:
-                                                            'Kelly Slab',
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                                onChanged: (date) {
-                                              
-                                            }, onConfirm: (date) {
-                                              _index=9;
-                                              if (date.compareTo(DateTime.now())<=0){
-                                                suruGirisTarihi = date;
-                                                String gun=date.day.toString();
-                                                String ayy=date.month.toString();
-                                                String yil=date.year.toString();
-                                                
-                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                String komut='16*$_index*$gun*$ayy*$yil';
-                                                Metotlar().veriGonder(komut, 2235).then((value){
-                                                  if(value.split("*")[0]=="error"){
-                                                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                                  }else{
-                                                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                                    
-                                                    baglanti = false;
-                                                    Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-                                                        if(veri.split("*")[0]=="error"){
-                                                          baglanti=false;
-                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                                          setState(() {});
-                                                        }else{
-                                                          takipEtVeriIsleme(veri);
-                                                          baglantiDurum="";
-                                                        }
-                                                    });
-                                                  }
-                                                });
-
-
-
-                                              }else{
-                                                Toast.show(Dil().sec(dilSecimi, "toas77"), context,duration: 3);
-                                              }
-                                              setState(() {});
-                                            },
-                                                //currentTime: DateTime.now(),
-                                                currentTime: suruGirisTarihi,
-                                                locale: LocaleType.tr);
-                                          },
-                                          fillColor: Colors.cyan[900],
-                                          elevation: 16,
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: <Widget>[
-                                              Container(width: 120*oran,alignment: Alignment.center,
-                                                child: Text(
-                                                  DateFormat('dd-MM-yyyy')
-                                                      .format(suruGirisTarihi),
-                                                  style: TextStyle(
-                                                      fontSize: 20 * oran,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight: FontWeight.bold,
-                                                      color: Colors.white),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(
-                                        flex: 1,
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    )
+                                  ],
                                 ),
                               ),
-                              //Hayvan Sayısı (Girişte)
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: SizedBox(
-                                          child: Container(
-                                            alignment: Alignment.bottomCenter,
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv417"),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 50.0,
-                                                fontFamily: 'Kelly Slab',
-                                              ),
-                                              maxLines: 2,
-                                              minFontSize: 8,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        color: Colors.cyan[700],
-                                        padding: EdgeInsets.all(5 * oran),
-                                        child: RawMaterialButton(
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                          constraints: BoxConstraints(),
-                                          onPressed: () {
-                                            int sayi =
-                                                int.parse(suruGirisSayisi);
-                                            _yuzBinler = sayi < 100000
-                                                ? 0
-                                                : (sayi ~/ 100000).toInt();
-                                            _onBinler = sayi < 10000
-                                                ? 0
-                                                : ((sayi % 100000) ~/ 10000)
-                                                    .toInt();
-                                            _binler = sayi < 1000
-                                                ? 0
-                                                : ((sayi % 10000) ~/ 1000)
-                                                    .toInt();
-                                            _yuzler = sayi < 100
-                                                ? 0
-                                                : ((sayi % 1000) ~/ 100)
-                                                    .toInt();
-                                            _onlar = sayi < 10
-                                                ? 0
-                                                : ((sayi % 100) ~/ 10).toInt();
-                                            _birler = sayi % 10;
-                                            _index = 1;
-
-                                            _degergiris6X0(
-                                                _yuzBinler,
-                                                _onBinler,
-                                                _binler,
-                                                _yuzler,
-                                                _onlar,
-                                                _birler,
-                                                _index,
-                                                oran,
-                                                dilSecimi,
-                                                "tv417",
-                                                "",dbProkis);
-                                          },
-                                          fillColor: Colors.cyan[900],
-                                          elevation: 16,
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 10 * oran,
-                                                    left: 10 * oran),
-                                                child: Container(width: 100*oran,alignment: Alignment.center,
-                                                  child: Text(
-                                                    suruGirisSayisi,
-                                                    style: TextStyle(
-                                                        fontSize: 20 * oran,
-                                                        fontFamily: 'Kelly Slab',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      Spacer(
-                                        flex: 1,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: <Widget>[
-                              //Ölü Hayvan Sayısı
-                              Expanded(
-                                flex: 1,
-                                child: Container(
-                                  child: Column(
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: SizedBox(
-                                          child: Container(
-                                            alignment: Alignment.bottomCenter,
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv418"),
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                fontSize: 50.0,
-                                                fontFamily: 'Kelly Slab',
-                                              ),
-                                              maxLines: 2,
-                                              minFontSize: 8,
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: <Widget>[
+                            //Ölü Hayvan Sayısı
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: SizedBox(
+                                        child: Container(
+                                          alignment: Alignment.bottomCenter,
+                                          child: AutoSizeText(
+                                            Dil().sec(dilSecimi, "tv418"),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 50.0,
+                                              fontFamily: 'Kelly Slab',
                                             ),
+                                            maxLines: 2,
+                                            minFontSize: 8,
                                           ),
                                         ),
                                       ),
-                                      Container(
-                                        color: Colors.cyan[700],
-                                        padding: EdgeInsets.all(5 * oran),
-                                        child: RawMaterialButton(
-                                          materialTapTargetSize:
-                                              MaterialTapTargetSize.shrinkWrap,
-                                          constraints: BoxConstraints(),
-                                          onPressed: () {
+                                    ),
+                                    Container(
+                                      color: Colors.cyan[700],
+                                      padding: EdgeInsets.all(5 * oran),
+                                      child: RawMaterialButton(
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        constraints: BoxConstraints(),
+                                        onPressed: () {
+                                          showModalBottomSheet<void>(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return StatefulBuilder(
+                                                  builder: (context, state) {
+                                                    return Container(
+                                                      color: Colors.orange,
+                                                      height: double.infinity,
+                                                      child: Column(
+                                                        children: <Widget>[
+                                                          //Başlık bölümü
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child: Center(
+                                                                child: Text(
+                                                              Dil().sec(
+                                                                  dilSecimi,
+                                                                  "tv419"),
+                                                              textScaleFactor:
+                                                                  oran,
+                                                              style: TextStyle(
+                                                                  fontFamily:
+                                                                      'Kelly Slab',
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            )),
+                                                          ),
+                                                          //Klasik Klepe Yönteminin parametre giriş  bölümü
+                                                          Expanded(
+                                                            flex: 10,
+                                                            child: Container(
+                                                              color:
+                                                                  Colors.white,
+                                                              child: Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv420"),
+                                                                                style: TextStyle(fontFamily: "Kelly Slab"),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              RaisedButton(
+                                                                                elevation: 16,
+                                                                                onPressed: () {
+                                                                                  int sayi = int.parse(olum1hastalikNedeniyleOluSayisi);
+                                                                                  _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
+                                                                                  _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
+                                                                                  _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
+                                                                                  _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                                                                                  _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                                                                                  _birler = sayi % 10;
+                                                                                  _index = 2;
 
-                                            showModalBottomSheet<void>(
-                                                context: context,
-                                                builder:
-                                                    (BuildContext context) {
-                                                  return StatefulBuilder(
-                                                    builder: (context, state) {
-                                                      return Container(
-                                                        color: Colors.orange,
-                                                        height: double.infinity,
-                                                        child: Column(
-                                                          children: <Widget>[
-                                                            //Başlık bölümü
-                                                            Expanded(
-                                                              flex: 1,
-                                                              child: Center(
-                                                                  child: Text(
-                                                                Dil().sec(
-                                                                    dilSecimi,
-                                                                    "tv419"),
-                                                                textScaleFactor:
-                                                                    oran,
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        'Kelly Slab',
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .bold),
-                                                              )),
-                                                            ),
-                                                            //Klasik Klepe Yönteminin parametre giriş  bölümü
-                                                            Expanded(
-                                                              flex: 10,
-                                                              child: Container(
-                                                                color: Colors
-                                                                    .white,
-                                                                child: Row(
-                                                                  children: <
-                                                                      Widget>[
-                                                                    Expanded(
-                                                                      child:
-                                                                          Column(
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Expanded(
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: <Widget>[
-                                                                                Text(
-                                                                                  Dil().sec(dilSecimi, "tv420"),
-                                                                                  style: TextStyle(fontFamily: "Kelly Slab"),
-                                                                                  textScaleFactor: oran,
-                                                                                ),
-                                                                                RaisedButton(
-                                                                                  elevation: 16,
-                                                                                  onPressed: () {
-                                                                                    int sayi = int.parse(olum1hastalikNedeniyleOluSayisi);
-                                                                                    _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
-                                                                                    _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
-                                                                                    _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
-                                                                                    _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                                                                                    _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
-                                                                                    _birler = sayi % 10;
-                                                                                    _index = 2;
-
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                                  },
-                                                                                  color: Colors.blue[700],
-                                                                                  child: Container(width: 100*oran,alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      olum1hastalikNedeniyleOluSayisi,
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
-                                                                                      textScaleFactor: oran,
-                                                                                    ),
+                                                                                  _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "", dbProkis).then((onValue) {
+                                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                                  });
+                                                                                },
+                                                                                color: Colors.blue[700],
+                                                                                child: Container(
+                                                                                  width: 100 * oran,
+                                                                                  alignment: Alignment.center,
+                                                                                  child: Text(
+                                                                                    olum1hastalikNedeniyleOluSayisi,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
+                                                                                    textScaleFactor: oran,
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: <Widget>[
-                                                                                Text(
-                                                                                  Dil().sec(dilSecimi, "tv421"),
-                                                                                  style: TextStyle(fontFamily: "Kelly Slab"),
-                                                                                  textScaleFactor: oran,
-                                                                                ),
-                                                                                RaisedButton(
-                                                                                  elevation: 16,
-                                                                                  onPressed: () {
-                                                                                    int sayi = int.parse(olum2ekipmanDeformasyonuKaynakliOluSayisi);
-                                                                                    _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
-                                                                                    _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
-                                                                                    _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
-                                                                                    _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                                                                                    _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
-                                                                                    _birler = sayi % 10;
-                                                                                    _index = 3;
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv421"),
+                                                                                style: TextStyle(fontFamily: "Kelly Slab"),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              RaisedButton(
+                                                                                elevation: 16,
+                                                                                onPressed: () {
+                                                                                  int sayi = int.parse(olum2ekipmanDeformasyonuKaynakliOluSayisi);
+                                                                                  _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
+                                                                                  _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
+                                                                                  _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
+                                                                                  _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                                                                                  _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                                                                                  _birler = sayi % 10;
+                                                                                  _index = 3;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                                  },
-                                                                                  color: Colors.blue[700],
-                                                                                  child: Container(width: 100*oran,alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      olum2ekipmanDeformasyonuKaynakliOluSayisi,
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
-                                                                                      textScaleFactor: oran,
-                                                                                    ),
+                                                                                  _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "", dbProkis).then((onValue) {
+                                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                                  });
+                                                                                },
+                                                                                color: Colors.blue[700],
+                                                                                child: Container(
+                                                                                  width: 100 * oran,
+                                                                                  alignment: Alignment.center,
+                                                                                  child: Text(
+                                                                                    olum2ekipmanDeformasyonuKaynakliOluSayisi,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
+                                                                                    textScaleFactor: oran,
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                        ],
-                                                                      ),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                    Container(
-                                                                      width: 2,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                    Expanded(
-                                                                      child:
-                                                                          Column(
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Expanded(
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: <Widget>[
-                                                                                Text(
-                                                                                  Dil().sec(dilSecimi, "tv422"),
-                                                                                  style: TextStyle(fontFamily: "Kelly Slab"),
-                                                                                  textScaleFactor: oran,
-                                                                                ),
-                                                                                RaisedButton(
-                                                                                  elevation: 16,
-                                                                                  onPressed: () {
-                                                                                    int sayi = int.parse(olum3digerHayvanSaldirilariKaynakliOluSayisi);
-                                                                                    _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
-                                                                                    _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
-                                                                                    _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
-                                                                                    _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                                                                                    _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
-                                                                                    _birler = sayi % 10;
-                                                                                    _index = 4;
+                                                                  ),
+                                                                  Container(
+                                                                    width: 2,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv422"),
+                                                                                style: TextStyle(fontFamily: "Kelly Slab"),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              RaisedButton(
+                                                                                elevation: 16,
+                                                                                onPressed: () {
+                                                                                  int sayi = int.parse(olum3digerHayvanSaldirilariKaynakliOluSayisi);
+                                                                                  _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
+                                                                                  _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
+                                                                                  _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
+                                                                                  _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                                                                                  _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                                                                                  _birler = sayi % 10;
+                                                                                  _index = 4;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                                  },
-                                                                                  color: Colors.blue[700],
-                                                                                  child: Container(width: 100*oran,alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      olum3digerHayvanSaldirilariKaynakliOluSayisi,
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
-                                                                                      textScaleFactor: oran,
-                                                                                    ),
+                                                                                  _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "", dbProkis).then((onValue) {
+                                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                                  });
+                                                                                },
+                                                                                color: Colors.blue[700],
+                                                                                child: Container(
+                                                                                  width: 100 * oran,
+                                                                                  alignment: Alignment.center,
+                                                                                  child: Text(
+                                                                                    olum3digerHayvanSaldirilariKaynakliOluSayisi,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
+                                                                                    textScaleFactor: oran,
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: <Widget>[
-                                                                                Text(
-                                                                                  Dil().sec(dilSecimi, "tv423"),
-                                                                                  style: TextStyle(fontFamily: "Kelly Slab"),
-                                                                                  textScaleFactor: oran,
-                                                                                ),
-                                                                                RaisedButton(
-                                                                                  elevation: 16,
-                                                                                  onPressed: () {
-                                                                                    int sayi = int.parse(olum4havalandirmaKaynakliOluSayisi);
-                                                                                    _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
-                                                                                    _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
-                                                                                    _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
-                                                                                    _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                                                                                    _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
-                                                                                    _birler = sayi % 10;
-                                                                                    _index = 5;
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv423"),
+                                                                                style: TextStyle(fontFamily: "Kelly Slab"),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              RaisedButton(
+                                                                                elevation: 16,
+                                                                                onPressed: () {
+                                                                                  int sayi = int.parse(olum4havalandirmaKaynakliOluSayisi);
+                                                                                  _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
+                                                                                  _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
+                                                                                  _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
+                                                                                  _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                                                                                  _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                                                                                  _birler = sayi % 10;
+                                                                                  _index = 5;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                                  },
-                                                                                  color: Colors.blue[700],
-                                                                                  child: Container(width: 100*oran,alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      olum4havalandirmaKaynakliOluSayisi,
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
-                                                                                      textScaleFactor: oran,
-                                                                                    ),
+                                                                                  _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "", dbProkis).then((onValue) {
+                                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                                  });
+                                                                                },
+                                                                                color: Colors.blue[700],
+                                                                                child: Container(
+                                                                                  width: 100 * oran,
+                                                                                  alignment: Alignment.center,
+                                                                                  child: Text(
+                                                                                    olum4havalandirmaKaynakliOluSayisi,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
+                                                                                    textScaleFactor: oran,
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                        ],
-                                                                      ),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                    Container(
-                                                                      width: 2,
-                                                                      color: Colors
-                                                                          .black,
-                                                                    ),
-                                                                    Expanded(
-                                                                      child:
-                                                                          Column(
-                                                                        children: <
-                                                                            Widget>[
-                                                                          Expanded(
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: <Widget>[
-                                                                                Text(
-                                                                                  Dil().sec(dilSecimi, "tv424"),
-                                                                                  style: TextStyle(fontFamily: "Kelly Slab"),
-                                                                                  textScaleFactor: oran,
-                                                                                ),
-                                                                                RaisedButton(
-                                                                                  elevation: 16,
-                                                                                  onPressed: () {
-                                                                                    int sayi = int.parse(olum5yemKaynakliOluSayisi);
-                                                                                    _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
-                                                                                    _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
-                                                                                    _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
-                                                                                    _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                                                                                    _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
-                                                                                    _birler = sayi % 10;
-                                                                                    _index = 6;
+                                                                  ),
+                                                                  Container(
+                                                                    width: 2,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Column(
+                                                                      children: <
+                                                                          Widget>[
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv424"),
+                                                                                style: TextStyle(fontFamily: "Kelly Slab"),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              RaisedButton(
+                                                                                elevation: 16,
+                                                                                onPressed: () {
+                                                                                  int sayi = int.parse(olum5yemKaynakliOluSayisi);
+                                                                                  _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
+                                                                                  _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
+                                                                                  _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
+                                                                                  _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                                                                                  _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                                                                                  _birler = sayi % 10;
+                                                                                  _index = 6;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                                  },
-                                                                                  color: Colors.blue[700],
-                                                                                  child: Container(width: 100*oran,alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      olum5yemKaynakliOluSayisi,
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
-                                                                                      textScaleFactor: oran,
-                                                                                    ),
+                                                                                  _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "", dbProkis).then((onValue) {
+                                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                                  });
+                                                                                },
+                                                                                color: Colors.blue[700],
+                                                                                child: Container(
+                                                                                  width: 100 * oran,
+                                                                                  alignment: Alignment.center,
+                                                                                  child: Text(
+                                                                                    olum5yemKaynakliOluSayisi,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
+                                                                                    textScaleFactor: oran,
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                          Expanded(
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              children: <Widget>[
-                                                                                Text(
-                                                                                  Dil().sec(dilSecimi, "tv425"),
-                                                                                  style: TextStyle(fontFamily: "Kelly Slab"),
-                                                                                  textScaleFactor: oran,
-                                                                                ),
-                                                                                RaisedButton(
-                                                                                  elevation: 16,
-                                                                                  onPressed: () {
-                                                                                    int sayi = int.parse(olum6suKaynakliOluSayisi);
-                                                                                    _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
-                                                                                    _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
-                                                                                    _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
-                                                                                    _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
-                                                                                    _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
-                                                                                    _birler = sayi % 10;
-                                                                                    _index = 7;
+                                                                        ),
+                                                                        Expanded(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv425"),
+                                                                                style: TextStyle(fontFamily: "Kelly Slab"),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              RaisedButton(
+                                                                                elevation: 16,
+                                                                                onPressed: () {
+                                                                                  int sayi = int.parse(olum6suKaynakliOluSayisi);
+                                                                                  _yuzBinler = sayi < 100000 ? 0 : (sayi ~/ 100000).toInt();
+                                                                                  _onBinler = sayi < 10000 ? 0 : ((sayi % 100000) ~/ 10000).toInt();
+                                                                                  _binler = sayi < 1000 ? 0 : ((sayi % 10000) ~/ 1000).toInt();
+                                                                                  _yuzler = sayi < 100 ? 0 : ((sayi % 1000) ~/ 100).toInt();
+                                                                                  _onlar = sayi < 10 ? 0 : ((sayi % 100) ~/ 10).toInt();
+                                                                                  _birler = sayi % 10;
+                                                                                  _index = 7;
 
-                                                                                    _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                                  },
-                                                                                  color: Colors.blue[700],
-                                                                                  child: Container(width: 100*oran,alignment: Alignment.center,
-                                                                                    child: Text(
-                                                                                      olum6suKaynakliOluSayisi,
-                                                                                      style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
-                                                                                      textScaleFactor: oran,
-                                                                                    ),
+                                                                                  _degergiris6X0(_yuzBinler, _onBinler, _binler, _yuzler, _onlar, _birler, _index, oran, dilSecimi, "tv399", "", dbProkis).then((onValue) {
+                                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                                  });
+                                                                                },
+                                                                                color: Colors.blue[700],
+                                                                                child: Container(
+                                                                                  width: 100 * oran,
+                                                                                  alignment: Alignment.center,
+                                                                                  child: Text(
+                                                                                    olum6suKaynakliOluSayisi,
+                                                                                    style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Kelly Slab', fontSize: 25, color: Colors.white),
+                                                                                    textScaleFactor: oran,
                                                                                   ),
                                                                                 ),
-                                                                              ],
-                                                                            ),
+                                                                              ),
+                                                                            ],
                                                                           ),
-                                                                        ],
-                                                                      ),
+                                                                        ),
+                                                                      ],
                                                                     ),
-                                                                  ],
-                                                                ),
+                                                                  ),
+                                                                ],
                                                               ),
                                                             ),
-                                                          ],
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                });
-                                          },
-                                          fillColor: Colors.cyan[900],
-                                          elevation: 16,
-                                          child: Stack(
-                                            alignment: Alignment.center,
-                                            children: <Widget>[
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    right: 10 * oran,
-                                                    left: 10 * oran),
-                                                child: Container(width: 100*oran,alignment: Alignment.center,
-                                                  child: Text(
-                                                    toplamOluSayisi,
-                                                    style: TextStyle(
-                                                        fontSize: 20 * oran,
-                                                        fontFamily: 'Kelly Slab',
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Colors.white),
-                                                  ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              });
+                                        },
+                                        fillColor: Colors.cyan[900],
+                                        elevation: 16,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: EdgeInsets.only(
+                                                  right: 10 * oran,
+                                                  left: 10 * oran),
+                                              child: Container(
+                                                width: 100 * oran,
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  toplamOluSayisi,
+                                                  style: TextStyle(
+                                                      fontSize: 20 * oran,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white),
                                                 ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      Spacer(
-                                        flex: 1,
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    )
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        Spacer(),
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Text(
-                                      Dil().sec(dilSecimi, "tv426"),
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.grey[600]),
-                                      textScaleFactor: oran, textAlign:TextAlign.center,
-                                    ),
-                                    Text(
-                                      olumOrani,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          color: Colors.blue[200]),
-                                      textScaleFactor: oran,
-                                    )
-                                  ],
-                                ),
+                      ),
+                      Spacer(),
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    Dil().sec(dilSecimi, "tv426"),
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.grey[600]),
+                                    textScaleFactor: oran,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    olumOrani,
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: Colors.blue[200]),
+                                    textScaleFactor: oran,
+                                  )
+                                ],
                               ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Text(
-                                      Dil().sec(dilSecimi, "tv427"),
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.grey[600]),
-                                      textScaleFactor: oran,textAlign:TextAlign.center,
-                                    ),
-                                    Text(
-                                      guncelHayvanSayisi,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          color: Colors.blue[200]),
-                                      textScaleFactor: oran,
-                                    )
-                                  ],
-                                ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    Dil().sec(dilSecimi, "tv427"),
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.grey[600]),
+                                    textScaleFactor: oran,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    guncelHayvanSayisi,
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: Colors.blue[200]),
+                                    textScaleFactor: oran,
+                                  )
+                                ],
                               ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Text(
-                                      Dil().sec(dilSecimi, "tv428"),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.grey[600]),
-                                      textScaleFactor: oran,
-                                    ),
-                                    Text(
-                                      suruYasiGunluk,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          color: Colors.blue[200]),
-                                      textScaleFactor: oran,
-                                    )
-                                  ],
-                                ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    Dil().sec(dilSecimi, "tv428"),
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.grey[600]),
+                                    textScaleFactor: oran,
+                                  ),
+                                  Text(
+                                    suruYasiGunluk,
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: Colors.blue[200]),
+                                    textScaleFactor: oran,
+                                  )
+                                ],
                               ),
-                              Expanded(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    Text(
-                                      Dil().sec(dilSecimi, "tv429"),
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          color: Colors.grey[600]),
-                                      textScaleFactor: oran,textAlign:TextAlign.center,
-                                    ),
-                                    Text(
-                                      suruYasiHaftalik,
-                                      style: TextStyle(
-                                          fontFamily: 'Kelly Slab',
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 30,
-                                          color: Colors.blue[200]),
-                                      textScaleFactor: oran,
-                                    )
-                                  ],
-                                ),
+                            ),
+                            Expanded(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    Dil().sec(dilSecimi, "tv429"),
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        color: Colors.grey[600]),
+                                    textScaleFactor: oran,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    suruYasiHaftalik,
+                                    style: TextStyle(
+                                        fontFamily: 'Kelly Slab',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 30,
+                                        color: Colors.blue[200]),
+                                    textScaleFactor: oran,
+                                  )
+                                ],
                               ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
                   ),
-                  Container(
-                    width: 1 * oran,
-                    color: Colors.black,
-                  ),
-                  _minHavDefaultUnsur(kumesTuru, oran,dbProkis),
-                ],
-              ),
-            )
-          ],
-        ),
-        floatingActionButton: Container(
-          width: 56 * oran,
-          height: 56 * oran,
-          child: FittedBox(
-            child: FloatingActionButton(
-              onPressed: () {
-                timerCancel = true;
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => GenelAyarlar(dbVeriler)),
-                );
-              },
-              backgroundColor: Colors.blue,
-              child: Icon(
-                Icons.arrow_back,
-                size: 50,
-                color: Colors.white,
-              ),
+                ),
+                Container(
+                  width: 1 * oran,
+                  color: Colors.black,
+                ),
+                _minHavDefaultUnsur(kumesTuru, oran, dbProkis),
+              ],
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: Container(
+        width: 56 * oran,
+        height: 56 * oran,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              timerCancel = true;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => GenelAyarlar(dbVeriler)),
+              );
+            },
+            backgroundColor: Colors.blue,
+            child: Icon(
+              Icons.arrow_back,
+              size: 50,
+              color: Colors.white,
             ),
           ),
         ),
-        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: SizedBox(
+      ),
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
+      endDrawer: SizedBox(
         width: 320 * oran,
         child: Drawer(
           child: MediaQuery.removePadding(
@@ -1133,7 +1006,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv414"), 
+                      Dil().sec(dilSecimi, "tv414"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -1159,74 +1032,53 @@ final dbProkis = Provider.of<DBProkis>(context);
                             textScaleFactor: oran,
                           ),
                           subtitle: RichText(
-                            text: TextSpan(
-                              children: <TextSpan>[
-                                //Giriş metni
-                                TextSpan(
+                            text: TextSpan(children: <TextSpan>[
+                              //Giriş metni
+                              TextSpan(
                                   text: Dil().sec(dilSecimi, "info20"),
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran
-                                  )
-                                ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran)),
 
-
-                                TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv674")+":",
+                              TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv674") + ":",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran,
-                                    fontWeight: FontWeight.bold
-                                  )
-                                ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran,
+                                      fontWeight: FontWeight.bold)),
 
-                                TextSpan(
+                              TextSpan(
                                   text: Dil().sec(dilSecimi, "info20a"),
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran
-                                  )
-                                ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran)),
 
-
-                                TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv675")+":",
+                              TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv675") + ":",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran,
-                                    fontWeight: FontWeight.bold
-                                  )
-                                ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran,
+                                      fontWeight: FontWeight.bold)),
 
-                                TextSpan(
+                              TextSpan(
                                   text: Dil().sec(dilSecimi, "info20b"),
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran
-                                  )
-                                ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran)),
 
-
-                                TextSpan(
-                                  text: Dil().sec(dilSecimi, "tv279")+":",
+                              TextSpan(
+                                  text: Dil().sec(dilSecimi, "tv279") + ":",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran,
-                                    fontWeight: FontWeight.bold
-                                  )
-                                ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran,
+                                      fontWeight: FontWeight.bold)),
 
-                                TextSpan(
+                              TextSpan(
                                   text: Dil().sec(dilSecimi, "info20c"),
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran
-                                  )
-                                ),
-
-
-                              ]
-                            ),
+                                      color: Colors.black,
+                                      fontSize: 13 * oran)),
+                            ]),
                           ),
                         ),
                       ],
@@ -1238,10 +1090,7 @@ final dbProkis = Provider.of<DBProkis>(context);
           ),
         ),
       ),
-    
-        
-        );
-  
+    );
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
@@ -1257,6 +1106,93 @@ final dbProkis = Provider.of<DBProkis>(context);
     satirSayisi.whenComplete(() {
       dbSatirlar.then((List<Map> satir) => _satirlar(satir));
     });
+  }
+
+  Future<Null> _selectDate(
+      BuildContext context, int index, DBProkis dbProkis) async {
+    final DateTime picked = await showDatePicker(
+        helpText: "Seçilen Tarih:",
+        locale: Locale('tr', 'TR'),
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+
+        if (index == 8) {
+          if (selectedDate.compareTo(DateTime.now()) <= 0) {
+            suruDogumTarihi = selectedDate;
+            String gun = selectedDate.day.toString();
+            String ayy = selectedDate.month.toString();
+            String yil = selectedDate.year.toString();
+
+            yazmaSonrasiGecikmeSayaci = 0;
+            String komut = '16*$_index*$gun*$ayy*$yil';
+            Metotlar().veriGonder(komut, 2235).then((value) {
+              if (value.split("*")[0] == "error") {
+                Toast.show(Dil().sec(dilSecimi, "toast101"), context,
+                    duration: 3);
+              } else {
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,
+                    duration: 3);
+
+                baglanti = false;
+                Metotlar().takipEt('15*$kumesTuru', 2236).then((veri) {
+                  if (veri.split("*")[0] == "error") {
+                    baglanti = false;
+                    baglantiDurum = Metotlar()
+                        .errorToastMesaj(veri.split("*")[1], dbProkis);
+                    setState(() {});
+                  } else {
+                    takipEtVeriIsleme(veri);
+                    baglantiDurum = "";
+                  }
+                });
+              }
+            });
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast77"), context, duration: 3);
+          }
+        }
+
+        if (index == 9) {
+          if (selectedDate.compareTo(DateTime.now()) <= 0) {
+            suruGirisTarihi = selectedDate;
+            String gun = selectedDate.day.toString();
+            String ayy = selectedDate.month.toString();
+            String yil = selectedDate.year.toString();
+
+            yazmaSonrasiGecikmeSayaci = 0;
+            String komut = '16*$_index*$gun*$ayy*$yil';
+            Metotlar().veriGonder(komut, 2235).then((value) {
+              if (value.split("*")[0] == "error") {
+                Toast.show(Dil().sec(dilSecimi, "toast101"), context,
+                    duration: 3);
+              } else {
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,
+                    duration: 3);
+
+                baglanti = false;
+                Metotlar().takipEt('15*$kumesTuru', 2236).then((veri) {
+                  if (veri.split("*")[0] == "error") {
+                    baglanti = false;
+                    baglantiDurum = Metotlar()
+                        .errorToastMesaj(veri.split("*")[1], dbProkis);
+                    setState(() {});
+                  } else {
+                    takipEtVeriIsleme(veri);
+                    baglantiDurum = "";
+                  }
+                });
+              }
+            });
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast77"), context, duration: 3);
+          }
+        }
+      });
   }
 
   Future _degergiris6X0(
@@ -1312,7 +1248,7 @@ final dbProkis = Provider.of<DBProkis>(context);
       _birler = val[5];
       _index = val[6];
 
-      String veri="";
+      String veri = "";
 
       if (_index == 1) {
         suruGirisSayisi = (_yuzBinler * 100000 +
@@ -1323,9 +1259,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _birler)
             .toString();
 
-            veri=suruGirisSayisi;
+        veri = suruGirisSayisi;
       }
-
 
       if (_index == 2) {
         olum1hastalikNedeniyleOluSayisi = (_yuzBinler * 100000 +
@@ -1335,7 +1270,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _onlar * 10 +
                 _birler)
             .toString();
-            veri=olum1hastalikNedeniyleOluSayisi;
+        veri = olum1hastalikNedeniyleOluSayisi;
       }
 
       if (_index == 3) {
@@ -1346,7 +1281,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _onlar * 10 +
                 _birler)
             .toString();
-            veri=olum2ekipmanDeformasyonuKaynakliOluSayisi;
+        veri = olum2ekipmanDeformasyonuKaynakliOluSayisi;
       }
 
       if (_index == 4) {
@@ -1357,7 +1292,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _onlar * 10 +
                 _birler)
             .toString();
-            veri=olum3digerHayvanSaldirilariKaynakliOluSayisi;
+        veri = olum3digerHayvanSaldirilariKaynakliOluSayisi;
       }
 
       if (_index == 5) {
@@ -1368,7 +1303,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _onlar * 10 +
                 _birler)
             .toString();
-            veri=olum4havalandirmaKaynakliOluSayisi;
+        veri = olum4havalandirmaKaynakliOluSayisi;
       }
 
       if (_index == 6) {
@@ -1379,7 +1314,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _onlar * 10 +
                 _birler)
             .toString();
-            veri=olum5yemKaynakliOluSayisi;
+        veri = olum5yemKaynakliOluSayisi;
       }
 
       if (_index == 7) {
@@ -1390,39 +1325,36 @@ final dbProkis = Provider.of<DBProkis>(context);
                 _onlar * 10 +
                 _birler)
             .toString();
-            veri=olum6suKaynakliOluSayisi;
+        veri = olum6suKaynakliOluSayisi;
       }
 
-
-
       yazmaSonrasiGecikmeSayaci = 0;
-      String komut='16*$_index*$veri';
-      Metotlar().veriGonder(komut, 2235).then((value){
-        if(value.split("*")[0]=="error"){
-          Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-        }else{
-          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-          
+      String komut = '16*$_index*$veri';
+      Metotlar().veriGonder(komut, 2235).then((value) {
+        if (value.split("*")[0] == "error") {
+          Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+        } else {
+          Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
           baglanti = false;
-          Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-              if(veri.split("*")[0]=="error"){
-                baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                setState(() {});
-              }else{
-                takipEtVeriIsleme(veri);
-                baglantiDurum="";
-              }
+          Metotlar().takipEt('15*$kumesTuru', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+              setState(() {});
+            } else {
+              takipEtVeriIsleme(veri);
+              baglantiDurum = "";
+            }
           });
         }
       });
-
 
       setState(() {});
     });
   }
 
-  
   Future _degergiris1X2(
       int birler,
       int ondalikOnlar,
@@ -1431,7 +1363,8 @@ final dbProkis = Provider.of<DBProkis>(context);
       double oran,
       String dil,
       String baslik,
-      String onBaslik,DBProkis dbProkis) async {
+      String onBaslik,
+      DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1551,65 +1484,60 @@ final dbProkis = Provider.of<DBProkis>(context);
       String veri = kumesTuru == '1' ? veriY : veriX;
 
       if (veriGonderilsinMi) {
+        yazmaSonrasiGecikmeSayaci = 0;
+        String komut = "16*$_index*$kumesTuru*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
 
-      yazmaSonrasiGecikmeSayaci = 0;
-      String komut="16*$_index*$kumesTuru*$veri";
-      Metotlar().veriGonder(komut, 2235).then((value){
-        if(value.split("*")[0]=="error"){
-          Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-        }else{
-          Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-          
-          baglanti = false;
-          Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-              if(veri.split("*")[0]=="error"){
-                baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
+            baglanti = false;
+            Metotlar().takipEt('15*$kumesTuru', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
                 setState(() {});
-              }else{
+              } else {
                 takipEtVeriIsleme(veri);
-                baglantiDurum="";
+                baglantiDurum = "";
               }
-          });
-        }
-      });
-
-
+            });
+          }
+        });
       }
     });
   }
 
-  takipEtVeriIsleme(String gelenMesaj){
-    
+  takipEtVeriIsleme(String gelenMesaj) {
     var degerler = gelenMesaj.split('*');
     print(degerler);
     print(yazmaSonrasiGecikmeSayaci);
 
-    suruGirisSayisi=degerler[0];
-    olum1hastalikNedeniyleOluSayisi=degerler[1];
-    olum2ekipmanDeformasyonuKaynakliOluSayisi=degerler[2];
-    olum3digerHayvanSaldirilariKaynakliOluSayisi=degerler[3];
-    olum4havalandirmaKaynakliOluSayisi=degerler[4];
-    olum5yemKaynakliOluSayisi=degerler[5];
-    olum6suKaynakliOluSayisi=degerler[6];
-              
-    suruDogumTarihi=DateTime(int.parse(degerler[9]),int.parse(degerler[8]), int.parse(degerler[7]));
-    suruGirisTarihi=DateTime(int.parse(degerler[12]),int.parse(degerler[11]), int.parse(degerler[10]));
+    suruGirisSayisi = degerler[0];
+    olum1hastalikNedeniyleOluSayisi = degerler[1];
+    olum2ekipmanDeformasyonuKaynakliOluSayisi = degerler[2];
+    olum3digerHayvanSaldirilariKaynakliOluSayisi = degerler[3];
+    olum4havalandirmaKaynakliOluSayisi = degerler[4];
+    olum5yemKaynakliOluSayisi = degerler[5];
+    olum6suKaynakliOluSayisi = degerler[6];
 
-    guncelHayvanSayisi=degerler[13];
-    suruYasiGunluk=degerler[14];
-    suruYasiHaftalik=degerler[15];
-    olumOrani=degerler[16];
-    
+    suruDogumTarihi = DateTime(
+        int.parse(degerler[9]), int.parse(degerler[8]), int.parse(degerler[7]));
+    suruGirisTarihi = DateTime(int.parse(degerler[12]), int.parse(degerler[11]),
+        int.parse(degerler[10]));
 
-
-              
+    guncelHayvanSayisi = degerler[13];
+    suruYasiGunluk = degerler[14];
+    suruYasiHaftalik = degerler[15];
+    olumOrani = degerler[16];
 
     if (kumesTuru == '1') {
       haftalik_7_20 = degerler[17];
       haftalik_21_52 = degerler[18];
       haftalik_53veSonrasi = degerler[19];
-      alarmDurum=degerler[20];
+      alarmDurum = degerler[20];
     } else {
       gunluk_1_7 = degerler[17];
       gunluk_8_14 = degerler[18];
@@ -1619,20 +1547,16 @@ final dbProkis = Provider.of<DBProkis>(context);
       gunluk_36_42 = degerler[22];
       gunluk_43_49 = degerler[23];
       gunluk_50veSonrasi = degerler[24];
-      alarmDurum=degerler[25];
+      alarmDurum = degerler[25];
     }
 
-
-    baglanti=false;
-    if(!timerCancel){
-      setState(() {
-        
-      });
+    baglanti = false;
+    if (!timerCancel) {
+      setState(() {});
     }
-    
   }
- 
-  Widget _minHavDefaultUnsur(String kTuru, double oran,DBProkis dbProkis) {
+
+  Widget _minHavDefaultUnsur(String kTuru, double oran, DBProkis dbProkis) {
     Widget widget;
 
     if (kTuru == "1") {
@@ -1706,7 +1630,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv290",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -1781,7 +1706,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv291",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -1856,7 +1782,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv292",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -1898,30 +1825,34 @@ final dbProkis = Provider.of<DBProkis>(context);
                       flex: 8,
                       child: RaisedButton(
                         onPressed: () {
-
                           yazmaSonrasiGecikmeSayaci = 0;
-                          String komut="16*21*$kumesTuru*0.95*1.10*1.20";
-                          Metotlar().veriGonder(komut, 2235).then((value){
-                            if(value.split("*")[0]=="error"){
-                              Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                            }else{
-                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                              
+                          String komut = "16*21*$kumesTuru*0.95*1.10*1.20";
+                          Metotlar().veriGonder(komut, 2235).then((value) {
+                            if (value.split("*")[0] == "error") {
+                              Toast.show(
+                                  Dil().sec(dilSecimi, "toast101"), context,
+                                  duration: 3);
+                            } else {
+                              Toast.show(
+                                  Dil().sec(dilSecimi, "toast8"), context,
+                                  duration: 3);
+
                               baglanti = false;
-                              Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-                                  if(veri.split("*")[0]=="error"){
-                                    baglanti=false;
-                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                    setState(() {});
-                                  }else{
-                                    takipEtVeriIsleme(veri);
-                                    baglantiDurum="";
-                                  }
+                              Metotlar()
+                                  .takipEt('15*$kumesTuru', 2236)
+                                  .then((veri) {
+                                if (veri.split("*")[0] == "error") {
+                                  baglanti = false;
+                                  baglantiDurum = Metotlar().errorToastMesaj(
+                                      veri.split("*")[1], dbProkis);
+                                  setState(() {});
+                                } else {
+                                  takipEtVeriIsleme(veri);
+                                  baglantiDurum = "";
+                                }
                               });
                             }
                           });
-
-
                         },
                         child: Text(
                           Dil().sec(dilSecimi, "tv288"),
@@ -2010,7 +1941,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv280",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2083,7 +2015,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv281",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2158,7 +2091,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv282",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2244,7 +2178,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv283",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2319,7 +2254,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv284",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2394,7 +2330,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv285",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2480,7 +2417,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv286",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2555,7 +2493,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       oran,
                                       dilSecimi,
                                       "tv287",
-                                      "",dbProkis);
+                                      "",
+                                      dbProkis);
                                 },
                                 child: Stack(
                                   alignment: Alignment.center,
@@ -2597,23 +2536,31 @@ final dbProkis = Provider.of<DBProkis>(context);
                       child: RaisedButton(
                         onPressed: () {
                           yazmaSonrasiGecikmeSayaci = 0;
-                          String komut="16*21*$kumesTuru*0.16*0.42*0.59*0.84*0.93*1.18*1.35*1.52";
-                          Metotlar().veriGonder(komut, 2235).then((value){
-                            if(value.split("*")[0]=="error"){
-                              Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                            }else{
-                              Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                              
+                          String komut =
+                              "16*21*$kumesTuru*0.16*0.42*0.59*0.84*0.93*1.18*1.35*1.52";
+                          Metotlar().veriGonder(komut, 2235).then((value) {
+                            if (value.split("*")[0] == "error") {
+                              Toast.show(
+                                  Dil().sec(dilSecimi, "toast101"), context,
+                                  duration: 3);
+                            } else {
+                              Toast.show(
+                                  Dil().sec(dilSecimi, "toast8"), context,
+                                  duration: 3);
+
                               baglanti = false;
-                              Metotlar().takipEt('15*$kumesTuru', 2236).then((veri){
-                                  if(veri.split("*")[0]=="error"){
-                                    baglanti=false;
-                                    baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                    setState(() {});
-                                  }else{
-                                    takipEtVeriIsleme(veri);
-                                    baglantiDurum="";
-                                  }
+                              Metotlar()
+                                  .takipEt('15*$kumesTuru', 2236)
+                                  .then((veri) {
+                                if (veri.split("*")[0] == "error") {
+                                  baglanti = false;
+                                  baglantiDurum = Metotlar().errorToastMesaj(
+                                      veri.split("*")[1], dbProkis);
+                                  setState(() {});
+                                } else {
+                                  takipEtVeriIsleme(veri);
+                                  baglantiDurum = "";
+                                }
                               });
                             }
                           });
@@ -2639,7 +2586,7 @@ final dbProkis = Provider.of<DBProkis>(context);
     return widget;
   }
 
-Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
+  Future<Null> bottomDrawerIcindeGuncelle(StateSetter updateState) async {
     updateState(() {});
   }
 
