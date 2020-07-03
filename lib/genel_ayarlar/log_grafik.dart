@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
-import 'package:prokis/genel_ayarlar/datalog.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/datalog.dart';
+import 'package:prokis/izleme/izleme_fanklpped.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/saat_tarih.dart';
 import 'package:prokis/sistem/sistem_start_stop.dart';
@@ -281,13 +282,19 @@ class LogGrafikState extends State<LogGrafik> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
+
+/*
                                     timerCancel = true;
+
+
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
                                               Yazilim (dbProkis.getDbVeri)),
                                     );
+
+                                    */
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

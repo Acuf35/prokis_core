@@ -1111,7 +1111,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
   Future<Null> _selectDate(
       BuildContext context, int index, DBProkis dbProkis) async {
     final DateTime picked = await showDatePicker(
-        helpText: "Seçilen Tarih:",
+        helpText: Dil().sec(dilSecimi, "tv759"),
         locale: Locale('tr', 'TR'),
         context: context,
         initialDate: selectedDate,

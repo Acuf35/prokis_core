@@ -247,9 +247,7 @@ class HariciAlarmState extends State<HariciAlarm> {
               
               Expanded(flex: 20,
               
-              child: ListView.builder
-            
-                    (
+              child: ListView.builder(
                       itemCount: 20,
                       itemBuilder: (BuildContext ctxt, int index) {
                         

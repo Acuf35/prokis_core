@@ -59,9 +59,9 @@ class OtoManAirState extends State<OtoManAir> {
   int yazmaSonrasiGecikmeSayaci = 4;
   bool takipEtiGeciciDurdur = false;
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
-
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -82,29 +82,27 @@ class OtoManAirState extends State<OtoManAir> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
+    final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
-      
-
-      Metotlar().takipEt('25*$airInletAdet', 2236).then((veri){
-            
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri,'25*$airInletAdet');
-              baglantiDurum="";
-            }
-        });
+      Metotlar().takipEt('25*$airInletAdet', 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+        } else {
+          takipEtVeriIsleme(veri, '25*$airInletAdet');
+          baglantiDurum = "";
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         if (!takipEtiGeciciDurdur) yazmaSonrasiGecikmeSayaci++;
@@ -117,19 +115,18 @@ final dbProkis = Provider.of<DBProkis>(context);
             yazmaSonrasiGecikmeSayaci > 3 &&
             !takipEtiGeciciDurdur) {
           baglanti = true;
-          
-          Metotlar().takipEt('25*$airInletAdet', 2236).then((veri){
-              
-              if(veri.split("*")[0]=="error"){
-                baglanti=false;
-                baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                setState(() {});
-              }else{
-                takipEtVeriIsleme(veri,'25*$airInletAdet');
-                baglantiDurum="";
-              }
-          });
 
+          Metotlar().takipEt('25*$airInletAdet', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+              setState(() {});
+            } else {
+              takipEtVeriIsleme(veri, '25*$airInletAdet');
+              baglantiDurum = "";
+            }
+          });
         }
       });
     }
@@ -142,7 +139,8 @@ final dbProkis = Provider.of<DBProkis>(context);
 
 //++++++++++++++++++++++++++SCAFFOLD+++++++++++++++++++++++++++++++
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv476',baglantiDurum, alarmDurum),
+        appBar: Metotlar().appBar(
+            dilSecimi, context, oran, 'tv476', baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             //Saat ve Tarih
@@ -196,7 +194,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                       flex: 15,
                       child: Column(
                         children: <Widget>[
-                          Container(height: 20*oran,),
+                          Container(
+                            height: 20 * oran,
+                          ),
                           Expanded(
                               flex: 1,
                               child: Row(
@@ -204,14 +204,14 @@ final dbProkis = Provider.of<DBProkis>(context);
                                   _unsurOtoManWidget(
                                       Dil().sec(dilSecimi, "tv460"),
                                       'assets/images/kurulum_airinlet_icon.png',
-                                      oran,dbProkis),
+                                      oran,
+                                      dbProkis),
                                 ],
                               )),
                           Spacer()
                         ],
                       ),
                     ),
-                    
                   ],
                 ),
               ),
@@ -320,36 +320,34 @@ final dbProkis = Provider.of<DBProkis>(context);
     });
   }
 
-  
-  takipEtVeriIsleme(String gelenMesaj, String komut){
-    
+  takipEtVeriIsleme(String gelenMesaj, String komut) {
     var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-              print(yazmaSonrasiGecikmeSayaciAIR);
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
+    print(yazmaSonrasiGecikmeSayaciAIR);
 
-              if (komut.split("*")[0] == "25") {
-                otoAIR = degerler[0] == "True" ? true : false;
-                alarmDurum=degerler[1];
-              }
-
-              if (komut.split("*")[0] == "26") {
-                airManAc=degerler[0] == "True" ? true : false;
-                airManKp=degerler[1] == "True" ? true : false;
-                airHareketSuresi=degerler[2];
-                alarmDurum=degerler[3];
-              }
-
-
-    baglanti=false;
-    if(!timerCancel){
-      setState(() {
-        
-      });
+    if (degerler.length == 2) {
+      //komut.split("*")[0] == "25"
+      otoAIR = degerler[0] == "True" ? true : false;
+      alarmDurum = degerler[1];
+      baglanti = false;
     }
+
+    if (degerler.length == 4) {
+      //komut.split("*")[0] == "26"
+      airManAc = degerler[0] == "True" ? true : false;
+      airManKp = degerler[1] == "True" ? true : false;
+      airHareketSuresi = degerler[2];
+      alarmDurum = degerler[3];
+      baglantiAir=false;
+    }
+
     
+    
+    if (!timerCancel) {
+      setState(() {});
+    }
   }
- 
 
   Widget _unsurOtoManWidget(
       String baslik, String imagePath, double oran, DBProkis dbProkis) {
@@ -380,136 +378,134 @@ final dbProkis = Provider.of<DBProkis>(context);
                   ),
                 ),
                 Expanded(
-                    child: Column(
+                    child: Row(
                   children: <Widget>[
-                    //Oto Man Seçimi
+                    //Oto
                     Expanded(
-                        flex: 6,
-                        child: Row(
-                          children: <Widget>[
-                            //Oto
-                            Expanded(
-                                flex: 10,
-                                child: RawMaterialButton(
-                                  elevation: 8,
-                                  onPressed: () {
+                        flex: 10,
+                        child: RawMaterialButton(
+                          elevation: 8,
+                          onPressed: () {
+                            yazmaSonrasiGecikmeSayaci = 0;
+                            String komut = "30*1";
+                            Metotlar().veriGonder(komut, 2235).then((value) {
+                              if (value.split("*")[0] == "error") {
+                                Toast.show(
+                                    Dil().sec(dilSecimi, "toast101"), context,
+                                    duration: 3);
+                              } else {
+                                Toast.show(
+                                    Dil().sec(dilSecimi, "toast8"), context,
+                                    duration: 3);
 
-                                    yazmaSonrasiGecikmeSayaci = 0;
-                                    String komut="30*1";
-                                    Metotlar().veriGonder(komut, 2235).then((value){
-                                      if(value.split("*")[0]=="error"){
-                                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                      }else{
-                                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                        
-                                        baglanti = false;
-                                        Metotlar().takipEt("25*$airInletAdet", 2236).then((veri){
-                                            
-                                            if(veri.split("*")[0]=="error"){
-                                              baglanti=false;
-                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                              setState(() {});
-                                            }else{
-                                              takipEtVeriIsleme(veri,"26*$airInletAdet");
-                                              baglantiDurum="";
-                                            }
-                                            
-                                        });
-                                      }
-                                    });
-
-                                    otoAIR = true;
-                                    airManAc = false;
-                                    airManKp = false;
-
+                                baglanti = false;
+                                Metotlar()
+                                    .takipEt("25*$airInletAdet", 2236)
+                                    .then((veri) {
+                                  if (veri.split("*")[0] == "error") {
+                                    baglanti = false;
+                                    baglantiDurum = Metotlar().errorToastMesaj(
+                                        veri.split("*")[1], dbProkis);
                                     setState(() {});
-                                  },
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  constraints: BoxConstraints(),
-                                  fillColor: otoAIR
-                                      ? Colors.green[400]
-                                      : Colors.grey[400],
-                                  child: SizedBox(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv455"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 50,
-                                            fontWeight: FontWeight.bold),
-                                        maxLines: 1,
-                                        minFontSize: 8,
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                            Spacer(),
-                            //MAN
-                            Expanded(
-                                flex: 10,
-                                child: RawMaterialButton(
-                                  elevation: 8,
-                                  onPressed: () {
+                                  } else {
+                                    takipEtVeriIsleme(veri, "25*$airInletAdet");
+                                    baglantiDurum = "";
+                                  }
+                                });
+                              }
+                            });
 
-                                    yazmaSonrasiGecikmeSayaci = 0;
-                                    String komut="30*0";
-                                    Metotlar().veriGonder(komut, 2235).then((value){
-                                      if(value.split("*")[0]=="error"){
-                                        Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                      }else{
-                                        Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                        
-                                        baglanti = false;
-                                        Metotlar().takipEt("25*$airInletAdet", 2236).then((veri){
-                                            
+                            otoAIR = true;
+                            airManAc = false;
+                            airManKp = false;
 
-                                            if(veri.split("*")[0]=="error"){
-                                              baglanti=false;
-                                              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                              setState(() {});
-                                            }else{
-                                              takipEtVeriIsleme(veri,"26*$airInletAdet");
-                                              baglantiDurum="";
-                                            }
-                                            
-                                        });
-                                      }
-                                    });
-
-                                    otoAIR = false;
-
-                                    setState(() {});
-                                  },
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  constraints: BoxConstraints(),
-                                  fillColor: !otoAIR
-                                      ? Colors.green[400]
-                                      : Colors.grey[400],
-                                  child: SizedBox(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv456"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 50,
-                                            fontWeight: FontWeight.bold),
-                                        maxLines: 1,
-                                        minFontSize: 8,
-                                      ),
-                                    ),
-                                  ),
-                                )),
-                            Spacer(),
-                          ],
+                            setState(() {});
+                          },
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          fillColor:
+                              otoAIR ? Colors.green[400] : Colors.grey[400],
+                          child: SizedBox(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: AutoSizeText(
+                                Dil().sec(dilSecimi, "tv455"),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: 'Kelly Slab',
+                                    color: Colors.black,
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 1,
+                                minFontSize: 8,
+                              ),
+                            ),
+                          ),
                         )),
+                    Spacer(),
+                    //MAN
+                    Expanded(
+                        flex: 10,
+                        child: RawMaterialButton(
+                          elevation: 8,
+                          onPressed: () {
+                            yazmaSonrasiGecikmeSayaci = 0;
+                            String komut = "30*0";
+                            Metotlar().veriGonder(komut, 2235).then((value) {
+                              if (value.split("*")[0] == "error") {
+                                Toast.show(
+                                    Dil().sec(dilSecimi, "toast101"), context,
+                                    duration: 3);
+                              } else {
+                                Toast.show(
+                                    Dil().sec(dilSecimi, "toast8"), context,
+                                    duration: 3);
+
+                                baglanti = false;
+                                Metotlar()
+                                    .takipEt("25*$airInletAdet", 2236)
+                                    .then((veri) {
+                                  if (veri.split("*")[0] == "error") {
+                                    baglanti = false;
+                                    baglantiDurum = Metotlar().errorToastMesaj(
+                                        veri.split("*")[1], dbProkis);
+                                    setState(() {});
+                                  } else {
+                                    takipEtVeriIsleme(veri, "25*$airInletAdet");
+                                    baglantiDurum = "";
+                                  }
+                                });
+                              }
+                            });
+
+                            otoAIR = false;
+
+                            setState(() {});
+                          },
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          constraints: BoxConstraints(),
+                          fillColor:
+                              !otoAIR ? Colors.green[400] : Colors.grey[400],
+                          child: SizedBox(
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: AutoSizeText(
+                                Dil().sec(dilSecimi, "tv456"),
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    fontFamily: 'Kelly Slab',
+                                    color: Colors.black,
+                                    fontSize: 50,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 1,
+                                minFontSize: 8,
+                              ),
+                            ),
+                          ),
+                        )),
+                    Spacer(),
                   ],
                 )),
                 Expanded(
@@ -532,26 +528,27 @@ final dbProkis = Provider.of<DBProkis>(context);
                                   timer.cancel();
                                 }
                                 if (!baglantiAir &&
-                                    yazmaSonrasiGecikmeSayaciAIR >
-                                        1) {
+                                    yazmaSonrasiGecikmeSayaciAIR > 1) {
                                   baglantiAir = true;
 
-                                  Metotlar().takipEt('26*', 2236).then((veri){
-                                    
-
-                                    if(veri.split("*")[0]=="error"){
-                                      baglanti=false;
-                                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
+                                  Metotlar().takipEt('26*', 2236).then((veri) {
+                                    if (veri.split("*")[0] == "error") {
+                                      baglanti = false;
+                                      baglantiDurum = Metotlar()
+                                          .errorToastMesaj(
+                                              veri.split("*")[1], dbProkis);
                                       setState(() {});
-                                    }else{
-                                      takipEtVeriIsleme(veri,'25*$airInletAdet');
-                                      baglantiDurum="";
+                                    } else {
+                                      takipEtVeriIsleme(
+                                          veri, '26*$airInletAdet');
+                                      baglantiDurum = "";
                                     }
-                                });
+                                  });
                                 }
                               });
 
-                              _manKontrolAIR(oran,dbProkis).then((value) {
+                              _manKontrolAIR(oran, dbProkis).then((value) {
+                                baglantiAir = false;
                                 takipEtiGeciciDurdur = false;
                                 timerCancelAir = true;
                               });
@@ -701,7 +698,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                               oran,
                                               dilSecimi,
                                               "tv477",
-                                              "",dbProkis);
+                                              "",
+                                              dbProkis);
                                         },
                                         child: Container(
                                           color: Colors.blue[700],
@@ -730,11 +728,11 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       Spacer(
                                         flex: 3,
                                       ),
-                                      bottomDrawerManUnsur(1,"tv473",
-                                          airManAc, oran,dbProkis),
+                                      bottomDrawerManUnsur(
+                                          1, "tv473", airManAc, oran, dbProkis),
                                       Spacer(),
-                                      bottomDrawerManUnsur(0, "tv474",
-                                          airManKp, oran,dbProkis),
+                                      bottomDrawerManUnsur(
+                                          0, "tv474", airManKp, oran, dbProkis),
                                       Spacer(
                                         flex: 3,
                                       ),
@@ -759,7 +757,8 @@ final dbProkis = Provider.of<DBProkis>(context);
     });
   }
 
-  Widget bottomDrawerManUnsur(int index,String isim, bool acVeyaKpDurum, double oran, DBProkis dbProkis) {
+  Widget bottomDrawerManUnsur(int index, String isim, bool acVeyaKpDurum,
+      double oran, DBProkis dbProkis) {
     return Expanded(
       flex: 10,
       child: RawMaterialButton(
@@ -801,31 +800,30 @@ final dbProkis = Provider.of<DBProkis>(context);
               veri = "1";
             }
 
-            
-
             yazmaSonrasiGecikmeSayaci = 0;
-            String komut="31*$index*$veri";
-            Metotlar().veriGonder(komut, 2235).then((value){
-              if(value.split("*")[0]=="error"){
-                Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-              }else{
-                Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                
+            String komut = "31*$index*$veri";
+            Metotlar().veriGonder(komut, 2235).then((value) {
+              if (value.split("*")[0] == "error") {
+                Toast.show(Dil().sec(dilSecimi, "toast101"), context,
+                    duration: 3);
+              } else {
+                Toast.show(Dil().sec(dilSecimi, "toast8"), context,
+                    duration: 3);
+
                 baglanti = false;
-                Metotlar().takipEt("26*$airInletAdet", 2236).then((veri){
-                    
-                    if(veri.split("*")[0]=="error"){
-                      baglanti=false;
-                      baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                      setState(() {});
-                    }else{
-                      takipEtVeriIsleme(veri,"26*$airInletAdet");
-                      baglantiDurum="";
-                    }
+                Metotlar().takipEt("26*$airInletAdet", 2236).then((veri) {
+                  if (veri.split("*")[0] == "error") {
+                    baglanti = false;
+                    baglantiDurum = Metotlar()
+                        .errorToastMesaj(veri.split("*")[1], dbProkis);
+                    setState(() {});
+                  } else {
+                    takipEtVeriIsleme(veri, "26*$airInletAdet");
+                    baglantiDurum = "";
+                  }
                 });
               }
             });
-
           }
         },
         child: Container(
@@ -882,30 +880,28 @@ final dbProkis = Provider.of<DBProkis>(context);
       veri = airHareketSuresi;
 
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="29*1*$veri";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = "29*1*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt("26*$airInletAdet", 2236).then((veri){
-                
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri,"26*$airInletAdet");
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt("26*$airInletAdet", 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri, "26*$airInletAdet");
+                baglantiDurum = "";
+              }
             });
           }
         });
-
       }
 
       setState(() {});

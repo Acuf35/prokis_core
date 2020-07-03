@@ -755,7 +755,32 @@ class Dil{
     kod=="tv731" ? metin='SIC. & NEM\nLOGLARI' : null;
     kod=="tv732" ? metin='ALARM / UYARI\nLOGLARI' : null;
     kod=="tv733" ? metin='TÜKETİM\nLOGLARI' : null;
-    kod=="tv734" ? metin='PARAMETRE\nLOGLARI' : null;
+    kod=="tv734" ? metin='PARAMETRE LOGLARI' : null;
+    kod=="tv735" ? metin='SIC. & NEM LOGLARI' : null;
+    kod=="tv736" ? metin='ALARM / UYARI LOGLARI' : null;
+    kod=="tv737" ? metin='TÜKETİM LOGLARI' : null;
+    kod=="tv738" ? metin='PARAMETRE LOGLARI' : null;
+    kod=="tv739" ? metin='Sıc. Sensör 1' : null;
+    kod=="tv740" ? metin='Sıc. Sensör 2' : null;
+    kod=="tv741" ? metin='Sıc. Sensör 3' : null;
+    kod=="tv742" ? metin='Sıc. Sensör 4' : null;
+    kod=="tv743" ? metin='Sıc. Sensör 5' : null;
+    kod=="tv744" ? metin='Sıc. Sensör 6' : null;
+    kod=="tv745" ? metin='Sıc. Sensör 7' : null;
+    kod=="tv746" ? metin='Sıc. Sensör 8' : null;
+    kod=="tv747" ? metin='Sıc. Sensör 9' : null;
+    kod=="tv748" ? metin='Sıc. Sensör 10' : null;
+    kod=="tv749" ? metin='Sıc. Sensör 11' : null;
+    kod=="tv750" ? metin='Sıc. Sensör 12' : null;
+    kod=="tv751" ? metin='Sıc. Sensör 13' : null;
+    kod=="tv752" ? metin='Sıc. Sensör 14' : null;
+    kod=="tv753" ? metin='Sıc. Sensör 15' : null;
+    kod=="tv754" ? metin='Kayıt Türü' : null;
+    kod=="tv755" ? metin='Log Periyot' : null;
+    kod=="tv756" ? metin='Tarih-İlk' : null;
+    kod=="tv757" ? metin='Tarih-Son' : null;
+    kod=="tv758" ? metin='Dk' : null;
+    kod=="tv759" ? metin='Seçilen Tarih' : null;
    
 
     
@@ -778,6 +803,7 @@ class Dil{
     kod=="btn12" ? metin='START' : null;
     kod=="btn13" ? metin='STOP' : null;
     kod=="btn14" ? metin='EKLE' : null;
+    kod=="btn15" ? metin='GETİR' : null;
     
     //endregion
 
@@ -2932,6 +2958,31 @@ class Dil{
     kod=="tv732" ? metin='ALARM / WARN\nLOGS' : null;
     kod=="tv733" ? metin='CONSUMPTION\nLOGS' : null;
     kod=="tv734" ? metin='PARAMETER\nLOGS' : null;
+    kod=="tv735" ? metin='TEMP. & HUM. LOGS' : null;
+    kod=="tv736" ? metin='ALARM / WARN LOGS' : null;
+    kod=="tv737" ? metin='CONSUMPTION LOGS' : null;
+    kod=="tv738" ? metin='PARAMETER LOGS' : null;
+    kod=="tv739" ? metin='Temp. Sensor 1' : null;
+    kod=="tv740" ? metin='Temp. Sensor 2' : null;
+    kod=="tv741" ? metin='Temp. Sensor 3' : null;
+    kod=="tv742" ? metin='Temp. Sensor 4' : null;
+    kod=="tv743" ? metin='Temp. Sensor 5' : null;
+    kod=="tv744" ? metin='Temp. Sensor 6' : null;
+    kod=="tv745" ? metin='Temp. Sensor 7' : null;
+    kod=="tv746" ? metin='Temp. Sensor 8' : null;
+    kod=="tv747" ? metin='Temp. Sensor 9' : null;
+    kod=="tv748" ? metin='Temp. Sensor 10' : null;
+    kod=="tv749" ? metin='Temp. Sensor 11' : null;
+    kod=="tv750" ? metin='Temp. Sensor 12' : null;
+    kod=="tv751" ? metin='Temp. Sensor 13' : null;
+    kod=="tv752" ? metin='Temp. Sensor 14' : null;
+    kod=="tv753" ? metin='Temp. Sensor 15' : null;
+    kod=="tv754" ? metin='Record Type' : null;
+    kod=="tv755" ? metin='Log Periyod' : null;
+    kod=="tv756" ? metin='Date-First' : null;
+    kod=="tv757" ? metin='Date-Last' : null;
+    kod=="tv758" ? metin='Min.' : null;
+    kod=="tv759" ? metin='Selected Date' : null;
    
     
     
@@ -2963,6 +3014,7 @@ class Dil{
     kod=="btn12" ? metin='START' : null;
     kod=="btn13" ? metin='STOP' : null;
     kod=="btn14" ? metin='ADD' : null;
+    kod=="btn15" ? metin='GET' : null;
     
 
     //endregion

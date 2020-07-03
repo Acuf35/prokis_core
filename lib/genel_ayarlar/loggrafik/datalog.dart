@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar.dart';
 import 'package:prokis/genel_ayarlar/log_grafik.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/datalog/sicvenem_log.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/saat_tarih.dart';
 import 'package:prokis/sistem/sistem_start_stop.dart';
@@ -217,7 +218,7 @@ class DatalogState extends State<Datalog> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              KurulumAyarlari()),
+                                              SicVeNemLog()),
                                     );
                                   },
                                   child: Container(

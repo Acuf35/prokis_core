@@ -1256,8 +1256,6 @@ class Metotlar{
     final dbProkis = Provider.of<DBProkis>(context);
     bool alarmVar=false;
     bool uyariVar=false;
-    print("DEĞER: "+ dbProkis.dbVeriGetir(48, 1, "0") +" - "+ dbProkis.dbVeriGetir(48, 2, "0") +" - "+ dbProkis.dbVeriGetir(48, 3, "0")+" - "+ dbProkis.dbVeriGetir(48, 4, "0") );
-    print("DURUM: "+ dbProkis.dbVeriGetir(100, 1, "0") +" - "+ dbProkis.dbVeriGetir(100, 2, "0") +" - "+ dbProkis.dbVeriGetir(100, 3, "0"));
 
     if (dbProkis.dbVeriGetir(48, 1, "0")=="1"){
 
@@ -1618,8 +1616,7 @@ class Metotlar{
     final dbProkis = Provider.of<DBProkis>(context);
     bool alarmVar=false;
     bool uyariVar=false;
-    print("DEĞER: "+ dbProkis.dbVeriGetir(48, 1, "0") +" - "+ dbProkis.dbVeriGetir(48, 2, "0") +" - "+ dbProkis.dbVeriGetir(48, 3, "0") );
-
+    
     if (dbProkis.dbVeriGetir(48, 2, "0")=="1"){
 
       for(int i=0;i<=59;i++){

@@ -52,6 +52,8 @@ class GenelAyarlarState extends State<GenelAyarlar>
   String baglantiDurum = "";
   String alarmDurum =
       "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
+
+  bool appBarVeri = false;
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
@@ -60,6 +62,15 @@ class GenelAyarlarState extends State<GenelAyarlar>
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
+      }
+
+      if (dbVeri[i]["id"] == 48) {
+        if (dbVeri[i]["veri1"] == "0" ||
+            dbVeri[i]["veri2"] == "0" ||
+            dbVeri[i]["veri3"] == "0" ||
+            dbVeri[i]["veri4"] == "0") {
+          appBarVeri = true;
+        }
       }
     }
 
@@ -78,7 +89,10 @@ class GenelAyarlarState extends State<GenelAyarlar>
     final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
-      dbProkis.dbSatirEkleGuncelle(48, "1", "1", "1", "1");
+      if(appBarVeri){
+        dbProkis.dbSatirEkleGuncelle(48, "1", "1", "1", "1");
+      }
+      
       Metotlar().takipEt("alarm*", 2236).then((veri) {
         if (veri.split("*")[0] == "error") {
           baglanti = false;

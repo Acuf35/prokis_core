@@ -173,7 +173,6 @@ class BaglantiDurumState extends State<BaglantiDurum> {
         yazmaSonrasiGecikmeSayaci++;
         if (timerCancel) {
           timer.cancel();
-          print("GİRİİİİİİİİİİİİİİİİİİİİİYOR");
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
