@@ -468,7 +468,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                       elevation: 8,
                                       onPressed: () {
                                         yazmaSonrasiGecikmeSayaci = 0;
-                                        String komut = "27*$index*1";
+                                        String komut = "21*$index*1";
                                         Metotlar()
                                             .veriGonder(komut, 2235)
                                             .then((value) {
@@ -542,7 +542,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
                                       elevation: 8,
                                       onPressed: () {
                                         yazmaSonrasiGecikmeSayaci = 0;
-                                        String komut = "27*$index*0";
+                                        String komut = "21*$index*0";
                                         Metotlar()
                                             .veriGonder(komut, 2235)
                                             .then((value) {
@@ -912,7 +912,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
 
             yazmaSonrasiGecikmeSayaciKLP[index > 10 ? index - 10 : index] = 0;
 
-            String komut = "28*$index*$veri";
+            String komut = "22*$index*$veri";
             Metotlar().veriGonder(komut, 2235).then((value) {
               if (value.split("*")[0] == "error") {
                 Toast.show(Dil().sec(dilSecimi, "toast101"), context,
@@ -992,7 +992,7 @@ class OtoManKlepeState extends State<OtoManKlepe> {
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut = "29*1*$veri";
+        String komut = "23*1*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);

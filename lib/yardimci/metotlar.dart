@@ -9,6 +9,7 @@ import 'package:prokis/genel_ayarlar/alarm_durum.dart';
 import 'package:prokis/genel_ayarlar/baglanti_durum.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';
 import 'package:prokis/genel_ayarlar/kalibrasyon.dart';
+import 'package:prokis/genel_ayarlar/log_grafik.dart';
 import 'package:prokis/genel_ayarlar/oto_man.dart';
 import 'package:prokis/genel_ayarlar/suru.dart';
 import 'package:prokis/izleme/izleme_bfanairistc.dart';
@@ -963,10 +964,15 @@ class Metotlar{
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    //DATALOG
+                    //LOG & GRAFİK
                     ListTile(
                       onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              LogGrafik()),
+                                    );
                       },
                       leading: SizedBox(
                         width: 40 * oran,
@@ -976,7 +982,7 @@ class Metotlar{
                             image: DecorationImage(
                               alignment: Alignment.centerLeft,
                               image: AssetImage(
-                                  'assets/images/datalog_small_icon.png'),
+                                  'assets/images/datalog_chart_small_icon.png'),
                               fit: BoxFit.contain,
                             ),
                           ),

@@ -747,7 +747,7 @@ final dbProkis = Provider.of<DBProkis>(context);
 
 
       if (veriGonderilsinMi && isisensorBaglanti==1 && _index<200) {
-        String komut="18*$isisensorBaglanti*$id*$_index*$veri";
+        String komut="11*$isisensorBaglanti*$id*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -762,7 +762,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         if(_index<100) indexVeri=aktifSensorNo[_index];
         else indexVeri=aktifSensorNo[_index-100]+100;
 
-        String komut="19*$indexVeri*$veri";
+        String komut="12*$indexVeri*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -772,7 +772,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         });
       }else if(veriGonderilsinMi && isisensorBaglanti==2 && _index>=200){
 
-        String komut="19*$_index*$veri";
+        String komut="12*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);

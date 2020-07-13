@@ -507,7 +507,7 @@ class SaatTarihState extends State<SaatTarih> {
                               san=(DateTime.now().second+2).toString();
 
                               dbHelper.veriYOKSAekleVARSAguncelle(35, gunFark, ayyFark, yilFark, "0").then((value) => _dbVeriCekme());
-                              _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk*$san");
+                              _veriGonder("10*$gun*$ayy*$yil*$sat*$dkk*$san");
                               setState(() {});
                               
                             },
@@ -562,7 +562,7 @@ class SaatTarihState extends State<SaatTarih> {
                                     _satirlar(satir);
                                     sat=int.parse(Metotlar().getSystemTime(dbVeriler).split(":")[0]).toString();
                                     dkk=int.parse(Metotlar().getSystemTime(dbVeriler).split(":")[1]).toString();
-                                    _veriGonder("17*$gun*$ayy*$yil*$sat*$dkk*$san");
+                                    _veriGonder("10*$gun*$ayy*$yil*$sat*$dkk*$san");
                                   });
                                 });
                               });

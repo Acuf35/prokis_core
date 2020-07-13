@@ -61,9 +61,9 @@ class KlepeTunelState extends State<KlepeTunel> {
   List<String> maksAciklik = new List(11);
   List<String> minHavAciklikOrani = new List(11);
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
-
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -89,33 +89,33 @@ class KlepeTunelState extends State<KlepeTunel> {
       maksAciklik[i] = "0";
       minHavAciklikOrani[i] = "0";
     }
-    
 
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
+    final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
-
-      Metotlar().takipEt('7*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
+      Metotlar().takipEt('7*', 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+          print("HATA VAR");
+        } else {
+          takipEtVeriIsleme(veri);
+          baglantiDurum = "";
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -124,18 +124,19 @@ final dbProkis = Provider.of<DBProkis>(context);
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          
-          Metotlar().takipEt('7*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
 
+          Metotlar().takipEt('7*', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+              setState(() {});
+              print("HATA VAR");
+            } else {
+              takipEtVeriIsleme(veri);
+              baglantiDurum = "";
+            }
+          });
         }
       });
     }
@@ -145,43 +146,52 @@ final dbProkis = Provider.of<DBProkis>(context);
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum, alarmDurum),
+        appBar: Metotlar().appBar(
+            dilSecimi, context, oran, 'tv192', baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
+            //Tarih ve saat
             Row(
-            children: <Widget>[
-              Expanded(
-                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemTime(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-              
-              Expanded(
-                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemDate(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-            ],
-          ),
-          
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.only(left: 10 * oran),
+                    child: TimerBuilder.periodic(Duration(seconds: 1),
+                        builder: (context) {
+                      return Text(
+                        Metotlar().getSystemTime(dbVeriler),
+                        style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12 * oran,
+                            fontWeight: FontWeight.bold),
+                      );
+                    }),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.only(right: 10 * oran),
+                    child: TimerBuilder.periodic(Duration(seconds: 1),
+                        builder: (context) {
+                      return Text(
+                        Metotlar().getSystemDate(dbVeriler),
+                        style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12 * oran,
+                            fontWeight: FontWeight.bold),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
+
             Expanded(
               child: Container(
                 padding: EdgeInsets.only(bottom: 10 * oran),
@@ -205,8 +215,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        Dil()
-                                            .sec(dilSecimi, "tv194"),
+                                        Dil().sec(dilSecimi, "tv194"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -225,8 +234,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        Dil()
-                                            .sec(dilSecimi, "tv213"),
+                                        Dil().sec(dilSecimi, "tv213"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -245,8 +253,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        Dil()
-                                            .sec(dilSecimi, "tv214"),
+                                        Dil().sec(dilSecimi, "tv214"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -265,8 +272,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        Dil()
-                                            .sec(dilSecimi, "tv215"),
+                                        Dil().sec(dilSecimi, "tv215"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -285,8 +291,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        Dil()
-                                            .sec(dilSecimi, "tv216"),
+                                        Dil().sec(dilSecimi, "tv216"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -305,8 +310,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        Dil()
-                                            .sec(dilSecimi, "tv199"),
+                                        Dil().sec(dilSecimi, "tv199"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'Kelly Slab',
@@ -324,19 +328,19 @@ final dbProkis = Provider.of<DBProkis>(context);
                           ),
                           Visibility(
                               visible: int.parse(klepeAdet) > 0,
-                              child: _klepeKlasikUnsur(oran, 1,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 1, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 1,
-                              child: _klepeKlasikUnsur(oran, 2,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 2, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 2,
-                              child: _klepeKlasikUnsur(oran, 3,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 3, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 3,
-                              child: _klepeKlasikUnsur(oran, 4,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 4, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 4,
-                              child: _klepeKlasikUnsur(oran, 5,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 5, dbProkis)),
                           Expanded(
                             flex: 4,
                             child: Row(
@@ -353,14 +357,14 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         flex: 2,
                                         child: RawMaterialButton(
                                           onPressed: () {
-
-                                        timerCancel = true;
-                                         Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => KlepeKalibrasyon(dbVeriler)),
-                                          );
-
+                                            timerCancel = true;
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      KlepeKalibrasyon(
+                                                          dbVeriler)),
+                                            );
                                           },
                                           child: Column(
                                             children: <Widget>[
@@ -371,7 +375,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                     alignment:
                                                         Alignment.bottomCenter,
                                                     child: AutoSizeText(
-                                                      Dil().sec(dilSecimi, "tv241"),
+                                                      Dil().sec(
+                                                          dilSecimi, "tv241"),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -432,8 +437,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         color: Colors.grey[100],
                                         alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv194"),
+                                          Dil().sec(dilSecimi, "tv194"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -452,8 +456,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         color: Colors.grey[300],
                                         alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv213"),
+                                          Dil().sec(dilSecimi, "tv213"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -472,8 +475,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         color: Colors.grey[100],
                                         alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv214"),
+                                          Dil().sec(dilSecimi, "tv214"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -492,8 +494,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         color: Colors.grey[300],
                                         alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv215"),
+                                          Dil().sec(dilSecimi, "tv215"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -512,8 +513,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         color: Colors.grey[100],
                                         alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv216"),
+                                          Dil().sec(dilSecimi, "tv216"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -532,8 +532,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         color: Colors.grey[300],
                                         alignment: Alignment.centerRight,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv199"),
+                                          Dil().sec(dilSecimi, "tv199"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -552,19 +551,19 @@ final dbProkis = Provider.of<DBProkis>(context);
                           ),
                           Visibility(
                               visible: int.parse(klepeAdet) > 5,
-                              child: _klepeKlasikUnsur(oran, 6,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 6, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 6,
-                              child: _klepeKlasikUnsur(oran, 7,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 7, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 7,
-                              child: _klepeKlasikUnsur(oran, 8,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 8, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 8,
-                              child: _klepeKlasikUnsur(oran, 9,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 9, dbProkis)),
                           Visibility(
                               visible: int.parse(klepeAdet) > 9,
-                              child: _klepeKlasikUnsur(oran, 10,dbProkis)),
+                              child: _klepeKlasikUnsur(oran, 10, dbProkis)),
                           Spacer(
                             flex: 3,
                           )
@@ -577,28 +576,31 @@ final dbProkis = Provider.of<DBProkis>(context);
             )
           ],
         ),
-        floatingActionButton: Container(width: 56*oran,height: 56*oran,
-                  child: FittedBox(
-                                      child: FloatingActionButton(
-            onPressed: () {
-              timerCancel = true;
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
-              );
-            },
-            backgroundColor: Colors.blue,
-            child: Icon(
-              Icons.arrow_back,
-              size: 50,
-              color: Colors.white,
+        floatingActionButton: Container(
+          width: 56 * oran,
+          height: 56 * oran,
+          child: FittedBox(
+            child: FloatingActionButton(
+              onPressed: () {
+                timerCancel = true;
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+                );
+              },
+              backgroundColor: Colors.blue,
+              child: Icon(
+                Icons.arrow_back,
+                size: 50,
+                color: Colors.white,
+              ),
             ),
           ),
-                  ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: SizedBox(width: 320*oran,
-                  child: Drawer(
+        endDrawer: SizedBox(
+          width: 320 * oran,
+          child: Drawer(
             child: MediaQuery.removePadding(
               removeTop: true,
               context: context,
@@ -608,8 +610,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                     child: Container(
                       alignment: Alignment.center,
                       child: Text(
-                        Dil().sec(
-                            dilSecimi, "tv193"), //Sıcaklık diyagramı
+                        Dil().sec(dilSecimi, "tv193"), //Sıcaklık diyagramı
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -670,47 +671,42 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       left: 2 * oran, right: 2 * oran),
                                   dense: false,
                                   title: Text(
-                                    Dil()
-                                        .sec(dilSecimi, "tv186"),
+                                    Dil().sec(dilSecimi, "tv186"),
                                     textScaleFactor: oran,
                                   ),
                                   subtitle: RichText(
-                            text: TextSpan(
-                              children: <TextSpan>[
+                                    text: TextSpan(children: <TextSpan>[
+                                      //Giriş metni
+                                      TextSpan(
+                                          text: Dil().sec(dilSecimi, "info8"),
+                                          style: TextStyle(
+                                              color: Colors.grey[700],
+                                              fontSize: 13 * oran)),
 
-                                //Giriş metni
-                                TextSpan(
-                                  text: Dil().sec(dilSecimi, "info8"),
-                                  style: TextStyle(
-                                    color: Colors.grey[700],
-                                    fontSize: 13*oran
-                                  )
-                                ),
+                                      TextSpan(
+                                          text: '\n\n' +
+                                              Dil().sec(dilSecimi, "tv673"),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 13 * oran,
+                                              fontWeight: FontWeight.bold)),
 
-                                TextSpan(
-                                  text: '\n\n'+Dil().sec(dilSecimi, "tv673"),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 13*oran,
-                                    fontWeight: FontWeight.bold
-                                  )
-                                ),
-
-                                TextSpan(
-                                  text:'\n'+ Dil().sec(dilSecimi, "ksltm38")+'\n\n'+
-                                  Dil().sec(dilSecimi, "ksltm39")+'\n\n'+
-                                  Dil().sec(dilSecimi, "ksltm40")+'\n\n'+
-                                  Dil().sec(dilSecimi, "ksltm41")+'\n\n\n\n',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 11*oran,
-                                  )
-                                ),
-                                
-                              ]
-                            ),
-                          ),
-                        
+                                      TextSpan(
+                                          text: '\n' +
+                                              Dil().sec(dilSecimi, "ksltm38") +
+                                              '\n\n' +
+                                              Dil().sec(dilSecimi, "ksltm39") +
+                                              '\n\n' +
+                                              Dil().sec(dilSecimi, "ksltm40") +
+                                              '\n\n' +
+                                              Dil().sec(dilSecimi, "ksltm41") +
+                                              '\n\n\n\n',
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 11 * oran,
+                                          )),
+                                    ]),
+                                  ),
                                   onTap: () {
                                     // Update the state of the app.
                                     // ...
@@ -724,8 +720,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                           flex: 3,
                           child: Container(
                             color: Colors.grey[100],
-                            padding:
-                                EdgeInsets.only(left: 2 * oran, right: 2 * oran),
+                            padding: EdgeInsets.only(
+                                left: 2 * oran, right: 2 * oran),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -745,11 +741,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                    dilSecimi, "tv223") +
+                                            Dil().sec(dilSecimi, "tv223") +
                                                 '\n' +
-                                                Dil().sec(
-                                                    dilSecimi, "tv231"),
+                                                Dil().sec(dilSecimi, "tv231"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -769,8 +763,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv224"),
+                                            Dil().sec(dilSecimi, "tv224"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -790,8 +783,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv225"),
+                                            Dil().sec(dilSecimi, "tv225"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -811,8 +803,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv226"),
+                                            Dil().sec(dilSecimi, "tv226"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -832,8 +823,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv227"),
+                                            Dil().sec(dilSecimi, "tv227"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -853,8 +843,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv228"),
+                                            Dil().sec(dilSecimi, "tv228"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -874,8 +863,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv229"),
+                                            Dil().sec(dilSecimi, "tv229"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -895,8 +883,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv230"),
+                                            Dil().sec(dilSecimi, "tv230"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -916,8 +903,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv210"),
+                                            Dil().sec(dilSecimi, "tv210"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -937,8 +923,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     Expanded(
                                         flex: 5,
                                         child: Text(
-                                            Dil().sec(
-                                                dilSecimi, "tv211"),
+                                            Dil().sec(dilSecimi, "tv211"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -972,8 +957,15 @@ final dbProkis = Provider.of<DBProkis>(context);
     });
   }
 
-  Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex,
-      int paramIndex, double oran, String dil, String baslik, DBProkis dbProkis) async {
+  Future _degergiris2X0(
+      int onlarUnsur,
+      int birlerUnsur,
+      int klepeIndex,
+      int paramIndex,
+      double oran,
+      String dil,
+      String baslik,
+      DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -995,52 +987,41 @@ final dbProkis = Provider.of<DBProkis>(context);
       _birler = val[1];
       _index = val[2];
 
-      if (paramIndex == 1) {
+      String veri = "";
+
+      if (paramIndex == 10) {
         klepeBasDusFanMikMan[klepeIndex] =
             (_yuzler * 100 + _onlar * 10 + _birler).toString();
-      } else if (paramIndex == 2) {
+        veri = klepeBasDusFanMikMan[klepeIndex];
+      } else if (paramIndex == 11) {
         calismaSirasi[klepeIndex] =
             (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = calismaSirasi[klepeIndex];
       }
 
-      String veri = "";
-      veri = klepeBasDusFanMikMan[klepeIndex] +
-          "#" +
-          klepeBasDusFanModu[klepeIndex] +
-          "#" +
-          calismaSirasi[klepeIndex] +
-          "#" +
-          maksAciklik[klepeIndex] +
-          "#" +
-          minAciklik[klepeIndex] +
-          "#" +
-          minHavAciklikOrani[klepeIndex];
-
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="7*$klepeIndex*$veri";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = "2*$paramIndex*$klepeIndex*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('7*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('7*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
-
       }
     });
   }
@@ -1071,54 +1052,45 @@ final dbProkis = Provider.of<DBProkis>(context);
       _birler = val[2];
       _index = val[3];
 
-      if (paramIndex == 3) {
+      String veri = "";
+
+      if (paramIndex == 12) {
         maksAciklik[klepeIndex] =
             (_yuzler * 100 + _onlar * 10 + _birler).toString();
-      } else if (paramIndex == 4) {
+        veri = maksAciklik[klepeIndex];
+      } else if (paramIndex == 13) {
         minAciklik[klepeIndex] =
             (_yuzler * 100 + _onlar * 10 + _birler).toString();
-      } else if (paramIndex == 5) {
+        veri = minAciklik[klepeIndex];
+      } else if (paramIndex == 14) {
         minHavAciklikOrani[klepeIndex] =
             (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = minHavAciklikOrani[klepeIndex];
       }
 
-      String veri = "";
-      veri = klepeBasDusFanMikMan[klepeIndex] +
-          "#" +
-          klepeBasDusFanModu[klepeIndex] +
-          "#" +
-          calismaSirasi[klepeIndex] +
-          "#" +
-          maksAciklik[klepeIndex] +
-          "#" +
-          minAciklik[klepeIndex] +
-          "#" +
-          minHavAciklikOrani[klepeIndex];
-
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="7*$klepeIndex*$veri";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = "2*$paramIndex*$klepeIndex*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('7*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('7*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
       }
 
       setState(() {});
@@ -1129,291 +1101,108 @@ final dbProkis = Provider.of<DBProkis>(context);
     updateState(() {});
   }
 
-  _veriGonder(String emir) async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2235).then((socket) {
-        String gelen_mesaj = "";
-
-        socket.add(utf8.encode(emir));
-
-        socket.listen(
-          (List<int> event) {
-            print(utf8.decode(event));
-            gelen_mesaj = utf8.decode(event);
-            var gelen_mesaj_parcali = gelen_mesaj.split("*");
-
-            if (gelen_mesaj_parcali[0] == 'ok') {
-              Toast.show(
-                  Dil().sec(dilSecimi, "toast8"), context,
-                  duration: 2);
-            } else {
-              Toast.show(gelen_mesaj_parcali[0], context, duration: 2);
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            _takipEt();
-            setState(() {});
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(
-            Dil().sec(dilSecimi, "toast20"), context,
-            duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
-
-  _takipEt() async {
-    try {
-      String gelenMesaj = "";
-      const Duration ReceiveTimeout = const Duration(milliseconds: 2000);
-      await Socket.connect('192.168.1.110', 2236).then((socket) {
-        socket.add(utf8.encode('7*'));
-
-        socket.listen(
-          (List<int> event) {
-            gelenMesaj = utf8.decode(event);
-            if (gelenMesaj != "") {
-              var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
-
-              var gelenKlepe1 = degerler[0].split('#');
-              aktuelAciklik[1] = gelenKlepe1[0];
-              klepeBasDusFanMik[1] = gelenKlepe1[1];
-              klepeBasDusFanModu[1] = gelenKlepe1[2] == "True" ? '1' : "0";
-              calismaSirasi[1] = gelenKlepe1[3];
-              maksAciklik[1] = gelenKlepe1[4];
-              minAciklik[1] = gelenKlepe1[5];
-              minHavAciklikOrani[1] = gelenKlepe1[6];
-
-              var gelenKlepe2 = degerler[1].split('#');
-              aktuelAciklik[2] = gelenKlepe2[0];
-              klepeBasDusFanMik[2] = gelenKlepe2[1];
-              klepeBasDusFanModu[2] = gelenKlepe2[2] == "True" ? '1' : "0";
-              calismaSirasi[2] = gelenKlepe2[3];
-              maksAciklik[2] = gelenKlepe2[4];
-              minAciklik[2] = gelenKlepe2[5];
-              minHavAciklikOrani[2] = gelenKlepe2[6];
-
-              var gelenKlepe3 = degerler[2].split('#');
-              aktuelAciklik[3] = gelenKlepe3[0];
-              klepeBasDusFanMik[3] = gelenKlepe3[1];
-              klepeBasDusFanModu[3] = gelenKlepe3[2] == "True" ? '1' : "0";
-              calismaSirasi[3] = gelenKlepe3[3];
-              maksAciklik[3] = gelenKlepe3[4];
-              minAciklik[3] = gelenKlepe3[5];
-              minHavAciklikOrani[3] = gelenKlepe3[6];
-
-              var gelenKlepe4 = degerler[3].split('#');
-              aktuelAciklik[4] = gelenKlepe4[0];
-              klepeBasDusFanMik[4] = gelenKlepe4[1];
-              klepeBasDusFanModu[4] = gelenKlepe4[2] == "True" ? '1' : "0";
-              calismaSirasi[4] = gelenKlepe4[3];
-              maksAciklik[4] = gelenKlepe4[4];
-              minAciklik[4] = gelenKlepe4[5];
-              minHavAciklikOrani[4] = gelenKlepe4[6];
-
-              var gelenKlepe5 = degerler[4].split('#');
-              aktuelAciklik[5] = gelenKlepe5[0];
-              klepeBasDusFanMik[5] = gelenKlepe5[1];
-              klepeBasDusFanModu[5] = gelenKlepe5[2] == "True" ? '1' : "0";
-              calismaSirasi[5] = gelenKlepe5[3];
-              maksAciklik[5] = gelenKlepe5[4];
-              minAciklik[5] = gelenKlepe5[5];
-              minHavAciklikOrani[5] = gelenKlepe5[6];
-
-              var gelenKlepe6 = degerler[5].split('#');
-              aktuelAciklik[6] = gelenKlepe6[0];
-              klepeBasDusFanMik[6] = gelenKlepe6[1];
-              klepeBasDusFanModu[6] = gelenKlepe6[2] == "True" ? '1' : "0";
-              calismaSirasi[6] = gelenKlepe6[3];
-              maksAciklik[6] = gelenKlepe6[4];
-              minAciklik[6] = gelenKlepe6[5];
-              minHavAciklikOrani[6] = gelenKlepe6[6];
-
-              var gelenKlepe7 = degerler[6].split('#');
-              aktuelAciklik[7] = gelenKlepe7[0];
-              klepeBasDusFanMik[7] = gelenKlepe7[1];
-              klepeBasDusFanModu[7] = gelenKlepe7[2] == "True" ? '1' : "0";
-              calismaSirasi[7] = gelenKlepe7[3];
-              maksAciklik[7] = gelenKlepe7[4];
-              minAciklik[7] = gelenKlepe7[5];
-              minHavAciklikOrani[7] = gelenKlepe7[6];
-
-              var gelenKlepe8 = degerler[7].split('#');
-              aktuelAciklik[8] = gelenKlepe8[0];
-              klepeBasDusFanMik[8] = gelenKlepe8[1];
-              klepeBasDusFanModu[8] = gelenKlepe8[2] == "True" ? '1' : "0";
-              calismaSirasi[8] = gelenKlepe8[3];
-              maksAciklik[8] = gelenKlepe8[4];
-              minAciklik[8] = gelenKlepe8[5];
-              minHavAciklikOrani[8] = gelenKlepe8[6];
-
-              var gelenKlepe9 = degerler[8].split('#');
-              aktuelAciklik[9] = gelenKlepe9[0];
-              klepeBasDusFanMik[9] = gelenKlepe9[1];
-              klepeBasDusFanModu[9] = gelenKlepe9[2] == "True" ? '1' : "0";
-              calismaSirasi[9] = gelenKlepe9[3];
-              maksAciklik[9] = gelenKlepe9[4];
-              minAciklik[9] = gelenKlepe9[5];
-              minHavAciklikOrani[9] = gelenKlepe9[6];
-
-              var gelenKlepe10 = degerler[9].split('#');
-              aktuelAciklik[10] = gelenKlepe10[0];
-              klepeBasDusFanMik[10] = gelenKlepe10[1];
-              klepeBasDusFanModu[10] = gelenKlepe10[2] == "True" ? '1' : "0";
-              calismaSirasi[10] = gelenKlepe10[3];
-              maksAciklik[10] = gelenKlepe10[4];
-              minAciklik[10] = gelenKlepe10[5];
-              minHavAciklikOrani[10] = gelenKlepe10[6];
-
-              //socket.add(utf8.encode('ok'));
-            }
-          },
-          onDone: () {
-            baglanti = false;
-            socket.close();
-            if (!timerCancel) {
-              setState(() {});
-            }
-          },
-        );
-      }).catchError((Object error) {
-        print(error);
-        Toast.show(
-            Dil().sec(dilSecimi, "toast20"), context,
-            duration: 3);
-        baglanti = false;
-      });
-    } catch (e) {
-      print(e);
-      Toast.show(Dil().sec(dilSecimi, "toast11"), context,
-          duration: 3);
-      baglanti = false;
-    }
-  }
-
-  takipEtVeriIsleme(String gelenMesaj){
-    
+  takipEtVeriIsleme(String gelenMesaj) {
     var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
-              var gelenKlepe1 = degerler[0].split('#');
-              aktuelAciklik[1] = gelenKlepe1[0];
-              klepeBasDusFanMik[1] = gelenKlepe1[1];
-              klepeBasDusFanModu[1] = gelenKlepe1[2] == "True" ? '1' : "0";
-              calismaSirasi[1] = gelenKlepe1[3];
-              maksAciklik[1] = gelenKlepe1[4];
-              minAciklik[1] = gelenKlepe1[5];
-              minHavAciklikOrani[1] = gelenKlepe1[6];
+    var gelenKlepe1 = degerler[0].split('#');
+    aktuelAciklik[1] = gelenKlepe1[0];
+    klepeBasDusFanMik[1] = gelenKlepe1[1];
+    klepeBasDusFanModu[1] = gelenKlepe1[2] == "True" ? '1' : "0";
+    calismaSirasi[1] = gelenKlepe1[3];
+    maksAciklik[1] = gelenKlepe1[4];
+    minAciklik[1] = gelenKlepe1[5];
+    minHavAciklikOrani[1] = gelenKlepe1[6];
 
-              var gelenKlepe2 = degerler[1].split('#');
-              aktuelAciklik[2] = gelenKlepe2[0];
-              klepeBasDusFanMik[2] = gelenKlepe2[1];
-              klepeBasDusFanModu[2] = gelenKlepe2[2] == "True" ? '1' : "0";
-              calismaSirasi[2] = gelenKlepe2[3];
-              maksAciklik[2] = gelenKlepe2[4];
-              minAciklik[2] = gelenKlepe2[5];
-              minHavAciklikOrani[2] = gelenKlepe2[6];
+    var gelenKlepe2 = degerler[1].split('#');
+    aktuelAciklik[2] = gelenKlepe2[0];
+    klepeBasDusFanMik[2] = gelenKlepe2[1];
+    klepeBasDusFanModu[2] = gelenKlepe2[2] == "True" ? '1' : "0";
+    calismaSirasi[2] = gelenKlepe2[3];
+    maksAciklik[2] = gelenKlepe2[4];
+    minAciklik[2] = gelenKlepe2[5];
+    minHavAciklikOrani[2] = gelenKlepe2[6];
 
-              var gelenKlepe3 = degerler[2].split('#');
-              aktuelAciklik[3] = gelenKlepe3[0];
-              klepeBasDusFanMik[3] = gelenKlepe3[1];
-              klepeBasDusFanModu[3] = gelenKlepe3[2] == "True" ? '1' : "0";
-              calismaSirasi[3] = gelenKlepe3[3];
-              maksAciklik[3] = gelenKlepe3[4];
-              minAciklik[3] = gelenKlepe3[5];
-              minHavAciklikOrani[3] = gelenKlepe3[6];
+    var gelenKlepe3 = degerler[2].split('#');
+    aktuelAciklik[3] = gelenKlepe3[0];
+    klepeBasDusFanMik[3] = gelenKlepe3[1];
+    klepeBasDusFanModu[3] = gelenKlepe3[2] == "True" ? '1' : "0";
+    calismaSirasi[3] = gelenKlepe3[3];
+    maksAciklik[3] = gelenKlepe3[4];
+    minAciklik[3] = gelenKlepe3[5];
+    minHavAciklikOrani[3] = gelenKlepe3[6];
 
-              var gelenKlepe4 = degerler[3].split('#');
-              aktuelAciklik[4] = gelenKlepe4[0];
-              klepeBasDusFanMik[4] = gelenKlepe4[1];
-              klepeBasDusFanModu[4] = gelenKlepe4[2] == "True" ? '1' : "0";
-              calismaSirasi[4] = gelenKlepe4[3];
-              maksAciklik[4] = gelenKlepe4[4];
-              minAciklik[4] = gelenKlepe4[5];
-              minHavAciklikOrani[4] = gelenKlepe4[6];
+    var gelenKlepe4 = degerler[3].split('#');
+    aktuelAciklik[4] = gelenKlepe4[0];
+    klepeBasDusFanMik[4] = gelenKlepe4[1];
+    klepeBasDusFanModu[4] = gelenKlepe4[2] == "True" ? '1' : "0";
+    calismaSirasi[4] = gelenKlepe4[3];
+    maksAciklik[4] = gelenKlepe4[4];
+    minAciklik[4] = gelenKlepe4[5];
+    minHavAciklikOrani[4] = gelenKlepe4[6];
 
-              var gelenKlepe5 = degerler[4].split('#');
-              aktuelAciklik[5] = gelenKlepe5[0];
-              klepeBasDusFanMik[5] = gelenKlepe5[1];
-              klepeBasDusFanModu[5] = gelenKlepe5[2] == "True" ? '1' : "0";
-              calismaSirasi[5] = gelenKlepe5[3];
-              maksAciklik[5] = gelenKlepe5[4];
-              minAciklik[5] = gelenKlepe5[5];
-              minHavAciklikOrani[5] = gelenKlepe5[6];
+    var gelenKlepe5 = degerler[4].split('#');
+    aktuelAciklik[5] = gelenKlepe5[0];
+    klepeBasDusFanMik[5] = gelenKlepe5[1];
+    klepeBasDusFanModu[5] = gelenKlepe5[2] == "True" ? '1' : "0";
+    calismaSirasi[5] = gelenKlepe5[3];
+    maksAciklik[5] = gelenKlepe5[4];
+    minAciklik[5] = gelenKlepe5[5];
+    minHavAciklikOrani[5] = gelenKlepe5[6];
 
-              var gelenKlepe6 = degerler[5].split('#');
-              aktuelAciklik[6] = gelenKlepe6[0];
-              klepeBasDusFanMik[6] = gelenKlepe6[1];
-              klepeBasDusFanModu[6] = gelenKlepe6[2] == "True" ? '1' : "0";
-              calismaSirasi[6] = gelenKlepe6[3];
-              maksAciklik[6] = gelenKlepe6[4];
-              minAciklik[6] = gelenKlepe6[5];
-              minHavAciklikOrani[6] = gelenKlepe6[6];
+    var gelenKlepe6 = degerler[5].split('#');
+    aktuelAciklik[6] = gelenKlepe6[0];
+    klepeBasDusFanMik[6] = gelenKlepe6[1];
+    klepeBasDusFanModu[6] = gelenKlepe6[2] == "True" ? '1' : "0";
+    calismaSirasi[6] = gelenKlepe6[3];
+    maksAciklik[6] = gelenKlepe6[4];
+    minAciklik[6] = gelenKlepe6[5];
+    minHavAciklikOrani[6] = gelenKlepe6[6];
 
-              var gelenKlepe7 = degerler[6].split('#');
-              aktuelAciklik[7] = gelenKlepe7[0];
-              klepeBasDusFanMik[7] = gelenKlepe7[1];
-              klepeBasDusFanModu[7] = gelenKlepe7[2] == "True" ? '1' : "0";
-              calismaSirasi[7] = gelenKlepe7[3];
-              maksAciklik[7] = gelenKlepe7[4];
-              minAciklik[7] = gelenKlepe7[5];
-              minHavAciklikOrani[7] = gelenKlepe7[6];
+    var gelenKlepe7 = degerler[6].split('#');
+    aktuelAciklik[7] = gelenKlepe7[0];
+    klepeBasDusFanMik[7] = gelenKlepe7[1];
+    klepeBasDusFanModu[7] = gelenKlepe7[2] == "True" ? '1' : "0";
+    calismaSirasi[7] = gelenKlepe7[3];
+    maksAciklik[7] = gelenKlepe7[4];
+    minAciklik[7] = gelenKlepe7[5];
+    minHavAciklikOrani[7] = gelenKlepe7[6];
 
-              var gelenKlepe8 = degerler[7].split('#');
-              aktuelAciklik[8] = gelenKlepe8[0];
-              klepeBasDusFanMik[8] = gelenKlepe8[1];
-              klepeBasDusFanModu[8] = gelenKlepe8[2] == "True" ? '1' : "0";
-              calismaSirasi[8] = gelenKlepe8[3];
-              maksAciklik[8] = gelenKlepe8[4];
-              minAciklik[8] = gelenKlepe8[5];
-              minHavAciklikOrani[8] = gelenKlepe8[6];
+    var gelenKlepe8 = degerler[7].split('#');
+    aktuelAciklik[8] = gelenKlepe8[0];
+    klepeBasDusFanMik[8] = gelenKlepe8[1];
+    klepeBasDusFanModu[8] = gelenKlepe8[2] == "True" ? '1' : "0";
+    calismaSirasi[8] = gelenKlepe8[3];
+    maksAciklik[8] = gelenKlepe8[4];
+    minAciklik[8] = gelenKlepe8[5];
+    minHavAciklikOrani[8] = gelenKlepe8[6];
 
-              var gelenKlepe9 = degerler[8].split('#');
-              aktuelAciklik[9] = gelenKlepe9[0];
-              klepeBasDusFanMik[9] = gelenKlepe9[1];
-              klepeBasDusFanModu[9] = gelenKlepe9[2] == "True" ? '1' : "0";
-              calismaSirasi[9] = gelenKlepe9[3];
-              maksAciklik[9] = gelenKlepe9[4];
-              minAciklik[9] = gelenKlepe9[5];
-              minHavAciklikOrani[9] = gelenKlepe9[6];
+    var gelenKlepe9 = degerler[8].split('#');
+    aktuelAciklik[9] = gelenKlepe9[0];
+    klepeBasDusFanMik[9] = gelenKlepe9[1];
+    klepeBasDusFanModu[9] = gelenKlepe9[2] == "True" ? '1' : "0";
+    calismaSirasi[9] = gelenKlepe9[3];
+    maksAciklik[9] = gelenKlepe9[4];
+    minAciklik[9] = gelenKlepe9[5];
+    minHavAciklikOrani[9] = gelenKlepe9[6];
 
-              var gelenKlepe10 = degerler[9].split('#');
-              aktuelAciklik[10] = gelenKlepe10[0];
-              klepeBasDusFanMik[10] = gelenKlepe10[1];
-              klepeBasDusFanModu[10] = gelenKlepe10[2] == "True" ? '1' : "0";
-              calismaSirasi[10] = gelenKlepe10[3];
-              maksAciklik[10] = gelenKlepe10[4];
-              minAciklik[10] = gelenKlepe10[5];
-              minHavAciklikOrani[10] = gelenKlepe10[6];
+    var gelenKlepe10 = degerler[9].split('#');
+    aktuelAciklik[10] = gelenKlepe10[0];
+    klepeBasDusFanMik[10] = gelenKlepe10[1];
+    klepeBasDusFanModu[10] = gelenKlepe10[2] == "True" ? '1' : "0";
+    calismaSirasi[10] = gelenKlepe10[3];
+    maksAciklik[10] = gelenKlepe10[4];
+    minAciklik[10] = gelenKlepe10[5];
+    minHavAciklikOrani[10] = gelenKlepe10[6];
 
+    alarmDurum = degerler[10];
 
-              alarmDurum=degerler[10];
-
-
-    baglanti=false;
-    if(!timerCancel){
-      setState(() {
-        
-      });
+    baglanti = false;
+    if (!timerCancel) {
+      setState(() {});
     }
-    
   }
- 
 
   Widget _klepeKlasikUnsur(double oran, int klepeNo, DBProkis dbProkis) {
     return Expanded(
@@ -1444,11 +1233,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                             flex: 1,
                                             child: Center(
                                                 child: Text(
-                                              Dil().sec(
-                                                      dilSecimi, "tv212") +
+                                              Dil().sec(dilSecimi, "tv212") +
                                                   Dil()
-                                                      .sec(
-                                                          dilSecimi, "tv192") +
+                                                      .sec(dilSecimi, "tv192") +
                                                   " $klepeNo",
                                               style: TextStyle(
                                                   fontFamily: 'Kelly Slab',
@@ -1472,10 +1259,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil()
-                                                                    .sec(
-                                                                        dilSecimi,
-                                                                        "tv222"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv222"),
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -1507,42 +1293,61 @@ final dbProkis = Provider.of<DBProkis>(context);
 
                                                                   String veri =
                                                                       "";
-                                                                  veri = klepeBasDusFanMikMan[klepeNo] +
-                                                                      "#" +
-                                                                      klepeBasDusFanModu[
-                                                                          klepeNo] +
-                                                                      "#" +
-                                                                      calismaSirasi[
-                                                                          klepeNo] +
-                                                                      "#" +
-                                                                      maksAciklik[
-                                                                          klepeNo] +
-                                                                      "#" +
-                                                                      minAciklik[
-                                                                          klepeNo] +
-                                                                      "#" +
-                                                                      minHavAciklikOrani[
-                                                                          klepeNo];
+                                                                  veri = klepeBasDusFanModu[
+                                                                      klepeNo];
 
+                                                                  yazmaSonrasiGecikmeSayaci =
+                                                                      0;
+                                                                  String komut =
+                                                                      "2*15*$klepeNo*$veri";
+                                                                  Metotlar()
+                                                                      .veriGonder(
+                                                                          komut,
+                                                                          2235)
+                                                                      .then(
+                                                                          (value) {
+                                                                    if (value.split(
+                                                                            "*")[0] ==
+                                                                        "error") {
+                                                                      Toast.show(
+                                                                          Dil().sec(
+                                                                              dilSecimi,
+                                                                              "toast101"),
+                                                                          context,
+                                                                          duration:
+                                                                              3);
+                                                                    } else {
+                                                                      Toast.show(
+                                                                          Dil().sec(
+                                                                              dilSecimi,
+                                                                              "toast8"),
+                                                                          context,
+                                                                          duration:
+                                                                              3);
 
-                                                                  yazmaSonrasiGecikmeSayaci = 0;
-                                                                  String komut="7*$klepeNo*$veri";
-                                                                  Metotlar().veriGonder(komut, 2235).then((value){
-                                                                    if(value.split("*")[0]=="error"){
-                                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                                                    }else{
-                                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                                                      
-                                                                      baglanti = false;
-                                                                      Metotlar().takipEt('7*', 2236).then((veri){
-                                                                          if(veri.split("*")[0]=="error"){
-                                                                            baglanti=false;
-                                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                                                            setState(() {});
-                                                                          }else{
-                                                                            takipEtVeriIsleme(veri);
-                                                                            baglantiDurum="";
-                                                                          }
+                                                                      baglanti =
+                                                                          false;
+                                                                      Metotlar()
+                                                                          .takipEt(
+                                                                              '7*',
+                                                                              2236)
+                                                                          .then(
+                                                                              (veri) {
+                                                                        if (veri.split("*")[0] ==
+                                                                            "error") {
+                                                                          baglanti =
+                                                                              false;
+                                                                          baglantiDurum = Metotlar().errorToastMesaj(
+                                                                              veri.split("*")[1],
+                                                                              dbProkis);
+                                                                          setState(
+                                                                              () {});
+                                                                        } else {
+                                                                          takipEtVeriIsleme(
+                                                                              veri);
+                                                                          baglantiDurum =
+                                                                              "";
+                                                                        }
                                                                       });
                                                                     }
                                                                   });
@@ -1587,10 +1392,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil()
-                                                                    .sec(
-                                                                        dilSecimi,
-                                                                        "tv217"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv217"),
                                                                 textAlign:
                                                                     TextAlign
                                                                         .center,
@@ -1634,10 +1438,11 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                             _onlar,
                                                                             _birler,
                                                                             _index,
-                                                                            1,
+                                                                            10,
                                                                             oran,
                                                                             dilSecimi,
-                                                                            "tv217",dbProkis)
+                                                                            "tv217",
+                                                                            dbProkis)
                                                                         .then(
                                                                             (onValue) {
                                                                       bottomDrawerIcindeGuncelle(
@@ -1688,10 +1493,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil()
-                                                                    .sec(
-                                                                        dilSecimi,
-                                                                        "tv215"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv215"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1725,10 +1529,11 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                           _onlar,
                                                                           _birler,
                                                                           _index,
-                                                                          2,
+                                                                          11,
                                                                           oran,
                                                                           dilSecimi,
-                                                                          "tv215",dbProkis)
+                                                                          "tv215",
+                                                                          dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -1774,10 +1579,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil()
-                                                                    .sec(
-                                                                        dilSecimi,
-                                                                        "tv218"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv218"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1812,11 +1616,12 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                           _onlar,
                                                                           _birler,
                                                                           _index,
-                                                                          3,
+                                                                          12,
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv218",
-                                                                          "",dbProkis)
+                                                                          "",
+                                                                          dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -1852,10 +1657,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil()
-                                                                    .sec(
-                                                                        dilSecimi,
-                                                                        "tv219"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv219"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1893,11 +1697,12 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                           _onlar,
                                                                           _birler,
                                                                           _index,
-                                                                          4,
+                                                                          13,
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv219",
-                                                                          "",dbProkis)
+                                                                          "",
+                                                                          dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -1943,10 +1748,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil()
-                                                                    .sec(
-                                                                        dilSecimi,
-                                                                        "tv199"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv199"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
@@ -1981,11 +1785,12 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                           _onlar,
                                                                           _birler,
                                                                           _index,
-                                                                          5,
+                                                                          14,
                                                                           oran,
                                                                           dilSecimi,
                                                                           "tv199",
-                                                                          "",dbProkis)
+                                                                          "",
+                                                                          dbProkis)
                                                                       .then(
                                                                           (onValue) {
                                                                     bottomDrawerIcindeGuncelle(
@@ -2039,8 +1844,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                               );
                             }),
                             Text(
-                              Dil()
-                                      .sec(dilSecimi, "tv192") +
+                              Dil().sec(dilSecimi, "tv192") +
                                   "\n" +
                                   klepeNo.toString(),
                               style: TextStyle(

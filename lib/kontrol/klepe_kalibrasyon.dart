@@ -565,7 +565,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                         onLongPress: (){
 
                           yazmaSonrasiGecikmeSayaci = 0;
-                          String komut='9*$klepeNo';
+                          String komut='2*17*$klepeNo';
                           Metotlar().veriGonder(komut, 2235).then((value){
                             if(value.split("*")[0]=="error"){
                               Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -598,7 +598,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                             
 
                             yazmaSonrasiGecikmeSayaci = 0;
-                            String komut='8*$klepeNo';
+                            String komut='2*16*$klepeNo';
                             Metotlar().veriGonder(komut, 2235).then((value){
                               if(value.split("*")[0]=="error"){
                                 Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);

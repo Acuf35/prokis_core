@@ -44,6 +44,13 @@ class SicVeNemLogState extends State<SicVeNemLog> {
   int isiSenAdet = 0;
   int kayitAdet = 0;
 
+  double maxValue = -100.0;
+  double minValue = 100.0;
+
+  List<String> gelenSaat = [];
+  List<String> gelenTarih = [];
+  List<String> gelenDeger = [];
+
   //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
   @override
@@ -306,6 +313,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                               padding: EdgeInsets.all(0),
                                                                               onPressed: () {
                                                                                 kayitTuruIndex = 1;
+                                                                                kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                 setState(() {
                                                                                   Navigator.pop(context);
                                                                                 });
@@ -354,6 +367,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                               padding: EdgeInsets.all(0),
                                                                               onPressed: () {
                                                                                 kayitTuruIndex = 17;
+                                                                                kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                 setState(() {
                                                                                   Navigator.pop(context);
                                                                                 });
@@ -402,6 +421,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 18;
+                                                                                  kayitAdet = 0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -461,6 +486,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 2;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -511,6 +542,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 3;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -561,6 +598,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 4;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -611,6 +654,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 5;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -661,6 +710,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 6;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -720,6 +775,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 7;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -770,6 +831,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 8;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -820,6 +887,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 9;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -870,6 +943,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 10;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -920,6 +999,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 11;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -979,6 +1064,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 12;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1029,6 +1120,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 13;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1079,6 +1176,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 14;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1129,6 +1232,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 15;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1179,6 +1288,12 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 padding: EdgeInsets.all(0),
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 16;
+                                                                                  kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1759,38 +1874,49 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                       ),
                                     ),
                                     onPressed: () {
-                                      String gunIlk = tarihIlk.day.toString();
-                                      String gunSon = tarihSon.day.toString();
-                                      String ayy = tarihIlk.month.toString();
-                                      String yil = tarihIlk.year.toString();
-                                      String tabloAdi = "dlog" +
-                                          (ayy.length == 1
-                                              ? ("0" + ayy)
-                                              : ayy) +
-                                          yil;
-                                      print(tabloAdi);
+                                      if (tarihIlk.month != tarihSon.month ||
+                                          tarihIlk.year != tarihSon.year) {
+                                        Toast.show(
+                                            Dil().sec(dilSecimi, "toast104"),
+                                            context,
+                                            duration: 3);
+                                      } else {
+                                        minValue = 100.0;
+                                        maxValue = -100.0;
+                                        String gunIlk = tarihIlk.day.toString();
+                                        String gunSon = tarihSon.day.toString();
+                                        String ayy = tarihIlk.month.toString();
+                                        String yil = tarihIlk.year.toString();
+                                        String tabloAdi = "dlog1" +
+                                            (ayy.length == 1
+                                                ? ("0" + ayy)
+                                                : ayy) +
+                                            yil;
+                                        print(tabloAdi);
 
-                                      yazmaSonrasiGecikmeSayaci = 0;
-                                      String komut =
-                                          '1*$tabloAdi*$kayitTuruIndex*2*$gunIlk*$gunSon';
-                                      Metotlar()
-                                          .veriGonder(komut, 2234)
-                                          .then((value) {
-                                        if (value.split("*")[0] == "error") {
-                                          Toast.show(
-                                              Dil().sec(dilSecimi, "toast101"),
-                                              context,
-                                              duration: 3);
-                                        } else {
-                                          Toast.show(
-                                              Dil().sec(dilSecimi, "toast8"),
-                                              context,
-                                              duration: 3);
+                                        yazmaSonrasiGecikmeSayaci = 0;
+                                        String komut =
+                                            '1*$tabloAdi*$kayitTuruIndex*$logDonguSuresi*$gunIlk*$gunSon';
+                                        Metotlar()
+                                            .veriGonder(komut, 2234)
+                                            .then((value) {
+                                          if (value.split("*")[0] == "error") {
+                                            Toast.show(
+                                                Dil()
+                                                    .sec(dilSecimi, "toast101"),
+                                                context,
+                                                duration: 3);
+                                          } else {
+                                            Toast.show(
+                                                Dil().sec(dilSecimi, "toast8"),
+                                                context,
+                                                duration: 3);
 
-                                          takipEtVeriIsleme(value);
-                                          baglantiDurum = "";
-                                        }
-                                      });
+                                            takipEtVeriIsleme(value);
+                                            baglantiDurum = "";
+                                          }
+                                        });
+                                      }
                                     },
                                   ),
                                 ),
@@ -1824,7 +1950,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                         child: SizedBox(
                                           child: Container(
                                             child: AutoSizeText(
-                                              "KAYIT NO",
+                                              Dil().sec(dilSecimi, "tv760"),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 40,
@@ -1842,7 +1968,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                         child: SizedBox(
                                           child: Container(
                                             child: AutoSizeText(
-                                              "SAAT",
+                                              Dil().sec(dilSecimi, "tv761"),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 40,
@@ -1860,7 +1986,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                         child: SizedBox(
                                           child: Container(
                                             child: AutoSizeText(
-                                              "TARİH",
+                                              Dil().sec(dilSecimi, "tv762"),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 40,
@@ -1877,7 +2003,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                         child: SizedBox(
                                           child: Container(
                                             child: AutoSizeText(
-                                              "DEĞER",
+                                              Dil().sec(dilSecimi, "tv763"),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 40,
@@ -1900,6 +2026,10 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                       itemCount: kayitAdet,
                                       itemBuilder:
                                           (BuildContext ctxt, int index) {
+                                        String birim = (kayitTuruIndex == 17 ||
+                                                kayitTuruIndex == 18)
+                                            ? "%"
+                                            : "°C";
                                         return Container(
                                           color: index % 2 == 1
                                               ? Colors.grey[300]
@@ -1930,7 +2060,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   height: 15 * oran,
                                                   child: Container(
                                                     child: AutoSizeText(
-                                                      "09:25",
+                                                      gelenSaat[index],
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -1948,7 +2078,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   height: 15 * oran,
                                                   child: Container(
                                                     child: AutoSizeText(
-                                                      "30/06/2020",
+                                                      gelenTarih[index],
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -1965,12 +2095,23 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   height: 15 * oran,
                                                   child: Container(
                                                     child: AutoSizeText(
-                                                      "23.45 °C",
+                                                      gelenDeger[index] +
+                                                          " " +
+                                                          birim,
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
                                                         fontSize: 40,
-                                                        color: Colors.black,
+                                                        color: double.parse(
+                                                                    gelenDeger[
+                                                                        index]) ==
+                                                                maxValue
+                                                            ? Colors.red
+                                                            : (double.parse(gelenDeger[
+                                                                        index]) ==
+                                                                    minValue
+                                                                ? Colors.blue
+                                                                : Colors.black),
                                                       ),
                                                     ),
                                                   ),
@@ -1986,8 +2127,104 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                           ),
                           Expanded(
                             flex: 1,
-                            child: Container(
-                              alignment: Alignment.center,
+                            child: Visibility(
+                              visible: kayitAdet == 0 ? false : true,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Column(
+                                  children: <Widget>[
+                                    Spacer(
+                                      flex: 1,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv764"),
+                                                  style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: AutoSizeText(
+                                                  maxValue.toString() +
+                                                      " " +
+                                                      (kayitTuruIndex == 17 ||
+                                                              kayitTuruIndex ==
+                                                                  18
+                                                          ? "%"
+                                                          : "°C"),
+                                                  style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.red,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 1,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, "tv765"),
+                                                  style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: SizedBox(
+                                              child: Container(
+                                                child: AutoSizeText(
+                                                  minValue.toString() +
+                                                      " " +
+                                                      (kayitTuruIndex == 17 ||
+                                                              kayitTuruIndex ==
+                                                                  18
+                                                          ? "%"
+                                                          : "°C"),
+                                                  style: TextStyle(
+                                                      fontFamily: 'Kelly Slab',
+                                                      color: Colors.blue,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 4,
+                                    )
+                                  ],
+                                ),
+                              ),
                             ),
                           )
                         ],
@@ -2010,7 +2247,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv401"),
+                      Dil().sec(dilSecimi, "tv735"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -2039,7 +2276,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                             text: TextSpan(children: <TextSpan>[
                               //Giriş metni
                               TextSpan(
-                                  text: Dil().sec(dilSecimi, "info25"),
+                                  text: Dil().sec(dilSecimi, "info54"),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 13 * oran)),
@@ -2155,9 +2392,35 @@ class SicVeNemLogState extends State<SicVeNemLog> {
   takipEtVeriIsleme(String gelenMesaj) {
     print(gelenMesaj);
     var degerler = gelenMesaj.split('#');
+    kayitAdet = degerler.length - 1;
+    gelenSaat = [];
+    gelenTarih = [];
+    gelenDeger = [];
 
+    if (gelenMesaj.contains("yok1")) {
+      Toast.show(Dil().sec(dilSecimi, "toast103"), context, duration: 3);
+    } else if (gelenMesaj.contains("yok2")) {
+      Toast.show(Dil().sec(dilSecimi, "toast102"), context, duration: 3);
+    } else {
+      for (var i = 1; i < degerler.length; i++) {
+        gelenSaat
+            .add(degerler[i].split("*")[0] + ":" + degerler[i].split("*")[1]);
 
-    
+        gelenTarih.add(degerler[i].split("*")[2] +
+            "-" +
+            tarihIlk.month.toString() +
+            "-" +
+            tarihIlk.year.toString());
+        gelenDeger.add(degerler[i].split("*")[3]);
+        double value = double.parse(degerler[i].split("*")[3]);
+        if (value > maxValue) {
+          maxValue = value;
+        }
+        if (value < minValue) {
+          minValue = value;
+        }
+      }
+    }
 
     baglanti = false;
     if (!timerCancel) {

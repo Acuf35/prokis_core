@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -14,8 +12,6 @@ import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/yardimci/database_helper.dart';
-import 'package:prokis/yardimci/deger_giris_1x2.dart';
-import 'package:prokis/yardimci/deger_giris_2x1.dart';
 import 'package:prokis/yardimci/deger_giris_3x0.dart';
 import 'package:prokis/languages/select.dart';
 
@@ -500,7 +496,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                               
 
                                               yazmaSonrasiGecikmeSayaci = 0;
-                                              String komut="13*$_index*$veri";
+                                              String komut="6*$_index*$veri";
                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                 if(value.split("*")[0]=="error"){
                                                   Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -591,7 +587,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                       
 
                                                       yazmaSonrasiGecikmeSayaci = 0;
-                                                      String komut="13*$_index*$veri*5";
+                                                      String komut="6*$_index*$veri*5";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
                                                           Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -642,7 +638,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                         }
                                                         
                                                         yazmaSonrasiGecikmeSayaci = 0;
-                                                        String komut="13*$_index*$veri*x2on";
+                                                        String komut="6*$_index*$veri*x2on";
                                                         Metotlar().veriGonder(komut, 2235).then((value){
                                                           if(value.split("*")[0]=="error"){
                                                             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -695,7 +691,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                       
 
                                                       yazmaSonrasiGecikmeSayaci = 0;
-                                                      String komut="13*$_index*$veri*10";
+                                                      String komut="6*$_index*$veri*10";
                                                       Metotlar().veriGonder(komut, 2235).then((value){
                                                         if(value.split("*")[0]=="error"){
                                                           Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -967,7 +963,7 @@ final dbProkis = Provider.of<DBProkis>(context);
       if (veriGonderilsinMi) {
 
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="13*$_index*$veri";
+        String komut="6*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);

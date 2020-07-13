@@ -755,7 +755,7 @@ class Dil{
     kod=="tv731" ? metin='SIC. & NEM\nLOGLARI' : null;
     kod=="tv732" ? metin='ALARM / UYARI\nLOGLARI' : null;
     kod=="tv733" ? metin='TÜKETİM\nLOGLARI' : null;
-    kod=="tv734" ? metin='PARAMETRE LOGLARI' : null;
+    kod=="tv734" ? metin='PARAMETRE\nLOGLARI' : null;
     kod=="tv735" ? metin='SIC. & NEM LOGLARI' : null;
     kod=="tv736" ? metin='ALARM / UYARI LOGLARI' : null;
     kod=="tv737" ? metin='TÜKETİM LOGLARI' : null;
@@ -781,9 +781,44 @@ class Dil{
     kod=="tv757" ? metin='Tarih-Son' : null;
     kod=="tv758" ? metin='Dk' : null;
     kod=="tv759" ? metin='Seçilen Tarih' : null;
+    kod=="tv760" ? metin='KAYIT NO' : null;
+    kod=="tv761" ? metin='SAAT' : null;
+    kod=="tv762" ? metin='TARİH' : null;
+    kod=="tv763" ? metin='DEĞER' : null;
+    kod=="tv764" ? metin='En Yüksek' : null;
+    kod=="tv765" ? metin='En Düşük' : null;
+    kod=="tv766" ? metin='PARAMETRE' : null;
+    kod=="tv767" ? metin='Alarm' : null;
+    kod=="tv768" ? metin='Uyarı' : null;
+    kod=="tv769" ? metin='ESKİ DEĞER' : null;
+    kod=="tv770" ? metin='Elektrik-Günlük Toplam' : null;
+    kod=="tv771" ? metin='Elektrik-Günlük Hayv. Baş.' : null;
+    kod=="tv772" ? metin='Yem-Günlük Toplam' : null;
+    kod=="tv773" ? metin='Yem-Günlük Hayv. Baş.' : null;
+    kod=="tv774" ? metin='Su-Günlük Toplam' : null;
+    kod=="tv775" ? metin='Su-Günlük Hayv. Baş.' : null;
+    kod=="tv776" ? metin='HAYVAN SAYISI' : null;
+    kod=="tv777" ? metin='KWsa' : null;
+    kod=="tv778" ? metin='Lt' : null;
+    kod=="tv779" ? metin='Toplam' : null;
+    kod=="tv780" ? metin='Gr' : null;
+    kod=="tv781" ? metin='mL' : null;
+    kod=="tv782" ? metin='Ortalama' : null;
+    kod=="tv783" ? metin='YENİ DEĞER' : null;
+    kod=="tv784" ? metin='KULLANICI' : null;
+    kod=="tv785" ? metin='NO' : null;
+    kod=="tv786" ? metin='Klepe Uzunlukları' : null;
+    kod=="tv787" ? metin='Bina Ölçüleri' : null;
+    kod=="tv788" ? metin='Debi ve Nem' : null;
+    kod=="tv789" ? metin='Fan Harita Resetleme' : null;
+    kod=="tv790" ? metin='Klepe Harita Resetleme' : null;
+    kod=="tv791" ? metin='Ped Harita Resetleme' : null;
+    kod=="tv792" ? metin='Isı Sensor Harita Resetleme' : null;
+    kod=="tv793" ? metin='Bacafan Harita Resetleme' : null;
+    kod=="tv794" ? metin='Isıtıcı Harita Resetleme' : null;
+    kod=="tv795" ? metin='Silo Harita Resetleme' : null;
+    kod=="tv796" ? metin='Kalibrasyon\nDurdur' : null;
    
-
-    
 
     //#endregion
 
@@ -1044,6 +1079,9 @@ class Dil{
     kod=="toast99" ? metin='Alarm hala aktif, o yüzden resetlenemez!' : null;
     kod=="toast100" ? metin='Alarm metni için en az 10 karakter giriniz!' : null;
     kod=="toast101" ? metin='Yazdırma hatası! Yazdırma portu kapalı.Ağ hatası yoksa Server PC\'yi yeniden başlatınız.' : null;
+    kod=="toast102" ? metin='Girilen ayda herhangi bir log kaydı bulunmamaktadır.' : null;
+    kod=="toast103" ? metin='Girilen gün aralığında herhangi bir log kaydı bulunmamaktadır.' : null;
+    kod=="toast104" ? metin='Tarih İlk ve Tarih Son parametrelerine aynı ay ve yıl girilmelidir!' : null;
     
 
 
@@ -1824,6 +1862,22 @@ class Dil{
     ' butonuna tıkandığı halde ikon yeşile dönmüyorsa alarm sorunu çözülmemiş, alarm sinyali hala geliyor demektir durum tekrar kontrol  edilmelidir. Alarm ikonu'
     ' yeşile döndükten sonra ilgili alarmı listeden silmek için "ALARMI KALDIR" butonuna tıklayınız. Aynı şekilde ilgili uyarı şartları çözülmüşse "LİSTEYİ GÜNCELLE"'
     ' butonuna tıklandığında uyarı ikonu sarıdan yeşile döner. Bu işlem sonrasında "UYARIYI KALDIR" butonuna tıklayarak ilgili uyarıyı listeden kaldırabilirsiniz.\n\n'  : null;
+
+
+    //SIC ve NEM LOGLARI
+    kod=="info54" ? metin='     Ortalama Sıcaklık, tüm sıcaklık sensörlerinin değerleri ve iç-dış nem değerlerinin log kayıtlarına bu sayfadan erilebilmektedir.'
+    ' "Kayıt Türü" parametresinden kayıt türü seçilir. "Log Periyot" parametresinden 5dk, 10dk, 15dk, 30dk ve 60dk seçeneklerinden biri seçildiğinde veriler'
+    ' kayıtlı veriler bu parametrede belirtilen aralıklarla listelenir. Hangi tarih aralığındaki kayıtlar getirilsin isteniyorsa "Tarih İlk" ve "Tarih Son" parametrelerine'
+    ' istenilen aralık girilir ve "GETİR" butonuna basılır. Burada dikkat edilmesi gereken nokta bir defade en fazla 1 aylık veri çağrılabilir. "Tarih İlk" ve "Tarih Son"'
+    ' parametrelerinin her ikisi için de yıl ve ay aynı olacak şekilde girilmelidir. Veriler getirildiğinde tespit edilen "En yüksek" ve "En düşük" değerler'
+    ' o anda çağırılan listedeki en yüksek ve en düşük değerlerdir.\n\n'  : null;
+
+
+    //ALARM ve UYARI LOGLARI
+    kod=="info55" ? metin='     Geçmişte meydana gelmiş alarm ve uyarı log kayıtlarına bu sayfadan erilebilmektedir.'
+    ' "Kayıt Türü" parametresinden kayıt türü seçilir. Hangi tarih aralığındaki kayıtlar getirilsin isteniyorsa "Tarih İlk" ve "Tarih Son" parametrelerine'
+    ' istenilen aralık girilir ve "GETİR" butonuna basılır. Burada dikkat edilmesi gereken nokta bir defade en fazla 1 aylık veri çağrılabilir. "Tarih İlk" ve "Tarih Son"'
+    ' parametrelerinin her ikisi için de yıl ve ay aynı olacak şekilde girilmelidir.\n\n'  : null;
 
 
 
@@ -2983,6 +3037,43 @@ class Dil{
     kod=="tv757" ? metin='Date-Last' : null;
     kod=="tv758" ? metin='Min.' : null;
     kod=="tv759" ? metin='Selected Date' : null;
+    kod=="tv760" ? metin='RECORD NO' : null;
+    kod=="tv761" ? metin='TIME' : null;
+    kod=="tv762" ? metin='DATE' : null;
+    kod=="tv763" ? metin='VALUE' : null;
+    kod=="tv764" ? metin='Highest' : null;
+    kod=="tv765" ? metin='Lowest' : null;
+    kod=="tv766" ? metin='PARAMETER' : null;
+    kod=="tv767" ? metin='Alarm' : null;
+    kod=="tv768" ? metin='Warning' : null;
+    kod=="tv769" ? metin='OLD VALUE' : null;
+    kod=="tv770" ? metin='Electricity-Daily Total' : null;
+    kod=="tv771" ? metin='Electricity-Daily Per. Animal' : null;
+    kod=="tv772" ? metin='Feed-Daily Total' : null;
+    kod=="tv773" ? metin='Feed-Daily Per. Animal' : null;
+    kod=="tv774" ? metin='Water-Daily Total' : null;
+    kod=="tv775" ? metin='Water-Daily Per. Animal' : null;
+    kod=="tv776" ? metin='ANIMAL COUNT' : null;
+    kod=="tv777" ? metin='KWh' : null;
+    kod=="tv778" ? metin='Lt' : null;
+    kod=="tv779" ? metin='Total' : null;
+    kod=="tv780" ? metin='Gr' : null;
+    kod=="tv781" ? metin='mL' : null;
+    kod=="tv782" ? metin='Average' : null;
+    kod=="tv783" ? metin='NEW VALUE' : null;
+    kod=="tv784" ? metin='USER' : null;
+    kod=="tv785" ? metin='NO' : null;
+    kod=="tv786" ? metin='Flap Dimensions' : null;
+    kod=="tv787" ? metin='Build Dimensions' : null;
+    kod=="tv788" ? metin='Flow and Hum.' : null;
+    kod=="tv789" ? metin='Fan Map Resetting' : null;
+    kod=="tv790" ? metin='Flap Map Resetting' : null;
+    kod=="tv791" ? metin='Ped Map Resetting' : null;
+    kod=="tv792" ? metin='Temp. Sensor Map Resetting' : null;
+    kod=="tv793" ? metin='Chimney F. Map Resetting' : null;
+    kod=="tv794" ? metin='Heater Map Resetting' : null;
+    kod=="tv795" ? metin='Silo Map Resetting' : null;
+    kod=="tv796" ? metin='Calibration\nStop' : null;
    
     
     
@@ -3258,6 +3349,11 @@ class Dil{
     kod=="toast99" ? metin='The alarm is still active, it can\'t reset' : null;
     kod=="toast100" ? metin='Please enter 10 character atleast for alarm text!' : null;
     kod=="toast101" ? metin='Writing error! Writing port is close.If there is no connection error, reboot server PC' : null;
+    kod=="toast102" ? metin='There is no any recorded data for entered month!' : null;
+    kod=="toast103" ? metin='There is no any recorede data for entered day interval!' : null;
+    kod=="toast104" ? metin='Month and year values must be same for Date-First and Date-Last parameters!' : null;
+
+
     //endregion
 
     return metin;

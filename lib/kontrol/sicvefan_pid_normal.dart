@@ -57,9 +57,9 @@ class SicVeFanPIDNormalState extends State<SicVeFanPIDNormal> {
 
   int yazmaSonrasiGecikmeSayaci = 4;
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
-
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -72,33 +72,31 @@ class SicVeFanPIDNormalState extends State<SicVeFanPIDNormal> {
       }
     }
 
-    
-
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
+    final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
-      
-      Metotlar().takipEt('5*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
+      Metotlar().takipEt('5*', 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+        } else {
+          takipEtVeriIsleme(veri);
+          baglantiDurum = "";
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -107,18 +105,18 @@ final dbProkis = Provider.of<DBProkis>(context);
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          
-          Metotlar().takipEt('5*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
 
+          Metotlar().takipEt('5*', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+              setState(() {});
+            } else {
+              takipEtVeriIsleme(veri);
+              baglantiDurum = "";
+            }
+          });
         }
       });
     }
@@ -128,43 +126,50 @@ final dbProkis = Provider.of<DBProkis>(context);
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum, alarmDurum),
+        appBar: Metotlar().appBar(
+            dilSecimi, context, oran, 'tv181', baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
-            children: <Widget>[
-              Expanded(
-                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemTime(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-              
-              Expanded(
-                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemDate(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-            ],
-          ),
-          
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.only(left: 10 * oran),
+                    child: TimerBuilder.periodic(Duration(seconds: 1),
+                        builder: (context) {
+                      return Text(
+                        Metotlar().getSystemTime(dbVeriler),
+                        style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12 * oran,
+                            fontWeight: FontWeight.bold),
+                      );
+                    }),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.only(right: 10 * oran),
+                    child: TimerBuilder.periodic(Duration(seconds: 1),
+                        builder: (context) {
+                      return Text(
+                        Metotlar().getSystemDate(dbVeriler),
+                        style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12 * oran,
+                            fontWeight: FontWeight.bold),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: Container(
                 color: Colors.grey[300],
@@ -191,8 +196,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv125"),
+                                          Dil().sec(dilSecimi, "tv125"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
@@ -230,7 +234,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                             oran,
                                             dilSecimi,
                                             "tv115",
-                                            "",dbProkis);
+                                            "",
+                                            dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -284,8 +289,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv191"),
+                                          Dil().sec(dilSecimi, "tv191"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
@@ -301,9 +305,9 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     flex: 4,
                                     child: RawMaterialButton(
                                       onPressed: () {
-                                        _index = 3;
-                                        _onlar = int.parse(
-                                                    pidSetKaydirma.split(".")[0]) <
+                                        _index = 14;
+                                        _onlar = int.parse(pidSetKaydirma
+                                                    .split(".")[0]) <
                                                 10
                                             ? 0
                                             : (int.parse(pidSetKaydirma
@@ -323,7 +327,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                             oran,
                                             dilSecimi,
                                             "tv191",
-                                            "",dbProkis);
+                                            "",
+                                            dbProkis);
                                       },
                                       child: Stack(
                                         alignment: Alignment.center,
@@ -375,34 +380,29 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Expanded(
-                                    child: Text(Dil()
-                                        .sec(dilSecimi, "tv184"),textScaleFactor: oran),
+                                    child: Text(Dil().sec(dilSecimi, "tv184"),
+                                        textScaleFactor: oran),
                                   ),
                                   Expanded(
                                       flex: 3,
                                       child: charts.BarChart(
-                                        
                                         _grafikDataPIDCapraz(
-                                            double.parse(setSicA),dilSecimi),
-
-
+                                            double.parse(setSicA), dilSecimi),
                                         domainAxis: new charts.OrdinalAxisSpec(
-                                          
-                                          renderSpec: new charts.SmallTickRendererSpec(
-                                          
-                                              // Tick and Label styling here.
-                                            labelStyle: new charts.TextStyleSpec(
-                                              fontSize: (12*oran).floor(), // size in Pts.
-                                              color: charts.MaterialPalette.black)
-                                            )
-                                        ),
+                                            renderSpec: new charts
+                                                    .SmallTickRendererSpec(
 
-                                        
-
+                                                // Tick and Label styling here.
+                                                labelStyle: new charts
+                                                        .TextStyleSpec(
+                                                    fontSize: (12 * oran)
+                                                        .floor(), // size in Pts.
+                                                    color: charts
+                                                        .MaterialPalette
+                                                        .black))),
                                         primaryMeasureAxis:
                                             new charts.NumericAxisSpec(
                                           showAxisLine: true,
-
                                           tickProviderSpec: new charts
                                               .StaticNumericTickProviderSpec(
                                             <charts.TickSpec<num>>[
@@ -413,18 +413,14 @@ final dbProkis = Provider.of<DBProkis>(context);
                                               charts.TickSpec<num>(16),
                                               charts.TickSpec<num>(
                                                   double.parse(setSicA)),
-                                              charts.TickSpec<num>(double.parse(
-                                                  setSicA)),
                                               charts.TickSpec<num>(
-                                                      double.parse(
-                                                  setSicA)+1),
-                                              charts.TickSpec<num>(double.parse(
-                                                  setSicA)+2),
-                                              
+                                                  double.parse(setSicA)),
+                                              charts.TickSpec<num>(
+                                                  double.parse(setSicA) + 1),
+                                              charts.TickSpec<num>(
+                                                  double.parse(setSicA) + 2),
                                             ],
                                           ),
-
-
                                           renderSpec: new charts
                                                   .GridlineRendererSpec(
                                               labelRotation: 50,
@@ -452,7 +448,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                           new charts.PanAndZoomBehavior(),
                                         ],
                                         animate: animate,
-                                        barGroupingType:charts.BarGroupingType.stacked,
+                                        barGroupingType:
+                                            charts.BarGroupingType.stacked,
                                         vertical: false,
                                       )),
                                   Spacer()
@@ -472,9 +469,11 @@ final dbProkis = Provider.of<DBProkis>(context);
             )
           ],
         ),
-        floatingActionButton: Container(width: 56*oran,height: 56*oran,
+        floatingActionButton: Container(
+          width: 56 * oran,
+          height: 56 * oran,
           child: FittedBox(
-                      child: FloatingActionButton(
+            child: FloatingActionButton(
               onPressed: () {
                 timerCancel = true;
                 Navigator.pushReplacement(
@@ -492,8 +491,9 @@ final dbProkis = Provider.of<DBProkis>(context);
           ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: SizedBox(width: oran*320,
-                  child: Drawer(
+        endDrawer: SizedBox(
+          width: oran * 320,
+          child: Drawer(
             child: MediaQuery.removePadding(
               removeTop: true,
               context: context,
@@ -503,8 +503,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                     child: Container(
                       alignment: Alignment.center,
                       child: Text(
-                        Dil().sec(
-                            dilSecimi, "tv123"), //Sıcaklık diyagramı
+                        Dil().sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -545,7 +544,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
                                       children: <Widget>[
                                         Text(
                                           "A",
@@ -571,21 +571,15 @@ final dbProkis = Provider.of<DBProkis>(context);
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv115"),
+                                          " : " + Dil().sec(dilSecimi, "tv115"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
                                         Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv118"),
+                                          " : " + Dil().sec(dilSecimi, "tv118"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
                                         Text(
-                                          " : " +
-                                              Dil().sec(
-                                                  dilSecimi, "tv121"),
+                                          " : " + Dil().sec(dilSecimi, "tv121"),
                                           style: TextStyle(fontSize: 13 * oran),
                                         ),
                                       ],
@@ -612,7 +606,10 @@ final dbProkis = Provider.of<DBProkis>(context);
                         children: <Widget>[
                           ListTile(
                             dense: false,
-                            title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
+                            title: Text(
+                              Dil().sec(dilSecimi, "tv186"),
+                              textScaleFactor: oran,
+                            ),
                             subtitle: Text(
                               Dil().sec(dilSecimi, "info5"),
                               style: TextStyle(
@@ -676,43 +673,45 @@ final dbProkis = Provider.of<DBProkis>(context);
       _ondalik = val[2];
       _index = val[3];
 
- 
+      String veri = "";
+
       if (index == 1) {
         setSicA =
             _onlar.toString() + _birler.toString() + "." + _ondalik.toString();
+        veri = setSicA;
       }
 
-      if (index == 3) {
+      if (index == 14) {
         pidSetKaydirma = (_onlar == 0 ? "" : _onlar.toString()) +
             _birler.toString() +
             "." +
             _ondalik.toString();
+        veri = pidSetKaydirma;
       }
 
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="5*$setSicA*$pidSetKaydirma*";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = "1*$index*$veri*";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('5*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('5*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
       }
 
       setState(() {});
@@ -723,10 +722,11 @@ final dbProkis = Provider.of<DBProkis>(context);
     updateState(() {});
   }
 
-  static List<charts.Series<GrafikSicaklikCizelgesi, String>> _grafikDataPIDCapraz(
-      double setSic, String dil) {
+  static List<charts.Series<GrafikSicaklikCizelgesi, String>>
+      _grafikDataPIDCapraz(double setSic, String dil) {
     final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesi(Dil().sec(dil, "tv183"),setSic, Colors.blue[700]),
+      new GrafikSicaklikCizelgesi(
+          Dil().sec(dil, "tv183"), setSic, Colors.blue[700]),
     ];
 
     return [
@@ -740,30 +740,21 @@ final dbProkis = Provider.of<DBProkis>(context);
     ];
   }
 
-
-  
-  takipEtVeriIsleme(String gelenMesaj){
-    
+  takipEtVeriIsleme(String gelenMesaj) {
     var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
-              setSicA = degerler[0];
-              pidSetKaydirma = degerler[1];
-              alarmDurum=degerler[2];
+    setSicA = degerler[0];
+    pidSetKaydirma = degerler[1];
+    alarmDurum = degerler[2];
 
-
-    baglanti=false;
-    if(!timerCancel){
-      setState(() {
-        
-      });
+    baglanti = false;
+    if (!timerCancel) {
+      setState(() {});
     }
-    
   }
- 
-  
-  
+
   //--------------------------METOTLAR--------------------------------
 
 }

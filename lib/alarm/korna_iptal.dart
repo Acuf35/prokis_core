@@ -216,7 +216,7 @@ class KornaIptalState extends State<KornaIptal> {
 
 
                                 yazmaSonrasiGecikmeSayaci = 0;
-                                String komut ="39*${index+1}*$veri";
+                                String komut ="33*${index+1}*$veri";
                                 Metotlar().veriGonder(komut, 2235).then((value) {
                                   if (value.split("*")[0] == "error") {
                                     Toast.show(

@@ -5561,7 +5561,7 @@ class AlarmState extends State<Alarm> {
                                                   String veri=kornaSus ? "1" : "0";
 
                                                   yazmaSonrasiGecikmeSayaci = 0;
-                                                  String komut ="37*$_index*$veri";
+                                                  String komut ="31*$_index*$veri";
                                                   Metotlar().veriGonder(komut, 2235).then((value) {
                                                     if (value.split("*")[0] == "error") {
                                                       Toast.show(
@@ -6144,7 +6144,7 @@ class AlarmState extends State<Alarm> {
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
         String komut =
-            "37*$_index*$veri";
+            "31*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
@@ -6210,7 +6210,7 @@ class AlarmState extends State<Alarm> {
 
         if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut ="37*$_index*$veri";
+        String komut ="31*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
@@ -6311,7 +6311,7 @@ class AlarmState extends State<Alarm> {
 
         if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut ="37*$_index*$veri";
+        String komut ="31*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(
@@ -6391,7 +6391,7 @@ class AlarmState extends State<Alarm> {
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut ="37*$_index*$veri";
+        String komut ="31*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(

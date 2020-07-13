@@ -446,7 +446,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
                                        
                                         yazmaSonrasiGecikmeSayaci=0;
-                                        Metotlar().veriGonder("20*$index*1", 2235).then((value){
+                                        Metotlar().veriGonder("13*$index*1", 2235).then((value){
                                           if(value.split("*")[0]=="error"){
                                             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
                                           }else{
@@ -543,7 +543,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                       elevation: 8,
                                       onPressed: (){
                                         yazmaSonrasiGecikmeSayaci=0;
-                                        Metotlar().veriGonder("20*$index*0", 2235).then((value){
+                                        Metotlar().veriGonder("13*$index*0", 2235).then((value){
 
                                           if(value.split("*")[0]=="error"){
                                             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -1506,7 +1506,7 @@ class _OtoMan1State extends State<OtoMan1> {
                                                                             child: Expanded(
                                                                             child: RawMaterialButton(
                                                                               onPressed: () {
-                                                                                _index = 13;
+                                                                                _index = 15;
                                                                                 int sayi=int.parse(provider.manuelAydinlikYuzdesi);
                                                                                 _yuzler=sayi<100 ? 0 : sayi~/100;
                                                                                 _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
@@ -1957,7 +1957,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciTFAN=0;
-                Metotlar().veriGonder("21*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("14*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -1993,7 +1993,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciPED=0;
-                Metotlar().veriGonder("22*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("15*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -2029,7 +2029,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciAYD=0;
-                Metotlar().veriGonder("23*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("16*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -2065,7 +2065,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciBFAN=0;
-                Metotlar().veriGonder("24*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("17*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -2102,7 +2102,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciISTC=0;
-                Metotlar().veriGonder("25*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("18*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -2138,7 +2138,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciYEML=0;
-                Metotlar().veriGonder("26*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("19*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -2178,7 +2178,7 @@ class _OtoMan1State extends State<OtoMan1> {
                   }
 
                 yazmaSonrasiGecikmeSayaciSIRK=0;
-                Metotlar().veriGonder("26a*$unsurNo*$veri", 2235).then((value){
+                Metotlar().veriGonder("20*$unsurNo*$veri", 2235).then((value){
 
                   if(value.split("*")[0]=="error"){
                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -2251,7 +2251,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
       String veri = '';
 
-      if (index == 13) {
+      if (index == 15) {
         provider.manuelAydinlikYuzdesi=(_yuzler*100+_onlar*10+_birler).toString();
         veri = provider.manuelAydinlikYuzdesi;
       }
@@ -2259,7 +2259,7 @@ class _OtoMan1State extends State<OtoMan1> {
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaciYEML= 0;
-        Metotlar().veriGonder("15*$_index*$veri", 2235).then((value){
+        Metotlar().veriGonder("8*$_index*$veri", 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
           }else{

@@ -368,7 +368,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                     String veri=yemCikis1Aktif==true ? '1' : '0';
                                                               
                                                               yazmaSonrasiGecikmeSayaci = 0;
-                                                              String komut="35*1*$veri";
+                                                              String komut="29*1*$veri";
                                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                                 if(value.split("*")[0]=="error"){
                                                                   Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -541,7 +541,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                       String veri=yemCikis2Aktif==true ? '1' : '0';
                                                               
                                                               yazmaSonrasiGecikmeSayaci = 0;
-                                                              String komut="35*2*$veri";
+                                                              String komut="29*2*$veri";
                                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                                 if(value.split("*")[0]=="error"){
                                                                   Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -708,7 +708,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                               
 
                                                               yazmaSonrasiGecikmeSayaci = 0;
-                                                              String komut="35*3*$veri";
+                                                              String komut="29*3*$veri";
                                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                                 if(value.split("*")[0]=="error"){
                                                                   Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -906,7 +906,7 @@ final dbProkis = Provider.of<DBProkis>(context);
           
 
           yazmaSonrasiGecikmeSayaci = 0;
-          String komut="35*4*$sinyalSuresi";
+          String komut="29*4*$sinyalSuresi";
           Metotlar().veriGonder(komut, 2235).then((value){
             if(value.split("*")[0]=="error"){
               Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -1429,7 +1429,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                       String veri=checkBoxGeciciDurum==true ? '1' : '0';
 
                       yazmaSonrasiGecikmeSayaci = 0;
-                      String komut="34*$index*$yemArabaTur*$veri";
+                      String komut="28*$index*$yemArabaTur*$veri";
                       Metotlar().veriGonder(komut, 2235).then((value){
                         if(value.split("*")[0]=="error"){
                           Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);

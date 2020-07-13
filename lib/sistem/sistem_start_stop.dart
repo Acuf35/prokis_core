@@ -230,7 +230,7 @@ class SistemStartStopState extends State<SistemStartStop> {
                             } else {
                               sistemDurumu = true;
                             }
-                            String komut = sistemDurumu ? "36*1" : "36*0";
+                            String komut = sistemDurumu ? "30*1" : "30*0";
 
                             Metotlar().veriGonder(komut, 2235).then((value) {
                               yazmaSonrasiGecikmeSayaci = 0;

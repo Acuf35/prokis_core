@@ -1129,7 +1129,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
             String yil = selectedDate.year.toString();
 
             yazmaSonrasiGecikmeSayaci = 0;
-            String komut = '16*$_index*$gun*$ayy*$yil';
+            String komut = '9*$_index*$gun*$ayy*$yil';
             Metotlar().veriGonder(komut, 2235).then((value) {
               if (value.split("*")[0] == "error") {
                 Toast.show(Dil().sec(dilSecimi, "toast101"), context,
@@ -1165,7 +1165,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
             String yil = selectedDate.year.toString();
 
             yazmaSonrasiGecikmeSayaci = 0;
-            String komut = '16*$_index*$gun*$ayy*$yil';
+            String komut = '9*$_index*$gun*$ayy*$yil';
             Metotlar().veriGonder(komut, 2235).then((value) {
               if (value.split("*")[0] == "error") {
                 Toast.show(Dil().sec(dilSecimi, "toast101"), context,
@@ -1329,7 +1329,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
       }
 
       yazmaSonrasiGecikmeSayaci = 0;
-      String komut = '16*$_index*$veri';
+      String komut = '9*$_index*$veri';
       Metotlar().veriGonder(komut, 2235).then((value) {
         if (value.split("*")[0] == "error") {
           Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
@@ -1485,7 +1485,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
 
       if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut = "16*$_index*$kumesTuru*$veri";
+        String komut = "9*$_index*$kumesTuru*$veri";
         Metotlar().veriGonder(komut, 2235).then((value) {
           if (value.split("*")[0] == "error") {
             Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
@@ -1826,7 +1826,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                       child: RaisedButton(
                         onPressed: () {
                           yazmaSonrasiGecikmeSayaci = 0;
-                          String komut = "16*21*$kumesTuru*0.95*1.10*1.20";
+                          String komut = "9*21*$kumesTuru*0.95*1.10*1.20";
                           Metotlar().veriGonder(komut, 2235).then((value) {
                             if (value.split("*")[0] == "error") {
                               Toast.show(
@@ -2537,7 +2537,7 @@ class SuruBilgisiState extends State<SuruBilgisi> {
                         onPressed: () {
                           yazmaSonrasiGecikmeSayaci = 0;
                           String komut =
-                              "16*21*$kumesTuru*0.16*0.42*0.59*0.84*0.93*1.18*1.35*1.52";
+                              "9*21*$kumesTuru*0.16*0.42*0.59*0.84*0.93*1.18*1.35*1.52";
                           Metotlar().veriGonder(komut, 2235).then((value) {
                             if (value.split("*")[0] == "error") {
                               Toast.show(

@@ -63,9 +63,9 @@ class KlepeKlasikState extends State<KlepeKlasik> {
   List<String> klepeAciklik4 = new List(11);
   List<String> minHavAciklikOrani = new List(11);
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
-
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -93,33 +93,32 @@ class KlepeKlasikState extends State<KlepeKlasik> {
       klepeAciklik4[i] = "0";
       minHavAciklikOrani[i] = "0";
     }
-    
 
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
+    final dbProkis = Provider.of<DBProkis>(context);
     if (timerSayac == 0) {
-
-      Metotlar().takipEt('6*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
+      Metotlar().takipEt('6*', 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+        } else {
+          takipEtVeriIsleme(veri);
+          baglantiDurum = "";
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
         yazmaSonrasiGecikmeSayaci++;
@@ -128,18 +127,18 @@ final dbProkis = Provider.of<DBProkis>(context);
         }
         if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          
-          Metotlar().takipEt('6*', 2236).then((veri){
-              if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
+
+          Metotlar().takipEt('6*', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
               setState(() {});
-            }else{
+            } else {
               takipEtVeriIsleme(veri);
-              baglantiDurum="";
+              baglantiDurum = "";
             }
           });
-
         }
       });
     }
@@ -149,43 +148,50 @@ final dbProkis = Provider.of<DBProkis>(context);
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv192',baglantiDurum, alarmDurum),
+        appBar: Metotlar().appBar(
+            dilSecimi, context, oran, 'tv192', baglantiDurum, alarmDurum),
         body: Column(
           children: <Widget>[
             Row(
-            children: <Widget>[
-              Expanded(
-                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemTime(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-              
-              Expanded(
-                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemDate(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-            ],
-          ),
-          
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.only(left: 10 * oran),
+                    child: TimerBuilder.periodic(Duration(seconds: 1),
+                        builder: (context) {
+                      return Text(
+                        Metotlar().getSystemTime(dbVeriler),
+                        style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12 * oran,
+                            fontWeight: FontWeight.bold),
+                      );
+                    }),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    color: Colors.grey[300],
+                    padding: EdgeInsets.only(right: 10 * oran),
+                    child: TimerBuilder.periodic(Duration(seconds: 1),
+                        builder: (context) {
+                      return Text(
+                        Metotlar().getSystemDate(dbVeriler),
+                        style: TextStyle(
+                            color: Colors.blue[800],
+                            fontFamily: 'Kelly Slab',
+                            fontSize: 12 * oran,
+                            fontWeight: FontWeight.bold),
+                      );
+                    }),
+                  ),
+                ),
+              ],
+            ),
             Expanded(
               child: Container(
                 padding: EdgeInsets.only(bottom: 10 * oran),
@@ -205,15 +211,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 Spacer(flex: 4),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
+                                    child: Container(
+                                      color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
                                         Dil().sec(dilSecimi, "tv194"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -222,15 +230,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
+                                    child: Container(
+                                      color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
                                         Dil().sec(dilSecimi, "tv195"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -239,15 +249,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
+                                    child: Container(
+                                      color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
                                         Dil().sec(dilSecimi, "tv196"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -256,15 +268,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
+                                    child: Container(
+                                      color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
                                         Dil().sec(dilSecimi, "tv197"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -273,15 +287,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
+                                    child: Container(
+                                      color: Colors.grey[100],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
                                         Dil().sec(dilSecimi, "tv198"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -290,15 +306,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                 ),
                                 Expanded(
                                   child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
+                                    child: Container(
+                                      color: Colors.grey[300],
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
                                         Dil().sec(dilSecimi, "tv199"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.black,
-                                            fontSize: 60,),
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                        ),
                                         maxLines: 1,
                                         minFontSize: 8,
                                       ),
@@ -308,11 +326,21 @@ final dbProkis = Provider.of<DBProkis>(context);
                               ],
                             ),
                           ),
-                          Visibility(visible: int.parse(klepeAdet)>0,child: _klepeKlasikUnsur(oran, 1,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>1,child: _klepeKlasikUnsur(oran, 2,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>2,child: _klepeKlasikUnsur(oran, 3,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>3,child: _klepeKlasikUnsur(oran, 4,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>4,child: _klepeKlasikUnsur(oran, 5,dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 0,
+                              child: _klepeKlasikUnsur(oran, 1, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 1,
+                              child: _klepeKlasikUnsur(oran, 2, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 2,
+                              child: _klepeKlasikUnsur(oran, 3, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 3,
+                              child: _klepeKlasikUnsur(oran, 4, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 4,
+                              child: _klepeKlasikUnsur(oran, 5, dbProkis)),
                           Expanded(
                             flex: 4,
                             child: Row(
@@ -329,14 +357,14 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         flex: 2,
                                         child: RawMaterialButton(
                                           onPressed: () {
-
-                                        timerCancel = true;
-                                         Navigator.pushReplacement(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => KlepeKalibrasyon(dbVeriler)),
-                                          );
-
+                                            timerCancel = true;
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      KlepeKalibrasyon(
+                                                          dbVeriler)),
+                                            );
                                           },
                                           child: Column(
                                             children: <Widget>[
@@ -347,7 +375,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                     alignment:
                                                         Alignment.bottomCenter,
                                                     child: AutoSizeText(
-                                                      Dil().sec(dilSecimi, "tv241"),
+                                                      Dil().sec(
+                                                          dilSecimi, "tv241"),
                                                       textAlign:
                                                           TextAlign.center,
                                                       style: TextStyle(
@@ -386,7 +415,6 @@ final dbProkis = Provider.of<DBProkis>(context);
                               ],
                             ),
                           )
-                        
                         ],
                       ),
                     ),
@@ -398,121 +426,144 @@ final dbProkis = Provider.of<DBProkis>(context);
                           ),
                           Expanded(
                             flex: 8,
-                            child: Visibility(visible: int.parse(klepeAdet)>5,
-                                                          child: Column(
+                            child: Visibility(
+                              visible: int.parse(klepeAdet) > 5,
+                              child: Column(
                                 children: <Widget>[
                                   Spacer(flex: 4),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv194"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[100],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(dilSecimi, "tv194"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv195"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(dilSecimi, "tv195"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv196"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[100],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(dilSecimi, "tv196"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv197"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(dilSecimi, "tv197"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[100],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv198"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[100],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(dilSecimi, "tv198"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                   Expanded(
-                                  child: SizedBox(
-                                    child: Container(color: Colors.grey[300],
-                                      alignment: Alignment.centerRight,
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv199"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                    child: SizedBox(
+                                      child: Container(
+                                        color: Colors.grey[300],
+                                        alignment: Alignment.centerRight,
+                                        child: AutoSizeText(
+                                          Dil().sec(dilSecimi, "tv199"),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
                                             fontFamily: 'Kelly Slab',
                                             color: Colors.black,
-                                            fontSize: 60,),
-                                        maxLines: 1,
-                                        minFontSize: 8,
+                                            fontSize: 60,
+                                          ),
+                                          maxLines: 1,
+                                          minFontSize: 8,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
                               ),
                             ),
                           ),
-                          Visibility(visible: int.parse(klepeAdet)>5,child: _klepeKlasikUnsur(oran, 6,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>6,child: _klepeKlasikUnsur(oran, 7,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>7,child: _klepeKlasikUnsur(oran, 8,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>8,child: _klepeKlasikUnsur(oran, 9,dbProkis)),
-                          Visibility(visible: int.parse(klepeAdet)>9,child: _klepeKlasikUnsur(oran, 10,dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 5,
+                              child: _klepeKlasikUnsur(oran, 6, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 6,
+                              child: _klepeKlasikUnsur(oran, 7, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 7,
+                              child: _klepeKlasikUnsur(oran, 8, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 8,
+                              child: _klepeKlasikUnsur(oran, 9, dbProkis)),
+                          Visibility(
+                              visible: int.parse(klepeAdet) > 9,
+                              child: _klepeKlasikUnsur(oran, 10, dbProkis)),
                           Spacer(
                             flex: 4,
                           )
@@ -525,9 +576,11 @@ final dbProkis = Provider.of<DBProkis>(context);
             )
           ],
         ),
-        floatingActionButton: Container(width: 56*oran,height: 56*oran,
+        floatingActionButton: Container(
+          width: 56 * oran,
+          height: 56 * oran,
           child: FittedBox(
-                      child: FloatingActionButton(
+            child: FloatingActionButton(
               onPressed: () {
                 timerCancel = true;
                 Navigator.pushReplacement(
@@ -545,8 +598,9 @@ final dbProkis = Provider.of<DBProkis>(context);
           ),
         ),
         drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: SizedBox(width: 320*oran,
-                  child: Drawer(
+        endDrawer: SizedBox(
+          width: 320 * oran,
+          child: Drawer(
             child: MediaQuery.removePadding(
               removeTop: true,
               context: context,
@@ -556,8 +610,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                     child: Container(
                       alignment: Alignment.center,
                       child: Text(
-                        Dil().sec(
-                            dilSecimi, "tv193"), //Sıcaklık diyagramı
+                        Dil().sec(dilSecimi, "tv193"), //Sıcaklık diyagramı
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -638,13 +691,11 @@ final dbProkis = Provider.of<DBProkis>(context);
                                       left: 2 * oran, right: 2 * oran),
                                   dense: false,
                                   title: Text(
-                                    Dil()
-                                        .sec(dilSecimi, "tv186"),
+                                    Dil().sec(dilSecimi, "tv186"),
                                     textScaleFactor: oran,
                                   ),
                                   subtitle: Text(
-                                    Dil()
-                                        .sec(dilSecimi, "info7"),
+                                    Dil().sec(dilSecimi, "info7"),
                                     style: TextStyle(
                                       fontSize: 13 * oran,
                                     ),
@@ -662,8 +713,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                           flex: 3,
                           child: Container(
                             color: Colors.grey[100],
-                            padding:
-                                EdgeInsets.only(left: 2 * oran, right: 2 * oran),
+                            padding: EdgeInsets.only(
+                                left: 2 * oran, right: 2 * oran),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -682,7 +733,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv200"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv200"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -701,7 +753,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv201"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv201"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -720,7 +773,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv202"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv202"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -739,7 +793,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv203"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv203"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -758,7 +813,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv204"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv204"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -777,7 +833,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv205"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv205"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -796,7 +853,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv206"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv206"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -815,7 +873,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv207"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv207"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -834,7 +893,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv208"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv208"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -853,7 +913,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv209"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv209"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -872,7 +933,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv210"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv210"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -891,7 +953,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                         )),
                                     Expanded(
                                         flex: 5,
-                                        child: Text(Dil().sec(dilSecimi, "tv211"),
+                                        child: Text(
+                                            Dil().sec(dilSecimi, "tv211"),
                                             textScaleFactor: oran,
                                             style: TextStyle(fontSize: 12))),
                                   ],
@@ -925,8 +988,15 @@ final dbProkis = Provider.of<DBProkis>(context);
     });
   }
 
-  Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int klepeIndex, int paramIndex,
-      double oran, String dil, String baslik, DBProkis dbProkis) async {
+  Future _degergiris2X0(
+      int onlarUnsur,
+      int birlerUnsur,
+      int klepeIndex,
+      int paramIndex,
+      double oran,
+      String dil,
+      String baslik,
+      DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -940,76 +1010,63 @@ final dbProkis = Provider.of<DBProkis>(context);
       },
     ).then((val) {
       bool veriGonderilsinMi = false;
-      if (
-          _onlar != val[0] ||
-          _birler != val[1] ||
-          _index != val[2]) {
-          veriGonderilsinMi = true;
+      if (_onlar != val[0] || _birler != val[1] || _index != val[2]) {
+        veriGonderilsinMi = true;
       }
 
       _onlar = val[0];
       _birler = val[1];
       _index = val[2];
 
-      if(paramIndex==1){
-        calisanFanSayisi1[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==2){
-        calisanFanSayisi2[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==3){
-        calisanFanSayisi3[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==4){
-        calisanFanSayisi4[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
+      String veri = "";
+
+      if (paramIndex == 1) {
+        calisanFanSayisi1[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = calisanFanSayisi1[klepeIndex];
+      } else if (paramIndex == 2) {
+        calisanFanSayisi2[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = calisanFanSayisi2[klepeIndex];
+      } else if (paramIndex == 3) {
+        calisanFanSayisi3[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = calisanFanSayisi3[klepeIndex];
+      } else if (paramIndex == 4) {
+        calisanFanSayisi4[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = calisanFanSayisi4[klepeIndex];
       }
 
-      String veri="";
-      veri=calisanFanSayisi1[klepeIndex]+"#"+
-      calisanFanSayisi2[klepeIndex]+"#"+
-      klepeAciklik1[klepeIndex]+"#"+
-      klepeAciklik2[klepeIndex]+"#"+
-      calisanFanSayisi3[klepeIndex]+"#"+
-      calisanFanSayisi4[klepeIndex]+"#"+
-      klepeAciklik3[klepeIndex]+"#"+
-      klepeAciklik4[klepeIndex]+"#"+
-      minHavAciklikOrani[klepeIndex];
-
-      
-
-
-
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut='6*$klepeIndex*$veri';
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = '2*$paramIndex*$klepeIndex*$veri';
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('6*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('6*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
-
       }
-
-
     });
   }
 
-
-  Future _degergiris3X0(int yuzler , onlar , birler, klepeIndex,paramIndex, double oran,
-      String dil, baslik, onBaslik, DBProkis dbProkis) async {
+  Future _degergiris3X0(int yuzler, onlar, birler, klepeIndex, paramIndex,
+      double oran, String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1019,7 +1076,7 @@ final dbProkis = Provider.of<DBProkis>(context);
         // return object of type Dialog
 
         return DegerGiris3X0.Deger(
-            yuzler,onlar, birler, klepeIndex, oran, dil, baslik, onBaslik);
+            yuzler, onlar, birler, klepeIndex, oran, dil, baslik, onBaslik);
       },
     ).then((val) {
       bool veriGonderilsinMi = false;
@@ -1034,57 +1091,53 @@ final dbProkis = Provider.of<DBProkis>(context);
       _birler = val[2];
       _index = val[3];
 
-      if(paramIndex==5){
-        klepeAciklik1[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==6){
-        klepeAciklik2[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==7){
-        klepeAciklik3[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==8){
-        klepeAciklik4[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
-      }else if(paramIndex==9){
-        minHavAciklikOrani[klepeIndex]=(_yuzler*100+_onlar*10+_birler).toString();
+      String veri = "";
+
+      if (paramIndex == 5) {
+        klepeAciklik1[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = klepeAciklik1[klepeIndex];
+      } else if (paramIndex == 6) {
+        klepeAciklik2[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = klepeAciklik2[klepeIndex];
+      } else if (paramIndex == 7) {
+        klepeAciklik3[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = klepeAciklik3[klepeIndex];
+      } else if (paramIndex == 8) {
+        klepeAciklik4[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = klepeAciklik4[klepeIndex];
+      } else if (paramIndex == 9) {
+        minHavAciklikOrani[klepeIndex] =
+            (_yuzler * 100 + _onlar * 10 + _birler).toString();
+        veri = minHavAciklikOrani[klepeIndex];
       }
 
-      String veri="";
-      veri=calisanFanSayisi1[klepeIndex]+"#"+
-      calisanFanSayisi2[klepeIndex]+"#"+
-      klepeAciklik1[klepeIndex]+"#"+
-      klepeAciklik2[klepeIndex]+"#"+
-      calisanFanSayisi3[klepeIndex]+"#"+
-      calisanFanSayisi4[klepeIndex]+"#"+
-      klepeAciklik3[klepeIndex]+"#"+
-      klepeAciklik4[klepeIndex]+"#"+
-      minHavAciklikOrani[klepeIndex];
-
-      
-
-
-
       if (veriGonderilsinMi) {
-
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut='6*$klepeIndex*$veri';
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = '2*$paramIndex*$klepeIndex*$veri';
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('6*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('6*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
       }
 
       setState(() {});
@@ -1095,147 +1148,138 @@ final dbProkis = Provider.of<DBProkis>(context);
     updateState(() {});
   }
 
-  takipEtVeriIsleme(String gelenMesaj){
-    
+  takipEtVeriIsleme(String gelenMesaj) {
     var degerler = gelenMesaj.split('*');
     print(degerler);
     print(yazmaSonrasiGecikmeSayaci);
 
+    var gelenKlepe1 = degerler[0].split('#');
+    calisanFanSayisi1[1] = gelenKlepe1[0];
+    calisanFanSayisi2[1] = gelenKlepe1[1];
+    klepeAciklik1[1] = gelenKlepe1[2];
+    klepeAciklik2[1] = gelenKlepe1[3];
+    calisanFanSayisi3[1] = gelenKlepe1[4];
+    calisanFanSayisi4[1] = gelenKlepe1[5];
+    klepeAciklik3[1] = gelenKlepe1[6];
+    klepeAciklik4[1] = gelenKlepe1[7];
+    aktuelAciklik[1] = gelenKlepe1[8];
+    minHavAciklikOrani[1] = gelenKlepe1[9];
 
-    var gelenKlepe1=degerler[0].split('#');
-    calisanFanSayisi1[1]=gelenKlepe1[0];
-    calisanFanSayisi2[1]=gelenKlepe1[1];
-    klepeAciklik1[1]=gelenKlepe1[2];
-    klepeAciklik2[1]=gelenKlepe1[3];
-    calisanFanSayisi3[1]=gelenKlepe1[4];
-    calisanFanSayisi4[1]=gelenKlepe1[5];
-    klepeAciklik3[1]=gelenKlepe1[6];
-    klepeAciklik4[1]=gelenKlepe1[7];
-    aktuelAciklik[1]=gelenKlepe1[8];
-    minHavAciklikOrani[1]=gelenKlepe1[9];
+    var gelenKlepe2 = degerler[1].split('#');
+    calisanFanSayisi1[2] = gelenKlepe2[0];
+    calisanFanSayisi2[2] = gelenKlepe2[1];
+    klepeAciklik1[2] = gelenKlepe2[2];
+    klepeAciklik2[2] = gelenKlepe2[3];
+    calisanFanSayisi3[2] = gelenKlepe2[4];
+    calisanFanSayisi4[2] = gelenKlepe2[5];
+    klepeAciklik3[2] = gelenKlepe2[6];
+    klepeAciklik4[2] = gelenKlepe2[7];
+    aktuelAciklik[2] = gelenKlepe2[8];
+    minHavAciklikOrani[2] = gelenKlepe2[9];
 
-    var gelenKlepe2=degerler[1].split('#');
-    calisanFanSayisi1[2]=gelenKlepe2[0];
-    calisanFanSayisi2[2]=gelenKlepe2[1];
-    klepeAciklik1[2]=gelenKlepe2[2];
-    klepeAciklik2[2]=gelenKlepe2[3];
-    calisanFanSayisi3[2]=gelenKlepe2[4];
-    calisanFanSayisi4[2]=gelenKlepe2[5];
-    klepeAciklik3[2]=gelenKlepe2[6];
-    klepeAciklik4[2]=gelenKlepe2[7];
-    aktuelAciklik[2]=gelenKlepe2[8];
-    minHavAciklikOrani[2]=gelenKlepe2[9];
+    var gelenKlepe3 = degerler[2].split('#');
+    calisanFanSayisi1[3] = gelenKlepe3[0];
+    calisanFanSayisi2[3] = gelenKlepe3[1];
+    klepeAciklik1[3] = gelenKlepe3[2];
+    klepeAciklik2[3] = gelenKlepe3[3];
+    calisanFanSayisi3[3] = gelenKlepe3[4];
+    calisanFanSayisi4[3] = gelenKlepe3[5];
+    klepeAciklik3[3] = gelenKlepe3[6];
+    klepeAciklik4[3] = gelenKlepe3[7];
+    aktuelAciklik[3] = gelenKlepe3[8];
+    minHavAciklikOrani[3] = gelenKlepe3[9];
 
-    var gelenKlepe3=degerler[2].split('#');
-    calisanFanSayisi1[3]=gelenKlepe3[0];
-    calisanFanSayisi2[3]=gelenKlepe3[1];
-    klepeAciklik1[3]=gelenKlepe3[2];
-    klepeAciklik2[3]=gelenKlepe3[3];
-    calisanFanSayisi3[3]=gelenKlepe3[4];
-    calisanFanSayisi4[3]=gelenKlepe3[5];
-    klepeAciklik3[3]=gelenKlepe3[6];
-    klepeAciklik4[3]=gelenKlepe3[7];
-    aktuelAciklik[3]=gelenKlepe3[8];
-    minHavAciklikOrani[3]=gelenKlepe3[9];
+    var gelenKlepe4 = degerler[3].split('#');
+    calisanFanSayisi1[4] = gelenKlepe4[0];
+    calisanFanSayisi2[4] = gelenKlepe4[1];
+    klepeAciklik1[4] = gelenKlepe4[2];
+    klepeAciklik2[4] = gelenKlepe4[3];
+    calisanFanSayisi3[4] = gelenKlepe4[4];
+    calisanFanSayisi4[4] = gelenKlepe4[5];
+    klepeAciklik3[4] = gelenKlepe4[6];
+    klepeAciklik4[4] = gelenKlepe4[7];
+    aktuelAciklik[4] = gelenKlepe4[8];
+    minHavAciklikOrani[4] = gelenKlepe4[9];
 
+    var gelenKlepe5 = degerler[4].split('#');
+    calisanFanSayisi1[5] = gelenKlepe5[0];
+    calisanFanSayisi2[5] = gelenKlepe5[1];
+    klepeAciklik1[5] = gelenKlepe5[2];
+    klepeAciklik2[5] = gelenKlepe5[3];
+    calisanFanSayisi3[5] = gelenKlepe5[4];
+    calisanFanSayisi4[5] = gelenKlepe5[5];
+    klepeAciklik3[5] = gelenKlepe5[6];
+    klepeAciklik4[5] = gelenKlepe5[7];
+    aktuelAciklik[5] = gelenKlepe5[8];
+    minHavAciklikOrani[5] = gelenKlepe5[9];
 
-    var gelenKlepe4=degerler[3].split('#');
-    calisanFanSayisi1[4]=gelenKlepe4[0];
-    calisanFanSayisi2[4]=gelenKlepe4[1];
-    klepeAciklik1[4]=gelenKlepe4[2];
-    klepeAciklik2[4]=gelenKlepe4[3];
-    calisanFanSayisi3[4]=gelenKlepe4[4];
-    calisanFanSayisi4[4]=gelenKlepe4[5];
-    klepeAciklik3[4]=gelenKlepe4[6];
-    klepeAciklik4[4]=gelenKlepe4[7];
-    aktuelAciklik[4]=gelenKlepe4[8];
-    minHavAciklikOrani[4]=gelenKlepe4[9];
+    var gelenKlepe6 = degerler[5].split('#');
+    calisanFanSayisi1[6] = gelenKlepe6[0];
+    calisanFanSayisi2[6] = gelenKlepe6[1];
+    klepeAciklik1[6] = gelenKlepe6[2];
+    klepeAciklik2[6] = gelenKlepe6[3];
+    calisanFanSayisi3[6] = gelenKlepe6[4];
+    calisanFanSayisi4[6] = gelenKlepe6[5];
+    klepeAciklik3[6] = gelenKlepe6[6];
+    klepeAciklik4[6] = gelenKlepe6[7];
+    aktuelAciklik[6] = gelenKlepe6[8];
+    minHavAciklikOrani[6] = gelenKlepe6[9];
 
-    var gelenKlepe5=degerler[4].split('#');
-    calisanFanSayisi1[5]=gelenKlepe5[0];
-    calisanFanSayisi2[5]=gelenKlepe5[1];
-    klepeAciklik1[5]=gelenKlepe5[2];
-    klepeAciklik2[5]=gelenKlepe5[3];
-    calisanFanSayisi3[5]=gelenKlepe5[4];
-    calisanFanSayisi4[5]=gelenKlepe5[5];
-    klepeAciklik3[5]=gelenKlepe5[6];
-    klepeAciklik4[5]=gelenKlepe5[7];
-    aktuelAciklik[5]=gelenKlepe5[8];
-    minHavAciklikOrani[5]=gelenKlepe5[9];
+    var gelenKlepe7 = degerler[6].split('#');
+    calisanFanSayisi1[7] = gelenKlepe7[0];
+    calisanFanSayisi2[7] = gelenKlepe7[1];
+    klepeAciklik1[7] = gelenKlepe7[2];
+    klepeAciklik2[7] = gelenKlepe7[3];
+    calisanFanSayisi3[7] = gelenKlepe7[4];
+    calisanFanSayisi4[7] = gelenKlepe7[5];
+    klepeAciklik3[7] = gelenKlepe7[6];
+    klepeAciklik4[7] = gelenKlepe7[7];
+    aktuelAciklik[7] = gelenKlepe7[8];
+    minHavAciklikOrani[7] = gelenKlepe7[9];
 
-    var gelenKlepe6=degerler[5].split('#');
-    calisanFanSayisi1[6]=gelenKlepe6[0];
-    calisanFanSayisi2[6]=gelenKlepe6[1];
-    klepeAciklik1[6]=gelenKlepe6[2];
-    klepeAciklik2[6]=gelenKlepe6[3];
-    calisanFanSayisi3[6]=gelenKlepe6[4];
-    calisanFanSayisi4[6]=gelenKlepe6[5];
-    klepeAciklik3[6]=gelenKlepe6[6];
-    klepeAciklik4[6]=gelenKlepe6[7];
-    aktuelAciklik[6]=gelenKlepe6[8];
-    minHavAciklikOrani[6]=gelenKlepe6[9];
+    var gelenKlepe8 = degerler[7].split('#');
+    calisanFanSayisi1[8] = gelenKlepe8[0];
+    calisanFanSayisi2[8] = gelenKlepe8[1];
+    klepeAciklik1[8] = gelenKlepe8[2];
+    klepeAciklik2[8] = gelenKlepe8[3];
+    calisanFanSayisi3[8] = gelenKlepe8[4];
+    calisanFanSayisi4[8] = gelenKlepe8[5];
+    klepeAciklik3[8] = gelenKlepe8[6];
+    klepeAciklik4[8] = gelenKlepe8[7];
+    aktuelAciklik[8] = gelenKlepe8[8];
+    minHavAciklikOrani[8] = gelenKlepe8[9];
 
-    var gelenKlepe7=degerler[6].split('#');
-    calisanFanSayisi1[7]=gelenKlepe7[0];
-    calisanFanSayisi2[7]=gelenKlepe7[1];
-    klepeAciklik1[7]=gelenKlepe7[2];
-    klepeAciklik2[7]=gelenKlepe7[3];
-    calisanFanSayisi3[7]=gelenKlepe7[4];
-    calisanFanSayisi4[7]=gelenKlepe7[5];
-    klepeAciklik3[7]=gelenKlepe7[6];
-    klepeAciklik4[7]=gelenKlepe7[7];
-    aktuelAciklik[7]=gelenKlepe7[8];
-    minHavAciklikOrani[7]=gelenKlepe7[9];
+    var gelenKlepe9 = degerler[8].split('#');
+    calisanFanSayisi1[9] = gelenKlepe9[0];
+    calisanFanSayisi2[9] = gelenKlepe9[1];
+    klepeAciklik1[9] = gelenKlepe9[2];
+    klepeAciklik2[9] = gelenKlepe9[3];
+    calisanFanSayisi3[9] = gelenKlepe9[4];
+    calisanFanSayisi4[9] = gelenKlepe9[5];
+    klepeAciklik3[9] = gelenKlepe9[6];
+    klepeAciklik4[9] = gelenKlepe9[7];
+    aktuelAciklik[9] = gelenKlepe9[8];
+    minHavAciklikOrani[9] = gelenKlepe9[9];
 
-    var gelenKlepe8=degerler[7].split('#');
-    calisanFanSayisi1[8]=gelenKlepe8[0];
-    calisanFanSayisi2[8]=gelenKlepe8[1];
-    klepeAciklik1[8]=gelenKlepe8[2];
-    klepeAciklik2[8]=gelenKlepe8[3];
-    calisanFanSayisi3[8]=gelenKlepe8[4];
-    calisanFanSayisi4[8]=gelenKlepe8[5];
-    klepeAciklik3[8]=gelenKlepe8[6];
-    klepeAciklik4[8]=gelenKlepe8[7];
-    aktuelAciklik[8]=gelenKlepe8[8];
-    minHavAciklikOrani[8]=gelenKlepe8[9];
+    var gelenKlepe10 = degerler[9].split('#');
+    calisanFanSayisi1[10] = gelenKlepe10[0];
+    calisanFanSayisi2[10] = gelenKlepe10[1];
+    klepeAciklik1[10] = gelenKlepe10[2];
+    klepeAciklik2[10] = gelenKlepe10[3];
+    calisanFanSayisi3[10] = gelenKlepe10[4];
+    calisanFanSayisi4[10] = gelenKlepe10[5];
+    klepeAciklik3[10] = gelenKlepe10[6];
+    klepeAciklik4[10] = gelenKlepe10[7];
+    aktuelAciklik[10] = gelenKlepe10[8];
+    minHavAciklikOrani[10] = gelenKlepe10[9];
 
-    var gelenKlepe9=degerler[8].split('#');
-    calisanFanSayisi1[9]=gelenKlepe9[0];
-    calisanFanSayisi2[9]=gelenKlepe9[1];
-    klepeAciklik1[9]=gelenKlepe9[2];
-    klepeAciklik2[9]=gelenKlepe9[3];
-    calisanFanSayisi3[9]=gelenKlepe9[4];
-    calisanFanSayisi4[9]=gelenKlepe9[5];
-    klepeAciklik3[9]=gelenKlepe9[6];
-    klepeAciklik4[9]=gelenKlepe9[7];
-    aktuelAciklik[9]=gelenKlepe9[8];
-    minHavAciklikOrani[9]=gelenKlepe9[9];
+    alarmDurum = degerler[10];
 
-    var gelenKlepe10=degerler[9].split('#');
-    calisanFanSayisi1[10]=gelenKlepe10[0];
-    calisanFanSayisi2[10]=gelenKlepe10[1];
-    klepeAciklik1[10]=gelenKlepe10[2];
-    klepeAciklik2[10]=gelenKlepe10[3];
-    calisanFanSayisi3[10]=gelenKlepe10[4];
-    calisanFanSayisi4[10]=gelenKlepe10[5];
-    klepeAciklik3[10]=gelenKlepe10[6];
-    klepeAciklik4[10]=gelenKlepe10[7];
-    aktuelAciklik[10]=gelenKlepe10[8];
-    minHavAciklikOrani[10]=gelenKlepe10[9];
-
-    alarmDurum=degerler[10];
-              
-
-
-    baglanti=false;
-    if(!timerCancel){
-      setState(() {
-        
-      });
+    baglanti = false;
+    if (!timerCancel) {
+      setState(() {});
     }
-    
   }
- 
 
   Widget _klepeKlasikUnsur(double oran, int klepeNo, DBProkis dbProkis) {
     return Expanded(
@@ -1251,7 +1295,6 @@ final dbProkis = Provider.of<DBProkis>(context);
                       flex: 4,
                       child: RawMaterialButton(
                         onPressed: () {
-
                           showModalBottomSheet<void>(
                               context: context,
                               builder: (BuildContext context) {
@@ -1267,10 +1310,11 @@ final dbProkis = Provider.of<DBProkis>(context);
                                             flex: 1,
                                             child: Center(
                                                 child: Text(
-                                              Dil().sec(
-                                                  dilSecimi, "tv212")+Dil().sec(
-                                                  dilSecimi, "tv192")+" $klepeNo",
-                                                  textScaleFactor: oran,
+                                              Dil().sec(dilSecimi, "tv212") +
+                                                  Dil()
+                                                      .sec(dilSecimi, "tv192") +
+                                                  " $klepeNo",
+                                              textScaleFactor: oran,
                                               style: TextStyle(
                                                   fontFamily: 'Kelly Slab',
                                                   fontWeight: FontWeight.bold),
@@ -1284,409 +1328,747 @@ final dbProkis = Provider.of<DBProkis>(context);
                                               child: Row(
                                                 children: <Widget>[
                                                   Expanded(
-                                                                                                      child: Column(
+                                                    child: Column(
                                                       children: <Widget>[
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv200"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv200"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(calisanFanSayisi1[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
+                                                                  int sayi = int.parse(
+                                                                      calisanFanSayisi1[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 1, oran, dilSecimi, "tv200",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris2X0(
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          1,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv200",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
-                                                                  
-                                                                  
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  calisanFanSayisi1[klepeNo],
+                                                                  calisanFanSayisi1[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv204"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv204"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(klepeAciklik1[klepeNo]);
+                                                                  int sayi = int.parse(
+                                                                      klepeAciklik1[
+                                                                          klepeNo]);
                                                                   print(sayi);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 5, oran, dilSecimi, "tv204","",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          5,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv204",
+                                                                          "",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  klepeAciklik1[klepeNo],
+                                                                  klepeAciklik1[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                      
                                                       ],
                                                     ),
                                                   ),
                                                   Expanded(
-                                                                                                      child: Column(
+                                                    child: Column(
                                                       children: <Widget>[
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv201"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv201"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(calisanFanSayisi2[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
+                                                                  int sayi = int.parse(
+                                                                      calisanFanSayisi2[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 2, oran, dilSecimi, "tv201",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris2X0(
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          2,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv201",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
-                                                                  
-                                                                  
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  calisanFanSayisi2[klepeNo],
+                                                                  calisanFanSayisi2[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv205"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv205"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(klepeAciklik2[klepeNo]);
+                                                                  int sayi = int.parse(
+                                                                      klepeAciklik2[
+                                                                          klepeNo]);
                                                                   print(sayi);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-                                                                  print("$_yuzler  , $_onlar  , $_birler");
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+                                                                  print(
+                                                                      "$_yuzler  , $_onlar  , $_birler");
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 6, oran, dilSecimi, "tv205","",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          6,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv205",
+                                                                          "",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  klepeAciklik2[klepeNo],
+                                                                  klepeAciklik2[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                      
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(width: 2,color: Colors.black,),
-                                                  Expanded(
-                                                                                                      child: Column(
-                                                      children: <Widget>[
-                                                        Expanded(
-                                                                                                            child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                Dil().sec(dilSecimi, "tv202"),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        "Kelly Slab"),
-                                                                textScaleFactor: oran,
-                                                              ),
-                                                              RaisedButton(
-                                                                onPressed: () {
-                                                                  int sayi=int.parse(calisanFanSayisi3[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-
-                                                                  _degergiris2X0(_onlar, _birler, _index, 3, oran, dilSecimi, "tv202",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                  
-                                                                  
-                                                                },
-                                                                color: Colors.blue[700],
-                                                                child: Text(
-                                                                  calisanFanSayisi3[klepeNo],
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        Expanded(
-                                                                                                            child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: <Widget>[
-                                                              Text(
-                                                                Dil().sec(dilSecimi, "tv206"),
-                                                                style: TextStyle(
-                                                                    fontFamily:
-                                                                        "Kelly Slab"),
-                                                                textScaleFactor: oran,
-                                                              ),
-                                                              RaisedButton(
-                                                                onPressed: () {
-                                                                  int sayi=int.parse(klepeAciklik3[klepeNo]);
-                                                                  print(sayi);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-                                                                  print("$_yuzler  , $_onlar  , $_birler");
-
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 7, oran, dilSecimi, "tv206","",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
-                                                                  });
-                                                                },
-                                                                color: Colors.blue[700],
-                                                                child: Text(
-                                                                  klepeAciklik3[klepeNo],
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold,
-                                                                      fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      
-                                                      ],
-                                                    ),
+                                                  Container(
+                                                    width: 2,
+                                                    color: Colors.black,
                                                   ),
                                                   Expanded(
-                                                                                                      child: Column(
+                                                    child: Column(
                                                       children: <Widget>[
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv203"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv202"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(calisanFanSayisi4[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
+                                                                  int sayi = int.parse(
+                                                                      calisanFanSayisi3[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  _degergiris2X0(_onlar, _birler, _index, 4, oran, dilSecimi, "tv203",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris2X0(
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          3,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv202",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
-                                                                  
-                                                                  
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  calisanFanSayisi4[klepeNo],
+                                                                  calisanFanSayisi3[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv207"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv206"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(klepeAciklik4[klepeNo]);
+                                                                  int sayi = int.parse(
+                                                                      klepeAciklik3[
+                                                                          klepeNo]);
                                                                   print(sayi);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
-                                                                  print("$_yuzler  , $_onlar  , $_birler");
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+                                                                  print(
+                                                                      "$_yuzler  , $_onlar  , $_birler");
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 8, oran, dilSecimi, "tv207","",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          7,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv206",
+                                                                          "",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  klepeAciklik4[klepeNo],
+                                                                  klepeAciklik3[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                      
                                                       ],
                                                     ),
                                                   ),
-                                                  Container(width: 2,color: Colors.black,),
                                                   Expanded(
-                                                                                                      child: Column(
+                                                    child: Column(
                                                       children: <Widget>[
                                                         Expanded(
-                                                                                                            child: Column(
+                                                          child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: <Widget>[
                                                               Text(
-                                                                Dil().sec(dilSecimi, "tv199"),
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv203"),
                                                                 style: TextStyle(
                                                                     fontFamily:
                                                                         "Kelly Slab"),
-                                                                textScaleFactor: oran,
+                                                                textScaleFactor:
+                                                                    oran,
                                                               ),
                                                               RaisedButton(
                                                                 onPressed: () {
-                                                                  int sayi=int.parse(minHavAciklikOrani[klepeNo]);
-                                                                  _index = klepeNo;
-                                                                  _yuzler=sayi<100 ? 0 : sayi~/100;
-                                                                  _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                                  _birler=sayi%10;
+                                                                  int sayi = int.parse(
+                                                                      calisanFanSayisi4[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
 
-                                                                  _degergiris3X0(_yuzler, _onlar, _birler, _index, 9, oran, dilSecimi, "tv199","",dbProkis).then((onValue){
-                                                                    bottomDrawerIcindeGuncelle(state);
+                                                                  _degergiris2X0(
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          4,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv203",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
                                                                   });
                                                                 },
-                                                                color: Colors.blue[700],
+                                                                color: Colors
+                                                                    .blue[700],
                                                                 child: Text(
-                                                                  minHavAciklikOrani[klepeNo],
+                                                                  calisanFanSayisi4[
+                                                                      klepeNo],
                                                                   style: TextStyle(
                                                                       fontWeight:
                                                                           FontWeight
                                                                               .bold,
                                                                       fontFamily:
-                                                                          'Kelly Slab',fontSize: 20,color: Colors.white),textScaleFactor: oran,
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
                                                                 ),
                                                               ),
                                                             ],
                                                           ),
                                                         ),
-                                                        
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv207"),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Kelly Slab"),
+                                                                textScaleFactor:
+                                                                    oran,
+                                                              ),
+                                                              RaisedButton(
+                                                                onPressed: () {
+                                                                  int sayi = int.parse(
+                                                                      klepeAciklik4[
+                                                                          klepeNo]);
+                                                                  print(sayi);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+                                                                  print(
+                                                                      "$_yuzler  , $_onlar  , $_birler");
+
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          8,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv207",
+                                                                          "",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
+                                                                  });
+                                                                },
+                                                                color: Colors
+                                                                    .blue[700],
+                                                                child: Text(
+                                                                  klepeAciklik4[
+                                                                      klepeNo],
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontFamily:
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                   ),
-                                                  
+                                                  Container(
+                                                    width: 2,
+                                                    color: Colors.black,
+                                                  ),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Expanded(
+                                                          child: Column(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                Dil().sec(
+                                                                    dilSecimi,
+                                                                    "tv199"),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        "Kelly Slab"),
+                                                                textScaleFactor:
+                                                                    oran,
+                                                              ),
+                                                              RaisedButton(
+                                                                onPressed: () {
+                                                                  int sayi = int.parse(
+                                                                      minHavAciklikOrani[
+                                                                          klepeNo]);
+                                                                  _index =
+                                                                      klepeNo;
+                                                                  _yuzler = sayi <
+                                                                          100
+                                                                      ? 0
+                                                                      : sayi ~/
+                                                                          100;
+                                                                  _onlar = sayi < 10
+                                                                      ? 0
+                                                                      : (sayi >
+                                                                              99
+                                                                          ? (sayi - 100 * _yuzler) ~/
+                                                                              10
+                                                                          : sayi ~/
+                                                                              10);
+                                                                  _birler =
+                                                                      sayi % 10;
+
+                                                                  _degergiris3X0(
+                                                                          _yuzler,
+                                                                          _onlar,
+                                                                          _birler,
+                                                                          _index,
+                                                                          9,
+                                                                          oran,
+                                                                          dilSecimi,
+                                                                          "tv199",
+                                                                          "",
+                                                                          dbProkis)
+                                                                      .then(
+                                                                          (onValue) {
+                                                                    bottomDrawerIcindeGuncelle(
+                                                                        state);
+                                                                  });
+                                                                },
+                                                                color: Colors
+                                                                    .blue[700],
+                                                                child: Text(
+                                                                  minHavAciklikOrani[
+                                                                      klepeNo],
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      fontFamily:
+                                                                          'Kelly Slab',
+                                                                      fontSize:
+                                                                          20,
+                                                                      color: Colors
+                                                                          .white),
+                                                                  textScaleFactor:
+                                                                      oran,
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ],
                                               ),
                                             ),
@@ -1697,8 +2079,6 @@ final dbProkis = Provider.of<DBProkis>(context);
                                   },
                                 );
                               });
-                        
-                        
                         },
                         child: Stack(
                           alignment: Alignment.center,
@@ -1711,8 +2091,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                               );
                             }),
                             Text(
-                              Dil()
-                                      .sec(dilSecimi, "tv192") +
+                              Dil().sec(dilSecimi, "tv192") +
                                   "\n" +
                                   klepeNo.toString(),
                               style: TextStyle(
@@ -1806,4 +2185,3 @@ final dbProkis = Provider.of<DBProkis>(context);
   //--------------------------METOTLAR--------------------------------
 
 }
-

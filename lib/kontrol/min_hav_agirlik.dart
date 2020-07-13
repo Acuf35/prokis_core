@@ -581,7 +581,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                   String veri=sadeceMHyap==true ? '1' : '0';
 
                                                   yazmaSonrasiGecikmeSayaci = 0;
-                                                  String komut="12*$_index*$veri";
+                                                  String komut="5*$_index*$veri";
                                                   Metotlar().veriGonder(komut, 2235).then((value){
                                                     if(value.split("*")[0]=="error"){
                                                       Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -676,7 +676,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                               
 
                                               yazmaSonrasiGecikmeSayaci = 0;
-                                              String komut="12*$_index*$veri";
+                                              String komut="5*$_index*$veri";
                                               Metotlar().veriGonder(komut, 2235).then((value){
                                                 if(value.split("*")[0]=="error"){
                                                   Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -768,7 +768,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                         
 
                                                         yazmaSonrasiGecikmeSayaci = 0;
-                                                        String komut="12*$_index*$veri";
+                                                        String komut="5*$_index*$veri";
                                                         Metotlar().veriGonder(komut, 2235).then((value){
                                                           if(value.split("*")[0]=="error"){
                                                             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -819,7 +819,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                         
 
                                                         yazmaSonrasiGecikmeSayaci = 0;
-                                                        String komut="12*$_index*$veri";
+                                                        String komut="5*$_index*$veri";
                                                         Metotlar().veriGonder(komut, 2235).then((value){
                                                           if(value.split("*")[0]=="error"){
                                                             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -1101,7 +1101,7 @@ final dbProkis = Provider.of<DBProkis>(context);
       if (veriGonderilsinMi) {
 
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="12*$_index*$veri";
+        String komut="5*$_index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);

@@ -39,6 +39,7 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
   int dbSayac = 0;
   String dilSecimi = "EN";
   String kurulumDurum = "0";
+  String kumesTuru = "1";
   List<Map> dbVeriler;
 
   String dogalBolgeB = "1.0";
@@ -46,8 +47,8 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
   String setSicA = "21.0";
   String maksFanFarkiH = "5.0";
   String fanKademesi = "1";
-  
-  bool mhDANthYAGECISTEdebiyiKORU=false;
+
+  bool mhDANthYAGECISTEdebiyiKORU = false;
 
   double gun1 = 33.0;
   double gun7 = 31.0;
@@ -66,15 +67,15 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
   List<charts.Series> seriesList;
   bool animate;
 
-  bool timerCancel=false;
-  int timerSayac=0;
+  bool timerCancel = false;
+  int timerSayac = 0;
   bool baglanti = false;
 
-  int yazmaSonrasiGecikmeSayaci=4;
+  int yazmaSonrasiGecikmeSayaci = 4;
 
-  String baglantiDurum="";
-  String alarmDurum="00000000000000000000000000000000000000000000000000000000000000000000000000000000";
-
+  String baglantiDurum = "";
+  String alarmDurum =
+      "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
 //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -85,6 +86,9 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];
       }
+      if (dbVeri[i]["id"] == 3) {
+        kumesTuru = dbVeri[i]["veri1"];
+      }
     }
     _gunlerSet();
 
@@ -92,1878 +96,2260 @@ class SicVeFanLineerCaprazState extends State<SicVeFanLineerCapraz> {
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
 
-@override
+  @override
   void dispose() {
-    timerCancel=true;
+    timerCancel = true;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-final dbProkis = Provider.of<DBProkis>(context);
-
+    final dbProkis = Provider.of<DBProkis>(context);
 
     if (timerSayac == 0) {
-      
-      Metotlar().takipEt('1*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
+      Metotlar().takipEt('1*', 2236).then((veri) {
+        if (veri.split("*")[0] == "error") {
+          baglanti = false;
+          baglantiDurum =
+              Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+          setState(() {});
+        } else {
+          takipEtVeriIsleme(veri);
+          baglantiDurum = "";
+        }
+      });
 
       Timer.periodic(Duration(seconds: 2), (timer) {
-
         yazmaSonrasiGecikmeSayaci++;
         if (timerCancel) {
           timer.cancel();
         }
-        if (!baglanti && yazmaSonrasiGecikmeSayaci>3) {
+        if (!baglanti && yazmaSonrasiGecikmeSayaci > 3) {
           baglanti = true;
-          
-          Metotlar().takipEt('1*', 2236).then((veri){
-            if(veri.split("*")[0]=="error"){
-              baglanti=false;
-              baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-              setState(() {});
-            }else{
-              takipEtVeriIsleme(veri);
-              baglantiDurum="";
-            }
-        });
 
+          Metotlar().takipEt('1*', 2236).then((veri) {
+            if (veri.split("*")[0] == "error") {
+              baglanti = false;
+              baglantiDurum =
+                  Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+              setState(() {});
+            } else {
+              takipEtVeriIsleme(veri);
+              baglantiDurum = "";
+            }
+          });
         }
       });
     }
 
     timerSayac++;
 
-
     var oran = MediaQuery.of(context).size.width / 731.4;
 
     return Scaffold(
-        appBar: Metotlar().appBar(dilSecimi, context, oran, 'tv181',baglantiDurum, alarmDurum),
-        body:Column(
-          children: <Widget>[
-            Row(
-            children: <Widget>[
-              Expanded(
-                              child: Container(alignment: Alignment.centerLeft,color: Colors.grey[300],padding: EdgeInsets.only(left: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemTime(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-              
-              Expanded(
-                              child: Container(alignment: Alignment.centerRight,color: Colors.grey[300],padding: EdgeInsets.only(right: 10*oran),
-                                child: TimerBuilder.periodic(Duration(seconds: 1), builder: (context) {
-                          return Text(
-                            Metotlar().getSystemDate(dbVeriler),
-                            style: TextStyle(
-                                  color: Colors.blue[800],
-                                  fontFamily: 'Kelly Slab',
-                                  fontSize: 12*oran,
-                                  fontWeight: FontWeight.bold),
-                          );
-                        }),
-                              ),
-              ),
-            ],
-          ),
-          
-            Expanded(
-              child: Container(
-                color: Colors.grey[300],
-                child: Column(
-                  children: <Widget>[
-                    Spacer(
-                      flex: 1,
-                    ),
-                    //Set Sıcaklığı
-                    Expanded(
-                      flex: 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Spacer(),
-                          //Set Sıcaklığı giriş butonu
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv125"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab',
-                                              fontWeight: FontWeight.bold),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: RawMaterialButton(
-                                      onPressed: () {
-                                        
-                                          showModalBottomSheet<void>(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return StatefulBuilder(
-                                                  builder: (context, state) {
-                                                    return Container(
-                                                      color: Colors.orange,
-                                                      height: double.infinity,
-                                                      child: Column(
-                                                        children: <Widget>[
-                                                          //Başlık bölümü
-                                                          Expanded(
-                                                            flex: 1,
-                                                            child: Center(
-                                                                child: Text(
-                                                              Dil()
-                                                                  .sec(
-                                                                      dilSecimi,
-                                                                      "tv180"),
-                                                              style: TextStyle(
-                                                                  fontFamily:
-                                                                      'Kelly Slab',
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),textScaleFactor: oran,
-                                                            )),
-                                                          ),
-                                                          //42 günlük set sıcaklığı giriş bölümü
-                                                          Expanded(
-                                                            flex: 11,
-                                                            child: Container(
-                                                              color:
-                                                                  Colors.white,
-                                                              child: Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceEvenly,
-                                                                children: <
-                                                                    Widget>[
-                                                                  //1-6 günler
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv173"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 4;
-                                                                                _onlar = int.parse(gun1.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun1.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun1.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun1.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun1.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv131"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[1],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv132"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran),
-                                                                                Text(gun[2],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv133"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran),
-                                                                                Text(gun[3],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv134"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran),
-                                                                                Text(gun[4],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv135"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran),
-                                                                                Text(gun[5],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv136"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran),
-                                                                                Text(gun[6],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  //7-13 günler
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv174"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 5;
-                                                                                _onlar = int.parse(gun7.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun7.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun7.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun7.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun7.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv137"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[7],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv138"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[8],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv139"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[9],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv140"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[10],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv141"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[11],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv142"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[12],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv143"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[13],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  //14-20 günler
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv175"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 6;
-                                                                                _onlar = int.parse(gun14.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun14.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun14.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun14.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun14.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv144"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[14],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv145"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[15],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv146"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[16],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv147"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[17],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv148"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[18],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv149"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[19],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv150"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[20],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  //21-27 günler
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv176"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 7;
-                                                                                _onlar = int.parse(gun21.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun21.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun21.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun21.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun21.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv151"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[21],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv152"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[22],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv153"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[23],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv154"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[24],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv155"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[25],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv156"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[26],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv157"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[27],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  //28-34 günler
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv177"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 8;
-                                                                                _onlar = int.parse(gun28.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun28.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun28.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun28.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun28.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv158"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[28],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv159"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[29],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv160"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[30],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv161"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[31],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv162"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[32],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv163"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[33],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv164"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[34],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  //35-41 günler
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv178"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 9;
-                                                                                _onlar = int.parse(gun35.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun35.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun35.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun35.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun35.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.spaceEvenly,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv165"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[35],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv166"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[36],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv167"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[37],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv168"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[38],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv169"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[39],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv170"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[40],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv171"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[41],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  //42. gün
-                                                                  Column(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: <
-                                                                        Widget>[
-                                                                      Expanded(
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Text(Dil().sec(dilSecimi, "tv179"),textScaleFactor: oran,
-                                                                                style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
-                                                                            RawMaterialButton(
-                                                                              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                                              fillColor: Colors.blue[700],
-                                                                              constraints: BoxConstraints(),
-                                                                              onPressed: () {
-                                                                                
-                                                                                _index = 10;
-                                                                                _onlar = int.parse(gun42.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun42.toString().split(".")[0]) ~/ 10);
-                                                                                _birler = int.parse(gun42.toString().split(".")[0]) % 10;
-                                                                                _ondalik = int.parse(gun42.toString().split(".")[1]);
-
-                                                                                _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179","",dbProkis).then((onValue) {
-                                                                                  bottomDrawerIcindeGuncelle(state);
-                                                                                });
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
-                                                                                child: Text(gun42.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
-                                                                              ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        flex: 2,
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.start,
-                                                                          children: <
-                                                                              Widget>[
-                                                                            Row(
-                                                                              children: <Widget>[
-                                                                                Text(Dil().sec(dilSecimi, "tv172"),
-                                                                                    style: TextStyle(
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,),
-                                                                                Text(gun[42],
-                                                                                    style: TextStyle(
-                                                                                      fontWeight: FontWeight.bold,
-                                                                                      fontFamily: 'Kelly Slab',
-                                                                                    ),textScaleFactor: oran,)
-                                                                              ],
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              });
-                                        
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          LayoutBuilder(
-                                              builder: (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint.biggest.height,
-                                              color: Colors.blue[700],
-                                            );
-                                          }),
-                                          Text(
-                                            setSicA,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            
-                                            Expanded(
-                                              flex: 2,
-                                              child: SizedBox(
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  child: AutoSizeText(
-                                                    Dil().sec(dilSecimi, "tv480"),
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      fontFamily: 'Kelly Slab',
-                                                      color: Colors.black,
-                                                      fontSize: 60,
-                                                      fontWeight: FontWeight.bold
-                                                    ),
-                                                    maxLines: 3,
-                                                    minFontSize: 8,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Expanded(
-                                              flex: 4,
-                                              child: IconButton(
-                                                padding: EdgeInsets.all(0),
-                                                onPressed: () {
-
-                                                  _index = 5;
-                                                  if (!mhDANthYAGECISTEdebiyiKORU) {
-                                                    mhDANthYAGECISTEdebiyiKORU = true;
-                                                  } else {
-                                                    mhDANthYAGECISTEdebiyiKORU = false;
-                                                  }
-
-                                                  String veri=mhDANthYAGECISTEdebiyiKORU==true ? '1' : '0';
-
-                                                  yazmaSonrasiGecikmeSayaci = 0;
-                                                  String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
-                                                  Metotlar().veriGonder(komut, 2235).then((value){
-                                                    if(value.split("*")[0]=="error"){
-                                                      Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                                    }else{
-                                                      Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                                      
-                                                      baglanti = false;
-                                                      Metotlar().takipEt('1*', 2236).then((veri){
-                                                          if(veri.split("*")[0]=="error"){
-                                                            baglanti=false;
-                                                            baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                                            setState(() {});
-                                                          }else{
-                                                            takipEtVeriIsleme(veri);
-                                                            baglantiDurum="";
-                                                          }
-                                                      });
-                                                    }
-                                                  });
-      
-
-
-
-                                                  setState(() {});
-                                                  
-
-                                                },
-                                                icon: Icon(
-                                                    mhDANthYAGECISTEdebiyiKORU == true
-                                                        ? Icons.check_box
-                                                        : Icons.check_box_outline_blank),
-                                                color: mhDANthYAGECISTEdebiyiKORU == true
-                                                    ? Colors.green.shade500
-                                                    : Colors.blue.shade600,
-                                                iconSize: 30 * oran,
-                                              ),
-                                            ),
-                                            //Spacer(flex: 1,)
-                                          ],
-                                        ),
-                                      ),
-                                
-                        ],
-                      ),
-                    ),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    //Diğerleri
-                    Expanded(
-                      flex: 6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Spacer(),
-                          //Doğal Bölge giriş butonu
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(
-                                                  dilSecimi, "tv126"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab',
-                                              fontWeight: FontWeight.bold),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: RawMaterialButton(
-                                      onPressed: () {
-                                        _index = 0;
-                                        _onlar = int.parse(
-                                                    dogalBolgeB.split(".")[0]) <
-                                                10
-                                            ? 0
-                                            : (int.parse(dogalBolgeB
-                                                    .split(".")[0]) ~/
-                                                10);
-                                        _birler = int.parse(
-                                                dogalBolgeB.split(".")[0]) %
-                                            10;
-                                        _ondalik = int.parse(
-                                            dogalBolgeB.split(".")[1]);
-
-                                        _degergiris2X1(
-                                            _onlar,
-                                            _birler,
-                                            _ondalik,
-                                            _index,
-                                            oran,
-                                            dilSecimi,
-                                            "tv126","",dbProkis);
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          LayoutBuilder(
-                                              builder: (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint.biggest.height,
-                                              color: Colors.green[700],
-                                            );
-                                          }),
-                                          Text(
-                                            dogalBolgeB,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          //Çapraz havalandırma Bitiş Sıcaklığı giriş butonu
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(
-                                                  dilSecimi, "tv128"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab',
-                                              fontWeight: FontWeight.bold),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: RawMaterialButton(
-                                      onPressed: () {
-                                        _index = 2;
-                                        _onlar = int.parse(
-                                                    capHavFarkC.split(".")[0]) <
-                                                10
-                                            ? 0
-                                            : (int.parse(
-                                                    capHavFarkC.split(".")[0]) ~/
-                                                10);
-                                        _birler = int.parse(
-                                                capHavFarkC.split(".")[0]) %
-                                            10;
-                                        _ondalik =
-                                            int.parse(capHavFarkC.split(".")[1]);
-
-                                        _degergiris2X1(
-                                            _onlar,
-                                            _birler,
-                                            _ondalik,
-                                            _index,
-                                            oran,
-                                            dilSecimi,
-                                            "tv128","",dbProkis);
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          LayoutBuilder(
-                                              builder: (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint.biggest.height,
-                                              color: Colors.orange[700],
-                                            );
-                                          }),
-                                          Text(
-                                            capHavFarkC,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          //Maksimum fan sıcaklığı giriş butonu
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv130"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab',
-                                              fontWeight: FontWeight.bold),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: RawMaterialButton(
-                                      onPressed: () {
-                                        
-                                        _index = 3;
-                                        _onlar = int.parse(maksFanFarkiH
-                                                    .split(".")[0]) <
-                                                10
-                                            ? 0
-                                            : (int.parse(maksFanFarkiH
-                                                    .split(".")[0]) ~/
-                                                10);
-                                        _birler = int.parse(
-                                                maksFanFarkiH.split(".")[0]) %
-                                            10;
-                                        _ondalik = int.parse(
-                                            maksFanFarkiH.split(".")[1]);
-
-                                        _degergiris2X1(
-                                            _onlar,
-                                            _birler,
-                                            _ondalik,
-                                            _index,
-                                            oran,
-                                            dilSecimi,
-                                            "tv130","",dbProkis);
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          LayoutBuilder(
-                                              builder: (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint.biggest.height,
-                                              color: Colors.red[700],
-                                            );
-                                          }),
-                                          Text(
-                                            maksFanFarkiH,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          //Adet kademe giriş butonu
-                          Expanded(
-                            flex: 3,
-                            child: Container(
-                              child: Column(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(
-                                              dilSecimi, "tv182"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 50.0,
-                                              fontFamily: 'Kelly Slab',
-                                              fontWeight: FontWeight.bold),
-                                          maxLines: 1,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: RawMaterialButton(
-                                      onPressed: () {
-                                        
-                                        
-                                        _index = 11;
-                                        _birler = int.parse(fanKademesi);
-
-                                        _degergiris1X0(_birler, _index, oran,
-                                            dilSecimi, "tv182", 4,dbProkis);
-                                      },
-                                      child: Stack(
-                                        alignment: Alignment.center,
-                                        children: <Widget>[
-                                          LayoutBuilder(
-                                              builder: (context, constraint) {
-                                            return Icon(
-                                              Icons.brightness_1,
-                                              size: constraint.biggest.height,
-                                              color: Colors.cyan[800],
-                                            );
-                                          }),
-                                          Text(
-                                            fanKademesi,
-                                            style: TextStyle(
-                                                fontSize: 25 * oran,
-                                                fontFamily: 'Kelly Slab',
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                        ],
-                      ),
-                    ),
-                    Spacer(
-                      flex: 1,
-                    ),
-                    //Sıcaklık çizelgesi bölümü
-                    Expanded(
-                      flex: 10,
-                      child: Container(
-                        color: Colors.white,
-                        child: Row(
-                          children: <Widget>[
-                            Spacer(
-                              flex: 1,
-                            ),
-                            Expanded(flex: 28,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    child: Text(Dil().sec(dilSecimi, "tv184"),textScaleFactor: oran,),
-                                  ),
-                                  Expanded(
-                                      flex: 3,
-                                      child: charts.BarChart(
-                                        _grafikDataLineerCapraz(
-                                            double.parse(setSicA),
-                                            double.parse(dogalBolgeB),
-                                            double.parse(capHavFarkC),
-                                            double.parse(maksFanFarkiH),dilSecimi),
-
-
-                                            domainAxis: new charts.OrdinalAxisSpec(
-                                          
-                                          renderSpec: new charts.SmallTickRendererSpec(
-                                          
-                                              // Tick and Label styling here.
-                                            labelStyle: new charts.TextStyleSpec(
-                                              fontSize: (12*oran).floor(), // size in Pts.
-                                              color: charts.MaterialPalette.black)
-                                            )
-                                        ),
-
-                                        primaryMeasureAxis:
-                                            new charts.NumericAxisSpec(
-                                          showAxisLine: true,
-
-                                          tickProviderSpec: new charts
-                                              .StaticNumericTickProviderSpec(
-                                            <charts.TickSpec<num>>[
-                                              charts.TickSpec<num>(0),
-                                              charts.TickSpec<num>(4),
-                                              charts.TickSpec<num>(8),
-                                              charts.TickSpec<num>(12),
-                                              charts.TickSpec<num>(16),
-                                              charts.TickSpec<num>(
-                                                  double.parse(setSicA)),
-                                              charts.TickSpec<num>(double.parse(
-                                                      setSicA) +
-                                                  double.parse(dogalBolgeB)),
-                                              charts.TickSpec<num>(double.parse(
-                                                      setSicA) +
-                                                  double.parse(dogalBolgeB) +
-                                                  double.parse(capHavFarkC)),
-                                              charts.TickSpec<num>(double.parse(
-                                                      setSicA) +
-                                                  double.parse(dogalBolgeB) +
-                                                  double.parse(maksFanFarkiH)),
-                                              charts.TickSpec<num>(double.parse(
-                                                      setSicA) +
-                                                  double.parse(dogalBolgeB) +
-                                                  double.parse(maksFanFarkiH) +
-                                                  1),
-                                              charts.TickSpec<num>(double.parse(
-                                                      setSicA) +
-                                                  double.parse(dogalBolgeB) +
-                                                  double.parse(maksFanFarkiH) +
-                                                  2),
-                                              charts.TickSpec<num>(double.parse(
-                                                      setSicA) +
-                                                  double.parse(dogalBolgeB) +
-                                                  double.parse(maksFanFarkiH) +
-                                                  3),
-                                            ],
-                                          ),
-
-
-
-                                          renderSpec: new charts
-                                                  .GridlineRendererSpec(
-                                              labelRotation: 50,
-                                              labelOffsetFromAxisPx: (1*oran).round(),
-
-                                              // Tick and Label styling here.
-                                              labelStyle:
-                                                  new charts.TextStyleSpec(
-                                                      fontSize:
-                                                          (8*oran).round(), // size in Pts.
-                                                      color: charts
-                                                          .MaterialPalette
-                                                          .black),
-
-                                              // Change the line colors to match text color.
-                                              lineStyle:
-                                                  new charts.LineStyleSpec(
-                                                      color: charts
-                                                          .MaterialPalette
-                                                          .black)),
-                                        ),
-                                        behaviors: [
-                                          new charts.SeriesLegend(),
-                                          new charts.SlidingViewport(),
-                                          new charts.PanAndZoomBehavior(),
-                                          
-
-                                        ],
-                                        animate: animate,
-                                        barGroupingType:charts.BarGroupingType.stacked,
-                                        vertical: false,
-                                      )),
-                                  Spacer()
-                                ],
-                              ),
-                            ),
-                            Spacer(
-                              flex: 4,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
-
-        floatingActionButton: Container(width: 56*oran,height: 56*oran,
-          child: FittedBox(
-                      child: FloatingActionButton(
-              onPressed: () {
-                timerCancel=true;
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
-                );
-              },
-              backgroundColor: Colors.blue,
-              child: Icon(
-                Icons.arrow_back,
-                size: 50,
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ),
-        drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
-        endDrawer: SizedBox(width: 320*oran,
-                  child: Drawer(
-      child: MediaQuery.removePadding(
-          removeTop: true,
-          context: context,
-          child: Column(
+      appBar: Metotlar()
+          .appBar(dilSecimi, context, oran, 'tv181', baglantiDurum, alarmDurum),
+      body: Column(
+        children: <Widget>[
+          //Tarih ve saat
+          Row(
             children: <Widget>[
               Expanded(
                 child: Container(
-                  alignment: Alignment.center,
-                  child: Text(
-                    Dil()
-                        .sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontFamily: 'Kelly Slab',
-                    ),
-                    textScaleFactor: oran,
-                  ),
-                  color: Colors.yellow[700],
+                  alignment: Alignment.centerLeft,
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.only(left: 10 * oran),
+                  child: TimerBuilder.periodic(Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      Metotlar().getSystemTime(dbVeriler),
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontFamily: 'Kelly Slab',
+                          fontSize: 12 * oran,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
                 ),
               ),
               Expanded(
-                flex: 7,
-                child: DrawerHeader(
-                  padding: EdgeInsets.only(left: 10),
-                  margin: EdgeInsets.all(0),
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              alignment: Alignment.center,
-                              image: AssetImage('assets/images/diagram_lineer_capraz.jpg'),
-                              fit: BoxFit.contain,
+                child: Container(
+                  alignment: Alignment.centerRight,
+                  color: Colors.grey[300],
+                  padding: EdgeInsets.only(right: 10 * oran),
+                  child: TimerBuilder.periodic(Duration(seconds: 1),
+                      builder: (context) {
+                    return Text(
+                      Metotlar().getSystemDate(dbVeriler),
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontFamily: 'Kelly Slab',
+                          fontSize: 12 * oran,
+                          fontWeight: FontWeight.bold),
+                    );
+                  }),
+                ),
+              ),
+            ],
+          ),
+
+          Expanded(
+            child: Container(
+              color: Colors.grey[300],
+              child: Column(
+                children: <Widget>[
+                  Spacer(
+                    flex: 1,
+                  ),
+                  //Set Sıcaklığı
+                  Expanded(
+                    flex: 6,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Spacer(),
+                        //Set Sıcaklığı giriş butonu
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv125"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 50.0,
+                                            fontFamily: 'Kelly Slab',
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: RawMaterialButton(
+                                    onPressed: () {
+                                      if (kumesTuru == "1") {
+                                        _index = 1;
+                                        _onlar = int.parse(
+                                                    setSicA.split(".")[0]) <
+                                                10
+                                            ? 0
+                                            : (int.parse(setSicA
+                                                    .split(".")[0]) ~/
+                                                10);
+                                        _birler = int.parse(
+                                                setSicA.split(".")[0]) %
+                                            10;
+                                        _ondalik = int.parse(
+                                            setSicA.split(".")[1]);
+
+                                        _degergiris2X1(
+                                            _onlar,
+                                            _birler,
+                                            _ondalik,
+                                            _index,
+                                            oran,
+                                            dilSecimi,
+                                            "tv125",
+                                            "",
+                                            dbProkis);
+                                      } else {
+                                        showModalBottomSheet<void>(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return StatefulBuilder(
+                                                builder: (context, state) {
+                                                  return Container(
+                                                    color: Colors.orange,
+                                                    height: double.infinity,
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        //Başlık bölümü
+                                                        Expanded(
+                                                          flex: 1,
+                                                          child: Center(
+                                                              child: Text(
+                                                            Dil().sec(dilSecimi,
+                                                                "tv180"),
+                                                            style: TextStyle(
+                                                                fontFamily:
+                                                                    'Kelly Slab',
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                            textScaleFactor:
+                                                                oran,
+                                                          )),
+                                                        ),
+                                                        //42 günlük set sıcaklığı giriş bölümü
+                                                        Expanded(
+                                                          flex: 11,
+                                                          child: Container(
+                                                            color: Colors.white,
+                                                            child: Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceEvenly,
+                                                              children: <
+                                                                  Widget>[
+                                                                //1-6 günler
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv173"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 4;
+                                                                              _onlar = int.parse(gun1.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun1.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun1.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun1.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv173", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun1.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv131"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[1],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(Dil().sec(dilSecimi, "tv132"),
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran),
+                                                                              Text(gun[2],
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran)
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(Dil().sec(dilSecimi, "tv133"),
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran),
+                                                                              Text(gun[3],
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran)
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(Dil().sec(dilSecimi, "tv134"),
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran),
+                                                                              Text(gun[4],
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran)
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(Dil().sec(dilSecimi, "tv135"),
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran),
+                                                                              Text(gun[5],
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran)
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(Dil().sec(dilSecimi, "tv136"),
+                                                                                  style: TextStyle(
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran),
+                                                                              Text(gun[6],
+                                                                                  style: TextStyle(
+                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontFamily: 'Kelly Slab',
+                                                                                  ),
+                                                                                  textScaleFactor: oran)
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                //7-13 günler
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv174"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 5;
+                                                                              _onlar = int.parse(gun7.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun7.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun7.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun7.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv174", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun7.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv137"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[7],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv138"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[8],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv139"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[9],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv140"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[10],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv141"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[11],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv142"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[12],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv143"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[13],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                //14-20 günler
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv175"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 6;
+                                                                              _onlar = int.parse(gun14.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun14.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun14.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun14.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv175", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun14.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv144"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[14],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv145"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[15],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv146"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[16],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv147"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[17],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv148"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[18],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv149"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[19],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv150"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[20],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                //21-27 günler
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv176"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 7;
+                                                                              _onlar = int.parse(gun21.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun21.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun21.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun21.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv176", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun21.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv151"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[21],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv152"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[22],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv153"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[23],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv154"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[24],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv155"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[25],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv156"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[26],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv157"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[27],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                //28-34 günler
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv177"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 8;
+                                                                              _onlar = int.parse(gun28.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun28.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun28.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun28.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv177", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun28.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv158"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[28],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv159"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[29],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv160"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[30],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv161"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[31],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv162"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[32],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv163"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[33],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv164"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[34],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                //35-41 günler
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv178"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 9;
+                                                                              _onlar = int.parse(gun35.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun35.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun35.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun35.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv178", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun35.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceEvenly,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv165"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[35],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv166"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[36],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv167"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[37],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv168"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[38],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv169"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[39],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv170"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[40],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv171"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[41],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                //42. gün
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: <
+                                                                      Widget>[
+                                                                    Expanded(
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Text(
+                                                                              Dil().sec(dilSecimi, "tv179"),
+                                                                              textScaleFactor: oran,
+                                                                              style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, color: Colors.black)),
+                                                                          RawMaterialButton(
+                                                                            materialTapTargetSize:
+                                                                                MaterialTapTargetSize.shrinkWrap,
+                                                                            fillColor:
+                                                                                Colors.blue[700],
+                                                                            constraints:
+                                                                                BoxConstraints(),
+                                                                            onPressed:
+                                                                                () {
+                                                                              _index = 10;
+                                                                              _onlar = int.parse(gun42.toString().split(".")[0]) < 10 ? 0 : (int.parse(gun42.toString().split(".")[0]) ~/ 10);
+                                                                              _birler = int.parse(gun42.toString().split(".")[0]) % 10;
+                                                                              _ondalik = int.parse(gun42.toString().split(".")[1]);
+
+                                                                              _degergiris2X1(_onlar, _birler, _ondalik, _index, oran, dilSecimi, "tv179", "", dbProkis).then((onValue) {
+                                                                                bottomDrawerIcindeGuncelle(state);
+                                                                              });
+                                                                            },
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.only(top: 4, bottom: 4, left: 10, right: 10),
+                                                                              child: Text(gun42.toString(), style: TextStyle(fontFamily: 'Kelly Slab', fontWeight: FontWeight.bold, fontSize: 24 * oran, color: Colors.white)),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                    Expanded(
+                                                                      flex: 2,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Row(
+                                                                            children: <Widget>[
+                                                                              Text(
+                                                                                Dil().sec(dilSecimi, "tv172"),
+                                                                                style: TextStyle(
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              ),
+                                                                              Text(
+                                                                                gun[42],
+                                                                                style: TextStyle(
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                  fontFamily: 'Kelly Slab',
+                                                                                ),
+                                                                                textScaleFactor: oran,
+                                                                              )
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            });
+                                      }
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.brightness_1,
+                                            size: constraint.biggest.height,
+                                            color: Colors.blue[700],
+                                          );
+                                        }),
+                                        Text(
+                                          setSicA,
+                                          style: TextStyle(
+                                              fontSize: 25 * oran,
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          color: Colors.grey[100],
-                          child: Row(
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Expanded(
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: <Widget>[
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B+C",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("D",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("E",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("F",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("G",style: TextStyle(fontSize: 13*oran),))),
-                                    Expanded(child: Container(alignment: Alignment.centerRight,child: Text("A+B+C+H",style: TextStyle(fontSize: 10*oran),))),
-                                  ],
+                                flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, "tv480"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          color: Colors.black,
+                                          fontSize: 60,
+                                          fontWeight: FontWeight.bold),
+                                      maxLines: 3,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Expanded(
                                 flex: 4,
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv115"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv116"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv117"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv118"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv119"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv120"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv121"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                    Expanded(
-                                                                        child: Container(alignment: Alignment.centerLeft,
-                                                                          child: Text(
-                                        " : " +
-                                            Dil().sec(
-                                                dilSecimi, "tv122"),style: TextStyle(fontSize: 13*oran),
-                                      ),
-                                                                        ),
-                                    ),
-                                  ],
+                                child: IconButton(
+                                  padding: EdgeInsets.all(0),
+                                  onPressed: () {
+                                    _index = 11;
+                                    if (!mhDANthYAGECISTEdebiyiKORU) {
+                                      mhDANthYAGECISTEdebiyiKORU = true;
+                                    } else {
+                                      mhDANthYAGECISTEdebiyiKORU = false;
+                                    }
+
+                                    String veri =
+                                        mhDANthYAGECISTEdebiyiKORU == true
+                                            ? '1'
+                                            : '0';
+
+                                    yazmaSonrasiGecikmeSayaci = 0;
+                                    String komut = "1*$_index*$veri";
+                                    Metotlar()
+                                        .veriGonder(komut, 2235)
+                                        .then((value) {
+                                      if (value.split("*")[0] == "error") {
+                                        Toast.show(
+                                            Dil().sec(dilSecimi, "toast101"),
+                                            context,
+                                            duration: 3);
+                                      } else {
+                                        Toast.show(
+                                            Dil().sec(dilSecimi, "toast8"),
+                                            context,
+                                            duration: 3);
+
+                                        baglanti = false;
+                                        Metotlar()
+                                            .takipEt('1*', 2236)
+                                            .then((veri) {
+                                          if (veri.split("*")[0] == "error") {
+                                            baglanti = false;
+                                            baglantiDurum = Metotlar()
+                                                .errorToastMesaj(
+                                                    veri.split("*")[1],
+                                                    dbProkis);
+                                            setState(() {});
+                                          } else {
+                                            takipEtVeriIsleme(veri);
+                                            baglantiDurum = "";
+                                          }
+                                        });
+                                      }
+                                    });
+
+                                    setState(() {});
+                                  },
+                                  icon: Icon(mhDANthYAGECISTEdebiyiKORU == true
+                                      ? Icons.check_box
+                                      : Icons.check_box_outline_blank),
+                                  color: mhDANthYAGECISTEdebiyiKORU == true
+                                      ? Colors.green.shade500
+                                      : Colors.blue.shade600,
+                                  iconSize: 30 * oran,
                                 ),
                               ),
+                              //Spacer(flex: 1,)
                             ],
                           ),
                         ),
-                      )
-                    ],
+                      ],
+                    ),
                   ),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
+                  Spacer(
+                    flex: 1,
                   ),
-                ),
-              ),
-              Expanded(
-                flex: 10,
-                child: Container(
-                  color: Colors.yellow[100],
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: <Widget>[
-                      ListTile(
-                        dense: false,
-                        title: Text(Dil().sec(dilSecimi, "tv186"),textScaleFactor: oran,),
-                        subtitle: Text(
-                          Dil().sec(dilSecimi, "info1"),
-                          style: TextStyle(
-                            fontSize: 13 * oran,
+                  //Diğerleri
+                  Expanded(
+                    flex: 6,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Spacer(),
+                        //Doğal Bölge giriş butonu
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv126"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 50.0,
+                                            fontFamily: 'Kelly Slab',
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: RawMaterialButton(
+                                    onPressed: () {
+                                      _index = 0;
+                                      _onlar = int.parse(
+                                                  dogalBolgeB.split(".")[0]) <
+                                              10
+                                          ? 0
+                                          : (int.parse(
+                                                  dogalBolgeB.split(".")[0]) ~/
+                                              10);
+                                      _birler =
+                                          int.parse(dogalBolgeB.split(".")[0]) %
+                                              10;
+                                      _ondalik =
+                                          int.parse(dogalBolgeB.split(".")[1]);
+
+                                      _degergiris2X1(
+                                          _onlar,
+                                          _birler,
+                                          _ondalik,
+                                          _index,
+                                          oran,
+                                          dilSecimi,
+                                          "tv126",
+                                          "",
+                                          dbProkis);
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.brightness_1,
+                                            size: constraint.biggest.height,
+                                            color: Colors.green[700],
+                                          );
+                                        }),
+                                        Text(
+                                          dogalBolgeB,
+                                          style: TextStyle(
+                                              fontSize: 25 * oran,
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                        onTap: () {
-                          // Update the state of the app.
-                          // ...
-                        },
+                        Spacer(),
+                        //Çapraz havalandırma Bitiş Sıcaklığı giriş butonu
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv128"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 50.0,
+                                            fontFamily: 'Kelly Slab',
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: RawMaterialButton(
+                                    onPressed: () {
+                                      _index = 2;
+                                      _onlar = int.parse(
+                                                  capHavFarkC.split(".")[0]) <
+                                              10
+                                          ? 0
+                                          : (int.parse(
+                                                  capHavFarkC.split(".")[0]) ~/
+                                              10);
+                                      _birler =
+                                          int.parse(capHavFarkC.split(".")[0]) %
+                                              10;
+                                      _ondalik =
+                                          int.parse(capHavFarkC.split(".")[1]);
+
+                                      _degergiris2X1(
+                                          _onlar,
+                                          _birler,
+                                          _ondalik,
+                                          _index,
+                                          oran,
+                                          dilSecimi,
+                                          "tv128",
+                                          "",
+                                          dbProkis);
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.brightness_1,
+                                            size: constraint.biggest.height,
+                                            color: Colors.orange[700],
+                                          );
+                                        }),
+                                        Text(
+                                          capHavFarkC,
+                                          style: TextStyle(
+                                              fontSize: 25 * oran,
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        //Maksimum fan sıcaklığı giriş butonu
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv130"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 50.0,
+                                            fontFamily: 'Kelly Slab',
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: RawMaterialButton(
+                                    onPressed: () {
+                                      _index = 3;
+                                      _onlar = int.parse(
+                                                  maksFanFarkiH.split(".")[0]) <
+                                              10
+                                          ? 0
+                                          : (int.parse(maksFanFarkiH
+                                                  .split(".")[0]) ~/
+                                              10);
+                                      _birler = int.parse(
+                                              maksFanFarkiH.split(".")[0]) %
+                                          10;
+                                      _ondalik = int.parse(
+                                          maksFanFarkiH.split(".")[1]);
+
+                                      _degergiris2X1(
+                                          _onlar,
+                                          _birler,
+                                          _ondalik,
+                                          _index,
+                                          oran,
+                                          dilSecimi,
+                                          "tv130",
+                                          "",
+                                          dbProkis);
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.brightness_1,
+                                            size: constraint.biggest.height,
+                                            color: Colors.red[700],
+                                          );
+                                        }),
+                                        Text(
+                                          maksFanFarkiH,
+                                          style: TextStyle(
+                                              fontSize: 25 * oran,
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        //Adet kademe giriş butonu
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: SizedBox(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv182"),
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 50.0,
+                                            fontFamily: 'Kelly Slab',
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                        minFontSize: 8,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: RawMaterialButton(
+                                    onPressed: () {
+                                      _index = 12;
+                                      _birler = int.parse(fanKademesi);
+
+                                      _degergiris1X0(_birler, _index, oran,
+                                          dilSecimi, "tv182", 4, dbProkis);
+                                    },
+                                    child: Stack(
+                                      alignment: Alignment.center,
+                                      children: <Widget>[
+                                        LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return Icon(
+                                            Icons.brightness_1,
+                                            size: constraint.biggest.height,
+                                            color: Colors.cyan[800],
+                                          );
+                                        }),
+                                        Text(
+                                          fanKademesi,
+                                          style: TextStyle(
+                                              fontSize: 25 * oran,
+                                              fontFamily: 'Kelly Slab',
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                      ],
+                    ),
+                  ),
+                  Spacer(
+                    flex: 1,
+                  ),
+                  //Sıcaklık çizelgesi bölümü
+                  Expanded(
+                    flex: 10,
+                    child: Container(
+                      color: Colors.white,
+                      child: Row(
+                        children: <Widget>[
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Expanded(
+                            flex: 28,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Text(
+                                    Dil().sec(dilSecimi, "tv184"),
+                                    textScaleFactor: oran,
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 3,
+                                    child: charts.BarChart(
+                                      _grafikDataLineerCapraz(
+                                          double.parse(setSicA),
+                                          double.parse(dogalBolgeB),
+                                          double.parse(capHavFarkC),
+                                          double.parse(maksFanFarkiH),
+                                          dilSecimi),
+                                      domainAxis: new charts.OrdinalAxisSpec(
+                                          renderSpec: new charts
+                                                  .SmallTickRendererSpec(
+
+                                              // Tick and Label styling here.
+                                              labelStyle: new charts
+                                                      .TextStyleSpec(
+                                                  fontSize: (12 * oran)
+                                                      .floor(), // size in Pts.
+                                                  color: charts
+                                                      .MaterialPalette.black))),
+                                      primaryMeasureAxis:
+                                          new charts.NumericAxisSpec(
+                                        showAxisLine: true,
+                                        tickProviderSpec: new charts
+                                            .StaticNumericTickProviderSpec(
+                                          <charts.TickSpec<num>>[
+                                            charts.TickSpec<num>(0),
+                                            charts.TickSpec<num>(4),
+                                            charts.TickSpec<num>(8),
+                                            charts.TickSpec<num>(12),
+                                            charts.TickSpec<num>(16),
+                                            charts.TickSpec<num>(
+                                                double.parse(setSicA)),
+                                            charts.TickSpec<num>(
+                                                double.parse(setSicA) +
+                                                    double.parse(dogalBolgeB)),
+                                            charts.TickSpec<num>(
+                                                double.parse(setSicA) +
+                                                    double.parse(dogalBolgeB) +
+                                                    double.parse(capHavFarkC)),
+                                            charts.TickSpec<num>(double.parse(
+                                                    setSicA) +
+                                                double.parse(dogalBolgeB) +
+                                                double.parse(maksFanFarkiH)),
+                                            charts.TickSpec<num>(double.parse(
+                                                    setSicA) +
+                                                double.parse(dogalBolgeB) +
+                                                double.parse(maksFanFarkiH) +
+                                                1),
+                                            charts.TickSpec<num>(double.parse(
+                                                    setSicA) +
+                                                double.parse(dogalBolgeB) +
+                                                double.parse(maksFanFarkiH) +
+                                                2),
+                                            charts.TickSpec<num>(double.parse(
+                                                    setSicA) +
+                                                double.parse(dogalBolgeB) +
+                                                double.parse(maksFanFarkiH) +
+                                                3),
+                                          ],
+                                        ),
+                                        renderSpec: new charts
+                                                .GridlineRendererSpec(
+                                            labelRotation: 50,
+                                            labelOffsetFromAxisPx:
+                                                (1 * oran).round(),
+
+                                            // Tick and Label styling here.
+                                            labelStyle: new charts
+                                                    .TextStyleSpec(
+                                                fontSize: (8 * oran)
+                                                    .round(), // size in Pts.
+                                                color: charts
+                                                    .MaterialPalette.black),
+
+                                            // Change the line colors to match text color.
+                                            lineStyle: new charts.LineStyleSpec(
+                                                color: charts
+                                                    .MaterialPalette.black)),
+                                      ),
+                                      behaviors: [
+                                        new charts.SeriesLegend(),
+                                        new charts.SlidingViewport(),
+                                        new charts.PanAndZoomBehavior(),
+                                      ],
+                                      animate: animate,
+                                      barGroupingType:
+                                          charts.BarGroupingType.stacked,
+                                      vertical: false,
+                                    )),
+                                Spacer()
+                              ],
+                            ),
+                          ),
+                          Spacer(
+                            flex: 4,
+                          )
+                        ],
                       ),
-                    ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: Container(
+        width: 56 * oran,
+        height: 56 * oran,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              timerCancel = true;
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => Kontrol(dbVeriler)),
+              );
+            },
+            backgroundColor: Colors.blue,
+            child: Icon(
+              Icons.arrow_back,
+              size: 50,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      ),
+      drawer: Metotlar().navigatorMenu(dilSecimi, context, oran),
+      endDrawer: SizedBox(
+        width: 320 * oran,
+        child: Drawer(
+          child: MediaQuery.removePadding(
+            removeTop: true,
+            context: context,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      Dil().sec(dilSecimi, "tv123"), //Sıcaklık diyagramı
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 18,
+                        fontFamily: 'Kelly Slab',
+                      ),
+                      textScaleFactor: oran,
+                    ),
+                    color: Colors.yellow[700],
                   ),
                 ),
-              ),
-            ],
+                Expanded(
+                  flex: 7,
+                  child: DrawerHeader(
+                    padding: EdgeInsets.only(left: 10),
+                    margin: EdgeInsets.all(0),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                alignment: Alignment.center,
+                                image: AssetImage(
+                                    'assets/images/diagram_lineer_capraz.jpg'),
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            color: Colors.grey[100],
+                            child: Row(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: <Widget>[
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A+B",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A+B+C",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "D",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "E",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "F",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "G",
+                                                style: TextStyle(
+                                                    fontSize: 13 * oran),
+                                              ))),
+                                      Expanded(
+                                          child: Container(
+                                              alignment: Alignment.centerRight,
+                                              child: Text(
+                                                "A+B+C+H",
+                                                style: TextStyle(
+                                                    fontSize: 10 * oran),
+                                              ))),
+                                    ],
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv115"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv116"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv117"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv118"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv119"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv120"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv121"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            " : " +
+                                                Dil().sec(dilSecimi, "tv122"),
+                                            style:
+                                                TextStyle(fontSize: 13 * oran),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 10,
+                  child: Container(
+                    color: Colors.yellow[100],
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: <Widget>[
+                        ListTile(
+                          dense: false,
+                          title: Text(
+                            Dil().sec(dilSecimi, "tv186"),
+                            textScaleFactor: oran,
+                          ),
+                          subtitle: Text(
+                            Dil().sec(dilSecimi, "info1"),
+                            style: TextStyle(
+                              fontSize: 13 * oran,
+                            ),
+                          ),
+                          onTap: () {
+                            // Update the state of the app.
+                            // ...
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-      ),
-    ),
         ),
-  );
+      ),
+    );
   }
 
 //++++++++++++++++++++++++++METOTLAR+++++++++++++++++++++++++++++++
@@ -1982,7 +2368,7 @@ final dbProkis = Provider.of<DBProkis>(context);
   }
 
   Future _degergiris2X1(int onlar, birler, ondalik, index, double oran,
-      String dil, baslik,onBaslik, DBProkis dbProkis) async {
+      String dil, baslik, onBaslik, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -1992,107 +2378,117 @@ final dbProkis = Provider.of<DBProkis>(context);
         // return object of type Dialog
 
         return DegerGiris2X1.Deger(
-            onlar, birler, ondalik, index, oran, dil, baslik,onBaslik);
+            onlar, birler, ondalik, index, oran, dil, baslik, onBaslik);
       },
     ).then((val) {
-      bool veriGonderilsinMi=false;
+      bool veriGonderilsinMi = false;
       if (_onlar != val[0] ||
           _birler != val[1] ||
           _ondalik != val[2] ||
           _index != val[3]) {
-            veriGonderilsinMi=true;
-          }
+        veriGonderilsinMi = true;
+      }
       _onlar = val[0];
       _birler = val[1];
       _ondalik = val[2];
       _index = val[3];
+
+      String veri = "";
 
       if (index == 0) {
         dogalBolgeB = (_onlar == 0 ? "" : _onlar.toString()) +
             _birler.toString() +
             "." +
             _ondalik.toString();
+        veri = dogalBolgeB;
       }
       if (index == 1) {
         setSicA =
             _onlar.toString() + _birler.toString() + "." + _ondalik.toString();
+        veri = setSicA;
       }
       if (index == 2) {
         capHavFarkC = (_onlar == 0 ? "" : _onlar.toString()) +
             _birler.toString() +
             "." +
             _ondalik.toString();
+        veri = capHavFarkC;
       }
       if (index == 3) {
         maksFanFarkiH = (_onlar == 0 ? "" : _onlar.toString()) +
             _birler.toString() +
             "." +
             _ondalik.toString();
+        veri = maksFanFarkiH;
       }
       if (index == 4) {
         gun1 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun1.toString();
         _gunlerSet();
       }
       if (index == 5) {
         gun7 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun7.toString();
         _gunlerSet();
       }
       if (index == 6) {
         gun14 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun14.toString();
         _gunlerSet();
       }
       if (index == 7) {
         gun21 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun21.toString();
         _gunlerSet();
       }
       if (index == 8) {
         gun28 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun28.toString();
         _gunlerSet();
       }
       if (index == 9) {
         gun35 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun35.toString();
         _gunlerSet();
       }
       if (index == 10) {
         gun42 = _onlar * 10 + _birler + _ondalik / 10;
+        veri = gun42.toString();
         _gunlerSet();
       }
 
-      String veri=mhDANthYAGECISTEdebiyiKORU ? "1" : "0";
-
-      if(veriGonderilsinMi){
-        
+      if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        //String komut ="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
+        String komut = "1*$index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('1*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('1*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
       }
-      
 
       setState(() {});
     });
   }
 
-  Future _degergiris1X0(
-      int birlerX, index, double oran, String dil, baslik, int ustLimit, DBProkis dbProkis) async {
+  Future _degergiris1X0(int birlerX, index, double oran, String dil, baslik,
+      int ustLimit, DBProkis dbProkis) async {
     await showDialog(
       barrierDismissible: false,
       context: context,
@@ -2102,41 +2498,40 @@ final dbProkis = Provider.of<DBProkis>(context);
         return DegerGiris1X0.Deger(ustLimit, birlerX, index, oran, dil, baslik);
       },
     ).then((val) {
-      bool veriGonderilsinMi=false;
-      if(_birler!=val[0]){
-        veriGonderilsinMi=true;
+      bool veriGonderilsinMi = false;
+      if (_birler != val[0]) {
+        veriGonderilsinMi = true;
       }
       _birler = val[0];
       _index = val[1];
 
       fanKademesi = _birler.toString();
 
-      String veri=mhDANthYAGECISTEdebiyiKORU ? "1" : "0";
+      String veri = fanKademesi;
 
-      if(veriGonderilsinMi){
-        
+      if (veriGonderilsinMi) {
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="1*$gun1*$gun7*$gun14*$gun21*$gun28*$gun35*$gun42*$dogalBolgeB*$capHavFarkC*$maksFanFarkiH*$fanKademesi*$veri";
-        Metotlar().veriGonder(komut, 2235).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-            
+        String komut = "1*$_index*$veri";
+        Metotlar().veriGonder(komut, 2235).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
+
             baglanti = false;
-            Metotlar().takipEt('1*', 2236).then((veri){
-                if(veri.split("*")[0]=="error"){
-                  baglanti=false;
-                  baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                  setState(() {});
-                }else{
-                  takipEtVeriIsleme(veri);
-                  baglantiDurum="";
-                }
+            Metotlar().takipEt('1*', 2236).then((veri) {
+              if (veri.split("*")[0] == "error") {
+                baglanti = false;
+                baglantiDurum =
+                    Metotlar().errorToastMesaj(veri.split("*")[1], dbProkis);
+                setState(() {});
+              } else {
+                takipEtVeriIsleme(veri);
+                baglantiDurum = "";
+              }
             });
           }
         });
-
       }
 
       setState(() {});
@@ -2202,92 +2597,100 @@ final dbProkis = Provider.of<DBProkis>(context);
     updateState(() {});
   }
 
-  
-  static List<charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>> _grafikDataLineerCapraz(
-      double setSic, dogBol, capFark, maksFanFark, String dil) {
+  static List<charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>>
+      _grafikDataLineerCapraz(
+          double setSic, dogBol, capFark, maksFanFark, String dil) {
     final fasilaBolgesi = [
-      new GrafikSicaklikCizelgesiLineerCapraz(Dil().sec(dil, "tv183"),setSic, Colors.blue[700]),
+      new GrafikSicaklikCizelgesiLineerCapraz(
+          Dil().sec(dil, "tv183"), setSic, Colors.blue[700]),
     ];
 
     final dogalBolge = [
-      new GrafikSicaklikCizelgesiLineerCapraz(Dil().sec(dil, "tv183"), dogBol, Colors.green[700]),
+      new GrafikSicaklikCizelgesiLineerCapraz(
+          Dil().sec(dil, "tv183"), dogBol, Colors.green[700]),
     ];
 
     final caprazBolge = [
-      new GrafikSicaklikCizelgesiLineerCapraz(Dil().sec(dil, "tv183"), capFark, Colors.orange[700]),
+      new GrafikSicaklikCizelgesiLineerCapraz(
+          Dil().sec(dil, "tv183"), capFark, Colors.orange[700]),
     ];
 
     final tunelBolge = [
-      new GrafikSicaklikCizelgesiLineerCapraz(Dil().sec(dil, "tv183"), maksFanFark, Colors.red[700]),
+      new GrafikSicaklikCizelgesiLineerCapraz(
+          Dil().sec(dil, "tv183"), maksFanFark, Colors.red[700]),
     ];
 
     return [
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
         id: Dil().sec(dil, "tv188"),
-        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
+        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.baslik,
+        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.deger,
+        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) =>
+            clickData.color,
         data: fasilaBolgesi,
-        
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
         id: Dil().sec(dil, "tv187"),
-        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
+        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.baslik,
+        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.deger,
+        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) =>
+            clickData.color,
         data: dogalBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
         id: Dil().sec(dil, "tv189"),
-        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
+        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.baslik,
+        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.deger,
+        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) =>
+            clickData.color,
         data: caprazBolge,
       ),
       new charts.Series<GrafikSicaklikCizelgesiLineerCapraz, String>(
         id: Dil().sec(dil, "tv190"),
-        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.baslik,
-        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) => deger.deger,
-        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) => clickData.color,
+        domainFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.baslik,
+        measureFn: (GrafikSicaklikCizelgesiLineerCapraz deger, _) =>
+            deger.deger,
+        colorFn: (GrafikSicaklikCizelgesiLineerCapraz clickData, _) =>
+            clickData.color,
         data: tunelBolge,
       ),
     ];
   }
 
-  
-  takipEtVeriIsleme(String gelenMesaj){
-    
+  takipEtVeriIsleme(String gelenMesaj) {
     var degerler = gelenMesaj.split('*');
-              print(degerler);
-              print(yazmaSonrasiGecikmeSayaci);
+    print(degerler);
+    print(yazmaSonrasiGecikmeSayaci);
 
-              gun1=double.parse(degerler[0]);
-              gun7=double.parse(degerler[1]);
-              gun14=double.parse(degerler[2]);
-              gun21=double.parse(degerler[3]);
-              gun28=double.parse(degerler[4]);
-              gun35=double.parse(degerler[5]);
-              gun42=double.parse(degerler[6]);
-              dogalBolgeB=degerler[7];
-              capHavFarkC=degerler[8];
-              maksFanFarkiH=degerler[9];
-              fanKademesi=degerler[10];
-              setSicA=degerler[11];
-              mhDANthYAGECISTEdebiyiKORU=degerler[12]=="True" ? true : false;
+    gun1 = double.parse(degerler[0]);
+    gun7 = double.parse(degerler[1]);
+    gun14 = double.parse(degerler[2]);
+    gun21 = double.parse(degerler[3]);
+    gun28 = double.parse(degerler[4]);
+    gun35 = double.parse(degerler[5]);
+    gun42 = double.parse(degerler[6]);
+    dogalBolgeB = degerler[7];
+    capHavFarkC = degerler[8];
+    maksFanFarkiH = degerler[9];
+    fanKademesi = degerler[10];
+    setSicA = degerler[11];
+    mhDANthYAGECISTEdebiyiKORU = degerler[12] == "True" ? true : false;
 
-              alarmDurum=degerler[13];
-              print(alarmDurum);
+    alarmDurum = degerler[13];
+    print(alarmDurum);
 
-
-    baglanti=false;
-    if(!timerCancel){
-      setState(() {
-        
-      });
+    baglanti = false;
+    if (!timerCancel) {
+      setState(() {});
     }
-    
   }
- 
 
   //--------------------------METOTLAR--------------------------------
 

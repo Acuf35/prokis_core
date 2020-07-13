@@ -80,7 +80,6 @@ class SicVeFanKlasikCaprazState extends State<SicVeFanKlasikCapraz> {
 
       if (dbVeri[i]["id"] == 4) {
         fanAdet = dbVeri[i]["veri1"];
-        fanAdet = "14";
       }
     }
 
@@ -1473,15 +1472,20 @@ final dbProkis = Provider.of<DBProkis>(context);
       _ondalik = val[2];
       _index = val[3];
 
+      String veri1 = "";
+      String veri2 = "";
+
       if (index == 0) {
         dogalBolgeB = (_onlar == 0 ? "" : _onlar.toString()) +
             _birler.toString() +
             "." +
             _ondalik.toString();
+        veri1 = dogalBolgeB;
       }
       if (index == 1) {
         setSicA =
             _onlar.toString() + _birler.toString() + "." + _ondalik.toString();
+        veri1 = setSicA;
       }
 
       if (index == 2) {
@@ -1489,26 +1493,26 @@ final dbProkis = Provider.of<DBProkis>(context);
             _birler.toString() +
             "." +
             _ondalik.toString();
+        veri1 = capHavFarkC;
       }
 
-      String gonderilecekFanSet;
-      String gonderilecekFanIndex = "0";
-      for (int i = 1; i <= 60; i++) {
-        if (index - 10 == i) {
-          String deger = _onlar.toString() +
+      if (index > 13) {
+        int fanNo = index - 13;
+        index = 13;
+        String deger = _onlar.toString() +
               _birler.toString() +
               "." +
               _ondalik.toString();
-          fanSet[i] = double.parse(deger);
-          gonderilecekFanSet = fanSet[i].toString();
-          gonderilecekFanIndex = i.toString();
-        }
+          fanSet[fanNo] = double.parse(deger);
+          veri1 = fanSet[fanNo].toString();
+          veri2 = fanNo.toString();
+
       }
 
       if (veriGonderilsinMi) {
 
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="3*$setSicA*$dogalBolgeB*$capHavFarkC*$gonderilecekFanIndex*$gonderilecekFanSet";
+        String komut="1*$index*$veri1*$veri2";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -1640,7 +1644,7 @@ final dbProkis = Provider.of<DBProkis>(context);
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           constraints: BoxConstraints(),
           onPressed: () {
-            _index = 10 + fanNo;
+            _index = 13 + fanNo;
             _onlar = int.parse(fanSet[fanNo].toString().split(".")[0]) < 10
                 ? 0
                 : (int.parse(fanSet[fanNo].toString().split(".")[0]) ~/ 10);

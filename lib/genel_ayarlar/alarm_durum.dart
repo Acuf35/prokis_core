@@ -208,7 +208,7 @@ class AlarmUyariDurumState extends State<AlarmUyariDurum> {
               onPressed: (){
 
               yazmaSonrasiGecikmeSayaci = 0;
-              Metotlar().veriGonder("38*", 2235).then((value) {
+              Metotlar().veriGonder("32*", 2235).then((value) {
                 if (value.split("*")[0] == "error") {
                   Toast.show(
                       Dil().sec(dilSecimi, "toast101"),

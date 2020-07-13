@@ -501,7 +501,7 @@ final dbProkis = Provider.of<DBProkis>(context);
           if (veriGonderilsinMi) {
 
             yazmaSonrasiGecikmeSayaci = 0;
-            String komut="33*$index*0";
+            String komut="27*$index*0";
             Metotlar().veriGonder(komut, 2235).then((value){
               if(value.split("*")[0]=="error"){
                 Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -581,7 +581,7 @@ final dbProkis = Provider.of<DBProkis>(context);
       if (veriGonderilsinMi) {
 
         yazmaSonrasiGecikmeSayaci = 0;
-        String komut="33*$index*$veri";
+        String komut="27*$index*$veri";
         Metotlar().veriGonder(komut, 2235).then((value){
           if(value.split("*")[0]=="error"){
             Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -687,7 +687,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                      
 
                                       yazmaSonrasiGecikmeSayaci = 0;
-                                      String komut="33*$index*1";
+                                      String komut="27*$index*1";
                                       Metotlar().veriGonder(komut, 2235).then((value){
                                         if(value.split("*")[0]=="error"){
                                           Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -747,7 +747,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                     onPressed: (){
 
                                       yazmaSonrasiGecikmeSayaci = 0;
-                                      String komut="33*$index*0";
+                                      String komut="27*$index*0";
                                       Metotlar().veriGonder(komut, 2235).then((value){
                                         if(value.split("*")[0]=="error"){
                                           Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
