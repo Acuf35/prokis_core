@@ -487,11 +487,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 2;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -543,11 +543,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 3;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -599,11 +599,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 4;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -655,11 +655,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 5;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -711,11 +711,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 6;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -776,11 +776,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 7;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -832,11 +832,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 8;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -888,11 +888,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 9;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -944,11 +944,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 10;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1000,11 +1000,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 11;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1065,11 +1065,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 12;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1121,11 +1121,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 13;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1177,11 +1177,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 14;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1233,11 +1233,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 15;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -1289,11 +1289,11 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                                 onPressed: () {
                                                                                   kayitTuruIndex = 16;
                                                                                   kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
-                                                                                gelenDeger = [];
-                                                                                maxValue = -99999.0;
-                                                                                minValue = 99999.0;
+                                                                                  gelenSaat = [];
+                                                                                  gelenTarih = [];
+                                                                                  gelenDeger = [];
+                                                                                  maxValue = -99999.0;
+                                                                                  minValue = 99999.0;
                                                                                   setState(() {
                                                                                     Navigator.pop(context);
                                                                                   });
@@ -2403,12 +2403,20 @@ class SicVeNemLogState extends State<SicVeNemLog> {
       Toast.show(Dil().sec(dilSecimi, "toast102"), context, duration: 3);
     } else {
       for (var i = 1; i < degerler.length; i++) {
+        String xx = degerler[i].split("*")[0];
+        String saat = xx.length == 1 ? "0" + xx : xx;
+        String yy = degerler[i].split("*")[1];
+        String dk = yy.length == 1 ? "0" + yy : yy;
+        String zz = degerler[i].split("*")[2];
+        String gun = zz.length == 1 ? "0" + zz : zz;
+        String tt = tarihIlk.month.toString();
+        String ay = tt.length == 1 ? "0" + tt : tt;
         gelenSaat
-            .add(degerler[i].split("*")[0] + ":" + degerler[i].split("*")[1]);
+            .add(saat + ":" + dk);
 
-        gelenTarih.add(degerler[i].split("*")[2] +
+        gelenTarih.add(gun +
             "-" +
-            tarihIlk.month.toString() +
+            ay +
             "-" +
             tarihIlk.year.toString());
         gelenDeger.add(degerler[i].split("*")[3]);

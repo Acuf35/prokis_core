@@ -732,6 +732,10 @@ class UzDebiNem extends StatelessWidget {
                                       decoration: InputDecoration(
                                           isDense: true,
                                           contentPadding: EdgeInsets.all(0),
+                                          counterStyle: TextStyle(
+                                              color: Colors.grey.shade600,
+                                              fontFamily: 'Kelly Slab',
+                                              fontSize: 12 * oran),
                                           labelStyle: TextStyle(
                                               color: Colors.grey[600],
                                               fontSize: 16 * oran,

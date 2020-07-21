@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,19 +6,14 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
 import 'package:prokis/mywidgets/showModalBottomSheet2x0ve2xQ.dart';
-import 'package:prokis/mywidgets/showModalBottomSheet2x0veQ.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/yardimci/alert_reset.dart';
-import 'package:prokis/yardimci/database_helper.dart';
-import 'package:prokis/yardimci/deger_giris_2x2x2x0.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/yardimci/sayfa_geri_alert.dart';
 import 'package:prokis/sistem/kurulum/ped_haritasi.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'package:prokis/sistem/kurulum/fan_haritasi.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 
 
 

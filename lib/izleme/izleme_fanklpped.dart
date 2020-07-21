@@ -90,6 +90,8 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed>
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   _IzlemeFanKlpPedState(List<Map> dbVeri) {
     dbVeriler = dbVeri;
+    timerSayac = 0;
+    timerCancel = false;
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
         dilSecimi = dbVeri[i]["veri1"];

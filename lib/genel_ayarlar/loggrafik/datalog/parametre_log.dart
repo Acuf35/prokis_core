@@ -818,12 +818,20 @@ class ParametreLogState extends State<ParametreLog> {
       Toast.show(Dil().sec(dilSecimi, "toast102"), context, duration: 3);
     } else {
       for (var i = 1; i < degerler.length; i++) {
+        String xx = degerler[i].split("*")[0];
+        String saat = xx.length == 1 ? "0" + xx : xx;
+        String yy = degerler[i].split("*")[1];
+        String dk = yy.length == 1 ? "0" + yy : yy;
+        String zz = degerler[i].split("*")[2];
+        String gun = zz.length == 1 ? "0" + zz : zz;
+        String tt = tarihIlk.month.toString();
+        String ay = tt.length == 1 ? "0" + tt : tt;
         gelenSaat
-            .add(degerler[i].split("*")[0] + ":" + degerler[i].split("*")[1]);
+            .add(saat + ":" + dk);
 
-        gelenTarih.add(degerler[i].split("*")[2] +
+        gelenTarih.add(gun +
             "-" +
-            tarihIlk.month.toString() +
+            ay +
             "-" +
             tarihIlk.year.toString());
         gelenParametre.add(degerler[i].split("*")[3]);

@@ -1357,6 +1357,7 @@ class IsiticiHaritasiProvider with ChangeNotifier {
     if (cikisKAYIT == "ok") {
       for (var i = 1; i <= 3; i++) {
         cikisNo[i] = int.parse(isiticiCikis[i - 1]);
+        cikisNoGecici[i] = cikisNo[i];
       }
     }
   }

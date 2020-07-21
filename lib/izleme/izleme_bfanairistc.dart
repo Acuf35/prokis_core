@@ -80,6 +80,8 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc>
   //++++++++++++++++++++++++++CONSTRUCTER METHOD+++++++++++++++++++++++++++++++
   _IzlemeBfanAirIstcState(List<Map> dbVeri) {
     dbVeriler = dbVeri;
+    timerSayac = 0;
+    timerCancel = false;
 
     for (int i = 0; i <= dbVeri.length - 1; i++) {
       if (dbVeri[i]["id"] == 1) {
@@ -205,8 +207,8 @@ class _IzlemeBfanAirIstcState extends State<IzlemeBfanAirIstc>
                 onPressed: () {
                   _blocSinif.bloCVeriEventStreamControllerISITICIDURUM[0].sink
                       .add("99");
-                  _controller1.dispose();
-                  _controller2.dispose();
+                  //_controller1.dispose();
+                  //_controller2.dispose();
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Izleme(dbVeriler)),
@@ -2605,6 +2607,7 @@ class IzlemeBfanAirIstcBloC {
       Timer.periodic(Duration(seconds: 2), (timer) {
         if (timerCancel) {
           timer.cancel();
+          print("TIMER CANCELLED");
         }
 
         if (!baglanti) {

@@ -15,6 +15,7 @@ import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
 import 'klepe_haritasi.dart';
+import 'klepe_yontemi.dart';
 
 class FanHaritasi extends StatelessWidget {
   bool ilkKurulumMu = true;
@@ -165,7 +166,7 @@ class FanHaritasi extends StatelessWidget {
                                             .then((value) {
                                           bool gelenVeri =
                                               value == null ? false : value[0];
-
+                                          print(gelenVeri);
                                           if (gelenVeri) {
                                             outNoMetin = "Q" +
                                                 (value[1] == 0
@@ -176,8 +177,8 @@ class FanHaritasi extends StatelessWidget {
                                                 value[3].toString();
                                             int cikisNo = Metotlar()
                                                 .outConvQtoSAYI(outNoMetin);
-                                            int deger = 0;
-
+                                            int deger = cikisNo;
+                                            print(cikisNo);
                                             if (cikisNo == 0) {
                                               Toast.show(
                                                   Dil().sec(
@@ -185,16 +186,14 @@ class FanHaritasi extends StatelessWidget {
                                                   context,
                                                   duration: 3);
                                             } else {
-                                              for (var i = cikisNo;
+                                              for (var i = 1;
                                                   i <
-                                                      cikisNo +
-                                                          provider.unsurAdet;
+                                                      121;
                                                   i++) {
-                                                if (provider
-                                                        .fanHaritaGrid[i - 1] ==
+                                                if (provider.fanHaritaGrid[i-1] ==
                                                     2) {
-                                                  deger = deger + cikisNo;
                                                   provider.cikisNo[i] = deger;
+                                                  deger = deger + 1;
                                                 }
                                               }
                                               provider.tekerrurTespit();
@@ -758,7 +757,7 @@ class FanHaritasi extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  UzDebiNem(true)),
+                                                  KlpYontemi(true)),
                                         );
                                       },
                                     ),

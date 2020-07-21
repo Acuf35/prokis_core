@@ -947,36 +947,52 @@ Future MyshowModalBottomSheet2x0veQ(String dilSecimi, BuildContext context, doub
                                                 crossAxisAlignment: CrossAxisAlignment.center,
                                                 children: <Widget>[
 
-                                                  Container(
-                                                    child: RaisedButton(
-                                                      elevation: 14,
-                                                      highlightColor: Colors.green,
-                                                      splashColor: Colors.red,
-                                                      color: Colors.indigo,
-                                                      onPressed: (){
-                                                        List x=[true,qByteOnlar,qByteBirler,qBit,fOnlar,fBirler];
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Spacer(flex: 2,),
+                                                        Expanded(flex: 3,
+                                                          child: RaisedButton(
+                                                            elevation: 14,
+                                                            highlightColor: Colors.green,
+                                                            splashColor: Colors.red,
+                                                            color: Colors.indigo,
+                                                            onPressed: (){
+                                                              List x=[true,qByteOnlar,qByteBirler,qBit,fOnlar,fBirler];
 
-                                                        Navigator.of(context).pop(x);
-                                                        
+                                                              Navigator.of(context).pop(x);
+                                                              
 
-                                                      },
-                                                      child: Text(Dil().sec(dilSecimi, "btn2"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
+                                                            },
+                                                            child: Text(Dil().sec(dilSecimi, "btn2"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
+                                                          ),
+                                                        ),
+                                                        Spacer(flex: 2,)
+                                                      ],
                                                     ),
 
                                                   ),
 
 
-                                                  Container(
-                                                    child: RaisedButton(
-                                                      elevation: 14,
-                                                      color: Colors.indigo,
-                                                      highlightColor: Colors.green,
-                                                      splashColor: Colors.red,
-                                                      onPressed: (){
-                                                        List x=[false,qByteOnlar,qByteBirler,qBit,fOnlar,fBirler];
-                                                        Navigator.of(context).pop(x);
-                                                      },
-                                                      child: Text(Dil().sec(dilSecimi, "btn3"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
+                                                  Expanded(
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Spacer(flex: 2,),
+                                                        Expanded(flex: 3,
+                                                          child: RaisedButton(
+                                                            elevation: 14,
+                                                            color: Colors.indigo,
+                                                            highlightColor: Colors.green,
+                                                            splashColor: Colors.red,
+                                                            onPressed: (){
+                                                              List x=[false,qByteOnlar,qByteBirler,qBit,fOnlar,fBirler];
+                                                              Navigator.of(context).pop(x);
+                                                            },
+                                                            child: Text(Dil().sec(dilSecimi, "btn3"),style: TextStyle(color: Colors.white,fontSize: 25,fontFamily: 'Audio wide'),textScaleFactor: oran,),
+                                                          ),
+                                                        ),
+                                                        Spacer(flex: 2,)
+                                                      ],
                                                     ),
                                                   ),
 

@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/genel_ayarlar/sistem.dart';
 import 'package:prokis/provider/dbprokis.dart';
@@ -58,6 +59,7 @@ class SistemStartStopState extends State<SistemStartStop> {
         dilSecimi = dbVeri[i]["veri1"];
       }
     }
+    SystemChrome.setEnabledSystemUIOverlays([]);
     _dbVeriCekme();
   }
 //--------------------------CONSTRUCTER METHOD--------------------------------
@@ -139,6 +141,7 @@ class SistemStartStopState extends State<SistemStartStop> {
                 context,
                 MaterialPageRoute(builder: (context) => Sistem()),
               );
+              SystemChrome.setEnabledSystemUIOverlays([]);
             },
             backgroundColor: Colors.grey[700],
             child: Icon(

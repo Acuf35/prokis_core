@@ -23,743 +23,786 @@ class SiloHaritasi extends StatelessWidget {
   SiloHaritasi(this.ilkKurulumMu);
   String dilSecimi = "EN";
   double oran;
-  int sayac=0;
+  int sayac = 0;
 
   @override
   Widget build(BuildContext context) {
     final dbProkis = Provider.of<DBProkis>(context);
     dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
     oran = MediaQuery.of(context).size.width / 731.4;
-    double oranOzel=(MediaQuery.of(context).size.width/60)*3;
-    
+    double oranOzel = (MediaQuery.of(context).size.width / 60) * 3;
+
     return ChangeNotifierProvider<SiloHaritasiProvider>(
-          create: (context) => SiloHaritasiProvider(context, dbProkis),
-          child: LayoutBuilder(
-            builder: (context, constraints){
-              final provider = Provider.of<SiloHaritasiProvider>(context);
+        create: (context) => SiloHaritasiProvider(context, dbProkis),
+        child: LayoutBuilder(builder: (context, constraints) {
+          final provider = Provider.of<SiloHaritasiProvider>(context);
 
-
-
-              return Scaffold(
-      floatingActionButton: MyFloatingActionBackButton(
-      !ilkKurulumMu,
-      !provider.veriGonderildi,
-      oran,
-      40,
-      Colors.white,
-      Colors.grey[700],
-      Icons.arrow_back,
-      1,
-      "tv564"),
-    
-        body: Column(
-      children: <Widget>[
-        //Başlık bölümü
-        Expanded(
-            child: Container(
-              color: Colors.grey.shade600,
-              child: Row(
-                children: <Widget>[
-                  Spacer(flex: 3,),
-                  Expanded(flex: 10,
-                    child: SizedBox(
-                      child: Container(
-                        
-                        alignment: Alignment.center,
-                        child: AutoSizeText(
-                          Dil().sec(dilSecimi, "tv84"),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontFamily: 'Kelly Slab',
-                              color: Colors.white,
-                              fontSize: 60,
-                              fontWeight: FontWeight.bold),
-                          maxLines: 1,
-                          minFontSize: 8,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Spacer(flex: 2,),
-                  Expanded(
-                    child: LayoutBuilder(
-                        builder: (context, constraint) {
-                        return IconButton(
-                        padding: EdgeInsets.all(0),
-                        icon:Icon(Icons.info_outline,),
-                        iconSize: constraint.biggest.height,
-                        color: Colors.white,
-                        onPressed: ()=>Scaffold.of(context).openEndDrawer(),
-                        );
-                      }
-                    ),
-                  ),
-                   
-                ],
-              ),
-            )),
-        //silo Harita Oluşturma Bölümü
-        Expanded(
-          flex: 9,
-          child: Container(
-              color: Colors.white,
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: Column(
-                      children: <Widget>[
-                        Expanded(
-          flex: 7,
-          child: Row(
-            children: <Widget>[
-              Spacer(
-                flex: 6,
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(7, oran, "tv83", provider, context),
-                    _siloHaritaUnsur(6, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    _siloHaritaUnsur(8, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 3,
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    _siloHaritaUnsur(9, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(11, oran, "tv83", provider, context),
-                    _siloHaritaUnsur(10, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    _siloHaritaUnsur(12, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 3,
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    _siloHaritaUnsur(13, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(15, oran, "tv83", provider, context),
-                    _siloHaritaUnsur(14, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 6,
-              ),
-            ],
-          ),
-                        ),
-                        Expanded(
-          flex: 13,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: RotatedBox(
-                  quarterTurns: -45,
-                  child: SizedBox(
+          return Scaffold(
+            floatingActionButton: MyFloatingActionBackButton(
+                !ilkKurulumMu,
+                !provider.veriGonderildi,
+                oran,
+                40,
+                Colors.white,
+                Colors.grey[700],
+                Icons.arrow_back,
+                1,
+                "tv564"),
+            body: Column(
+              children: <Widget>[
+                //Başlık bölümü
+                Expanded(
                     child: Container(
-                      alignment: Alignment.center,
-                      child: AutoSizeText(
-                        Dil()
-                            .sec(dilSecimi, "tv58"),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 40,
-                        ),
-                        maxLines: 1,
-                        minFontSize: 8,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 5,
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          _siloHaritaUnsur(4, oran, "tv83", provider, context),
-                          _siloHaritaUnsur(3, oran, "tv83", provider, context),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          Spacer(),
-                          _siloHaritaUnsur(3, oran, "tv83", provider, context),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          _siloHaritaUnsur(2, oran, "tv83", provider, context),
-                          _siloHaritaUnsur(1, oran, "tv83", provider, context),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                  flex: 27,
-                  child: Stack(
+                  color: Colors.grey.shade600,
+                  child: Row(
                     children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                          //color: Colors.pink,
-                          image: DecorationImage(
-                            alignment: Alignment.center,
-                            image: AssetImage(
-                                "assets/images/bina_catili_ust_gorunum.png"),
-                            fit: BoxFit.fill,
-                          ),
-                        ),
+                      Spacer(
+                        flex: 3,
                       ),
-                      Column(
-                        children: <Widget>[
-                          Spacer(
-                            flex: 7,
-                          ),
-                          Expanded(
-                            flex: 2,
-                            child: Row(
-                              children: <Widget>[
-                                Spacer(),
-                                Expanded(
-                                  flex: 2,
-                                  child: SizedBox(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: AutoSizeText(
-                                        Dil()
-                                            .sec(
-                                                dilSecimi,
-                                                "tv57"),
-                                        textAlign:
-                                            TextAlign.center,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 40,
-                                        ),
-                                        maxLines: 1,
-                                        minFontSize: 8,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Spacer()
-                              ],
+                      Expanded(
+                        flex: 10,
+                        child: SizedBox(
+                          child: Container(
+                            alignment: Alignment.center,
+                            child: AutoSizeText(
+                              Dil().sec(dilSecimi, "tv84"),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontFamily: 'Kelly Slab',
+                                  color: Colors.white,
+                                  fontSize: 60,
+                                  fontWeight: FontWeight.bold),
+                              maxLines: 1,
+                              minFontSize: 8,
                             ),
                           ),
-                          Spacer(
-                            flex: 7,
-                          )
-                        ],
-                      )
-                    ],
-                  )),
-              Expanded(
-                flex: 5,
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          _siloHaritaUnsur(16, oran, "tv83", provider, context),
-                          _siloHaritaUnsur(17, oran, "tv83", provider, context),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          _siloHaritaUnsur(18, oran, "tv83", provider, context),
-                          Spacer()
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        children: <Widget>[
-                          _siloHaritaUnsur(19, oran, "tv83", provider, context),
-                          _siloHaritaUnsur(20, oran, "tv83", provider, context),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: RotatedBox(
-                  quarterTurns: -45,
-                  child: SizedBox(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: AutoSizeText(
-                        Dil()
-                            .sec(dilSecimi, "tv59"),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 40,
                         ),
-                        maxLines: 1,
-                        minFontSize: 8,
                       ),
+                      Spacer(
+                        flex: 2,
+                      ),
+                      Expanded(
+                        child: LayoutBuilder(builder: (context, constraint) {
+                          return IconButton(
+                            padding: EdgeInsets.all(0),
+                            icon: Icon(
+                              Icons.info_outline,
+                            ),
+                            iconSize: constraint.biggest.height,
+                            color: Colors.white,
+                            onPressed: () =>
+                                Scaffold.of(context).openEndDrawer(),
+                          );
+                        }),
+                      ),
+                    ],
+                  ),
+                )),
+                //silo Harita Oluşturma Bölümü
+                Expanded(
+                  flex: 9,
+                  child: Container(
+                    color: Colors.white,
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Spacer(
+                          flex: 1,
+                        ),
+                        Expanded(
+                          flex: 8,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 7,
+                                child: Row(
+                                  children: <Widget>[
+                                    Spacer(
+                                      flex: 6,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(7, oran, "tv83",
+                                              provider, context),
+                                          _siloHaritaUnsur(6, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Spacer(),
+                                          _siloHaritaUnsur(8, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 3,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Spacer(),
+                                          _siloHaritaUnsur(9, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(11, oran, "tv83",
+                                              provider, context),
+                                          _siloHaritaUnsur(10, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Spacer(),
+                                          _siloHaritaUnsur(12, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 3,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Spacer(),
+                                          _siloHaritaUnsur(13, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(15, oran, "tv83",
+                                              provider, context),
+                                          _siloHaritaUnsur(14, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 6,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 13,
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 1,
+                                      child: RotatedBox(
+                                        quarterTurns: -45,
+                                        child: SizedBox(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv58"),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 40,
+                                              ),
+                                              maxLines: 1,
+                                              minFontSize: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 5,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Row(
+                                              children: <Widget>[
+                                                _siloHaritaUnsur(4, oran,
+                                                    "tv83", provider, context),
+                                                _siloHaritaUnsur(3, oran,
+                                                    "tv83", provider, context),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: <Widget>[
+                                                Spacer(),
+                                                _siloHaritaUnsur(3, oran,
+                                                    "tv83", provider, context),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: <Widget>[
+                                                _siloHaritaUnsur(2, oran,
+                                                    "tv83", provider, context),
+                                                _siloHaritaUnsur(1, oran,
+                                                    "tv83", provider, context),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                        flex: 27,
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                //color: Colors.pink,
+                                                image: DecorationImage(
+                                                  alignment: Alignment.center,
+                                                  image: AssetImage(
+                                                      "assets/images/bina_catili_ust_gorunum.png"),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
+                                            Column(
+                                              children: <Widget>[
+                                                Spacer(
+                                                  flex: 7,
+                                                ),
+                                                Expanded(
+                                                  flex: 2,
+                                                  child: Row(
+                                                    children: <Widget>[
+                                                      Spacer(),
+                                                      Expanded(
+                                                        flex: 2,
+                                                        child: SizedBox(
+                                                          child: Container(
+                                                            alignment: Alignment
+                                                                .center,
+                                                            child: AutoSizeText(
+                                                              Dil().sec(
+                                                                  dilSecimi,
+                                                                  "tv57"),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 40,
+                                                              ),
+                                                              maxLines: 1,
+                                                              minFontSize: 8,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Spacer()
+                                                    ],
+                                                  ),
+                                                ),
+                                                Spacer(
+                                                  flex: 7,
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                    Expanded(
+                                      flex: 5,
+                                      child: Column(
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Row(
+                                              children: <Widget>[
+                                                _siloHaritaUnsur(16, oran,
+                                                    "tv83", provider, context),
+                                                _siloHaritaUnsur(17, oran,
+                                                    "tv83", provider, context),
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: <Widget>[
+                                                _siloHaritaUnsur(18, oran,
+                                                    "tv83", provider, context),
+                                                Spacer()
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              children: <Widget>[
+                                                _siloHaritaUnsur(19, oran,
+                                                    "tv83", provider, context),
+                                                _siloHaritaUnsur(20, oran,
+                                                    "tv83", provider, context),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: RotatedBox(
+                                        quarterTurns: -45,
+                                        child: SizedBox(
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv59"),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 40,
+                                              ),
+                                              maxLines: 1,
+                                              minFontSize: 8,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 7,
+                                child: Row(
+                                  children: <Widget>[
+                                    Spacer(
+                                      flex: 6,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(29, oran, "tv83",
+                                              provider, context),
+                                          _siloHaritaUnsur(30, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(28, oran, "tv83",
+                                              provider, context),
+                                          Spacer()
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 3,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(27, oran, "tv83",
+                                              provider, context),
+                                          Spacer()
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(25, oran, "tv83",
+                                              provider, context),
+                                          _siloHaritaUnsur(26, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(24, oran, "tv83",
+                                              provider, context),
+                                          Spacer()
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 3,
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(23, oran, "tv83",
+                                              provider, context),
+                                          Spacer()
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      flex: 3,
+                                      child: Column(
+                                        children: <Widget>[
+                                          _siloHaritaUnsur(21, oran, "tv83",
+                                              provider, context),
+                                          _siloHaritaUnsur(22, oran, "tv83",
+                                              provider, context),
+                                        ],
+                                      ),
+                                    ),
+                                    Spacer(
+                                      flex: 6,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Spacer(
+                          flex: 1,
+                        )
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
-                        ),
+
+                //ileri geri ok bölümü
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Colors.grey.shade600,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        //Spacer(),
                         Expanded(
-          flex: 7,
-          child: Row(
-            children: <Widget>[
-              Spacer(
-                flex: 6,
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(29, oran, "tv83", provider, context),
-                    _siloHaritaUnsur(30, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(28, oran, "tv83", provider, context),
-                    Spacer()
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 3,
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(27, oran, "tv83", provider, context),
-                    Spacer()
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(25, oran, "tv83", provider, context),
-                    _siloHaritaUnsur(26, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(24, oran, "tv83", provider, context),
-                    Spacer()
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 3,
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(23, oran, "tv83", provider, context),
-                    Spacer()
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Column(
-                  children: <Widget>[
-                    _siloHaritaUnsur(21, oran, "tv83", provider, context),
-                    _siloHaritaUnsur(22, oran, "tv83", provider, context),
-                  ],
-                ),
-              ),
-              Spacer(
-                flex: 6,
-              ),
-            ],
-          ),
+                          flex: 20,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              //Haritayı Onayla Butonu
+                              Visibility(
+                                visible: !provider.haritaOnay,
+                                maintainState: true,
+                                maintainSize: true,
+                                maintainAnimation: true,
+                                child: FlatButton(
+                                  onPressed: () {
+                                    int sayac = 0;
+
+                                    for (int i = 1; i <= 30; i++) {
+                                      if (provider.siloHarita[i] == 1) {
+                                        sayac++;
+                                      }
+                                    }
+
+                                    if (sayac < provider.siloAdet) {
+                                      //Haritada seçilen silo sayısı eksik
+                                      Toast.show(
+                                          Dil().sec(dilSecimi, "toast54"),
+                                          context,
+                                          duration: 3);
+                                    } else if (sayac > provider.siloAdet) {
+                                      //Haritada seçilen silo sayısı yüksek
+                                      Toast.show(
+                                          Dil().sec(dilSecimi, "toast55"),
+                                          context,
+                                          duration: 3);
+                                    } else {
+                                      //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                                      Toast.show(Dil().sec(dilSecimi, "toast8"),
+                                          context,
+                                          duration: 3);
+                                      provider.setharitaOnay = true;
+
+                                      for (int i = 1; i <= 30; i++) {
+                                        if (provider.siloHarita[i] != 0) {
+                                          provider.siloVisibility[i] = true;
+                                        } else {
+                                          provider.siloVisibility[i] = false;
+                                        }
+                                      }
+
+                                      String veri = "";
+
+                                      for (int i = 1; i <= 30; i++) {
+                                        veri = veri +
+                                            provider.siloHarita[i].toString() +
+                                            "#";
+                                      }
+
+                                      Metotlar()
+                                          .veriGonder("35*34*$veri*0*0*0", 2233)
+                                          .then((value) {
+                                        if (value.split("*")[0] == "error") {
+                                          Toast.show(
+                                              Dil().sec(dilSecimi, "toast101"),
+                                              context,
+                                              duration: 3);
+                                        } else {
+                                          Toast.show(
+                                              Dil().sec(dilSecimi, "toast8"),
+                                              context,
+                                              duration: 3);
+                                          dbProkis.dbSatirEkleGuncelle(
+                                              29, "ok", veri, "0", "0");
+                                        }
+                                      });
+                                    }
+
+                                    //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
+                                  },
+                                  highlightColor: Colors.green,
+                                  splashColor: Colors.red,
+                                  color: Colors.white,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.map,
+                                        size: 30 * oran,
+                                      ),
+                                      Text(
+                                        Dil().sec(dilSecimi, "btn4"),
+                                        style: TextStyle(fontSize: 18),
+                                        textScaleFactor: oran,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              //Haritayı Sıfırla Butonu
+                              Visibility(
+                                visible: provider.haritaOnay,
+                                maintainState: true,
+                                maintainSize: true,
+                                maintainAnimation: true,
+                                child: FlatButton(
+                                  onPressed: () {
+                                    _resetAlert(
+                                        dilSecimi, context, provider, dbProkis);
+                                  },
+                                  highlightColor: Colors.green,
+                                  splashColor: Colors.red,
+                                  color: Colors.white,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.refresh,
+                                        size: 30 * oran,
+                                      ),
+                                      Text(
+                                        Dil().sec(dilSecimi, "btn5"),
+                                        style: TextStyle(fontSize: 18),
+                                        textScaleFactor: oran,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+
+                              //Verileri Gönder Butonu
+                              Visibility(
+                                visible: provider.haritaOnay,
+                                maintainState: true,
+                                maintainSize: true,
+                                maintainAnimation: true,
+                                child: FlatButton(
+                                  onPressed: () {
+                                    provider.tekerrurTespit();
+                                    bool noKontrol = false;
+                                    bool sensSayYukNo = false;
+                                    String noVeri = "";
+                                    for (int i = 1; i <= 30; i++) {
+                                      if (provider.siloHarita[i] == 1) {
+                                        if (provider.siloNo[i] == 0) {
+                                          noKontrol = true;
+                                        }
+                                        if (provider.siloNo[i] >
+                                            provider.siloAdet) {
+                                          sensSayYukNo = true;
+                                        }
+                                      }
+                                      noVeri = noVeri +
+                                          provider.siloNo[i].toString() +
+                                          "#";
+                                    }
+
+                                    if (noKontrol) {
+                                      Toast.show(
+                                          Dil().sec(dilSecimi, "toast56"),
+                                          context,
+                                          duration: 3);
+                                    } else if (sensSayYukNo) {
+                                      Toast.show(
+                                          Dil().sec(dilSecimi, "toast57"),
+                                          context,
+                                          duration: 3);
+                                    } else if (provider.siloNoTekerrur) {
+                                      Toast.show(
+                                          Dil().sec(dilSecimi, "toast58"),
+                                          context,
+                                          duration: 3);
+                                    } else {
+                                      provider.setveriGonderildi = true;
+
+                                      Metotlar()
+                                          .veriGonder(
+                                              "36*35*$noVeri*0*0*0", 2233)
+                                          .then((value) {
+                                        if (value.split("*")[0] == "error") {
+                                          Toast.show(
+                                              Dil().sec(dilSecimi, "toast101"),
+                                              context,
+                                              duration: 3);
+                                        } else {
+                                          Toast.show(
+                                              Dil().sec(dilSecimi, "toast8"),
+                                              context,
+                                              duration: 3);
+                                          dbProkis.dbSatirEkleGuncelle(
+                                              30, "ok", noVeri, "0", "0");
+                                        }
+                                      });
+                                    }
+                                  },
+                                  highlightColor: Colors.green,
+                                  splashColor: Colors.red,
+                                  color: provider.veriGonderildi
+                                      ? Colors.green[500]
+                                      : Colors.blue,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.send,
+                                        size: 30 * oran,
+                                      ),
+                                      Text(
+                                        Dil().sec(dilSecimi, "btn6"),
+                                        style: TextStyle(fontSize: 18),
+                                        textScaleFactor: oran,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        //geri ok
+                        Expanded(
+                            flex: 2,
+                            child: Visibility(
+                              visible: ilkKurulumMu,
+                              maintainState: true,
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_back_ios),
+                                iconSize: 50 * oran,
+                                onPressed: () {
+                                  if (provider.isiticiAdet != '0') {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IsiticiHaritasi(true)),
+                                    );
+                                  } else if (provider.airinletAdet != '0' ||
+                                      provider.sirkfanVarMi) {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AirInletVeSirkFan(true)),
+                                    );
+                                  } else if (provider.bacafanAdet != '0') {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              BacafanHaritasi(true)),
+                                    );
+                                  } else {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              IsiSensorHaritasi(true)),
+                                    );
+                                  }
+                                },
+                              ),
+                            )),
+                        Spacer(
+                          flex: 1,
+                        ),
+                        //ileri ok
+                        Expanded(
+                            flex: 2,
+                            child: Visibility(
+                              visible: ilkKurulumMu,
+                              maintainState: true,
+                              maintainSize: true,
+                              maintainAnimation: true,
+                              child: IconButton(
+                                icon: Icon(Icons.arrow_forward_ios),
+                                iconSize: 50 * oran,
+                                onPressed: () {
+                                  if (!provider.haritaOnay) {
+                                    Toast.show(Dil().sec(dilSecimi, "toast62"),
+                                        context,
+                                        duration: 3);
+                                  } else if (!provider.veriGonderildi) {
+                                    Toast.show(Dil().sec(dilSecimi, "toast27"),
+                                        context,
+                                        duration: 3);
+                                  } else {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DigerCikislar(true)),
+                                    );
+                                  }
+                                },
+                                color: Colors.black,
+                              ),
+                            )),
+                        Spacer(
+                          flex: 1,
                         ),
                       ],
                     ),
                   ),
-                  Spacer(
-                    flex: 1,
-                  )
-                ],
-              ),
-            ),
-        ),
-
-        //ileri geri ok bölümü
-        Expanded(
-          flex: 2,
-          child: Container(
-            color: Colors.grey.shade600,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                //Spacer(),
-                Expanded(
-                  flex: 20,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      //Haritayı Onayla Butonu
-                      Visibility(
-                        visible: !provider.haritaOnay,
-                        maintainState: true,
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        child: FlatButton(
-                          onPressed: () {
-                            int sayac = 0;
-
-                            for (int i = 1; i <=30; i++) {
-                              if (provider.siloHarita[i] == 1) {
-                                sayac++;
-                              }
-                            }
-
-                            if (sayac < provider.siloAdet) {
-                              //Haritada seçilen silo sayısı eksik
-                              Toast.show(
-                                  Dil()
-                                      .sec(dilSecimi, "toast54"),
-                                  context,
-                                  duration: 3);
-                            } else if (sayac > provider.siloAdet) {
-                              //Haritada seçilen silo sayısı yüksek
-                              Toast.show(
-                                  Dil()
-                                      .sec(dilSecimi, "toast55"),
-                                  context,
-                                  duration: 3);
-                            } else {
-                              //++++++++++++++++++++++++ONAY BÖLÜMÜ+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-                              Toast.show(
-                                  Dil()
-                                      .sec(dilSecimi, "toast8"),
-                                  context,
-                                  duration: 3);
-                              provider.setharitaOnay = true;
-
-                              for (int i = 1; i <=30; i++) {
-                                if (provider.siloHarita[i] != 0) {
-                                  
-                                  provider.siloVisibility[i]=true;
-                                } else {
-                                  
-                                  provider.siloVisibility[i]=false;
-                                }
-                              }
-
-                              String veri = "";
-
-                              for (int i = 1; i <=30; i++) {
-                                veri = veri + provider.siloHarita[i].toString() + "#";
-                              }
-
-                              Metotlar().veriGonder("35*34*$veri*0*0*0", 2233).then((value){
-                                if(value.split("*")[0]=="error"){
-                                  Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                }else{
-                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                  dbProkis.dbSatirEkleGuncelle(29, "ok", veri, "0", "0");
-                                }
-                              });
-                            }
-
-                            //-------------------------ONAY BÖLÜMÜ--------------------------------------------------
-                          },
-                          highlightColor: Colors.green,
-                          splashColor: Colors.red,
-                          color: Colors.white,
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.map,
-                                size: 30 * oran,
-                              ),
-                              Text(
-                                Dil()
-                                    .sec(dilSecimi, "btn4"),
-                                style: TextStyle(fontSize: 18),
-                                textScaleFactor: oran,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //Haritayı Sıfırla Butonu
-                      Visibility(
-                        visible: provider.haritaOnay,
-                        maintainState: true,
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        child: FlatButton(
-                          onPressed: () {
-                            _resetAlert(dilSecimi,context, provider, dbProkis);
-                          },
-                          highlightColor: Colors.green,
-                          splashColor: Colors.red,
-                          color: Colors.white,
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.refresh,
-                                size: 30 * oran,
-                              ),
-                              Text(
-                                Dil()
-                                    .sec(dilSecimi, "btn5"),
-                                style: TextStyle(fontSize: 18),
-                                textScaleFactor: oran,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-
-                      //Verileri Gönder Butonu
-                      Visibility(
-                        visible: provider.haritaOnay,
-                        maintainState: true,
-                        maintainSize: true,
-                        maintainAnimation: true,
-                        child: FlatButton(
-                          onPressed: () {
-                            bool noKontrol = false;
-                            bool sensSayYukNo = false;
-                            String noVeri = "";
-                            for (int i = 1; i <=30; i++) {
-                              if (provider.siloHarita[i] == 1) {
-                                if (provider.siloNo[i] == 0) {
-                                  noKontrol = true;
-                                }
-                                if (provider.siloNo[i] > provider.siloAdet) {
-                                  sensSayYukNo = true;
-                                }
-                              }
-                              noVeri = noVeri + provider.siloNo[i].toString() + "#";
-                            }
-
-                            if (noKontrol) {
-                              Toast.show(
-                                  Dil()
-                                      .sec(dilSecimi, "toast56"),
-                                  context,
-                                  duration: 3);
-                            } else if (sensSayYukNo) {
-                              Toast.show(
-                                  Dil()
-                                      .sec(dilSecimi, "toast57"),
-                                  context,
-                                  duration: 3);
-                            } else if (provider.siloNoTekerrur) {
-                              Toast.show(
-                                  Dil()
-                                      .sec(dilSecimi, "toast58"),
-                                  context,
-                                  duration: 3);
-                            } else {
-                              provider.setveriGonderildi = true;
-
-                              Metotlar().veriGonder("36*35*$noVeri*0*0*0", 2233).then((value){
-                                if(value.split("*")[0]=="error"){
-                                  Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                }else{
-                                  Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                  dbProkis.dbSatirEkleGuncelle(30, "ok", noVeri, "0", "0");
-                                }
-                              });
-
-                            }
-                          },
-                          highlightColor: Colors.green,
-                          splashColor: Colors.red,
-                          color:
-                              provider.veriGonderildi ? Colors.green[500] : Colors.blue,
-                          child: Row(
-                            children: <Widget>[
-                              Icon(
-                                Icons.send,
-                                size: 30 * oran,
-                              ),
-                              Text(
-                                Dil()
-                                    .sec(dilSecimi, "btn6"),
-                                style: TextStyle(fontSize: 18),
-                                textScaleFactor: oran,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                //geri ok
-                Expanded(
-                    flex: 2,
-                    child: Visibility(visible: ilkKurulumMu,maintainState: true,maintainSize: true,maintainAnimation: true,
-                                          child: IconButton(
-                        icon: Icon(Icons.arrow_back_ios),
-                        iconSize: 50 * oran,
-                        onPressed: () {
-
-                          if(provider.isiticiAdet!='0'){
-
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        IsiticiHaritasi(true)),
-                              );
-                            }else if(provider.airinletAdet!='0' || provider.sirkfanVarMi){
-
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        AirInletVeSirkFan(true)),
-                              );
-                            }else if(provider.bacafanAdet!='0'){
-
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        BacafanHaritasi(true)),
-                              );
-                            }else{
-
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        IsiSensorHaritasi(true)),
-                                );
-                              }
-                        },
-                      ),
-                    )),
-                Spacer(
-                  flex: 1,
-                ),
-                //ileri ok
-                Expanded(
-                    flex: 2,
-                    child: Visibility(visible: ilkKurulumMu,maintainState: true,maintainSize: true,maintainAnimation: true,
-                                          child: IconButton(
-                        icon: Icon(Icons.arrow_forward_ios),
-                        iconSize: 50 * oran,
-                        onPressed: () {
-                          if (!provider.haritaOnay) {
-                            Toast.show(
-                                Dil()
-                                    .sec(dilSecimi, "toast62"),
-                                context,
-                                duration: 3);
-                          }else if (!provider.veriGonderildi) {
-                            Toast.show(
-                                Dil()
-                                    .sec(dilSecimi, "toast27"),
-                                context,
-                                duration: 3);
-                          } else {
-
-                             Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      DigerCikislar(true)),
-                            );
-                          }
-                        },
-                        color: Colors.black,
-                      ),
-                    )),
-                Spacer(
-                  flex: 1,
                 ),
               ],
             ),
-          ),
-        ),
-      ],
-    ),
-    endDrawer: SizedBox(
+            endDrawer: SizedBox(
               width: 320 * oran,
               child: Drawer(
                 child: MediaQuery.removePadding(
@@ -771,7 +814,7 @@ class SiloHaritasi extends StatelessWidget {
                         child: Container(
                           alignment: Alignment.center,
                           child: Text(
-                            Dil().sec(dilSecimi, "tv84"), 
+                            Dil().sec(dilSecimi, "tv84"),
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               color: Colors.black,
@@ -797,22 +840,15 @@ class SiloHaritasi extends StatelessWidget {
                                   textScaleFactor: oran,
                                 ),
                                 subtitle: RichText(
-                                  text: TextSpan(
-                                    children: <TextSpan>[
-                                      //Giriş metni
-                                      TextSpan(
+                                  text: TextSpan(children: <TextSpan>[
+                                    //Giriş metni
+                                    TextSpan(
                                         text: Dil().sec(dilSecimi, "info43"),
                                         style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 13*oran
-                                        )
-                                      ),
-
-                                      
-                                    ]
-                                  ),
+                                            color: Colors.grey[700],
+                                            fontSize: 13 * oran)),
+                                  ]),
                                 ),
-                              
                               ),
                             ],
                           ),
@@ -823,15 +859,10 @@ class SiloHaritasi extends StatelessWidget {
                 ),
               ),
             ),
-    
-    
-    );
-
-            }
-          )
-    );
+          );
+        }));
   }
-  
+
   String imageGetir(int deger) {
     String imagePath;
     if (deger == 0) {
@@ -844,8 +875,8 @@ class SiloHaritasi extends StatelessWidget {
     return imagePath;
   }
 
-  Widget _siloHaritaUnsur(
-      int indexNo, double oran, String baslik, SiloHaritasiProvider provider, BuildContext context) {
+  Widget _siloHaritaUnsur(int indexNo, double oran, String baslik,
+      SiloHaritasiProvider provider, BuildContext context) {
     return Expanded(
       child: Visibility(
         visible: provider.siloVisibility[indexNo] ? true : false,
@@ -860,67 +891,68 @@ class SiloHaritasi extends StatelessWidget {
               child: RawMaterialButton(
                   onPressed: () {
                     if (provider.haritaOnay) {
-
                       int sayi = provider.siloNo[indexNo];
                       int pBirler = sayi % 10;
 
-                      MyshowModalBottomSheet1x0(dilSecimi, context, oran, pBirler,"tv49","tv35",4)
+                      MyshowModalBottomSheet1x0(dilSecimi, context, oran,
+                              pBirler, "tv129", "tv35", 4)
                           .then((value) {
+                        bool gelenVeri = value == null ? false : value[0];
 
-                                bool gelenVeri=value==null ? false : value[0];
-
-                                if (gelenVeri) {
-                                    
-                                    provider.siloNo[indexNo]=value[1];
-                                    provider.dinlemeyiTetikle();
-                                }
-
+                        if (gelenVeri) {
+                          provider.siloNo[indexNo] = value[1];
+                          provider.dinlemeyiTetikle();
+                        }
                       });
-
-
-
-
-
                     } else {
-
-                      var xx=provider.siloHarita;
-                      if (xx[indexNo] == 0 ||
-                          xx[indexNo] == null) {
+                      var xx = provider.siloHarita;
+                      if (xx[indexNo] == 0 || xx[indexNo] == null) {
                         xx[indexNo] = 1;
                         provider.dinlemeyiTetikle();
                       } else if (xx[indexNo] == 1) {
                         xx[indexNo] = 0;
                         provider.dinlemeyiTetikle();
                       }
-
-
                     }
                   },
-                  child: Stack(fit: StackFit.expand,
+                  child: Stack(
+                    fit: StackFit.expand,
                     children: <Widget>[
                       Row(
                         children: <Widget>[
-                          Visibility(visible: !provider.haritaOnay && provider.siloHarita[indexNo]==0 ? false: true,
-                            child: Spacer()),
-                          Expanded(flex: 3,
+                          Visibility(
+                              visible: !provider.haritaOnay &&
+                                      provider.siloHarita[indexNo] == 0
+                                  ? false
+                                  : true,
+                              child: Spacer()),
+                          Expanded(
+                            flex: 3,
                             child: Container(
                               decoration: BoxDecoration(
                                 //color: Colors.pink,
                                 image: DecorationImage(
                                   alignment: Alignment.center,
-                                  image:
-                                      AssetImage(imageGetir(provider.siloHarita[indexNo])),
-                                  fit: provider.siloHarita[indexNo]==1 ? BoxFit.fill : BoxFit.contain,
+                                  image: AssetImage(
+                                      imageGetir(provider.siloHarita[indexNo])),
+                                  fit: provider.siloHarita[indexNo] == 1
+                                      ? BoxFit.fill
+                                      : BoxFit.contain,
                                 ),
                               ),
                             ),
                           ),
-                          Visibility(visible: !provider.haritaOnay && provider.siloHarita[indexNo]==0 ? false: true,
-                            child: Spacer())
+                          Visibility(
+                              visible: !provider.haritaOnay &&
+                                      provider.siloHarita[indexNo] == 0
+                                  ? false
+                                  : true,
+                              child: Spacer())
                         ],
                       ),
                       Visibility(
-                        visible: provider.haritaOnay && provider.siloHarita[indexNo] != 0
+                        visible: provider.haritaOnay &&
+                                provider.siloHarita[indexNo] != 0
                             ? true
                             : false,
                         maintainState: true,
@@ -936,14 +968,16 @@ class SiloHaritasi extends StatelessWidget {
                               flex: 8,
                               child: Column(
                                 children: <Widget>[
-                                  Spacer(flex: 3,),
+                                  Spacer(
+                                    flex: 3,
+                                  ),
                                   Expanded(
                                     flex: 12,
                                     child: SizedBox(
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                              provider.siloNo[indexNo].toString(),
+                                          provider.siloNo[indexNo].toString(),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                               fontSize: 50.0,
@@ -955,11 +989,15 @@ class SiloHaritasi extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Spacer(flex: 5,)
+                                  Spacer(
+                                    flex: 5,
+                                  )
                                 ],
                               ),
                             ),
-                            Spacer(flex: 2,),
+                            Spacer(
+                              flex: 2,
+                            ),
                           ],
                         ),
                       ),
@@ -972,7 +1010,8 @@ class SiloHaritasi extends StatelessWidget {
     );
   }
 
-  Future _resetAlert(String x, BuildContext context, SiloHaritasiProvider provider, DBProkis dbProkis) async {
+  Future _resetAlert(String x, BuildContext context,
+      SiloHaritasiProvider provider, DBProkis dbProkis) async {
     // flutter defined function
 
     await showDialog(
@@ -988,36 +1027,33 @@ class SiloHaritasi extends StatelessWidget {
         provider.setveriGonderildi = false;
 
         for (int i = 0; i < 31; i++) {
-          provider.siloHarita[i]=0;
-          provider.siloNo[i]=0;
-          provider.siloVisibility[i]=true;
+          provider.siloHarita[i] = 0;
+          provider.siloNo[i] = 0;
+          provider.siloVisibility[i] = true;
         }
 
         provider.setharitaOnay = false;
 
-        Metotlar().veriGonder("37*0*0*0*0*0", 2233).then((value){
-          if(value.split("*")[0]=="error"){
-            Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-          }else{
-            Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
+        Metotlar().veriGonder("37*0*0*0*0*0", 2233).then((value) {
+          if (value.split("*")[0] == "error") {
+            Toast.show(Dil().sec(dilSecimi, "toast101"), context, duration: 3);
+          } else {
+            Toast.show(Dil().sec(dilSecimi, "toast8"), context, duration: 3);
             dbProkis.dbSatirEkleGuncelle(29, "0", "0", "0", "0");
             dbProkis.dbSatirEkleGuncelle(30, "0", "0", "0", "0");
           }
         });
-
       }
     });
   }
-
-
 }
 
 class SiloHaritasiProvider with ChangeNotifier {
-  int sayac=0;
+  int sayac = 0;
 
-  List<int> siloHarita = new List.filled(31,0);
-  List<bool> siloVisibility = new List.filled(31,true);
-  List<int> siloNo = new List.filled(31,0);
+  List<int> siloHarita = new List.filled(31, 0);
+  List<bool> siloVisibility = new List.filled(31, true);
+  List<int> siloNo = new List.filled(31, 0);
   bool haritaOnay = false;
   int siloAdet = 0;
   String bacafanAdet = '0';
@@ -1028,18 +1064,17 @@ class SiloHaritasiProvider with ChangeNotifier {
   bool veriGonderildi = false;
   bool siloNoTekerrur = false;
 
-  List<int> tumCikislar = new List.filled(111,0);
+  List<int> tumCikislar = new List.filled(111, 0);
 
-  
-  dinlemeyiTetikle(){
+  dinlemeyiTetikle() {
     notifyListeners();
   }
 
-  tekerrurTespit(){
+  tekerrurTespit() {
     siloNoTekerrur = false;
 
-    for (int i = 1; i <=30; i++) {
-      for (int k = 1; k <=30; k++) {
+    for (int i = 1; i <= 30; i++) {
+      for (int k = 1; k <= 30; k++) {
         if (i != k &&
             siloNo[i] == siloNo[k] &&
             siloNo[i] != 0 &&
@@ -1052,59 +1087,64 @@ class SiloHaritasiProvider with ChangeNotifier {
         }
       }
     }
-      notifyListeners();
+    notifyListeners();
   }
-
 
   set setsayac(int value) {
     sayac = value;
     notifyListeners();
   }
+
   set setharitaOnay(bool value) {
     haritaOnay = value;
     notifyListeners();
   }
+
   set setbacafanAdet(String value) {
     bacafanAdet = value;
     notifyListeners();
   }
+
   set setairinletAdet(String value) {
     airinletAdet = value;
     notifyListeners();
   }
+
   set setisiticiAdet(String value) {
     isiticiAdet = value;
     notifyListeners();
   }
+
   set setsiloAdet(int value) {
     siloAdet = value;
     notifyListeners();
   }
+
   set setsirkfanVarMi(bool value) {
     sirkfanVarMi = value;
     notifyListeners();
   }
+
   set setveriGonderildi(bool value) {
     veriGonderildi = value;
     notifyListeners();
   }
+
   set setcikisNoTekerrur(bool value) {
     siloNoTekerrur = value;
     notifyListeners();
   }
 
-  
   BuildContext context;
   DBProkis dbProkis;
 
   SiloHaritasiProvider(this.context, this.dbProkis) {
-
-    var yy=dbProkis.dbVeriGetir(5, 1, "0#0").split('#'); 
+    var yy = dbProkis.dbVeriGetir(5, 1, "0#0").split('#');
     bacafanAdet = yy[0];
-    sirkfanVarMi = yy[1]=="1" ? true : false;
-    airinletAdet=dbProkis.dbVeriGetir(5, 2, "0");
-    isiticiAdet=dbProkis.dbVeriGetir(5, 3, "0");
-    siloAdet=int.parse(dbProkis.dbVeriGetir(5, 4, "0"));
+    sirkfanVarMi = yy[1] == "1" ? true : false;
+    airinletAdet = dbProkis.dbVeriGetir(5, 2, "0");
+    isiticiAdet = dbProkis.dbVeriGetir(5, 3, "0");
+    siloAdet = int.parse(dbProkis.dbVeriGetir(5, 4, "0"));
 
     String tumCikislarKAYIT = dbProkis.dbVeriGetir(22, 1, "");
     String haritaKAYIT = dbProkis.dbVeriGetir(29, 1, "");
@@ -1122,33 +1162,30 @@ class SiloHaritasiProvider with ChangeNotifier {
     }
 
     if (cikisKAYIT == "ok") {
-      veriGonderildi=true;
+      veriGonderildi = true;
       siloNolar = dbProkis.dbVeriGetir(30, 2, "").split("#");
     }
 
     for (var i = 1; i <= 110; i++) {
       if (tumCikislarKAYIT == "ok") {
-        tumCikislar[i] = int.parse(tcikislar[i-1]);
+        tumCikislar[i] = int.parse(tcikislar[i - 1]);
       }
     }
 
     for (var i = 1; i <= 30; i++) {
-
       if (haritaKAYIT == "ok") {
         siloHarita[i] = int.parse(fHaritalar[i - 1]);
         if (fHaritalar[i - 1] != "0") {
           haritaOnay = true;
           siloVisibility[i] = true;
-        }else{
+        } else {
           siloVisibility[i] = false;
         }
       }
 
-      if(cikisKAYIT=="ok"){
+      if (cikisKAYIT == "ok") {
         siloNo[i] = int.parse(siloNolar[i - 1]);
       }
     }
-    
   }
-  
 }

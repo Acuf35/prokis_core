@@ -77,6 +77,7 @@ class GirisYapi extends State<Giris> with TickerProviderStateMixin {
           MaterialPageRoute(
               builder: (context) => kurulumDurum == "0"
                   ? DilSecimi(true)
+                  //? GenelAyarlar(dbVeriler)
                   : GenelAyarlar(dbVeriler)),
         );
       });

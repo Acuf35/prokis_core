@@ -150,7 +150,7 @@ class Dil{
     kod=="tv126" ? metin='Doğal Bölge Farkı (B)' : null;
     kod=="tv127" ? metin='FANLARIN SET SICAKLIKLARI (°C)' : null;
     kod=="tv128" ? metin='Çapraz Hav. Farkı (C)' : null;
-    kod=="tv129" ? metin='Bosta' : null;
+    kod=="tv129" ? metin='Silo No' : null;
     kod=="tv130" ? metin='Max. Fan Farkı (H)' : null;
     kod=="tv131" ? metin='Gün 1: ' : null;
     kod=="tv132" ? metin='Gün 2: ' : null;
@@ -439,7 +439,7 @@ class Dil{
     kod=="tv415" ? metin='Sürü Doğum\nTarihi' : null;
     kod=="tv416" ? metin='Sürü Giriş\nTarihi' : null;
     kod=="tv417" ? metin='Hayvan Sayısı\n(girişte)' : null;
-    kod=="tv418" ? metin='Ölü Hayvan\nSayısı' : null;
+    kod=="tv418" ? metin='Ölüm\nSayısı' : null;
     kod=="tv419" ? metin='Kategorilere Göre Ölü Hayvan Sayısı Girişi' : null;
     kod=="tv420" ? metin='Hastalık Kaynaklı' : null;
     kod=="tv421" ? metin='Ekipman Kaynaklı' : null;
@@ -2296,7 +2296,7 @@ class Dil{
     kod=="tv16" ? metin='Chim. Fan?' : null;
     kod=="tv17" ? metin='A.Inlet & Sirc. Fan' : null;
     kod=="tv18" ? metin='Heater Number' : null;
-    kod=="tv19" ? metin='Silo Number' : null;
+    kod=="tv19" ? metin='Silo Count' : null;
     kod=="tv20" ? metin='Fan Control Method' : null;
     kod=="tv21" ? metin='Clasic Control' : null;
     kod=="tv22" ? metin='Linear Control' : null;
@@ -2376,7 +2376,7 @@ class Dil{
     kod=="tv96" ? metin='Feed 2 Active' : null;
     kod=="tv97" ? metin='Feed 3 Active' : null;
     kod=="tv98" ? metin='Complete Installation' : null;
-    kod=="tv99" ? metin='GENERAL SETTING' : null;
+    kod=="tv99" ? metin='GENERAL SETTINGS' : null;
     kod=="tv100" ? metin='WATCH' : null;
     kod=="tv101" ? metin='AUTO-MAN' : null;
     kod=="tv102" ? metin='CONTROL' : null;
@@ -2406,7 +2406,7 @@ class Dil{
     kod=="tv126" ? metin='Naturel Zone Difference (B)' : null;
     kod=="tv127" ? metin='FANS OF SET TEMPERATURE (°C)' : null;
     kod=="tv128" ? metin='Cross Vent. Difference (C)' : null;
-    kod=="tv129" ? metin='Bosta' : null;
+    kod=="tv129" ? metin='Silo No' : null;
     kod=="tv130" ? metin='Max. Fan Difference (H)' : null;
     kod=="tv131" ? metin='Day 1: ' : null;
     kod=="tv132" ? metin='Day 2: ' : null;
@@ -2694,8 +2694,8 @@ class Dil{
     kod=="tv414" ? metin='HERD INFORMATIONS' : null;
     kod=="tv415" ? metin='Herd Birth\nDate' : null;
     kod=="tv416" ? metin='Herd Enter\nTime' : null;
-    kod=="tv417" ? metin='Number of Animals\n(at enterance)' : null;
-    kod=="tv418" ? metin='Number of Death\nAnimals' : null;
+    kod=="tv417" ? metin='Count of Animals\n(at enterance)' : null;
+    kod=="tv418" ? metin='Count of Death\n' : null;
     kod=="tv419" ? metin='Entering Number of Death Animals According to Categories' : null;
     kod=="tv420" ? metin='Disease Related' : null;
     kod=="tv421" ? metin='Equipment Related' : null;

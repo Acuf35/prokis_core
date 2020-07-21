@@ -1,7 +1,5 @@
 
 import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,7 +16,6 @@ import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
-import 'package:toast/toast.dart';
 
 class Izleme extends StatefulWidget {
   List<Map> gelenDBveri;
@@ -177,7 +174,7 @@ int sayac=0;
     
       body: Column(
         children: <Widget>[
-          
+          //Tarih ve zaman
           Row(
             children: <Widget>[
               Expanded(
@@ -2001,118 +1998,203 @@ int sayac=0;
                           child: Row(
                               children: <Widget>[
                                 Spacer(),
+                                //Ölüm oranı
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      Text(
-                                        Dil().sec(dilSecimi, "tv426"),
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600]),
-                                        textScaleFactor: oran, textAlign:TextAlign.center,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv426"),
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  color: Colors.grey[600],
+                                                  fontSize: 50
+                                                ),
+                                                maxLines: 2,
+                                              textAlign:TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        olumOrani,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30,
-                                            color: Colors.blue[200]),
-                                        textScaleFactor: oran,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              olumOrani,
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 50,
+                                                  color: Colors.blue[200]
+                                                ),
+                                                maxLines: 1,
+                                                  textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
                                 ),
+                                //Ölü hayvan sayısı
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      Text(
-                                        Dil().sec(dilSecimi, "tv418"),
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600]),
-                                        textScaleFactor: oran, textAlign:TextAlign.center,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv418"),
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  color: Colors.grey[600],
+                                                  fontSize: 50
+                                                ),
+                                                maxLines: 2,
+                                              textAlign:TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        guncelOluHayvanSayisi,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30,
-                                            color: Colors.blue[200]),
-                                        textScaleFactor: oran,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              guncelOluHayvanSayisi,
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 50,
+                                                  color: Colors.blue[200],
+                                                ),
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
                                 ),
+                                //Güncel Hayvan Sayısı
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      Text(
-                                        Dil().sec(dilSecimi, "tv427"),
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600]),
-                                        textScaleFactor: oran,textAlign:TextAlign.center,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv427"),
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  color: Colors.grey[600],
+                                                  fontSize: 50
+                                                ),
+                                                maxLines: 2,
+                                              textAlign:TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        guncelHayvanSayisi,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30,
-                                            color: Colors.blue[200]),
-                                        textScaleFactor: oran,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              guncelHayvanSayisi,
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 40,
+                                                  color: Colors.blue[200],
+                                                ),
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
                                 ),
+                                //Sürü Yaşı
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      Text(
-                                        Dil().sec(dilSecimi, "tv428"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600]),
-                                        textScaleFactor: oran,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv428"),
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  color: Colors.grey[600],
+                                                  fontSize: 50
+                                                ),
+                                              maxLines: 2,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        suruYasiGunluk,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30,
-                                            color: Colors.blue[200]),
-                                        textScaleFactor: oran,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              suruYasiGunluk,
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 50,
+                                                  color: Colors.blue[200],
+                                                ),
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
                                 ),
+                                //Sürü yaşı haftalık
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: <Widget>[
-                                      Text(
-                                        Dil().sec(dilSecimi, "tv429"),
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.grey[600]),
-                                        textScaleFactor: oran,textAlign:TextAlign.center,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              Dil().sec(dilSecimi, "tv429"),
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  color: Colors.grey[600],
+                                                  fontSize: 50,
+                                                ),
+                                                maxLines: 2,
+                                              textAlign:TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                      Text(
-                                        suruYasiHaftalik,
-                                        style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 30,
-                                            color: Colors.blue[200]),
-                                        textScaleFactor: oran,
+                                      Expanded(
+                                        child: SizedBox(
+                                          child: Container(
+                                            child: AutoSizeText(
+                                              suruYasiHaftalik,
+                                              style: TextStyle(
+                                                  fontFamily: 'Kelly Slab',
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 50,
+                                                  color: Colors.blue[200],
+                                                ),
+                                                maxLines: 1,
+                                            ),
+                                          ),
+                                        ),
                                       )
                                     ],
                                   ),
