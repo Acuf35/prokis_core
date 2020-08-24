@@ -839,6 +839,8 @@ class Dil{
     kod=="btn13" ? metin='STOP' : null;
     kod=="btn14" ? metin='EKLE' : null;
     kod=="btn15" ? metin='GETİR' : null;
+    kod=="btn16" ? metin='AKTİF' : null;
+    kod=="btn17" ? metin='PASİF' : null;
     
     //endregion
 
@@ -916,6 +918,8 @@ class Dil{
     kod=="alarm42" ? metin='Sayac 10 için su tüketimi minimumun altında kaldı!' : null;
     kod=="alarm43" ? metin='Sayac 11 için su tüketimi minimumun altında kaldı!' : null;
     kod=="alarm44" ? metin='Sayac 12 için su tüketimi minimumun altında kaldı!' : null;
+    kod=="alarm45" ? metin='Kümes içi yüksek sıcaklık! (Harici güvenlik sensörü)' : null;
+    kod=="alarm46" ? metin='Pano içi yüksek sıcaklık!' : null;
 
 
     kod=="korna1" ? metin='Acil\nStop' : null;
@@ -962,6 +966,8 @@ class Dil{
     kod=="korna42" ? metin='Sayac 10 Min. Tük.' : null;
     kod=="korna43" ? metin='Sayac 11 Min. Tük.' : null;
     kod=="korna44" ? metin='Sayac 12 Min. Tük.' : null;
+    kod=="korna45" ? metin='Harici Yük. Sic.' : null;
+    kod=="korna46" ? metin='Pano İçi Yük. Sic.' : null;
 
 
     kod=="uyari61" ? metin='Dış ortam nem sensörü arızalı!' : null;
@@ -2167,6 +2173,12 @@ class Dil{
     kod=="alarminfo44" ? metin='DURUM: Sayac 12\'in bağlı olduğu tüneldeki su tüketimi "ALARM AYARLARI" sayfasındaki "Günlük Min. Tük.(Lt)" parametresinde'
     ' belirtilen tüketim miktarının altında kaldığında bu alarm aktif olur.\n\nÇÖZÜM: Su hattı ve hayvanların sağlık durumu kontrol edilmelidir. Bu alarm'
     ' "YARDIMCI OPSİYONLAR" sayfasındaki "Günlük Su Sayac Verileri Reset Zamanı" parametresinde belirtilen saatte tüketimleri kontrol eder ve aktif olur.' : null;
+    kod=="alarminfo45" ? metin='DURUM: Sistemi kontrol eden sıcaklık sensörlerinin haricinde doğrudan Server PC\'ye bağlı emniyet sıcaklık sensörünün değeri'
+    ' "ALARM & UYARI AYARLARI" sayfasından girilen üst limit değerinin üstüne çıkınca bu alarm aktif olur. Kontrol sisteminin çalışmadığı durumlarda'
+    ' ek önlem için kümes içi sıcaklığı devamlı kontrol eder. Bu alarm aktif olduğunda kontrol sistemi, sıcaklık sensörü veya bağlantı kabloları'
+    ' kontrol edilmelidir.' : null;
+    kod=="alarminfo46" ? metin='DURUM: Pano içinde sıcaklık seviyesi "ALARM & UYARI AYARLARI" sayfasında girilen üst limitin üstüne çıkınca bu alarm'
+    ' aktif olur. Pano içini soğutan fanlar, pano iç sıcaklığını artıran arızalı bir ürün olup olmadığı veya bağlantı kabloları kontrol edilmelidir.' : null;
 
 
     kod=="alarminfo61" ? metin='DURUM: Dış ortam nem sensöründe okuma veya bağlantı arızası olduğunda bu uyarı aktif olur.\n\n'
@@ -3106,6 +3118,8 @@ class Dil{
     kod=="btn13" ? metin='STOP' : null;
     kod=="btn14" ? metin='ADD' : null;
     kod=="btn15" ? metin='GET' : null;
+    kod=="btn16" ? metin='ACTIVE' : null;
+    kod=="btn17" ? metin='PASSIVE' : null;
     
 
     //endregion

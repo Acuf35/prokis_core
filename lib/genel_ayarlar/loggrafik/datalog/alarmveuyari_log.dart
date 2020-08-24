@@ -40,8 +40,8 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
 
   int kayitAdet = 0;
 
-  List<String> gelenSaat = [];
-  List<String> gelenTarih = [];
+  List<String> aktifZaman = [];
+  List<String> pasifZaman = [];
   List<String> gelenDeger = [];
 
   //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -305,8 +305,8 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                                                               onPressed: () {
                                                                                 kayitTuruIndex = 1;
                                                                                 kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
+                                                                                aktifZaman = [];
+                                                                                pasifZaman = [];
                                                                                 gelenDeger = [];
                                                                                 setState(() {
                                                                                   Navigator.pop(context);
@@ -358,8 +358,8 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                                                               onPressed: () {
                                                                                 kayitTuruIndex = 2;
                                                                                 kayitAdet = 0;
-                                                                                gelenSaat = [];
-                                                                                gelenTarih = [];
+                                                                                aktifZaman = [];
+                                                                                pasifZaman = [];
                                                                                 gelenDeger = [];
                                                                                 setState(() {
                                                                                   Navigator.pop(context);
@@ -638,11 +638,11 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                             child: Row(
                               children: <Widget>[
                                 //Kayıt no
-                                Expanded(
+                                Expanded(flex: 2,
                                   child: SizedBox(
                                     child: Container(
                                       child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv760"),
+                                        Dil().sec(dilSecimi, "tv785"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 40,
@@ -657,11 +657,11 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                 ),
                                 //Tarih ilk
                                 Expanded(
-                                  flex: 1,
+                                  flex: 7,
                                   child: SizedBox(
                                     child: Container(
                                       child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv761"),
+                                        Dil().sec(dilSecimi, "btn16"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 40,
@@ -676,11 +676,11 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                 ),
                                 //Tarih Son
                                 Expanded(
-                                  flex: 1,
+                                  flex: 7,
                                   child: SizedBox(
                                     child: Container(
                                       child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv762"),
+                                        Dil().sec(dilSecimi, "btn17"),
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontSize: 40,
@@ -694,7 +694,7 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                   ),
                                 ),
                                 //Değer
-                                Expanded(flex: 6,
+                                Expanded(flex: 20,
                                   child: SizedBox(
                                     child: Container(
                                       child: AutoSizeText(
@@ -728,7 +728,7 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                     child: Row(
                                       children: <Widget>[
                                         //Kayıt No
-                                        Expanded(
+                                        Expanded(flex: 2,
                                           child: SizedBox(
                                             height: 15 * oran,
                                             child: Container(
@@ -744,14 +744,14 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                             ),
                                           ),
                                         ),
-                                        //Saat
+                                        //Alarm Giriş Zamanı
                                         Expanded(
-                                          flex: 1,
+                                          flex: 7,
                                           child: SizedBox(
                                             height: 15 * oran,
                                             child: Container(
                                               child: AutoSizeText(
-                                                gelenSaat[index],
+                                                aktifZaman[index],
                                                 textAlign:
                                                     TextAlign.center,
                                                 style: TextStyle(
@@ -762,14 +762,14 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                             ),
                                           ),
                                         ),
-                                        //Tarih
+                                        //Alarm çıkış Zamanı
                                         Expanded(
-                                          flex: 1,
+                                          flex: 7,
                                           child: SizedBox(
                                             height: 15 * oran,
                                             child: Container(
                                               child: AutoSizeText(
-                                                gelenTarih[index],
+                                                pasifZaman[index],
                                                 textAlign:
                                                     TextAlign.center,
                                                 style: TextStyle(
@@ -780,14 +780,14 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                                             ),
                                           ),
                                         ),
-                                        //Değer
-                                        Expanded(flex: 6,
+                                        //Alarm Tanımı
+                                        Expanded(flex: 20,
                                           child: SizedBox(
                                             height: 15 * oran,
                                             child: Container(
                                               child: AutoSizeText(
                                                 kayitTuruIndex==1 ? Dil().sec(dilSecimi, "alarm${gelenDeger[index]}") :
-                                                Dil().sec(dilSecimi, "uyari6${gelenDeger[index]}"),
+                                                Dil().sec(dilSecimi, "uyari${int.parse(gelenDeger[index])+60}"),
                                                 textAlign:
                                                     TextAlign.center,
                                                 style: TextStyle(
@@ -900,7 +900,16 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        lastDate: DateTime(2101),
+        builder: (BuildContext context, Widget child) {
+                return Center(
+                    child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: FittedBox(child: child),
+                ));
+              }
+        );
     if (picked != null && picked != selectedDate) {
       if (picked.compareTo(DateTime.now()) <= 0) {
         if (index == 1) {
@@ -936,8 +945,8 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
     print(gelenMesaj);
     var degerler = gelenMesaj.split('#');
     kayitAdet = degerler.length - 1;
-    gelenSaat = [];
-    gelenTarih = [];
+    aktifZaman = [];
+    pasifZaman = [];
     gelenDeger = [];
 
     if (gelenMesaj.contains("yok1")) {
@@ -946,23 +955,28 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
       Toast.show(Dil().sec(dilSecimi, "toast102"), context, duration: 3);
     } else {
       for (var i = 1; i < degerler.length; i++) {
-        String xx = degerler[i].split("*")[0];
-        String saat = xx.length == 1 ? "0" + xx : xx;
-        String yy = degerler[i].split("*")[1];
-        String dk = yy.length == 1 ? "0" + yy : yy;
-        String zz = degerler[i].split("*")[2];
-        String gun = zz.length == 1 ? "0" + zz : zz;
+        String xxG = degerler[i].split("*")[0];
+        String saatG = xxG.length == 1 ? "0" + xxG : xxG;
+        String yyG = degerler[i].split("*")[1];
+        String dkG = yyG.length == 1 ? "0" + yyG : yyG;
+        String zzG = degerler[i].split("*")[2];
+        String gunG = zzG.length == 1 ? "0" + zzG : zzG;
+        String xxC = degerler[i].split("*")[3];
+        String saatC = xxC.length == 1 ? "0" + xxC : xxC;
+        String yyC = degerler[i].split("*")[4];
+        String dkC = yyC.length == 1 ? "0" + yyC : yyC;
+        String zzC = degerler[i].split("*")[5];
+        String gunC = zzC.length == 1 ? "0" + zzC : zzC;
         String tt = tarihIlk.month.toString();
         String ay = tt.length == 1 ? "0" + tt : tt;
-        gelenSaat
-            .add(saat + ":" + dk);
+        String ww = tarihIlk.year.toString();
+        String yil = ww.length == 1 ? "0" + ww : ww;
 
-        gelenTarih.add(gun +
-            "-" +
-            ay +
-            "-" +
-            tarihIlk.year.toString());
-        gelenDeger.add(degerler[i].split("*")[3]);
+        aktifZaman.add(saatG + ":" + dkG + "   " + gunG + "." + ay + "." + yil);
+
+        pasifZaman.add(saatC + ":" + dkC + "   " + gunC + "." + ay + "." + yil);
+
+        gelenDeger.add(degerler[i].split("*")[6]);
       }
     }
 

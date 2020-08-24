@@ -346,6 +346,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                                     fontFamily: 'Kelly Slab',
                                     fontWeight: FontWeight.bold
                                   ),
+                                  textScaleFactor: oran,
                                 ),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 constraints: BoxConstraints(),
@@ -435,6 +436,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                                     fontFamily: 'Kelly Slab',
                                     fontWeight: FontWeight.bold
                                   ),
+                                  textScaleFactor: oran,
                                 ),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 constraints: BoxConstraints(),
@@ -525,6 +527,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                                     fontFamily: 'Kelly Slab',
                                     fontWeight: FontWeight.bold
                                   ),
+                                  textScaleFactor: oran,
                                 ),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 constraints: BoxConstraints(),
@@ -619,6 +622,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                                     fontFamily: 'Kelly Slab',
                                     fontWeight: FontWeight.bold
                                   ),
+                                  textScaleFactor: oran,
                                 ),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 constraints: BoxConstraints(),
@@ -709,6 +713,7 @@ class BaglantiDurumState extends State<BaglantiDurum> {
                                     fontFamily: 'Kelly Slab',
                                     fontWeight: FontWeight.bold
                                   ),
+                                  textScaleFactor: oran,
                                 ),
                                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                                 constraints: BoxConstraints(),

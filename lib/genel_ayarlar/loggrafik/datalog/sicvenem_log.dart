@@ -2147,6 +2147,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.white,
+                                                      fontSize: 60,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -2167,6 +2168,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.red,
+                                                      fontSize: 60,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -2190,6 +2192,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.white,
+                                                      fontSize: 60,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -2210,6 +2213,7 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.blue,
+                                                      fontSize: 60,
                                                       fontWeight:
                                                           FontWeight.bold),
                                                 ),
@@ -2325,7 +2329,40 @@ class SicVeNemLogState extends State<SicVeNemLog> {
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        lastDate: DateTime(2101),
+        builder: (BuildContext context, Widget child) {
+                return Center(
+                    child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: FittedBox(child: child),
+                ));
+              }
+        
+
+
+        /* RENK DEĞİŞTİRİR
+        builder: (BuildContext context, Widget child) {
+          return Theme(
+            data: ThemeData.dark().copyWith(
+              colorScheme: ColorScheme.dark(
+                primary: Colors.deepPurple,
+                onPrimary: Colors.white,
+                surface: Colors.blueGrey,
+                onSurface: Colors.yellow,
+                
+              ),
+              dialogBackgroundColor: Colors.blue[500],
+            ),
+            child: child,
+          );
+        }
+
+        */
+        );
+
+        
+        
     if (picked != null && picked != selectedDate) {
       if (picked.compareTo(DateTime.now()) <= 0) {
         if (index == 1) {
