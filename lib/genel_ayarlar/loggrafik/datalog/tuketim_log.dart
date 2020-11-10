@@ -1131,8 +1131,10 @@ class TuketimLogState extends State<TuketimLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.white,
+                                                      fontSize: 50,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1146,8 +1148,10 @@ class TuketimLogState extends State<TuketimLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.red,
+                                                      fontSize: 50,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1171,8 +1175,10 @@ class TuketimLogState extends State<TuketimLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.white,
+                                                      fontSize: 50,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1185,9 +1191,11 @@ class TuketimLogState extends State<TuketimLog> {
                                                       " $birim",
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
+                                                      fontSize: 50,
                                                       color: Colors.blue,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1210,9 +1218,11 @@ class TuketimLogState extends State<TuketimLog> {
                                                   Dil().sec(dilSecimi, "tv779"),
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
+                                                      fontSize: 50,
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1225,9 +1235,11 @@ class TuketimLogState extends State<TuketimLog> {
                                                       " $birim",
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
+                                                      fontSize: 50,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1251,8 +1263,10 @@ class TuketimLogState extends State<TuketimLog> {
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
                                                       color: Colors.white,
+                                                      fontSize: 50,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),
@@ -1265,9 +1279,11 @@ class TuketimLogState extends State<TuketimLog> {
                                                       " $birim",
                                                   style: TextStyle(
                                                       fontFamily: 'Kelly Slab',
+                                                      fontSize: 50,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold),
+                                                          maxLines: 1,
                                                 ),
                                               ),
                                             ),

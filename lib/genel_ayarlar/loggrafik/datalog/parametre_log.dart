@@ -41,7 +41,6 @@ class ParametreLogState extends State<ParametreLog> {
   List<String> gelenSaat = [];
   List<String> gelenTarih = [];
   List<String> gelenParametre = [];
-  List<String> gelenEskiDeger = [];
   List<String> gelenYeniDeger = [];
   List<String> gelenUnsurNo = [];
   List<String> gelenUser = [];
@@ -431,7 +430,7 @@ class ParametreLogState extends State<ParametreLog> {
                                     ),
                                   ),
                                 ),
-                                //Tarih ilk
+                                //Saat
                                 Expanded(
                                   flex: 2,
                                   child: SizedBox(
@@ -449,7 +448,7 @@ class ParametreLogState extends State<ParametreLog> {
                                     ),
                                   ),
                                 ),
-                                //Tarih Son
+                                //Tarih
                                 Expanded(
                                   flex: 2,
                                   child: SizedBox(
@@ -485,27 +484,9 @@ class ParametreLogState extends State<ParametreLog> {
                                     ),
                                   ),
                                 ),
-                                //Eski Değer
-                                Expanded(
-                                  flex: 4,
-                                  child: SizedBox(
-                                    child: Container(
-                                      child: AutoSizeText(
-                                        Dil().sec(dilSecimi, "tv769"),
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 40,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 //Yeni Değer
                                 Expanded(
-                                  flex: 4,
+                                  flex: 8,
                                   child: SizedBox(
                                     child: Container(
                                       child: AutoSizeText(
@@ -556,18 +537,29 @@ class ParametreLogState extends State<ParametreLog> {
                                       children: <Widget>[
                                         //Kayıt No
                                         Expanded(
+                                          flex: 1,
                                           child: SizedBox(
                                             height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                (index + 1).toString(),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                  color: Colors.black,
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Container(
+                                                    child: AutoSizeText(
+                                                      (index + 1).toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 40,
+                                                        color: Colors.black,
+                                                      ),
+                                                      minFontSize: 2,
+                                                    ),
+                                                  ),
                                                 ),
-                                                minFontSize: 2,
-                                              ),
+                                                Spacer()
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -576,16 +568,26 @@ class ParametreLogState extends State<ParametreLog> {
                                           flex: 2,
                                           child: SizedBox(
                                             height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                gelenSaat[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                  color: Colors.black,
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Container(
+                                                    child: AutoSizeText(
+                                                      gelenSaat[index],
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 40,
+                                                        color: Colors.black,
+                                                      ),
+                                                      minFontSize: 2,
+                                                    ),
+                                                  ),
                                                 ),
-                                                minFontSize: 2,
-                                              ),
+                                                Spacer()
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -594,16 +596,27 @@ class ParametreLogState extends State<ParametreLog> {
                                           flex: 2,
                                           child: SizedBox(
                                             height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                gelenTarih[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                  color: Colors.black,
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Container(
+                                                    alignment: Alignment.center,
+                                                    child: AutoSizeText(
+                                                      gelenTarih[index],
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 40,
+                                                        color: Colors.black,
+                                                      ),
+                                                      minFontSize: 2,
+                                                    ),
+                                                  ),
                                                 ),
-                                                minFontSize: 2,
-                                              ),
+                                                Spacer()
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -612,51 +625,54 @@ class ParametreLogState extends State<ParametreLog> {
                                           flex: 12,
                                           child: SizedBox(
                                             height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                parametreMetin(
-                                                    gelenParametre[index],
-                                                    gelenUnsurNo[index]),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Container(
+                                                    child: AutoSizeText(
+                                                      parametreMetin(
+                                                          gelenParametre[index],
+                                                          gelenUnsurNo[index]),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 40,
+                                                      ),
+                                                      minFontSize: 2,
+                                                    ),
+                                                  ),
                                                 ),
-                                                minFontSize: 2,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        //Eski Değer
-                                        Expanded(
-                                          flex: 4,
-                                          child: SizedBox(
-                                            height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                gelenEskiDeger[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                ),
-                                                minFontSize: 2,
-                                              ),
+                                                Spacer()
+                                              ],
                                             ),
                                           ),
                                         ),
                                         //Yeni Değer
                                         Expanded(
-                                          flex: 4,
+                                          flex: 8,
                                           child: SizedBox(
                                             height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                gelenYeniDeger[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Container(
+                                                    child: AutoSizeText(
+                                                      gelenYeniDeger[index],
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 40,
+                                                      ),
+                                                      minFontSize: 2,
+                                                    ),
+                                                  ),
                                                 ),
-                                                minFontSize: 2,
-                                              ),
+                                                Spacer()
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -665,15 +681,25 @@ class ParametreLogState extends State<ParametreLog> {
                                           flex: 4,
                                           child: SizedBox(
                                             height: 15 * oran,
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                gelenUser[index],
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
+                                            child: Column(
+                                              children: [
+                                                Spacer(),
+                                                Expanded(
+                                                  flex: 5,
+                                                  child: Container(
+                                                    child: AutoSizeText(
+                                                      gelenUser[index],
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                      style: TextStyle(
+                                                        fontSize: 40,
+                                                      ),
+                                                      minFontSize: 2,
+                                                    ),
+                                                  ),
                                                 ),
-                                                minFontSize: 2,
-                                              ),
+                                                Spacer()
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -808,7 +834,6 @@ class ParametreLogState extends State<ParametreLog> {
     gelenTarih = [];
     gelenParametre = [];
     gelenUnsurNo = [];
-    gelenEskiDeger = [];
     gelenYeniDeger = [];
     gelenUser = [];
 
@@ -826,19 +851,13 @@ class ParametreLogState extends State<ParametreLog> {
         String gun = zz.length == 1 ? "0" + zz : zz;
         String tt = tarihIlk.month.toString();
         String ay = tt.length == 1 ? "0" + tt : tt;
-        gelenSaat
-            .add(saat + ":" + dk);
+        gelenSaat.add(saat + ":" + dk);
 
-        gelenTarih.add(gun +
-            "-" +
-            ay +
-            "-" +
-            tarihIlk.year.toString());
+        gelenTarih.add(gun + "-" + ay + "-" + tarihIlk.year.toString());
         gelenParametre.add(degerler[i].split("*")[3]);
-        gelenEskiDeger.add(degerler[i].split("*")[4]);
-        gelenYeniDeger.add(degerler[i].split("*")[5]);
-        gelenUnsurNo.add(degerler[i].split("*")[6]);
-        gelenUser.add(degerler[i].split("*")[7]);
+        gelenYeniDeger.add(degerler[i].split("*")[4]);
+        gelenUnsurNo.add(degerler[i].split("*")[5]);
+        gelenUser.add(degerler[i].split("*")[6]);
       }
     }
 
@@ -934,21 +953,28 @@ class ParametreLogState extends State<ParametreLog> {
     } else if (paramKodu == "ko1-3") {
       sonuc = Dil().sec(dilSecimi, "tv130");
     } else if (paramKodu == "ko1-4") {
-      sonuc = Dil().sec(dilSecimi, "tv173");
+      sonuc =
+          Dil().sec(dilSecimi, "tv173") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-5") {
-      sonuc = Dil().sec(dilSecimi, "tv174");
+      sonuc =
+          Dil().sec(dilSecimi, "tv174") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-6") {
-      sonuc = Dil().sec(dilSecimi, "tv175");
+      sonuc =
+          Dil().sec(dilSecimi, "tv175") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-7") {
-      sonuc = Dil().sec(dilSecimi, "tv176");
+      sonuc =
+          Dil().sec(dilSecimi, "tv176") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-8") {
-      sonuc = Dil().sec(dilSecimi, "tv177");
+      sonuc =
+          Dil().sec(dilSecimi, "tv177") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-9") {
-      sonuc = Dil().sec(dilSecimi, "tv178");
+      sonuc =
+          Dil().sec(dilSecimi, "tv178") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-10") {
-      sonuc = Dil().sec(dilSecimi, "tv179");
+      sonuc =
+          Dil().sec(dilSecimi, "tv179") + " " + Dil().sec(dilSecimi, "tv115");
     } else if (paramKodu == "ko1-11") {
-      sonuc = Dil().sec(dilSecimi, "tv480");
+      sonuc = Dil().sec(dilSecimi, "tv480a");
     } else if (paramKodu == "ko1-12") {
       sonuc = Dil().sec(dilSecimi, "tv182");
     } else if (paramKodu == "ko1-13") {
@@ -996,7 +1022,7 @@ class ParametreLogState extends State<ParametreLog> {
     } else if (paramKodu == "ko2-10") {
       sonuc = Dil().sec(dilSecimi, "tv108") +
           " $unsurNo " +
-          Dil().sec(dilSecimi, "tv217");
+          Dil().sec(dilSecimi, "tv217a");
     } else if (paramKodu == "ko2-11") {
       sonuc = Dil().sec(dilSecimi, "tv108") +
           " $unsurNo " +
@@ -1020,11 +1046,11 @@ class ParametreLogState extends State<ParametreLog> {
     } else if (paramKodu == "ko2-16") {
       sonuc = Dil().sec(dilSecimi, "tv108") +
           " $unsurNo " +
-          Dil().sec(dilSecimi, "tv232");
+          Dil().sec(dilSecimi, "tv232a");
     } else if (paramKodu == "ko2-17") {
       sonuc = Dil().sec(dilSecimi, "tv108") +
           " $unsurNo " +
-          Dil().sec(dilSecimi, "tv796");
+          Dil().sec(dilSecimi, "tv796a");
     } else if (paramKodu == "ko3-$unsurNo") {
       sonuc =
           Dil().sec(dilSecimi, "tv459") + " $unsurNo " + int.parse(unsurNo) < 11
@@ -1041,7 +1067,7 @@ class ParametreLogState extends State<ParametreLog> {
     } else if (paramKodu == "ko3-25") {
       sonuc = Dil().sec(dilSecimi, "tv482");
     } else if (paramKodu == "ko3-26") {
-      sonuc = Dil().sec(dilSecimi, "tv485");
+      sonuc = Dil().sec(dilSecimi, "tv485a");
     } else if (paramKodu == "ko3-27") {
       sonuc = Dil().sec(dilSecimi, "tv486");
     } else if (paramKodu == "ko3-28") {
@@ -1069,25 +1095,25 @@ class ParametreLogState extends State<ParametreLog> {
     } else if (paramKodu == "ko5-0") {
       sonuc = Dil().sec(dilSecimi, "tv294");
     } else if (paramKodu == "ko5-1") {
-      sonuc = Dil().sec(dilSecimi, "tv272");
+      sonuc = Dil().sec(dilSecimi, "tv272a");
     } else if (paramKodu == "ko5-2") {
-      sonuc = Dil().sec(dilSecimi, "tv273");
+      sonuc = Dil().sec(dilSecimi, "tv273a");
     } else if (paramKodu == "ko5-3") {
-      sonuc = Dil().sec(dilSecimi, "tv274");
+      sonuc = Dil().sec(dilSecimi, "tv274a");
     } else if (paramKodu == "ko5-4") {
       sonuc = Dil().sec(dilSecimi, "tv275");
     } else if (paramKodu == "ko5-5") {
-      sonuc = Dil().sec(dilSecimi, "tv479");
+      sonuc = Dil().sec(dilSecimi, "tv479a");
     } else if (paramKodu == "ko5-6") {
-      sonuc = Dil().sec(dilSecimi, "tv478");
+      sonuc = Dil().sec(dilSecimi, "tv478a");
     } else if (paramKodu == "ko6-0") {
       sonuc = Dil().sec(dilSecimi, "tv294");
     } else if (paramKodu == "ko6-1") {
-      sonuc = Dil().sec(dilSecimi, "tv272");
+      sonuc = Dil().sec(dilSecimi, "tv272a");
     } else if (paramKodu == "ko6-2") {
-      sonuc = Dil().sec(dilSecimi, "tv273");
+      sonuc = Dil().sec(dilSecimi, "tv273a");
     } else if (paramKodu == "ko6-3") {
-      sonuc = Dil().sec(dilSecimi, "tv274");
+      sonuc = Dil().sec(dilSecimi, "tv274a");
     } else if (paramKodu == "ko6-4") {
       sonuc = Dil().sec(dilSecimi, "tv275");
     } else if (paramKodu == "ko7-1") {
@@ -1141,7 +1167,7 @@ class ParametreLogState extends State<ParametreLog> {
     } else if (paramKodu == "ko8-14") {
       sonuc = Dil().sec(dilSecimi, "tv346");
     } else if (paramKodu == "ko8-3") {
-      sonuc = Dil().sec(dilSecimi, "tv337");
+      sonuc = Dil().sec(dilSecimi, "tv337a");
     } else if (paramKodu == "ko8-4") {
       sonuc =
           Dil().sec(dilSecimi, "tv329") + " " + Dil().sec(dilSecimi, "tv338");
@@ -1167,11 +1193,11 @@ class ParametreLogState extends State<ParametreLog> {
       sonuc =
           Dil().sec(dilSecimi, "tv332") + " " + Dil().sec(dilSecimi, "tv339");
     } else if (paramKodu == "ko8-12") {
-      sonuc = Dil().sec(dilSecimi, "tv333");
+      sonuc = Dil().sec(dilSecimi, "tv333a");
     } else if (paramKodu == "ko8-15") {
       sonuc = Dil().sec(dilSecimi, "tv470");
     } else if (paramKodu == "ko9-1") {
-      sonuc = Dil().sec(dilSecimi, "tv417");
+      sonuc = Dil().sec(dilSecimi, "tv417a");
     } else if (paramKodu == "ko9-2") {
       sonuc =
           Dil().sec(dilSecimi, "tv420") + " " + Dil().sec(dilSecimi, "tv418");
@@ -1191,16 +1217,20 @@ class ParametreLogState extends State<ParametreLog> {
       sonuc =
           Dil().sec(dilSecimi, "tv425") + " " + Dil().sec(dilSecimi, "tv418");
     } else if (paramKodu == "ko9-8") {
-      sonuc = Dil().sec(dilSecimi, "tv415");
+      sonuc = Dil().sec(dilSecimi, "tv415a");
     } else if (paramKodu == "ko9-9") {
-      sonuc = Dil().sec(dilSecimi, "tv416");
+      sonuc = Dil().sec(dilSecimi, "tv416a");
     } else if (paramKodu == "ko9-10") {
       sonuc = Dil().sec(dilSecimi, "tv279");
-    } else if (paramKodu == "ko10-1") {
+    } else if (paramKodu == "ko10") {
       sonuc = Dil().sec(dilSecimi, "tv402");
     } else if (paramKodu == "ko11-1") {
-      sonuc =
-          Dil().sec(dilSecimi, "tv433") + " " + Dil().sec(dilSecimi, "tv431");
+      sonuc = Dil().sec(dilSecimi, "tv433") +
+          " " +
+          Dil().sec(dilSecimi, "tv431") +
+          "(" +
+          unsurNo +
+          ")";
     } else if (paramKodu == "ko12-1") {
       sonuc = Dil().sec(dilSecimi, "tv443") +
           " " +
@@ -1532,7 +1562,7 @@ class ParametreLogState extends State<ParametreLog> {
           Dil().sec(dilSecimi, "tv474");
     } else if (paramKodu == "ko23-1") {
       sonuc = Dil().sec(dilSecimi, "tv472");
-    } else if (paramKodu == "ko24-1") {
+    } else if (paramKodu == "ko24") {
       sonuc = Dil().sec(dilSecimi, "tv476");
     } else if (paramKodu == "ko25-1") {
       sonuc = Dil().sec(dilSecimi, "tv460") +
@@ -1547,31 +1577,31 @@ class ParametreLogState extends State<ParametreLog> {
           " " +
           Dil().sec(dilSecimi, "tv474");
     } else if (paramKodu == "ko26-1") {
-      sonuc = Dil().sec(dilSecimi, "tv489");
+      sonuc = Dil().sec(dilSecimi, "tv489a");
     } else if (paramKodu == "ko26-2") {
-      sonuc = Dil().sec(dilSecimi, "tv490");
+      sonuc = Dil().sec(dilSecimi, "tv490a");
     } else if (paramKodu == "ko26-3") {
-      sonuc = Dil().sec(dilSecimi, "tv491");
+      sonuc = Dil().sec(dilSecimi, "tv491a");
     } else if (paramKodu == "ko26-4") {
-      sonuc = Dil().sec(dilSecimi, "tv562");
+      sonuc = Dil().sec(dilSecimi, "tv562a");
     } else if (paramKodu == "ko26-5") {
-      sonuc = Dil().sec(dilSecimi, "tv566");
+      sonuc = Dil().sec(dilSecimi, "tv566a");
     } else if (paramKodu == "ko26-6") {
-      sonuc = Dil().sec(dilSecimi, "tv567");
+      sonuc = Dil().sec(dilSecimi, "tv567a");
     } else if (paramKodu == "ko26-7") {
-      sonuc = Dil().sec(dilSecimi, "tv468");
-    } else if (paramKodu == "ko26-8" ||
-        paramKodu == "ko26-9" ||
-        paramKodu == "ko26-10") {
-      sonuc = Dil().sec(dilSecimi, "tv664");
-    } else if (paramKodu == "ko26-11" ||
-        paramKodu == "ko26-12" ||
-        paramKodu == "ko26-13") {
-      sonuc = Dil().sec(dilSecimi, "tv670");
-    } else if (paramKodu == "ko26-14" ||
-        paramKodu == "ko26-15" ||
-        paramKodu == "ko26-16") {
-      sonuc = Dil().sec(dilSecimi, "tv672");
+      sonuc = Dil().sec(dilSecimi, "tv568a");
+    } else if (paramKodu == "ko26-11") {
+      sonuc = Dil().sec(dilSecimi, "tv670b");
+    } else if (paramKodu == "ko26-12") {
+      sonuc = Dil().sec(dilSecimi, "tv670a");
+    } else if (paramKodu == "ko26-13") {
+      sonuc = Dil().sec(dilSecimi, "tv670b");
+    } else if (paramKodu == "ko26-14") {
+      sonuc = Dil().sec(dilSecimi, "tv672b");
+    } else if (paramKodu == "ko26-15") {
+      sonuc = Dil().sec(dilSecimi, "tv672a");
+    } else if (paramKodu == "ko26-16") {
+      sonuc = Dil().sec(dilSecimi, "tv672b");
     } else if (paramKodu == "ko27-1" && int.parse(unsurNo) <= 10) {
       sonuc = Dil().sec(dilSecimi, "tv500") +
           " " +
@@ -1628,7 +1658,7 @@ class ParametreLogState extends State<ParametreLog> {
       sonuc = Dil().sec(dilSecimi, "tv97");
     } else if (paramKodu == "ko29-4") {
       sonuc = Dil().sec(dilSecimi, "tv561");
-    } else if (paramKodu == "ko30-1") {
+    } else if (paramKodu == "ko30") {
       sonuc = Dil().sec(dilSecimi, "tv684");
     } else if (paramKodu == "ko31-1") {
       sonuc =
@@ -1679,18 +1709,20 @@ class ParametreLogState extends State<ParametreLog> {
       sonuc =
           Dil().sec(dilSecimi, "tv767") + " " + Dil().sec(dilSecimi, "tv250");
     } else if (paramKodu == "ko31-17") {
-      sonuc = Dil().sec(dilSecimi, "tv710");
+      sonuc = Dil().sec(dilSecimi, "tv710a");
     } else if (paramKodu == "ko31-18") {
-      sonuc = Dil().sec(dilSecimi, "tv711");
+      sonuc = Dil().sec(dilSecimi, "tv711a");
     } else if (paramKodu == "ko31-19") {
-      sonuc = Dil().sec(dilSecimi, "tv712");
+      sonuc = Dil().sec(dilSecimi, "tv712a");
     } else if (paramKodu == "ko31-20") {
-      sonuc = Dil().sec(dilSecimi, "tv713");
+      sonuc = Dil().sec(dilSecimi, "tv713a");
     } else if (paramKodu == "ko31-21") {
       sonuc = Dil().sec(dilSecimi, "tv715");
     } else if (paramKodu == "ko31-22") {
       sonuc = Dil().sec(dilSecimi, "tv714");
-    } else if (paramKodu == "ko32-$unsurNo") {
+    } else if (paramKodu == "ko32") {
+      sonuc = Dil().sec(dilSecimi, "tv714");
+    } else if (paramKodu == "ko33-$unsurNo") {
       sonuc = Dil().sec(dilSecimi, "tv716") +
           " " +
           Dil().sec(dilSecimi, "korna$unsurNo");

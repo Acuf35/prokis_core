@@ -910,7 +910,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                   flex: 20,
                                   child: Column(
                                     children: <Widget>[
-                                      Text(Dil().sec(dilSecimi, "tv663"),style: TextStyle(
+                                      Text(Dil().sec(dilSecimi, "tv671"),style: TextStyle(
                                         fontFamily: 'Kelly Slab'
                                       ),
                                       textScaleFactor: oran,
@@ -925,7 +925,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                      alignment: Alignment.center,
                                                      child: AutoSizeText(
                                                        Dil().sec(
-                                                           dilSecimi, "tv664"),
+                                                           dilSecimi, "tv672"),
                                                        textAlign: TextAlign.center,
                                                        style: TextStyle(
                                                            fontSize: 50.0,
@@ -958,14 +958,14 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                constraints: BoxConstraints(),
                                                                onPressed: () {
 
-                                                                 if (!suSayacResetSaatiAM) {
-                                                                   suSayacResetSaatiAM = true;
-                                                                   suSayacResetSaatiPM = false;
+                                                                 if (!yemTuketimResetSaatiAM) {
+                                                                   yemTuketimResetSaatiAM = true;
+                                                                   yemTuketimResetSaatiPM = false;
                                                                  } 
                                                                 
-                                                        
+                                        
                                                                  yazmaSonrasiGecikmeSayaci = 0;
-                                                                String komut="26*10*$suSayacResetSaatiSaat";
+                                                                String komut="26*16*$yemTuketimResetSaatiSaat";
                                                                 Metotlar().veriGonder(komut, 2235).then((value){
                                                                   if(value.split("*")[0]=="error"){
                                                                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -989,10 +989,10 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                  setState(() {});
                                                                },
                                                                child: Icon(
-                                                                   suSayacResetSaatiAM == true
+                                                                   yemTuketimResetSaatiAM == true
                                                                        ? Icons.check_box
                                                                        : Icons.check_box_outline_blank,
-                                                                   color: suSayacResetSaatiAM == true
+                                                                   color: yemTuketimResetSaatiAM == true
                                                                        ? Colors.green.shade500
                                                                        : Colors.black,
                                                                    size: 20 * oran),
@@ -1018,17 +1018,17 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                constraints: BoxConstraints(),
                                                                onPressed: () {
 
-                                                                 if (!suSayacResetSaatiPM) {
-                                                                   suSayacResetSaatiPM = true;
-                                                                   suSayacResetSaatiAM = false;
+                                                                 if (!yemTuketimResetSaatiPM) {
+                                                                   yemTuketimResetSaatiPM = true;
+                                                                   yemTuketimResetSaatiAM = false;
                                                                  } 
 
-                                                                 String veri= suSayacResetSaatiSaat=="12" ? '0' : (int.parse(suSayacResetSaatiSaat)+12).toString();
+                                                                 String veri= yemTuketimResetSaatiSaat=="12" ? '0' : (int.parse(yemTuketimResetSaatiSaat)+12).toString();
 
                                                                  
 
-                                                                yazmaSonrasiGecikmeSayaci = 0;
-                                                                String komut="26*10*$veri";
+                                                                 yazmaSonrasiGecikmeSayaci = 0;
+                                                                String komut="26*16*$veri";
                                                                 Metotlar().veriGonder(komut, 2235).then((value){
                                                                   if(value.split("*")[0]=="error"){
                                                                     Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
@@ -1052,10 +1052,10 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                                  setState(() {});
                                                                },
                                                                child: Icon(
-                                                                   suSayacResetSaatiPM == true
+                                                                   yemTuketimResetSaatiPM == true
                                                                        ? Icons.check_box
                                                                        : Icons.check_box_outline_blank,
-                                                                   color: suSayacResetSaatiPM == true
+                                                                   color: yemTuketimResetSaatiPM == true
                                                                        ? Colors.green.shade500
                                                                        : Colors.black,
                                                                    size: 20 * oran),
@@ -1079,8 +1079,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                    
                                                      RawMaterialButton(
                                                        onPressed: () {
-                                                         _index = 8;
-                                                         int sayi=int.parse(suSayacResetSaatiSaat);
+                                                         _index = 14;
+                                                         int sayi=int.parse(yemTuketimResetSaatiSaat);
                                                          _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                          _birler=sayi%10;
 
@@ -1088,13 +1088,13 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                              _onlar,
                                                              _birler,
                                                              _index,
-                                                             8,
+                                                             14,
                                                              oran,
                                                              dilSecimi,
                                                              "tv338",dbProkis);
                                                        },
                                                        child: Text(
-                                                         suSayacResetSaatiSaat,
+                                                         yemTuketimResetSaatiSaat,
                                                          style: TextStyle(
                                                              fontSize:
                                                                  25 * oran,
@@ -1121,8 +1121,8 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                      ),
                                                      RawMaterialButton(
                                                        onPressed: () {
-                                                         _index = 9;
-                                                         int sayi=int.parse(suSayacResetSaatiDakika);
+                                                         _index = 15;
+                                                         int sayi=int.parse(yemTuketimResetSaatiDakika);
                                                          _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
                                                          _birler=sayi%10;
 
@@ -1130,13 +1130,13 @@ final dbProkis = Provider.of<DBProkis>(context);
                                                              _onlar,
                                                              _birler,
                                                              _index,
-                                                             9,
+                                                             15,
                                                              oran,
                                                              dilSecimi,
                                                              "tv339",dbProkis);
                                                        },
                                                        child: Text(
-                                                         suSayacResetSaatiDakika,
+                                                         yemTuketimResetSaatiDakika,
                                                          style: TextStyle(
                                                              fontSize:
                                                                  25 * oran,
@@ -1442,268 +1442,7 @@ final dbProkis = Provider.of<DBProkis>(context);
                               children: <Widget>[
                                 Spacer(),
                                 //opsiyon 7
-                                Expanded(
-                                  flex: 20,
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(Dil().sec(dilSecimi, "tv671"),style: TextStyle(
-                                        fontFamily: 'Kelly Slab'
-                                      ),
-                                      textScaleFactor: oran,
-                                      ),
-                                      Expanded(
-                                         child: Container(color: Colors.blue[50],
-                                           child: Column(
-                                             children: <Widget>[
-                                               Expanded(flex: 3,
-                                                 child: SizedBox(
-                                                   child: Container(
-                                                     alignment: Alignment.center,
-                                                     child: AutoSizeText(
-                                                       Dil().sec(
-                                                           dilSecimi, "tv672"),
-                                                       textAlign: TextAlign.center,
-                                                       style: TextStyle(
-                                                           fontSize: 50.0,
-                                                           fontFamily:
-                                                               'Kelly Slab',
-                                                           fontWeight:
-                                                               FontWeight.bold),
-                                                       maxLines: 2,
-                                                       minFontSize: 8,
-                                                     ),
-                                                   ),
-                                                 ),
-                                               ),
-                                               Expanded(flex: 5,
-                                                 child: Row(
-                                                   mainAxisAlignment:
-                                                       MainAxisAlignment.center,
-                                                   children: <Widget>[
-                                                     Visibility(visible: !format24saatlik,
-                                                       child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                                                         children: <Widget>[
-
-                                                           Row(
-                                                           mainAxisAlignment: MainAxisAlignment.center,
-                                                           children: <Widget>[
-                                                             
-                                                             RawMaterialButton(
-                                                               materialTapTargetSize:
-                                                                   MaterialTapTargetSize.shrinkWrap,
-                                                               constraints: BoxConstraints(),
-                                                               onPressed: () {
-
-                                                                 if (!yemTuketimResetSaatiAM) {
-                                                                   yemTuketimResetSaatiAM = true;
-                                                                   yemTuketimResetSaatiPM = false;
-                                                                 } 
-                                                                
-                                        
-                                                                 yazmaSonrasiGecikmeSayaci = 0;
-                                                                String komut="26*16*$yemTuketimResetSaatiSaat";
-                                                                Metotlar().veriGonder(komut, 2235).then((value){
-                                                                  if(value.split("*")[0]=="error"){
-                                                                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                                                  }else{
-                                                                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                                                    
-                                                                    baglanti = false;
-                                                                    Metotlar().takipEt('27*', 2236).then((veri){
-                                                                        if(veri.split("*")[0]=="error"){
-                                                                          baglanti=false;
-                                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                                                          setState(() {});
-                                                                        }else{
-                                                                          takipEtVeriIsleme(veri);
-                                                                          baglantiDurum="";
-                                                                        }
-                                                                    });
-                                                                  }
-                                                                });
-
-                                                                 setState(() {});
-                                                               },
-                                                               child: Icon(
-                                                                   yemTuketimResetSaatiAM == true
-                                                                       ? Icons.check_box
-                                                                       : Icons.check_box_outline_blank,
-                                                                   color: yemTuketimResetSaatiAM == true
-                                                                       ? Colors.green.shade500
-                                                                       : Colors.black,
-                                                                   size: 20 * oran),
-                                                             ),
-                                                             Text(
-                                                               'AM',textAlign: TextAlign.center,
-                                                               style: TextStyle(
-                                                                   fontFamily: 'Kelly Slab',
-                                                                   fontWeight: FontWeight.bold),
-                                                               textScaleFactor: oran,
-                                                               
-                                                             ),
-                                                             Container(width: 5*oran,)
-                                                           ],
-                                                           ),
-                                                           Row(
-                                                           mainAxisAlignment: MainAxisAlignment.center,
-                                                           children: <Widget>[
-                                                             
-                                                             RawMaterialButton(
-                                                               materialTapTargetSize:
-                                                                   MaterialTapTargetSize.shrinkWrap,
-                                                               constraints: BoxConstraints(),
-                                                               onPressed: () {
-
-                                                                 if (!yemTuketimResetSaatiPM) {
-                                                                   yemTuketimResetSaatiPM = true;
-                                                                   yemTuketimResetSaatiAM = false;
-                                                                 } 
-
-                                                                 String veri= yemTuketimResetSaatiSaat=="12" ? '0' : (int.parse(yemTuketimResetSaatiSaat)+12).toString();
-
-                                                                 
-
-                                                                 yazmaSonrasiGecikmeSayaci = 0;
-                                                                String komut="26*16*$veri";
-                                                                Metotlar().veriGonder(komut, 2235).then((value){
-                                                                  if(value.split("*")[0]=="error"){
-                                                                    Toast.show(Dil().sec(dilSecimi, "toast101"), context,duration:3);
-                                                                  }else{
-                                                                    Toast.show(Dil().sec(dilSecimi, "toast8"), context,duration:3);
-                                                                    
-                                                                    baglanti = false;
-                                                                    Metotlar().takipEt('27*', 2236).then((veri){
-                                                                        if(veri.split("*")[0]=="error"){
-                                                                          baglanti=false;
-                                                                          baglantiDurum=Metotlar().errorToastMesaj(veri.split("*")[1],dbProkis);
-                                                                          setState(() {});
-                                                                        }else{
-                                                                          takipEtVeriIsleme(veri);
-                                                                          baglantiDurum="";
-                                                                        }
-                                                                    });
-                                                                  }
-                                                                });
-
-                                                                 setState(() {});
-                                                               },
-                                                               child: Icon(
-                                                                   yemTuketimResetSaatiPM == true
-                                                                       ? Icons.check_box
-                                                                       : Icons.check_box_outline_blank,
-                                                                   color: yemTuketimResetSaatiPM == true
-                                                                       ? Colors.green.shade500
-                                                                       : Colors.black,
-                                                                   size: 20 * oran),
-                                                             ),
-                                                             Text(
-                                                               'PM',textAlign: TextAlign.center,
-                                                               style: TextStyle(
-                                                                   fontFamily: 'Kelly Slab',
-                                                                   fontWeight: FontWeight.bold),
-                                                               textScaleFactor: oran,
-                                                               
-                                                             ),
-                                                             Container(width: 5*oran,)
-                                                           ],
-                                                   ),
-                                                         
-                                                         
-                                                         ],
-                                                       ),
-                                                     ),
-                                                   
-                                                     RawMaterialButton(
-                                                       onPressed: () {
-                                                         _index = 14;
-                                                         int sayi=int.parse(yemTuketimResetSaatiSaat);
-                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                         _birler=sayi%10;
-
-                                                         _degergiris2X0(
-                                                             _onlar,
-                                                             _birler,
-                                                             _index,
-                                                             14,
-                                                             oran,
-                                                             dilSecimi,
-                                                             "tv338",dbProkis);
-                                                       },
-                                                       child: Text(
-                                                         yemTuketimResetSaatiSaat,
-                                                         style: TextStyle(
-                                                             fontSize:
-                                                                 25 * oran,
-                                                             fontFamily:
-                                                                 'Kelly Slab',
-                                                             fontWeight:
-                                                                 FontWeight
-                                                                     .bold,
-                                                             color:
-                                                                 Colors.white),
-                                                       ),
-                                                       fillColor: Colors.green[800],
-                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                       constraints: BoxConstraints(),
-                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                     ),
-                                                     Text(
-                                                       ":",
-                                                       textScaleFactor: oran,
-                                                       style:
-                                                           TextStyle(fontSize: 34,fontFamily: 'Audio wide'),
-                                                           
-                                                     ),
-                                                     RawMaterialButton(
-                                                       onPressed: () {
-                                                         _index = 15;
-                                                         int sayi=int.parse(yemTuketimResetSaatiDakika);
-                                                         _onlar=sayi<10 ? 0 :(sayi>99 ? (sayi-100*_yuzler)~/10 : sayi~/10);
-                                                         _birler=sayi%10;
-
-                                                         _degergiris2X0(
-                                                             _onlar,
-                                                             _birler,
-                                                             _index,
-                                                             15,
-                                                             oran,
-                                                             dilSecimi,
-                                                             "tv339",dbProkis);
-                                                       },
-                                                       child: Text(
-                                                         yemTuketimResetSaatiDakika,
-                                                         style: TextStyle(
-                                                             fontSize:
-                                                                 25 * oran,
-                                                             fontFamily:
-                                                                 'Kelly Slab',
-                                                             fontWeight:
-                                                                 FontWeight
-                                                                     .bold,
-                                                             color:
-                                                                 Colors.white),
-                                                       ),
-                                                       fillColor: Colors.red[700],
-                                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10*oran)),
-                                                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                                                       constraints: BoxConstraints(),
-                                                       padding: EdgeInsets.only(top:5*oran,bottom: 5*oran,left: 15*oran,right: 15*oran),
-                                                     ),
-                                                     
-                                             
-                                                   ],
-                                                 ),
-                                               ),
-                                               Spacer(flex: 1,)
-                                             ],
-                                           ),
-                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Spacer(flex: 42,)
+                                
                                 
                               ],
                             ),
@@ -2070,32 +1809,12 @@ Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int index, int paramIndex
 
       if (index == 8) {
 
-        if(!format24saatlik){
-          
-          if(_onlar*10+_birler<13){
-            suSayacResetSaatiSaat=(_onlar*10+_birler).toString();
-              
-            if(suSayacResetSaatiPM){
-              veri=(int.parse(suSayacResetSaatiSaat)==12 ? '0' : int.parse(suSayacResetSaatiSaat)+12).toString();
-            }else{
-              veri=suSayacResetSaatiSaat;
-            }
-
-          }else{
-            veriGonderilsinMi=false;
-            Toast.show(Dil().sec(dilSecimi, "toast89"),context,duration: 3);
-          }
-
-        }else{
-          suSayacResetSaatiSaat=(_onlar*10+_birler).toString();
-          veri = suSayacResetSaatiSaat;
-        }
+        //BOŞTA
         
       }
 
       if (index == 9) {
-        suSayacResetSaatiDakika=(_onlar*10+_birler).toString();
-        veri = suSayacResetSaatiDakika;
+        //BOŞTA
       }
 
 
@@ -2208,14 +1927,12 @@ Future _degergiris2X0(int onlarUnsur, int birlerUnsur, int index, int paramIndex
               elekKesildigindeSistemiDurdur = degerler[4]=="True" ? true : false;
               tFanYumGecisDongu = degerler[5];
               tFanYumGecisAdet = degerler[6];
-              suSayacResetSaatiSaat = degerler[7];
-              suSayacResetSaatiDakika = degerler[8];
-              olculenMinMaksResetSaatiSaat = degerler[9];
-              olculenMinMaksResetSaatiDakika = degerler[10];
-              yemTuketimResetSaatiSaat = degerler[11];
-              yemTuketimResetSaatiDakika = degerler[12];
+              olculenMinMaksResetSaatiSaat = degerler[7];
+              olculenMinMaksResetSaatiDakika = degerler[8];
+              yemTuketimResetSaatiSaat = degerler[9];
+              yemTuketimResetSaatiDakika = degerler[10];
 
-              alarmDurum=degerler[13];
+              alarmDurum=degerler[11];
 
 
     baglanti=false;

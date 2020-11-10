@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/sistem/kurulum/girisler.dart';
 import 'package:prokis/sistem/kurulum/klepe_yontemi.dart';
+import 'package:prokis/sistem/kurulum/kw_degerleri.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:prokis/mywidgets/floatingActionButton.dart';
@@ -1383,7 +1384,7 @@ class UzDebiNem extends StatelessWidget {
                                               context,
                                               MaterialPageRoute(
                                                   builder: (context) =>
-                                                      KurulumuTamamla(dbProkis.getDbVeri),
+                                                      KwDegerleri(true),
                                                       fullscreenDialog: true
                                                       
                                                       ));

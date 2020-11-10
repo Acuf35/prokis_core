@@ -209,7 +209,7 @@ class _IzlemeFanKlpPedState extends State<IzlemeFanKlpPed>
 
     return Scaffold(
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(30 * oran),
+          preferredSize: Size.fromHeight(40 * oran),
           child: StreamBuilder<Object>(
               initialData:
                   "*00000000000000000000000000000000000000000000000000000000000000000000000000000000",

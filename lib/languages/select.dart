@@ -239,6 +239,7 @@ class Dil{
     kod=="tv215" ? metin='Çalışma Sırası :' : null;
     kod=="tv216" ? metin='Min-Max. Açıklık (%) :' : null;
     kod=="tv217" ? metin='Klp Baş. Düşen\nFan Mik. Man' : null;
+    kod=="tv217a" ? metin='Klp Baş. Düşen Fan Mik. Man' : null;
     kod=="tv218" ? metin='Max. Açıklık :' : null;
     kod=="tv219" ? metin='Min. Açıklık :' : null;
     kod=="tv220" ? metin='Oto' : null;
@@ -254,6 +255,7 @@ class Dil{
     kod=="tv230" ? metin='Çalışma Sırası 2' : null;
     kod=="tv231" ? metin='Sıra2 Fan Say. Başl' : null;
     kod=="tv232" ? metin='Kalibrasyon\nBaşlat' : null;
+    kod=="tv232a" ? metin='Kalibrasyon Başlat' : null;
     kod=="tv233" ? metin='Kalibrasyon Durumu :' : null;
     kod=="tv234" ? metin='Kalibrasyon Süresi :' : null;
     kod=="tv235" ? metin='Klp Oto-Man Durum :' : null;
@@ -294,8 +296,11 @@ class Dil{
     kod=="tv270" ? metin='Çalışma Sür.(Sn)' : null;
     kod=="tv271" ? metin='Durma Sür.(Sn)' : null;
     kod=="tv272" ? metin='Fasılada Max.\nÇalışma Yüzdesi(%)' : null;
+    kod=="tv272a" ? metin='Fasılada Max. Çalışma Yüzdesi(%)' : null;
     kod=="tv273" ? metin='Air Inlet\nÖncelik Süresi(Sn)' : null;
+    kod=="tv273a" ? metin='Air Inlet Öncelik Süresi(Sn)' : null;
     kod=="tv274" ? metin='Hava Giriş\nYüzdesi(%)' : null;
+    kod=="tv274a" ? metin='Hava Giriş Yüzdesi(%)' : null;
     kod=="tv275" ? metin='Fasıla Durma\'da Air Inlet Kapansın mı?' : null;
     kod=="tv276" ? metin='MİNİMUM HAVALANDIRMA' : null;
     kod=="tv277" ? metin='Min. Hav.\nFan Sayısı' : null;
@@ -310,7 +315,7 @@ class Dil{
     kod=="tv286" ? metin='43-49 Gün' : null;
     kod=="tv287" ? metin='50 ve Sonrası' : null;
     kod=="tv288" ? metin='Default Değerlere Dön' : null;
-    kod=="tv289" ? metin='BOŞTA' : null;
+    kod=="tv289" ? metin='Tünel Fan KW' : null;
     kod=="tv290" ? metin='7-20 Hafta' : null;
     kod=="tv291" ? metin='21-52 Hafta' : null;
     kod=="tv292" ? metin='53 ve Sonrası' : null;
@@ -326,7 +331,7 @@ class Dil{
     kod=="tv302" ? metin='Adetler' : null;
     kod=="tv303" ? metin='Fan Kontrol Yöntemi' : null;
     kod=="tv304" ? metin='MH Kontrol Yöntemi' : null;
-    kod=="tv305" ? metin='Boşta' : null;
+    kod=="tv305" ? metin='Klepe Motor KW' : null;
     kod=="tv306" ? metin='Bina,Nem,Debi' : null;
     kod=="tv307" ? metin='Ped P. Haritası' : null;
     kod=="tv308" ? metin='Isı Sen. Haritası' : null;
@@ -355,15 +360,17 @@ class Dil{
     kod=="tv331" ? metin='Kapa Saati 1' : null;
     kod=="tv332" ? metin='Kapa Saati 2' : null;
     kod=="tv333" ? metin='Aç-Kapa Saati 2\nAktif' : null;
+    kod=="tv333a" ? metin='Aç-Kapa Saati 2 Aktif' : null;
     kod=="tv334" ? metin='Dimmer' : null;
     kod=="tv335" ? metin='Gündüz-Gece Aydınlık Yüzdesi 1' : null;
     kod=="tv336" ? metin='Gündüz-Gece Aydınlık Yüzdesi 2' : null;
     kod=="tv337" ? metin='Doğuş-Batış\nSüresi (Sn)' : null;
+    kod=="tv337a" ? metin='Doğuş-Batış Süresi (Sn)' : null;
     kod=="tv338" ? metin='Saat' : null;
     kod=="tv339" ? metin='Dakika' : null;
     kod=="tv340" ? metin='Ayd. Yüzdesi(%)' : null;
     kod=="tv341" ? metin='Anlık Ayd. Yüzdesi(%)' : null;
-    kod=="tv342" ? metin='BOŞTA' : null;
+    kod=="tv342" ? metin='Ped Pompa KW' : null;
     kod=="tv343" ? metin='Gündüz Yüzdesi 1' : null;
     kod=="tv344" ? metin='Gündüz Yüzdesi 2' : null;
     kod=="tv345" ? metin='Gece Yüzdesi 1' : null;
@@ -371,7 +378,7 @@ class Dil{
     kod=="tv347" ? metin='SÜRÜ' : null;
     kod=="tv348" ? metin='KALİBRASYON' : null;
     kod=="tv349" ? metin='Girişler' : null;
-    kod=="tv350" ? metin='BOŞTA' : null;
+    kod=="tv350" ? metin='Bfan Motorları KW ' : null;
     kod=="tv351" ? metin='Girişlerin Atanması' : null;
     kod=="tv352" ? metin='Acil\nStop' : null;
     kod=="tv353" ? metin='Faz\nKoruma' : null;
@@ -437,8 +444,11 @@ class Dil{
     kod=="tv413" ? metin='TARİHİ ONAYLA' : null;
     kod=="tv414" ? metin='SÜRÜ BİLGİLERİ' : null;
     kod=="tv415" ? metin='Sürü Doğum\nTarihi' : null;
+    kod=="tv415a" ? metin='Sürü Doğum Tarihi' : null;
     kod=="tv416" ? metin='Sürü Giriş\nTarihi' : null;
+    kod=="tv416a" ? metin='Sürü Giriş Tarihi' : null;
     kod=="tv417" ? metin='Hayvan Sayısı\n(girişte)' : null;
+    kod=="tv417a" ? metin='Hayvan Sayısı (girişte)' : null;
     kod=="tv418" ? metin='Ölüm\nSayısı' : null;
     kod=="tv419" ? metin='Kategorilere Göre Ölü Hayvan Sayısı Girişi' : null;
     kod=="tv420" ? metin='Hastalık Kaynaklı' : null;
@@ -500,19 +510,26 @@ class Dil{
     kod=="tv476" ? metin='AIR INLET OTO-MAN SEÇİMİ' : null;
     kod=="tv477" ? metin='Air Inlet Hareket Süresi (Sn)' : null;
     kod=="tv478" ? metin='İlk Kaç Gün Sadece\nMin.Hav. Yapsın?' : null;
+    kod=="tv478a" ? metin='İlk Kaç Gün Sadece Min.Hav. Yapsın?' : null;
     kod=="tv479" ? metin='Sadece Min. Hav.\nModu Aktif' : null;
+    kod=="tv479a" ? metin='Sadece Min. Hav. Modu Aktif' : null;
     kod=="tv480" ? metin='Min. Hav.\'dan Geçişte\nDebi Korunsun mu?' : null;
+    kod=="tv480a" ? metin='Min. Hav.\'dan Geçişte Debi Korunsun mu?' : null;
     kod=="tv481" ? metin='YARDIMCI OPSİYONLAR' : null;
     kod=="tv482" ? metin='Min. Nem (%)' : null;
     kod=="tv483" ? metin='Sıcaklık-Açıklık Diyagramı' : null;
     kod=="tv484" ? metin='Minimum Nem' : null;
     kod=="tv485" ? metin='Dusuk Nemde\nPed Çalışsın' : null;
+    kod=="tv485a" ? metin='Dusuk Nemde Ped Çalışsın' : null;
     kod=="tv486" ? metin='Sıc. Öncelikli' : null;
     kod=="tv487" ? metin='Ped P. 1' : null;
     kod=="tv488" ? metin='Ped P. 2-3' : null;
     kod=="tv489" ? metin='Yüksek Nemde\nTüm Fanlar Çalışsın' : null;
+    kod=="tv489a" ? metin='Yüksek Nemde Tüm Fanlar Çalışsın' : null;
     kod=="tv490" ? metin='Dış Nem\nÜst Limit Aktif' : null;
+    kod=="tv490a" ? metin='Dış Nem Üst Limit Aktif' : null;
     kod=="tv491" ? metin='Dış Nem\nÜst Limit' : null;
+    kod=="tv491a" ? metin='Dış Nem Üst Limit' : null;
     kod=="tv492" ? metin='0-10V' : null;
     kod=="tv493" ? metin='4-20mA' : null;
     kod=="tv494" ? metin='Bacafan\nMotor Hızı (Hz)' : null;
@@ -584,12 +601,16 @@ class Dil{
     kod=="tv560" ? metin='Yemleme Detayları' : null;
     kod=="tv561" ? metin='Sinyal Süresi (Sn) : ' : null;
     kod=="tv562" ? metin='Otomatikte Devreye Giren Tünel\nFanlarının Min. Çalş. Süresi (Sn)' : null;
+    kod=="tv562a" ? metin='Otomatikte Devreye Giren Tünel Fanlarının Min. Çalş. Süresi (Sn)' : null;
     kod=="tv563" ? metin='Yeni şifreyi onaylamadınız!\nYine de çıkmak istiyor musunuz?' : null;
     kod=="tv564" ? metin='Yapılan değişiklikleri göndermediniz!\nYine de çıkmak istiyor musunuz?' : null;
     kod=="tv565" ? metin='OPSİYON 4' : null;
     kod=="tv566" ? metin='Elek. Kesildiğinde\nSistemi Durdur' : null;
+    kod=="tv566a" ? metin='Elek. Kesildiğinde Sistemi Durdur' : null;
     kod=="tv567" ? metin='T.Fan. Yumuşak\nGeçiş Döngüsü(Sn)' : null;
+    kod=="tv567a" ? metin='T.Fan. Yumuşak Geçiş Döngüsü(Sn)' : null;
     kod=="tv568" ? metin='T.Fan. Yumuşak\nGeçiş Adedi' : null;
+    kod=="tv568a" ? metin='T.Fan. Yumuşak Geçiş Adedi' : null;
     kod=="tv569" ? metin='SİSTEM İZLEME' : null;
     kod=="tv570" ? metin='Tünel Fanları' : null;
     kod=="tv571" ? metin='MOD' : null;
@@ -685,15 +706,19 @@ class Dil{
     kod=="tv661" ? metin='Ortalama Sıcaklık' : null;
     kod=="tv662" ? metin='Hava Hızı (m/sn)' : null;
     kod=="tv663" ? metin='OPSİYON 5' : null;
-    kod=="tv664" ? metin='Günlük Su Sayac Verileri\nReset Zamanı' : null;
+    kod=="tv664" ? metin='KW Değerleri' : null;
     kod=="tv665" ? metin='Ölç.Max. Nem' : null;
     kod=="tv666" ? metin='Ölç.Min. Nem' : null;
     kod=="tv667" ? metin='Max.Nem Saati' : null;
     kod=="tv668" ? metin='Min.Nem Saati' : null;
     kod=="tv669" ? metin='OPSİYON 6' : null;
     kod=="tv670" ? metin='Günlük Ölçülen Min-Max Sıc. ve Nem\nDeğerleri Reset Zamanı' : null;
+    kod=="tv670a" ? metin='Günlük Ölçülen Min-Max Sıc. ve Nem Değerleri Reset Zamanı(Dk)' : null;
+    kod=="tv670b" ? metin='Günlük Ölçülen Min-Max Sıc. ve Nem Değerleri Reset Zamanı(Saat)' : null;
     kod=="tv671" ? metin='OPSİYON 7' : null;
-    kod=="tv672" ? metin='Günlük Yem Tüketim Verileri\nReset Zamanı' : null;
+    kod=="tv672" ? metin='Günlük Yem, Su ve Elektrik\nTüketim Verileri Reset Zamanı' : null;
+    kod=="tv672a" ? metin='Günlük Yem, Su ve Elektrik Tüketim Verileri Reset Zamanı (Dk)' : null;
+    kod=="tv672b" ? metin='Günlük Yem, Su ve Elektrik Tüketim Verileri Reset Zamanı (Saat)' : null;
     kod=="tv673" ? metin='KISALTMALAR:' : null;
     kod=="tv674" ? metin='Ölüm Oranı (%)' : null;
     kod=="tv675" ? metin='Güncel Hayvan Sayısı' : null;
@@ -732,9 +757,13 @@ class Dil{
     kod=="tv708" ? metin='Set: ' : null;
     kod=="tv709" ? metin='Ara\nDeğerleri\nGöster' : null;
     kod=="tv710" ? metin='Alarm Gecikmesi (Sn)\n(Min-Max değerler için)' : null;
+    kod=="tv710a" ? metin='Alarm Gecikmesi (Sn) (Min-Max değerler için)' : null;
     kod=="tv711" ? metin='Günlük Min. Tük.(Lt)\n(1 sayaç için)' : null;
+    kod=="tv711a" ? metin='Günlük Min. Tük.(Lt) (1 sayaç için)' : null;
     kod=="tv712" ? metin='Ped Bakım Zamanı\nDöngü Süresi(Gün)' : null;
+    kod=="tv712a" ? metin='Ped Bakım Zamanı Döngü Süresi(Gün)' : null;
     kod=="tv713" ? metin='Sistem Bakım Zamanı\nDöngü Süresi(Gün)' : null;
+    kod=="tv713a" ? metin='Sistem Bakım Zamanı Döngü Süresi(Gün)' : null;
     kod=="tv714" ? metin='Kornayı Sustur' : null;
     kod=="tv715" ? metin='Susma Süresi(Sn)' : null;
     kod=="tv716" ? metin='Alarm Korna İptal' : null;
@@ -818,6 +847,11 @@ class Dil{
     kod=="tv794" ? metin='Isıtıcı Harita Resetleme' : null;
     kod=="tv795" ? metin='Silo Harita Resetleme' : null;
     kod=="tv796" ? metin='Kalibrasyon\nDurdur' : null;
+    kod=="tv796a" ? metin='Kalibrasyon Durdur' : null;
+    kod=="tv797" ? metin='A.Inlet Motor KW' : null;
+    kod=="tv798" ? metin='Isıtıcı KW' : null;
+    kod=="tv799" ? metin='Sirk.Fanlar KW' : null;
+    kod=="tv800" ? metin='Aydınlatma KW' : null;
    
 
     //#endregion
@@ -1886,6 +1920,16 @@ class Dil{
     ' parametrelerinin her ikisi için de yıl ve ay aynı olacak şekilde girilmelidir.\n\n'  : null;
 
 
+    //KW DEĞERLERİ
+    kod=="info57" ? metin='     Bu sayfada sistemde kullanılan ve elektrik tüketimine sebep olan kontrol unsurlarının kurulu KW değerleri'
+    ' sistemin elektrik tüketimini hesaplayabilmesi için girilmelidir.\n\n     Tünel Fanı, klepe, ped pompa, air inlet ve ısıtıcı için sadece 1 adedinin'
+    ' KW değeri girilmelidir. Bacafanları, sirkülasyon fanları ve aydınlatma sisteminin ise toplam KW değerleri girilmelidir.\n\n'  : null;
+
+    //DATA LOGLAR
+    kod=="info58" ? metin='     Bu sayfada sistemin geriye dönük tuttuğu "Sıcaklık ve Nem" , "Alarm / Uyarı" , "Tüketim" ve "Parametre"'
+    ' loglarına erişim sağlanmaktadır. İstenilen veri geçmişine, seçilen tarih aralığında erişilebilmektedir. \n\n'  : null;
+
+
 
 
     kod=="alarminfo1" ? metin='DURUM : Pano üzerindeki veya seri bağlı başka bir noktadaki Acil Stop butonuna basıldığında bu alarm aktif olur.'
@@ -2507,6 +2551,7 @@ class Dil{
     kod=="tv215" ? metin='Work Queue :' : null;
     kod=="tv216" ? metin='Min-Max. Interval (%) :' : null;
     kod=="tv217" ? metin='Fan Number per\nFlp for Man:' : null;
+    kod=="tv217a" ? metin='Fan Number per Flp for Man:' : null;
     kod=="tv218" ? metin='Max. Interval :' : null;
     kod=="tv219" ? metin='Min. Interval :' : null;
     kod=="tv220" ? metin='Auto :' : null;
@@ -2521,7 +2566,8 @@ class Dil{
     kod=="tv229" ? metin='Work Queue 1' : null;
     kod=="tv230" ? metin='Work Queue 2' : null;
     kod=="tv231" ? metin='End of W. Queue 2' : null;
-    kod=="tv232" ? metin='Calibration\nStart' : null;
+    kod=="tv232" ? metin='Start\nCalibration' : null;
+    kod=="tv232a" ? metin='Start Calibration' : null;
     kod=="tv233" ? metin='Calibration State :' : null;
     kod=="tv234" ? metin='Calibration Time :' : null;
     kod=="tv235" ? metin='Flp Auto-Man State :' : null;
@@ -2562,8 +2608,11 @@ class Dil{
     kod=="tv270" ? metin='On Time(Sn)' : null;
     kod=="tv271" ? metin='Off Time(Sn)' : null;
     kod=="tv272" ? metin='Max. Start Time\nin Intermittent' : null;
+    kod=="tv272a" ? metin='Max. Start Time in Intermittent' : null;
     kod=="tv273" ? metin='Air Inlet\nPriority Time(Sec)' : null;
+    kod=="tv273a" ? metin='Air Inlet Priority Time(Sec)' : null;
     kod=="tv274" ? metin='Air Inlet\nPercent(%)' : null;
+    kod=="tv274a" ? metin='Air Inlet Percent(%)' : null;
     kod=="tv275" ? metin='Close Air Inlet in Intermittent stop state?' : null;
     kod=="tv276" ? metin='MINIMUM VENTILATION' : null;
     kod=="tv277" ? metin='Min. Vent.\nFan Number' : null;
@@ -2578,7 +2627,7 @@ class Dil{
     kod=="tv286" ? metin='Day 43-49' : null;
     kod=="tv287" ? metin='Day 50 and beyond' : null;
     kod=="tv288" ? metin='Back to Default Values' : null;
-    kod=="tv289" ? metin='BOŞTA' : null;
+    kod=="tv289" ? metin='Tunnel Fan KW' : null;
     kod=="tv290" ? metin='Week 7-20' : null;
     kod=="tv291" ? metin='Week 21-52' : null;
     kod=="tv292" ? metin='Week 53 and beyond' : null;
@@ -2594,7 +2643,7 @@ class Dil{
     kod=="tv302" ? metin='Quantities' : null;
     kod=="tv303" ? metin='Fan Control Method' : null;
     kod=="tv304" ? metin='MV Control Method' : null;
-    kod=="tv305" ? metin='Boşta' : null;
+    kod=="tv305" ? metin='Flap Motor KW' : null;
     kod=="tv306" ? metin='Built,Hum,Flow' : null;
     kod=="tv307" ? metin='Ped Pum. Map' : null;
     kod=="tv308" ? metin='Temp. Sen. Map' : null;
@@ -2623,15 +2672,17 @@ class Dil{
     kod=="tv331" ? metin='Off Time 1' : null;
     kod=="tv332" ? metin='Off Time 2' : null;
     kod=="tv333" ? metin='On-Off Time 2\nActivity' : null;
+    kod=="tv333a" ? metin='On-Off Time 2 Activity' : null;
     kod=="tv334" ? metin='Dimmer' : null;
     kod=="tv335" ? metin='Daytime bright Percent' : null;
     kod=="tv336" ? metin='Nighttime bright Percent' : null;
     kod=="tv337" ? metin='Sunrise-Sunset\nTime (Sec)' : null;
+    kod=="tv337a" ? metin='Sunrise-Sunset Time (Sec)' : null;
     kod=="tv338" ? metin='Hour' : null;
     kod=="tv339" ? metin='Minute' : null;
     kod=="tv340" ? metin='Light Percent(%)' : null;
     kod=="tv341" ? metin='Instant Light Percent(%)' : null;
-    kod=="tv342" ? metin='BOŞTA' : null;
+    kod=="tv342" ? metin='Ped Pump KW' : null;
     kod=="tv343" ? metin='Daytime Percent 1' : null;
     kod=="tv344" ? metin='Daytime Percent 2' : null;
     kod=="tv345" ? metin='Nighttime Percent 1' : null;
@@ -2639,7 +2690,7 @@ class Dil{
     kod=="tv347" ? metin='HERD' : null;
     kod=="tv348" ? metin='CALIBRATION' : null;
     kod=="tv349" ? metin='Inputs' : null;
-    kod=="tv350" ? metin='BOŞTA' : null;
+    kod=="tv350" ? metin='Chim. Motors KW' : null;
     kod=="tv351" ? metin='Input Assignments' : null;
     kod=="tv352" ? metin='Emer. Stop' : null;
     kod=="tv353" ? metin='Phase Cont.' : null;
@@ -2705,8 +2756,11 @@ class Dil{
     kod=="tv413" ? metin='CONFIRM DATE' : null;
     kod=="tv414" ? metin='HERD INFORMATIONS' : null;
     kod=="tv415" ? metin='Herd Birth\nDate' : null;
+    kod=="tv415a" ? metin='Herd Birth Date' : null;
     kod=="tv416" ? metin='Herd Enter\nTime' : null;
+    kod=="tv416a" ? metin='Herd Enter Time' : null;
     kod=="tv417" ? metin='Count of Animals\n(at enterance)' : null;
+    kod=="tv417a" ? metin='Count of Animals (at enterance)' : null;
     kod=="tv418" ? metin='Count of Death\n' : null;
     kod=="tv419" ? metin='Entering Number of Death Animals According to Categories' : null;
     kod=="tv420" ? metin='Disease Related' : null;
@@ -2768,17 +2822,22 @@ class Dil{
     kod=="tv476" ? metin='AIR INLET AUTO-MAN SELECTION' : null;
     kod=="tv477" ? metin='Air Inlet Step Time (Sec)' : null;
     kod=="tv478" ? metin='How Many Days to Perform\nMin.Vent After the Start?' : null;
+    kod=="tv478a" ? metin='How Many Days to Perform Min.Vent After the Start?' : null;
     kod=="tv479" ? metin='Only Min. Vent\nMode Active' : null;
+    kod=="tv479a" ? metin='Only Min. Vent Mode Active' : null;
     kod=="tv480" ? metin='Keep Flow in transition\nto Min. Vent?' : null;
+    kod=="tv480a" ? metin='Keep Flow in transition to Min. Vent?' : null;
     kod=="tv481" ? metin='HELPER OPTIONS' : null;
     kod=="tv482" ? metin='Min. Hum (%)' : null;
     kod=="tv483" ? metin='Temperature-Interval Diagram' : null;
     kod=="tv484" ? metin='Minimum Hum.' : null;
     kod=="tv485" ? metin='At Low Hum.\nPed Pumps Run' : null;
+    kod=="tv485a" ? metin='At Low Hum. Ped Pumps Run' : null;
     kod=="tv486" ? metin='Temp. Priority' : null;
     kod=="tv487" ? metin='Ped P. 1' : null;
     kod=="tv488" ? metin='Ped P. 2-3' : null;
     kod=="tv489" ? metin='At High Hum.\nAll Fans Run' : null;
+    kod=="tv489a" ? metin='At High Hum. All Fans Run' : null;
     kod=="tv490" ? metin='Out Hum\nHigh Limit Active' : null;
     kod=="tv491" ? metin='Out Hum\nHigh Limit' : null;
     kod=="tv492" ? metin='0-10V' : null;
@@ -2852,12 +2911,16 @@ class Dil{
     kod=="tv560" ? metin='Feeding Details' : null;
     kod=="tv561" ? metin='Signal Time (Sec) : ' : null;
     kod=="tv562" ? metin='Tunnel Fans\'s Minimum Run\nTime after first run in auto mode (Sec)' : null;
+    kod=="tv562a" ? metin='Tunnel Fans\'s Minimum Run Time after first run in auto mode (Sec)' : null;
     kod=="tv563" ? metin='You didn\'t approve new password! Do you still want to quit?' : null;
     kod=="tv564" ? metin='You didn\'t send the changes! Do you still want to quit?' : null;
     kod=="tv565" ? metin='OPTION 4' : null;
-    kod=="tv566" ? metin='Elek. Kesildiğinde\nSistemi Durdur' : null;
+    kod=="tv566" ? metin='Stop System\nWhen Power off' : null;
+    kod=="tv566a" ? metin='Stop System When Power off' : null;
     kod=="tv567" ? metin='T.Fan. Soft\nPassing Cycle' : null;
+    kod=="tv567a" ? metin='T.Fan. Soft Passing Cycle' : null;
     kod=="tv568" ? metin='T.Fan. Soft\nPassing Quantity' : null;
+    kod=="tv568a" ? metin='T.Fan. Soft Passing Quantity' : null;
     kod=="tv569" ? metin='SYSTEM MONITORING' : null;
     kod=="tv570" ? metin='Tunnel Fans' : null;
     kod=="tv571" ? metin='MODE :' : null;
@@ -2953,15 +3016,19 @@ class Dil{
     kod=="tv661" ? metin='Average Temprerature' : null;
     kod=="tv662" ? metin='Air  Velocity (m/sec)' : null;
     kod=="tv663" ? metin='OPTION 5' : null;
-    kod=="tv664" ? metin='Reset Time for\nDaily Watermeter Data' : null;
+    kod=="tv664" ? metin='KW Values' : null;
     kod=="tv665" ? metin='Max.Meas. Nem' : null;
     kod=="tv666" ? metin='Min.Meas. Nem' : null;
     kod=="tv667" ? metin='Max.Hum Time' : null;
     kod=="tv668" ? metin='Min.Hum Time' : null;
     kod=="tv669" ? metin='OPTION 6' : null;
     kod=="tv670" ? metin='Reset Time for Daily Measured\nMin-Max Temp and Hum Data' : null;
+    kod=="tv670a" ? metin='Reset Time for Daily Measured\nMin-Max Temp and Hum Data(Min)' : null;
+    kod=="tv670b" ? metin='Reset Time for Daily Measured\nMin-Max Temp and Hum Data(Hour)' : null;
     kod=="tv671" ? metin='OPTION 7' : null;
-    kod=="tv672" ? metin='Reset Time for Daily\nFeed Consumption data' : null;
+    kod=="tv672" ? metin='Reset Time for Daily\nFeed, Water and Power Consumption' : null;
+    kod=="tv672a" ? metin='Reset Time for Daily\nFeed, Water and Power Consumption(Min)' : null;
+    kod=="tv672b" ? metin='Reset Time for Daily\nFeed, Water and Power Consumption(Hour)' : null;
     kod=="tv673" ? metin='ABBREVIATIONS:' : null;
     kod=="tv674" ? metin='Mortality (%)' : null;
     kod=="tv675" ? metin='Actuel Animal Count' : null;
@@ -3000,9 +3067,13 @@ class Dil{
     kod=="tv708" ? metin='Set: ' : null;
     kod=="tv709" ? metin='Show\nIntermediate\nValues' : null;
     kod=="tv710" ? metin='Alarm Delay (Sec)\n(for Min-Max values)' : null;
+    kod=="tv710a" ? metin='Alarm Delay (Sec) (for Min-Max values)' : null;
     kod=="tv711" ? metin='Daily Min. Consump.(Lt)\n(for 1 watermeter)' : null;
+    kod=="tv711a" ? metin='Daily Min. Consump.(Lt) (for 1 watermeter)' : null;
     kod=="tv712" ? metin='Ped Maintenance\nCycle Time(Day)' : null;
+    kod=="tv712a" ? metin='Ped Maintenance Cycle Time(Day)' : null;
     kod=="tv713" ? metin='System Maintenance\nCycle Time(Day)' : null;
+    kod=="tv713a" ? metin='System Maintenance Cycle Time(Day)' : null;
     kod=="tv714" ? metin='Stop Horn' : null;
     kod=="tv715" ? metin='Stop Time(Sec)' : null;
     kod=="tv716" ? metin='Cancel Alarm Horn' : null;
@@ -3085,7 +3156,12 @@ class Dil{
     kod=="tv793" ? metin='Chimney F. Map Resetting' : null;
     kod=="tv794" ? metin='Heater Map Resetting' : null;
     kod=="tv795" ? metin='Silo Map Resetting' : null;
-    kod=="tv796" ? metin='Calibration\nStop' : null;
+    kod=="tv796" ? metin='Stop\nCalibration' : null;
+    kod=="tv796a" ? metin='Stop Calibration' : null;
+    kod=="tv797" ? metin='A.Inlet Motor KW' : null;
+    kod=="tv798" ? metin='Heater KW' : null;
+    kod=="tv799" ? metin='Sirc.Fans KW' : null;
+    kod=="tv800" ? metin='Lighting KW' : null;
    
     
     

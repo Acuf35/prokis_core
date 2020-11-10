@@ -464,7 +464,7 @@ class DatalogState extends State<Datalog> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv401"), 
+                      Dil().sec(dilSecimi, "tv729"), 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -494,7 +494,7 @@ class DatalogState extends State<Datalog> {
                               children: <TextSpan>[
                                 //Giriş metni
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info25"),
+                                  text: Dil().sec(dilSecimi, "info58"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran

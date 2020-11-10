@@ -29,15 +29,17 @@ class FanHaritasi extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var oran = MediaQuery.of(context).size.width / 731.4;
+    
     if (sayac2 == 0) {
       new Timer(Duration(seconds: 0), () {
-        showProgressDialog(context, Dil().sec(dilSecimi, "tv634"));
+        showProgressDialog(context, Dil().sec(dilSecimi, "tv634"), oran);
       });
     }
 
     final dbProkis = Provider.of<DBProkis>(context);
     dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
-    var oran = MediaQuery.of(context).size.width / 731.4;
+    
     double oranOzel = (MediaQuery.of(context).size.width / 60) * 3;
 
     return ChangeNotifierProvider<FanHaritasiProvider>(
@@ -874,7 +876,7 @@ class FanHaritasi extends StatelessWidget {
     );
   }
 
-  showProgressDialog(BuildContext context, String title) {
+  showProgressDialog(BuildContext context, String title, double oran) {
     try {
       showDialog(
           context: context,
@@ -893,7 +895,7 @@ class FanHaritasi extends StatelessWidget {
                       child: Text(
                         title,
                         style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 16*oran,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Kelly Slab'),
                       )),

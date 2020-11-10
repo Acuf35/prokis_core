@@ -1297,7 +1297,7 @@ class Metotlar{
 
     
     return PreferredSize(
-      preferredSize: Size.fromHeight(30*oran),
+      preferredSize: Size.fromHeight(40*oran),
       child: AppBar(
         flexibleSpace: Row(
           children: <Widget>[
@@ -1476,7 +1476,7 @@ class Metotlar{
 
     
     return PreferredSize(
-      preferredSize: Size.fromHeight(30*oran),
+      preferredSize: Size.fromHeight(40*oran),
       child: AppBar(
         flexibleSpace: Row(
           children: <Widget>[
@@ -1657,7 +1657,7 @@ class Metotlar{
 
     
     return PreferredSize(
-      preferredSize: Size.fromHeight(30*oran),
+      preferredSize: Size.fromHeight(40*oran),
       child: AppBar(
         flexibleSpace: Row(
           children: <Widget>[
@@ -1840,145 +1840,148 @@ class Metotlar{
 
     }
 
-    return AppBar(
-      flexibleSpace: Row(
-        children: <Widget>[
-          Expanded(
-              child: Builder(
-            builder: (context) => RawMaterialButton(
-              child: Icon(
-                Icons.menu,
-                size: 40 * oran,
-                color: Colors.white,
+    return PreferredSize(
+      preferredSize: Size.fromHeight(40*oran),
+          child: AppBar(
+        flexibleSpace: Row(
+          children: <Widget>[
+            Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                child: Icon(
+                  Icons.menu,
+                  size: 40 * oran,
+                  color: Colors.white,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               ),
-              onPressed: () => Scaffold.of(context).openDrawer(),
-              //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            )),
+            Expanded(
+                  child: Builder(
+                builder: (context) => RawMaterialButton(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  constraints: BoxConstraints(),
+                  child: Stack(fit: StackFit.expand,
+                    children: <Widget>[
+                      Column(
+                        children: <Widget>[
+                          Expanded(flex: 2,
+                            child: Container(
+                            alignment: Alignment.topLeft,
+                              child: LayoutBuilder(builder:
+                                    (context, constraint) {
+                                  return Icon(
+                                    Icons.add_alert,
+                                    size: constraint
+                                        .biggest.height,
+                                    color: alarmVar==false ? Colors.green[200] : Colors.red[500],
+                                  );
+                                }),
+                            ),
+                          ),
+                          Spacer(flex: 1,)
+                        ],
+                      ),
+                        Column(
+                        children: <Widget>[
+                          Spacer(),
+                          Expanded(
+                            child: Container(
+                            alignment: Alignment.bottomRight,
+                              child: LayoutBuilder(builder:
+                                    (context, constraint) {
+                                  return Icon(
+                                    Icons.warning,
+                                    size: constraint
+                                        .biggest.height,
+                                    color: uyariVar==false ? Colors.green[200] : Colors.yellow[700],
+                                  );
+                                }),
+                            ),
+                          ),
+                          
+                        ],
+                      ),
+                    ],
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => AlarmUyariDurum(dbProkis.getDbVeri)),
+                    );
+                  },
+                ),
+              )),
+            Expanded(
+              flex: 10,
+              child: Center(
+                child: Text(
+                  Dil().sec(dilSecimi, baslik),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28 * oran,
+                      fontFamily: 'Kelly Slab',
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
-          )),
+            Expanded(
+                child: Builder(
+              builder: (context) => RawMaterialButton(
+                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                constraints: BoxConstraints(),
+                child: Icon(
+                  Icons.router,
+                  size: 40 * oran,
+                  color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
+                ),
+                onPressed: () {
+                  dbProkis.dbSatirEkleGuncelle(48, "1", "0", "0", "0");
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BaglantiDurum(dbProkis.getDbVeri)),
+                    );
+                },
+              ),
+            )),
           Expanded(
                 child: Builder(
               builder: (context) => RawMaterialButton(
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 constraints: BoxConstraints(),
-                child: Stack(fit: StackFit.expand,
-                  children: <Widget>[
-                    Column(
-                      children: <Widget>[
-                        Expanded(flex: 2,
-                          child: Container(
-                          alignment: Alignment.topLeft,
-                            child: LayoutBuilder(builder:
-                                  (context, constraint) {
-                                return Icon(
-                                  Icons.add_alert,
-                                  size: constraint
-                                      .biggest.height,
-                                  color: alarmVar==false ? Colors.green[200] : Colors.red[500],
-                                );
-                              }),
-                          ),
-                        ),
-                        Spacer(flex: 1,)
-                      ],
-                    ),
-                      Column(
-                      children: <Widget>[
-                        Spacer(),
-                        Expanded(
-                          child: Container(
-                          alignment: Alignment.bottomRight,
-                            child: LayoutBuilder(builder:
-                                  (context, constraint) {
-                                return Icon(
-                                  Icons.warning,
-                                  size: constraint
-                                      .biggest.height,
-                                  color: uyariVar==false ? Colors.green[200] : Colors.yellow[700],
-                                );
-                              }),
-                          ),
-                        ),
-                        
-                      ],
-                    ),
-                  ],
+                child: Icon(
+                  Icons.info_outline,
+                  size: 40 * oran,
+                  color: Colors.yellow[700],
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => AlarmUyariDurum(dbProkis.getDbVeri)),
-                  );
-                },
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
               ),
             )),
-          Expanded(
-            flex: 10,
-            child: Center(
-              child: Text(
-                Dil().sec(dilSecimi, baslik),
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28 * oran,
-                    fontFamily: 'Kelly Slab',
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-          ),
-          Expanded(
-              child: Builder(
-            builder: (context) => RawMaterialButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              constraints: BoxConstraints(),
-              child: Icon(
-                Icons.router,
-                size: 40 * oran,
-                color: baglantiDurum=="" ? Colors.green[200] : Colors.red,
-              ),
-              onPressed: () {
-                dbProkis.dbSatirEkleGuncelle(48, "1", "0", "0", "0");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => BaglantiDurum(dbProkis.getDbVeri)),
-                  );
-              },
-            ),
-          )),
-        Expanded(
-              child: Builder(
-            builder: (context) => RawMaterialButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              constraints: BoxConstraints(),
-              child: Icon(
-                Icons.info_outline,
-                size: 40 * oran,
-                color: Colors.yellow[700],
-              ),
-              onPressed: () => Scaffold.of(context).openEndDrawer(),
-            ),
-          )),
-        
-        ],
-      ),
-      actions: [
-        Row(
-          children: <Widget>[
-            Builder(
-              builder: (context) => IconButton(
-                color: Colors.yellow[700],
-                iconSize: 40 * oran,
-                icon: Icon(null),
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-                tooltip:
-                    MaterialLocalizations.of(context).openAppDrawerTooltip,
-              ),
-            ),
+          
           ],
         ),
-      ],
-      primary: false,
-      automaticallyImplyLeading: false,
+        actions: [
+          Row(
+            children: <Widget>[
+              Builder(
+                builder: (context) => IconButton(
+                  color: Colors.yellow[700],
+                  iconSize: 40 * oran,
+                  icon: Icon(null),
+                  onPressed: () => Scaffold.of(context).openEndDrawer(),
+                  tooltip:
+                      MaterialLocalizations.of(context).openAppDrawerTooltip,
+                ),
+              ),
+            ],
+          ),
+        ],
+        primary: false,
+        automaticallyImplyLeading: false,
+      ),
     );
   
   }
@@ -2025,7 +2028,7 @@ class Metotlar{
 
 
     return PreferredSize(
-      preferredSize: Size.fromHeight(30 * oran),
+      preferredSize: Size.fromHeight(40 * oran),
       child: AppBar(
         flexibleSpace: Container(
           color: color,

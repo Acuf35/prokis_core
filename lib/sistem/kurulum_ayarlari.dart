@@ -8,6 +8,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/kurulum/klepe_yontemi.dart';
+import 'package:prokis/sistem/kurulum/kw_degerleri.dart';
 import 'package:prokis/yardimci/database_helper.dart';
 import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/yardimci/sifre_giris_admin.dart';
@@ -1364,8 +1365,75 @@ final dbProkis = Provider.of<DBProkis>(context);
                               ),
                             ],
                           )),                    
+                      Spacer(),
+                      //KW Değerleri
+                      Expanded(
+                          flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv664'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 1,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 5,
+                                child: 
+                                RawMaterialButton(
+                                      onPressed: () {
+                                        timerCancel=true;
+                                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              KwDegerleri(false)),
+                                    );
+
+                                      },
+                                      child: LayoutBuilder(
+                                          builder: (context, constraint) {
+                                        return Icon(
+                                          Icons.settings,
+                                          size: constraint.biggest.height,
+                                          color: Colors.grey[700],
+                                        );
+                                      }),
+                                    ),
+                                
+                              ),
+                            ],
+                          )),                    
+                      
                       Spacer(
-                        flex: 18,
+                        flex: 13,
                       ),
                       
                     ],
