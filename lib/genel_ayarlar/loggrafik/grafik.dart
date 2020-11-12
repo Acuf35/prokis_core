@@ -6,32 +6,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:prokis/genel_ayarlar.dart';
-import 'package:prokis/genel_ayarlar/loggrafik/datalog.dart';
-import 'package:prokis/izleme/izleme_fanklpped.dart';
+import 'package:prokis/genel_ayarlar/log_grafik.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/datalog/alarmveuyari_log.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/datalog/parametre_log.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/datalog/sicvenem_log.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/datalog/tuketim_log.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/canli_konfor_chart.dart';
 import 'package:prokis/provider/dbprokis.dart';
-import 'package:prokis/sistem/saat_tarih.dart';
 import 'package:prokis/sistem/sistem_start_stop.dart';
-import 'package:prokis/sistem/yazilim.dart';
 import 'package:prokis/yardimci/sifre_giris_admin.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 import 'package:prokis/yardimci/metotlar.dart';
-import 'package:prokis/sistem/kurulum_ayarlari.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:toast/toast.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
-import 'loggrafik/grafik.dart';
-
-class LogGrafik extends StatefulWidget {
+class Grafik extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return LogGrafikState();
+    return GrafikState();
   }
 }
 
-class LogGrafikState extends State<LogGrafik> {
+class GrafikState extends State<Grafik> {
   String dilSecimi = "EN";
   String sifre = "0";
 
@@ -104,7 +103,7 @@ class LogGrafikState extends State<LogGrafik> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv728',Colors.blue, baglantiDurum, alarmDurum),
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv730',Colors.blue, baglantiDurum, alarmDurum),
       floatingActionButton: Container(width: 56*oran,height: 56*oran,
         child: FittedBox(
                     child: FloatingActionButton(
@@ -112,7 +111,7 @@ class LogGrafikState extends State<LogGrafik> {
               timerCancel = true;
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => GenelAyarlar(dbProkis.getDbVeri)),
+                MaterialPageRoute(builder: (context) => LogGrafik()),
               );
             },
             backgroundColor: Colors.blue,
@@ -166,17 +165,16 @@ class LogGrafikState extends State<LogGrafik> {
             flex: 40,
             child: Column(
               children: <Widget>[
-                Spacer(flex: 5,),
+                Spacer(flex: 4,),
                 Expanded(
-                  flex: 10,
+                  flex: 12,
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 3,
+                        flex: 1,
                       ),
-                      //DATA LOGLAR
-                      Expanded(
-                          flex: 4,
+                      //Canlı konfor grafiği
+                      Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
                               Expanded(
@@ -193,14 +191,14 @@ class LogGrafikState extends State<LogGrafik> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv729'),
+                                                  Dil().sec(dilSecimi, 'tv801'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
                                                       fontFamily: 'Kelly Slab',
                                                       fontWeight:
                                                           FontWeight.bold),
-                                                  maxLines: 1,
+                                                  maxLines: 2,
                                                   minFontSize: 8,
                                                 ),
                                               ),
@@ -213,7 +211,7 @@ class LogGrafikState extends State<LogGrafik> {
                                 ),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 3,
                                 child: RawMaterialButton(
                                   onPressed: () {
                                     timerCancel = true;
@@ -221,7 +219,7 @@ class LogGrafikState extends State<LogGrafik> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Datalog()),
+                                              CanliKonforChart()),
                                     );
                                   },
                                   child: Container(
@@ -229,7 +227,7 @@ class LogGrafikState extends State<LogGrafik> {
                                       image: DecorationImage(
                                         alignment: Alignment.center,
                                         image: AssetImage(
-                                            'assets/images/datalog_icon.png'),
+                                            'assets/images/chart_icon.png'),
                                         fit: BoxFit.contain,
                                       ),
                                     ),
@@ -240,11 +238,10 @@ class LogGrafikState extends State<LogGrafik> {
                           )),
                       
                       Spacer(
-                        flex: 4,
+                        flex: 1,
                       ),
-                      //GRAFİKLER
-                      Expanded(
-                          flex: 4,
+                      //Alarm logları
+                      Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
                               Expanded(
@@ -261,14 +258,14 @@ class LogGrafikState extends State<LogGrafik> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv730'),
+                                                  Dil().sec(dilSecimi, 'tv732'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
                                                       fontFamily: 'Kelly Slab',
                                                       fontWeight:
                                                           FontWeight.bold),
-                                                  maxLines: 1,
+                                                  maxLines: 2,
                                                   minFontSize: 8,
                                                 ),
                                               ),
@@ -281,20 +278,89 @@ class LogGrafikState extends State<LogGrafik> {
                                 ),
                               ),
                               Expanded(
-                                flex: 5,
+                                flex: 3,
                                 child: RawMaterialButton(
                                   onPressed: () {
 
-
+/*
                                     timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              Grafik()),
+                                              AlarmVeUyariLog ()),
                                     );
 
-                                    
+                                    */
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/chart_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      
+                      Spacer(
+                        flex: 1,
+                      ),
+                      //Tüketim logları
+                      Expanded(flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv733'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 2,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    /*
+                                    timerCancel = true;
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              TuketimLog ()),
+                                    );
+                                    */
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -311,13 +377,81 @@ class LogGrafikState extends State<LogGrafik> {
                             ],
                           )),
                       Spacer(
-                        flex: 3,
+                        flex: 1,
+                      ),
+                      //Parametre logları
+                      Expanded(flex: 4,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  children: <Widget>[
+                                    Expanded(
+                                      flex: 2,
+                                      child: Row(
+                                        children: <Widget>[
+                                          Expanded(
+                                            flex: 1,
+                                            child: SizedBox(
+                                              child: Container(
+                                                alignment:
+                                                    Alignment.bottomCenter,
+                                                child: AutoSizeText(
+                                                  Dil().sec(dilSecimi, 'tv734'),
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 50.0,
+                                                      fontFamily: 'Kelly Slab',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                  maxLines: 2,
+                                                  minFontSize: 8,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    /*
+                                    timerCancel = true;
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ParametreLog ()),
+                                    );
+                                    */
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/chart_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 1,
                       ),
                       
                     ],
                   ),
                 ),
-                Spacer(flex: 8,),
+                Spacer(flex: 7,),
                 
               ],
             ),
@@ -336,7 +470,7 @@ class LogGrafikState extends State<LogGrafik> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv401"), 
+                      Dil().sec(dilSecimi, "tv729"), 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -366,7 +500,7 @@ class LogGrafikState extends State<LogGrafik> {
                               children: <TextSpan>[
                                 //Giriş metni
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info25"),
+                                  text: Dil().sec(dilSecimi, "info58"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran

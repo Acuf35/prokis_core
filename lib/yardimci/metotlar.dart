@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'package:prokis/genel_ayarlar/alarm_durum.dart';
 import 'package:prokis/genel_ayarlar/baglanti_durum.dart';
 import 'package:prokis/genel_ayarlar/izleme.dart';

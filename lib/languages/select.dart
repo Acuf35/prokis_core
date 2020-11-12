@@ -852,6 +852,8 @@ class Dil{
     kod=="tv798" ? metin='Isıtıcı KW' : null;
     kod=="tv799" ? metin='Sirk.Fanlar KW' : null;
     kod=="tv800" ? metin='Aydınlatma KW' : null;
+    kod=="tv801" ? metin='STRES & KONFOR\nGRAFİĞİ' : null;
+    kod=="tv801a" ? metin='STRES & KONFOR GRAFİĞİ' : null;
    
 
     //#endregion
@@ -3162,6 +3164,8 @@ class Dil{
     kod=="tv798" ? metin='Heater KW' : null;
     kod=="tv799" ? metin='Sirc.Fans KW' : null;
     kod=="tv800" ? metin='Lighting KW' : null;
+    kod=="tv801" ? metin='STRESS & COMFORT\nCHART' : null;
+    kod=="tv801a" ? metin='STRESS & COMFORT CHART' : null;
    
     
     

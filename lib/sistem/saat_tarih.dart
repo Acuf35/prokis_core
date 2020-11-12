@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:intl/intl.dart';
+
 import 'package:prokis/genel_ayarlar/sistem.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:provider/provider.dart';
