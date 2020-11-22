@@ -807,7 +807,16 @@ class ParametreLogState extends State<ParametreLog> {
         context: context,
         initialDate: selectedDate,
         firstDate: DateTime(2015, 8),
-        lastDate: DateTime(2101));
+        lastDate: DateTime(2101),
+        builder: (BuildContext context, Widget child) {
+                return Center(
+                    child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: FittedBox(child: child),
+                ));
+              }
+        );
     if (picked != null && picked != selectedDate) {
       if (picked.compareTo(DateTime.now()) <= 0) {
         if (index == 1) {

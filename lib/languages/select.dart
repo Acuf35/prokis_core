@@ -473,6 +473,7 @@ class Dil{
     kod=="tv439" ? metin='- Değer' : null;
     kod=="tv440" ? metin='Nem Sensörleri' : null;
     kod=="tv441" ? metin='İç Nem' : null;
+    kod=="tv441a" ? metin='İç\nNem' : null;
     kod=="tv442" ? metin='Dış Nem' : null;
     kod=="tv443" ? metin='Analog1' : null;
     kod=="tv444" ? metin='Analog2' : null;
@@ -704,6 +705,7 @@ class Dil{
     kod=="tv659" ? metin='Sistemde\nYemleme\naktif değil!' : null;
     kod=="tv660" ? metin='Sistemde\nSirk. Fan\naktif değil!' : null;
     kod=="tv661" ? metin='Ortalama Sıcaklık' : null;
+    kod=="tv661a" ? metin='Ortalama\nSıcaklık' : null;
     kod=="tv662" ? metin='Hava Hızı (m/sn)' : null;
     kod=="tv663" ? metin='OPSİYON 5' : null;
     kod=="tv664" ? metin='KW Değerleri' : null;
@@ -854,6 +856,20 @@ class Dil{
     kod=="tv800" ? metin='Aydınlatma KW' : null;
     kod=="tv801" ? metin='STRES & KONFOR\nGRAFİĞİ' : null;
     kod=="tv801a" ? metin='STRES & KONFOR GRAFİĞİ' : null;
+    kod=="tv802" ? metin='Normal' : null;
+    kod=="tv803" ? metin='1. Uyarı' : null;
+    kod=="tv804" ? metin='2. Uyarı' : null;
+    kod=="tv805" ? metin='Teklike' : null;
+    kod=="tv806" ? metin='Acil' : null;
+    kod=="tv807" ? metin='SIC. & NEM\nGRAFİĞİ' : null;
+    kod=="tv807a" ? metin='SIC. & NEM GRAFİĞİ' : null;
+    kod=="tv808" ? metin='ORT.SIC.' : null;
+    kod=="tv809" ? metin='IC NEM' : null;
+    kod=="tv810" ? metin='DIŞ NEM' : null;
+    kod=="tv811" ? metin='HİS .SIC. & NEM\nGRAFİĞİ' : null;
+    kod=="tv811a" ? metin='HİS .SIC. & NEM GRAFİĞİ' : null;
+    kod=="tv812" ? metin='Ort. Hissed. Sıc.' : null;
+    kod=="tv813" ? metin='HİS.SIC.' : null;
    
 
     //#endregion
@@ -1932,6 +1948,32 @@ class Dil{
     ' loglarına erişim sağlanmaktadır. İstenilen veri geçmişine, seçilen tarih aralığında erişilebilmektedir. \n\n'  : null;
 
 
+    //STRES & KONFOR GRAFİĞİ
+    kod=="info59" ? metin='     Hayvanların sıcaklığa ve neme bağlı stres ve konfor durumlarını gösterir grafiktir. Kümes içerisindeki ortalama sıcaklık ve bağıl nemin'
+    ' hayvanın vücudunda meydana getirdiği stresin derecesini anlamaya yönelik analiz yapılmasına olanak sağlar.\n\n'
+    ' Normal alan:\n'
+    ' Hayvanın stresine girmediği alandır.\n\n'
+    ' 1. Uyarı alanı\n'
+    ' Verimlilik düşer, performans kaybı başlar.\n\n'
+    ' 2. Uyarı alanı:\n'
+    ' Performans kaybı artarak devam eder, tüketimler dengesizleşir.\n\n'
+    ' Tehlike alanı:\n'
+    ' Yüksek katlarda ilk ölümler başlar. Organlarda kalıcı hasar vakaları görülür.\n\n'
+    ' Ölüm alanı:\n'
+    ' Yüksek oranlarda ölüm vakaları meydana gelir.\n\n'  : null;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     kod=="alarminfo1" ? metin='DURUM : Pano üzerindeki veya seri bağlı başka bir noktadaki Acil Stop butonuna basıldığında bu alarm aktif olur.'
@@ -2787,6 +2829,7 @@ class Dil{
     kod=="tv439" ? metin='- Value' : null;
     kod=="tv440" ? metin='Hum. Sensors' : null;
     kod=="tv441" ? metin='Inside Hum.' : null;
+    kod=="tv441a" ? metin='Inside\nHum.' : null;
     kod=="tv442" ? metin='Outside Hum.' : null;
     kod=="tv443" ? metin='Analog1' : null;
     kod=="tv444" ? metin='Analog2' : null;
@@ -3016,6 +3059,7 @@ class Dil{
     kod=="tv659" ? metin='Feeding\nisn\'t active\nin the system' : null;
     kod=="tv660" ? metin='Sirc. fan\nisn\'t active\nin the system' : null;
     kod=="tv661" ? metin='Average Temprerature' : null;
+    kod=="tv661a" ? metin='Average\nTemprerature' : null;
     kod=="tv662" ? metin='Air  Velocity (m/sec)' : null;
     kod=="tv663" ? metin='OPTION 5' : null;
     kod=="tv664" ? metin='KW Values' : null;
@@ -3166,6 +3210,20 @@ class Dil{
     kod=="tv800" ? metin='Lighting KW' : null;
     kod=="tv801" ? metin='STRESS & COMFORT\nCHART' : null;
     kod=="tv801a" ? metin='STRESS & COMFORT CHART' : null;
+    kod=="tv802" ? metin='Normal' : null;
+    kod=="tv803" ? metin='1. Warn' : null;
+    kod=="tv804" ? metin='2. Warn' : null;
+    kod=="tv805" ? metin='Danger' : null;
+    kod=="tv806" ? metin='Emergency' : null;
+    kod=="tv807" ? metin='TEMP. & HUM.\nCHART' : null;
+    kod=="tv807a" ? metin='TEMP. & HUM. CHART' : null;
+    kod=="tv808" ? metin='AVR.TEMP' : null;
+    kod=="tv809" ? metin='IN HUM.' : null;
+    kod=="tv810" ? metin='OUT HUM' : null;
+    kod=="tv811" ? metin='SENS. TEMP. & HUM.\nCHART' : null;
+    kod=="tv811a" ? metin='SENS. TEMP. & HUM. CHART' : null;
+    kod=="tv812" ? metin='Sensible Avr. Temp.' : null;
+    kod=="tv813" ? metin='SEN.TEMP.' : null;
    
     
     

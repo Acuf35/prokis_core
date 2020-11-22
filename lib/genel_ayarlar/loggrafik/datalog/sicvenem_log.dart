@@ -339,6 +339,61 @@ class SicVeNemLogState extends State<SicVeNemLog> {
                                                                         ],
                                                                       ),
                                                                     )),
+                                                                    //Hissedilir Sıcaklık
+                                                                    Expanded(
+                                                                        child:
+                                                                            Container(
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      margin: EdgeInsets
+                                                                          .all(3 *
+                                                                              oran),
+                                                                      decoration: BoxDecoration(
+                                                                          borderRadius: BorderRadius.circular(10 *
+                                                                              oran),
+                                                                          color:
+                                                                              Colors.blue),
+                                                                      child:
+                                                                          Column(
+                                                                        children: <
+                                                                            Widget>[
+                                                                          Spacer(),
+                                                                          Expanded(
+                                                                            flex:
+                                                                                6,
+                                                                            child:
+                                                                                RawMaterialButton(
+                                                                              constraints: BoxConstraints(minWidth: double.infinity),
+                                                                              padding: EdgeInsets.all(0),
+                                                                              onPressed: () {
+                                                                                kayitTuruIndex = 19;
+                                                                                kayitAdet = 0;
+                                                                                gelenSaat = [];
+                                                                                gelenTarih = [];
+                                                                                gelenDeger = [];
+                                                                                maxValue = -99999.0;
+                                                                                minValue = 99999.0;
+                                                                                setState(() {
+                                                                                  Navigator.pop(context);
+                                                                                });
+                                                                              },
+                                                                              child: SizedBox(
+                                                                                child: Container(
+                                                                                  child: AutoSizeText(
+                                                                                    Dil().sec(dilSecimi, "tv812"),
+                                                                                    style: TextStyle(fontFamily: 'Kelly Slab', fontSize: 50, color: Colors.white),
+                                                                                    maxLines: 1,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          Spacer()
+                                                                        ],
+                                                                      ),
+                                                                    )),
+                                                                    
                                                                     //iç nem
                                                                     Expanded(
                                                                         child:
@@ -2422,6 +2477,8 @@ class SicVeNemLogState extends State<SicVeNemLog> {
       sonuc = Dil().sec(dilSecimi, "tv441");
     } else if (index == 18) {
       sonuc = Dil().sec(dilSecimi, "tv442");
+    } else if (index == 19) {
+      sonuc = Dil().sec(dilSecimi, "tv812");
     }
 
     return sonuc;

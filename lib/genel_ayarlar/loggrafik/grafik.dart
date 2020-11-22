@@ -12,6 +12,8 @@ import 'package:prokis/genel_ayarlar/loggrafik/datalog/parametre_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/sicvenem_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/tuketim_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/canli_konfor_chart.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/hissicvenem_chart.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/ortsicvenem_chart.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/sistem_start_stop.dart';
 import 'package:prokis/yardimci/sifre_giris_admin.dart';
@@ -240,7 +242,7 @@ class GrafikState extends State<Grafik> {
                       Spacer(
                         flex: 1,
                       ),
-                      //Alarm logları
+                      //Sıcaklık & Nem Grafiği
                       Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
@@ -258,7 +260,7 @@ class GrafikState extends State<Grafik> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv732'),
+                                                  Dil().sec(dilSecimi, 'tv807'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -282,16 +284,16 @@ class GrafikState extends State<Grafik> {
                                 child: RawMaterialButton(
                                   onPressed: () {
 
-/*
+
                                     timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              AlarmVeUyariLog ()),
+                                              OrtSicVeNemChart ()),
                                     );
 
-                                    */
+                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -311,7 +313,7 @@ class GrafikState extends State<Grafik> {
                       Spacer(
                         flex: 1,
                       ),
-                      //Tüketim logları
+                      //Hissedilir Sıcaklık & Nem Grafiği
                       Expanded(flex: 4,
                           child: Column(
                             children: <Widget>[
@@ -329,7 +331,7 @@ class GrafikState extends State<Grafik> {
                                                 alignment:
                                                     Alignment.bottomCenter,
                                                 child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv733'),
+                                                  Dil().sec(dilSecimi, 'tv811'),
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 50.0,
@@ -352,15 +354,15 @@ class GrafikState extends State<Grafik> {
                                 flex: 3,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    /*
+                                    
                                     timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              TuketimLog ()),
+                                              HisSicVeNemChart ()),
                                     );
-                                    */
+                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
