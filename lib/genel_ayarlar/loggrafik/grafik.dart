@@ -11,8 +11,9 @@ import 'package:prokis/genel_ayarlar/loggrafik/datalog/alarmveuyari_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/parametre_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/sicvenem_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/tuketim_log.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/aylik_elektriktuk_chart.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/canli_konfor_chart.dart';
-import 'package:prokis/genel_ayarlar/loggrafik/grafik/hissicvenem_chart.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/gunluk_ortsicvesu_chart.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/ortsicvenem_chart.dart';
 import 'package:prokis/provider/dbprokis.dart';
 import 'package:prokis/sistem/sistem_start_stop.dart';
@@ -173,47 +174,36 @@ class GrafikState extends State<Grafik> {
                   child: Row(
                     children: <Widget>[
                       Spacer(
-                        flex: 1,
+                        flex: 7,
                       ),
                       //Canlı konfor grafiği
-                      Expanded(flex: 4,
+                      Expanded(flex: 8,
                           child: Column(
                             children: <Widget>[
+                              //Başlık
                               Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv801'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 2,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment:
+                                        Alignment.bottomCenter,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, 'tv801'),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight:
+                                              FontWeight.bold),
+                                      maxLines: 2,
+                                      minFontSize: 8,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
+                              //Buton
                               Expanded(
-                                flex: 3,
+                                flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
                                     timerCancel = true;
@@ -237,50 +227,38 @@ class GrafikState extends State<Grafik> {
                                 ),
                               ),
                             ],
-                          )),
-                      
+                          )),                    
                       Spacer(
-                        flex: 1,
+                        flex: 2,
                       ),
                       //Sıcaklık & Nem Grafiği
-                      Expanded(flex: 4,
+                      Expanded(flex: 8,
                           child: Column(
                             children: <Widget>[
+                              //Başlık
                               Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv807'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 2,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment:
+                                        Alignment.bottomCenter,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, 'tv807'),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight:
+                                              FontWeight.bold),
+                                      maxLines: 2,
+                                      minFontSize: 8,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
+                              //Buton
                               Expanded(
-                                flex: 3,
+                                flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
 
@@ -308,50 +286,38 @@ class GrafikState extends State<Grafik> {
                                 ),
                               ),
                             ],
-                          )),
-                      
+                          )),                     
                       Spacer(
-                        flex: 1,
+                        flex: 2,
                       ),
-                      //Hissedilir Sıcaklık & Nem Grafiği
-                      Expanded(flex: 4,
+                      //Günlük Sıcaklık , Su Tüketimi
+                      Expanded(flex: 8,
                           child: Column(
                             children: <Widget>[
+                              //Başlık
                               Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv811'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 2,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment:
+                                        Alignment.bottomCenter,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, 'tv815'),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight:
+                                              FontWeight.bold),
+                                      maxLines: 2,
+                                      minFontSize: 8,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
+                              //Buton
                               Expanded(
-                                flex: 3,
+                                flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
                                     
@@ -360,7 +326,7 @@ class GrafikState extends State<Grafik> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HisSicVeNemChart ()),
+                                              GunlukOrtSicveSuTuketimi ()),
                                     );
                                     
                                   },
@@ -379,47 +345,161 @@ class GrafikState extends State<Grafik> {
                             ],
                           )),
                       Spacer(
-                        flex: 1,
+                        flex: 7,
                       ),
-                      //Parametre logları
-                      Expanded(flex: 4,
+                      
+                    ],
+                  ),
+                ),
+                Spacer(flex: 4,),
+                Expanded(
+                  flex: 12,
+                  child: Row(
+                    children: <Widget>[
+                      
+                      Spacer(
+                        flex: 7,
+                      ),
+                      //Aylık Elektrik Tüketimi
+                      Expanded(flex: 8,
                           child: Column(
                             children: <Widget>[
-                              Expanded(
-                                child: Column(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 2,
-                                      child: Row(
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 1,
-                                            child: SizedBox(
-                                              child: Container(
-                                                alignment:
-                                                    Alignment.bottomCenter,
-                                                child: AutoSizeText(
-                                                  Dil().sec(dilSecimi, 'tv734'),
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 50.0,
-                                                      fontFamily: 'Kelly Slab',
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 2,
-                                                  minFontSize: 8,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                              //Başlık
+                              Expanded(flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment:
+                                        Alignment.bottomCenter,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, 'tv816'),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight:
+                                              FontWeight.bold),
+                                      maxLines: 2,
+                                      minFontSize: 8,
                                     ),
-                                  ],
+                                  ),
                                 ),
                               ),
+                              //Buton
                               Expanded(
-                                flex: 3,
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    
+                                    timerCancel = true;
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              AylikElektrikTukGrafigi ()),
+                                    );
+                                    
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/chart_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 2,
+                      ),
+                      //Aylık Su Tüketimi
+                      Expanded(flex: 8,
+                          child: Column(
+                            children: <Widget>[
+                              //Başlık
+                              Expanded(flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment:
+                                        Alignment.bottomCenter,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, 'tv817'),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight:
+                                              FontWeight.bold),
+                                      maxLines: 2,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              //Buton
+                              Expanded(
+                                flex: 5,
+                                child: RawMaterialButton(
+                                  onPressed: () {
+                                    /*
+                                    timerCancel = true;
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              HisSicVeNemChart ()),
+                                    );
+                                    */
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        alignment: Alignment.center,
+                                        image: AssetImage(
+                                            'assets/images/chart_icon.png'),
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      Spacer(
+                        flex: 2,
+                      ),
+                      //Aylık Yem Tüketimi
+                      Expanded(flex: 8,
+                          child: Column(
+                            children: <Widget>[
+                              //Başlık
+                              Expanded(
+                                flex: 2,
+                                child: SizedBox(
+                                  child: Container(
+                                    alignment:
+                                        Alignment.bottomCenter,
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, 'tv818'),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 50.0,
+                                          fontFamily: 'Kelly Slab',
+                                          fontWeight:
+                                              FontWeight.bold),
+                                      maxLines: 2,
+                                      minFontSize: 8,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              //Buton
+                              Expanded(
+                                flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
                                     /*
@@ -447,12 +527,12 @@ class GrafikState extends State<Grafik> {
                             ],
                           )),
                       Spacer(
-                        flex: 1,
+                        flex: 7,
                       ),
                       
                     ],
                   ),
-                ),
+                ),                
                 Spacer(flex: 7,),
                 
               ],

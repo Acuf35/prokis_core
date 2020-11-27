@@ -16,16 +16,15 @@ import 'package:prokis/yardimci/metotlar.dart';
 import 'package:prokis/languages/select.dart';
 import 'package:toast/toast.dart';
 
-class OrtSicVeNemChart extends StatefulWidget {
+class AylikElektrikTukGrafigi extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return OrtSicVeNemChartState();
+    return AylikElektrikTukGrafigiState();
   }
 }
 
-class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
+class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
   String dilSecimi = "EN";
-  String sifre = "0";
 
   int timerSayac = 0;
   int yazmaSonrasiGecikmeSayaci = 0;
@@ -38,32 +37,20 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
 
   DateTime tarih = DateTime.now();
 
-  String disNemVarMi = "0";
-  int isiSenAdet = 0;
   int kayitAdet1 = 0;
   int kayitAdet2 = 0;
-  int kayitAdet3 = 0;
-  int kayitAdet4 = 0;
 
   double maxValue1 = -100.0;
   double maxValue2 = -100.0;
-  double maxValue3 = -100.0;
-  double maxValue4 = -100.0;
   double minValue1 = 100.0;
   double minValue2 = 100.0;
-  double minValue3 = 100.0;
-  double minValue4 = 100.0;
 
-  List<String> gelenSaat = [];
-  List<String> gelenDegerOrtSic = [];
-  List<String> gelenDegerHisSic = [];
-  List<String> gelenDegerIcNem = [];
-  List<String> gelenDegerDisNem = [];
+  List<String> gelenTarih = [];
+  List<String> gelenDegerElkTukTop = [];
+  List<String> gelenDegerElkTukHayBas = [];
 
-  bool ortSicVisibility = false;
-  bool hisSicVisibility = false;
-  bool icNemVisibility = false;
-  bool disNemVisibility = false;
+  bool elkTukTopVisibility = false;
+  bool elkTukHayBasVisibility = false;
 
   //--------------------------DATABASE DEĞİŞKENLER--------------------------------
 
@@ -78,9 +65,6 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
     var oran = MediaQuery.of(context).size.width / 731.4;
     final dbProkis = Provider.of<DBProkis>(context);
     dilSecimi = dbProkis.dbVeriGetir(1, 1, "EN");
-    sifre = dbProkis.dbVeriGetir(3, 4, "0");
-    disNemVarMi = dbProkis.dbVeriGetir(13, 4, "0");
-    isiSenAdet = int.parse(dbProkis.dbVeriGetir(4, 4, "0").split("#")[0]);
 
     if (timerSayac == 0) {
       Metotlar().takipEt("alarm*", 2236).then((veri) {
@@ -126,7 +110,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       resizeToAvoidBottomPadding: false,
-      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv807a',
+      appBar: Metotlar().appBarSade(dilSecimi, context, oran, 'tv816a',
           Colors.blue, baglantiDurum, alarmDurum),
       floatingActionButton: Container(
         width: 56 * oran,
@@ -207,7 +191,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                     children: <Widget>[
                       //Tarih
                       Expanded(
-                        flex: 9,
+                        flex: 10,
                         child: Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -243,7 +227,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                       ),
                       //Veri getir
                       Expanded(
-                        flex: 9,
+                        flex: 10,
                         child: Align(
                           alignment: Alignment.center,
                           child: Container(
@@ -272,20 +256,18 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                               onPressed: () {
                                 minValue1 = 100.0;
                                 minValue2 = 100.0;
-                                minValue3 = 100.0;
                                 maxValue1 = -100.0;
                                 maxValue2 = -100.0;
-                                maxValue3 = -100.0;
                                 String gun = tarih.day.toString();
                                 String ayy = tarih.month.toString();
                                 String yil = tarih.year.toString();
-                                String tabloAdi = "dlog1" +
+                                String tabloAdi = "dlog4" +
                                     (ayy.length == 1 ? ("0" + ayy) : ayy) +
                                     yil;
                                 print(tabloAdi);
 
                                 yazmaSonrasiGecikmeSayaci = 0;
-                                String komut = '5*$tabloAdi*1*17*18*19*15*$gun';
+                                String komut = '7*$tabloAdi*1*2*$ayy';
                                 Metotlar()
                                     .veriGonder(komut, 2234)
                                     .then((value) {
@@ -309,10 +291,10 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                       ),
                       //Görünecek veri seçimi
                       Expanded(
-                        flex: 6,
+                        flex: 3,
                         child: Row(
                           children: [
-                            //Ort Sıc.
+                            //Elektrik Tüketimi Toplam
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -323,7 +305,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          Dil().sec(dilSecimi, "tv808"),
+                                          Dil().sec(dilSecimi, "tv820"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -333,7 +315,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                             //fontWeight: FontWeight.bold
                                           ),
                                           maxLines: 1,
-                                          minFontSize: 8,
+                                          minFontSize: 5,
                                         ),
                                       ),
                                     ),
@@ -345,20 +327,18 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                       padding: EdgeInsets.all(0),
                                       onPressed: () {
                                         yazmaSonrasiGecikmeSayaci = 0;
-                                        if (!ortSicVisibility) {
-                                          ortSicVisibility = true;
-                                          hisSicVisibility = false;
-                                          icNemVisibility = false;
-                                          disNemVisibility = false;
+                                        if (!elkTukTopVisibility) {
+                                          elkTukTopVisibility = true;
+                                          elkTukHayBasVisibility = false;
                                         } else {
-                                          ortSicVisibility = false;
+                                          elkTukTopVisibility = false;
                                         }
                                         setState(() {});
                                       },
-                                      icon: Icon(ortSicVisibility == true
+                                      icon: Icon(elkTukTopVisibility == true
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
-                                      color: ortSicVisibility == true
+                                      color: elkTukTopVisibility == true
                                           ? Colors.green.shade500
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
@@ -367,7 +347,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                 ],
                               ),
                             ),
-                            //His. Sıc.
+                            //Elektrik Tüketimi hayvan başına
                             Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -378,62 +358,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                       child: Container(
                                         alignment: Alignment.center,
                                         child: AutoSizeText(
-                                          Dil().sec(dilSecimi, "tv813"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.orange,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 60,
-                                            //fontWeight: FontWeight.bold
-                                          ),
-                                          maxLines: 3,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: IconButton(
-                                      alignment: Alignment.topCenter,
-                                      padding: EdgeInsets.all(0),
-                                      onPressed: () {
-                                        yazmaSonrasiGecikmeSayaci = 0;
-                                        if (!hisSicVisibility) {
-                                          hisSicVisibility = true;
-                                          icNemVisibility = false;
-                                          disNemVisibility = false;
-                                          ortSicVisibility = false;
-                                        } else {
-                                          hisSicVisibility = false;
-                                        }
-                                        setState(() {});
-                                      },
-                                      icon: Icon(hisSicVisibility == true
-                                          ? Icons.check_box
-                                          : Icons.check_box_outline_blank),
-                                      color: hisSicVisibility == true
-                                          ? Colors.green.shade500
-                                          : Colors.blue.shade600,
-                                      iconSize: 20 * oran,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            //İç nem
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(dilSecimi, "tv809"),
+                                          Dil().sec(dilSecimi, "tv821"),
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
@@ -442,8 +367,8 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                             fontSize: 60,
                                             //fontWeight: FontWeight.bold
                                           ),
-                                          maxLines: 3,
-                                          minFontSize: 8,
+                                          maxLines: 1,
+                                          minFontSize: 2,
                                         ),
                                       ),
                                     ),
@@ -455,75 +380,18 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                       padding: EdgeInsets.all(0),
                                       onPressed: () {
                                         yazmaSonrasiGecikmeSayaci = 0;
-                                        if (!icNemVisibility) {
-                                          icNemVisibility = true;
-                                          ortSicVisibility = false;
-                                          disNemVisibility = false;
-                                          hisSicVisibility = false;
+                                        if (!elkTukHayBasVisibility) {
+                                          elkTukHayBasVisibility = true;
+                                          elkTukTopVisibility = false;
                                         } else {
-                                          icNemVisibility = false;
+                                          elkTukHayBasVisibility = false;
                                         }
                                         setState(() {});
                                       },
-                                      icon: Icon(icNemVisibility == true
+                                      icon: Icon(elkTukHayBasVisibility == true
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
-                                      color: icNemVisibility == true
-                                          ? Colors.green.shade500
-                                          : Colors.blue.shade600,
-                                      iconSize: 20 * oran,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            //Dış nem
-                            Expanded(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 2,
-                                    child: SizedBox(
-                                      child: Container(
-                                        alignment: Alignment.center,
-                                        child: AutoSizeText(
-                                          Dil().sec(dilSecimi, "tv810"),
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            fontFamily: 'Kelly Slab',
-                                            color: Colors.blue[800],
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 60,
-                                            //fontWeight: FontWeight.bold
-                                          ),
-                                          maxLines: 3,
-                                          minFontSize: 8,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: IconButton(
-                                      alignment: Alignment.topCenter,
-                                      padding: EdgeInsets.all(0),
-                                      onPressed: () {
-                                        yazmaSonrasiGecikmeSayaci = 0;
-                                        if (!disNemVisibility) {
-                                          disNemVisibility = true;
-                                          icNemVisibility = false;
-                                          ortSicVisibility = false;
-                                          hisSicVisibility = false;
-                                        } else {
-                                          disNemVisibility = false;
-                                        }
-                                        setState(() {});
-                                      },
-                                      icon: Icon(disNemVisibility == true
-                                          ? Icons.check_box
-                                          : Icons.check_box_outline_blank),
-                                      color: disNemVisibility == true
+                                      color: elkTukHayBasVisibility == true
                                           ? Colors.green.shade500
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
@@ -562,13 +430,13 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                 Expanded(
                                   child: Row(
                                     children: <Widget>[
-                                      //Saat
+                                      //Tarih
                                       Expanded(
                                         flex: 6,
                                         child: SizedBox(
                                           child: Container(
                                             child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv761"),
+                                              Dil().sec(dilSecimi, "tv762"),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 40,
@@ -577,22 +445,24 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                 decoration:
                                                     TextDecoration.underline,
                                               ),
+                                              maxLines: 1,
+                                              minFontSize: 2,
                                             ),
                                           ),
                                         ),
                                       ),
                                       Visibility(
-                                          visible: ortSicVisibility,
+                                          visible: elkTukTopVisibility,
                                           child: Spacer()),
-                                      //Ort Sıc
+                                      //Elektrik tüketimi toplam
                                       Visibility(
-                                        visible: ortSicVisibility,
+                                        visible: elkTukTopVisibility,
                                         child: Expanded(
                                           flex: 9,
                                           child: SizedBox(
                                             child: Container(
                                               child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv808"),
+                                                Dil().sec(dilSecimi, "tv820"),
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 40,
@@ -609,17 +479,17 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                         ),
                                       ),
                                       Visibility(
-                                          visible: hisSicVisibility,
+                                          visible: elkTukHayBasVisibility,
                                           child: Spacer()),
-                                      //His Sıc
+                                      //Elk tüketimi Hayvan başına
                                       Visibility(
-                                        visible: hisSicVisibility,
+                                        visible: elkTukHayBasVisibility,
                                         child: Expanded(
                                           flex: 9,
                                           child: SizedBox(
                                             child: Container(
                                               child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv813"),
+                                                Dil().sec(dilSecimi, "tv821"),
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 40,
@@ -628,56 +498,8 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                   decoration:
                                                       TextDecoration.underline,
                                                 ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                          visible: icNemVisibility,
-                                          child: Spacer()),
-                                      //İç Nem
-                                      Visibility(
-                                        visible: icNemVisibility,
-                                        child: Expanded(
-                                          flex: 9,
-                                          child: SizedBox(
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv809"),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Visibility(
-                                          visible: disNemVisibility,
-                                          child: Spacer()),
-                                      //Dış Nem
-                                      Visibility(
-                                        visible: disNemVisibility,
-                                        child: Expanded(
-                                          flex: 9,
-                                          child: SizedBox(
-                                            child: Container(
-                                              child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv810"),
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
+                                                maxLines: 1,
+                                                minFontSize: 2,
                                               ),
                                             ),
                                           ),
@@ -710,7 +532,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                         height: 12 * oran,
                                                         child: Container(
                                                           child: AutoSizeText(
-                                                            gelenSaat[index],
+                                                            gelenTarih[index],
                                                             textAlign: TextAlign
                                                                 .center,
                                                             style: TextStyle(
@@ -718,6 +540,8 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                               color:
                                                                   Colors.black,
                                                             ),
+                                                            maxLines: 1,
+                                                            minFontSize: 2,
                                                           ),
                                                         ),
                                                       ),
@@ -728,18 +552,18 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                             }),
                                       ),
                                       Visibility(
-                                          visible: ortSicVisibility,
+                                          visible: elkTukTopVisibility,
                                           child: Spacer()),
-                                      //Ort Sic
+                                      //Elektrik Tüketimi toplam
                                       Visibility(
-                                        visible: ortSicVisibility,
+                                        visible: elkTukTopVisibility,
                                         child: Expanded(
                                           flex: 9,
                                           child: ListView.builder(
                                               itemCount: kayitAdet1,
                                               itemBuilder: (BuildContext ctxt,
                                                   int index) {
-                                                String birim = "°C";
+                                                String birim = "kw/h";
                                                 return Container(
                                                   color: index % 2 == 1
                                                       ? Colors.grey[300]
@@ -752,7 +576,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                           height: 12 * oran,
                                                           child: Container(
                                                             child: AutoSizeText(
-                                                              gelenDegerOrtSic[
+                                                              gelenDegerElkTukTop[
                                                                       index] +
                                                                   " " +
                                                                   birim,
@@ -761,17 +585,19 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                                       .center,
                                                               style: TextStyle(
                                                                 fontSize: 40,
-                                                                color: double.parse(gelenDegerOrtSic[
+                                                                color: double.parse(gelenDegerElkTukTop[
                                                                             index]) ==
                                                                         maxValue1
                                                                     ? Colors.red
-                                                                    : (double.parse(gelenDegerOrtSic[index]) ==
+                                                                    : (double.parse(gelenDegerElkTukTop[index]) ==
                                                                             minValue1
                                                                         ? Colors
                                                                             .blue
                                                                         : Colors
                                                                             .black),
                                                               ),
+                                                              maxLines: 1,
+                                                            minFontSize: 2,
                                                             ),
                                                           ),
                                                         ),
@@ -783,18 +609,18 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                         ),
                                       ),
                                       Visibility(
-                                          visible: hisSicVisibility,
+                                          visible: elkTukHayBasVisibility,
                                           child: Spacer()),
-                                      //His Sic
+                                      //Elektrik Tüketimi hayvan başına
                                       Visibility(
-                                        visible: hisSicVisibility,
+                                        visible: elkTukHayBasVisibility,
                                         child: Expanded(
                                           flex: 9,
                                           child: ListView.builder(
                                               itemCount: kayitAdet1,
                                               itemBuilder: (BuildContext ctxt,
                                                   int index) {
-                                                String birim = "°C";
+                                                String birim = "kw/h";
                                                 return Container(
                                                   color: index % 2 == 1
                                                       ? Colors.grey[300]
@@ -807,7 +633,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                           height: 12 * oran,
                                                           child: Container(
                                                             child: AutoSizeText(
-                                                              gelenDegerHisSic[
+                                                              gelenDegerElkTukHayBas[
                                                                       index] +
                                                                   " " +
                                                                   birim,
@@ -816,122 +642,12 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                                                       .center,
                                                               style: TextStyle(
                                                                 fontSize: 40,
-                                                                color: double.parse(gelenDegerHisSic[
-                                                                            index]) ==
-                                                                        maxValue4
-                                                                    ? Colors.red
-                                                                    : (double.parse(gelenDegerHisSic[index]) ==
-                                                                            minValue4
-                                                                        ? Colors
-                                                                            .blue
-                                                                        : Colors
-                                                                            .black),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
-                                        ),
-                                      ),
-                                      Visibility(
-                                          visible: icNemVisibility,
-                                          child: Spacer()),
-                                      //İç Nem
-                                      Visibility(
-                                        visible: icNemVisibility,
-                                        child: Expanded(
-                                          flex: 9,
-                                          child: ListView.builder(
-                                              itemCount: kayitAdet2,
-                                              itemBuilder: (BuildContext ctxt,
-                                                  int index) {
-                                                String birim = "%";
-                                                return Container(
-                                                  color: index % 2 == 1
-                                                      ? Colors.grey[300]
-                                                      : Colors.grey[400],
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      //Değer
-                                                      Expanded(
-                                                        child: SizedBox(
-                                                          height: 12 * oran,
-                                                          child: Container(
-                                                            child: AutoSizeText(
-                                                              gelenDegerIcNem[
-                                                                      index] +
-                                                                  " " +
-                                                                  birim,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                fontSize: 40,
-                                                                color: double.parse(gelenDegerIcNem[
+                                                                color: double.parse(gelenDegerElkTukHayBas[
                                                                             index]) ==
                                                                         maxValue2
                                                                     ? Colors.red
-                                                                    : (double.parse(gelenDegerIcNem[index]) ==
+                                                                    : (double.parse(gelenDegerElkTukHayBas[index]) ==
                                                                             minValue2
-                                                                        ? Colors
-                                                                            .blue
-                                                                        : Colors
-                                                                            .black),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                );
-                                              }),
-                                        ),
-                                      ),
-                                      Visibility(
-                                          visible: disNemVisibility,
-                                          child: Spacer()),
-                                      //Dış Nem
-                                      Visibility(
-                                        visible: disNemVisibility,
-                                        child: Expanded(
-                                          flex: 9,
-                                          child: ListView.builder(
-                                              itemCount: kayitAdet3,
-                                              itemBuilder: (BuildContext ctxt,
-                                                  int index) {
-                                                String birim = "%";
-                                                return Container(
-                                                  color: index % 2 == 1
-                                                      ? Colors.grey[300]
-                                                      : Colors.grey[400],
-                                                  child: Row(
-                                                    children: <Widget>[
-                                                      //Değer
-                                                      Expanded(
-                                                        child: SizedBox(
-                                                          height: 12 * oran,
-                                                          child: Container(
-                                                            child: AutoSizeText(
-                                                              gelenDegerDisNem[
-                                                                      index] +
-                                                                  " " +
-                                                                  birim,
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: TextStyle(
-                                                                fontSize: 40,
-                                                                color: double.parse(gelenDegerDisNem[
-                                                                            index]) ==
-                                                                        maxValue3
-                                                                    ? Colors.red
-                                                                    : (double.parse(gelenDegerDisNem[index]) ==
-                                                                            minValue3
                                                                         ? Colors
                                                                             .blue
                                                                         : Colors
@@ -1099,31 +815,19 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
     var parametre;
     var degerler1;
     var degerler2;
-    var degerler3;
-    var degerler4;
 
-    if(!gelenMesaj.contains("yok1") && !gelenMesaj.contains("yok2")){
+    if (!gelenMesaj.contains("yok1") && !gelenMesaj.contains("yok2")) {
       parametre = gelenMesaj.split('+');
-      gelenSaat = [];
+      gelenTarih = [];
 
       degerler1 = parametre[0].split('#');
       kayitAdet1 = degerler1.length - 1;
-      gelenDegerOrtSic = [];
+      gelenDegerElkTukTop = [];
 
       degerler2 = parametre[1].split('#');
       kayitAdet2 = degerler1.length - 1;
-      gelenDegerIcNem = [];
-
-      degerler3 = parametre[2].split('#');
-      kayitAdet3 = degerler1.length - 1;
-      gelenDegerDisNem = [];
-
-      degerler4 = parametre[3].split('#');
-      kayitAdet4 = degerler1.length - 1;
-      gelenDegerHisSic = [];
+      gelenDegerElkTukHayBas = [];
     }
-
-    
 
     if (gelenMesaj.contains("yok1")) {
       Toast.show(Dil().sec(dilSecimi, "toast103"), context, duration: 3);
@@ -1132,12 +836,12 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
     } else {
       for (var i = 1; i < degerler1.length; i++) {
         String xx = degerler1[i].split("*")[0];
-        String saat = xx.length == 1 ? "0" + xx : xx;
+        String ay = xx.length == 1 ? "0" + xx : xx;
         String yy = degerler1[i].split("*")[1];
-        String dk = yy.length == 1 ? "0" + yy : yy;
-        gelenSaat.add(saat + ":" + dk);
+        String gun = yy.length == 1 ? "0" + yy : yy;
+        gelenTarih.add(gun + "." + ay);
 
-        gelenDegerOrtSic.add(degerler1[i].split("*")[2]);
+        gelenDegerElkTukTop.add(degerler1[i].split("*")[2]);
         double value1 = double.parse(degerler1[i].split("*")[2]);
         if (value1 > maxValue1) {
           maxValue1 = value1;
@@ -1148,35 +852,13 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
       }
 
       for (var i = 1; i < degerler2.length; i++) {
-        gelenDegerIcNem.add(degerler2[i].split("*")[2]);
+        gelenDegerElkTukHayBas.add(degerler2[i].split("*")[2]);
         double value2 = double.parse(degerler2[i].split("*")[2]);
         if (value2 > maxValue2) {
           maxValue2 = value2;
         }
         if (value2 < minValue2) {
           minValue2 = value2;
-        }
-      }
-
-      for (var i = 1; i < degerler3.length; i++) {
-        gelenDegerDisNem.add(degerler3[i].split("*")[2]);
-        double value3 = double.parse(degerler3[i].split("*")[2]);
-        if (value3 > maxValue3) {
-          maxValue3 = value3;
-        }
-        if (value3 < minValue3) {
-          minValue3 = value3;
-        }
-      }
-
-      for (var i = 1; i < degerler4.length; i++) {
-        gelenDegerHisSic.add(degerler4[i].split("*")[2]);
-        double value4 = double.parse(degerler4[i].split("*")[2]);
-        if (value4 > maxValue4) {
-          maxValue4 = value4;
-        }
-        if (value4 < minValue4) {
-          minValue4 = value4;
         }
       }
     }
@@ -1190,113 +872,48 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
   Widget _chart3(double oran) {
     return charts.TimeSeriesChart(
       _createSampleData3(),
-      defaultRenderer: charts.LineRendererConfig(strokeWidthPx: 1.5*oran),
+      defaultRenderer: charts.LineRendererConfig(strokeWidthPx: 1.5 * oran),
       animate: false,
       domainAxis: charts.DateTimeAxisSpec(
         tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
-          minute: charts.TimeFormatterSpec(
-            format: 'HH:mm',
-            transitionFormat: 'HH:mm',
+          day: charts.TimeFormatterSpec(
+            format: 'dd',
+            transitionFormat: 'dd',
           ),
         ),
         tickProviderSpec:
             charts.StaticDateTimeTickProviderSpec(<charts.TickSpec<DateTime>>[
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 07, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 07, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 08, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 08, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 09, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 09, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 10, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 10, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 11, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 11, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 12, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 12, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 13, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 13, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 14, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 14, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 15, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 15, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 16, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 16, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 17, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 17, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 18, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 18, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 19, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 19, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 20, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 20, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 21, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 21, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 22, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 22, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 23, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 23, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 00, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 00, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 01, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 01, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 02, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 02, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 03, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 03, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 04, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 04, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 05, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 05, 30)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 06, 00)),
-          charts.TickSpec<DateTime>(
-              DateTime(tarih.year, tarih.month, tarih.day, 06, 30)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 1)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 2)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 3)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 4)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 5)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 6)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 7)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 8)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 9)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 10)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 11)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 12)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 13)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 14)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 15)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 16)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 17)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 18)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 19)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 20)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 21)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 22)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 23)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 24)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 25)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 26)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 27)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 28)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 29)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 30)),
+          charts.TickSpec<DateTime>(DateTime(tarih.year, tarih.month, 31)),
         ]),
         renderSpec: charts.GridlineRendererSpec(
             labelRotation: -90,
@@ -1314,32 +931,30 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
       ),
       primaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
-        viewport: charts.NumericExtents(-20, 100),
+        viewport: charts.NumericExtents(-200, 2000),
         tickProviderSpec: charts.StaticNumericTickProviderSpec(
           <charts.TickSpec<num>>[
-            //charts.TickSpec<num>(-20),
-            //charts.TickSpec<num>(-10),
             charts.TickSpec<num>(0),
-            charts.TickSpec<num>(5),
-            charts.TickSpec<num>(10),
-            charts.TickSpec<num>(15),
-            charts.TickSpec<num>(20),
-            charts.TickSpec<num>(25),
-            charts.TickSpec<num>(30),
-            charts.TickSpec<num>(35),
-            charts.TickSpec<num>(40),
-            charts.TickSpec<num>(45),
-            charts.TickSpec<num>(50),
-            charts.TickSpec<num>(55),
-            charts.TickSpec<num>(60),
-            charts.TickSpec<num>(65),
-            charts.TickSpec<num>(70),
-            charts.TickSpec<num>(75),
-            charts.TickSpec<num>(80),
-            charts.TickSpec<num>(85),
-            charts.TickSpec<num>(90),
-            charts.TickSpec<num>(95),
             charts.TickSpec<num>(100),
+            charts.TickSpec<num>(200),
+            charts.TickSpec<num>(300),
+            charts.TickSpec<num>(400),
+            charts.TickSpec<num>(500),
+            charts.TickSpec<num>(600),
+            charts.TickSpec<num>(700),
+            charts.TickSpec<num>(800),
+            charts.TickSpec<num>(900),
+            charts.TickSpec<num>(1000),
+            charts.TickSpec<num>(1100),
+            charts.TickSpec<num>(1200),
+            charts.TickSpec<num>(1300),
+            charts.TickSpec<num>(1400),
+            charts.TickSpec<num>(1500),
+            charts.TickSpec<num>(1600),
+            charts.TickSpec<num>(1700),
+            charts.TickSpec<num>(1800),
+            charts.TickSpec<num>(1900),
+            charts.TickSpec<num>(2000),
           ],
         ),
         renderSpec: charts.GridlineRendererSpec(
@@ -1357,34 +972,30 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
       ),
       secondaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
-        viewport: charts.NumericExtents(-10, 50),
+        viewport: charts.NumericExtents(-0.0025, 0.025),
         tickProviderSpec: charts.StaticNumericTickProviderSpec(
           <charts.TickSpec<num>>[
-            //charts.TickSpec<num>(-10),
-            //charts.TickSpec<num>(-7.5),
-            //charts.TickSpec<num>(-5),
-            //charts.TickSpec<num>(-2.5),
             charts.TickSpec<num>(0),
-            charts.TickSpec<num>(2.5),
-            charts.TickSpec<num>(5),
-            charts.TickSpec<num>(7.5),
-            charts.TickSpec<num>(10),
-            charts.TickSpec<num>(12.5),
-            charts.TickSpec<num>(15),
-            charts.TickSpec<num>(17.5),
-            charts.TickSpec<num>(20),
-            charts.TickSpec<num>(22.5),
-            charts.TickSpec<num>(25),
-            charts.TickSpec<num>(27.5),
-            charts.TickSpec<num>(30),
-            charts.TickSpec<num>(32.5),
-            charts.TickSpec<num>(35),
-            charts.TickSpec<num>(37.5),
-            charts.TickSpec<num>(40),
-            charts.TickSpec<num>(42.5),
-            charts.TickSpec<num>(45),
-            charts.TickSpec<num>(47.5),
-            charts.TickSpec<num>(50),
+            charts.TickSpec<num>(0.00125),
+            charts.TickSpec<num>(0.0025),
+            charts.TickSpec<num>(0.00375),
+            charts.TickSpec<num>(0.005),
+            charts.TickSpec<num>(0.00625),
+            charts.TickSpec<num>(0.0075),
+            charts.TickSpec<num>(0.00875),
+            charts.TickSpec<num>(0.01),
+            charts.TickSpec<num>(0.01125),
+            charts.TickSpec<num>(0.0125),
+            charts.TickSpec<num>(0.01375),
+            charts.TickSpec<num>(0.015),
+            charts.TickSpec<num>(0.01625),
+            charts.TickSpec<num>(0.0175),
+            charts.TickSpec<num>(0.01875),
+            charts.TickSpec<num>(0.02),
+            charts.TickSpec<num>(0.02125),
+            charts.TickSpec<num>(0.0225),
+            charts.TickSpec<num>(0.02375),
+            charts.TickSpec<num>(0.025),
           ],
         ),
         renderSpec: charts.GridlineRendererSpec(
@@ -1417,23 +1028,13 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
     List<TimeSeriesSales> losAngelesSalesData = [];
     List<TimeSeriesSales> mobileSalesData = [];
 
-    for (int i = 0; i <= gelenSaat.length - 1; i++) {
+    for (int i = 0; i <= gelenTarih.length - 1; i++) {
       desktopSalesData.add(new TimeSeriesSales(
-          DateTime(tarih.year, tarih.month, tarih.day, saatGetir(gelenSaat, i),
-              dakikaGetir(gelenSaat, i)),
-          veriGetir(gelenDegerIcNem, i)));
-      tableSalesData.add(new TimeSeriesSales(
-          DateTime(tarih.year, tarih.month, tarih.day, saatGetir(gelenSaat, i),
-              dakikaGetir(gelenSaat, i)),
-          veriGetir(gelenDegerDisNem, i)));
+          DateTime(tarih.year, ayGetir(gelenTarih, i), gunGetir(gelenTarih, i)),
+          veriGetir(gelenDegerElkTukTop, i)));
       losAngelesSalesData.add(new TimeSeriesSales(
-          DateTime(tarih.year, tarih.month, tarih.day, saatGetir(gelenSaat, i),
-              dakikaGetir(gelenSaat, i)),
-          veriGetir(gelenDegerOrtSic, i)));
-      mobileSalesData.add(new TimeSeriesSales(
-          DateTime(tarih.year, tarih.month, tarih.day, saatGetir(gelenSaat, i),
-              dakikaGetir(gelenSaat, i)),
-          veriGetir(gelenDegerHisSic, i)));
+          DateTime(tarih.year, ayGetir(gelenTarih, i), gunGetir(gelenTarih, i)),
+          veriGetir(gelenDegerElkTukHayBas, i)));
     }
 
     //print(desktopSalesData[9].sales);
@@ -1474,36 +1075,12 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
         data: desktopSalesData,
       ),
       charts.Series<TimeSeriesSales, DateTime>(
-        id: 'disnem',
-        colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.blue[800]),
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: tableSalesData,
-      ),
-/*
-      charts.Series<TimeSeriesSales, DateTime>(
-          id: 'maxmindeger',
-          colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-          domainFn: (TimeSeriesSales sales, _) => sales.time,
-          measureFn: (TimeSeriesSales sales, _) => sales.sales,
-          data: mobileSalesData)
-        // Configure our custom point renderer for this series.
-        ..setAttribute(charts.rendererIdKey, 'customPoint'),
-        */
-      charts.Series<TimeSeriesSales, DateTime>(
         id: 'ortsic',
         colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.red[800]),
         domainFn: (TimeSeriesSales sales, _) => sales.time,
         measureFn: (TimeSeriesSales sales, _) => sales.sales,
         data: losAngelesSalesData,
       )..setAttribute(charts.measureAxisIdKey, 'secondaryMeasureAxisId'),
-      charts.Series<TimeSeriesSales, DateTime>(
-        id: 'hissic',
-        colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.orange),
-        domainFn: (TimeSeriesSales sales, _) => sales.time,
-        measureFn: (TimeSeriesSales sales, _) => sales.sales,
-        data: mobileSalesData,
-      )..setAttribute(charts.measureAxisIdKey, 'secondaryMeasureAxisId')
     ];
   }
 
@@ -1511,12 +1088,12 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
     return liste.length > index ? double.parse(liste[index]) : 0;
   }
 
-  int saatGetir(List<String> liste, int index) {
-    return liste.length > index ? int.parse(liste[index].split(":")[0]) : 0;
+  int ayGetir(List<String> liste, int index) {
+    return liste.length > index ? int.parse(liste[index].split(".")[1]) : 0;
   }
 
-  int dakikaGetir(List<String> liste, int index) {
-    return liste.length > index ? int.parse(liste[index].split(":")[1]) : 0;
+  int gunGetir(List<String> liste, int index) {
+    return liste.length > index ? int.parse(liste[index].split(".")[0]) : 0;
   }
 }
 

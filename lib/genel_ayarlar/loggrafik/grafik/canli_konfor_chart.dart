@@ -35,6 +35,7 @@ class CanliKonforChartState extends State<CanliKonforChart> {
       "00000000000000000000000000000000000000000000000000000000000000000000000000000000";
 
   String ortSic = "0.0";
+  String hisSic = "0.0";
   String nem = "0.0";
 
   @override
@@ -59,7 +60,8 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         } else {
           ortSic = veri.split("*")[0];
           nem = veri.split("*")[1];
-          alarmDurum = veri.split("*")[2];
+          hisSic = veri.split("*")[2];
+          alarmDurum = veri.split("*")[3];
           print(veri);
 
           baglantiDurum = "";
@@ -84,7 +86,8 @@ class CanliKonforChartState extends State<CanliKonforChart> {
             } else {
               ortSic = veri.split("*")[0];
               nem = veri.split("*")[1];
-              alarmDurum = veri.split("*")[2];
+              hisSic = veri.split("*")[2];
+              alarmDurum = veri.split("*")[3];
               print(veri);
               baglantiDurum = "";
               baglanti = false;
@@ -174,203 +177,216 @@ class CanliKonforChartState extends State<CanliKonforChart> {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: Container(color: Colors.white,
+                    child: Container(
+                      color: Colors.white,
                       child: Column(
                         children: [
                           Spacer(),
-                          Expanded(flex: 4,
+                          Expanded(
+                            flex: 4,
                             child: Row(
                               children: [
-                                Spacer(flex: 1,),
-
+                                Spacer(
+                                  flex: 1,
+                                ),
                                 Expanded(
                                   child: Column(
                                     children: [
                                       Spacer(),
-                                      Expanded(flex: 4,
-                                        child: LayoutBuilder(builder: (context, constraint) {
-                                        return IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.brightness_1,
-                                          ),
-                                          iconSize: constraint.biggest.height,
-                                          color: Colors.green,
-                                          onPressed: () {},
-                                        );
-                                }),
+                                      Expanded(
+                                        flex: 4,
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return IconButton(
+                                            padding: EdgeInsets.all(0),
+                                            icon: Icon(
+                                              Icons.brightness_1,
+                                            ),
+                                            iconSize: constraint.biggest.height,
+                                            color: Colors.green,
+                                            onPressed: () {},
+                                          );
+                                        }),
                                       ),
                                       Spacer()
                                     ],
                                   ),
                                 ),
-                                Expanded(flex: 3,
-                                        child: SizedBox(
-                                          child: Container(
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv802"),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 50,
-                                                color: Colors.green
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ),
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    child: Container(
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv802"),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            fontSize: 50,
+                                            color: Colors.green),
+                                        maxLines: 2,
                                       ),
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   child: Column(
                                     children: [
                                       Spacer(),
-                                      Expanded(flex: 4,
-                                        child: LayoutBuilder(builder: (context, constraint) {
-                                        return IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.brightness_1,
-                                          ),
-                                          iconSize: constraint.biggest.height,
-                                          color: Colors.yellow[500],
-                                          onPressed: () {},
-                                        );
-                                }),
+                                      Expanded(
+                                        flex: 4,
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return IconButton(
+                                            padding: EdgeInsets.all(0),
+                                            icon: Icon(
+                                              Icons.brightness_1,
+                                            ),
+                                            iconSize: constraint.biggest.height,
+                                            color: Colors.yellow[500],
+                                            onPressed: () {},
+                                          );
+                                        }),
                                       ),
                                       Spacer()
                                     ],
                                   ),
                                 ),
-                                Expanded(flex: 3,
-                                        child: SizedBox(
-                                          child: Container(
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv803"),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 50,
-                                                color: Colors.yellow[500]
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ),
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    child: Container(
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv803"),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            fontSize: 50,
+                                            color: Colors.yellow[500]),
+                                        maxLines: 2,
                                       ),
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   child: Column(
                                     children: [
                                       Spacer(),
-                                      Expanded(flex: 4,
-                                        child: LayoutBuilder(builder: (context, constraint) {
-                                        return IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.brightness_1,
-                                          ),
-                                          iconSize: constraint.biggest.height,
-                                          color: Colors.orange,
-                                          onPressed: () {},
-                                        );
-                                }),
+                                      Expanded(
+                                        flex: 4,
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return IconButton(
+                                            padding: EdgeInsets.all(0),
+                                            icon: Icon(
+                                              Icons.brightness_1,
+                                            ),
+                                            iconSize: constraint.biggest.height,
+                                            color: Colors.orange,
+                                            onPressed: () {},
+                                          );
+                                        }),
                                       ),
                                       Spacer()
                                     ],
                                   ),
                                 ),
-                                Expanded(flex: 3,
-                                        child: SizedBox(
-                                          child: Container(
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv804"),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 50,
-                                                color: Colors.orange
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ),
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    child: Container(
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv804"),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            fontSize: 50,
+                                            color: Colors.orange),
+                                        maxLines: 2,
                                       ),
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   child: Column(
                                     children: [
                                       Spacer(),
-                                      Expanded(flex: 4,
-                                        child: LayoutBuilder(builder: (context, constraint) {
-                                        return IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.brightness_1,
-                                          ),
-                                          iconSize: constraint.biggest.height,
-                                          color: Colors.red,
-                                          onPressed: () {},
-                                        );
-                                }),
+                                      Expanded(
+                                        flex: 4,
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return IconButton(
+                                            padding: EdgeInsets.all(0),
+                                            icon: Icon(
+                                              Icons.brightness_1,
+                                            ),
+                                            iconSize: constraint.biggest.height,
+                                            color: Colors.red,
+                                            onPressed: () {},
+                                          );
+                                        }),
                                       ),
                                       Spacer()
                                     ],
                                   ),
                                 ),
-                                Expanded(flex: 3,
-                                        child: SizedBox(
-                                          child: Container(
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv805"),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 50,
-                                                color: Colors.red
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ),
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    child: Container(
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv805"),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            fontSize: 50,
+                                            color: Colors.red),
+                                        maxLines: 2,
                                       ),
+                                    ),
+                                  ),
+                                ),
                                 Expanded(
                                   child: Column(
                                     children: [
                                       Spacer(),
-                                      Expanded(flex: 4,
-                                        child: LayoutBuilder(builder: (context, constraint) {
-                                        return IconButton(
-                                          padding: EdgeInsets.all(0),
-                                          icon: Icon(
-                                            Icons.brightness_1,
-                                          ),
-                                          iconSize: constraint.biggest.height,
-                                          color: Colors.purple,
-                                          onPressed: () {},
-                                        );
-                                }),
+                                      Expanded(
+                                        flex: 4,
+                                        child: LayoutBuilder(
+                                            builder: (context, constraint) {
+                                          return IconButton(
+                                            padding: EdgeInsets.all(0),
+                                            icon: Icon(
+                                              Icons.brightness_1,
+                                            ),
+                                            iconSize: constraint.biggest.height,
+                                            color: Colors.purple,
+                                            onPressed: () {},
+                                          );
+                                        }),
                                       ),
                                       Spacer()
                                     ],
                                   ),
                                 ),
-                                Expanded(flex: 3,
-                                        child: SizedBox(
-                                          child: Container(
-                                            child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv806"),
-                                              textAlign: TextAlign.left,
-                                              style: TextStyle(
-                                                fontFamily: 'Kelly Slab',
-                                                fontSize: 50,
-                                                color: Colors.purple
-                                              ),
-                                              maxLines: 2,
-                                            ),
-                                          ),
-                                        ),
+                                Expanded(
+                                  flex: 3,
+                                  child: SizedBox(
+                                    child: Container(
+                                      child: AutoSizeText(
+                                        Dil().sec(dilSecimi, "tv806"),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontFamily: 'Kelly Slab',
+                                            fontSize: 50,
+                                            color: Colors.purple),
+                                        maxLines: 2,
                                       ),
-                                
-                                
-                                Spacer(flex: 1,),
+                                    ),
+                                  ),
+                                ),
+                                Spacer(
+                                  flex: 1,
+                                ),
                               ],
                             ),
                           ),
@@ -410,74 +426,116 @@ class CanliKonforChartState extends State<CanliKonforChart> {
                         ),
                         Expanded(
                           flex: 2,
-
                           child: Column(
                             children: [
-                              Spacer(flex: 4,),
-                              Expanded(flex: 3,
+                              Spacer(
+                                flex: 2,
+                              ),
+                              //Ortalama Sıcaklık
+                              Expanded(
+                                flex: 3,
                                 child: SizedBox(
                                   child: Container(
                                     child: AutoSizeText(
                                       Dil().sec(dilSecimi, "tv661a"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontFamily: 'Kelly Slab',
-                                        fontSize: 50,
-                                        color: Colors.white
-                                      ),
+                                          fontFamily: 'Kelly Slab',
+                                          fontSize: 50,
+                                          color: Colors.black),
                                       maxLines: 2,
                                     ),
                                   ),
                                 ),
                               ),
-                              Expanded(flex: 3,
+                              Expanded(
+                                flex: 3,
                                 child: SizedBox(
                                   child: Container(
                                     child: AutoSizeText(
-                                      ortSic+" °C",
+                                      ortSic + " °C",
                                       style: TextStyle(
-                                        fontFamily: 'Kelly Slab',
-                                        fontSize: 50,
-                                        color: Colors.white
-                                      ),
+                                          fontFamily: 'Kelly Slab',
+                                          fontSize: 50,
+                                          color: Colors.white),
                                       maxLines: 1,
                                     ),
                                   ),
                                 ),
                               ),
-                              Spacer(flex: 4,),
-                              Expanded(flex: 3,
+                              Spacer(
+                                flex: 2,
+                              ),
+                              //Hissedilir Sıcaklık
+                              Expanded(
+                                flex: 3,
+                                child: SizedBox(
+                                  child: Container(
+                                    child: AutoSizeText(
+                                      Dil().sec(dilSecimi, "tv812a"),
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          fontSize: 50,
+                                          color: Colors.pink[600]),
+                                      maxLines: 2,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 3,
+                                child: SizedBox(
+                                  child: Container(
+                                    child: AutoSizeText(
+                                      hisSic + " °C",
+                                      style: TextStyle(
+                                          fontFamily: 'Kelly Slab',
+                                          fontSize: 50,
+                                          color: Colors.white),
+                                      maxLines: 1,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Spacer(
+                                flex: 2,
+                              ),
+                              //İç Nem
+                              Expanded(
+                                flex: 3,
                                 child: SizedBox(
                                   child: Container(
                                     child: AutoSizeText(
                                       Dil().sec(dilSecimi, "tv441a"),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
-                                        fontFamily: 'Kelly Slab',
-                                        fontSize: 50,
-                                        color: Colors.white
-                                      ),
+                                          fontFamily: 'Kelly Slab',
+                                          fontSize: 50,
+                                          color: Colors.white),
                                       maxLines: 2,
                                     ),
                                   ),
                                 ),
                               ),
-                              Expanded(flex: 3,
+                              Expanded(
+                                flex: 3,
                                 child: SizedBox(
                                   child: Container(
                                     child: AutoSizeText(
-                                      nem+" %",
+                                      nem + " %",
                                       style: TextStyle(
-                                        fontFamily: 'Kelly Slab',
-                                        fontSize: 50,
-                                        color: Colors.white
-                                      ),
+                                          fontFamily: 'Kelly Slab',
+                                          fontSize: 50,
+                                          color: Colors.white),
                                       maxLines: 1,
                                     ),
                                   ),
                                 ),
                               ),
-                              Spacer(flex: 6,),
+                              Spacer(
+                                flex: 4,
+                              ),
                             ],
                           ),
                         )
@@ -488,7 +546,7 @@ class CanliKonforChartState extends State<CanliKonforChart> {
                     child: SizedBox(
                       child: Container(
                         child: AutoSizeText(
-                          Dil().sec(dilSecimi, "tv661") + "  (°C)",
+                          Dil().sec(dilSecimi, "tv814") + "  (°C)",
                           style: TextStyle(
                               fontFamily: "Kelly Slab",
                               fontSize: 50,
@@ -585,7 +643,7 @@ class CanliKonforChartState extends State<CanliKonforChart> {
   }
 
   Widget _chart1(double oran) {
-    return charts.ScatterPlotChart(_createSampleData(),
+    return charts.ScatterPlotChart(_createSampleData(oran),
         animate: false,
         domainAxis: new charts.NumericAxisSpec(
           showAxisLine: true,
@@ -679,12 +737,10 @@ class CanliKonforChartState extends State<CanliKonforChart> {
   }
 
   Widget _chart2(double oran) {
-    return charts.LineChart(_createSampleData2(),
+    return charts.LineChart(_createSampleData2(oran),
         defaultRenderer:
-            new charts.LineRendererConfig(includeArea: true, stacked: true),
+            new charts.LineRendererConfig(includeArea: true, stacked: true,strokeWidthPx: 1.5*oran),
         animate: false,
-
-
         domainAxis: new charts.NumericAxisSpec(
           showAxisLine: true,
           tickProviderSpec: new charts.StaticNumericTickProviderSpec(
@@ -732,7 +788,7 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         ),
         primaryMeasureAxis: new charts.NumericAxisSpec(
           showAxisLine: true,
-          viewport: charts.NumericExtents(40,100),
+          viewport: charts.NumericExtents(40, 100),
           tickProviderSpec: new charts.StaticNumericTickProviderSpec(
             <charts.TickSpec<num>>[
               charts.TickSpec<num>(40),
@@ -771,7 +827,7 @@ class CanliKonforChartState extends State<CanliKonforChart> {
   }
 
   /// Create one series with sample hard coded data.
-  List<charts.Series<LinearSales, num>> _createSampleData() {
+  List<charts.Series<LinearSales, num>> _createSampleData(double oran) {
     final desktopSalesData = [
       new LinearSales(double.parse(ortSic), double.parse(nem), 8.0),
       //new LinearSales(16, 45, 0),
@@ -843,45 +899,61 @@ class CanliKonforChartState extends State<CanliKonforChart> {
   }
 
   /// Create one series with sample hard coded data.
-  List<charts.Series<LinearSales2, num>> _createSampleData2() {
-
+  List<charts.Series<LinearSales2, num>> _createSampleData2(double oran) {
     final myFakeDesktopData = [
-      new LinearSales2(15, 91, 3.5,Colors.white),
-      new LinearSales2(40, 46, 3.5,Colors.white),
+      new LinearSales2(15, 91, 3.5, Colors.white),
+      new LinearSales2(40, 46, 3.5, Colors.white),
       //new LinearSales2(2, 100),
       //new LinearSales2(3, 75),
     ];
 
     var myFakeTabletData = [
-      new LinearSales2(15, 5, 3.5,Colors.white),
-      new LinearSales2(40, 5, 3.5,Colors.white),
+      new LinearSales2(15, 5, 3.5, Colors.white),
+      new LinearSales2(40, 5, 3.5, Colors.white),
       //new LinearSales2(2, 200),
       //new LinearSales2(3, 150),
     ];
 
     var myFakeMobileData = [
-      new LinearSales2(15, 5, 3.5,Colors.white),
-      new LinearSales2(40, 5, 3.5,Colors.white),
+      new LinearSales2(15, 5, 3.5, Colors.white),
+      new LinearSales2(40, 5, 3.5, Colors.white),
       //new LinearSales2(2, 300),
       //new LinearSales2(3, 225),
     ];
 
     var myFakeDigerData = [
-      new LinearSales2(15, 5, 3.5,Colors.white),
-      new LinearSales2(40, 5, 3.5,Colors.white),
+      new LinearSales2(15, 5, 3.5, Colors.white),
+      new LinearSales2(40, 5, 3.5, Colors.white),
       //new LinearSales2(2, 300),
       //new LinearSales2(3, 225),
     ];
 
     var myFakeDiger2Data = [
-      new LinearSales2(15, 39, 3.5,Colors.white),
-      new LinearSales2(40, 100, 3.5,Colors.white),
+      new LinearSales2(15, 39, 3.5, Colors.white),
+      new LinearSales2(40, 100, 3.5, Colors.white),
       //new LinearSales2(2, 300),
       //new LinearSales2(3, 225),
     ];
 
-    final desktopSalesData = [
-      new LinearSales2(double.parse(ortSic), double.parse(nem), 6.0,Colors.white),
+    final desktopSalesData1 = [
+      new LinearSales2(
+          double.parse(ortSic), double.parse(nem), 3.0*oran, Colors.white),
+      //new LinearSales(16, 45, 0),
+      //new LinearSales(17, 50, 0),
+      //new LinearSales(18, 55, 0),
+      //new LinearSales(19, 60, 0),
+      //new LinearSales(20, 65, 0),
+      //new LinearSales(21, 70, 0),
+      //new LinearSales(22, 75, 0),
+      //new LinearSales(23, 80, 0),
+      //new LinearSales(24, 85, 0),
+      //new LinearSales(25, 90, 0),
+      //new LinearSales(25, 25, 7.0),
+    ];
+
+    final desktopSalesData2 = [
+      new LinearSales2(
+          double.parse(hisSic), double.parse(nem), 3.0*oran, Colors.white),
       //new LinearSales(16, 45, 0),
       //new LinearSales(17, 50, 0),
       //new LinearSales(18, 55, 0),
@@ -899,19 +971,31 @@ class CanliKonforChartState extends State<CanliKonforChart> {
       new charts.Series<LinearSales2, num>(
         id: 'Sales',
         // Providing a color function is optional.
-        colorFn: (LinearSales2 sales, _) =>charts.MaterialPalette.black,
+        colorFn: (LinearSales2 sales, _) => charts.MaterialPalette.black,
         domainFn: (LinearSales2 sales, _) => sales.year,
         measureFn: (LinearSales2 sales, _) => sales.sales,
         // Providing a radius function is optional.
         radiusPxFn: (LinearSales2 sales, _) => sales.radius,
-        data: desktopSalesData,
+        data: desktopSalesData1,
+      )..setAttribute(charts.rendererIdKey, 'customPoint'),
+      new charts.Series<LinearSales2, num>(
+        id: 'Sales',
+        // Providing a color function is optional.
+        colorFn: (LinearSales2 sales, _) =>
+            charts.ColorUtil.fromDartColor(Colors.pink[600]),
+        domainFn: (LinearSales2 sales, _) => sales.year,
+        measureFn: (LinearSales2 sales, _) => sales.sales,
+        // Providing a radius function is optional.
+        radiusPxFn: (LinearSales2 sales, _) => sales.radius,
+        data: desktopSalesData2,
       )..setAttribute(charts.rendererIdKey, 'customPoint'),
       new charts.Series<LinearSales2, num>(
         id: 'Desktop',
         // colorFn specifies that the line will be blue.
         colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
         // areaColorFn specifies that the area skirt will be light blue.
-        areaColorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.green.withAlpha(75)),
+        areaColorFn: (_, __) =>
+            charts.ColorUtil.fromDartColor(Colors.green.withAlpha(75)),
         domainFn: (LinearSales2 sales, _) => sales.year,
         measureFn: (LinearSales2 sales, _) => sales.sales,
         data: myFakeDesktopData,
@@ -920,7 +1004,8 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         id: 'Tablet',
         // colorFn specifies that the line will be red.
         colorFn: (_, __) => charts.MaterialPalette.yellow.shadeDefault,
-        areaColorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.yellow.withAlpha(75)),
+        areaColorFn: (_, __) =>
+            charts.ColorUtil.fromDartColor(Colors.yellow.withAlpha(75)),
         //areaColorFn: (_, __) => charts.MaterialPalette.red.shadeDefault.lighter,
         domainFn: (LinearSales2 sales, _) => sales.year,
         measureFn: (LinearSales2 sales, _) => sales.sales,
@@ -931,7 +1016,8 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         // colorFn specifies that the line will be green.
         colorFn: (_, __) => charts.MaterialPalette.deepOrange.shadeDefault,
         // areaColorFn specifies that the area skirt will be light green.
-        areaColorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.orange.withAlpha(75)),
+        areaColorFn: (_, __) =>
+            charts.ColorUtil.fromDartColor(Colors.orange.withAlpha(75)),
         domainFn: (LinearSales2 sales, _) => sales.year,
         measureFn: (LinearSales2 sales, _) => sales.sales,
         data: myFakeMobileData,
@@ -941,7 +1027,8 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         // colorFn specifies that the line will be green.
         colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
         // areaColorFn specifies that the area skirt will be light green.
-        areaColorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.red[800].withAlpha(75)),
+        areaColorFn: (_, __) =>
+            charts.ColorUtil.fromDartColor(Colors.red[800].withAlpha(75)),
         domainFn: (LinearSales2 sales, _) => sales.year,
         measureFn: (LinearSales2 sales, _) => sales.sales,
         data: myFakeDigerData,
@@ -951,7 +1038,8 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         // colorFn specifies that the line will be green.
         colorFn: (_, __) => charts.MaterialPalette.purple.shadeDefault,
         // areaColorFn specifies that the area skirt will be light green.
-        areaColorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.purple[600].withAlpha(75)),
+        areaColorFn: (_, __) =>
+            charts.ColorUtil.fromDartColor(Colors.purple[600].withAlpha(75)),
         domainFn: (LinearSales2 sales, _) => sales.year,
         measureFn: (LinearSales2 sales, _) => sales.sales,
         data: myFakeDiger2Data,

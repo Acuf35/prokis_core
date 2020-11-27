@@ -861,15 +861,28 @@ class Dil{
     kod=="tv804" ? metin='2. Uyarı' : null;
     kod=="tv805" ? metin='Teklike' : null;
     kod=="tv806" ? metin='Acil' : null;
-    kod=="tv807" ? metin='SIC. & NEM\nGRAFİĞİ' : null;
-    kod=="tv807a" ? metin='SIC. & NEM GRAFİĞİ' : null;
+    kod=="tv807" ? metin='SICAKLIK & NEM\nGRAFİĞİ' : null;
+    kod=="tv807a" ? metin='SICAKLIK & NEM GRAFİĞİ' : null;
     kod=="tv808" ? metin='ORT.SIC.' : null;
     kod=="tv809" ? metin='IC NEM' : null;
     kod=="tv810" ? metin='DIŞ NEM' : null;
     kod=="tv811" ? metin='HİS .SIC. & NEM\nGRAFİĞİ' : null;
     kod=="tv811a" ? metin='HİS .SIC. & NEM GRAFİĞİ' : null;
     kod=="tv812" ? metin='Ort. Hissed. Sıc.' : null;
+    kod=="tv812a" ? metin='Ort. Hissed.\nSıcaklık' : null;
     kod=="tv813" ? metin='HİS.SIC.' : null;
+    kod=="tv814" ? metin='Sıcaklık' : null;
+    kod=="tv815" ? metin='GÜNLÜK SIC. & SU\nTÜKETİM GRAFİĞİ' : null;
+    kod=="tv815a" ? metin='GÜNLÜK SIC. & SU TÜKETİM GRAFİĞİ' : null;
+    kod=="tv816" ? metin='AYLIK ELEKTRİK\nTÜKETİM GRAFİĞİ' : null;
+    kod=="tv816a" ? metin='AYLIK ELEKTRİK TÜKETİM GRAFİĞİ' : null;
+    kod=="tv817" ? metin='AYLIK SU\nTÜKETİM GRAFİĞİ' : null;
+    kod=="tv817a" ? metin='AYLIK SU TÜKETİM GRAFİĞİ' : null;
+    kod=="tv818" ? metin='AYLIK YEM\nTÜKETİM GRAFİĞİ' : null;
+    kod=="tv818a" ? metin='AYLIK YEM TÜKETİM GRAFİĞİ' : null;
+    kod=="tv819" ? metin='SU TÜK.' : null;
+    kod=="tv820" ? metin='TOPLAM' : null;
+    kod=="tv821" ? metin='HAY BAŞ.' : null;
    
 
     //#endregion
@@ -3223,7 +3236,20 @@ class Dil{
     kod=="tv811" ? metin='SENS. TEMP. & HUM.\nCHART' : null;
     kod=="tv811a" ? metin='SENS. TEMP. & HUM. CHART' : null;
     kod=="tv812" ? metin='Sensible Avr. Temp.' : null;
+    kod=="tv812a" ? metin='Sensible Avr.\nTemperature' : null;
     kod=="tv813" ? metin='SEN.TEMP.' : null;
+    kod=="tv814" ? metin='Temperature' : null;
+    kod=="tv815" ? metin='DAILY TEMP. &\nWATER CHART' : null;
+    kod=="tv815a" ? metin='DAILY TEMP. & WATER CHART' : null;
+    kod=="tv816" ? metin='MONTHLY POWER\nCONSUMPTION CHART' : null;
+    kod=="tv816a" ? metin='MONTHLY POWER CONSUMPTION CHART' : null;
+    kod=="tv817" ? metin='MONTHLY WATER\nCONSUMPTION CHART' : null;
+    kod=="tv817a" ? metin='MONTHLY WATER CONSUMPTION CHART' : null;
+    kod=="tv818" ? metin='MONTHLY FOOD\nCONSUMPTION CHART' : null;
+    kod=="tv818a" ? metin='MONTHLY FOOD CONSUMPTION CHART' : null;
+    kod=="tv819" ? metin='WA.CONS.' : null;
+    kod=="tv820" ? metin='TOTAL' : null;
+    kod=="tv821" ? metin='PER BIRD' : null;
    
     
     
