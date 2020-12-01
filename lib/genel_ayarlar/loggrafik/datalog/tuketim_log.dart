@@ -1320,7 +1320,7 @@ class TuketimLogState extends State<TuketimLog> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv735"),
+                      Dil().sec(dilSecimi, "tv737"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -1349,7 +1349,7 @@ class TuketimLogState extends State<TuketimLog> {
                             text: TextSpan(children: <TextSpan>[
                               //Giriş metni
                               TextSpan(
-                                  text: Dil().sec(dilSecimi, "info55"),
+                                  text: Dil().sec(dilSecimi, "info61"),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 13 * oran)),

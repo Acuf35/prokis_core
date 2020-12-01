@@ -729,7 +729,7 @@ class ParametreLogState extends State<ParametreLog> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv735"),
+                      Dil().sec(dilSecimi, "tv738"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -758,7 +758,7 @@ class ParametreLogState extends State<ParametreLog> {
                             text: TextSpan(children: <TextSpan>[
                               //Giriş metni
                               TextSpan(
-                                  text: Dil().sec(dilSecimi, "info55"),
+                                  text: Dil().sec(dilSecimi, "info62"),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 13 * oran)),

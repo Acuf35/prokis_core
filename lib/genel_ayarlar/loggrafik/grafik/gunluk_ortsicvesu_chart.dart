@@ -49,7 +49,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
   List<String> gelenDegerOrtSic = [];
   List<String> gelenDegerSuTuk = [];
 
-  bool ortSicVisibility = false;
+  bool ortSicVisibility = true;
   bool suTukVisibility = false;
 
   //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -342,7 +342,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: ortSicVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -395,7 +395,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: suTukVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -682,7 +682,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv735"),
+                      Dil().sec(dilSecimi, "tv815a"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -711,7 +711,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
                             text: TextSpan(children: <TextSpan>[
                               //Giriş metni
                               TextSpan(
-                                  text: Dil().sec(dilSecimi, "info54"),
+                                  text: Dil().sec(dilSecimi, "info65"),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 13 * oran)),
@@ -991,7 +991,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       primaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
@@ -1034,7 +1034,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       secondaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
@@ -1080,7 +1080,7 @@ class GunlukOrtSicveSuTuketimiState extends State<GunlukOrtSicveSuTuketimi> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       customSeriesRenderers: [
         charts.PointRendererConfig(

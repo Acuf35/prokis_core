@@ -743,6 +743,7 @@ class CanliKonforChartState extends State<CanliKonforChart> {
         animate: false,
         domainAxis: new charts.NumericAxisSpec(
           showAxisLine: true,
+          viewport: charts.NumericExtents(15, 40),
           tickProviderSpec: new charts.StaticNumericTickProviderSpec(
             <charts.TickSpec<num>>[
               charts.TickSpec<num>(15),

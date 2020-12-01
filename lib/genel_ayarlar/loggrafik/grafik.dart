@@ -12,6 +12,8 @@ import 'package:prokis/genel_ayarlar/loggrafik/datalog/parametre_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/sicvenem_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/datalog/tuketim_log.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/aylik_elektriktuk_chart.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/aylik_sutuk_chart.dart';
+import 'package:prokis/genel_ayarlar/loggrafik/grafik/aylik_yemtuk_chart.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/canli_konfor_chart.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/gunluk_ortsicvesu_chart.dart';
 import 'package:prokis/genel_ayarlar/loggrafik/grafik/ortsicvenem_chart.dart';
@@ -445,15 +447,15 @@ class GrafikState extends State<Grafik> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    /*
+                                    
                                     timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              HisSicVeNemChart ()),
+                                              AylikSuTukGrafigi ()),
                                     );
-                                    */
+                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -502,15 +504,15 @@ class GrafikState extends State<Grafik> {
                                 flex: 5,
                                 child: RawMaterialButton(
                                   onPressed: () {
-                                    /*
+                                    
                                     timerCancel = true;
                                     Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ParametreLog ()),
+                                              AylikYemTukGrafigi ()),
                                     );
-                                    */
+                                    
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
@@ -552,7 +554,7 @@ class GrafikState extends State<Grafik> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv729"), 
+                      Dil().sec(dilSecimi, "tv730"), 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -582,7 +584,7 @@ class GrafikState extends State<Grafik> {
                               children: <TextSpan>[
                                 //Giriş metni
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info58"),
+                                  text: Dil().sec(dilSecimi, "info63"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran

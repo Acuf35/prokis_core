@@ -336,7 +336,7 @@ class LogGrafikState extends State<LogGrafik> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv401"), 
+                      Dil().sec(dilSecimi, "tv728"), 
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -366,7 +366,7 @@ class LogGrafikState extends State<LogGrafik> {
                               children: <TextSpan>[
                                 //Giriş metni
                                 TextSpan(
-                                  text: Dil().sec(dilSecimi, "info25"),
+                                  text: Dil().sec(dilSecimi, "info60"),
                                   style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 13*oran

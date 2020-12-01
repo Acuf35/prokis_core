@@ -60,7 +60,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
   List<String> gelenDegerIcNem = [];
   List<String> gelenDegerDisNem = [];
 
-  bool ortSicVisibility = false;
+  bool ortSicVisibility = true;
   bool hisSicVisibility = false;
   bool icNemVisibility = false;
   bool disNemVisibility = false;
@@ -359,7 +359,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: ortSicVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -414,7 +414,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: hisSicVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -469,7 +469,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: icNemVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -524,7 +524,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: disNemVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -973,7 +973,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv735"),
+                      Dil().sec(dilSecimi, "tv807a"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -1002,7 +1002,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
                             text: TextSpan(children: <TextSpan>[
                               //Giriş metni
                               TextSpan(
-                                  text: Dil().sec(dilSecimi, "info54"),
+                                  text: Dil().sec(dilSecimi, "info64"),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 13 * oran)),
@@ -1310,7 +1310,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       primaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
@@ -1353,7 +1353,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       secondaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
@@ -1399,7 +1399,7 @@ class OrtSicVeNemChartState extends State<OrtSicVeNemChart> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       customSeriesRenderers: [
         charts.PointRendererConfig(

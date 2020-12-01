@@ -823,7 +823,7 @@ class AlarmVeUyariLogState extends State<AlarmVeUyariLog> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv735"),
+                      Dil().sec(dilSecimi, "tv736"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,

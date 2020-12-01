@@ -49,7 +49,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
   List<String> gelenDegerElkTukTop = [];
   List<String> gelenDegerElkTukHayBas = [];
 
-  bool elkTukTopVisibility = false;
+  bool elkTukTopVisibility = true;
   bool elkTukHayBasVisibility = false;
 
   //--------------------------DATABASE DEĞİŞKENLER--------------------------------
@@ -309,7 +309,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
-                                            color: Colors.red[800],
+                                            color: Colors.blue,
                                             fontWeight: FontWeight.bold,
                                             fontSize: 60,
                                             //fontWeight: FontWeight.bold
@@ -339,7 +339,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: elkTukTopVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -362,7 +362,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontFamily: 'Kelly Slab',
-                                            color: Colors.blue,
+                                            color: Colors.red[800],
                                             fontWeight: FontWeight.bold,
                                             fontSize: 60,
                                             //fontWeight: FontWeight.bold
@@ -392,7 +392,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                           ? Icons.check_box
                                           : Icons.check_box_outline_blank),
                                       color: elkTukHayBasVisibility == true
-                                          ? Colors.green.shade500
+                                          ? Colors.green.shade300
                                           : Colors.blue.shade600,
                                       iconSize: 20 * oran,
                                     ),
@@ -432,11 +432,11 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                     children: <Widget>[
                                       //Tarih
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: SizedBox(
                                           child: Container(
                                             child: AutoSizeText(
-                                              Dil().sec(dilSecimi, "tv762"),
+                                              Dil().sec(dilSecimi, "tv762")+"\n"+Dil().sec(dilSecimi, "tv822"),
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                 fontSize: 40,
@@ -445,7 +445,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                                 decoration:
                                                     TextDecoration.underline,
                                               ),
-                                              maxLines: 1,
+                                              maxLines: 2,
                                               minFontSize: 2,
                                             ),
                                           ),
@@ -458,11 +458,11 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                       Visibility(
                                         visible: elkTukTopVisibility,
                                         child: Expanded(
-                                          flex: 9,
+                                          flex: 8,
                                           child: SizedBox(
                                             child: Container(
                                               child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv820"),
+                                                Dil().sec(dilSecimi, "tv820")+"\n(kw/h)",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 40,
@@ -471,7 +471,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                                   decoration:
                                                       TextDecoration.underline,
                                                 ),
-                                                maxLines: 1,
+                                                maxLines: 2,
                                                 minFontSize: 2,
                                               ),
                                             ),
@@ -485,11 +485,11 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                       Visibility(
                                         visible: elkTukHayBasVisibility,
                                         child: Expanded(
-                                          flex: 9,
+                                          flex: 8,
                                           child: SizedBox(
                                             child: Container(
                                               child: AutoSizeText(
-                                                Dil().sec(dilSecimi, "tv821"),
+                                                Dil().sec(dilSecimi, "tv821")+"\n(kw/h)",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
                                                   fontSize: 40,
@@ -498,7 +498,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                                   decoration:
                                                       TextDecoration.underline,
                                                 ),
-                                                maxLines: 1,
+                                                maxLines: 2,
                                                 minFontSize: 2,
                                               ),
                                             ),
@@ -515,7 +515,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                     children: [
                                       //Saat
                                       Expanded(
-                                        flex: 6,
+                                        flex: 8,
                                         child: ListView.builder(
                                             itemCount: kayitAdet1,
                                             itemBuilder:
@@ -558,12 +558,11 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                       Visibility(
                                         visible: elkTukTopVisibility,
                                         child: Expanded(
-                                          flex: 9,
+                                          flex: 8,
                                           child: ListView.builder(
                                               itemCount: kayitAdet1,
                                               itemBuilder: (BuildContext ctxt,
                                                   int index) {
-                                                String birim = "kw/h";
                                                 return Container(
                                                   color: index % 2 == 1
                                                       ? Colors.grey[300]
@@ -577,9 +576,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                                           child: Container(
                                                             child: AutoSizeText(
                                                               gelenDegerElkTukTop[
-                                                                      index] +
-                                                                  " " +
-                                                                  birim,
+                                                                      index],
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -615,12 +612,11 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                       Visibility(
                                         visible: elkTukHayBasVisibility,
                                         child: Expanded(
-                                          flex: 9,
+                                          flex: 8,
                                           child: ListView.builder(
                                               itemCount: kayitAdet1,
                                               itemBuilder: (BuildContext ctxt,
                                                   int index) {
-                                                String birim = "kw/h";
                                                 return Container(
                                                   color: index % 2 == 1
                                                       ? Colors.grey[300]
@@ -634,9 +630,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                                           child: Container(
                                                             child: AutoSizeText(
                                                               gelenDegerElkTukHayBas[
-                                                                      index] +
-                                                                  " " +
-                                                                  birim,
+                                                                      index],
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
@@ -653,6 +647,8 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                                                                         : Colors
                                                                             .black),
                                                               ),
+                                                              maxLines: 1,
+                                                            minFontSize: 2,
                                                             ),
                                                           ),
                                                         ),
@@ -689,7 +685,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                   child: Container(
                     alignment: Alignment.center,
                     child: Text(
-                      Dil().sec(dilSecimi, "tv735"),
+                      Dil().sec(dilSecimi, "tv816a"),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: Colors.black,
@@ -718,7 +714,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
                             text: TextSpan(children: <TextSpan>[
                               //Giriş metni
                               TextSpan(
-                                  text: Dil().sec(dilSecimi, "info54"),
+                                  text: Dil().sec(dilSecimi, "info66"),
                                   style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 13 * oran)),
@@ -927,7 +923,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       primaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
@@ -968,7 +964,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       secondaryMeasureAxis: charts.NumericAxisSpec(
         showAxisLine: true,
@@ -1010,7 +1006,7 @@ class AylikElektrikTukGrafigiState extends State<AylikElektrikTukGrafigi> {
 
             // Change the line colors to match text color.
             lineStyle: charts.LineStyleSpec(
-                color: charts.MaterialPalette.gray.shade500)),
+                color: charts.MaterialPalette.gray.shade300)),
       ),
       customSeriesRenderers: [
         charts.PointRendererConfig(

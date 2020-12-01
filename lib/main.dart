@@ -9,6 +9,7 @@ import 'package:prokis/sistem/kurulum/dil_secimi.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<DBProkis>(

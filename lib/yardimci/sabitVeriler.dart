@@ -7,6 +7,7 @@ class SabitVeriler{
 
   List<String> adet0dan3e = ['0', '1', '2', '3'];
   List<String> adet0dan4e = ['0', '1', '2', '3', '4'];
+  List<String> adet1den8e = ['1', '2', '3', '4', '5', '6', '7', '8'];
   List<String> adet1den10a = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
   List<String> adetOdan12ye = ['0','1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
 

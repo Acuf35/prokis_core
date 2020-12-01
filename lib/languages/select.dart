@@ -883,6 +883,7 @@ class Dil{
     kod=="tv819" ? metin='SU TÜK.' : null;
     kod=="tv820" ? metin='TOPLAM' : null;
     kod=="tv821" ? metin='HAY BAŞ.' : null;
+    kod=="tv822" ? metin='(gün.ay)' : null;
    
 
     //#endregion
@@ -1936,8 +1937,8 @@ class Dil{
 
 
     //SIC ve NEM LOGLARI
-    kod=="info54" ? metin='     Ortalama Sıcaklık, tüm sıcaklık sensörlerinin değerleri ve iç-dış nem değerlerinin log kayıtlarına bu sayfadan erilebilmektedir.'
-    ' "Kayıt Türü" parametresinden kayıt türü seçilir. "Log Periyot" parametresinden 5dk, 10dk, 15dk, 30dk ve 60dk seçeneklerinden biri seçildiğinde veriler'
+    kod=="info54" ? metin='     Ortalama Sıcaklık, hissedilir sıcaklık, tüm sıcaklık sensörlerinin değerleri ve iç-dış nem değerlerinin log kayıtlarına bu sayfadan'
+    ' erilebilmektedir. "Kayıt Türü" parametresinden kayıt türü seçilir. "Log Periyot" parametresinden 5dk, 10dk, 15dk, 30dk ve 60dk seçeneklerinden biri seçildiğinde'
     ' kayıtlı veriler bu parametrede belirtilen aralıklarla listelenir. Hangi tarih aralığındaki kayıtlar getirilsin isteniyorsa "Tarih İlk" ve "Tarih Son" parametrelerine'
     ' istenilen aralık girilir ve "GETİR" butonuna basılır. Burada dikkat edilmesi gereken nokta bir defade en fazla 1 aylık veri çağrılabilir. "Tarih İlk" ve "Tarih Son"'
     ' parametrelerinin her ikisi için de yıl ve ay aynı olacak şekilde girilmelidir. Veriler getirildiğinde tespit edilen "En yüksek" ve "En düşük" değerler'
@@ -1962,10 +1963,10 @@ class Dil{
 
 
     //STRES & KONFOR GRAFİĞİ
-    kod=="info59" ? metin='     Hayvanların sıcaklığa ve neme bağlı stres ve konfor durumlarını gösterir grafiktir. Kümes içerisindeki ortalama sıcaklık ve bağıl nemin'
-    ' hayvanın vücudunda meydana getirdiği stresin derecesini anlamaya yönelik analiz yapılmasına olanak sağlar.\n\n'
+    kod=="info59" ? metin='     Hayvanların sıcaklığa ve neme bağlı stres ve konfor durumlarını gösterir grafiktir. Kümes içerisindeki ortalama sıcaklık, hissedilir'
+    ' sıcaklık ve bağıl nemin hayvanın vücudunda meydana getirdiği stresin derecesini anlamaya yönelik analiz yapılmasına olanak sağlar.\n\n'
     ' Normal alan:\n'
-    ' Hayvanın stresine girmediği alandır.\n\n'
+    ' Hayvanın sıcaklık stresine girmediği alandır.\n\n'
     ' 1. Uyarı alanı\n'
     ' Verimlilik düşer, performans kaybı başlar.\n\n'
     ' 2. Uyarı alanı:\n'
@@ -1974,6 +1975,68 @@ class Dil{
     ' Yüksek katlarda ilk ölümler başlar. Organlarda kalıcı hasar vakaları görülür.\n\n'
     ' Ölüm alanı:\n'
     ' Yüksek oranlarda ölüm vakaları meydana gelir.\n\n'  : null;
+
+
+    //LOG ve GRAFİK
+    kod=="info60" ? metin='   Bu sayfa ile geçmişe dönük tutulan tüm loglara ve sistemin analiz edilmesi için ihtiyaç duyulan tüm'
+    ' grafiklere erişim sağlanmaktadır.'  : null;
+
+    //TÜKETİM LOGLARI
+    kod=="info61" ? metin='     Geçmişte ölçülmüş elektrik, su ve yem tüketim değerlerinin log kayıtlarına bu sayfadan erilebilmektedir.'
+    ' "Kayıt Türü" parametresinden kayıt türü seçilir. Hangi tarih aralığındaki kayıtlar getirilsin isteniyorsa "Tarih İlk" ve "Tarih Son" parametrelerine'
+    ' istenilen aralık girilir ve "GETİR" butonuna basılır. Burada dikkat edilmesi gereken nokta bir defade en fazla 1 aylık veri çağrılabilir. "Tarih İlk" ve "Tarih Son"'
+    ' parametrelerinin her ikisi için de yıl ve ay aynı olacak şekilde girilmelidir.\n\n'  : null;
+
+    //PARAMETRE LOGLARI
+    kod=="info62" ? metin='     Sistemde her bir parametre değişikliği, bu değişikliği hangi kullanıcı yaptı bilgisiyle birlikte kaydedilir. Kaydedilen bu verilere'
+    ' bu sayfadan erişilebilmektedir. Hangi tarih aralığındaki kayıtlar getirilsin isteniyorsa "Tarih İlk" ve "Tarih Son" parametrelerine'
+    ' istenilen aralık girilir ve "GETİR" butonuna basılır. Burada dikkat edilmesi gereken nokta bir defade en fazla 1 aylık veri çağrılabilir. "Tarih İlk" ve "Tarih Son"'
+    ' parametrelerinin her ikisi için de yıl ve ay aynı olacak şekilde girilmelidir.\n\n'  : null;
+
+
+    //GRAFİKLER
+    kod=="info63" ? metin='     Bu sayfada sistem ve hayvanlar hakkında analiz yapılmasına olanak veren çeşitli verilerin karşılaştırılarak sunulduğu'
+    ' grafik sayfalarına erişim sağlanmaktadır.\n\n'  : null;
+
+
+    //SICAKLIK ve NEM GRAFİĞİ
+    kod=="info64" ? metin='     Bu grafikte seçilen gün içerisinde "ortalama Sıcaklık", "Hissedilir Sıcaklık" , "İç nem" ve "Dış Nem" verilerinin zamana göre'
+    ' değişiklikleri görüntülenir. Veriler grafiğe 15 dk\'lık ölçüm sıklığı ile yansıtılır. Veriler aynı zamanda grafiğin sağ tarafındaki gri alanda da metin olarak'
+    ' listelenir. Bu alanda görüntülenmesi istenen veri türü "GETİR" butonunun sağında bulunan veri türleri işaretlenerek ayarlanır. Gri alanda metin olarak listelenen'
+    ' verilerden kırmızı olan maksimum değeri, mavi olan minimum değeri, siyah olanlar da ara değeri ifade eder. \n\n'  : null;
+
+
+     //GÜNLÜK SICAKLIK ve SU TÜKETİM GRAFİĞİ
+    kod=="info65" ? metin='     Bu grafikte seçilen gün içerisinde "ortalama Sıcaklık" değerine göre meydana gelen "Su Tüketimi" görüntülenir.'
+    ' Veriler grafiğe 15 dk\'lık ölçüm sıklığı ile yansıtılır. Belirtilen su tüketim değeri ilgili 15 dk içerisinde meydana gelen toplam su tüketim değeridir.'
+    ' Veriler aynı zamanda grafiğin sağ tarafındaki gri alanda da metin olarak'
+    ' listelenir. Bu alanda görüntülenmesi istenen veri türü "GETİR" butonunun sağında bulunan veri türleri işaretlenerek ayarlanır. Gri alanda metin olarak listelenen'
+    ' verilerden kırmızı olan maksimum değeri, mavi olan minimum değeri, siyah olanlar da ara değeri ifade eder. \n\n'  : null;
+
+
+    //AYLIK ELEKTRİK TÜKETİM GRAFİĞİ
+    kod=="info66" ? metin='     Bu grafikte seçilen ay içerisinde gün bazında hesaplanan toplam elektrik tüketimi ve hayvan başına düşen elektrik tüketimi görüntülenir'
+    ' Veriler grafiğe 1 günlük ölçüm sıklığı ile yansıtılır. Belirtilen elektrik tüketim değeri ilgili gün içerisinde meydana gelen toplam elektrik tüketim değeridir.'
+    ' Veriler aynı zamanda grafiğin sağ tarafındaki gri alanda da metin olarak'
+    ' listelenir. Bu alanda görüntülenmesi istenen veri türü "GETİR" butonunun sağında bulunan veri türleri işaretlenerek ayarlanır. Gri alanda metin olarak listelenen'
+    ' verilerden kırmızı olan maksimum değeri, mavi olan minimum değeri, siyah olanlar da ara değeri ifade eder. \n\n'  : null;
+
+
+
+    //AYLIK SU TÜKETİM GRAFİĞİ
+    kod=="info67" ? metin='     Bu grafikte seçilen ay içerisinde gün bazında hesaplanan toplam su tüketimi ve hayvan başına düşen su tüketimi görüntülenir'
+    ' Veriler grafiğe 1 günlük ölçüm sıklığı ile yansıtılır. Belirtilen su tüketim değeri ilgili gün içerisinde meydana gelen toplam su tüketim değeridir.'
+    ' Veriler aynı zamanda grafiğin sağ tarafındaki gri alanda da metin olarak'
+    ' listelenir. Bu alanda görüntülenmesi istenen veri türü "GETİR" butonunun sağında bulunan veri türleri işaretlenerek ayarlanır. Gri alanda metin olarak listelenen'
+    ' verilerden kırmızı olan maksimum değeri, mavi olan minimum değeri, siyah olanlar da ara değeri ifade eder. \n\n'  : null;
+
+
+    //AYLIK YEM TÜKETİM GRAFİĞİ
+    kod=="info68" ? metin='     Bu grafikte seçilen ay içerisinde gün bazında hesaplanan toplam yem tüketimi ve hayvan başına düşen yem tüketimi görüntülenir'
+    ' Veriler grafiğe 1 günlük ölçüm sıklığı ile yansıtılır. Belirtilen yem tüketim değeri ilgili gün içerisinde meydana gelen toplam yem tüketim değeridir.'
+    ' Veriler aynı zamanda grafiğin sağ tarafındaki gri alanda da metin olarak'
+    ' listelenir. Bu alanda görüntülenmesi istenen veri türü "GETİR" butonunun sağında bulunan veri türleri işaretlenerek ayarlanır. Gri alanda metin olarak listelenen'
+    ' verilerden kırmızı olan maksimum değeri, mavi olan minimum değeri, siyah olanlar da ara değeri ifade eder. \n\n'  : null;
 
 
 
@@ -3250,6 +3313,7 @@ class Dil{
     kod=="tv819" ? metin='WA.CONS.' : null;
     kod=="tv820" ? metin='TOTAL' : null;
     kod=="tv821" ? metin='PER BIRD' : null;
+    kod=="tv822" ? metin='(day.month)' : null;
    
     
     

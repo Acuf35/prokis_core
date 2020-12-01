@@ -226,7 +226,7 @@ class _AdetlerState extends State<Adetler> {
                                     'assets/images/kurulum_isisensor_icon.png',
                                     wifiOlcum
                                         ? SabitVeriler().adet1den15e
-                                        : SabitVeriler().adet1den10a,
+                                        : SabitVeriler().adet1den8e,
                                     4,
                                     context,
                                     _blocSinif,

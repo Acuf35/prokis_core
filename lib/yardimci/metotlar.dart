@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prokis/genel_ayarlar/alarm.dart';
 
 import 'package:prokis/genel_ayarlar/alarm_durum.dart';
 import 'package:prokis/genel_ayarlar/baglanti_durum.dart';
@@ -877,7 +878,12 @@ class Metotlar{
                     //ALARM AYARLARI
                     ListTile(
                       onTap: () {
-                        Toast.show("Buton çalışıyor...", context, duration: 3);
+                        Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Alarm(dbProkis.getDbVeri)),
+                                    );
                       },
                       leading: SizedBox(
                         width: 40 * oran,
